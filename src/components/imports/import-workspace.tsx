@@ -112,6 +112,8 @@ const steps = [
   },
 ];
 
+const stepSequence: StepId[] = ["source", "preview", "mapping"];
+
 export function ImportWorkspace() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -119,6 +121,7 @@ export function ImportWorkspace() {
   const [fallbackAliasesEnabled, setFallbackAliasesEnabled] = useState(true);
   const [mappingRows, setMappingRows] = useState(initialMappingRows);
   const [activeStep, setActiveStep] = useState<StepId>("source");
+  const [maxUnlockedStepIndex, setMaxUnlockedStepIndex] = useState(0);
 
   const companyId = searchParams.get("company") ?? "lisent-ai";
   const companyName = searchParams.get("companyName") ?? "Selected company";
@@ -140,6 +143,27 @@ export function ImportWorkspace() {
     router.push(
       `/dashboard/customers?company=${companyId}&companyName=${encodeURIComponent(companyName)}&source=import-approved`,
     );
+  }
+
+  function goToStep(stepId: StepId) {
+    const stepIndex = stepSequence.indexOf(stepId);
+
+    if (stepIndex < 0 || stepIndex > maxUnlockedStepIndex) {
+      return;
+    }
+
+    setActiveStep(stepId);
+  }
+
+  function unlockAndGo(stepId: StepId) {
+    const stepIndex = stepSequence.indexOf(stepId);
+
+    if (stepIndex < 0) {
+      return;
+    }
+
+    setMaxUnlockedStepIndex((current) => Math.max(current, stepIndex));
+    setActiveStep(stepId);
   }
 
   return (
@@ -186,16 +210,21 @@ export function ImportWorkspace() {
           <div className="mt-4 grid gap-3">
             {steps.map((step) => {
               const active = step.id === activeStep;
+              const stepIndex = stepSequence.indexOf(step.id);
+              const unlocked = stepIndex <= maxUnlockedStepIndex;
 
               return (
                 <button
                   className={`rounded-[1.4rem] border p-4 text-left transition ${
                     active
                       ? "border-slate-900 bg-slate-900 text-white shadow-[0_18px_40px_rgba(15,23,42,0.18)]"
-                      : "border-slate-200 bg-white text-slate-900 hover:border-slate-300 hover:bg-slate-50"
+                      : unlocked
+                        ? "border-slate-200 bg-white text-slate-900 hover:border-slate-300 hover:bg-slate-50"
+                        : "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
                   }`}
+                  disabled={!unlocked}
                   key={step.id}
-                  onClick={() => setActiveStep(step.id)}
+                  onClick={() => goToStep(step.id)}
                   type="button"
                 >
                   <p
@@ -210,7 +239,7 @@ export function ImportWorkspace() {
                   </h3>
                   <p
                     className={`mt-3 text-sm leading-6 ${
-                      active ? "text-slate-200" : "text-slate-600"
+                      active ? "text-slate-200" : unlocked ? "text-slate-600" : "text-slate-400"
                     }`}
                   >
                     {step.summary}
@@ -274,6 +303,16 @@ export function ImportWorkspace() {
                     https://docs.google.com/spreadsheets/d/.../export?format=csv&gid=0
                   </InfoBlock>
                 )}
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110"
+                    onClick={() => unlockAndGo("preview")}
+                    type="button"
+                  >
+                    Continue to preview
+                  </button>
+                </div>
               </div>
             )}
 
@@ -313,6 +352,23 @@ export function ImportWorkspace() {
                       </tbody>
                     </table>
                   </div>
+                </div>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
+                    onClick={() => goToStep("source")}
+                    type="button"
+                  >
+                    Back to source
+                  </button>
+                  <button
+                    className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110"
+                    onClick={() => unlockAndGo("mapping")}
+                    type="button"
+                  >
+                    Continue to mapping
+                  </button>
                 </div>
               </div>
             )}
@@ -414,7 +470,7 @@ export function ImportWorkspace() {
                     </button>
                     <button
                       className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
-                      onClick={() => setActiveStep("preview")}
+                      onClick={() => goToStep("preview")}
                       type="button"
                     >
                       Back to preview
