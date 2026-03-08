@@ -1,0 +1,71 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navItems = [
+  { href: "/dashboard", label: "Overview" },
+  { href: "/dashboard/companies", label: "Companies" },
+  { href: "/dashboard/imports", label: "Customer Import" },
+  { href: "/dashboard/customers", label: "Customers" },
+];
+
+export function DashboardShell({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  const pathname = usePathname();
+
+  return (
+    <main className="min-h-screen overflow-hidden bg-slate-100 px-4 py-4 text-slate-900 md:px-6 md:py-6">
+      <div className="mx-auto grid max-w-[1440px] gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
+        <aside className="rounded-[2rem] border border-slate-800 bg-[linear-gradient(180deg,_#0f172a,_#111827,_#0f172a)] p-6 text-white shadow-[0_22px_60px_rgba(15,23,42,0.28)]">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.38em] text-cyan-200/70">
+              Lisent.ai
+            </p>
+            <h1 className="mt-4 text-2xl font-semibold tracking-tight">
+              CRM Workspace
+            </h1>
+            <p className="mt-3 text-sm leading-7 text-slate-300">
+              A sidebar-driven product shell inspired by enterprise CRMs.
+            </p>
+          </div>
+
+          <nav className="mt-8 grid gap-2">
+            {navItems.map((item) => {
+              const active = pathname === item.href;
+
+              return (
+                <Link
+                  className={`rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                    active
+                      ? "bg-white text-slate-950 shadow-[0_12px_24px_rgba(255,255,255,0.08)]"
+                      : "text-slate-300 hover:bg-white/6 hover:text-white"
+                  }`}
+                  href={item.href}
+                  key={item.href}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200/72">
+              Workflow
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-300">
+              Companies are the gateway. Imports and customer records are
+              company-scoped pages.
+            </p>
+          </div>
+        </aside>
+
+        <div className="min-h-[calc(100vh-3rem)] rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)] md:p-6">
+          {children}
+        </div>
+      </div>
+    </main>
+  );
+}

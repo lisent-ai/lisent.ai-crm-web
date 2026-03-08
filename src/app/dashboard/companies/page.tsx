@@ -1,12 +1,12 @@
-import { SessionPanel } from "@/components/dashboard/home/session-panel";
+import { CompanyWorkspace } from "@/components/dashboard/companies/company-workspace";
 import { DashboardShell } from "@/components/dashboard/shared/dashboard-shell";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
+export default function DashboardCompaniesPage() {
   return (
     <DashboardShell>
-      <SessionPanel />
+      <CompanyWorkspace />
     </DashboardShell>
   );
 }

@@ -1,12 +1,12 @@
-import { SessionPanel } from "@/components/dashboard/home/session-panel";
+import { CustomerDirectory } from "@/components/dashboard/customers/customer-directory";
 import { DashboardShell } from "@/components/dashboard/shared/dashboard-shell";
 
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
+export default function DashboardCustomersPage() {
   return (
     <DashboardShell>
-      <SessionPanel />
+      <CustomerDirectory />
     </DashboardShell>
   );
 }

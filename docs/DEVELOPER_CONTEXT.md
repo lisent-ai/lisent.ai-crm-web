@@ -111,7 +111,19 @@ src/
       auth-types.ts
       supertokens-provider.tsx
     dashboard/
-      session-panel.tsx
+      companies/
+        company-workspace.tsx
+      customers/
+        customer-directory.tsx
+      home/
+        dashboard-hero.tsx
+        dashboard-overview.tsx
+        session-panel.tsx
+        session-panel-skeleton.tsx
+      shared/
+        dashboard-shell.tsx
+        session-payload-card.tsx
+        session-status-card.tsx
   config/
     app-info.ts
   lib/
@@ -267,7 +279,10 @@ Important:
 
 ### Dashboard shell
 
-- `src/components/dashboard/session-panel.tsx`
+- `src/components/dashboard/shared/dashboard-shell.tsx`
+- `src/components/dashboard/home/session-panel.tsx`
+- `src/components/dashboard/companies/company-workspace.tsx`
+- `src/components/dashboard/customers/customer-directory.tsx`
 - `src/app/dashboard/page.tsx`
 
 ### SuperTokens config
