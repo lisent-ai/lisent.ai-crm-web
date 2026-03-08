@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { type Company } from "@/lib/dashboard/mock-crm-store";
+import { type Company } from "@/lib/crm/client";
 
 import { DetailMetric } from "./company-ui";
 

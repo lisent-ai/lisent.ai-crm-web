@@ -1,15 +1,54 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import { useMockCrmStore } from "@/lib/dashboard/mock-crm-store";
+import { CRMClientError, listAllCustomers, listCompanies } from "@/lib/crm/client";
 
 export function DashboardOverview() {
-  const { companies, customersByCompany } = useMockCrmStore();
-  const totalCustomers = companies.reduce(
-    (sum, company) => sum + (customersByCompany[company.id]?.length ?? 0),
-    0,
-  );
+  const [companyCount, setCompanyCount] = useState(0);
+  const [totalCustomers, setTotalCustomers] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadOverview() {
+      setLoading(true);
+      setErrorMessage(null);
+      try {
+        const [companies, customers] = await Promise.all([
+          listCompanies(),
+          listAllCustomers(),
+        ]);
+
+        if (cancelled) {
+          return;
+        }
+        setCompanyCount(companies.length);
+        setTotalCustomers(customers.length);
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+        const message =
+          error instanceof CRMClientError
+            ? error.message
+            : "Failed to load dashboard metrics.";
+        setErrorMessage(message);
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    void loadOverview();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="grid gap-6">
@@ -27,10 +66,19 @@ export function DashboardOverview() {
         </p>
       </section>
 
+      {errorMessage && (
+        <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          {errorMessage}
+        </div>
+      )}
+
       <section className="grid gap-4 md:grid-cols-3">
-        <OverviewCard label="Companies" value={String(companies.length)} />
-        <OverviewCard label="Customers" value={String(totalCustomers)} />
-        <OverviewCard label="Imports ready" value="2" />
+        <OverviewCard label="Companies" value={loading ? "..." : String(companyCount)} />
+        <OverviewCard
+          label="Customers"
+          value={loading ? "..." : String(totalCustomers)}
+        />
+        <OverviewCard label="Imports ready" value={loading ? "..." : "2"} />
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
@@ -60,7 +108,7 @@ export function DashboardOverview() {
             </Link>
             <Link
               className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
-              href="/dashboard/imports?company=lisent-ai&companyName=Lisent.ai"
+              href="/dashboard/imports"
             >
               Open import flow
             </Link>

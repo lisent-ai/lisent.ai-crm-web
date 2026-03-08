@@ -1,4 +1,4 @@
-import { type Company } from "@/lib/dashboard/mock-crm-store";
+import { type Company } from "@/lib/crm/client";
 
 type CompanyDirectoryPanelProps = {
   companies: Company[];

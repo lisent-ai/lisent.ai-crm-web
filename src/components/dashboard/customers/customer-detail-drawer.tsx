@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-import { type Customer } from "@/lib/dashboard/mock-crm-store";
+import { type Customer } from "@/lib/crm/client";
 
 import { formatLabel } from "./customer-utils";
 import { DetailSectionCompact } from "./customer-ui";

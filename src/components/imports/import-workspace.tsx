@@ -4,6 +4,13 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
+import {
+  approveImportProfile,
+  CRMClientError,
+  suggestImportFromCSVUpload,
+  suggestImportFromCSVURL,
+} from "@/lib/crm/client";
+
 type MappingRow = {
   header: string;
   sampleValue: string;
@@ -14,7 +21,13 @@ type MappingRow = {
 
 type StepId = "source" | "preview" | "mapping";
 
-const availableFields = [
+type AvailableField = {
+  name: string;
+  description: string;
+};
+
+const defaultAvailableFields: AvailableField[] = [
+  { name: "name", description: "Full display name for the customer." },
   { name: "first_name", description: "Given name of the customer." },
   { name: "last_name", description: "Family name of the customer." },
   { name: "email", description: "Primary email address." },
@@ -23,69 +36,6 @@ const availableFields = [
   { name: "country_code", description: "Country code such as TR or DE." },
   { name: "subscription_date", description: "Signup or subscription date." },
   { name: "external_customer_id", description: "Source system identifier." },
-];
-
-const sampleHeaders = [
-  "Ad",
-  "Soyad",
-  "Customer_PNumber",
-  "E-posta",
-  "UyelikTarihi",
-];
-
-const sampleRows = [
-  {
-    Ad: "Ahmet",
-    Soyad: "Yilmaz",
-    Customer_PNumber: "05321234567",
-    "E-posta": "ahmet@test.com",
-    UyelikTarihi: "2024-01-10",
-  },
-  {
-    Ad: "Zeynep",
-    Soyad: "Kaya",
-    Customer_PNumber: "05335557788",
-    "E-posta": "zeynep@test.com",
-    UyelikTarihi: "2024-01-12",
-  },
-];
-
-const initialMappingRows: MappingRow[] = [
-  {
-    header: "Ad",
-    sampleValue: "Ahmet",
-    targetField: "first_name",
-    confidence: 0.96,
-    reason: "Turkish header strongly matches given name.",
-  },
-  {
-    header: "Soyad",
-    sampleValue: "Yilmaz",
-    targetField: "last_name",
-    confidence: 0.97,
-    reason: "Turkish surname label maps directly to last name.",
-  },
-  {
-    header: "Customer_PNumber",
-    sampleValue: "05321234567",
-    targetField: "phone",
-    confidence: 0.93,
-    reason: "Phone-like values and source naming indicate primary phone.",
-  },
-  {
-    header: "E-posta",
-    sampleValue: "ahmet@test.com",
-    targetField: "email",
-    confidence: 0.99,
-    reason: "Header is a direct Turkish variant of email.",
-  },
-  {
-    header: "UyelikTarihi",
-    sampleValue: "2024-01-10",
-    targetField: "subscription_date",
-    confidence: 0.88,
-    reason: "Header indicates membership or signup date.",
-  },
 ];
 
 const steps = [
@@ -108,7 +58,7 @@ const steps = [
     stepNumber: "03",
     label: "Mapping",
     title: "Review and approve field suggestions",
-    summary: "Approving the mapping should lead to the customer directory page.",
+    summary: "Approve mapping, then continue to the company customer directory.",
   },
 ];
 
@@ -119,11 +69,20 @@ export function ImportWorkspace() {
   const searchParams = useSearchParams();
   const [sourceMode, setSourceMode] = useState<"upload" | "url">("upload");
   const [fallbackAliasesEnabled, setFallbackAliasesEnabled] = useState(true);
-  const [mappingRows, setMappingRows] = useState(initialMappingRows);
   const [activeStep, setActiveStep] = useState<StepId>("source");
   const [maxUnlockedStepIndex, setMaxUnlockedStepIndex] = useState(0);
+  const [csvURL, setCSVURL] = useState("");
+  const [csvFile, setCSVFile] = useState<File | null>(null);
+  const [headers, setHeaders] = useState<string[]>([]);
+  const [sampleRows, setSampleRows] = useState<Record<string, unknown>[]>([]);
+  const [availableFields, setAvailableFields] =
+    useState<AvailableField[]>(defaultAvailableFields);
+  const [mappingRows, setMappingRows] = useState<MappingRow[]>([]);
+  const [loadingSuggestion, setLoadingSuggestion] = useState(false);
+  const [approving, setApproving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const companyId = searchParams.get("company") ?? "lisent-ai";
+  const companyId = searchParams.get("company") ?? "";
   const companyName = searchParams.get("companyName") ?? "Selected company";
   const mappedCount = mappingRows.filter((row) => row.targetField !== "").length;
   const activeStepMeta = useMemo(
@@ -136,12 +95,6 @@ export function ImportWorkspace() {
       current.map((row) =>
         row.header === header ? { ...row, targetField } : row,
       ),
-    );
-  }
-
-  function approveMapping() {
-    router.push(
-      `/dashboard/customers?company=${companyId}&companyName=${encodeURIComponent(companyName)}&source=import-approved`,
     );
   }
 
@@ -166,6 +119,77 @@ export function ImportWorkspace() {
     setActiveStep(stepId);
   }
 
+  async function continueToPreview() {
+    if (!companyId.trim()) {
+      setErrorMessage("Open this page from a selected company first.");
+      return;
+    }
+
+    setErrorMessage(null);
+    setLoadingSuggestion(true);
+
+    try {
+      const suggestion =
+        sourceMode === "upload"
+          ? await uploadAndSuggest(companyId, csvFile)
+          : await suggestFromURL(companyId, csvURL);
+
+      setHeaders(suggestion.headers);
+      setSampleRows(suggestion.sampleRows);
+      setAvailableFields(
+        suggestion.availableFields.length > 0
+          ? suggestion.availableFields.map((field) => ({
+              name: field.name,
+              description: field.description,
+            }))
+          : defaultAvailableFields,
+      );
+      setMappingRows(
+        buildMappingRows(suggestion.headers, suggestion.sampleRows, suggestion.suggestions),
+      );
+      unlockAndGo("preview");
+    } catch (error) {
+      const message =
+        error instanceof CRMClientError
+          ? error.message
+          : "Failed to parse CSV and generate suggestions.";
+      setErrorMessage(message);
+    } finally {
+      setLoadingSuggestion(false);
+    }
+  }
+
+  async function approveMapping() {
+    if (!companyId.trim()) {
+      setErrorMessage("Open this page from a selected company first.");
+      return;
+    }
+
+    const mappingByField = buildMappingByField(mappingRows);
+    if (Object.keys(mappingByField).length === 0) {
+      setErrorMessage("Map at least one source header before approval.");
+      return;
+    }
+
+    setApproving(true);
+    setErrorMessage(null);
+
+    try {
+      await approveImportProfile(companyId, mappingByField, fallbackAliasesEnabled);
+      router.push(
+        `/dashboard/customers?company=${companyId}&companyName=${encodeURIComponent(companyName)}&source=import-approved`,
+      );
+    } catch (error) {
+      const message =
+        error instanceof CRMClientError
+          ? error.message
+          : "Failed to approve mapping profile.";
+      setErrorMessage(message);
+    } finally {
+      setApproving(false);
+    }
+  }
+
   return (
     <div className="grid gap-6">
       <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
@@ -178,9 +202,8 @@ export function ImportWorkspace() {
               {companyName}
             </h1>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-              This is the company-specific import screen. After the user
-              approves the mapping, the flow should continue on the customer
-              directory page for this company.
+              Import profiles are company-specific. The CSV preview and mapping
+              suggestions below come from the CRM service through secured BFF routes.
             </p>
           </div>
 
@@ -192,11 +215,17 @@ export function ImportWorkspace() {
               Back to companies
             </Link>
             <span className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white">
-              Company ID: {companyId}
+              Company ID: {companyId || "-"}
             </span>
           </div>
         </div>
       </section>
+
+      {errorMessage && (
+        <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          {errorMessage}
+        </div>
+      )}
 
       <div className="grid gap-6 xl:grid-cols-[300px_minmax(0,1fr)]">
         <aside className="rounded-[1.8rem] border border-slate-200 bg-[linear-gradient(180deg,_#fffdf7,_#f8fafc)] p-4 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
@@ -254,7 +283,7 @@ export function ImportWorkspace() {
               Progress
             </p>
             <div className="mt-3 grid gap-3">
-              <Stat label="Headers" value={String(sampleHeaders.length)} />
+              <Stat label="Headers" value={String(headers.length)} />
               <Stat label="Mapped fields" value={String(mappedCount)} />
               <Stat label="Rows previewed" value={String(sampleRows.length)} />
             </div>
@@ -289,28 +318,49 @@ export function ImportWorkspace() {
                 </div>
 
                 {sourceMode === "upload" ? (
-                  <InfoBlock
-                    body="The final version will accept a CSV file here, validate the extension, and prepare sample rows for review."
-                    title="Upload interaction"
-                  >
-                    customers-100.csv
-                  </InfoBlock>
+                  <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-white p-6">
+                    <p className="text-base font-semibold text-slate-950">CSV upload</p>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">
+                      Upload a sample CSV file. The backend reads headers and sample rows,
+                      then asks Groq for mapping suggestions.
+                    </p>
+                    <input
+                      accept=".csv,text/csv"
+                      className="mt-5 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-slate-900 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+                      onChange={(event) => {
+                        const nextFile = event.target.files?.[0] ?? null;
+                        setCSVFile(nextFile);
+                      }}
+                      type="file"
+                    />
+                    <p className="mt-3 text-xs text-slate-500">
+                      {csvFile ? `Selected: ${csvFile.name}` : "No file selected."}
+                    </p>
+                  </div>
                 ) : (
-                  <InfoBlock
-                    body="The final version will accept direct CSV export URLs such as Google Sheets export links."
-                    title="CSV URL interaction"
-                  >
-                    https://docs.google.com/spreadsheets/d/.../export?format=csv&gid=0
-                  </InfoBlock>
+                  <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-white p-6">
+                    <p className="text-base font-semibold text-slate-950">CSV URL</p>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">
+                      Paste a direct CSV URL (for Google Sheets use the
+                      `/export?format=csv` URL, not `/edit`).
+                    </p>
+                    <input
+                      className="mt-5 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900"
+                      onChange={(event) => setCSVURL(event.target.value)}
+                      placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv&gid=0"
+                      value={csvURL}
+                    />
+                  </div>
                 )}
 
                 <div className="mt-6 flex flex-wrap gap-3">
                   <button
-                    className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110"
-                    onClick={() => unlockAndGo("preview")}
+                    className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                    disabled={loadingSuggestion}
+                    onClick={() => void continueToPreview()}
                     type="button"
                   >
-                    Continue to preview
+                    {loadingSuggestion ? "Processing..." : "Continue to preview"}
                   </button>
                 </div>
               </div>
@@ -319,9 +369,9 @@ export function ImportWorkspace() {
             {activeStep === "preview" && (
               <div>
                 <div className="grid gap-4 md:grid-cols-3">
-                  <Stat label="Headers" value={String(sampleHeaders.length)} />
+                  <Stat label="Headers" value={String(headers.length)} />
                   <Stat label="Rows shown" value={String(sampleRows.length)} />
-                  <Stat label="Unmapped" value="0" />
+                  <Stat label="Unmapped" value={String(headers.length - mappedCount)} />
                 </div>
 
                 <div className="mt-6 overflow-hidden rounded-[1.4rem] border border-slate-200 bg-white">
@@ -329,7 +379,7 @@ export function ImportWorkspace() {
                     <table className="min-w-full text-left text-sm text-slate-800">
                       <thead className="bg-slate-100 text-xs uppercase tracking-[0.22em] text-slate-500">
                         <tr>
-                          {sampleHeaders.map((header) => (
+                          {headers.map((header) => (
                             <th className="px-4 py-3 font-medium" key={header}>
                               {header}
                             </th>
@@ -342,9 +392,9 @@ export function ImportWorkspace() {
                             className="border-t border-slate-200 bg-white"
                             key={`sample-row-${index + 1}`}
                           >
-                            {sampleHeaders.map((header) => (
+                            {headers.map((header) => (
                               <td className="px-4 py-3 text-slate-700" key={header}>
-                                {row[header as keyof typeof row]}
+                                {formatCellValue(row[header])}
                               </td>
                             ))}
                           </tr>
@@ -399,7 +449,7 @@ export function ImportWorkspace() {
                           {row.header}
                         </h3>
                         <p className="mt-2 text-sm leading-6 text-slate-600">
-                          Sample: {row.sampleValue}
+                          Sample: {row.sampleValue || "-"}
                         </p>
                       </div>
 
@@ -456,17 +506,18 @@ export function ImportWorkspace() {
                     Approval outcome
                   </p>
                   <p className="mt-2 text-sm leading-7 text-slate-600">
-                    After the user approves the mapping, the workflow should
-                    continue on the separate customer list page for {companyName}.
+                    After approval, a new active import profile is stored for this
+                    company and the flow continues to the customer directory.
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-3">
                     <button
-                      className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110"
-                      onClick={approveMapping}
+                      className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+                      disabled={approving}
+                      onClick={() => void approveMapping()}
                       type="button"
                     >
-                      Approve mapping and open customers
+                      {approving ? "Approving..." : "Approve mapping and open customers"}
                     </button>
                     <button
                       className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
@@ -484,6 +535,85 @@ export function ImportWorkspace() {
       </div>
     </div>
   );
+}
+
+async function uploadAndSuggest(companyId: string, file: File | null) {
+  if (!file) {
+    throw new CRMClientError("Please choose a CSV file first.", 400);
+  }
+  return suggestImportFromCSVUpload(companyId, file);
+}
+
+async function suggestFromURL(companyId: string, fileURL: string) {
+  if (fileURL.trim() === "") {
+    throw new CRMClientError("Please enter a CSV export URL first.", 400);
+  }
+  return suggestImportFromCSVURL(companyId, fileURL);
+}
+
+function buildMappingRows(
+  headers: string[],
+  sampleRows: Record<string, unknown>[],
+  suggestions: Array<{
+    target_field: string;
+    source_headers: string[];
+    confidence: number;
+    reason: string;
+  }>,
+): MappingRow[] {
+  return headers.map((header) => {
+    const suggestion = suggestions.find((item) =>
+      item.source_headers.includes(header),
+    );
+
+    return {
+      header,
+      sampleValue: sampleValueForHeader(sampleRows, header),
+      targetField: suggestion?.target_field ?? "",
+      confidence: suggestion?.confidence ?? 0,
+      reason: suggestion?.reason ?? "No strong suggestion from AI.",
+    };
+  });
+}
+
+function sampleValueForHeader(
+  sampleRows: Record<string, unknown>[],
+  header: string,
+): string {
+  for (const row of sampleRows) {
+    const value = row[header];
+    if (value !== undefined && value !== null && String(value).trim() !== "") {
+      return String(value);
+    }
+  }
+  return "";
+}
+
+function buildMappingByField(rows: MappingRow[]) {
+  const out: Record<string, string[]> = {};
+
+  for (const row of rows) {
+    const target = row.targetField.trim();
+    if (target === "") {
+      continue;
+    }
+    if (!out[target]) {
+      out[target] = [];
+    }
+    out[target].push(row.header);
+  }
+
+  return out;
+}
+
+function formatCellValue(value: unknown): string {
+  if (value === undefined || value === null) {
+    return "";
+  }
+  if (typeof value === "string") {
+    return value;
+  }
+  return String(value);
 }
 
 function ToggleButton({
@@ -523,26 +653,6 @@ function Stat({
         {label}
       </p>
       <p className="mt-2 text-2xl font-semibold text-slate-950">{value}</p>
-    </div>
-  );
-}
-
-function InfoBlock({
-  title,
-  body,
-  children,
-}: Readonly<{
-  title: string;
-  body: string;
-  children: React.ReactNode;
-}>) {
-  return (
-    <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-white p-6">
-      <p className="text-base font-semibold text-slate-950">{title}</p>
-      <p className="mt-2 text-sm leading-7 text-slate-600">{body}</p>
-      <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-700">
-        {children}
-      </div>
     </div>
   );
 }

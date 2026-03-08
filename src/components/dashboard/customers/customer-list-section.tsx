@@ -1,4 +1,4 @@
-import { type Customer } from "@/lib/dashboard/mock-crm-store";
+import { type Customer } from "@/lib/crm/client";
 
 import { Field } from "./customer-ui";
 

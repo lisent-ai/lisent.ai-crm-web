@@ -1,8 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { type Company, useMockCrmStore } from "@/lib/dashboard/mock-crm-store";
+import {
+  CRMClientError,
+  createCompany,
+  deleteCompany as deleteCompanyRequest,
+  listAllCustomers,
+  listCompanies,
+  type Company,
+} from "@/lib/crm/client";
 
 import { CompanyCreateModal } from "./company-create-modal";
 import { CompanyDeleteModal } from "./company-delete-modal";
@@ -11,17 +18,58 @@ import { CompanySelectedPanel } from "./company-selected-panel";
 import { CompanyWorkspaceHeader } from "./company-workspace-header";
 
 export function CompanyWorkspace() {
-  const { companies, setCompanies, customersByCompany, setCustomersByCompany } =
-    useMockCrmStore();
-  const [selectedCompanyId, setSelectedCompanyId] = useState(
-    companies[0]?.id ?? "",
-  );
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [customerCounts, setCustomerCounts] = useState<Record<string, number>>({});
+  const [selectedCompanyId, setSelectedCompanyId] = useState("");
   const [showCreatePanel, setShowCreatePanel] = useState(false);
   const [showDeletePanel, setShowDeletePanel] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [companyNameInput, setCompanyNameInput] = useState("");
   const [countryInput, setCountryInput] = useState("");
   const [industryInput, setIndustryInput] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const loadWorkspace = useCallback(async () => {
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const [nextCompanies, allCustomers] = await Promise.all([
+        listCompanies(),
+        listAllCustomers(),
+      ]);
+
+      const nextCounts: Record<string, number> = {};
+      for (const customer of allCustomers) {
+        if (!customer.companyId) {
+          continue;
+        }
+        nextCounts[customer.companyId] = (nextCounts[customer.companyId] ?? 0) + 1;
+      }
+
+      setCompanies(nextCompanies);
+      setCustomerCounts(nextCounts);
+      setSelectedCompanyId((current) => {
+        if (current && nextCompanies.some((company) => company.id === current)) {
+          return current;
+        }
+        return nextCompanies[0]?.id ?? "";
+      });
+    } catch (error) {
+      const message =
+        error instanceof CRMClientError
+          ? error.message
+          : "Failed to load CRM workspace.";
+      setErrorMessage(message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadWorkspace();
+  }, [loadWorkspace]);
 
   const filteredCompanies = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -46,7 +94,7 @@ export function CompanyWorkspace() {
     );
   }, [companies, filteredCompanies, selectedCompanyId]);
 
-  function addCompany() {
+  async function addCompany() {
     const name = companyNameInput.trim();
     const country = countryInput.trim();
     const industry = industryInput.trim();
@@ -55,43 +103,48 @@ export function CompanyWorkspace() {
       return;
     }
 
-    const id = `${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${companies.length + 1}`;
-    const nextCompany: Company = {
-      id,
-      name,
-      country: country || "Not set",
-      industry: industry || "Not set",
-    };
-
-    setCompanies((current) => [nextCompany, ...current]);
-    setCustomersByCompany((current) => ({
-      ...current,
-      [id]: [],
-    }));
-    setSelectedCompanyId(id);
-    setCompanyNameInput("");
-    setCountryInput("");
-    setIndustryInput("");
-    setSearchQuery("");
-    setShowCreatePanel(false);
+    try {
+      setErrorMessage(null);
+      const createdCompany = await createCompany({ name, country, industry });
+      setCompanies((current) => [createdCompany, ...current]);
+      setCustomerCounts((current) => ({ ...current, [createdCompany.id]: 0 }));
+      setSelectedCompanyId(createdCompany.id);
+      setCompanyNameInput("");
+      setCountryInput("");
+      setIndustryInput("");
+      setSearchQuery("");
+      setShowCreatePanel(false);
+    } catch (error) {
+      const message =
+        error instanceof CRMClientError ? error.message : "Failed to create company.";
+      setErrorMessage(message);
+    }
   }
 
-  function deleteCompany(companyId: string) {
-    const nextCompanies = companies.filter((company) => company.id !== companyId);
+  async function deleteCompany(companyId: string) {
+    try {
+      setErrorMessage(null);
+      await deleteCompanyRequest(companyId);
 
-    setCompanies(nextCompanies);
-    setCustomersByCompany((current) => {
-      const next = { ...current };
-      delete next[companyId];
-      return next;
-    });
-    setSelectedCompanyId(nextCompanies[0]?.id ?? "");
-    setSearchQuery("");
-    setShowDeletePanel(false);
+      const nextCompanies = companies.filter((company) => company.id !== companyId);
+      setCompanies(nextCompanies);
+      setCustomerCounts((current) => {
+        const next = { ...current };
+        delete next[companyId];
+        return next;
+      });
+      setSelectedCompanyId(nextCompanies[0]?.id ?? "");
+      setSearchQuery("");
+      setShowDeletePanel(false);
+    } catch (error) {
+      const message =
+        error instanceof CRMClientError ? error.message : "Failed to delete company.";
+      setErrorMessage(message);
+    }
   }
 
   const selectedCustomerCount = selectedCompany
-    ? customersByCompany[selectedCompany.id]?.length ?? 0
+    ? customerCounts[selectedCompany.id] ?? 0
     : 0;
 
   return (
@@ -102,12 +155,18 @@ export function CompanyWorkspace() {
         showCreatePanel={showCreatePanel}
       />
 
+      {errorMessage && (
+        <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          {errorMessage}
+        </div>
+      )}
+
       <section className="grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
         <div className="grid gap-4">
           <CompanyDirectoryPanel
             activeCompanyId={selectedCompany?.id}
             companies={filteredCompanies}
-            getCustomerCount={(companyId) => customersByCompany[companyId]?.length ?? 0}
+            getCustomerCount={(companyId) => customerCounts[companyId] ?? 0}
             onSearchQueryChange={setSearchQuery}
             onSelectCompany={setSelectedCompanyId}
             searchQuery={searchQuery}
@@ -121,12 +180,18 @@ export function CompanyWorkspace() {
         />
       </section>
 
+      {loading && (
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+          Loading companies...
+        </div>
+      )}
+
       {showDeletePanel && selectedCompany && (
         <CompanyDeleteModal
           companyName={selectedCompany.name}
           customerCount={selectedCustomerCount}
           onClose={() => setShowDeletePanel(false)}
-          onConfirmDelete={() => deleteCompany(selectedCompany.id)}
+          onConfirmDelete={() => void deleteCompany(selectedCompany.id)}
         />
       )}
 
@@ -138,7 +203,7 @@ export function CompanyWorkspace() {
           onClose={() => setShowCreatePanel(false)}
           onCompanyNameChange={setCompanyNameInput}
           onCountryChange={setCountryInput}
-          onCreate={addCompany}
+          onCreate={() => void addCompany()}
           onIndustryChange={setIndustryInput}
         />
       )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { SessionAuth, signOut, useSessionContext } from "supertokens-auth-react/recipe/session";
+import { signOut, useSessionContext } from "supertokens-auth-react/recipe/session";
 
 import { DashboardHero } from "@/components/dashboard/home/dashboard-hero";
 import { DashboardOverview } from "@/components/dashboard/home/dashboard-overview";
@@ -52,9 +52,5 @@ export function SessionPanel() {
     return <SessionPanelSkeleton />;
   }
 
-  return (
-    <SessionAuth>
-      <SessionDetails />
-    </SessionAuth>
-  );
+  return <SessionDetails />;
 }

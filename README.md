@@ -69,6 +69,17 @@ Next steps:
 3. add backend-for-frontend CRM routes
 4. resolve `user_id`, `company_id`, and `role` per session
 
+## What was connected
+
+- Added secure BFF proxy: `src/app/api/crm/[...path]/route.ts`
+  - validates SuperTokens session
+  - forwards to CRM service with server-only `CRM_INTERNAL_API_KEY`
+- Replaced mock data usage with real CRM API calls in:
+  - companies workspace
+  - customers directory
+  - dashboard overview metrics
+  - import workspace (CSV upload/URL suggest + approve profile)
+
 ## References
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.

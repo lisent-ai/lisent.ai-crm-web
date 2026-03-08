@@ -1,9 +1,18 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { type Customer, useMockCrmStore } from "@/lib/dashboard/mock-crm-store";
+import {
+  CRMClientError,
+  createCustomer,
+  deleteCustomer as deleteCustomerRequest,
+  listCompanies,
+  listCustomers,
+  type Company,
+  type Customer,
+  updateCustomer,
+} from "@/lib/crm/client";
 
 import { CustomerCompanyHeader } from "./customer-company-header";
 import { CustomerDetailDrawer } from "./customer-detail-drawer";
@@ -14,34 +23,133 @@ import { emptyCustomerForm, type CustomerFormState } from "./customer-types";
 
 export function CustomerDirectory() {
   const searchParams = useSearchParams();
-  const { companies, customersByCompany, setCustomersByCompany } = useMockCrmStore();
-  const companyId = searchParams.get("company") ?? companies[0]?.id ?? "";
-  const companyName =
-    searchParams.get("companyName") ??
-    companies.find((company) => company.id === companyId)?.name ??
-    "Selected company";
+  const searchCompanyId = searchParams.get("company") ?? "";
+  const searchCompanyName = searchParams.get("companyName");
 
-  const selectedCompany = useMemo(
-    () => companies.find((company) => company.id === companyId) ?? companies[0],
-    [companies, companyId],
-  );
-
-  const customers = useMemo(
-    () => (selectedCompany ? customersByCompany[selectedCompany.id] ?? [] : []),
-    [customersByCompany, selectedCompany],
-  );
-
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [activeCompanyId, setActiveCompanyId] = useState(searchCompanyId);
+  const [companiesLoading, setCompaniesLoading] = useState(true);
+  const [customersLoading, setCustomersLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [customerForm, setCustomerForm] =
     useState<CustomerFormState>(emptyCustomerForm);
   const [editingCustomerId, setEditingCustomerId] = useState<string | null>(null);
-  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(
-    customers[0]?.id ?? null,
-  );
+  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
   const [viewingCustomerId, setViewingCustomerId] = useState<string | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    setActiveCompanyId(searchCompanyId);
+  }, [searchCompanyId]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCompanyList() {
+      setCompaniesLoading(true);
+      setErrorMessage(null);
+      try {
+        const nextCompanies = await listCompanies();
+        if (cancelled) {
+          return;
+        }
+        setCompanies(nextCompanies);
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+        const message =
+          error instanceof CRMClientError
+            ? error.message
+            : "Failed to load companies.";
+        setErrorMessage(message);
+      } finally {
+        if (!cancelled) {
+          setCompaniesLoading(false);
+        }
+      }
+    }
+
+    void loadCompanyList();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (companies.length === 0) {
+      return;
+    }
+
+    setActiveCompanyId((current) => {
+      if (current && companies.some((company) => company.id === current)) {
+        return current;
+      }
+      return companies[0].id;
+    });
+  }, [companies]);
+
+  const selectedCompany = useMemo(
+    () => companies.find((company) => company.id === activeCompanyId) ?? null,
+    [activeCompanyId, companies],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCustomerList(companyId: string) {
+      setCustomersLoading(true);
+      setErrorMessage(null);
+      try {
+        const nextCustomers = await listCustomers(companyId);
+        if (cancelled) {
+          return;
+        }
+        setCustomers(nextCustomers);
+        setSelectedCustomerId((current) => {
+          if (current && nextCustomers.some((customer) => customer.id === current)) {
+            return current;
+          }
+          return nextCustomers[0]?.id ?? null;
+        });
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+        const message =
+          error instanceof CRMClientError
+            ? error.message
+            : "Failed to load customers.";
+        setErrorMessage(message);
+      } finally {
+        if (!cancelled) {
+          setCustomersLoading(false);
+        }
+      }
+    }
+
+    if (!selectedCompany?.id) {
+      setCustomers([]);
+      setCustomersLoading(false);
+      return;
+    }
+
+    void loadCustomerList(selectedCompany.id);
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedCompany?.id]);
+
+  const companyName = useMemo(() => {
+    if (searchCompanyName?.trim()) {
+      return searchCompanyName;
+    }
+    return selectedCompany?.name ?? "Selected company";
+  }, [searchCompanyName, selectedCompany?.name]);
 
   const filteredCustomers = useMemo(() => {
     return customers.filter((customer) => {
@@ -95,7 +203,13 @@ export function CustomerDirectory() {
     setShowEditModal(false);
   }
 
-  function saveCustomer() {
+  async function reloadCustomers(companyId: string) {
+    const nextCustomers = await listCustomers(companyId);
+    setCustomers(nextCustomers);
+    return nextCustomers;
+  }
+
+  async function saveCustomer() {
     if (!selectedCompany) {
       return;
     }
@@ -111,48 +225,48 @@ export function CustomerDirectory() {
       ? customers.find((customer) => customer.id === editingCustomerId)
       : undefined;
 
-    const nextCustomer: Customer = {
-      id: editingCustomerId ?? `cust-${Date.now()}`,
-      companyId: selectedCompany.id,
-      name,
-      firstName: name.split(/\s+/)[0] ?? name,
-      lastName: name.split(/\s+/).slice(1).join(" "),
-      email,
-      phone: customerForm.phone.trim(),
-      status: customerForm.status,
-      preferredLanguage: currentEditingCustomer?.preferredLanguage ?? "en",
-      countryCode:
-        currentEditingCustomer?.countryCode ??
-        deriveCountryCode(selectedCompany.country),
-      extraData: currentEditingCustomer?.extraData ?? {
-        city: "Not set",
-        company_name: selectedCompany.name,
-        website: "Not set",
-        subscription_date: new Date().toISOString().slice(0, 10),
-        external_customer_id: `EXT-${Date.now()}`,
-        phone_2: "Not set",
-      },
+    const countryCode =
+      currentEditingCustomer?.countryCode || deriveCountryCode(selectedCompany.country);
+    const preferredLanguage = currentEditingCustomer?.preferredLanguage || "en";
+    const extraData = currentEditingCustomer?.extraData ?? {
+      city: "Not set",
+      company_name: selectedCompany.name,
+      website: "Not set",
+      subscription_date: new Date().toISOString().slice(0, 10),
+      external_customer_id: `EXT-${Date.now()}`,
+      phone_2: "Not set",
     };
 
-    setCustomersByCompany((current) => {
-      const currentCustomers = current[selectedCompany.id] ?? [];
+    try {
+      setErrorMessage(null);
 
-      return {
-        ...current,
-        [selectedCompany.id]: editingCustomerId
-          ? currentCustomers.map((customer) =>
-              customer.id === editingCustomerId ? nextCustomer : customer,
-            )
-          : [nextCustomer, ...currentCustomers],
+      const payload = {
+        companyId: selectedCompany.id,
+        name,
+        email,
+        phone: customerForm.phone.trim(),
+        status: customerForm.status,
+        preferredLanguage,
+        countryCode,
+        extraData,
       };
-    });
 
-    setSelectedCustomerId(nextCustomer.id);
-    resetCustomerForm();
-    if (showEditModal) {
-      setShowEditModal(false);
-    } else {
-      setShowForm(false);
+      const savedCustomer = editingCustomerId
+        ? await updateCustomer(editingCustomerId, payload)
+        : await createCustomer(payload);
+
+      await reloadCustomers(selectedCompany.id);
+      setSelectedCustomerId(savedCustomer.id);
+      resetCustomerForm();
+      if (showEditModal) {
+        setShowEditModal(false);
+      } else {
+        setShowForm(false);
+      }
+    } catch (error) {
+      const message =
+        error instanceof CRMClientError ? error.message : "Failed to save customer.";
+      setErrorMessage(message);
     }
   }
 
@@ -170,31 +284,32 @@ export function CustomerDirectory() {
     setShowEditModal(true);
   }
 
-  function deleteCustomer(customerId: string) {
+  async function removeCustomer(customerId: string) {
     if (!selectedCompany) {
       return;
     }
 
-    const remainingCustomers = (customersByCompany[selectedCompany.id] ?? []).filter(
-      (customer) => customer.id !== customerId,
-    );
+    try {
+      setErrorMessage(null);
+      await deleteCustomerRequest(customerId);
+      const nextCustomers = await reloadCustomers(selectedCompany.id);
 
-    setCustomersByCompany((current) => ({
-      ...current,
-      [selectedCompany.id]: remainingCustomers,
-    }));
+      if (selectedCustomerId === customerId) {
+        setSelectedCustomerId(nextCustomers[0]?.id ?? null);
+      }
 
-    if (selectedCustomerId === customerId) {
-      setSelectedCustomerId(remainingCustomers[0]?.id ?? null);
-    }
+      if (viewingCustomerId === customerId) {
+        setViewingCustomerId(null);
+      }
 
-    if (viewingCustomerId === customerId) {
-      setViewingCustomerId(null);
-    }
-
-    if (editingCustomerId === customerId) {
-      closeAddModal();
-      closeEditModal();
+      if (editingCustomerId === customerId) {
+        closeAddModal();
+        closeEditModal();
+      }
+    } catch (error) {
+      const message =
+        error instanceof CRMClientError ? error.message : "Failed to delete customer.";
+      setErrorMessage(message);
     }
   }
 
@@ -209,6 +324,8 @@ export function CustomerDirectory() {
     setShowForm(true);
   }
 
+  const loading = companiesLoading || customersLoading;
+
   return (
     <div className="grid w-full min-w-0 gap-6">
       <CustomerCompanyHeader
@@ -221,9 +338,21 @@ export function CustomerDirectory() {
         showAddModal={showForm}
       />
 
+      {errorMessage && (
+        <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          {errorMessage}
+        </div>
+      )}
+
+      {loading && (
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+          Loading customer data...
+        </div>
+      )}
+
       <CustomerListSection
         customers={filteredCustomers}
-        onDeleteCustomer={(customer) => deleteCustomer(customer.id)}
+        onDeleteCustomer={(customer) => void removeCustomer(customer.id)}
         onEditCustomer={editCustomer}
         onSearchQueryChange={setSearchQuery}
         onStatusFilterChange={setStatusFilter}
@@ -252,7 +381,7 @@ export function CustomerDirectory() {
           mode="edit"
           onClose={closeEditModal}
           onFormChange={setCustomerForm}
-          onSubmit={saveCustomer}
+          onSubmit={() => void saveCustomer()}
           subtitle={selectedCompany.name}
           title={customerForm.name || "Customer"}
         />
@@ -264,7 +393,7 @@ export function CustomerDirectory() {
           mode="create"
           onClose={closeAddModal}
           onFormChange={setCustomerForm}
-          onSubmit={saveCustomer}
+          onSubmit={() => void saveCustomer()}
           subtitle="Create a new customer record for this company."
           title={companyName}
         />
