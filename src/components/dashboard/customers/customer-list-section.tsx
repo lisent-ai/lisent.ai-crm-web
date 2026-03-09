@@ -1,5 +1,6 @@
 import { type Customer } from "@/lib/crm/client";
 
+import { describeCustomerCountry } from "./customer-utils";
 import { Field } from "./customer-ui";
 
 type CustomerListSectionProps = {
@@ -93,7 +94,11 @@ export function CustomerListSection({
                     <td className="px-4 py-3 text-slate-600">{customer.phone}</td>
                     <td className="px-4 py-3 text-slate-600">{customer.email}</td>
                     <td className="px-4 py-3 text-slate-600">
-                      {selectedCompanyCountry}
+                      {describeCustomerCountry(
+                        customer.countryCode,
+                        customer.extraData,
+                        selectedCompanyCountry,
+                      )}
                     </td>
                     <td className="px-4 py-3">
                       <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">

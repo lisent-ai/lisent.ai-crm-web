@@ -2,7 +2,7 @@ import { Fragment } from "react";
 
 import { type Customer } from "@/lib/crm/client";
 
-import { formatLabel } from "./customer-utils";
+import { describeCustomerCountry, formatLabel } from "./customer-utils";
 import { DetailSectionCompact } from "./customer-ui";
 
 type CustomerDetailDrawerProps = {
@@ -78,7 +78,14 @@ export function CustomerDetailDrawer({
               { label: "Email", value: customer.email },
               { label: "Phone", value: customer.phone || "-" },
               { label: "Country code", value: customer.countryCode },
-              { label: "Country", value: companyCountry },
+              {
+                label: "Country",
+                value: describeCustomerCountry(
+                  customer.countryCode,
+                  customer.extraData,
+                  companyCountry,
+                ),
+              },
             ]}
             title="Contact"
           />

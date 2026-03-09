@@ -18,13 +18,17 @@ const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE !== "false";
 
 export function DashboardShell({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const pathname = usePathname();
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
     () => false,
   );
+  const shellWidthClass = "max-w-[1760px]";
+  const gridClass = "xl:grid-cols-[260px_minmax(0,1fr)]";
 
   if (!uiOnlyMode) {
     ensureFrontendSuperTokensInit();
@@ -32,7 +36,7 @@ export function DashboardShell({
 
   const shell = (
     <main className="min-h-screen overflow-hidden bg-slate-100 px-4 py-4 text-slate-900 md:px-6 md:py-6">
-      <div className="mx-auto grid max-w-[1440px] gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
+      <div className={`mx-auto grid gap-4 ${shellWidthClass} ${gridClass}`}>
         <aside className="rounded-[2rem] border border-slate-800 bg-[linear-gradient(180deg,_#0f172a,_#111827,_#0f172a)] p-6 text-white shadow-[0_22px_60px_rgba(15,23,42,0.28)]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.38em] text-cyan-200/70">
@@ -91,7 +95,7 @@ export function DashboardShell({
   if (!mounted) {
     return (
       <main className="min-h-screen bg-slate-100 px-4 py-4 md:px-6 md:py-6">
-        <div className="mx-auto max-w-[1440px]">
+        <div className={`mx-auto ${shellWidthClass}`}>
           <div className="h-[80vh] animate-pulse rounded-[2rem] border border-slate-200 bg-white" />
         </div>
       </main>
