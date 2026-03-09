@@ -16,6 +16,7 @@ Current scope of this repo:
 
 - browser-facing CRM web app
 - SuperTokens-based auth/session layer
+- signed-in user profile and account settings UI
 - future backend-for-frontend (BFF) layer for the Go CRM service
 
 Out of scope for this repo:

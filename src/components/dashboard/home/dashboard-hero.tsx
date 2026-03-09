@@ -1,14 +1,24 @@
 type DashboardHeroProps = {
+  displayName?: string;
+  email?: string;
   userId?: string;
   onSignOut?: () => void;
   demoMode?: boolean;
 };
 
 export function DashboardHero({
+  displayName,
+  email,
   userId,
   onSignOut,
   demoMode = false,
 }: Readonly<DashboardHeroProps>) {
+  const primaryIdentity = demoMode
+    ? "Dashboard auth is bypassed for UI work."
+    : displayName ?? userId ?? "Loading user context...";
+  const secondaryIdentity =
+    !demoMode && email && email !== primaryIdentity ? email : null;
+
   return (
     <section className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,_#0f172a,_#1d4ed8,_#0f766e)] p-8 shadow-[0_20px_60px_rgba(15,23,42,0.16)] md:p-10">
       <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/78">
@@ -27,9 +37,14 @@ export function DashboardHero({
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100/70">
             {demoMode ? "UI mode" : "Signed in user"}
           </p>
-          <p className="mt-2 break-all text-sm text-white/88">
-            {demoMode ? "Dashboard auth is bypassed for UI work." : userId ?? "Loading user context..."}
+          <p className="mt-2 break-all text-sm font-semibold text-white/92">
+            {primaryIdentity}
           </p>
+          {secondaryIdentity ? (
+            <p className="mt-1 break-all text-sm text-cyan-50/78">
+              {secondaryIdentity}
+            </p>
+          ) : null}
         </div>
 
         {demoMode ? (

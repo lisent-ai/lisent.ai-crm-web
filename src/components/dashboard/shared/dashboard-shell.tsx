@@ -1,10 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useSyncExternalStore } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { SessionAuth } from "supertokens-auth-react/recipe/session";
 
+import {
+  ACCOUNT_PROFILE_UPDATED_EVENT,
+  getAccountProfile,
+} from "@/lib/account/client";
+import type { AccountProfile } from "@/lib/auth/account-profile";
 import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
 
 const navItems = [
@@ -12,6 +17,7 @@ const navItems = [
   { href: "/dashboard/companies", label: "Companies" },
   { href: "/dashboard/imports", label: "Customer Import" },
   { href: "/dashboard/customers", label: "Customers" },
+  { href: "/dashboard/account", label: "Account settings" },
 ];
 
 const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE !== "false";
@@ -22,16 +28,79 @@ export function DashboardShell({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
     () => false,
   );
+  const [account, setAccount] = useState<AccountProfile | null>(null);
   const shellWidthClass = "max-w-[1760px]";
   const gridClass = "xl:grid-cols-[260px_minmax(0,1fr)]";
 
   if (!uiOnlyMode) {
     ensureFrontendSuperTokensInit();
+  }
+
+  useEffect(() => {
+    if (uiOnlyMode) {
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadAccount() {
+      try {
+        const nextAccount = await getAccountProfile();
+        if (!cancelled) {
+          setAccount(nextAccount);
+        }
+      } catch {
+        if (!cancelled) {
+          setAccount(null);
+        }
+      }
+    }
+
+    function handleAccountUpdated(event: Event) {
+      const nextAccount = (event as CustomEvent<AccountProfile>).detail;
+      if (!cancelled) {
+        setAccount(nextAccount);
+      }
+    }
+
+    void loadAccount();
+    window.addEventListener(ACCOUNT_PROFILE_UPDATED_EVENT, handleAccountUpdated);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener(
+        ACCOUNT_PROFILE_UPDATED_EVENT,
+        handleAccountUpdated,
+      );
+    };
+  }, []);
+
+  const selectedCompanyId = searchParams.get("company")?.trim() ?? "";
+  const selectedCompanyName = searchParams.get("companyName")?.trim() ?? "";
+
+  function buildNavHref(baseHref: string) {
+    if (
+      (baseHref === "/dashboard/companies" ||
+        baseHref === "/dashboard/customers" ||
+        baseHref === "/dashboard/imports") &&
+      selectedCompanyId
+    ) {
+      const nextSearch = new URLSearchParams({
+        company: selectedCompanyId,
+      });
+      if (selectedCompanyName) {
+        nextSearch.set("companyName", selectedCompanyName);
+      }
+      return `${baseHref}?${nextSearch.toString()}`;
+    }
+
+    return baseHref;
   }
 
   const shell = (
@@ -53,6 +122,7 @@ export function DashboardShell({
           <nav className="mt-8 grid gap-2">
             {navItems.map((item) => {
               const active = pathname === item.href;
+              const href = buildNavHref(item.href);
 
               return (
                 <Link
@@ -61,7 +131,7 @@ export function DashboardShell({
                       ? "bg-white text-slate-950 shadow-[0_12px_24px_rgba(255,255,255,0.08)]"
                       : "text-slate-300 hover:bg-white/6 hover:text-white"
                   }`}
-                  href={item.href}
+                  href={href}
                   key={item.href}
                 >
                   {item.label}
@@ -78,6 +148,26 @@ export function DashboardShell({
               Companies are the gateway. Imports and customer records are
               company-scoped pages.
             </p>
+          </div>
+
+          <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200/72">
+              Account
+            </p>
+            <p className="mt-3 text-sm font-semibold text-white">
+              {uiOnlyMode ? "Demo user" : account?.displayName ?? "Loading profile..."}
+            </p>
+            <p className="mt-1 break-all text-sm text-slate-300">
+              {uiOnlyMode
+                ? "demo-user@lisent.ai"
+                : account?.email ?? "Profile details unavailable"}
+            </p>
+            <Link
+              className="mt-4 inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/16"
+              href="/dashboard/account"
+            >
+              Open settings
+            </Link>
           </div>
         </aside>
 

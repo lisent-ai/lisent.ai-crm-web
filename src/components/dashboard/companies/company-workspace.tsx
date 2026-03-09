@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
@@ -18,9 +19,12 @@ import { CompanySelectedPanel } from "./company-selected-panel";
 import { CompanyWorkspaceHeader } from "./company-workspace-header";
 
 export function CompanyWorkspace() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const searchCompanyId = searchParams.get("company") ?? "";
   const [companies, setCompanies] = useState<Company[]>([]);
   const [customerCounts, setCustomerCounts] = useState<Record<string, number>>({});
-  const [selectedCompanyId, setSelectedCompanyId] = useState("");
+  const [selectedCompanyId, setSelectedCompanyId] = useState(searchCompanyId);
   const [showCreatePanel, setShowCreatePanel] = useState(false);
   const [showDeletePanel, setShowDeletePanel] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -70,6 +74,10 @@ export function CompanyWorkspace() {
   useEffect(() => {
     void loadWorkspace();
   }, [loadWorkspace]);
+
+  useEffect(() => {
+    setSelectedCompanyId(searchCompanyId);
+  }, [searchCompanyId]);
 
   const filteredCompanies = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -146,6 +154,28 @@ export function CompanyWorkspace() {
   const selectedCustomerCount = selectedCompany
     ? customerCounts[selectedCompany.id] ?? 0
     : 0;
+
+  useEffect(() => {
+    if (!selectedCompany?.id) {
+      return;
+    }
+
+    const currentCompanyId = searchParams.get("company") ?? "";
+    const currentCompanyName = searchParams.get("companyName") ?? "";
+    if (
+      currentCompanyId === selectedCompany.id &&
+      currentCompanyName === selectedCompany.name
+    ) {
+      return;
+    }
+
+    const nextSearch = new URLSearchParams(searchParams.toString());
+    nextSearch.set("company", selectedCompany.id);
+    nextSearch.set("companyName", selectedCompany.name);
+    router.replace(`/dashboard/companies?${nextSearch.toString()}`, {
+      scroll: false,
+    });
+  }, [router, searchParams, selectedCompany?.id, selectedCompany?.name]);
 
   return (
     <div className="grid gap-6">

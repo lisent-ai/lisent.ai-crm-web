@@ -9,6 +9,9 @@ Source of truth for company access:
 - SuperTokens session identifies the signed-in user
 - SuperTokens User Metadata stores `companyMemberships`
 
+User profile display data is also stored in SuperTokens User Metadata under
+`profile`, but that data is not used for authorization decisions.
+
 Current membership shape:
 
 ```json

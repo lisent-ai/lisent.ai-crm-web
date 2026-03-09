@@ -81,6 +81,9 @@ Implemented now:
 - `/auth/[[...path]]` page
 - `/dashboard` protected shell
 - `/api/session` test route
+- `/api/account` profile route
+- signed-in user name rendering in the dashboard shell and home page
+- `/dashboard/account` settings page backed by SuperTokens User Metadata
 - company/customer authorization in `/api/crm/[...path]`
 - owner membership assignment on company creation
 - company memberships stored in SuperTokens User Metadata
@@ -99,8 +102,10 @@ src/
   app/
     api/
       auth/[...path]/route.ts
+      account/route.ts
       session/route.ts
     auth/[[...path]]/page.tsx
+    dashboard/account/page.tsx
     dashboard/page.tsx
     globals.css
     layout.tsx
@@ -114,6 +119,8 @@ src/
       auth-types.ts
       supertokens-provider.tsx
     dashboard/
+      account/
+        account-settings.tsx
       companies/
         company-workspace.tsx
       customers/
@@ -167,8 +174,27 @@ Right now the app supports the foundation for:
 - sign in
 - session persistence
 - protected client-side dashboard shell
+- signed-in user profile metadata
+- account settings update flow
 
 It does not yet implement the full tenant membership model.
+
+### Profile data
+
+SuperTokens User Metadata currently stores two distinct concerns:
+
+- `profile`
+  - `firstName`
+  - `lastName`
+  - `phoneNumber`
+  - `gender`
+- `companyMemberships`
+
+`profile` is used by:
+
+- `/api/account`
+- dashboard account settings
+- signed-in user display in the dashboard shell and overview page
 
 ## Tenant Model
 
