@@ -4,16 +4,22 @@ import Link from "next/link";
 import { FormEvent } from "react";
 
 import { AuthMode } from "@/components/auth/auth-types";
+import {
+  genderOptions,
+  type SignUpProfileFields,
+} from "@/lib/auth/sign-up-fields";
 
 type AuthFormCardProps = {
   mode: AuthMode;
   email: string;
   password: string;
+  signUpProfile: SignUpProfileFields;
   busy: boolean;
   formErrors: Record<string, string>;
   submitError: string | null;
   onEmailChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
+  onSignUpProfileChange: (value: SignUpProfileFields) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
@@ -21,11 +27,13 @@ export function AuthFormCard({
   mode,
   email,
   password,
+  signUpProfile,
   busy,
   formErrors,
   submitError,
   onEmailChange,
   onPasswordChange,
+  onSignUpProfileChange,
   onSubmit,
 }: Readonly<AuthFormCardProps>) {
   const title =
@@ -73,6 +81,52 @@ export function AuthFormCard({
       </div>
 
       <form className="mt-8 grid gap-5" onSubmit={onSubmit}>
+        {mode === "signup" ? (
+          <div className="grid gap-5 md:grid-cols-2">
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-violet-100/80">Name</span>
+              <input
+                autoComplete="given-name"
+                className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white outline-none transition placeholder:text-violet-100/35 focus:border-violet-300/50 focus:bg-white/10"
+                name="first_name"
+                onChange={(event) =>
+                  onSignUpProfileChange({
+                    ...signUpProfile,
+                    firstName: event.target.value,
+                  })
+                }
+                placeholder="Your first name"
+                type="text"
+                value={signUpProfile.firstName}
+              />
+              {formErrors.first_name ? (
+                <span className="text-xs text-red-600">{formErrors.first_name}</span>
+              ) : null}
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-violet-100/80">Surname</span>
+              <input
+                autoComplete="family-name"
+                className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white outline-none transition placeholder:text-violet-100/35 focus:border-violet-300/50 focus:bg-white/10"
+                name="last_name"
+                onChange={(event) =>
+                  onSignUpProfileChange({
+                    ...signUpProfile,
+                    lastName: event.target.value,
+                  })
+                }
+                placeholder="Your surname"
+                type="text"
+                value={signUpProfile.lastName}
+              />
+              {formErrors.last_name ? (
+                <span className="text-xs text-red-600">{formErrors.last_name}</span>
+              ) : null}
+            </label>
+          </div>
+        ) : null}
+
         <label className="grid gap-2">
           <span className="text-sm font-medium text-violet-100/80">Email</span>
           <input
@@ -88,6 +142,68 @@ export function AuthFormCard({
             <span className="text-xs text-red-600">{formErrors.email}</span>
           ) : null}
         </label>
+
+        {mode === "signup" ? (
+          <div className="grid gap-5 md:grid-cols-[1fr_1fr]">
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-violet-100/80">
+                Phone number
+              </span>
+              <input
+                autoComplete="tel"
+                className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white outline-none transition placeholder:text-violet-100/35 focus:border-violet-300/50 focus:bg-white/10"
+                name="phone_number"
+                onChange={(event) =>
+                  onSignUpProfileChange({
+                    ...signUpProfile,
+                    phoneNumber: event.target.value,
+                  })
+                }
+                placeholder="+49 555 123 4567"
+                type="tel"
+                value={signUpProfile.phoneNumber}
+              />
+              {formErrors.phone_number ? (
+                <span className="text-xs text-red-600">
+                  {formErrors.phone_number}
+                </span>
+              ) : null}
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-violet-100/80">Gender</span>
+              <div className="grid grid-cols-2 gap-3">
+                {genderOptions.map((option) => {
+                  const active = signUpProfile.gender === option.value;
+
+                  return (
+                    <button
+                      className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                        active
+                          ? "border-violet-300/60 bg-violet-400/18 text-white shadow-[0_0_24px_rgba(168,85,247,0.18)]"
+                          : "border-white/10 bg-white/6 text-violet-100/75 hover:border-violet-300/35 hover:bg-white/10"
+                      }`}
+                      key={option.value}
+                      name="gender"
+                      onClick={() =>
+                        onSignUpProfileChange({
+                          ...signUpProfile,
+                          gender: option.value as SignUpProfileFields["gender"],
+                        })
+                      }
+                      type="button"
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
+              {formErrors.gender ? (
+                <span className="text-xs text-red-600">{formErrors.gender}</span>
+              ) : null}
+            </label>
+          </div>
+        ) : null}
 
         <label className="grid gap-2">
           <span className="text-sm font-medium text-violet-100/80">Password</span>

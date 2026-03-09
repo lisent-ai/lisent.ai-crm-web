@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useSyncExternalStore } from "react";
 import { signOut, useSessionContext } from "supertokens-auth-react/recipe/session";
 
@@ -11,14 +12,20 @@ import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
 const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE !== "false";
 
 function SessionDetails() {
+  const router = useRouter();
   const session = useSessionContext();
   const isLoading = session.loading;
   const userId = isLoading ? undefined : session.userId;
 
+  async function handleSignOut() {
+    await signOut();
+    router.replace("/auth/sign-in");
+  }
+
   return (
     <div className="grid gap-6">
       <DashboardHero
-        onSignOut={() => void signOut()}
+        onSignOut={() => void handleSignOut()}
         userId={isLoading ? undefined : userId}
       />
       <DashboardOverview />

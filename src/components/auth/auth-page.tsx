@@ -17,6 +17,10 @@ import {
   mapFieldErrors,
   resolveMode,
 } from "@/components/auth/auth-types";
+import {
+  emptySignUpProfileFields,
+  type SignUpProfileFields,
+} from "@/lib/auth/sign-up-fields";
 import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
 
 export function AuthPage() {
@@ -28,6 +32,9 @@ export function AuthPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signUpProfile, setSignUpProfile] = useState<SignUpProfileFields>(
+    emptySignUpProfileFields,
+  );
   const [busy, setBusy] = useState(false);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -91,7 +98,15 @@ export function AuthPage() {
           return;
         }
       } else {
-        const response = await signUp({ formFields });
+        const response = await signUp({
+          formFields: [
+            ...formFields,
+            { id: "first_name", value: signUpProfile.firstName },
+            { id: "last_name", value: signUpProfile.lastName },
+            { id: "phone_number", value: signUpProfile.phoneNumber },
+            { id: "gender", value: signUpProfile.gender },
+          ],
+        });
 
         if (response.status === "FIELD_ERROR") {
           setFormErrors(mapFieldErrors(response.formFields));
@@ -124,8 +139,10 @@ export function AuthPage() {
           mode={mode}
           onEmailChange={setEmail}
           onPasswordChange={setPassword}
+          onSignUpProfileChange={setSignUpProfile}
           onSubmit={(event) => void handleSubmit(event)}
           password={password}
+          signUpProfile={signUpProfile}
           submitError={submitError}
         />
       ) : (

@@ -81,6 +81,9 @@ Implemented now:
 - `/auth/[[...path]]` page
 - `/dashboard` protected shell
 - `/api/session` test route
+- company/customer authorization in `/api/crm/[...path]`
+- owner membership assignment on company creation
+- company memberships stored in SuperTokens User Metadata
 
 Validated:
 
@@ -181,7 +184,13 @@ Important:
 - company is tenant scope
 - role defines authorization inside that tenant
 
-The web app should eventually resolve this context per session and use it in BFF routes.
+Current implementation note:
+
+- the first authorization pass stores company memberships in SuperTokens User Metadata
+- `companyMemberships[]` is the current source of truth for which companies a signed-in user can access
+- the BFF reads that metadata before forwarding company/customer CRM requests
+
+This is intentionally simpler than a dedicated membership table, but it still enforces tenant boundaries today.
 
 ## Why This Repo Uses SuperTokens
 

@@ -5,6 +5,12 @@ import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 import Session from "supertokens-auth-react/recipe/session";
 
 import { appInfo } from "@/config/app-info";
+import {
+  validateFirstName,
+  validateGender,
+  validateLastName,
+  validatePhoneNumber,
+} from "@/lib/auth/sign-up-fields";
 
 let frontendInitDone = false;
 
@@ -15,7 +21,41 @@ export function ensureFrontendSuperTokensInit() {
 
   SuperTokens.init({
     appInfo,
-    recipeList: [EmailPassword.init(), Session.init()],
+    recipeList: [
+      EmailPassword.init({
+        signInAndUpFeature: {
+          signUpForm: {
+            formFields: [
+              {
+                id: "first_name",
+                label: "Name",
+                placeholder: "Your first name",
+                validate: async (value) => validateFirstName(value),
+              },
+              {
+                id: "last_name",
+                label: "Surname",
+                placeholder: "Your surname",
+                validate: async (value) => validateLastName(value),
+              },
+              {
+                id: "phone_number",
+                label: "Phone number",
+                placeholder: "+49 555 123 4567",
+                validate: async (value) => validatePhoneNumber(value),
+              },
+              {
+                id: "gender",
+                label: "Gender",
+                placeholder: "Select your gender",
+                validate: async (value) => validateGender(value),
+              },
+            ],
+          },
+        },
+      }),
+      Session.init(),
+    ],
   });
 
   frontendInitDone = true;

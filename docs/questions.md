@@ -48,3 +48,21 @@ Why this is the right boundary:
 - The web/BFF layer remains the source of truth for authorization and tenant membership.
 
 Do not try to create a database-level foreign key between SuperTokens user tables and CRM service company tables across two systems. Use stable IDs and an application-level mapping instead.
+
+## How is authorization implemented right now?
+
+The current implementation uses SuperTokens User Metadata as the first membership store.
+
+Current runtime behavior:
+
+1. A user signs in through SuperTokens.
+2. When that user creates a company, the web BFF stores an `owner` membership in SuperTokens User Metadata.
+3. The BFF checks those memberships before forwarding company and customer requests to the CRM service.
+
+Practical result:
+
+- users only see companies they own
+- users only see customers for companies they can access
+- company-scoped import routes are also blocked if the company is not in the signed-in user’s membership list
+
+This is a valid first-pass authorization layer. If role management, invites, or multi-user company membership becomes more complex later, this can be migrated to a dedicated membership table.

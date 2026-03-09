@@ -3,7 +3,8 @@
 Read these in this order:
 
 1. `docs/DEVELOPER_CONTEXT.md`
-2. `README.md`
+2. `docs/questions.md`
+3. `README.md`
 
 This folder exists to make handoff easier for:
 
