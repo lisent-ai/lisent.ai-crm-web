@@ -1,0 +1,32 @@
+services:
+  supertokens-core:
+    image: registry.supertokens.io/supertokens/supertokens-postgresql:latest
+    restart: unless-stopped
+    environment:
+      POSTGRESQL_CONNECTION_URI: ${AUTH_DB_DSN}
+      API_KEYS: ${SUPERTOKENS_CORE_API_KEYS:-}
+    ports:
+      - "${SUPERTOKENS_CORE_PORT:-3567}:3567"
+    networks:
+      - dokploy-network
+
+  pgadmin-auth:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${AUTH_PGADMIN_DEFAULT_EMAIL:-auth-admin@lisent.ai}
+      PGADMIN_DEFAULT_PASSWORD: ${AUTH_PGADMIN_DEFAULT_PASSWORD:-change-this-password}
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "True"
+    ports:
+      - "${AUTH_PGADMIN_PORT:-8082}:80"
+    volumes:
+      - pgadmin-auth-data:/var/lib/pgadmin
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
+
+volumes:
+  pgadmin-auth-data:

@@ -5,11 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import {
+  applyImportProfile,
   approveImportProfile,
   CRMClientError,
+  createCustomerFromImportPayload,
   suggestImportFromCSVUpload,
   suggestImportFromCSVURL,
 } from "@/lib/crm/client";
+import { parseCSVFile, parseCSVFromURL } from "@/lib/imports/csv";
 
 type MappingRow = {
   header: string;
@@ -75,6 +78,7 @@ export function ImportWorkspace() {
   const [csvFile, setCSVFile] = useState<File | null>(null);
   const [headers, setHeaders] = useState<string[]>([]);
   const [sampleRows, setSampleRows] = useState<Record<string, unknown>[]>([]);
+  const [allRows, setAllRows] = useState<Record<string, string>[]>([]);
   const [availableFields, setAvailableFields] =
     useState<AvailableField[]>(defaultAvailableFields);
   const [mappingRows, setMappingRows] = useState<MappingRow[]>([]);
@@ -129,11 +133,17 @@ export function ImportWorkspace() {
     setLoadingSuggestion(true);
 
     try {
+      const parsedCSV =
+        sourceMode === "upload"
+          ? await parseSelectedFile(csvFile)
+          : await parseSelectedURL(csvURL);
+
       const suggestion =
         sourceMode === "upload"
           ? await uploadAndSuggest(companyId, csvFile)
           : await suggestFromURL(companyId, csvURL);
 
+      setAllRows(parsedCSV.rows);
       setHeaders(suggestion.headers);
       setSampleRows(suggestion.sampleRows);
       setAvailableFields(
@@ -170,14 +180,19 @@ export function ImportWorkspace() {
       setErrorMessage("Map at least one source header before approval.");
       return;
     }
+    if (allRows.length === 0) {
+      setErrorMessage("No CSV rows are loaded for import.");
+      return;
+    }
 
     setApproving(true);
     setErrorMessage(null);
 
     try {
       await approveImportProfile(companyId, mappingByField, fallbackAliasesEnabled);
+      await importCustomers(companyId, allRows);
       router.push(
-        `/dashboard/customers?company=${companyId}&companyName=${encodeURIComponent(companyName)}&source=import-approved`,
+        `/dashboard/customers?company=${companyId}&companyName=${encodeURIComponent(companyName)}&source=import-approved&imported=${allRows.length}`,
       );
     } catch (error) {
       const message =
@@ -285,7 +300,7 @@ export function ImportWorkspace() {
             <div className="mt-3 grid gap-3">
               <Stat label="Headers" value={String(headers.length)} />
               <Stat label="Mapped fields" value={String(mappedCount)} />
-              <Stat label="Rows previewed" value={String(sampleRows.length)} />
+              <Stat label="Rows loaded" value={String(allRows.length)} />
             </div>
           </div>
         </aside>
@@ -371,6 +386,7 @@ export function ImportWorkspace() {
                 <div className="grid gap-4 md:grid-cols-3">
                   <Stat label="Headers" value={String(headers.length)} />
                   <Stat label="Rows shown" value={String(sampleRows.length)} />
+                  <Stat label="Rows loaded" value={String(allRows.length)} />
                   <Stat label="Unmapped" value={String(headers.length - mappedCount)} />
                 </div>
 
@@ -506,8 +522,9 @@ export function ImportWorkspace() {
                     Approval outcome
                   </p>
                   <p className="mt-2 text-sm leading-7 text-slate-600">
-                    After approval, a new active import profile is stored for this
-                    company and the flow continues to the customer directory.
+                    After approval, the active profile is saved and every loaded
+                    CSV row is transformed through the CRM import profile and sent
+                    to `/customers` before redirecting to the customer directory.
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-3">
@@ -517,7 +534,7 @@ export function ImportWorkspace() {
                       onClick={() => void approveMapping()}
                       type="button"
                     >
-                      {approving ? "Approving..." : "Approve mapping and open customers"}
+                      {approving ? "Importing..." : "Approve mapping and import customers"}
                     </button>
                     <button
                       className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
@@ -549,6 +566,37 @@ async function suggestFromURL(companyId: string, fileURL: string) {
     throw new CRMClientError("Please enter a CSV export URL first.", 400);
   }
   return suggestImportFromCSVURL(companyId, fileURL);
+}
+
+async function parseSelectedFile(file: File | null) {
+  if (!file) {
+    throw new CRMClientError("Please choose a CSV file first.", 400);
+  }
+  return parseCSVFile(file);
+}
+
+async function parseSelectedURL(fileURL: string) {
+  if (fileURL.trim() === "") {
+    throw new CRMClientError("Please enter a CSV export URL first.", 400);
+  }
+
+  try {
+    return await parseCSVFromURL(fileURL);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Failed to fetch CSV URL.";
+    throw new CRMClientError(message, 400);
+  }
+}
+
+async function importCustomers(
+  companyId: string,
+  rows: Record<string, string>[],
+) {
+  for (const row of rows) {
+    const payload = await applyImportProfile(companyId, row);
+    await createCustomerFromImportPayload(companyId, payload);
+  }
 }
 
 function buildMappingRows(

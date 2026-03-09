@@ -76,6 +76,10 @@ export type ImportSuggestion = {
   availableFields: FieldDefinition[];
 };
 
+type ImportApplyResponse = {
+  payload: Record<string, unknown>;
+};
+
 export class CRMClientError extends Error {
   status: number;
 
@@ -220,6 +224,43 @@ export async function listAllCustomers(): Promise<Customer[]> {
   return response.data.map(mapCustomer);
 }
 
+async function assignCustomerToCompany(
+  customerId: string,
+  companyId: string,
+): Promise<Customer> {
+  const payload = await requestCRM<CRMCustomerRecord>(`/customers/${customerId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: companyId,
+    }),
+  });
+
+  return mapCustomer(payload);
+}
+
+async function ensureCustomerCompany(
+  customer: Customer,
+  companyId: string,
+): Promise<Customer> {
+  if (!companyId.trim()) {
+    return customer;
+  }
+
+  if (!customer.companyId) {
+    return assignCustomerToCompany(customer.id, companyId);
+  }
+
+  if (customer.companyId !== companyId) {
+    throw new CRMClientError(
+      "Customer already exists under a different company.",
+      409,
+    );
+  }
+
+  return customer;
+}
+
 type UpsertCustomerInput = {
   companyId: string;
   name: string;
@@ -251,7 +292,7 @@ export async function createCustomer(input: UpsertCustomerInput): Promise<Custom
       },
     }),
   });
-  return mapCustomer(payload);
+  return ensureCustomerCompany(mapCustomer(payload), input.companyId);
 }
 
 export async function updateCustomer(
@@ -351,4 +392,39 @@ export async function approveImportProfile(
       },
     }),
   });
+}
+
+export async function applyImportProfile(
+  companyId: string,
+  row: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  const response = await requestCRM<ImportApplyResponse>(
+    `/companies/${companyId}/import-profiles/apply`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        entity_type: "customer",
+        row,
+      }),
+    },
+  );
+
+  return response.payload;
+}
+
+export async function createCustomerFromImportPayload(
+  companyId: string,
+  payload: Record<string, unknown>,
+): Promise<Customer> {
+  const response = await requestCRM<CRMCustomerRecord>("/customers", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...payload,
+      company_id: companyId,
+    }),
+  });
+
+  return ensureCustomerCompany(mapCustomer(response), companyId);
 }
