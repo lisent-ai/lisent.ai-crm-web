@@ -1,16 +1,16 @@
-type CompanyDeleteModalProps = {
-  companyName: string;
-  customerCount: number;
+type CustomerDeleteModalProps = {
+  customerName: string;
+  customerEmail: string;
   onConfirmDelete: () => void;
   onClose: () => void;
 };
 
-export function CompanyDeleteModal({
-  companyName,
-  customerCount,
+export function CustomerDeleteModal({
+  customerName,
+  customerEmail,
   onConfirmDelete,
   onClose,
-}: Readonly<CompanyDeleteModalProps>) {
+}: Readonly<CustomerDeleteModalProps>) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 py-8"
@@ -25,10 +25,10 @@ export function CompanyDeleteModal({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
-              Delete company
+              Delete customer
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-              Remove {companyName}
+              Remove {customerName}
             </h2>
           </div>
           <button
@@ -41,10 +41,18 @@ export function CompanyDeleteModal({
         </div>
 
         <p className="mt-5 text-sm leading-7 text-slate-700">
-          This will permanently remove the selected company from the demo
-          workspace and also remove its {customerCount} related customer
-          record(s).
+          This will permanently remove the selected customer record from the CRM.
         </p>
+
+        <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+            Customer
+          </p>
+          <p className="mt-2 text-sm font-semibold text-slate-900">{customerName}</p>
+          <p className="mt-1 break-all text-sm text-slate-600">
+            {customerEmail || "No email available"}
+          </p>
+        </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <button

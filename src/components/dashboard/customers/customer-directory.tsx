@@ -15,6 +15,7 @@ import {
 } from "@/lib/crm/client";
 
 import { CustomerCompanyHeader } from "./customer-company-header";
+import { CustomerDeleteModal } from "./customer-delete-modal";
 import { CustomerDetailDrawer } from "./customer-detail-drawer";
 import { CustomerFormModal } from "./customer-form-modal";
 import { CustomerListSection } from "./customer-list-section";
@@ -41,6 +42,8 @@ export function CustomerDirectory() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [showForm, setShowForm] = useState(false);
+  const [customerPendingDelete, setCustomerPendingDelete] =
+    useState<Customer | null>(null);
 
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
@@ -306,6 +309,8 @@ export function CustomerDirectory() {
         closeAddModal();
         closeEditModal();
       }
+
+      setCustomerPendingDelete(null);
     } catch (error) {
       const message =
         error instanceof CRMClientError ? error.message : "Failed to delete customer.";
@@ -352,7 +357,7 @@ export function CustomerDirectory() {
 
       <CustomerListSection
         customers={filteredCustomers}
-        onDeleteCustomer={(customer) => void removeCustomer(customer.id)}
+        onDeleteCustomer={(customer) => setCustomerPendingDelete(customer)}
         onEditCustomer={editCustomer}
         onSearchQueryChange={setSearchQuery}
         onStatusFilterChange={setStatusFilter}
@@ -396,6 +401,15 @@ export function CustomerDirectory() {
           onSubmit={() => void saveCustomer()}
           subtitle="Create a new customer record for this company."
           title={companyName}
+        />
+      )}
+
+      {customerPendingDelete && (
+        <CustomerDeleteModal
+          customerEmail={customerPendingDelete.email}
+          customerName={customerPendingDelete.name}
+          onClose={() => setCustomerPendingDelete(null)}
+          onConfirmDelete={() => void removeCustomer(customerPendingDelete.id)}
         />
       )}
     </div>

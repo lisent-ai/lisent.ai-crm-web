@@ -17,7 +17,6 @@ const navItems = [
   { href: "/dashboard/companies", label: "Companies" },
   { href: "/dashboard/imports", label: "Customer Import" },
   { href: "/dashboard/customers", label: "Customers" },
-  { href: "/dashboard/account", label: "Account settings" },
 ];
 
 const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE !== "false";

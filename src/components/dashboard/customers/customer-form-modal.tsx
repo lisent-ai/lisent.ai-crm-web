@@ -24,8 +24,16 @@ export function CustomerFormModal({
   const eyebrow = mode === "edit" ? "Edit Customer" : "Create Customer";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 py-8">
-      <div className="w-full max-w-3xl rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)]">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 py-8"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="w-full max-w-3xl rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)]"
+        onClick={(event) => event.stopPropagation()}
+        role="presentation"
+      >
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
