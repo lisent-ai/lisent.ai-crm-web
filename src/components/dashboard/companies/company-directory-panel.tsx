@@ -73,6 +73,13 @@ export function CompanyDirectoryPanel({
                   >
                     {company.country} · {company.industry}
                   </p>
+                  <p
+                    className={`mt-1 text-xs ${
+                      active ? "text-slate-400" : "text-slate-500"
+                    }`}
+                  >
+                    Created by {company.createdByUserName}
+                  </p>
                 </div>
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
@@ -93,6 +100,13 @@ export function CompanyDirectoryPanel({
                 <span className="truncate">{company.id}</span>
                 <span className="font-medium">{customerCount} customers</span>
               </div>
+              <p
+                className={`mt-2 truncate text-xs ${
+                  active ? "text-slate-400" : "text-slate-500"
+                }`}
+              >
+                {company.createdByUserId || "Creator ID unavailable"}
+              </p>
             </button>
           );
         })}

@@ -84,6 +84,7 @@ Implemented now:
 - `/api/account` profile route
 - signed-in user name rendering in the dashboard shell and home page
 - `/dashboard/account` settings page backed by SuperTokens User Metadata
+- company creation forwards creator user id and display name to the CRM service
 - company/customer authorization in `/api/crm/[...path]`
 - owner membership assignment on company creation
 - company memberships stored in SuperTokens User Metadata
@@ -215,6 +216,7 @@ Current implementation note:
 - the first authorization pass stores company memberships in SuperTokens User Metadata
 - `companyMemberships[]` is the current source of truth for which companies a signed-in user can access
 - the BFF reads that metadata before forwarding company/customer CRM requests
+- when creating a company, the BFF also forwards creator audit fields (`X-User-Id`, `X-User-Name`) to the CRM service
 
 This is intentionally simpler than a dedicated membership table, but it still enforces tenant boundaries today.
 

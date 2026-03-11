@@ -10,6 +10,8 @@ type CRMCompanyRecord = {
   id: string;
   name: string;
   industry?: string;
+  created_by_user_id?: string;
+  created_by_user_name?: string;
   extra_data?: Record<string, unknown>;
 };
 
@@ -53,6 +55,8 @@ export type Company = {
   name: string;
   country: string;
   industry: string;
+  createdByUserId: string;
+  createdByUserName: string;
 };
 
 export type Customer = {
@@ -143,6 +147,8 @@ function mapCompany(record: CRMCompanyRecord): Company {
     name: record.name,
     country: countryValue.trim() || "Not set",
     industry: record.industry?.trim() || "Not set",
+    createdByUserId: record.created_by_user_id?.trim() || "",
+    createdByUserName: record.created_by_user_name?.trim() || "Unknown",
   };
 }
 

@@ -7,6 +7,7 @@ import {
   getAllowedCompanyIds,
   removeCompanyMembership,
 } from "@/lib/auth/company-memberships";
+import { loadAccountProfile } from "@/lib/auth/account-server";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
 ensureBackendSuperTokensInit();
@@ -20,6 +21,8 @@ type CRMListResponse<T> = {
 type CRMCompanyRecord = {
   id: string;
   name: string;
+  created_by_user_id?: string;
+  created_by_user_name?: string;
 };
 
 type CRMCustomerRecord = {
@@ -67,6 +70,7 @@ function buildForwardHeaders(
   request: NextRequest,
   apiKey: string,
   userID: string,
+  userName?: string,
 ): Headers {
   const headers = new Headers();
   const contentType = request.headers.get("content-type");
@@ -79,6 +83,9 @@ function buildForwardHeaders(
   }
   headers.set("x-api-key", apiKey);
   headers.set("x-user-id", userID);
+  if (userName?.trim()) {
+    headers.set("x-user-name", userName.trim());
+  }
   return headers;
 }
 
@@ -121,6 +128,9 @@ async function sendUpstreamRequest(
   config: { baseURL: string; apiKey: string },
   userID: string,
   pathSegments: string[],
+  options?: {
+    userName?: string;
+  },
 ) {
   const upstreamURL = buildUpstreamURL(
     config.baseURL,
@@ -133,7 +143,12 @@ async function sendUpstreamRequest(
 
   return fetch(upstreamURL, {
     method,
-    headers: buildForwardHeaders(request, config.apiKey, userID),
+    headers: buildForwardHeaders(
+      request,
+      config.apiKey,
+      userID,
+      options?.userName,
+    ),
     body,
     cache: "no-store",
   });
@@ -278,7 +293,16 @@ async function forwardRequest(
     }
 
     if (method === "POST" && pathSegments.length === 1) {
-      const upstreamResponse = await sendUpstreamRequest(request, config, userID, pathSegments);
+      const account = await loadAccountProfile(userID);
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        userID,
+        pathSegments,
+        {
+          userName: account?.displayName ?? userID,
+        },
+      );
       if (!upstreamResponse.ok) {
         return relayUpstreamResponse(upstreamResponse);
       }

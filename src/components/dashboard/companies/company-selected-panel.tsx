@@ -28,11 +28,19 @@ export function CompanySelectedPanel({
         import flow and the separate customer directory page.
       </p>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <DetailMetric label="ID" value={company?.id ?? "-"} />
         <DetailMetric label="Country" value={company?.country ?? "-"} />
         <DetailMetric label="Industry" value={company?.industry ?? "-"} />
         <DetailMetric label="Customers" value={String(customerCount)} />
+        <DetailMetric
+          label="Created by"
+          value={company?.createdByUserName ?? "-"}
+        />
+        <DetailMetric
+          label="Creator user id"
+          value={company?.createdByUserId || "-"}
+        />
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">

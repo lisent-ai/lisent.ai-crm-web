@@ -1,42 +1,14 @@
 import { NextRequest } from "next/server";
-import SuperTokens from "supertokens-node";
 import { withSession } from "supertokens-node/nextjs";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 
 import {
-  buildAccountDisplayName,
-  normalizeAccountProfile,
   validateAccountProfileInput,
 } from "@/lib/auth/account-profile";
+import { loadAccountProfile } from "@/lib/auth/account-server";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
 ensureBackendSuperTokensInit();
-
-async function loadAccountResponse(userId: string) {
-  const [user, metadataResponse] = await Promise.all([
-    SuperTokens.getUser(userId),
-    UserMetadata.getUserMetadata(userId),
-  ]);
-
-  if (!user) {
-    return null;
-  }
-
-  const email = user.emails[0]?.trim() ?? "";
-  const profile = normalizeAccountProfile(metadataResponse.metadata?.profile);
-
-  return {
-    userId,
-    email,
-    ...profile,
-    displayName: buildAccountDisplayName({
-      firstName: profile.firstName,
-      lastName: profile.lastName,
-      email,
-      userId,
-    }),
-  };
-}
 
 export async function GET(request: NextRequest) {
   return withSession(request, async (error, session) => {
@@ -51,7 +23,7 @@ export async function GET(request: NextRequest) {
       return Response.json({ error: "authentication required" }, { status: 401 });
     }
 
-    const account = await loadAccountResponse(session.getUserId());
+    const account = await loadAccountProfile(session.getUserId());
     if (!account) {
       return Response.json({ error: "user not found" }, { status: 404 });
     }
@@ -90,7 +62,7 @@ export async function PATCH(request: NextRequest) {
       profile: data,
     });
 
-    const account = await loadAccountResponse(session.getUserId());
+    const account = await loadAccountProfile(session.getUserId());
     if (!account) {
       return Response.json({ error: "user not found" }, { status: 404 });
     }

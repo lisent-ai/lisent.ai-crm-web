@@ -87,7 +87,14 @@ export function CompanyWorkspace() {
     }
 
     return companies.filter((company) =>
-      [company.name, company.country, company.industry, company.id]
+      [
+        company.name,
+        company.country,
+        company.industry,
+        company.id,
+        company.createdByUserName,
+        company.createdByUserId,
+      ]
         .join(" ")
         .toLowerCase()
         .includes(query),
