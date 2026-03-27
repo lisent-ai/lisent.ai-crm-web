@@ -3,7 +3,7 @@ import EmailPassword from "supertokens-node/recipe/emailpassword";
 import Session from "supertokens-node/recipe/session";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 
-import { appInfo } from "@/config/app-info";
+import { getServerAppInfo } from "@/config/app-info";
 import {
   validateFirstName,
   validateGender,
@@ -19,7 +19,7 @@ export function ensureBackendSuperTokensInit() {
   }
 
   SuperTokens.init({
-    appInfo,
+    appInfo: getServerAppInfo(),
     supertokens: {
       connectionURI:
         process.env.SUPERTOKENS_CONNECTION_URI ?? "http://localhost:3567",

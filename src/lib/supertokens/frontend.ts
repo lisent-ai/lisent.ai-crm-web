@@ -4,7 +4,7 @@ import SuperTokens from "supertokens-auth-react";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 import Session from "supertokens-auth-react/recipe/session";
 
-import { appInfo } from "@/config/app-info";
+import { appInfoBase } from "@/config/app-info";
 import {
   validateFirstName,
   validateGender,
@@ -19,8 +19,13 @@ export function ensureFrontendSuperTokensInit() {
     return;
   }
 
+  const origin = window.location.origin;
   SuperTokens.init({
-    appInfo,
+    appInfo: {
+      ...appInfoBase,
+      apiDomain: origin,
+      websiteDomain: origin,
+    },
     recipeList: [
       EmailPassword.init({
         signInAndUpFeature: {

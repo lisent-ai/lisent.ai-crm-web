@@ -36,6 +36,7 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3010
 ENV HOSTNAME=0.0.0.0
+# Set at deploy time (Dokploy env): APP_PUBLIC_ORIGIN=https://your.domain (no trailing slash)
 
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs
