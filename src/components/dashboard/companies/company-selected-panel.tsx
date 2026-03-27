@@ -3,6 +3,8 @@ import Link from "next/link";
 import { type Company } from "@/lib/crm/client";
 
 import { DetailMetric } from "./company-ui";
+import { CompanyWhatsAppPanel } from "./company-whatsapp-panel";
+import { CompanyQualifierPanel } from "./company-qualifier-panel";
 
 type CompanySelectedPanelProps = {
   company?: Company;
@@ -83,6 +85,13 @@ export function CompanySelectedPanel({
           </div>
         </div>
       </div>
+
+      {company && (
+        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          <CompanyWhatsAppPanel companyId={company.id} />
+          <CompanyQualifierPanel companyId={company.id} />
+        </div>
+      )}
     </section>
   );
 }

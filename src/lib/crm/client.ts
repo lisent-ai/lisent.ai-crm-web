@@ -419,6 +419,142 @@ export async function applyImportProfile(
   return response.payload;
 }
 
+// ─── GreenAPI / WhatsApp Entegrasyonu ────────────────────────────────────────
+
+type CRMGreenAPIRecord = {
+  id: string;
+  company_id: string;
+  id_instance: string;
+  api_token_masked: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type GreenAPIIntegration = {
+  id: string;
+  companyId: string;
+  idInstance: string;
+  apiTokenMasked: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+function mapGreenAPIIntegration(record: CRMGreenAPIRecord): GreenAPIIntegration {
+  return {
+    id: record.id,
+    companyId: record.company_id,
+    idInstance: record.id_instance,
+    apiTokenMasked: record.api_token_masked,
+    isActive: record.is_active,
+    createdAt: record.created_at,
+    updatedAt: record.updated_at,
+  };
+}
+
+export async function getGreenAPIIntegration(
+  companyId: string,
+): Promise<GreenAPIIntegration | null> {
+  try {
+    const record = await requestCRM<CRMGreenAPIRecord>(
+      `/companies/${companyId}/integrations/greenapi`,
+    );
+    return mapGreenAPIIntegration(record);
+  } catch (err) {
+    if (err instanceof CRMClientError && err.status === 404) return null;
+    throw err;
+  }
+}
+
+export async function upsertGreenAPIIntegration(
+  companyId: string,
+  input: { idInstance: string; apiTokenInstance: string; webhookUrlToken?: string },
+): Promise<GreenAPIIntegration> {
+  const record = await requestCRM<CRMGreenAPIRecord>(
+    `/companies/${companyId}/integrations/greenapi`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id_instance: input.idInstance,
+        api_token_instance: input.apiTokenInstance,
+        webhook_url_token: input.webhookUrlToken,
+      }),
+    },
+  );
+  return mapGreenAPIIntegration(record);
+}
+
+export async function deleteGreenAPIIntegration(companyId: string): Promise<void> {
+  await requestCRM<void>(`/companies/${companyId}/integrations/greenapi`, {
+    method: "DELETE",
+  });
+}
+
+// ─── AI Lead Qualifier Webhook Token ─────────────────────────────────────────
+
+export type QualifierTokenResponse = {
+  companyId: string;
+  token: string;
+  webhookUrl: string;
+};
+
+export type QualifierConfigResponse = {
+  companyId: string;
+  token: string | null;
+  webhookUrl: string | null;
+  fallbackUrl: string | null;
+};
+
+export async function generateQualifierToken(
+  companyId: string,
+): Promise<QualifierTokenResponse> {
+  const record = await requestCRM<{ company_id: string; token: string; webhook_url: string }>(
+    `/internal/company/${companyId}/generate-qualifier-token`,
+    { method: "POST" },
+  );
+  return {
+    companyId: record.company_id,
+    token: record.token,
+    webhookUrl: record.webhook_url,
+  };
+}
+
+export async function getQualifierConfig(
+  companyId: string,
+): Promise<QualifierConfigResponse | null> {
+  try {
+    const record = await requestCRM<{
+      company_id: string;
+      token: string | null;
+      webhook_url: string | null;
+      fallback_url: string | null;
+    }>(`/internal/company/${companyId}/qualifier-config`);
+    return {
+      companyId: record.company_id,
+      token: record.token ?? null,
+      webhookUrl: record.webhook_url ?? null,
+      fallbackUrl: record.fallback_url ?? null,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export async function updateQualifierFallbackUrl(
+  companyId: string,
+  fallbackUrl: string,
+): Promise<void> {
+  await requestCRM<void>(`/internal/company/${companyId}/qualifier-config`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fallback_url: fallbackUrl }),
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export async function createCustomerFromImportPayload(
   companyId: string,
   payload: Record<string, unknown>,
