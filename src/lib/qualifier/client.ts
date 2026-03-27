@@ -5,15 +5,10 @@ export type QualifierLead = {
   lead_id: string;
   name: string;
   phone: string;
-  email: string;
-  city: string;
-  source: string;
-  project_type: string;
-  budget_range: string;
   score: number;
   path: string;   // "fast" | "chat"
-  status: string; // "new" | "chat" | "done"
-  raw_payload: Record<string, unknown>;
+  status: string; // "new" | "done"
+  extra_data: Record<string, unknown>;
   created_at: string;
   updated_at: string | null;
 };

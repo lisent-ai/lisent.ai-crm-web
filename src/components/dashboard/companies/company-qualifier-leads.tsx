@@ -39,7 +39,17 @@ function scoreColor(score: number) {
 }
 
 function LeadCard({ lead }: { lead: QualifierLead }) {
-  const isDone = lead.path === "fast" || lead.status === "done";
+  const ex = lead.extra_data ?? {};
+  const projectType = ex.project_type as string | undefined;
+  const budgetRange = ex.budget_range as string | undefined;
+  const source = ex.source as string | undefined;
+  const city = ex.city as string | undefined;
+
+  // extra_data'dan bilinen alanları çıkar, kalanları göster
+  const knownKeys = new Set(["project_type", "budget_range", "source", "city", "email",
+    "decision_authority", "timeline_urgency", "budget_amount", "notes"]);
+  const unknownExtras = Object.entries(ex).filter(([k]) => !knownKeys.has(k));
+
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-2 shadow-sm">
       <div className="flex items-start justify-between gap-2">
@@ -53,35 +63,38 @@ function LeadCard({ lead }: { lead: QualifierLead }) {
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        {lead.project_type && lead.project_type !== "other" && (
+        {projectType && projectType !== "other" && (
           <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-blue-700">
-            {PROJECT_LABEL[lead.project_type] ?? lead.project_type}
+            {PROJECT_LABEL[projectType] ?? projectType}
           </span>
         )}
-        {lead.budget_range && lead.budget_range !== "unknown" && (
+        {budgetRange && budgetRange !== "unknown" && (
           <span className="rounded-full bg-violet-50 px-2 py-0.5 text-xs text-violet-700">
-            {BUDGET_LABEL[lead.budget_range] ?? lead.budget_range}
+            {BUDGET_LABEL[budgetRange] ?? budgetRange}
           </span>
         )}
-        {lead.source && (
+        {source && (
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
-            {STATUS_LABEL[lead.source] ?? lead.source}
+            {STATUS_LABEL[source] ?? source}
           </span>
         )}
-        {lead.city && (
+        {city && (
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
-            {lead.city}
+            {city}
           </span>
         )}
+        {unknownExtras.map(([k, v]) => (
+          <span key={k} className="rounded-full bg-slate-50 border border-slate-200 px-2 py-0.5 text-xs text-slate-500">
+            {k}: {String(v)}
+          </span>
+        ))}
       </div>
 
-      {isDone && (
-        <p className="text-xs text-slate-400">
-          {new Date(lead.created_at).toLocaleString("tr-TR", {
-            day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
-          })}
-        </p>
-      )}
+      <p className="text-xs text-slate-400">
+        {new Date(lead.created_at).toLocaleString("tr-TR", {
+          day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
+        })}
+      </p>
     </div>
   );
 }
