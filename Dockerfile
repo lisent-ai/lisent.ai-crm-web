@@ -14,8 +14,8 @@ COPY . .
 
 # Defaults keep `next build` happy (empty env would override app-info `??` fallbacks).
 ARG NEXT_PUBLIC_APP_NAME="Lisent CRM"
-ARG NEXT_PUBLIC_API_DOMAIN=http://localhost:3010
-ARG NEXT_PUBLIC_WEBSITE_DOMAIN=http://localhost:3010
+ARG NEXT_PUBLIC_API_DOMAIN=http://crm.lisent.ai
+ARG NEXT_PUBLIC_WEBSITE_DOMAIN=http://crm.lisent.ai
 ARG NEXT_PUBLIC_API_BASE_PATH=/api/auth
 ARG NEXT_PUBLIC_WEBSITE_BASE_PATH=/auth
 ENV NEXT_PUBLIC_APP_NAME=$NEXT_PUBLIC_APP_NAME
