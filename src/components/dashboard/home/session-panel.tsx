@@ -14,7 +14,7 @@ import {
 import type { AccountProfile } from "@/lib/auth/account-profile";
 import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
 
-const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE !== "false";
+const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE === "true";
 
 function SessionDetails() {
   const router = useRouter();

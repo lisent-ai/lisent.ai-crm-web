@@ -9,7 +9,7 @@ export const appInfoBase = {
 
 /**
  * Build-time domains (may be wrong if Docker build args did not reach the builder).
- * Prefer `getServerAppInfo()` on the server and `window.location.origin` on the client.
+ * On the server, prefer `resolveAppInfoForBackend(request)`; on the client, `window.location.origin`.
  */
 export const appInfo = {
   ...appInfoBase,
@@ -17,18 +17,49 @@ export const appInfo = {
   websiteDomain: process.env.NEXT_PUBLIC_WEBSITE_DOMAIN ?? defaultOrigin,
 };
 
+/** Public origin from reverse-proxy headers (Dokploy / Traefik / Cloudflare). */
+export function derivePublicOriginFromRequest(request: Request): string | undefined {
+  const rawHost =
+    request.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
+    request.headers.get("host")?.trim();
+  if (!rawHost) return undefined;
+
+  const forwardedProto = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
+  const isLocal =
+    rawHost.startsWith("localhost") ||
+    rawHost.startsWith("127.") ||
+    rawHost.includes(".local");
+  const proto = forwardedProto || (isLocal ? "http" : "https");
+
+  return `${proto}://${rawHost}`;
+}
+
 /**
- * SuperTokens Node: use at init. Reads `APP_PUBLIC_ORIGIN` at runtime (Dokploy env),
- * so you are not stuck with a bad `NEXT_PUBLIC_*` bake from build.
+ * SuperTokens Node `appInfo`: explicit env wins, then this request’s public URL, then build-time fallbacks.
  */
-export function getServerAppInfo() {
-  const origin = process.env.APP_PUBLIC_ORIGIN?.trim();
-  if (origin) {
+export function resolveAppInfoForBackend(request?: Request) {
+  const envOrigin = process.env.APP_PUBLIC_ORIGIN?.trim();
+  if (envOrigin) {
     return {
       ...appInfoBase,
-      apiDomain: origin,
-      websiteDomain: origin,
+      apiDomain: envOrigin,
+      websiteDomain: envOrigin,
     };
   }
+  if (request) {
+    const fromReq = derivePublicOriginFromRequest(request);
+    if (fromReq) {
+      return {
+        ...appInfoBase,
+        apiDomain: fromReq,
+        websiteDomain: fromReq,
+      };
+    }
+  }
   return appInfo;
+}
+
+/** @deprecated Use `resolveAppInfoForBackend()` or pass a `Request` into backend init. */
+export function getServerAppInfo() {
+  return resolveAppInfoForBackend(undefined);
 }

@@ -8,9 +8,8 @@ import {
 import { loadAccountProfile } from "@/lib/auth/account-server";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
-ensureBackendSuperTokensInit();
-
 export async function GET(request: NextRequest) {
+  ensureBackendSuperTokensInit(request);
   return withSession(request, async (error, session) => {
     if (error) {
       return Response.json(
@@ -33,6 +32,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  ensureBackendSuperTokensInit(request);
   return withSession(request, async (error, session) => {
     if (error) {
       return Response.json(

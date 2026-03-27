@@ -10,8 +10,6 @@ import {
 import { loadAccountProfile } from "@/lib/auth/account-server";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
-ensureBackendSuperTokensInit();
-
 type CRMListResponse<T> = {
   data: T[];
   limit: number;
@@ -395,6 +393,7 @@ async function forwardRequest(
 }
 
 async function handle(request: NextRequest, context: RouteContext) {
+  ensureBackendSuperTokensInit(request);
   return withSession(request, async (error, session) => {
     if (error) {
       return Response.json(

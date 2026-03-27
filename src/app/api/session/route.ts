@@ -3,9 +3,8 @@ import { withSession } from "supertokens-node/nextjs";
 
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
-ensureBackendSuperTokensInit();
-
 export async function GET(request: NextRequest) {
+  ensureBackendSuperTokensInit(request);
   return withSession(request, async (error, session) => {
     if (error) {
       return Response.json(

@@ -3,7 +3,7 @@ import EmailPassword from "supertokens-node/recipe/emailpassword";
 import Session from "supertokens-node/recipe/session";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 
-import { getServerAppInfo } from "@/config/app-info";
+import { resolveAppInfoForBackend } from "@/config/app-info";
 import {
   validateFirstName,
   validateGender,
@@ -11,18 +11,31 @@ import {
   validatePhoneNumber,
 } from "@/lib/auth/sign-up-fields";
 
+function normaliseSuperTokensConnectionURI(raw: string): string {
+  const trimmed = raw.trim();
+  // Trailing slash can make Core respond with 301; the Node SDK uses redirect:manual and treats that as fatal.
+  return trimmed.replace(/\/+$/, "");
+}
+
+function getSuperTokensConnectionURI(): string {
+  const fromEnv = process.env.SUPERTOKENS_CONNECTION_URI?.trim();
+  return normaliseSuperTokensConnectionURI(
+    fromEnv && fromEnv.length > 0 ? fromEnv : "http://localhost:3567",
+  );
+}
+
 let backendInitDone = false;
 
-export function ensureBackendSuperTokensInit() {
+/** Pass the incoming `Request` on first use so `appInfo` matches the public URL behind a proxy. */
+export function ensureBackendSuperTokensInit(request?: Request) {
   if (backendInitDone) {
     return;
   }
 
   SuperTokens.init({
-    appInfo: getServerAppInfo(),
+    appInfo: resolveAppInfoForBackend(request),
     supertokens: {
-      connectionURI:
-        process.env.SUPERTOKENS_CONNECTION_URI ?? "http://localhost:3567",
+      connectionURI: getSuperTokensConnectionURI(),
       apiKey: process.env.SUPERTOKENS_API_KEY,
     },
     recipeList: [
