@@ -12,10 +12,11 @@ RUN apk add --no-cache libc6-compat
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Defaults keep `next build` happy (empty env would override app-info `??` fallbacks).
+# Do not bake a production domain in the image: pass these as build args (e.g. Dokploy).
+# Defaults are localhost-only so local `docker build` still works; empty ARG would break SuperTokens at build.
 ARG NEXT_PUBLIC_APP_NAME="Lisent CRM"
-ARG NEXT_PUBLIC_API_DOMAIN=https://crm.lisent.ai
-ARG NEXT_PUBLIC_WEBSITE_DOMAIN=https://crm.lisent.ai
+ARG NEXT_PUBLIC_API_DOMAIN=http://localhost:3010
+ARG NEXT_PUBLIC_WEBSITE_DOMAIN=http://localhost:3010
 ARG NEXT_PUBLIC_API_BASE_PATH=/api/auth
 ARG NEXT_PUBLIC_WEBSITE_BASE_PATH=/auth
 ENV NEXT_PUBLIC_APP_NAME=$NEXT_PUBLIC_APP_NAME
