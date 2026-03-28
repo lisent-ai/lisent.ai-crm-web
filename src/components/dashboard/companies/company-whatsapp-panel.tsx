@@ -9,6 +9,14 @@ import {
   CRMClientError,
 } from "@/lib/crm/client";
 
+const QUALIFIER_BASE_URL = (
+  process.env.NEXT_PUBLIC_AI_QUALIFIER_BASE_URL ?? "https://api.lisent.ai"
+).replace(/\/+$/, "");
+
+function buildWhatsAppWebhookUrl(token: string) {
+  return `${QUALIFIER_BASE_URL}/webhook/whatsapp?token=${token}`;
+}
+
 type Props = {
   companyId: string;
 };
@@ -22,6 +30,7 @@ export function CompanyWhatsAppPanel({ companyId }: Readonly<Props>) {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [disconnecting, setDisconnecting] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -105,6 +114,28 @@ export function CompanyWhatsAppPanel({ companyId }: Readonly<Props>) {
             <span className="w-28 shrink-0 font-medium text-slate-600">API Token</span>
             <span className="font-mono text-slate-500">{integration.apiTokenMasked}</span>
           </div>
+          {integration.webhookUrlToken && (
+            <div className="pt-2 border-t border-slate-200 space-y-1">
+              <p className="text-xs font-medium text-slate-500">GreenAPI Webhook URL</p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-lg bg-slate-100 px-3 py-2 text-xs text-slate-700">
+                  {buildWhatsAppWebhookUrl(integration.webhookUrlToken)}
+                </code>
+                <button
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(buildWhatsAppWebhookUrl(integration.webhookUrlToken!));
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  type="button"
+                  className="shrink-0 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-400"
+                >
+                  {copied ? "Kopyalandı!" : "Kopyala"}
+                </button>
+              </div>
+              <p className="text-xs text-slate-400">Bu URL&apos;yi GreenAPI panelindeki Webhook URL alanına yapıştırın.</p>
+            </div>
+          )}
         </div>
       )}
 

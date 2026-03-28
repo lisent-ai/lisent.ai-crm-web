@@ -426,6 +426,7 @@ type CRMGreenAPIRecord = {
   company_id: string;
   id_instance: string;
   api_token_masked: string;
+  webhook_url_token?: string | null;
   is_active: boolean;
   created_at: string;
   updated_at: string;
@@ -436,6 +437,7 @@ export type GreenAPIIntegration = {
   companyId: string;
   idInstance: string;
   apiTokenMasked: string;
+  webhookUrlToken: string | null;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -447,6 +449,7 @@ function mapGreenAPIIntegration(record: CRMGreenAPIRecord): GreenAPIIntegration 
     companyId: record.company_id,
     idInstance: record.id_instance,
     apiTokenMasked: record.api_token_masked,
+    webhookUrlToken: record.webhook_url_token ?? null,
     isActive: record.is_active,
     createdAt: record.created_at,
     updatedAt: record.updated_at,
