@@ -317,7 +317,7 @@ async function forwardRequest(
       }
 
       const upstreamResponse = await sendUpstreamRequest(request, config, userID, pathSegments);
-      if (method === "DELETE" && upstreamResponse.ok) {
+      if (method === "DELETE" && upstreamResponse.ok && pathSegments.length === 2) {
         await removeCompanyMembership(userID, resourceId);
       }
       return relayUpstreamResponse(upstreamResponse);
