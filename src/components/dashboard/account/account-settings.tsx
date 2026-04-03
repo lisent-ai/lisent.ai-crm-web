@@ -195,6 +195,14 @@ export function AccountSettings() {
                       ?.label ?? "Not set"
                   }
                 />
+                <SummaryItem
+                  label="Platform role"
+                  value={account.access.isSuperAdmin ? "Super Admin" : "Workspace User"}
+                />
+                <SummaryItem
+                  label="Company memberships"
+                  value={String(account.access.companyMemberships.length)}
+                />
               </div>
 
               <div className="rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-4">
@@ -204,6 +212,28 @@ export function AccountSettings() {
                 <p className="mt-2 break-all text-sm text-slate-700">
                   {userJoinedLabel}
                 </p>
+              </div>
+
+              <div className="rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+                  Company access
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {account.access.companyMemberships.length > 0 ? (
+                    account.access.companyMemberships.map((membership) => (
+                      <span
+                        className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700"
+                        key={`${membership.companyId}-${membership.createdAt}`}
+                      >
+                        {membership.companyId} · {membership.role}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-sm text-slate-600">
+                      No company memberships yet.
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           )}

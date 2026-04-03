@@ -1,5 +1,8 @@
 import { NextRequest } from "next/server";
 import { withSession } from "supertokens-node/nextjs";
+
+import { hasCompanyPermissionInAccess } from "@/lib/auth/access-control";
+import { loadAccountProfile } from "@/lib/auth/account-server";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
 function getQualifierConfig() {
@@ -15,6 +18,11 @@ async function handle(request: NextRequest, context: { params: Promise<{ path?: 
     if (error) return Response.json({ error: error.message }, { status: 500 });
     if (!session) return Response.json({ error: "unauthorized" }, { status: 401 });
 
+    const account = await loadAccountProfile(session.getUserId());
+    if (!account) {
+      return Response.json({ error: "user not found" }, { status: 404 });
+    }
+
     let config: { baseURL: string; apiKey: string };
     try {
       config = getQualifierConfig();
@@ -24,6 +32,14 @@ async function handle(request: NextRequest, context: { params: Promise<{ path?: 
 
     const params = await context.params;
     const pathSegments = params.path ?? [];
+    const [resource, companyId] = pathSegments;
+
+    if (resource === "leads" && companyId) {
+      if (!hasCompanyPermissionInAccess(account.access, companyId, "company.read")) {
+        return Response.json({ error: "forbidden" }, { status: 403 });
+      }
+    }
+
     const encodedPath = pathSegments.map(encodeURIComponent).join("/");
     const upstreamURL = `${config.baseURL}/internal/${encodedPath}${request.nextUrl.search}`;
 

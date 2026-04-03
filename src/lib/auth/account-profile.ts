@@ -6,11 +6,26 @@ import {
   validateLastName,
   validatePhoneNumber,
 } from "@/lib/auth/sign-up-fields";
+import type { CompanyRole, PlatformRole } from "@/lib/auth/roles";
+
+export type AccountCompanyMembershipSummary = {
+  companyId: string;
+  role: CompanyRole;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type AccountAccessSummary = {
+  platformRole: PlatformRole | null;
+  isSuperAdmin: boolean;
+  companyMemberships: AccountCompanyMembershipSummary[];
+};
 
 export type AccountProfile = SignUpProfileFields & {
   userId: string;
   email: string;
   displayName: string;
+  access: AccountAccessSummary;
 };
 
 export type AccountProfileFieldErrors = Partial<

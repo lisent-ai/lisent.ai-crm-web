@@ -1,4 +1,4 @@
-const defaultOrigin = "http://localhost:3010";
+const defaultOrigin = "http://localhost:3011";
 
 /** Paths + name (safe to embed at build time). */
 export const appInfoBase = {

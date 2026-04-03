@@ -274,8 +274,8 @@ The repo expects:
 
 ```env
 NEXT_PUBLIC_APP_NAME=Lisent CRM
-NEXT_PUBLIC_API_DOMAIN=http://localhost:3010
-NEXT_PUBLIC_WEBSITE_DOMAIN=http://localhost:3010
+NEXT_PUBLIC_API_DOMAIN=http://localhost:3011
+NEXT_PUBLIC_WEBSITE_DOMAIN=http://localhost:3011
 NEXT_PUBLIC_API_BASE_PATH=/api/auth
 NEXT_PUBLIC_WEBSITE_BASE_PATH=/auth
 
@@ -284,12 +284,14 @@ SUPERTOKENS_API_KEY=
 
 CRM_BASE_URL=http://localhost:9090
 CRM_INTERNAL_API_KEY=
+PLATFORM_SUPER_ADMIN_EMAILS=
 ```
 
 Important:
 
 - `CRM_INTERNAL_API_KEY` must stay server-side only
 - browser code must not call the Go CRM directly with this key
+- `PLATFORM_SUPER_ADMIN_EMAILS` and `PLATFORM_SUPER_ADMIN_USER_IDS` can bootstrap internal `super_admin` users
 
 ## Important Files
 
@@ -407,7 +409,7 @@ npm run build
 
 Default dev URL:
 
-- `http://localhost:3010`
+- `http://localhost:3011`
 
 ## Recommended Reading Order For New Developers
 

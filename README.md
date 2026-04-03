@@ -18,8 +18,8 @@ Required variables:
 
 ```env
 NEXT_PUBLIC_APP_NAME=Lisent CRM
-NEXT_PUBLIC_API_DOMAIN=http://localhost:3010
-NEXT_PUBLIC_WEBSITE_DOMAIN=http://localhost:3010
+NEXT_PUBLIC_API_DOMAIN=http://localhost:3011
+NEXT_PUBLIC_WEBSITE_DOMAIN=http://localhost:3011
 NEXT_PUBLIC_API_BASE_PATH=/api/auth
 NEXT_PUBLIC_WEBSITE_BASE_PATH=/auth
 
@@ -28,13 +28,15 @@ SUPERTOKENS_API_KEY=
 
 CRM_BASE_URL=http://localhost:9090
 CRM_INTERNAL_API_KEY=
+PLATFORM_SUPER_ADMIN_EMAILS=
 ```
 
 Notes:
 
 - `SUPERTOKENS_CONNECTION_URI` points to your SuperTokens Core instance.
 - `CRM_INTERNAL_API_KEY` must remain server-side only.
-- The dev server is pinned to port `3010`.
+- `PLATFORM_SUPER_ADMIN_EMAILS` can bootstrap your internal `super_admin` accounts.
+- The dev server is pinned to port `3011`.
 
 ## Getting started
 
@@ -44,7 +46,7 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3010](http://localhost:3010) with your browser to see the result.
+Open [http://localhost:3011](http://localhost:3011) with your browser to see the result.
 
 Auth routes live under:
 

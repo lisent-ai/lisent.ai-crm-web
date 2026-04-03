@@ -10,11 +10,14 @@ import {
   getAccountProfile,
 } from "@/lib/account/client";
 import type { AccountProfile } from "@/lib/auth/account-profile";
+import { getCompanyMembershipSummary } from "@/lib/auth/access-control";
+import { getCompanyRoleLabel, getPlatformRoleLabel } from "@/lib/auth/roles";
 import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
 
 const navItems = [
   { href: "/dashboard", label: "Overview" },
   { href: "/dashboard/companies", label: "Companies" },
+  { href: "/dashboard/access", label: "Team Access" },
   { href: "/dashboard/imports", label: "Customer Import" },
   { href: "/dashboard/customers", label: "Customers" },
 ];
@@ -82,10 +85,15 @@ export function DashboardShell({
 
   const selectedCompanyId = searchParams.get("company")?.trim() ?? "";
   const selectedCompanyName = searchParams.get("companyName")?.trim() ?? "";
+  const selectedMembership =
+    account && selectedCompanyId
+      ? getCompanyMembershipSummary(account.access, selectedCompanyId)
+      : null;
 
   function buildNavHref(baseHref: string) {
     if (
       (baseHref === "/dashboard/companies" ||
+        baseHref === "/dashboard/access" ||
         baseHref === "/dashboard/customers" ||
         baseHref === "/dashboard/imports") &&
       selectedCompanyId
@@ -161,6 +169,19 @@ export function DashboardShell({
                 ? "demo-user@lisent.ai"
                 : account?.email ?? "Profile details unavailable"}
             </p>
+            {!uiOnlyMode && account ? (
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-semibold text-cyan-50/90">
+                  {getPlatformRoleLabel(account.access.platformRole)}
+                </span>
+                {selectedMembership ? (
+                  <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-semibold text-cyan-50/90">
+                    {getCompanyRoleLabel(selectedMembership.role)}
+                    {selectedCompanyName ? ` · ${selectedCompanyName}` : ""}
+                  </span>
+                ) : null}
+              </div>
+            ) : null}
             <Link
               className="mt-4 inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/16"
               href="/dashboard/account"

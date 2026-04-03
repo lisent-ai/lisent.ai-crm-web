@@ -3,11 +3,14 @@ import { withSession } from "supertokens-node/nextjs";
 
 import {
   addCompanyMembership,
-  canAccessCompany,
-  getAllowedCompanyIds,
-  removeCompanyMembership,
+  removeCompanyFromAllMembers,
 } from "@/lib/auth/company-memberships";
+import {
+  canAccessCompanyInAccess,
+  hasCompanyPermissionInAccess,
+} from "@/lib/auth/access-control";
 import { loadAccountProfile } from "@/lib/auth/account-server";
+import type { AccountProfile } from "@/lib/auth/account-profile";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
 type CRMListResponse<T> = {
@@ -90,14 +93,19 @@ function buildForwardHeaders(
 async function fetchCRMJSON<T>(
   request: NextRequest,
   config: { baseURL: string; apiKey: string },
-  userID: string,
+  account: AccountProfile,
   pathSegments: string[],
   search = "",
 ): Promise<T> {
   const upstreamURL = buildUpstreamURL(config.baseURL, pathSegments, search);
   const response = await fetch(upstreamURL, {
     method: "GET",
-    headers: buildForwardHeaders(request, config.apiKey, userID),
+    headers: buildForwardHeaders(
+      request,
+      config.apiKey,
+      account.userId,
+      account.displayName,
+    ),
     cache: "no-store",
   });
 
@@ -124,11 +132,8 @@ async function relayUpstreamResponse(upstreamResponse: Response) {
 async function sendUpstreamRequest(
   request: NextRequest,
   config: { baseURL: string; apiKey: string },
-  userID: string,
+  account: AccountProfile,
   pathSegments: string[],
-  options?: {
-    userName?: string;
-  },
 ) {
   const upstreamURL = buildUpstreamURL(
     config.baseURL,
@@ -144,8 +149,8 @@ async function sendUpstreamRequest(
     headers: buildForwardHeaders(
       request,
       config.apiKey,
-      userID,
-      options?.userName,
+      account.userId,
+      account.displayName,
     ),
     body,
     cache: "no-store",
@@ -155,9 +160,21 @@ async function sendUpstreamRequest(
 async function listAuthorizedCompanies(
   request: NextRequest,
   config: { baseURL: string; apiKey: string },
-  userID: string,
+  account: AccountProfile,
 ) {
-  const allowedCompanyIds = new Set(await getAllowedCompanyIds(userID));
+  if (account.access.isSuperAdmin) {
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      ["companies"],
+    );
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const allowedCompanyIds = new Set(
+    account.access.companyMemberships.map((membership) => membership.companyId),
+  );
   const { limit, offset } = parsePagination(request.nextUrl.searchParams);
 
   if (allowedCompanyIds.size === 0) {
@@ -167,7 +184,7 @@ async function listAuthorizedCompanies(
   const payload = await fetchCRMJSON<CRMListResponse<CRMCompanyRecord>>(
     request,
     config,
-    userID,
+    account,
     ["companies"],
     "?limit=100&offset=0",
   );
@@ -183,21 +200,49 @@ async function listAuthorizedCompanies(
 async function listAuthorizedCustomers(
   request: NextRequest,
   config: { baseURL: string; apiKey: string },
-  userID: string,
+  account: AccountProfile,
 ) {
-  const searchParams = request.nextUrl.searchParams;
-  const requestedCompanyId = searchParams.get("company_id")?.trim();
-  if (requestedCompanyId) {
-    const allowed = await canAccessCompany(userID, requestedCompanyId);
-    if (!allowed) {
-      return Response.json({ error: "forbidden" }, { status: 403 });
-    }
-
-    const upstreamResponse = await sendUpstreamRequest(request, config, userID, ["customers"]);
+  if (account.access.isSuperAdmin) {
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      ["customers"],
+    );
     return relayUpstreamResponse(upstreamResponse);
   }
 
-  const allowedCompanyIds = await getAllowedCompanyIds(userID);
+  const searchParams = request.nextUrl.searchParams;
+  const requestedCompanyId = searchParams.get("company_id")?.trim();
+  if (requestedCompanyId) {
+    if (
+      !hasCompanyPermissionInAccess(
+        account.access,
+        requestedCompanyId,
+        "customers.read",
+      )
+    ) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      ["customers"],
+    );
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const allowedCompanyIds = account.access.companyMemberships
+    .filter((membership) =>
+      hasCompanyPermissionInAccess(
+        account.access,
+        membership.companyId,
+        "customers.read",
+      ),
+    )
+    .map((membership) => membership.companyId);
   const { limit, offset } = parsePagination(searchParams);
   if (allowedCompanyIds.length === 0) {
     return Response.json({ data: [], limit, offset });
@@ -208,7 +253,7 @@ async function listAuthorizedCustomers(
     const payload = await fetchCRMJSON<CRMListResponse<CRMCustomerRecord>>(
       request,
       config,
-      userID,
+      account,
       ["customers"],
       `?limit=100&offset=0&company_id=${encodeURIComponent(companyId)}`,
     );
@@ -233,22 +278,26 @@ async function readJSONBody(request: NextRequest) {
 async function authorizeCustomerById(
   request: NextRequest,
   config: { baseURL: string; apiKey: string },
-  userID: string,
+  account: AccountProfile,
   customerId: string,
+  permission: "customers.read" | "customers.write",
 ) {
+  if (account.access.isSuperAdmin) {
+    return null;
+  }
+
   try {
     const customer = await fetchCRMJSON<CRMCustomerRecord>(
       request,
       config,
-      userID,
+      account,
       ["customers", customerId],
     );
     if (!customer.company_id) {
       return Response.json({ error: "forbidden" }, { status: 403 });
     }
 
-    const allowed = await canAccessCompany(userID, customer.company_id);
-    if (!allowed) {
+    if (!hasCompanyPermissionInAccess(account.access, customer.company_id, permission)) {
       return Response.json({ error: "forbidden" }, { status: 403 });
     }
   } catch (error) {
@@ -264,7 +313,7 @@ async function authorizeCustomerById(
 async function forwardRequest(
   request: NextRequest,
   context: RouteContext,
-  userID: string,
+  account: AccountProfile,
 ) {
   let config: { baseURL: string; apiKey: string };
   try {
@@ -287,38 +336,81 @@ async function forwardRequest(
 
   if (resource === "companies") {
     if (method === "GET" && pathSegments.length === 1) {
-      return listAuthorizedCompanies(request, config, userID);
+      return listAuthorizedCompanies(request, config, account);
     }
 
     if (method === "POST" && pathSegments.length === 1) {
-      const account = await loadAccountProfile(userID);
       const upstreamResponse = await sendUpstreamRequest(
         request,
         config,
-        userID,
+        account,
         pathSegments,
-        {
-          userName: account?.displayName ?? userID,
-        },
       );
       if (!upstreamResponse.ok) {
         return relayUpstreamResponse(upstreamResponse);
       }
 
       const payload = (await upstreamResponse.json()) as CRMCompanyRecord;
-      await addCompanyMembership(userID, { companyId: payload.id, role: "owner" });
+      await addCompanyMembership(account.userId, { companyId: payload.id, role: "owner" });
       return Response.json(payload, { status: upstreamResponse.status });
     }
 
     if (resourceId) {
-      const allowed = await canAccessCompany(userID, resourceId);
+      let allowed = false;
+
+      if (pathSegments.length === 2) {
+        if (method === "DELETE") {
+          allowed = hasCompanyPermissionInAccess(
+            account.access,
+            resourceId,
+            "company.delete",
+          );
+        } else if (method === "PATCH" || method === "PUT") {
+          allowed = hasCompanyPermissionInAccess(
+            account.access,
+            resourceId,
+            "company.update",
+          );
+        } else {
+          allowed = hasCompanyPermissionInAccess(
+            account.access,
+            resourceId,
+            "company.read",
+          );
+        }
+      } else if (pathSegments[2] === "import-profiles") {
+        const action = pathSegments[3] ?? "";
+        const permission =
+          method === "GET" || action === "apply" ? "imports.run" : "imports.manage";
+        allowed = hasCompanyPermissionInAccess(account.access, resourceId, permission);
+      } else if (
+        pathSegments[2] === "integrations" &&
+        pathSegments[3] === "greenapi"
+      ) {
+        allowed = hasCompanyPermissionInAccess(
+          account.access,
+          resourceId,
+          "integrations.manage",
+        );
+      } else {
+        allowed =
+          method === "GET"
+            ? hasCompanyPermissionInAccess(account.access, resourceId, "company.read")
+            : hasCompanyPermissionInAccess(account.access, resourceId, "company.update");
+      }
+
       if (!allowed) {
         return Response.json({ error: "forbidden" }, { status: 403 });
       }
 
-      const upstreamResponse = await sendUpstreamRequest(request, config, userID, pathSegments);
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
       if (method === "DELETE" && upstreamResponse.ok && pathSegments.length === 2) {
-        await removeCompanyMembership(userID, resourceId);
+        await removeCompanyFromAllMembers(resourceId);
       }
       return relayUpstreamResponse(upstreamResponse);
     }
@@ -326,7 +418,7 @@ async function forwardRequest(
 
   if (resource === "customers") {
     if (method === "GET" && pathSegments.length === 1) {
-      return listAuthorizedCustomers(request, config, userID);
+      return listAuthorizedCustomers(request, config, account);
     }
 
     if (method === "POST" && pathSegments.length === 1) {
@@ -337,12 +429,16 @@ async function forwardRequest(
         return Response.json({ error: "company_id is required" }, { status: 400 });
       }
 
-      const allowed = await canAccessCompany(userID, companyId);
-      if (!allowed) {
+      if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
         return Response.json({ error: "forbidden" }, { status: 403 });
       }
 
-      const upstreamResponse = await sendUpstreamRequest(request, config, userID, pathSegments);
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
       return relayUpstreamResponse(upstreamResponse);
     }
 
@@ -350,8 +446,9 @@ async function forwardRequest(
       const authFailure = await authorizeCustomerById(
         request,
         config,
-        userID,
+        account,
         resourceId,
+        method === "GET" ? "customers.read" : "customers.write",
       );
       if (authFailure) {
         return authFailure;
@@ -362,33 +459,57 @@ async function forwardRequest(
         const companyId =
           typeof body?.company_id === "string" ? body.company_id.trim() : "";
         if (companyId) {
-          const allowed = await canAccessCompany(userID, companyId);
-          if (!allowed) {
+          if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
             return Response.json({ error: "forbidden" }, { status: 403 });
           }
         }
       }
 
-      const upstreamResponse = await sendUpstreamRequest(request, config, userID, pathSegments);
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
       return relayUpstreamResponse(upstreamResponse);
     }
   }
 
+  if (resource === "internal" && pathSegments[1] === "company" && pathSegments[2]) {
+    const companyId = pathSegments[2];
+    if (!hasCompanyPermissionInAccess(account.access, companyId, "qualifier.manage")) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      pathSegments,
+    );
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
   if (resource === "companies" && resourceId) {
-    const allowed = await canAccessCompany(userID, resourceId);
-    if (!allowed) {
+    if (!canAccessCompanyInAccess(account.access, resourceId)) {
       return Response.json({ error: "forbidden" }, { status: 403 });
     }
   }
 
   if (resource === "customers" && resourceId) {
-    const authFailure = await authorizeCustomerById(request, config, userID, resourceId);
+    const authFailure = await authorizeCustomerById(
+      request,
+      config,
+      account,
+      resourceId,
+      method === "GET" ? "customers.read" : "customers.write",
+    );
     if (authFailure) {
       return authFailure;
     }
   }
 
-  const upstreamResponse = await sendUpstreamRequest(request, config, userID, pathSegments);
+  const upstreamResponse = await sendUpstreamRequest(request, config, account, pathSegments);
   return relayUpstreamResponse(upstreamResponse);
 }
 
@@ -405,7 +526,12 @@ async function handle(request: NextRequest, context: RouteContext) {
       return Response.json({ error: "unauthorized" }, { status: 401 });
     }
 
-    return forwardRequest(request, context, session.getUserId());
+    const account = await loadAccountProfile(session.getUserId());
+    if (!account) {
+      return Response.json({ error: "user not found" }, { status: 404 });
+    }
+
+    return forwardRequest(request, context, account);
   });
 }
 

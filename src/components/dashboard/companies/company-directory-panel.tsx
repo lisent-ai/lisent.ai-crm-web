@@ -7,6 +7,7 @@ type CompanyDirectoryPanelProps = {
   onSearchQueryChange: (value: string) => void;
   onSelectCompany: (companyId: string) => void;
   getCustomerCount: (companyId: string) => number;
+  getRoleLabel: (companyId: string) => string | null;
 };
 
 export function CompanyDirectoryPanel({
@@ -16,6 +17,7 @@ export function CompanyDirectoryPanel({
   onSearchQueryChange,
   onSelectCompany,
   getCustomerCount,
+  getRoleLabel,
 }: Readonly<CompanyDirectoryPanelProps>) {
   return (
     <div className="rounded-[1.8rem] border border-slate-200 bg-[linear-gradient(180deg,_#f8fafc,_#eff6ff)] p-5 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
@@ -51,6 +53,7 @@ export function CompanyDirectoryPanel({
         {companies.map((company) => {
           const active = company.id === activeCompanyId;
           const customerCount = getCustomerCount(company.id);
+          const roleLabel = getRoleLabel(company.id);
 
           return (
             <button
@@ -65,7 +68,20 @@ export function CompanyDirectoryPanel({
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-lg font-semibold">{company.name}</h3>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-lg font-semibold">{company.name}</h3>
+                    {roleLabel ? (
+                      <span
+                        className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.18em] ${
+                          active
+                            ? "border border-white/15 bg-white/10 text-cyan-300"
+                            : "border border-slate-200 bg-slate-50 text-slate-600"
+                        }`}
+                      >
+                        {roleLabel}
+                      </span>
+                    ) : null}
+                  </div>
                   <p
                     className={`mt-1 text-sm ${
                       active ? "text-slate-300" : "text-slate-600"

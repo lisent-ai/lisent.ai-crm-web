@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -9,33 +10,24 @@ import type { AccountProfile } from "@/lib/auth/account-profile";
 import { getCompanyRoleLabel } from "@/lib/auth/roles";
 import {
   CRMClientError,
-  createCompany,
-  deleteCompany as deleteCompanyRequest,
   listAllCustomers,
   listCompanies,
   type Company,
 } from "@/lib/crm/client";
 
-import { CompanyCreateModal } from "./company-create-modal";
-import { CompanyDeleteModal } from "./company-delete-modal";
+import { CompanyAccessPanel } from "./company-access-panel";
 import { CompanyDirectoryPanel } from "./company-directory-panel";
-import { CompanySelectedPanel } from "./company-selected-panel";
-import { CompanyWorkspaceHeader } from "./company-workspace-header";
+import { DetailMetric } from "./company-ui";
 
-export function CompanyWorkspace() {
+export function CompanyAccessWorkspace() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const [companies, setCompanies] = useState<Company[]>([]);
   const [customerCounts, setCustomerCounts] = useState<Record<string, number>>({});
   const [selectedCompanyId, setSelectedCompanyId] = useState(searchCompanyId);
-  const [showCreatePanel, setShowCreatePanel] = useState(false);
-  const [showDeletePanel, setShowDeletePanel] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [account, setAccount] = useState<AccountProfile | null>(null);
-  const [companyNameInput, setCompanyNameInput] = useState("");
-  const [countryInput, setCountryInput] = useState("");
-  const [industryInput, setIndustryInput] = useState("");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -71,7 +63,7 @@ export function CompanyWorkspace() {
       const message =
         error instanceof CRMClientError
           ? error.message
-          : "Failed to load CRM workspace.";
+          : "Failed to load the team access workspace.";
       setErrorMessage(message);
     } finally {
       setLoading(false);
@@ -116,49 +108,11 @@ export function CompanyWorkspace() {
     );
   }, [companies, filteredCompanies, selectedCompanyId]);
 
-  async function addCompany() {
-    const name = companyNameInput.trim();
-    const country = countryInput.trim();
-    const industry = industryInput.trim();
+  const selectedMembership =
+    selectedCompany && account
+      ? getCompanyMembershipSummary(account.access, selectedCompany.id)
+      : null;
 
-    if (!name) {
-      return;
-    }
-
-    try {
-      setErrorMessage(null);
-      const createdCompany = await createCompany({ name, country, industry });
-      setSelectedCompanyId(createdCompany.id);
-      setCompanyNameInput("");
-      setCountryInput("");
-      setIndustryInput("");
-      setSearchQuery("");
-      setShowCreatePanel(false);
-      await loadWorkspace();
-    } catch (error) {
-      const message =
-        error instanceof CRMClientError ? error.message : "Failed to create company.";
-      setErrorMessage(message);
-    }
-  }
-
-  async function deleteCompany(companyId: string) {
-    try {
-      setErrorMessage(null);
-      await deleteCompanyRequest(companyId);
-      setSearchQuery("");
-      setShowDeletePanel(false);
-      await loadWorkspace();
-    } catch (error) {
-      const message =
-        error instanceof CRMClientError ? error.message : "Failed to delete company.";
-      setErrorMessage(message);
-    }
-  }
-
-  const selectedCustomerCount = selectedCompany
-    ? customerCounts[selectedCompany.id] ?? 0
-    : 0;
   const getRoleLabel = useCallback(
     (companyId: string) => {
       if (!account) {
@@ -192,73 +146,107 @@ export function CompanyWorkspace() {
     const nextSearch = new URLSearchParams(searchParams.toString());
     nextSearch.set("company", selectedCompany.id);
     nextSearch.set("companyName", selectedCompany.name);
-    router.replace(`/dashboard/companies?${nextSearch.toString()}`, {
+    router.replace(`/dashboard/access?${nextSearch.toString()}`, {
       scroll: false,
     });
   }, [router, searchParams, selectedCompany?.id, selectedCompany?.name]);
 
   return (
     <div className="grid gap-6">
-      <CompanyWorkspaceHeader
-        companyCount={companies.length}
-        onToggleCreatePanel={() => setShowCreatePanel((current) => !current)}
-        showCreatePanel={showCreatePanel}
-      />
+      <section className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,_#eff6ff,_#ffffff_46%,_#f8fafc)] p-6 shadow-[0_16px_44px_rgba(15,23,42,0.06)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700/80">
+          Team access
+        </p>
+        <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
+          <div className="max-w-3xl">
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+              Role management in a dedicated workspace
+            </h1>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              Pick a company from the directory and manage its owner, admin,
+              member, and viewer access from one focused page.
+            </p>
+          </div>
+          {selectedCompany ? (
+            <Link
+              className="inline-flex rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
+              href={`/dashboard/companies?company=${selectedCompany.id}&companyName=${encodeURIComponent(selectedCompany.name)}`}
+            >
+              Open company workspace
+            </Link>
+          ) : null}
+        </div>
 
-      {errorMessage && (
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <DetailMetric label="Companies" value={String(companies.length)} />
+          <DetailMetric
+            label="Selected company"
+            value={selectedCompany?.name ?? "None selected"}
+          />
+          <DetailMetric
+            label="Your role"
+            value={
+              selectedMembership
+                ? getCompanyRoleLabel(selectedMembership.role)
+                : account?.access.isSuperAdmin
+                  ? "Super Admin"
+                  : "-"
+            }
+          />
+          <DetailMetric
+            label="Customers"
+            value={selectedCompany ? String(customerCounts[selectedCompany.id] ?? 0) : "0"}
+          />
+        </div>
+      </section>
+
+      {errorMessage ? (
         <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           {errorMessage}
         </div>
-      )}
+      ) : null}
 
       <section className="grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
-        <div className="grid gap-4">
-          <CompanyDirectoryPanel
-            activeCompanyId={selectedCompany?.id}
-            companies={filteredCompanies}
-            getCustomerCount={(companyId) => customerCounts[companyId] ?? 0}
-            getRoleLabel={getRoleLabel}
-            onSearchQueryChange={setSearchQuery}
-            onSelectCompany={setSelectedCompanyId}
-            searchQuery={searchQuery}
-          />
-        </div>
-
-        <CompanySelectedPanel
-          access={account?.access ?? null}
-          company={selectedCompany}
-          customerCount={selectedCustomerCount}
-          onDelete={() => setShowDeletePanel(true)}
+        <CompanyDirectoryPanel
+          activeCompanyId={selectedCompany?.id}
+          companies={filteredCompanies}
+          getCustomerCount={(companyId) => customerCounts[companyId] ?? 0}
+          getRoleLabel={getRoleLabel}
+          onSearchQueryChange={setSearchQuery}
+          onSelectCompany={setSelectedCompanyId}
+          searchQuery={searchQuery}
         />
+
+        <div className="grid gap-4">
+          {selectedCompany && account ? (
+            <CompanyAccessPanel
+              access={account.access}
+              companyId={selectedCompany.id}
+              companyName={selectedCompany.name}
+              onMembershipsChanged={() => void loadWorkspace()}
+            />
+          ) : (
+            <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                Access
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+                Select a company
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">
+                Choose a company from the directory to inspect memberships and manage
+                team roles from this page.
+              </p>
+            </section>
+          )}
+        </div>
       </section>
 
-      {loading && (
+      {loading ? (
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
-          Loading companies...
+          Loading team access...
         </div>
-      )}
-
-      {showDeletePanel && selectedCompany && (
-        <CompanyDeleteModal
-          companyName={selectedCompany.name}
-          customerCount={selectedCustomerCount}
-          onClose={() => setShowDeletePanel(false)}
-          onConfirmDelete={() => void deleteCompany(selectedCompany.id)}
-        />
-      )}
-
-      {showCreatePanel && (
-        <CompanyCreateModal
-          companyName={companyNameInput}
-          country={countryInput}
-          industry={industryInput}
-          onClose={() => setShowCreatePanel(false)}
-          onCompanyNameChange={setCompanyNameInput}
-          onCountryChange={setCountryInput}
-          onCreate={() => void addCompany()}
-          onIndustryChange={setIndustryInput}
-        />
-      )}
+      ) : null}
     </div>
   );
 }
