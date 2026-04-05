@@ -388,6 +388,15 @@ async function forwardRequest(
     }
   }
 
+  // Authorize /internal/company/:id/* paths (ai-config, kb-documents, etc.)
+  if (resource === "internal" && pathSegments[1] === "company" && pathSegments[2]) {
+    const companyId = pathSegments[2];
+    const allowed = await canAccessCompany(userID, companyId);
+    if (!allowed) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+  }
+
   const upstreamResponse = await sendUpstreamRequest(request, config, userID, pathSegments);
   return relayUpstreamResponse(upstreamResponse);
 }

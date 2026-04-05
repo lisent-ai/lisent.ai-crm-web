@@ -9,14 +9,6 @@ import {
   CRMClientError,
 } from "@/lib/crm/client";
 
-const QUALIFIER_BASE_URL = (
-  process.env.NEXT_PUBLIC_AI_QUALIFIER_BASE_URL ?? "https://api.lisent.ai"
-).replace(/\/+$/, "");
-
-function buildWebhookUrl(token: string) {
-  return `${QUALIFIER_BASE_URL}/webhook/lead/${token}`;
-}
-
 type Props = {
   companyId: string;
 };
@@ -35,12 +27,9 @@ export function CompanyQualifierPanel({ companyId }: Readonly<Props>) {
 
   useEffect(() => {
     getQualifierConfig(companyId).then((cfg) => {
-      const patched = cfg && cfg.token
-        ? { ...cfg, webhookUrl: buildWebhookUrl(cfg.token) }
-        : cfg;
-      setConfig(patched);
-      setFallbackUrl(patched?.fallbackUrl ?? "");
-      setEditingFallback(!patched?.fallbackUrl);
+      setConfig(cfg);
+      setFallbackUrl(cfg?.fallbackUrl ?? "");
+      setEditingFallback(!cfg?.fallbackUrl);
       setLoading(false);
     });
   }, [companyId]);
@@ -54,7 +43,7 @@ export function CompanyQualifierPanel({ companyId }: Readonly<Props>) {
       setConfig((prev) => ({
         companyId: result.companyId,
         token: result.token,
-        webhookUrl: buildWebhookUrl(result.token),
+        webhookUrl: result.webhookUrl,
         fallbackUrl: prev?.fallbackUrl ?? null,
       }));
     } catch (err) {

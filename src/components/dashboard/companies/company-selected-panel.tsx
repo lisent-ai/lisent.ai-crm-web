@@ -1,11 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 
 import { type Company } from "@/lib/crm/client";
 
 import { DetailMetric } from "./company-ui";
 import { CompanyWhatsAppPanel } from "./company-whatsapp-panel";
-import { CompanyQualifierPanel } from "./company-qualifier-panel";
-import { CompanyQualifierLeads } from "./company-qualifier-leads";
+import { QualifierDashboard } from "./qualifier/qualifier-dashboard";
 
 type CompanySelectedPanelProps = {
   company?: Company;
@@ -18,6 +20,29 @@ export function CompanySelectedPanel({
   customerCount,
   onDelete,
 }: Readonly<CompanySelectedPanelProps>) {
+  const [showQualifierLeads, setShowQualifierLeads] = useState(false);
+
+  // When qualifier leads panel is open, show it full-width
+  if (showQualifierLeads && company) {
+    return (
+      <section className="rounded-[1.8rem] border border-slate-200/60 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)] animate-[fadeIn_0.3s_ease-out]">
+        <div className="mb-5 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setShowQualifierLeads(false)}
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition-all duration-200 hover:border-slate-400 hover:shadow-sm active:scale-95"
+          >
+            Geri
+          </button>
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
+            {company.name} — AI Qualifier
+          </h2>
+        </div>
+        <QualifierDashboard companyId={company.id} />
+      </section>
+    );
+  }
+
   return (
     <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
       <p className="text-sm font-semibold uppercase tracking-[0.3em] text-emerald-700/80">
@@ -75,6 +100,13 @@ export function CompanySelectedPanel({
                   Open customer directory
                 </Link>
                 <button
+                  type="button"
+                  onClick={() => setShowQualifierLeads(true)}
+                  className="inline-flex items-center justify-center rounded-full bg-[linear-gradient(90deg,_#4c1d95,_#7c3aed)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(76,29,149,0.18)] transition hover:brightness-110"
+                >
+                  AI Qualifier Paneli
+                </button>
+                <button
                   className="inline-flex items-center justify-center rounded-full border border-rose-300 bg-rose-50 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:border-rose-400 hover:bg-rose-100"
                   onClick={onDelete}
                   type="button"
@@ -88,15 +120,9 @@ export function CompanySelectedPanel({
       </div>
 
       {company && (
-        <>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <CompanyWhatsAppPanel companyId={company.id} />
-            <CompanyQualifierPanel companyId={company.id} />
-          </div>
-          <div className="mt-4">
-            <CompanyQualifierLeads companyId={company.id} />
-          </div>
-        </>
+        <div className="mt-6">
+          <CompanyWhatsAppPanel companyId={company.id} />
+        </div>
       )}
     </section>
   );
