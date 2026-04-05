@@ -556,6 +556,125 @@ export async function updateQualifierFallbackUrl(
   });
 }
 
+// ─── RAG Webhook ────────────────────────────────────────────────────────────
+
+export type RAGTokenResponse = {
+  companyId: string;
+  token: string;
+  webhookUrl: string;
+};
+
+export type RAGConfigResponse = {
+  companyId: string;
+  token: string | null;
+  webhookUrl: string | null;
+};
+
+export type WebhookDataEntry = {
+  id: string;
+  companyId: string;
+  label: string;
+  payload: unknown;
+  receivedAt: string;
+};
+
+export type WebhookDataListItem = {
+  id: string;
+  companyId: string;
+  label: string;
+  payloadSize: number;
+  receivedAt: string;
+};
+
+export async function generateRAGToken(
+  companyId: string,
+): Promise<RAGTokenResponse> {
+  const record = await requestCRM<{
+    company_id: string;
+    token: string;
+    webhook_url: string;
+  }>(`/internal/company/${companyId}/generate-rag-token`, { method: "POST" });
+  return {
+    companyId: record.company_id,
+    token: record.token,
+    webhookUrl: record.webhook_url,
+  };
+}
+
+export async function getRAGConfig(
+  companyId: string,
+): Promise<RAGConfigResponse | null> {
+  try {
+    const record = await requestCRM<{
+      company_id: string;
+      token: string | null;
+      webhook_url: string | null;
+    }>(`/internal/company/${companyId}/rag-config`);
+    return {
+      companyId: record.company_id,
+      token: record.token ?? null,
+      webhookUrl: record.webhook_url ?? null,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export async function listWebhookData(
+  companyId: string,
+): Promise<WebhookDataListItem[]> {
+  try {
+    const res = await requestCRM<
+      {
+        id: string;
+        company_id: string;
+        label: string;
+        payload_size: number;
+        received_at: string;
+      }[]
+    >(`/internal/company/${companyId}/webhook-data`);
+    return res.map((r) => ({
+      id: r.id,
+      companyId: r.company_id,
+      label: r.label,
+      payloadSize: r.payload_size,
+      receivedAt: r.received_at,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function getWebhookDataDetail(
+  companyId: string,
+  dataId: string,
+): Promise<WebhookDataEntry> {
+  const record = await requestCRM<{
+    id: string;
+    company_id: string;
+    label: string;
+    payload: unknown;
+    received_at: string;
+  }>(`/internal/company/${companyId}/webhook-data/${dataId}`);
+  return {
+    id: record.id,
+    companyId: record.company_id,
+    label: record.label,
+    payload: record.payload,
+    receivedAt: record.received_at,
+  };
+}
+
+export async function deleteWebhookData(
+  companyId: string,
+  dataId: string,
+): Promise<void> {
+  await requestCRM<void>(
+    `/internal/company/${companyId}/webhook-data/${dataId}`,
+    { method: "DELETE" },
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function createCustomerFromImportPayload(

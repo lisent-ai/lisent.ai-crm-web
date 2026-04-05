@@ -205,10 +205,11 @@ export function QualifierLeadDetailView({ companyId, detail, onBack }: Readonly<
             </div>
           )}
 
-          {/* Score + CHAMP side by side on desktop */}
-          <div className="grid gap-4 lg:grid-cols-2">
+          {/* CHAMP Analysis Dashboard */}
+          <div>
             {champ && (
               <QualifierBantRadar
+                compositeScore={finalScore}
                 champ={{
                   challenges: Number(champ.challenges_score ?? champ.challenges ?? 0),
                   authority: Number(champ.authority_score ?? champ.authority ?? 0),
@@ -229,6 +230,12 @@ export function QualifierLeadDetailView({ companyId, detail, onBack }: Readonly<
                   negative_reasoning: champ.negative_reasoning as string | undefined,
                   recommended_next_question: champ.recommended_next_question as string | undefined,
                   missing_info: champ.missing_info as string[] | undefined,
+                  challenges_confidence: champ.challenges_confidence as number | undefined,
+                  authority_confidence: champ.authority_confidence as number | undefined,
+                  money_confidence: champ.money_confidence as number | undefined,
+                  prioritization_confidence: champ.prioritization_confidence as number | undefined,
+                  sector_qualifiers: champ.sector_qualifiers as Record<string, unknown> | undefined,
+                  scoring_mode: champ.scoring_mode as string | undefined,
                 }}
               />
             )}

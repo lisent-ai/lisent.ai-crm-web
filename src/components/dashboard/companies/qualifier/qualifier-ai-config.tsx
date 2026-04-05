@@ -1,15 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { WebhookDataPanel } from "./webhook-data-panel";
 
 /* ─── Types ──────────────────────────────────────────────────────────────── */
-
-type ScoringWeights = {
-  fit: number;
-  qualification: number;
-  engagement: number;
-  sector_bonus: number;
-};
 
 type AIConfig = {
   company_display_name: string;
@@ -25,7 +19,8 @@ type AIConfig = {
   working_hours: string;
   faq_entries: { question: string; answer: string }[];
   pricing_hints: string;
-  scoring_weights: ScoringWeights;
+  ideal_customer_profile: string;
+  handoff_aggressiveness: string;
 };
 
 type KBDocument = {
@@ -41,12 +36,7 @@ type KBDocument = {
 type Props = { companyId: string };
 type ConfigTab = "identity" | "scoring" | "knowledge" | "rules";
 
-const DEFAULT_WEIGHTS: ScoringWeights = {
-  fit: 0.3,
-  qualification: 0.45,
-  engagement: 0.15,
-  sector_bonus: 0.1,
-};
+type Aggressiveness = "conservative" | "balanced" | "aggressive";
 
 const TABS: { key: ConfigTab; label: string; icon: string }[] = [
   { key: "identity", label: "Kimlik & Profil", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
@@ -119,9 +109,9 @@ export function QualifierAIConfig({ companyId }: Readonly<Props>) {
   const [pricingHints, setPricingHints] = useState("");
 
   // Scoring fields
-  const [threshold, setThreshold] = useState(80);
+  const [idealCustomerProfile, setIdealCustomerProfile] = useState("");
+  const [aggressiveness, setAggressiveness] = useState<Aggressiveness>("balanced");
   const [maxMessages, setMaxMessages] = useState(10);
-  const [weights, setWeights] = useState<ScoringWeights>(DEFAULT_WEIGHTS);
 
   // Knowledge base
   const [faqQuestion, setFaqQuestion] = useState("");
@@ -151,9 +141,9 @@ export function QualifierAIConfig({ companyId }: Readonly<Props>) {
         setClosingMessage(cfg.closing_message || "");
         setWorkingHours(cfg.working_hours || "");
         setPricingHints(cfg.pricing_hints || "");
-        setThreshold(cfg.qualification_threshold || 80);
+        setIdealCustomerProfile(cfg.ideal_customer_profile || "");
+        setAggressiveness((cfg.handoff_aggressiveness as Aggressiveness) || "balanced");
         setMaxMessages(cfg.max_messages_before_handoff || 10);
-        setWeights(cfg.scoring_weights || DEFAULT_WEIGHTS);
         setForbidden(cfg.forbidden_topics || []);
         setFaq(cfg.faq_entries || []);
         setQualifyingQuestions(cfg.custom_qualifying_questions || []);
@@ -179,9 +169,9 @@ export function QualifierAIConfig({ companyId }: Readonly<Props>) {
         closing_message: closingMessage,
         working_hours: workingHours,
         pricing_hints: pricingHints,
-        qualification_threshold: threshold,
+        ideal_customer_profile: idealCustomerProfile,
+        handoff_aggressiveness: aggressiveness,
         max_messages_before_handoff: maxMessages,
-        scoring_weights: weights,
         forbidden_topics: forbidden,
         faq_entries: faq,
         custom_qualifying_questions: qualifyingQuestions,
@@ -193,16 +183,7 @@ export function QualifierAIConfig({ companyId }: Readonly<Props>) {
     } finally {
       setSaving(false);
     }
-  }, [companyId, displayName, industry, tone, language, persona, closingMessage, workingHours, pricingHints, threshold, maxMessages, weights, forbidden, faq, qualifyingQuestions]);
-
-  /* ─── Scoring weight helpers ───────────────────────────────────────────── */
-
-  const weightsSum = weights.fit + weights.qualification + weights.engagement + weights.sector_bonus;
-  const weightsValid = weightsSum >= 0.98 && weightsSum <= 1.02;
-
-  function updateWeight(key: keyof ScoringWeights, value: number) {
-    setWeights((prev) => ({ ...prev, [key]: Math.round(value * 100) / 100 }));
-  }
+  }, [companyId, displayName, industry, tone, language, persona, closingMessage, workingHours, pricingHints, idealCustomerProfile, aggressiveness, maxMessages, forbidden, faq, qualifyingQuestions]);
 
   /* ─── KB upload ────────────────────────────────────────────────────────── */
 
@@ -362,54 +343,61 @@ export function QualifierAIConfig({ companyId }: Readonly<Props>) {
         {/* ── SCORING TAB ────────────────────────────────────────────────────── */}
         {activeTab === "scoring" && (
           <div className="space-y-5 animate-[fadeIn_0.2s_ease-out]">
-            <SectionHeader title="Scoring Agirliklari" />
-            <p className="text-xs text-slate-500">Her boyutun toplam skora katkisini ayarlayin. Toplam %100 olmalidir.</p>
-
-            {/* Weight distribution bar */}
-            <div className="h-3 flex rounded-full overflow-hidden">
-              <div className="bg-blue-500 transition-all" style={{ width: `${weights.fit * 100}%` }} title="Fit" />
-              <div className="bg-violet-500 transition-all" style={{ width: `${weights.qualification * 100}%` }} title="Qualification" />
-              <div className="bg-amber-500 transition-all" style={{ width: `${weights.engagement * 100}%` }} title="Engagement" />
-              <div className="bg-emerald-500 transition-all" style={{ width: `${weights.sector_bonus * 100}%` }} title="Sector Bonus" />
+            <SectionHeader title="Ideal Musteri Profili" />
+            <p className="text-xs text-slate-500">
+              AI, leadleri bu profile gore degerlendirir. Ne kadar detayli tanimlarsan, puanlama o kadar isabetli olur.
+            </p>
+            <div>
+              <textarea
+                value={idealCustomerProfile}
+                onChange={(e) => setIdealCustomerProfile(e.target.value.slice(0, 1000))}
+                rows={4}
+                placeholder={"Ornek: Turkiye'de 500m2+ konut veya ticari proje planlayan kisiler. Butce 3M+ TL. Karar verici mal sahibi veya yatirimci. Zaman cizelgesi 6 ay icerisinde. Bonus: arsasi var, mimari ile calisiyor."}
+                className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:border-violet-400 focus:outline-none focus:ring-1 focus:ring-violet-400 resize-none"
+              />
+              <p className="mt-1 text-right text-[10px] text-slate-400">{idealCustomerProfile.length}/1000</p>
             </div>
 
-            <div className="grid gap-4">
-              <WeightSlider label="Fit (Form Verisi)" color="bg-blue-500" value={weights.fit} onChange={(v) => updateWeight("fit", v)} />
-              <WeightSlider label="Qualification (CHAMP)" color="bg-violet-500" value={weights.qualification} onChange={(v) => updateWeight("qualification", v)} />
-              <WeightSlider label="Engagement (Davranis)" color="bg-amber-500" value={weights.engagement} onChange={(v) => updateWeight("engagement", v)} />
-              <WeightSlider label="Sector Bonus" color="bg-emerald-500" value={weights.sector_bonus} onChange={(v) => updateWeight("sector_bonus", v)} />
+            <SectionHeader title="Yonlendirme Hassasiyeti" />
+            <p className="text-xs text-slate-500">
+              Nitelikli leadlerin satis ekibine ne kadar hizli yonlendirilecegini belirler.
+            </p>
+            <div className="grid grid-cols-3 gap-2">
+              {([
+                { value: "conservative" as Aggressiveness, label: "Temkinli", desc: "Sadece cok emin oldugunuz leadleri yonlendirir", icon: "🛡️" },
+                { value: "balanced" as Aggressiveness, label: "Dengeli", desc: "Iyi nitelikli leadleri yonlendirir", icon: "⚖️" },
+                { value: "aggressive" as Aggressiveness, label: "Agresif", desc: "Umut vaat eden tum leadleri yonlendirir", icon: "🚀" },
+              ]).map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setAggressiveness(opt.value)}
+                  className={`flex flex-col items-center gap-1.5 rounded-xl border-2 px-3 py-4 text-center transition-all ${
+                    aggressiveness === opt.value
+                      ? "border-violet-500 bg-violet-50 shadow-sm"
+                      : "border-slate-200 bg-white hover:border-slate-300"
+                  }`}
+                >
+                  <span className="text-xl">{opt.icon}</span>
+                  <span className={`text-sm font-semibold ${aggressiveness === opt.value ? "text-violet-700" : "text-slate-700"}`}>
+                    {opt.label}
+                  </span>
+                  <span className="text-[10px] leading-snug text-slate-500">{opt.desc}</span>
+                </button>
+              ))}
             </div>
 
-            {!weightsValid && (
-              <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-700">
-                Toplam: %{Math.round(weightsSum * 100)} — Agirliklarin toplami %100 olmalidir.
-              </p>
-            )}
-
-            <SectionHeader title="Esikler" />
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">
-                  Kalifikasyon Esigi: <span className="font-bold text-violet-700">{threshold}</span>
-                </label>
-                <input
-                  type="range" min={50} max={100} value={threshold}
-                  onChange={(e) => setThreshold(Number(e.target.value))}
-                  className="w-full accent-violet-600"
-                />
-                <div className="flex justify-between text-[10px] text-slate-400"><span>50 (Dusuk)</span><span>100 (Yuksek)</span></div>
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-slate-600 mb-1">
-                  Max Mesaj (Handoff Oncesi): <span className="font-bold text-violet-700">{maxMessages}</span>
-                </label>
-                <input
-                  type="range" min={5} max={30} value={maxMessages}
-                  onChange={(e) => setMaxMessages(Number(e.target.value))}
-                  className="w-full accent-violet-600"
-                />
-                <div className="flex justify-between text-[10px] text-slate-400"><span>5</span><span>30</span></div>
-              </div>
+            <SectionHeader title="Sohbet Ayarlari" />
+            <div>
+              <label className="block text-xs font-medium text-slate-600 mb-1">
+                Max Mesaj (Handoff Oncesi): <span className="font-bold text-violet-700">{maxMessages}</span>
+              </label>
+              <input
+                type="range" min={5} max={30} value={maxMessages}
+                onChange={(e) => setMaxMessages(Number(e.target.value))}
+                className="w-full accent-violet-600"
+              />
+              <div className="flex justify-between text-[10px] text-slate-400"><span>5</span><span>30</span></div>
             </div>
           </div>
         )}
@@ -505,6 +493,13 @@ export function QualifierAIConfig({ companyId }: Readonly<Props>) {
                 </div>
               ))}
             </div>
+
+            <SectionHeader title="Webhook Verisi (RAG)" />
+            <p className="text-xs text-slate-500">
+              Harici sistemlerden gelen webhook verilerini AI bilgi bankasina ekleyin.
+              Herhangi bir JSON formatinda veri gonderebilirsiniz.
+            </p>
+            <WebhookDataPanel companyId={companyId} />
           </div>
         )}
 
@@ -561,7 +556,7 @@ export function QualifierAIConfig({ companyId }: Readonly<Props>) {
       <button
         type="button"
         onClick={handleSave}
-        disabled={saving || !weightsValid}
+        disabled={saving}
         className="w-full rounded-lg bg-violet-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-violet-700 disabled:opacity-50"
       >
         {saving ? "Kaydediliyor..." : "Ayarlari Kaydet"}
@@ -614,24 +609,6 @@ function SelectField({ label, value, onChange, options }: {
       <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm focus:border-violet-400 focus:outline-none">
         {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
       </select>
-    </div>
-  );
-}
-
-function WeightSlider({ label, color, value, onChange }: {
-  label: string; color: string; value: number; onChange: (v: number) => void;
-}) {
-  const pct = Math.round(value * 100);
-  return (
-    <div className="flex items-center gap-3">
-      <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${color}`} />
-      <span className="text-xs font-medium text-slate-700 w-40 shrink-0">{label}</span>
-      <input
-        type="range" min={0} max={100} step={5} value={pct}
-        onChange={(e) => onChange(Number(e.target.value) / 100)}
-        className="flex-1 accent-violet-600"
-      />
-      <span className="text-xs font-bold text-slate-800 w-10 text-right">%{pct}</span>
     </div>
   );
 }
