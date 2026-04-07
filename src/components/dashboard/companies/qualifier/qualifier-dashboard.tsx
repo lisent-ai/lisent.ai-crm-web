@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition, useCallback } from "react";
+import { useState, useEffect, useTransition, useCallback, useRef } from "react";
 import {
   listQualifierLeads,
   getQualifierLeadDetail,
@@ -105,7 +105,7 @@ export function QualifierDashboard({ companyId }: Readonly<Props>) {
   const [selectedDetail, setSelectedDetail] = useState<QualifierLeadDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
 
-  // Fetch leads
+  // Fetch leads (with loading skeleton)
   const fetchLeads = useCallback(
     (params: LeadFilterParams) => {
       setLoading(true);
@@ -117,9 +117,30 @@ export function QualifierDashboard({ companyId }: Readonly<Props>) {
     [companyId],
   );
 
+  // Silent refresh (no loading skeleton — for auto-polling)
+  const silentRefresh = useCallback(
+    (params: LeadFilterParams) => {
+      listQualifierLeads(companyId, params)
+        .then(setLeadsData)
+        .catch(() => {});
+    },
+    [companyId],
+  );
+
+  // Keep filters ref in sync for polling callback
+  const filtersRef = useRef(filters);
+  filtersRef.current = filters;
+
   useEffect(() => {
     fetchLeads(filters);
   }, [companyId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Auto-poll leads every 10s while the leads tab is active
+  useEffect(() => {
+    if (activeTab !== "leads" || selectedDetail) return;
+    const interval = setInterval(() => silentRefresh(filtersRef.current), 10_000);
+    return () => clearInterval(interval);
+  }, [activeTab, selectedDetail, silentRefresh]);
 
   function handleFiltersChange(newFilters: LeadFilterParams) {
     setFilters(newFilters);

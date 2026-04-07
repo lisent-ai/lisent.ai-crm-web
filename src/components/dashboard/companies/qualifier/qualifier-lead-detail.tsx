@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import type { QualifierLeadDetail, ConversationMessage } from "@/lib/qualifier/client";
-import { getSessionInfo } from "@/lib/qualifier/client";
+import { getQualifierLeadDetail } from "@/lib/qualifier/client";
 import { QualifierBantRadar } from "./qualifier-bant-radar";
 import { QualifierConversation } from "./qualifier-conversation";
 import { QualifierReasoning } from "./qualifier-reasoning";
@@ -52,55 +52,59 @@ export function QualifierLeadDetailView({ companyId, detail, onBack }: Readonly<
   const [currentStatus, setCurrentStatus] = useState(detail.status);
   const [currentStage, setCurrentStage] = useState(detail.stage ?? "CHAT");
   const [liveMessages, setLiveMessages] = useState<ConversationMessage[]>(detail.messages ?? []);
+  const [liveScore, setLiveScore] = useState(detail.final_score ?? detail.score);
+  const [liveChamp, setLiveChamp] = useState<Record<string, unknown> | null>(detail.champ_json ?? detail.handoff_champ_json ?? null);
+  const [liveReasoning, setLiveReasoning] = useState<Record<string, unknown> | null>(detail.reasoning_json ?? null);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const isTakeover = currentStage === "HUMAN_TAKEOVER";
+  const isActiveSession = !!detail.session_id &&
+    ["PENDING", "CHAT", "HUMAN_TAKEOVER"].includes(currentStage);
 
-  // Poll session for new messages during takeover
-  const pollSession = useCallback(async () => {
-    if (!detail.session_id) return;
+  // ── Unified polling: refresh full detail (score, CHAMP, messages, stage) ──
+  const pollDetail = useCallback(async () => {
     try {
-      const info = await getSessionInfo(companyId, detail.session_id);
-      setLiveMessages(info.messages);
-      if (info.stage !== currentStage) {
-        setCurrentStage(info.stage);
-      }
+      const fresh = await getQualifierLeadDetail(companyId, detail.id);
+      setLiveScore(fresh.final_score ?? fresh.score);
+      setLiveChamp(fresh.champ_json ?? fresh.handoff_champ_json ?? null);
+      setLiveMessages(fresh.messages ?? []);
+      if (fresh.reasoning_json) setLiveReasoning(fresh.reasoning_json);
+      if (fresh.stage) setCurrentStage(fresh.stage);
+      if (fresh.status) setCurrentStatus(fresh.status);
     } catch { /* silent */ }
-  }, [companyId, detail.session_id, currentStage]);
+  }, [companyId, detail.id]);
 
   useEffect(() => {
-    if (isTakeover && detail.session_id) {
-      pollingRef.current = setInterval(pollSession, 5000);
-      return () => { if (pollingRef.current) clearInterval(pollingRef.current); };
+    if (!isActiveSession) {
+      if (pollingRef.current) { clearInterval(pollingRef.current); pollingRef.current = null; }
+      return;
     }
-    if (pollingRef.current) {
-      clearInterval(pollingRef.current);
-      pollingRef.current = null;
-    }
-  }, [isTakeover, detail.session_id, pollSession]);
+    // Takeover needs faster updates (manual chat), otherwise 8s
+    const ms = isTakeover ? 5_000 : 8_000;
+    pollingRef.current = setInterval(pollDetail, ms);
+    return () => { if (pollingRef.current) clearInterval(pollingRef.current); };
+  }, [isActiveSession, isTakeover, pollDetail]);
 
   const handleStageChanged = useCallback((stage: string) => {
     setCurrentStage(stage);
-    if (detail.session_id) {
-      getSessionInfo(companyId, detail.session_id)
-        .then((info) => setLiveMessages(info.messages))
-        .catch(() => {});
-    }
-  }, [companyId, detail.session_id]);
+    pollDetail();
+  }, [pollDetail]);
 
   const handleMessageSent = useCallback(() => {
-    if (detail.session_id) {
-      getSessionInfo(companyId, detail.session_id)
-        .then((info) => setLiveMessages(info.messages))
-        .catch(() => {});
-    }
-  }, [companyId, detail.session_id]);
+    pollDetail();
+  }, [pollDetail]);
 
   const ex = detail.extra_data ?? {};
   const rawPayload = detail.raw_payload ?? {};
+  // Prefer top-level columns (from LLM mapping), fallback to extra_data (legacy)
+  const leadSource = detail.source || ex.source || "";
+  const leadProjectType = detail.project_type || ex.project_type || "";
+  const leadBudgetRange = detail.budget_range || ex.budget_range || "";
+  const leadCity = detail.city || ex.city || "";
+  const leadEmail = detail.email || ex.email || "";
   const messages = liveMessages.length > 0 ? liveMessages : (detail.messages ?? []);
-  const champ = detail.champ_json ?? detail.handoff_champ_json;
-  const finalScore = detail.final_score ?? detail.score;
+  const champ = liveChamp;
+  const finalScore = liveScore;
   const createdDate = new Date(detail.created_at).toLocaleDateString("tr-TR", { day: "2-digit", month: "short", year: "numeric" });
   const createdTime = new Date(detail.created_at).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
   const [rawExpanded, setRawExpanded] = useState(false);
@@ -126,7 +130,7 @@ export function QualifierLeadDetailView({ companyId, detail, onBack }: Readonly<
           <h3 className="text-xl font-semibold text-slate-950 truncate">{detail.name || "Isimsiz"}</h3>
           <div className="flex items-center gap-2 text-sm text-slate-500">
             <span>{detail.phone || "Telefon yok"}</span>
-            {ex.email ? <><span className="text-slate-300">|</span><span>{String(ex.email)}</span></> : null}
+            {leadEmail ? <><span className="text-slate-300">|</span><span>{String(leadEmail)}</span></> : null}
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -147,10 +151,10 @@ export function QualifierLeadDetailView({ companyId, detail, onBack }: Readonly<
       {/* ── Contact card + Status actions ────────────────────────────────── */}
       <div className="grid gap-4 lg:grid-cols-[1fr_auto]">
         <div className="flex flex-wrap gap-2">
-          {ex.source ? <InfoPill icon="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" label={SOURCE_LABEL[String(ex.source)] ?? String(ex.source)} /> : null}
-          {ex.project_type ? <InfoPill icon="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" label={PROJECT_LABEL[String(ex.project_type)] ?? String(ex.project_type)} /> : null}
-          {ex.budget_range ? <InfoPill icon="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" label={String(ex.budget_range)} /> : null}
-          {ex.city ? <InfoPill icon="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" label={String(ex.city)} /> : null}
+          {leadSource ? <InfoPill icon="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" label={SOURCE_LABEL[String(leadSource)] ?? String(leadSource)} /> : null}
+          {leadProjectType ? <InfoPill icon="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" label={PROJECT_LABEL[String(leadProjectType)] ?? String(leadProjectType)} /> : null}
+          {leadBudgetRange ? <InfoPill icon="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" label={String(leadBudgetRange)} /> : null}
+          {leadCity ? <InfoPill icon="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" label={String(leadCity)} /> : null}
           <InfoPill icon="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" label={`${createdDate} ${createdTime}`} />
           <InfoPill icon="M13 10V3L4 14h7v7l9-11h-7z" label={detail.path === "fast" ? "Hizli Yol" : "Sohbet"} />
           {detail.sent_at && (
@@ -242,8 +246,8 @@ export function QualifierLeadDetailView({ companyId, detail, onBack }: Readonly<
           </div>
 
           {/* AI Reasoning */}
-          {detail.reasoning_json && (
-            <QualifierReasoning reasoning={detail.reasoning_json} />
+          {liveReasoning && (
+            <QualifierReasoning reasoning={liveReasoning} />
           )}
 
           {/* Takeover / AI Control (for chat-path leads with sessions) */}

@@ -675,6 +675,20 @@ export async function deleteWebhookData(
   );
 }
 
+export async function bulkDeleteWebhookData(
+  companyId: string,
+  ids: string[],
+): Promise<{ deleted: number }> {
+  return requestCRM<{ deleted: number }>(
+    `/internal/company/${companyId}/webhook-data/bulk-delete`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ids }),
+    },
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function createCustomerFromImportPayload(

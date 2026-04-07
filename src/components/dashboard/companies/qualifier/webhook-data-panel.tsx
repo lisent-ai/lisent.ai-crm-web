@@ -7,6 +7,7 @@ import {
   listWebhookData,
   getWebhookDataDetail,
   deleteWebhookData,
+  bulkDeleteWebhookData,
   CRMClientError,
   type RAGConfigResponse,
   type WebhookDataListItem,
@@ -28,6 +29,10 @@ export function WebhookDataPanel({ companyId }: Readonly<Props>) {
   const [previewId, setPreviewId] = useState<string | null>(null);
   const [previewPayload, setPreviewPayload] = useState<string | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
+
+  // Bulk selection state
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkDeleting, setBulkDeleting] = useState(false);
 
   useEffect(() => {
     Promise.all([getRAGConfig(companyId), listWebhookData(companyId)])
@@ -105,6 +110,44 @@ export function WebhookDataPanel({ companyId }: Readonly<Props>) {
     }
   }
 
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleSelectAll() {
+    if (selected.size === entries.length) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(entries.map((e) => e.id)));
+    }
+  }
+
+  async function handleBulkDelete() {
+    if (selected.size === 0) return;
+    if (!confirm(`${selected.size} webhook verisi silinecek. Devam edilsin mi?`)) return;
+    setBulkDeleting(true);
+    try {
+      await bulkDeleteWebhookData(companyId, Array.from(selected));
+      setEntries((prev) => prev.filter((e) => !selected.has(e.id)));
+      if (previewId && selected.has(previewId)) {
+        setPreviewId(null);
+        setPreviewPayload(null);
+      }
+      setSelected(new Set());
+    } catch (err) {
+      setError(
+        err instanceof CRMClientError ? err.message : "Toplu silme basarisiz.",
+      );
+    } finally {
+      setBulkDeleting(false);
+    }
+  }
+
   function formatDate(iso: string): string {
     try {
       return new Date(iso).toLocaleString("tr-TR", {
@@ -176,17 +219,52 @@ export function WebhookDataPanel({ companyId }: Readonly<Props>) {
       {/* Webhook Data List */}
       {entries.length > 0 && (
         <div className="space-y-2">
-          <p className="text-xs font-medium text-slate-500">
-            Gelen Webhook Verileri ({entries.length})
-          </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <p className="text-xs font-medium text-slate-500">
+                Gelen Webhook Verileri ({entries.length})
+              </p>
+              <label className="flex items-center gap-1.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={selected.size === entries.length && entries.length > 0}
+                  onChange={toggleSelectAll}
+                  className="h-3.5 w-3.5 rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+                />
+                <span className="text-xs text-slate-400">Tumunu sec</span>
+              </label>
+            </div>
+            {selected.size > 0 && (
+              <button
+                onClick={handleBulkDelete}
+                disabled={bulkDeleting}
+                type="button"
+                className="rounded-full bg-rose-500 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-rose-600 disabled:opacity-50"
+              >
+                {bulkDeleting
+                  ? "Siliniyor..."
+                  : `Secilenleri Sil (${selected.size})`}
+              </button>
+            )}
+          </div>
           <div className="space-y-2">
             {entries.map((entry, idx) => (
               <div
                 key={entry.id}
-                className="rounded-xl border border-slate-100 bg-white p-3 space-y-2"
+                className={`rounded-xl border bg-white p-3 space-y-2 transition ${
+                  selected.has(entry.id)
+                    ? "border-violet-300 bg-violet-50/30"
+                    : "border-slate-100"
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={selected.has(entry.id)}
+                      onChange={() => toggleSelect(entry.id)}
+                      className="h-3.5 w-3.5 rounded border-slate-300 text-violet-600 focus:ring-violet-500"
+                    />
                     <span className="text-xs font-medium text-slate-700">
                       {entry.label || `Webhook #${entries.length - idx}`}
                     </span>
