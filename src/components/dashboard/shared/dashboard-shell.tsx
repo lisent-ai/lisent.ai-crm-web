@@ -20,6 +20,7 @@ const navItems = [
   { href: "/dashboard/access", label: "Team Access" },
   { href: "/dashboard/imports", label: "Customer Import" },
   { href: "/dashboard/leads", label: "Leads" },
+  { href: "/dashboard/deals", label: "Deals" },
   { href: "/dashboard/customers", label: "Customers" },
 ];
 
@@ -96,6 +97,7 @@ export function DashboardShell({
       (baseHref === "/dashboard/companies" ||
         baseHref === "/dashboard/access" ||
         baseHref === "/dashboard/leads" ||
+        baseHref === "/dashboard/deals" ||
         baseHref === "/dashboard/customers" ||
         baseHref === "/dashboard/imports") &&
       selectedCompanyId

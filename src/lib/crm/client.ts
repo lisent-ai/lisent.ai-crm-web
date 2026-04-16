@@ -54,10 +54,31 @@ type CRMDealRecord = {
   id: string;
   customer_id?: string | null;
   company_id?: string | null;
+  source_lead_id?: string | null;
+  name?: string;
   stage?: string;
   amount?: number;
+  currency?: string;
   close_date?: string | null;
+  termination_date?: string | null;
+  won_reason?: string | null;
+  loss_reason?: string | null;
+  assignee_user_id?: string | null;
+  assignee_user_name?: string | null;
   extra_data?: Record<string, unknown>;
+  stage_history?: CRMDealStageHistoryRecord[];
+  created_at: string;
+  updated_at: string;
+};
+
+type CRMDealStageHistoryRecord = {
+  id: string;
+  deal_id: string;
+  stage?: string;
+  entered_at: string;
+  exited_at?: string | null;
+  changed_by_user_id?: string | null;
+  changed_by_user_name?: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -143,10 +164,39 @@ export type Deal = {
   id: string;
   customerId: string;
   companyId: string;
-  stage: string;
+  sourceLeadId: string;
+  name: string;
+  stage: DealStage;
   amount: number;
+  currency: string;
   closeDate: string;
+  terminationDate: string;
+  wonReason: string;
+  lossReason: string;
+  assigneeUserId: string;
+  assigneeUserName: string;
   extraData: Record<string, string>;
+  stageHistory: DealStageHistory[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DealStage =
+  | "new"
+  | "qualified"
+  | "proposal"
+  | "negotiation"
+  | "won"
+  | "lost";
+
+export type DealStageHistory = {
+  id: string;
+  dealId: string;
+  stage: DealStage;
+  enteredAt: string;
+  exitedAt: string;
+  changedByUserId: string;
+  changedByUserName: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -157,6 +207,12 @@ export type LeadFilters = {
   assigneeUserId?: string;
   q?: string;
   unassigned?: boolean;
+};
+
+export type DealFilters = {
+  stage?: string;
+  assigneeUserId?: string;
+  q?: string;
 };
 
 export type UpsertLeadInput = {
@@ -192,6 +248,23 @@ export type ConvertLeadInput = {
     closeDate?: string;
     extraData?: Record<string, string>;
   } | null;
+};
+
+export type UpsertDealInput = {
+  companyId: string;
+  customerId?: string;
+  sourceLeadId?: string;
+  name: string;
+  stage: DealStage;
+  amount: number;
+  currency: string;
+  closeDate?: string;
+  terminationDate?: string;
+  wonReason: string;
+  lossReason: string;
+  assigneeUserId: string;
+  assigneeUserName: string;
+  extraData?: Record<string, string>;
 };
 
 export type LeadConversionResult = {
@@ -336,10 +409,29 @@ function mapDeal(record: CRMDealRecord): Deal {
     id: record.id,
     customerId: record.customer_id ?? "",
     companyId: record.company_id ?? "",
-    stage: record.stage?.trim() || "new",
+    sourceLeadId: record.source_lead_id ?? "",
+    name: record.name?.trim() || "Untitled deal",
+    stage: (record.stage?.trim() || "new") as DealStage,
     amount: Number(record.amount ?? 0),
+    currency: record.currency?.trim() || "EUR",
     closeDate: record.close_date ?? "",
+    terminationDate: record.termination_date ?? "",
+    wonReason: record.won_reason?.trim() || "",
+    lossReason: record.loss_reason?.trim() || "",
+    assigneeUserId: record.assignee_user_id?.trim() || "",
+    assigneeUserName: record.assignee_user_name?.trim() || "",
     extraData: normalizeExtraData(record.extra_data),
+    stageHistory: (record.stage_history ?? []).map((entry) => ({
+      id: entry.id,
+      dealId: entry.deal_id,
+      stage: (entry.stage?.trim() || "new") as DealStage,
+      enteredAt: entry.entered_at,
+      exitedAt: entry.exited_at ?? "",
+      changedByUserId: entry.changed_by_user_id?.trim() || "",
+      changedByUserName: entry.changed_by_user_name?.trim() || "",
+      createdAt: entry.created_at,
+      updatedAt: entry.updated_at,
+    })),
     createdAt: record.created_at,
     updatedAt: record.updated_at,
   };
@@ -603,6 +695,91 @@ export async function updateLead(
 
 export async function deleteLead(leadId: string): Promise<void> {
   await requestCRM<void>(`/leads/${leadId}`, {
+    method: "DELETE",
+  });
+}
+
+export async function listDeals(
+  companyId: string,
+  filters: DealFilters = {},
+): Promise<Deal[]> {
+  const query = new URLSearchParams({
+    limit: "100",
+    offset: "0",
+    company_id: companyId,
+  });
+
+  if (filters.stage?.trim()) {
+    query.set("stage", filters.stage.trim());
+  }
+  if (filters.assigneeUserId?.trim()) {
+    query.set("assignee_user_id", filters.assigneeUserId.trim());
+  }
+  if (filters.q?.trim()) {
+    query.set("q", filters.q.trim());
+  }
+
+  const response = await requestCRM<CRMListResponse<CRMDealRecord>>(
+    `/deals?${query.toString()}`,
+  );
+  return response.data.map(mapDeal);
+}
+
+export async function createDeal(input: UpsertDealInput): Promise<Deal> {
+  const payload = await requestCRM<CRMDealRecord>("/deals", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: input.companyId,
+      customer_id: input.customerId?.trim() || undefined,
+      source_lead_id: input.sourceLeadId?.trim() || undefined,
+      name: input.name.trim(),
+      stage: input.stage,
+      amount: input.amount,
+      currency: input.currency.trim(),
+      close_date: input.closeDate?.trim(),
+      termination_date: input.terminationDate?.trim(),
+      won_reason: input.wonReason.trim(),
+      loss_reason: input.lossReason.trim(),
+      assignee_user_id: input.assigneeUserId.trim(),
+      assignee_user_name: input.assigneeUserName.trim(),
+      extra_data: input.extraData ?? {},
+    }),
+  });
+
+  return mapDeal(payload);
+}
+
+export async function updateDeal(
+  dealId: string,
+  input: UpsertDealInput,
+): Promise<Deal> {
+  const payload = await requestCRM<CRMDealRecord>(`/deals/${dealId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: input.companyId,
+      customer_id: input.customerId?.trim() || null,
+      source_lead_id: input.sourceLeadId?.trim() || null,
+      name: input.name.trim(),
+      stage: input.stage,
+      amount: input.amount,
+      currency: input.currency.trim(),
+      close_date: input.closeDate?.trim() || null,
+      termination_date: input.terminationDate?.trim() || null,
+      won_reason: input.wonReason.trim(),
+      loss_reason: input.lossReason.trim(),
+      assignee_user_id: input.assigneeUserId.trim(),
+      assignee_user_name: input.assigneeUserName.trim(),
+      extra_data: input.extraData ?? {},
+    }),
+  });
+
+  return mapDeal(payload);
+}
+
+export async function deleteDeal(dealId: string): Promise<void> {
+  await requestCRM<void>(`/deals/${dealId}`, {
     method: "DELETE",
   });
 }
