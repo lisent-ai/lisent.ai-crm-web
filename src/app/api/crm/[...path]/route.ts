@@ -31,6 +31,16 @@ type CRMCustomerRecord = {
   company_id?: string | null;
 };
 
+type CRMLeadRecord = {
+  id: string;
+  company_id?: string | null;
+};
+
+type CRMDealRecord = {
+  id: string;
+  company_id?: string | null;
+};
+
 type RouteContext = {
   params: Promise<{
     path?: string[];
@@ -310,6 +320,210 @@ async function authorizeCustomerById(
   return null;
 }
 
+async function authorizeLeadById(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+  leadId: string,
+  permission: "customers.read" | "customers.write",
+) {
+  if (account.access.isSuperAdmin) {
+    return null;
+  }
+
+  try {
+    const lead = await fetchCRMJSON<CRMLeadRecord>(
+      request,
+      config,
+      account,
+      ["leads", leadId],
+    );
+    if (!lead.company_id) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    if (!hasCompanyPermissionInAccess(account.access, lead.company_id, permission)) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+  } catch (error) {
+    if (error instanceof Response) {
+      return relayUpstreamResponse(error);
+    }
+    return Response.json({ error: "Failed to authorize lead." }, { status: 500 });
+  }
+
+  return null;
+}
+
+async function authorizeDealById(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+  dealId: string,
+  permission: "customers.read" | "customers.write",
+) {
+  if (account.access.isSuperAdmin) {
+    return null;
+  }
+
+  try {
+    const deal = await fetchCRMJSON<CRMDealRecord>(
+      request,
+      config,
+      account,
+      ["deals", dealId],
+    );
+    if (!deal.company_id) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    if (!hasCompanyPermissionInAccess(account.access, deal.company_id, permission)) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+  } catch (error) {
+    if (error instanceof Response) {
+      return relayUpstreamResponse(error);
+    }
+    return Response.json({ error: "Failed to authorize deal." }, { status: 500 });
+  }
+
+  return null;
+}
+
+async function listAuthorizedLeads(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+) {
+  if (account.access.isSuperAdmin) {
+    const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"]);
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const searchParams = request.nextUrl.searchParams;
+  const requestedCompanyId = searchParams.get("company_id")?.trim();
+  if (requestedCompanyId) {
+    if (
+      !hasCompanyPermissionInAccess(
+        account.access,
+        requestedCompanyId,
+        "customers.read",
+      )
+    ) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"]);
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const allowedCompanyIds = account.access.companyMemberships
+    .filter((membership) =>
+      hasCompanyPermissionInAccess(
+        account.access,
+        membership.companyId,
+        "customers.read",
+      ),
+    )
+    .map((membership) => membership.companyId);
+  const { limit, offset } = parsePagination(searchParams);
+  if (allowedCompanyIds.length === 0) {
+    return Response.json({ data: [], limit, offset });
+  }
+
+  const allLeads: CRMLeadRecord[] = [];
+  const extraParams = new URLSearchParams(searchParams);
+  extraParams.delete("limit");
+  extraParams.delete("offset");
+  extraParams.delete("company_id");
+  const extraQuery = extraParams.toString();
+  for (const companyId of allowedCompanyIds) {
+    const payload = await fetchCRMJSON<CRMListResponse<CRMLeadRecord>>(
+      request,
+      config,
+      account,
+      ["leads"],
+      `?limit=100&offset=0&company_id=${encodeURIComponent(companyId)}${
+        extraQuery ? `&${extraQuery}` : ""
+      }`,
+    );
+    allLeads.push(...payload.data);
+  }
+
+  return Response.json({
+    data: allLeads.slice(offset, offset + limit),
+    limit,
+    offset,
+  });
+}
+
+async function listAuthorizedDeals(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+) {
+  if (account.access.isSuperAdmin) {
+    const upstreamResponse = await sendUpstreamRequest(request, config, account, ["deals"]);
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const searchParams = request.nextUrl.searchParams;
+  const requestedCompanyId = searchParams.get("company_id")?.trim();
+  if (requestedCompanyId) {
+    if (
+      !hasCompanyPermissionInAccess(
+        account.access,
+        requestedCompanyId,
+        "customers.read",
+      )
+    ) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    const upstreamResponse = await sendUpstreamRequest(request, config, account, ["deals"]);
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const allowedCompanyIds = account.access.companyMemberships
+    .filter((membership) =>
+      hasCompanyPermissionInAccess(
+        account.access,
+        membership.companyId,
+        "customers.read",
+      ),
+    )
+    .map((membership) => membership.companyId);
+  const { limit, offset } = parsePagination(searchParams);
+  if (allowedCompanyIds.length === 0) {
+    return Response.json({ data: [], limit, offset });
+  }
+
+  const allDeals: CRMDealRecord[] = [];
+  const extraParams = new URLSearchParams(searchParams);
+  extraParams.delete("limit");
+  extraParams.delete("offset");
+  extraParams.delete("company_id");
+  const extraQuery = extraParams.toString();
+  for (const companyId of allowedCompanyIds) {
+    const payload = await fetchCRMJSON<CRMListResponse<CRMDealRecord>>(
+      request,
+      config,
+      account,
+      ["deals"],
+      `?limit=100&offset=0&company_id=${encodeURIComponent(companyId)}${
+        extraQuery ? `&${extraQuery}` : ""
+      }`,
+    );
+    allDeals.push(...payload.data);
+  }
+
+  return Response.json({
+    data: allDeals.slice(offset, offset + limit),
+    limit,
+    offset,
+  });
+}
+
 async function forwardRequest(
   request: NextRequest,
   context: RouteContext,
@@ -475,6 +689,124 @@ async function forwardRequest(
     }
   }
 
+  if (resource === "leads") {
+    if (method === "GET" && pathSegments.length === 1) {
+      return listAuthorizedLeads(request, config, account);
+    }
+
+    if (method === "POST" && pathSegments.length === 1) {
+      const body = await readJSONBody(request);
+      const companyId =
+        typeof body?.company_id === "string" ? body.company_id.trim() : "";
+      if (!companyId) {
+        return Response.json({ error: "company_id is required" }, { status: 400 });
+      }
+
+      if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+        return Response.json({ error: "forbidden" }, { status: 403 });
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+
+    if (resourceId) {
+      const authFailure = await authorizeLeadById(
+        request,
+        config,
+        account,
+        resourceId,
+        method === "GET" ? "customers.read" : "customers.write",
+      );
+      if (authFailure) {
+        return authFailure;
+      }
+
+      if (method === "PATCH" || method === "PUT") {
+        const body = await readJSONBody(request);
+        const companyId =
+          typeof body?.company_id === "string" ? body.company_id.trim() : "";
+        if (companyId) {
+          if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+            return Response.json({ error: "forbidden" }, { status: 403 });
+          }
+        }
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+  }
+
+  if (resource === "deals") {
+    if (method === "GET" && pathSegments.length === 1) {
+      return listAuthorizedDeals(request, config, account);
+    }
+
+    if (method === "POST" && pathSegments.length === 1) {
+      const body = await readJSONBody(request);
+      const companyId =
+        typeof body?.company_id === "string" ? body.company_id.trim() : "";
+      if (!companyId) {
+        return Response.json({ error: "company_id is required" }, { status: 400 });
+      }
+
+      if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+        return Response.json({ error: "forbidden" }, { status: 403 });
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+
+    if (resourceId) {
+      const authFailure = await authorizeDealById(
+        request,
+        config,
+        account,
+        resourceId,
+        method === "GET" ? "customers.read" : "customers.write",
+      );
+      if (authFailure) {
+        return authFailure;
+      }
+
+      if (method === "PATCH" || method === "PUT") {
+        const body = await readJSONBody(request);
+        const companyId =
+          typeof body?.company_id === "string" ? body.company_id.trim() : "";
+        if (companyId) {
+          if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+            return Response.json({ error: "forbidden" }, { status: 403 });
+          }
+        }
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+  }
+
   if (resource === "internal" && pathSegments[1] === "company" && pathSegments[2]) {
     const companyId = pathSegments[2];
     if (!hasCompanyPermissionInAccess(account.access, companyId, "qualifier.manage")) {
@@ -498,6 +830,32 @@ async function forwardRequest(
 
   if (resource === "customers" && resourceId) {
     const authFailure = await authorizeCustomerById(
+      request,
+      config,
+      account,
+      resourceId,
+      method === "GET" ? "customers.read" : "customers.write",
+    );
+    if (authFailure) {
+      return authFailure;
+    }
+  }
+
+  if (resource === "leads" && resourceId) {
+    const authFailure = await authorizeLeadById(
+      request,
+      config,
+      account,
+      resourceId,
+      method === "GET" ? "customers.read" : "customers.write",
+    );
+    if (authFailure) {
+      return authFailure;
+    }
+  }
+
+  if (resource === "deals" && resourceId) {
+    const authFailure = await authorizeDealById(
       request,
       config,
       account,

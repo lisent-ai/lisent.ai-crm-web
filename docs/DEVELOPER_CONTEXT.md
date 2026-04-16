@@ -17,6 +17,28 @@ This repo is responsible for:
 
 This repo should not become a second source of truth for CRM business logic.
 
+## Current Lead UI Status
+
+Lead management now has a real dashboard surface in this repo.
+
+Implemented in web:
+
+- `/dashboard/leads`
+- lead list + filters
+- lead detail panel
+- create/edit/delete lead flows
+- manual assignment UI
+- round-robin assignment UI
+- lead conversion UI:
+  - convert to customer
+  - optionally create a deal
+
+Important boundary:
+
+- lead records remain source-of-truth data in `lisent.ai-CRM-service`
+- company memberships remain source-of-truth access data in the web app / SuperTokens
+- because of that split, round-robin assignment is orchestrated in the web app and then persisted back to CRM as lead assignee fields
+
 ## System Boundary
 
 Current intended architecture:
@@ -52,6 +74,13 @@ Examples of future BFF routes this repo should own:
 - `src/app/api/crm/companies/...`
 - `src/app/api/crm/import-profiles/...`
 
+Current notable BFF behavior already implemented:
+
+- company/customer authorization
+- lead authorization by company
+- deal authorization by company
+- lead/deal forwarding through `/api/crm/[...path]`
+
 Those routes should:
 
 - validate the signed-in session
@@ -86,8 +115,12 @@ Implemented now:
 - `/dashboard/account` settings page backed by SuperTokens User Metadata
 - company creation forwards creator user id and display name to the CRM service
 - company/customer authorization in `/api/crm/[...path]`
+- lead/deal authorization in `/api/crm/[...path]`
 - owner membership assignment on company creation
 - company memberships stored in SuperTokens User Metadata
+- dedicated leads dashboard page
+- round-robin lead assignment using company memberships
+- lead conversion flow from web UI to CRM service
 
 Validated:
 
@@ -107,6 +140,7 @@ src/
       session/route.ts
     auth/[[...path]]/page.tsx
     dashboard/account/page.tsx
+    dashboard/leads/page.tsx
     dashboard/page.tsx
     globals.css
     layout.tsx
@@ -126,6 +160,8 @@ src/
         company-workspace.tsx
       customers/
         customer-directory.tsx
+      leads/
+        lead-directory.tsx
       home/
         dashboard-hero.tsx
         dashboard-overview.tsx
@@ -219,6 +255,54 @@ Current implementation note:
 - when creating a company, the BFF also forwards creator audit fields (`X-User-Id`, `X-User-Name`) to the CRM service
 
 This is intentionally simpler than a dedicated membership table, but it still enforces tenant boundaries today.
+
+## Lead Assignment Model
+
+Current implementation:
+
+- manual assignee selection is supported
+- round-robin assignment is supported
+- assignable people are derived from company memberships
+- `viewer` members are excluded from assignment
+- the web app stores the last round-robin assignee in company `extra_data`
+- the chosen assignee is then written onto the lead in CRM
+
+Why this currently lives in the web layer:
+
+- CRM service does not own company membership data
+- the web app already has trusted access to company-member metadata
+- this avoids duplicating membership state in CRM
+
+If assignment rules become more advanced later, this may deserve a dedicated assignment service or CRM-side policy model.
+
+## Lead Conversion Model
+
+Current implemented behavior:
+
+- selected lead is sent to CRM `POST /leads/:id/convert`
+- CRM creates or reuses a company-scoped customer
+- CRM can also create a deal in the same conversion request
+- lead status becomes `converted`
+- lead stores:
+  - `customer_id`
+  - `converted_customer_id`
+  - `converted_deal_id`
+  - `converted_at`
+
+This gives the UI a clear transition from prospect tracking to customer/deal tracking without manually recreating records.
+
+## Recommended Next Improvements
+
+Useful next professionalization items for leads:
+
+- activity timeline
+- stage timestamps and time-in-stage reporting
+- lost reason capture
+- duplicate detection
+- bulk actions
+- saved views
+- kanban board
+- more advanced assignment policies
 
 ## Why This Repo Uses SuperTokens
 

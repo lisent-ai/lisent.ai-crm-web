@@ -54,6 +54,60 @@ web app and the CRM service.
   - country code
   - extra data
 
+## Lead Management
+
+- dedicated `/dashboard/leads` page
+- company-scoped lead listing
+- lead detail panel
+- lead create flow
+- lead edit flow
+- lead delete flow
+- backend filtering for leads by:
+  - company
+  - status
+  - source
+  - assignee
+  - unassigned only
+  - search query
+- lead fields now include:
+  - name
+  - email
+  - phone
+  - notes
+  - pipeline status
+  - source
+  - assignee user id
+  - assignee user name
+  - assignment method
+  - value
+  - conversion metadata
+- pipeline stages:
+  - `new`
+  - `contacted`
+  - `qualified`
+  - `lost`
+  - `converted`
+- manual assignment support
+- round-robin assignment support
+- round-robin cursor stored in company `extra_data`
+- lead conversion flow:
+  - convert lead to customer
+  - optionally create a deal during conversion
+  - mark lead as converted
+  - store converted customer/deal references on the lead
+
+## Deal Support Related To Leads
+
+- deal creation from lead conversion
+- deal stage selection during conversion
+- deal stages supported by CRM service:
+  - `new`
+  - `qualified`
+  - `proposal`
+  - `negotiation`
+  - `won`
+  - `lost`
+
 ## Customer Import
 
 - CSV upload import flow
@@ -87,6 +141,7 @@ web app and the CRM service.
   - overview
   - companies
   - customer import
+  - leads
   - customers
   - account settings
 - wide dashboard layout
@@ -111,5 +166,16 @@ web app and the CRM service.
 ## Notes
 
 - some CRM domains exist at API level before full web UI exists
-- leads, deals, calls, and tasks are available in the service, but do not yet
+- deals, calls, and tasks are available in the service, but do not yet
   have full dedicated dashboard pages in the web app
+
+## Recommended Next Improvements
+
+- lead activity timeline
+- stage history with timestamps
+- lost reason capture
+- duplicate detection against existing leads/customers
+- bulk lead actions
+- saved lead views like `My Leads` or `Unassigned`
+- kanban-style lead board
+- richer assignment rules beyond simple round-robin

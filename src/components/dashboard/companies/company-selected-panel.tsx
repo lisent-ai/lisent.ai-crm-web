@@ -110,6 +110,14 @@ export function CompanySelectedPanel({
                 {canReadCustomers ? (
                   <Link
                     className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
+                    href={`/dashboard/leads?company=${company.id}&companyName=${encodeURIComponent(company.name)}`}
+                  >
+                    Open lead pipeline
+                  </Link>
+                ) : null}
+                {canReadCustomers ? (
+                  <Link
+                    className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
                     href={`/dashboard/customers?company=${company.id}&companyName=${encodeURIComponent(company.name)}`}
                   >
                     Open customer directory

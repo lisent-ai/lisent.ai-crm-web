@@ -28,6 +28,40 @@ type CRMCustomerRecord = {
   extra_data?: Record<string, unknown>;
 };
 
+type CRMLeadRecord = {
+  id: string;
+  customer_id?: string | null;
+  company_id?: string | null;
+  name?: string;
+  email?: string;
+  phone?: string;
+  notes?: string;
+  status?: string;
+  source?: string;
+  assignee_user_id?: string;
+  assignee_user_name?: string;
+  assignment_method?: string;
+  value?: number;
+  converted_customer_id?: string | null;
+  converted_deal_id?: string | null;
+  converted_at?: string | null;
+  extra_data?: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+};
+
+type CRMDealRecord = {
+  id: string;
+  customer_id?: string | null;
+  company_id?: string | null;
+  stage?: string;
+  amount?: number;
+  close_date?: string | null;
+  extra_data?: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+};
+
 type MappingSuggestion = {
   target_field: string;
   source_headers: string[];
@@ -57,6 +91,7 @@ export type Company = {
   industry: string;
   createdByUserId: string;
   createdByUserName: string;
+  extraData: Record<string, string>;
 };
 
 export type Customer = {
@@ -71,6 +106,98 @@ export type Customer = {
   preferredLanguage: string;
   countryCode: string;
   extraData: Record<string, string>;
+};
+
+export type LeadStatus =
+  | "new"
+  | "contacted"
+  | "qualified"
+  | "lost"
+  | "converted";
+
+export type LeadAssignmentMethod = "manual" | "round_robin";
+
+export type Lead = {
+  id: string;
+  customerId: string;
+  companyId: string;
+  name: string;
+  email: string;
+  phone: string;
+  notes: string;
+  status: LeadStatus;
+  source: string;
+  assigneeUserId: string;
+  assigneeUserName: string;
+  assignmentMethod: LeadAssignmentMethod;
+  value: number;
+  convertedCustomerId: string;
+  convertedDealId: string;
+  convertedAt: string;
+  extraData: Record<string, string>;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Deal = {
+  id: string;
+  customerId: string;
+  companyId: string;
+  stage: string;
+  amount: number;
+  closeDate: string;
+  extraData: Record<string, string>;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type LeadFilters = {
+  status?: string;
+  source?: string;
+  assigneeUserId?: string;
+  q?: string;
+  unassigned?: boolean;
+};
+
+export type UpsertLeadInput = {
+  companyId: string;
+  customerId?: string;
+  name: string;
+  email: string;
+  phone: string;
+  notes: string;
+  status: LeadStatus;
+  source: string;
+  assigneeUserId: string;
+  assigneeUserName: string;
+  assignmentMethod: LeadAssignmentMethod;
+  value: number;
+  extraData?: Record<string, string>;
+};
+
+export type ConvertLeadInput = {
+  customer: {
+    name: string;
+    firstName?: string;
+    lastName?: string;
+    email: string;
+    phone: string;
+    preferredLanguage?: string;
+    countryCode?: string;
+    extraData?: Record<string, string>;
+  };
+  deal?: {
+    stage: string;
+    amount?: number;
+    closeDate?: string;
+    extraData?: Record<string, string>;
+  } | null;
+};
+
+export type LeadConversionResult = {
+  lead: Lead;
+  customer: Customer;
+  deal: Deal | null;
 };
 
 export type ImportSuggestion = {
@@ -149,6 +276,7 @@ function mapCompany(record: CRMCompanyRecord): Company {
     industry: record.industry?.trim() || "Not set",
     createdByUserId: record.created_by_user_id?.trim() || "",
     createdByUserName: record.created_by_user_name?.trim() || "Unknown",
+    extraData: normalizeExtraData(record.extra_data),
   };
 }
 
@@ -178,11 +306,55 @@ function mapCustomer(record: CRMCustomerRecord): Customer {
   };
 }
 
+function mapLead(record: CRMLeadRecord): Lead {
+  return {
+    id: record.id,
+    customerId: record.customer_id ?? "",
+    companyId: record.company_id ?? "",
+    name: record.name?.trim() || "",
+    email: record.email?.trim() || "",
+    phone: record.phone?.trim() || "",
+    notes: record.notes?.trim() || "",
+    status: (record.status?.trim() || "new") as LeadStatus,
+    source: record.source?.trim() || "",
+    assigneeUserId: record.assignee_user_id?.trim() || "",
+    assigneeUserName: record.assignee_user_name?.trim() || "",
+    assignmentMethod:
+      (record.assignment_method?.trim() || "manual") as LeadAssignmentMethod,
+    value: Number(record.value ?? 0),
+    convertedCustomerId: record.converted_customer_id ?? "",
+    convertedDealId: record.converted_deal_id ?? "",
+    convertedAt: record.converted_at ?? "",
+    extraData: normalizeExtraData(record.extra_data),
+    createdAt: record.created_at,
+    updatedAt: record.updated_at,
+  };
+}
+
+function mapDeal(record: CRMDealRecord): Deal {
+  return {
+    id: record.id,
+    customerId: record.customer_id ?? "",
+    companyId: record.company_id ?? "",
+    stage: record.stage?.trim() || "new",
+    amount: Number(record.amount ?? 0),
+    closeDate: record.close_date ?? "",
+    extraData: normalizeExtraData(record.extra_data),
+    createdAt: record.created_at,
+    updatedAt: record.updated_at,
+  };
+}
+
 export async function listCompanies(): Promise<Company[]> {
   const response = await requestCRM<CRMListResponse<CRMCompanyRecord>>(
     "/companies?limit=100&offset=0",
   );
   return response.data.map(mapCompany);
+}
+
+export async function getCompany(companyId: string): Promise<Company> {
+  const response = await requestCRM<CRMCompanyRecord>(`/companies/${companyId}`);
+  return mapCompany(response);
 }
 
 export async function createCompany(input: {
@@ -201,6 +373,21 @@ export async function createCompany(input: {
       },
     }),
   });
+  return mapCompany(payload);
+}
+
+export async function updateCompanyExtraData(
+  companyId: string,
+  extraData: Record<string, string>,
+): Promise<Company> {
+  const payload = await requestCRM<CRMCompanyRecord>(`/companies/${companyId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      extra_data: extraData,
+    }),
+  });
+
   return mapCompany(payload);
 }
 
@@ -331,6 +518,133 @@ export async function deleteCustomer(customerId: string): Promise<void> {
   await requestCRM<void>(`/customers/${customerId}`, {
     method: "DELETE",
   });
+}
+
+export async function listLeads(
+  companyId: string,
+  filters: LeadFilters = {},
+): Promise<Lead[]> {
+  const query = new URLSearchParams({
+    limit: "100",
+    offset: "0",
+    company_id: companyId,
+  });
+
+  if (filters.status?.trim()) {
+    query.set("status", filters.status.trim());
+  }
+  if (filters.source?.trim()) {
+    query.set("source", filters.source.trim());
+  }
+  if (filters.assigneeUserId?.trim()) {
+    query.set("assignee_user_id", filters.assigneeUserId.trim());
+  }
+  if (filters.q?.trim()) {
+    query.set("q", filters.q.trim());
+  }
+  if (filters.unassigned) {
+    query.set("unassigned", "true");
+  }
+
+  const response = await requestCRM<CRMListResponse<CRMLeadRecord>>(
+    `/leads?${query.toString()}`,
+  );
+  return response.data.map(mapLead);
+}
+
+export async function createLead(input: UpsertLeadInput): Promise<Lead> {
+  const payload = await requestCRM<CRMLeadRecord>("/leads", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: input.companyId,
+      customer_id: input.customerId?.trim() || undefined,
+      name: input.name.trim(),
+      email: input.email.trim(),
+      phone: input.phone.trim(),
+      notes: input.notes.trim(),
+      status: input.status,
+      source: input.source.trim(),
+      assignee_user_id: input.assigneeUserId.trim(),
+      assignee_user_name: input.assigneeUserName.trim(),
+      assignment_method: input.assignmentMethod,
+      value: input.value,
+      extra_data: input.extraData ?? {},
+    }),
+  });
+  return mapLead(payload);
+}
+
+export async function updateLead(
+  leadId: string,
+  input: UpsertLeadInput,
+): Promise<Lead> {
+  const payload = await requestCRM<CRMLeadRecord>(`/leads/${leadId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: input.companyId,
+      customer_id: input.customerId?.trim() || null,
+      name: input.name.trim(),
+      email: input.email.trim(),
+      phone: input.phone.trim(),
+      notes: input.notes.trim(),
+      status: input.status,
+      source: input.source.trim(),
+      assignee_user_id: input.assigneeUserId.trim(),
+      assignee_user_name: input.assigneeUserName.trim(),
+      assignment_method: input.assignmentMethod,
+      value: input.value,
+      extra_data: input.extraData ?? {},
+    }),
+  });
+  return mapLead(payload);
+}
+
+export async function deleteLead(leadId: string): Promise<void> {
+  await requestCRM<void>(`/leads/${leadId}`, {
+    method: "DELETE",
+  });
+}
+
+export async function convertLead(
+  leadId: string,
+  input: ConvertLeadInput,
+): Promise<LeadConversionResult> {
+  const payload = await requestCRM<{
+    lead: CRMLeadRecord;
+    customer: CRMCustomerRecord;
+    deal?: CRMDealRecord | null;
+  }>(`/leads/${leadId}/convert`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      customer: {
+        name: input.customer.name.trim(),
+        first_name: input.customer.firstName?.trim(),
+        last_name: input.customer.lastName?.trim(),
+        email: input.customer.email.trim(),
+        phone: input.customer.phone.trim(),
+        preferred_language: input.customer.preferredLanguage?.trim(),
+        country_code: input.customer.countryCode?.trim(),
+        extra_data: input.customer.extraData ?? {},
+      },
+      deal: input.deal
+        ? {
+            stage: input.deal.stage.trim(),
+            amount: input.deal.amount,
+            close_date: input.deal.closeDate?.trim(),
+            extra_data: input.deal.extraData ?? {},
+          }
+        : null,
+    }),
+  });
+
+  return {
+    lead: mapLead(payload.lead),
+    customer: mapCustomer(payload.customer),
+    deal: payload.deal ? mapDeal(payload.deal) : null,
+  };
 }
 
 export async function suggestImportFromCSVUpload(
