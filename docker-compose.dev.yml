@@ -1,0 +1,119 @@
+# Development stack for lisent.ai-crm-web.
+# Unique ports vs production:
+#   web            3011 -> 3111
+#   supertokens    3567 -> 3667
+#   auth postgres    -- -> 5533
+#   pgadmin auth   8082 -> 8182
+#
+# One-time prereq: create the shared dev network and bring up the CRM service stack
+# first so `crm-service` is reachable by DNS name inside the network.
+#   docker network create lisent-dev-network
+#   (cd ../lisent.ai-CRM-service && docker compose -f docker-compose.dev.yml up -d --build)
+#
+# Usage (from this directory):
+#   docker compose -f docker-compose.dev.yml up -d --build
+#   docker compose -f docker-compose.dev.yml down          # stop
+#   docker compose -f docker-compose.dev.yml down -v       # stop + wipe auth db
+
+name: lisent-dev-crm-web
+
+services:
+  auth-db:
+    image: postgres:16-alpine
+    container_name: lisent-dev-auth-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lisent_auth_user
+      POSTGRES_PASSWORD: auth_dev_password
+      POSTGRES_DB: lisent_auth_dev
+    ports:
+      - "5533:5432"
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data
+    networks:
+      - lisent-dev-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lisent_auth_user -d lisent_auth_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  supertokens-core:
+    image: registry.supertokens.io/supertokens/supertokens-postgresql:latest
+    container_name: lisent-dev-supertokens
+    restart: unless-stopped
+    environment:
+      POSTGRESQL_CONNECTION_URI: postgresql://lisent_auth_user:auth_dev_password@auth-db:5432/lisent_auth_dev
+      API_KEYS: ${SUPERTOKENS_CORE_API_KEYS:-dev-supertokens-api-key-please-change}
+    ports:
+      - "3667:3567"
+    depends_on:
+      auth-db:
+        condition: service_healthy
+    networks:
+      - lisent-dev-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3567/hello || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  crm-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_NAME: "Lisent CRM (dev)"
+        NEXT_PUBLIC_API_DOMAIN: http://localhost:3111
+        NEXT_PUBLIC_WEBSITE_DOMAIN: http://localhost:3111
+        NEXT_PUBLIC_API_BASE_PATH: /api/auth
+        NEXT_PUBLIC_WEBSITE_BASE_PATH: /auth
+        NEXT_PUBLIC_UI_ONLY_MODE: "false"
+    container_name: lisent-dev-crm-web
+    restart: unless-stopped
+    environment:
+      APP_PUBLIC_ORIGIN: http://localhost:3111
+      SUPERTOKENS_CONNECTION_URI: http://supertokens-core:3567
+      SUPERTOKENS_API_KEY: ${SUPERTOKENS_CORE_API_KEYS:-dev-supertokens-api-key-please-change}
+      AUTH_DB_DSN: postgresql://lisent_auth_user:auth_dev_password@auth-db:5432/lisent_auth_dev
+      # crm-service lives in the sibling compose project on the same external network
+      CRM_BASE_URL: http://crm-service:9090
+      CRM_INTERNAL_API_KEY: ${CRM_INTERNAL_API_KEY:-dev-crm-internal-api-key}
+      PLATFORM_SUPER_ADMIN_EMAILS: ${PLATFORM_SUPER_ADMIN_EMAILS:-contact@acarkaan.com}
+    ports:
+      - "3111:3011"
+    depends_on:
+      supertokens-core:
+        condition: service_started
+      auth-db:
+        condition: service_healthy
+    networks:
+      - lisent-dev-network
+
+  pgadmin-auth:
+    image: dpage/pgadmin4
+    container_name: lisent-dev-pgadmin-auth
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${AUTH_PGADMIN_DEFAULT_EMAIL:-auth-admin@lisent.dev}
+      PGADMIN_DEFAULT_PASSWORD: ${AUTH_PGADMIN_DEFAULT_PASSWORD:-dev_pgadmin_password}
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "True"
+    ports:
+      - "8182:80"
+    volumes:
+      - pgadmin-auth-data:/var/lib/pgadmin
+    depends_on:
+      - auth-db
+    networks:
+      - lisent-dev-network
+
+networks:
+  lisent-dev-network:
+    name: lisent-dev-network
+    external: true
+
+volumes:
+  auth-db-data:
+    name: lisent-dev-auth-db-data
+  pgadmin-auth-data:
+    name: lisent-dev-pgadmin-auth-data
