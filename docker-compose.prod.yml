@@ -1,0 +1,26 @@
+services:
+  crm-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME}
+        NEXT_PUBLIC_API_DOMAIN: ${NEXT_PUBLIC_API_DOMAIN}
+        NEXT_PUBLIC_WEBSITE_DOMAIN: ${NEXT_PUBLIC_WEBSITE_DOMAIN}
+        NEXT_PUBLIC_API_BASE_PATH: ${NEXT_PUBLIC_API_BASE_PATH}
+        NEXT_PUBLIC_WEBSITE_BASE_PATH: ${NEXT_PUBLIC_WEBSITE_BASE_PATH}
+    restart: unless-stopped
+    environment:
+      APP_PUBLIC_ORIGIN: ${APP_PUBLIC_ORIGIN}
+      SUPERTOKENS_CONNECTION_URI: ${SUPERTOKENS_CONNECTION_URI}
+      SUPERTOKENS_API_KEY: ${SUPERTOKENS_API_KEY:-}
+      AUTH_DB_DSN: ${AUTH_DB_DSN}
+      CRM_BASE_URL: ${CRM_BASE_URL}
+      CRM_INTERNAL_API_KEY: ${CRM_INTERNAL_API_KEY}
+      PLATFORM_SUPER_ADMIN_EMAILS: ${PLATFORM_SUPER_ADMIN_EMAILS:-}
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
