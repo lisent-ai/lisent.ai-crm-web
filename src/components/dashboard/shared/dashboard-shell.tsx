@@ -19,6 +19,7 @@ const navItems = [
   { href: "/dashboard/companies", label: "Companies" },
   { href: "/dashboard/access", label: "Team Access" },
   { href: "/dashboard/imports", label: "Customer Import" },
+  { href: "/dashboard/tasks", label: "Tasks" },
   { href: "/dashboard/leads", label: "Leads" },
   { href: "/dashboard/deals", label: "Deals" },
   { href: "/dashboard/customers", label: "Customers" },
@@ -96,6 +97,7 @@ export function DashboardShell({
     if (
       (baseHref === "/dashboard/companies" ||
         baseHref === "/dashboard/access" ||
+        baseHref === "/dashboard/tasks" ||
         baseHref === "/dashboard/leads" ||
         baseHref === "/dashboard/deals" ||
         baseHref === "/dashboard/customers" ||
@@ -115,7 +117,7 @@ export function DashboardShell({
   }
 
   const shell = (
-    <main className="min-h-screen overflow-hidden bg-slate-100 px-4 py-4 text-slate-900 md:px-6 md:py-6">
+    <main className="min-h-screen overflow-x-hidden bg-slate-100 px-4 py-4 text-slate-900 md:px-6 md:py-6">
       <div className={`mx-auto grid gap-4 ${shellWidthClass} ${gridClass}`}>
         <aside className="rounded-[2rem] border border-slate-800 bg-[linear-gradient(180deg,_#0f172a,_#111827,_#0f172a)] p-6 text-white shadow-[0_22px_60px_rgba(15,23,42,0.28)]">
           <div>
@@ -195,7 +197,7 @@ export function DashboardShell({
           </div>
         </aside>
 
-        <div className="min-h-[calc(100vh-3rem)] rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)] md:p-6">
+        <div className="min-h-[calc(100vh-3rem)] min-w-0 rounded-[2rem] border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)] md:p-6">
           {children}
         </div>
       </div>

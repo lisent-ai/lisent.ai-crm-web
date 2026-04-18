@@ -19,7 +19,7 @@ export function DealHeader({
   pipelineCounts,
 }: Readonly<DealHeaderProps>) {
   return (
-    <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+    <section className="min-w-0 rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-700/80">

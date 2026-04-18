@@ -22,7 +22,7 @@ export function DealFilters({
   onAssigneeFilterChange,
 }: Readonly<DealFiltersProps>) {
   return (
-    <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+    <section className="min-w-0 rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(200px,0.8fr)_minmax(200px,0.8fr)]">
         <label className="grid gap-2">
           <span className="text-sm font-medium text-slate-700">Search</span>

@@ -41,24 +41,6 @@ export function formatDate(value: string) {
   });
 }
 
-export function normalizeDateInputValue(value: string) {
-  if (!value) {
-    return "";
-  }
-
-  const trimmed = value.trim();
-  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
-    return trimmed;
-  }
-
-  const parsed = new Date(trimmed);
-  if (Number.isNaN(parsed.getTime())) {
-    return "";
-  }
-
-  return parsed.toISOString().slice(0, 10);
-}
-
 export function formatDateTime(value: string) {
   if (!value) {
     return "—";
@@ -101,6 +83,36 @@ export function stageBadgeClasses(stage: DealStage) {
 
 export function formatAssigneeLabel(deal: Deal) {
   return deal.assigneeUserName || "Unassigned";
+}
+
+export function buildInitials(value: string) {
+  const tokens = value
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2);
+
+  if (tokens.length === 0) {
+    return "?";
+  }
+
+  return tokens.map((token) => token[0]?.toUpperCase() ?? "").join("");
+}
+
+export function formatShortDate(value: string) {
+  if (!value) {
+    return "No date";
+  }
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) {
+    return value;
+  }
+
+  return parsed.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+  });
 }
 
 export function formatStageDuration(entry: DealStageHistory) {

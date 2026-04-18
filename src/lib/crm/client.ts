@@ -67,6 +67,7 @@ type CRMDealRecord = {
   assignee_user_name?: string | null;
   extra_data?: Record<string, unknown>;
   stage_history?: CRMDealStageHistoryRecord[];
+  comments?: CRMDealCommentRecord[];
   created_at: string;
   updated_at: string;
 };
@@ -79,6 +80,39 @@ type CRMDealStageHistoryRecord = {
   exited_at?: string | null;
   changed_by_user_id?: string | null;
   changed_by_user_name?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+type CRMDealCommentRecord = {
+  id: string;
+  deal_id: string;
+  body: string;
+  author_user_id?: string | null;
+  author_user_name?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+type CRMTaskRecord = {
+  id: string;
+  company_id?: string | null;
+  customer_id?: string | null;
+  title?: string;
+  note?: string;
+  due_date?: string | null;
+  status?: string;
+  assignee_user_id?: string | null;
+  assignee_user_name?: string | null;
+  created_by_user_id?: string | null;
+  created_by_user_name?: string | null;
+  response_status?: string;
+  responded_at?: string | null;
+  responded_by_user_id?: string | null;
+  responded_by_user_name?: string | null;
+  assignment_scope?: string;
+  broadcast_group_id?: string | null;
+  extra_data?: Record<string, unknown>;
   created_at: string;
   updated_at: string;
 };
@@ -177,6 +211,7 @@ export type Deal = {
   assigneeUserName: string;
   extraData: Record<string, string>;
   stageHistory: DealStageHistory[];
+  comments: DealComment[];
   createdAt: string;
   updatedAt: string;
 };
@@ -201,6 +236,43 @@ export type DealStageHistory = {
   updatedAt: string;
 };
 
+export type DealComment = {
+  id: string;
+  dealId: string;
+  body: string;
+  authorUserId: string;
+  authorUserName: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TaskStatus = "open" | "in_progress" | "done" | "canceled";
+export type TaskResponseStatus = "pending" | "accepted" | "rejected";
+export type TaskAssignmentScope = "individual" | "broadcast";
+
+export type Task = {
+  id: string;
+  companyId: string;
+  customerId: string;
+  title: string;
+  note: string;
+  dueDate: string;
+  status: TaskStatus;
+  assigneeUserId: string;
+  assigneeUserName: string;
+  createdByUserId: string;
+  createdByUserName: string;
+  responseStatus: TaskResponseStatus;
+  respondedAt: string;
+  respondedByUserId: string;
+  respondedByUserName: string;
+  assignmentScope: TaskAssignmentScope;
+  broadcastGroupId: string;
+  extraData: Record<string, string>;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type LeadFilters = {
   status?: string;
   source?: string;
@@ -212,6 +284,18 @@ export type LeadFilters = {
 export type DealFilters = {
   stage?: string;
   assigneeUserId?: string;
+  q?: string;
+};
+
+export type TaskFilters = {
+  companyId?: string;
+  customerId?: string;
+  status?: string;
+  responseStatus?: string;
+  assigneeUserId?: string;
+  createdByUserId?: string;
+  assignmentScope?: string;
+  broadcastGroupId?: string;
   q?: string;
 };
 
@@ -264,6 +348,25 @@ export type UpsertDealInput = {
   lossReason: string;
   assigneeUserId: string;
   assigneeUserName: string;
+  extraData?: Record<string, string>;
+};
+
+export type CreateDealCommentInput = {
+  body: string;
+};
+
+export type UpsertTaskInput = {
+  companyId: string;
+  customerId?: string;
+  title: string;
+  note: string;
+  dueDate?: string;
+  status?: TaskStatus;
+  assigneeUserId?: string;
+  assigneeUserName?: string;
+  responseStatus?: TaskResponseStatus;
+  assignmentScope?: TaskAssignmentScope;
+  broadcastGroupId?: string;
   extraData?: Record<string, string>;
 };
 
@@ -432,6 +535,41 @@ function mapDeal(record: CRMDealRecord): Deal {
       createdAt: entry.created_at,
       updatedAt: entry.updated_at,
     })),
+    comments: (record.comments ?? []).map((comment) => ({
+      id: comment.id,
+      dealId: comment.deal_id,
+      body: comment.body?.trim() || "",
+      authorUserId: comment.author_user_id?.trim() || "",
+      authorUserName: comment.author_user_name?.trim() || "",
+      createdAt: comment.created_at,
+      updatedAt: comment.updated_at,
+    })),
+    createdAt: record.created_at,
+    updatedAt: record.updated_at,
+  };
+}
+
+function mapTask(record: CRMTaskRecord): Task {
+  return {
+    id: record.id,
+    companyId: record.company_id ?? "",
+    customerId: record.customer_id ?? "",
+    title: record.title?.trim() || "Untitled task",
+    note: record.note?.trim() || "",
+    dueDate: record.due_date ?? "",
+    status: (record.status?.trim() || "open") as TaskStatus,
+    assigneeUserId: record.assignee_user_id?.trim() || "",
+    assigneeUserName: record.assignee_user_name?.trim() || "",
+    createdByUserId: record.created_by_user_id?.trim() || "",
+    createdByUserName: record.created_by_user_name?.trim() || "",
+    responseStatus: (record.response_status?.trim() || "pending") as TaskResponseStatus,
+    respondedAt: record.responded_at ?? "",
+    respondedByUserId: record.responded_by_user_id?.trim() || "",
+    respondedByUserName: record.responded_by_user_name?.trim() || "",
+    assignmentScope:
+      (record.assignment_scope?.trim() || "individual") as TaskAssignmentScope,
+    broadcastGroupId: record.broadcast_group_id ?? "",
+    extraData: normalizeExtraData(record.extra_data),
     createdAt: record.created_at,
     updatedAt: record.updated_at,
   };
@@ -782,6 +920,131 @@ export async function deleteDeal(dealId: string): Promise<void> {
   await requestCRM<void>(`/deals/${dealId}`, {
     method: "DELETE",
   });
+}
+
+export async function listTasks(filters: TaskFilters = {}): Promise<Task[]> {
+  const query = new URLSearchParams({
+    limit: "100",
+    offset: "0",
+  });
+
+  if (filters.companyId?.trim()) {
+    query.set("company_id", filters.companyId.trim());
+  }
+  if (filters.customerId?.trim()) {
+    query.set("customer_id", filters.customerId.trim());
+  }
+  if (filters.status?.trim()) {
+    query.set("status", filters.status.trim());
+  }
+  if (filters.responseStatus?.trim()) {
+    query.set("response_status", filters.responseStatus.trim());
+  }
+  if (filters.assigneeUserId?.trim()) {
+    query.set("assignee_user_id", filters.assigneeUserId.trim());
+  }
+  if (filters.createdByUserId?.trim()) {
+    query.set("created_by_user_id", filters.createdByUserId.trim());
+  }
+  if (filters.assignmentScope?.trim()) {
+    query.set("assignment_scope", filters.assignmentScope.trim());
+  }
+  if (filters.broadcastGroupId?.trim()) {
+    query.set("broadcast_group_id", filters.broadcastGroupId.trim());
+  }
+  if (filters.q?.trim()) {
+    query.set("q", filters.q.trim());
+  }
+
+  const response = await requestCRM<CRMListResponse<CRMTaskRecord>>(
+    `/tasks?${query.toString()}`,
+  );
+  return response.data.map(mapTask);
+}
+
+export async function createTask(input: UpsertTaskInput): Promise<Task> {
+  const payload = await requestCRM<CRMTaskRecord>("/tasks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: input.companyId,
+      customer_id: input.customerId?.trim() || undefined,
+      title: input.title.trim(),
+      note: input.note.trim(),
+      due_date: input.dueDate?.trim() || undefined,
+      status: input.status ?? "open",
+      assignee_user_id: input.assigneeUserId?.trim() || "",
+      assignee_user_name: input.assigneeUserName?.trim() || "",
+      response_status: input.responseStatus ?? "pending",
+      assignment_scope: input.assignmentScope ?? "individual",
+      broadcast_group_id: input.broadcastGroupId?.trim() || undefined,
+      extra_data: input.extraData ?? {},
+    }),
+  });
+
+  return mapTask(payload);
+}
+
+export async function updateTask(taskId: string, input: Partial<UpsertTaskInput>): Promise<Task> {
+  const payload = await requestCRM<CRMTaskRecord>(`/tasks/${taskId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...(input.companyId !== undefined ? { company_id: input.companyId } : {}),
+      ...(input.customerId !== undefined ? { customer_id: input.customerId.trim() || null } : {}),
+      ...(input.title !== undefined ? { title: input.title.trim() } : {}),
+      ...(input.note !== undefined ? { note: input.note.trim() } : {}),
+      ...(input.dueDate !== undefined ? { due_date: input.dueDate.trim() || null } : {}),
+      ...(input.status !== undefined ? { status: input.status } : {}),
+      ...(input.assigneeUserId !== undefined
+        ? { assignee_user_id: input.assigneeUserId.trim() }
+        : {}),
+      ...(input.assigneeUserName !== undefined
+        ? { assignee_user_name: input.assigneeUserName.trim() }
+        : {}),
+      ...(input.responseStatus !== undefined
+        ? { response_status: input.responseStatus }
+        : {}),
+      ...(input.assignmentScope !== undefined
+        ? { assignment_scope: input.assignmentScope }
+        : {}),
+      ...(input.broadcastGroupId !== undefined
+        ? { broadcast_group_id: input.broadcastGroupId.trim() || null }
+        : {}),
+      ...(input.extraData !== undefined ? { extra_data: input.extraData } : {}),
+    }),
+  });
+
+  return mapTask(payload);
+}
+
+export async function deleteTask(taskId: string): Promise<void> {
+  await requestCRM<void>(`/tasks/${taskId}`, {
+    method: "DELETE",
+  });
+}
+
+export async function createDealComment(
+  dealId: string,
+  input: CreateDealCommentInput,
+): Promise<DealComment> {
+  const payload = await requestCRM<CRMDealCommentRecord>(`/deals/${dealId}/comments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      body: input.body.trim(),
+    }),
+  });
+
+  return {
+    id: payload.id,
+    dealId: payload.deal_id,
+    body: payload.body?.trim() || "",
+    authorUserId: payload.author_user_id?.trim() || "",
+    authorUserName: payload.author_user_name?.trim() || "",
+    createdAt: payload.created_at,
+    updatedAt: payload.updated_at,
+  };
 }
 
 export async function convertLead(

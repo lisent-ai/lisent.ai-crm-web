@@ -1,6 +1,7 @@
 import type { Deal } from "@/lib/crm/client";
 import { CompactMeta, DetailSectionCompact } from "@/components/dashboard/customers/customer-ui";
 
+import { DealCommentsPanel } from "./deal-comments-panel";
 import {
   formatAssigneeLabel,
   formatDate,
@@ -17,8 +18,12 @@ type DealDetailPanelProps = {
   customerLabel: string;
   sourceLeadLabel: string;
   saving: boolean;
+  commentDraft: string;
+  onClose: () => void;
   onEdit: (deal: Deal) => void;
   onDelete: (deal: Deal) => void;
+  onCommentDraftChange: (value: string) => void;
+  onAddComment: () => void;
 };
 
 export function DealDetailPanel({
@@ -27,30 +32,46 @@ export function DealDetailPanel({
   customerLabel,
   sourceLeadLabel,
   saving,
+  commentDraft,
+  onClose,
   onEdit,
   onDelete,
+  onCommentDraftChange,
+  onAddComment,
 }: Readonly<DealDetailPanelProps>) {
-  return (
-    <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
-      {deal ? (
-        <div className="grid gap-5">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
-                Deal detail
-              </p>
-              <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-                {deal.name || "Untitled deal"}
-              </h3>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                {deal.stage === "won"
-                  ? deal.wonReason || "No win reason recorded yet."
-                  : deal.stage === "lost"
-                    ? deal.lossReason || "No loss reason recorded yet."
-                    : "Opportunity is still active in the pipeline."}
-              </p>
-            </div>
+  if (!deal) {
+    return null;
+  }
 
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 px-4 py-8"
+      onClick={onClose}
+      role="presentation"
+    >
+      <section
+        className="flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white shadow-[0_28px_80px_rgba(15,23,42,0.22)]"
+        onClick={(event) => event.stopPropagation()}
+        role="presentation"
+      >
+        <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+              Deal detail
+            </p>
+            <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+              {deal.name || "Untitled deal"}
+            </h3>
+            <p className="mt-2 text-sm leading-7 text-slate-600">
+              {deal.stage === "won"
+                ? deal.wonReason || "No win reason recorded yet."
+                : deal.stage === "lost"
+                  ? deal.lossReason || "No loss reason recorded yet."
+                  : "Opportunity is still active in the pipeline."}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-end gap-3">
             <span
               className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${stageBadgeClasses(
                 deal.stage,
@@ -58,16 +79,22 @@ export function DealDetailPanel({
             >
               {formatStageLabel(deal.stage)}
             </span>
+            <button
+              className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+              onClick={onClose}
+              type="button"
+            >
+              Close
+            </button>
           </div>
+        </div>
 
+        <div className="grid gap-5 overflow-y-auto px-6 py-6">
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <CompactMeta label="Amount" value={formatMoney(deal.amount, deal.currency)} />
             <CompactMeta label="Assignee" value={formatAssigneeLabel(deal)} />
             <CompactMeta label="Close target" value={formatDate(deal.closeDate)} />
-            <CompactMeta
-              label="Termination"
-              value={deal.terminationDate ? formatDate(deal.terminationDate) : "Open"}
-            />
+            <CompactMeta label="Comments" value={String(deal.comments.length)} />
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -95,12 +122,24 @@ export function DealDetailPanel({
               { label: "Customer", value: customerLabel || "—" },
               { label: "Source lead", value: sourceLeadLabel || "—" },
               { label: "Currency", value: deal.currency || "—" },
+              {
+                label: "Termination",
+                value: deal.terminationDate ? formatDate(deal.terminationDate) : "Open",
+              },
               { label: "Won reason", value: deal.wonReason || "—" },
               { label: "Loss reason", value: deal.lossReason || "—" },
               { label: "Created", value: formatDateTime(deal.createdAt) },
               { label: "Updated", value: formatDateTime(deal.updatedAt) },
             ]}
             title="Related records"
+          />
+
+          <DealCommentsPanel
+            commentDraft={commentDraft}
+            deal={deal}
+            onAddComment={onAddComment}
+            onCommentDraftChange={onCommentDraftChange}
+            saving={saving}
           />
 
           <section className="rounded-[1.1rem] border border-slate-200 bg-slate-50">
@@ -152,12 +191,7 @@ export function DealDetailPanel({
             </section>
           ) : null}
         </div>
-      ) : (
-        <div className="rounded-[1.2rem] border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-sm leading-7 text-slate-500">
-          Select a deal to inspect its pipeline state, related records, assignee,
-          termination details, and stage history.
-        </div>
-      )}
-    </section>
+      </section>
+    </div>
   );
 }

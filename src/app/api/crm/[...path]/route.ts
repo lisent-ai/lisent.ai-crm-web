@@ -41,6 +41,15 @@ type CRMDealRecord = {
   company_id?: string | null;
 };
 
+type CRMTaskRecord = {
+  id: string;
+  company_id?: string | null;
+  assignee_user_id?: string | null;
+  created_by_user_id?: string | null;
+  assignment_scope?: string | null;
+  broadcast_group_id?: string | null;
+};
+
 type RouteContext = {
   params: Promise<{
     path?: string[];
@@ -524,6 +533,156 @@ async function listAuthorizedDeals(
   });
 }
 
+async function authorizeTaskById(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+  taskId: string,
+  permission: "company.read" | "customers.write",
+) {
+  if (account.access.isSuperAdmin) {
+    return null;
+  }
+
+  try {
+    const task = await fetchCRMJSON<CRMTaskRecord>(
+      request,
+      config,
+      account,
+      ["tasks", taskId],
+    );
+    if (!task.company_id) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    if (!hasCompanyPermissionInAccess(account.access, task.company_id, permission)) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    const createdByUserId = task.created_by_user_id?.trim() ?? "";
+    const assigneeUserId = task.assignee_user_id?.trim() ?? "";
+    const isRelevantToUser =
+      createdByUserId === account.userId || assigneeUserId === account.userId;
+
+    if (!isRelevantToUser) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+  } catch (error) {
+    if (error instanceof Response) {
+      return relayUpstreamResponse(error);
+    }
+    return Response.json({ error: "Failed to authorize task." }, { status: 500 });
+  }
+
+  return null;
+}
+
+async function loadAuthorizedTask(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+  taskId: string,
+): Promise<CRMTaskRecord | Response> {
+  if (account.access.isSuperAdmin) {
+    return fetchCRMJSON<CRMTaskRecord>(request, config, account, ["tasks", taskId]);
+  }
+
+  try {
+    const task = await fetchCRMJSON<CRMTaskRecord>(
+      request,
+      config,
+      account,
+      ["tasks", taskId],
+    );
+
+    if (!task.company_id) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    if (!hasCompanyPermissionInAccess(account.access, task.company_id, "company.read")) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    const createdByUserId = task.created_by_user_id?.trim() ?? "";
+    const assigneeUserId = task.assignee_user_id?.trim() ?? "";
+    const isRelevantToUser =
+      createdByUserId === account.userId || assigneeUserId === account.userId;
+
+    if (!isRelevantToUser) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    return task;
+  } catch (error) {
+    if (error instanceof Response) {
+      return relayUpstreamResponse(error);
+    }
+    return Response.json({ error: "Failed to authorize task." }, { status: 500 });
+  }
+}
+
+async function listAuthorizedTasks(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+) {
+  if (account.access.isSuperAdmin) {
+    const upstreamResponse = await sendUpstreamRequest(request, config, account, ["tasks"]);
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const searchParams = request.nextUrl.searchParams;
+  const requestedCompanyId = searchParams.get("company_id")?.trim();
+  const extraParams = new URLSearchParams(searchParams);
+  extraParams.delete("limit");
+  extraParams.delete("offset");
+  extraParams.delete("company_id");
+  const extraQuery = extraParams.toString();
+  if (requestedCompanyId) {
+    if (!hasCompanyPermissionInAccess(account.access, requestedCompanyId, "company.read")) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+  }
+
+  const allowedCompanyIds = requestedCompanyId
+    ? [requestedCompanyId]
+    : account.access.companyMemberships
+        .filter((membership) =>
+          hasCompanyPermissionInAccess(account.access, membership.companyId, "company.read"),
+        )
+        .map((membership) => membership.companyId);
+  const { limit, offset } = parsePagination(searchParams);
+  if (allowedCompanyIds.length === 0) {
+    return Response.json({ data: [], limit, offset });
+  }
+
+  const allTasks: CRMTaskRecord[] = [];
+  for (const companyId of allowedCompanyIds) {
+    const payload = await fetchCRMJSON<CRMListResponse<CRMTaskRecord>>(
+      request,
+      config,
+      account,
+      ["tasks"],
+      `?limit=100&offset=0&company_id=${encodeURIComponent(companyId)}${
+        extraQuery ? `&${extraQuery}` : ""
+      }`,
+    );
+    allTasks.push(
+      ...payload.data.filter((task) => {
+        const createdByUserId = task.created_by_user_id?.trim() ?? "";
+        const assigneeUserId = task.assignee_user_id?.trim() ?? "";
+        return createdByUserId === account.userId || assigneeUserId === account.userId;
+      }),
+    );
+  }
+
+  return Response.json({
+    data: allTasks.slice(offset, offset + limit),
+    limit,
+    offset,
+  });
+}
+
 async function forwardRequest(
   request: NextRequest,
   context: RouteContext,
@@ -807,6 +966,82 @@ async function forwardRequest(
     }
   }
 
+  if (resource === "tasks") {
+    if (method === "GET" && pathSegments.length === 1) {
+      return listAuthorizedTasks(request, config, account);
+    }
+
+    if (method === "POST" && pathSegments.length === 1) {
+      const body = await readJSONBody(request);
+      const companyId =
+        typeof body?.company_id === "string" ? body.company_id.trim() : "";
+      if (!companyId) {
+        return Response.json({ error: "company_id is required" }, { status: 400 });
+      }
+
+      if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+        return Response.json({ error: "forbidden" }, { status: 403 });
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+
+    if (resourceId) {
+      const authFailure = await authorizeTaskById(
+        request,
+        config,
+        account,
+        resourceId,
+        method === "GET" ? "company.read" : "customers.write",
+      );
+      if (authFailure) {
+        return authFailure;
+      }
+
+      if (method === "DELETE") {
+        const task = await loadAuthorizedTask(request, config, account, resourceId);
+        if (task instanceof Response) {
+          return task;
+        }
+
+        if (!account.access.isSuperAdmin) {
+          const createdByUserId = task.created_by_user_id?.trim() ?? "";
+          if (createdByUserId !== account.userId) {
+            return Response.json(
+              { error: "Only the task publisher can delete this task." },
+              { status: 403 },
+            );
+          }
+        }
+      }
+
+      if (method === "PATCH" || method === "PUT") {
+        const body = await readJSONBody(request);
+        const companyId =
+          typeof body?.company_id === "string" ? body.company_id.trim() : "";
+        if (companyId) {
+          if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+            return Response.json({ error: "forbidden" }, { status: 403 });
+          }
+        }
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+  }
+
   if (resource === "internal" && pathSegments[1] === "company" && pathSegments[2]) {
     const companyId = pathSegments[2];
     if (!hasCompanyPermissionInAccess(account.access, companyId, "qualifier.manage")) {
@@ -861,6 +1096,19 @@ async function forwardRequest(
       account,
       resourceId,
       method === "GET" ? "customers.read" : "customers.write",
+    );
+    if (authFailure) {
+      return authFailure;
+    }
+  }
+
+  if (resource === "tasks" && resourceId) {
+    const authFailure = await authorizeTaskById(
+      request,
+      config,
+      account,
+      resourceId,
+      method === "GET" ? "company.read" : "customers.write",
     );
     if (authFailure) {
       return authFailure;

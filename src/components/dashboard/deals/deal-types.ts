@@ -1,7 +1,5 @@
 import type { Deal, DealStage } from "@/lib/crm/client";
 
-import { normalizeDateInputValue } from "./deal-utils";
-
 export const dealStages: Array<{
   value: DealStage;
   label: string;
@@ -46,6 +44,24 @@ export const emptyDealForm: DealFormState = {
   assigneeUserId: "",
   assigneeUserName: "",
 };
+
+function normalizeDateInputValue(value: string) {
+  if (!value) {
+    return "";
+  }
+
+  const trimmed = value.trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  const parsed = new Date(trimmed);
+  if (Number.isNaN(parsed.getTime())) {
+    return "";
+  }
+
+  return parsed.toISOString().slice(0, 10);
+}
 
 export function buildDealForm(deal: Deal): DealFormState {
   return {

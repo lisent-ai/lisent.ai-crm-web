@@ -10,6 +10,7 @@ import {
 } from "@/lib/auth/company-membership-client";
 import {
   CRMClientError,
+  createDealComment,
   createDeal,
   deleteDeal as deleteDealRequest,
   listCompanies,
@@ -25,11 +26,11 @@ import {
 } from "@/lib/crm/client";
 
 import { DealDeleteModal } from "./deal-delete-modal";
+import { DealBoard } from "./deal-board";
 import { DealDetailPanel } from "./deal-detail-panel";
 import { DealFilters } from "./deal-filters";
 import { DealFormModal } from "./deal-form-modal";
 import { DealHeader } from "./deal-header";
-import { DealList } from "./deal-list";
 import {
   buildDealForm,
   dealStages,
@@ -50,7 +51,6 @@ export function DealDirectory() {
   const [members, setMembers] = useState<CompanyMember[]>([]);
   const [deals, setDeals] = useState<Deal[]>([]);
   const [activeCompanyId, setActiveCompanyId] = useState(searchCompanyId);
-  const [companiesLoading, setCompaniesLoading] = useState(true);
   const [dealsLoading, setDealsLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -59,10 +59,12 @@ export function DealDirectory() {
   const [stageFilter, setStageFilter] = useState("all");
   const [assigneeFilter, setAssigneeFilter] = useState("all");
   const [selectedDealId, setSelectedDealId] = useState<string | null>(null);
+  const [openDetailDealId, setOpenDetailDealId] = useState<string | null>(null);
   const [showFormModal, setShowFormModal] = useState(false);
   const [editingDealId, setEditingDealId] = useState<string | null>(null);
   const [pendingDeleteDeal, setPendingDeleteDeal] = useState<Deal | null>(null);
   const [dealForm, setDealForm] = useState<DealFormState>(emptyDealForm);
+  const [commentDraft, setCommentDraft] = useState("");
 
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
@@ -72,7 +74,6 @@ export function DealDirectory() {
     let cancelled = false;
 
     async function loadCompanyList() {
-      setCompaniesLoading(true);
       setErrorMessage(null);
       try {
         const nextCompanies = await listCompanies();
@@ -86,10 +87,6 @@ export function DealDirectory() {
               ? error.message
               : "Failed to load companies.",
           );
-        }
-      } finally {
-        if (!cancelled) {
-          setCompaniesLoading(false);
         }
       }
     }
@@ -172,8 +169,10 @@ export function DealDirectory() {
     const companyId = selectedCompany.id;
     let cancelled = false;
 
-    async function loadDealList() {
-      setDealsLoading(true);
+    async function loadDealList(showLoading: boolean) {
+      if (showLoading) {
+        setDealsLoading(true);
+      }
       setErrorMessage(null);
       try {
         const nextDeals = await listDeals(companyId, {
@@ -212,15 +211,25 @@ export function DealDirectory() {
       }
     }
 
-    void loadDealList();
+    void loadDealList(true);
+    const intervalId = window.setInterval(() => {
+      void loadDealList(false);
+    }, 15000);
+
     return () => {
       cancelled = true;
+      window.clearInterval(intervalId);
     };
   }, [assigneeFilter, searchQuery, selectedCompany?.id, stageFilter]);
 
   const selectedDeal = useMemo(
     () => deals.find((deal) => deal.id === selectedDealId) ?? deals[0] ?? null,
     [deals, selectedDealId],
+  );
+
+  const detailDeal = useMemo(
+    () => deals.find((deal) => deal.id === openDetailDealId) ?? null,
+    [deals, openDetailDealId],
   );
 
   const companyName = useMemo(() => {
@@ -271,6 +280,7 @@ export function DealDirectory() {
   function openEditModal(deal: Deal) {
     setDealForm(buildDealForm(deal));
     setEditingDealId(deal.id);
+    setOpenDetailDealId(null);
     setShowFormModal(true);
   }
 
@@ -290,6 +300,9 @@ export function DealDirectory() {
         : nextDeals;
 
     setDeals(filteredDeals);
+    setOpenDetailDealId((current) =>
+      current && filteredDeals.some((deal) => deal.id === current) ? current : null,
+    );
     return filteredDeals;
   }
 
@@ -339,6 +352,7 @@ export function DealDirectory() {
       setSuccessMessage(
         editingDealId ? "Deal updated successfully." : "Deal created successfully.",
       );
+      setCommentDraft("");
       closeFormModal();
     } catch (error) {
       setErrorMessage(
@@ -374,8 +388,33 @@ export function DealDirectory() {
     }
   }
 
+  async function addComment() {
+    if (!selectedDeal || !commentDraft.trim() || !selectedCompany) {
+      return;
+    }
+
+    try {
+      setSaving(true);
+      setErrorMessage(null);
+      setSuccessMessage(null);
+      await createDealComment(selectedDeal.id, { body: commentDraft });
+      const nextDeals = await reloadDeals(selectedCompany.id);
+      const refreshedDeal =
+        nextDeals.find((deal) => deal.id === selectedDeal.id) ?? nextDeals[0] ?? null;
+      setSelectedDealId(refreshedDeal?.id ?? null);
+      setCommentDraft("");
+      setSuccessMessage("Comment added to the deal.");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof CRMClientError ? error.message : "Failed to add comment.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
-    <div className="grid gap-6">
+    <div className="grid min-w-0 gap-6">
       <DealHeader
         company={selectedCompany}
         companyName={companyName}
@@ -407,30 +446,37 @@ export function DealDirectory() {
         stageFilter={stageFilter}
       />
 
-      <div className="grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
-        <DealList
-          companiesLoading={companiesLoading}
+      <div className="grid min-w-0 gap-6">
+        <DealBoard
           customerLabelById={customerLabelById}
           deals={deals}
           dealsLoading={dealsLoading}
-          onSelectDeal={setSelectedDealId}
+          onSelectDeal={(dealId) => {
+            setSelectedDealId(dealId);
+            setOpenDetailDealId(dealId);
+          }}
           selectedDealId={selectedDealId}
         />
+        <section className="rounded-[1.35rem] border border-dashed border-slate-300 bg-slate-50 px-5 py-4 text-sm text-slate-600">
+          Click a deal card to open its full detail view in a popup without leaving the board.
+        </section>
+      </div>
 
+      {detailDeal ? (
         <DealDetailPanel
+          commentDraft={commentDraft}
           companyLabel={companyName}
-          customerLabel={
-            selectedDeal ? customerLabelById.get(selectedDeal.customerId) ?? "—" : "—"
-          }
-          deal={selectedDeal}
+          customerLabel={customerLabelById.get(detailDeal.customerId) ?? "—"}
+          deal={detailDeal}
+          onAddComment={addComment}
+          onClose={() => setOpenDetailDealId(null)}
+          onCommentDraftChange={setCommentDraft}
           onDelete={setPendingDeleteDeal}
           onEdit={openEditModal}
           saving={saving}
-          sourceLeadLabel={
-            selectedDeal ? leadLabelById.get(selectedDeal.sourceLeadId) ?? "—" : "—"
-          }
+          sourceLeadLabel={leadLabelById.get(detailDeal.sourceLeadId) ?? "—"}
         />
-      </div>
+      ) : null}
 
       {showFormModal ? (
         <DealFormModal
