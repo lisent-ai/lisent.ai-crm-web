@@ -9,9 +9,6 @@ import { getCompanyRoleLabel } from "@/lib/auth/roles";
 import { type Company } from "@/lib/crm/client";
 
 import { DetailMetric } from "./company-ui";
-import { CompanyWhatsAppPanel } from "./company-whatsapp-panel";
-import { CompanyQualifierPanel } from "./company-qualifier-panel";
-import { CompanyQualifierLeads } from "./company-qualifier-leads";
 
 type CompanySelectedPanelProps = {
   company?: Company;
@@ -44,14 +41,6 @@ export function CompanySelectedPanel({
   const canRunImports =
     company && access
       ? hasCompanyPermissionInAccess(access, company.id, "imports.run")
-      : false;
-  const canManageIntegrations =
-    company && access
-      ? hasCompanyPermissionInAccess(access, company.id, "integrations.manage")
-      : false;
-  const canManageQualifier =
-    company && access
-      ? hasCompanyPermissionInAccess(access, company.id, "qualifier.manage")
       : false;
 
   return (
@@ -146,37 +135,6 @@ export function CompanySelectedPanel({
         </div>
       </div>
 
-      {company && (
-        <>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            {canManageIntegrations ? (
-              <CompanyWhatsAppPanel companyId={company.id} />
-            ) : (
-              <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
-                <p className="text-lg font-semibold text-slate-950">WhatsApp integration</p>
-                <p className="mt-3 text-sm leading-7 text-slate-600">
-                  Only owners and admins can view or change GreenAPI connection details.
-                </p>
-              </div>
-            )}
-            {canManageQualifier ? (
-              <CompanyQualifierPanel companyId={company.id} />
-            ) : (
-              <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
-                <p className="text-lg font-semibold text-slate-950">AI lead qualifier</p>
-                <p className="mt-3 text-sm leading-7 text-slate-600">
-                  Qualifier webhook configuration is limited to admins and owners.
-                </p>
-              </div>
-            )}
-          </div>
-          {canReadCustomers ? (
-            <div className="mt-4">
-              <CompanyQualifierLeads companyId={company.id} />
-            </div>
-          ) : null}
-        </>
-      )}
     </section>
   );
 }
