@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import { hasCompanyPermissionInAccess } from "@/lib/auth/access-control";
 import type { AccountProfile } from "@/lib/auth/account-profile";
 import { CRMClientError, listCompanies, type Company } from "@/lib/crm/client";
 
@@ -18,10 +19,8 @@ type Props = {
 };
 
 /**
- * Modal that lists companies where the current user has the owner role and
- * asks the operator to pick one before entering a per-company integration
- * configuration screen. Owner-only because integrations.manage is owner-only
- * as of Faz 0.1.
+ * Modal that lists companies the operator can manage integrations on:
+ * owners (per integrations.manage in Faz 0.1) and super admins (no scope).
  */
 export function CompanyPickerModal({
   isOpen,
@@ -34,15 +33,6 @@ export function CompanyPickerModal({
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const ownedCompanyIds = useMemo(() => {
-    if (!account) return new Set<string>();
-    return new Set(
-      account.access.companyMemberships
-        .filter((m) => m.role === "owner")
-        .map((m) => m.companyId),
-    );
-  }, [account]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -69,11 +59,14 @@ export function CompanyPickerModal({
     };
   }, [isOpen]);
 
-  const ownerCompanies = useMemo<OwnerCompany[]>(() => {
+  const manageableCompanies = useMemo<OwnerCompany[]>(() => {
+    if (!account) return [];
     return companies
-      .filter((c) => ownedCompanyIds.has(c.id))
+      .filter((c) =>
+        hasCompanyPermissionInAccess(account.access, c.id, "integrations.manage"),
+      )
       .map((c) => ({ companyId: c.id, companyName: c.name || c.id }));
-  }, [companies, ownedCompanyIds]);
+  }, [companies, account]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -116,14 +109,14 @@ export function CompanyPickerModal({
           <div className="mt-6 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
             {errorMessage}
           </div>
-        ) : ownerCompanies.length === 0 ? (
+        ) : manageableCompanies.length === 0 ? (
           <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
             You don&apos;t own any companies yet. Create one from the{" "}
             <span className="font-semibold">Companies</span> page first.
           </div>
         ) : (
-          <ul className="mt-6 grid gap-2" role="listbox" aria-label="Owned companies">
-            {ownerCompanies.map((c, idx) => (
+          <ul className="mt-6 grid gap-2" role="listbox" aria-label="Manageable companies">
+            {manageableCompanies.map((c, idx) => (
               <li key={c.companyId}>
                 <button
                   ref={idx === 0 ? firstFocusable : null}

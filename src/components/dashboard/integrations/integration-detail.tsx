@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { getAccountProfile } from "@/lib/account/client";
+import { hasCompanyPermissionInAccess } from "@/lib/auth/access-control";
 import type { AccountProfile } from "@/lib/auth/account-profile";
 
 import { AIQualifierPanel } from "./ai-qualifier-panel";
@@ -56,10 +57,12 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
     };
   }, []);
 
-  const isOwner = useMemo(() => {
+  const canManage = useMemo(() => {
     if (!account || !companyId) return false;
-    return account.access.companyMemberships.some(
-      (m) => m.companyId === companyId && m.role === "owner",
+    return hasCompanyPermissionInAccess(
+      account.access,
+      companyId,
+      "integrations.manage",
     );
   }, [account, companyId]);
 
@@ -89,7 +92,7 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
     );
   }
 
-  if (!isOwner) {
+  if (!canManage) {
     return (
       <section className="rounded-[1.5rem] border border-rose-200 bg-rose-50 p-8 text-sm text-rose-800">
         <h1 className="text-2xl font-semibold tracking-tight text-rose-900">

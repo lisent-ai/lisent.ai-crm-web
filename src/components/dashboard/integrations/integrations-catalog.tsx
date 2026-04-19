@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { getAccountProfile } from "@/lib/account/client";
+import { hasCompanyPermissionInAccess } from "@/lib/auth/access-control";
 import type { AccountProfile } from "@/lib/auth/account-profile";
 import {
   CRMClientError,
@@ -40,10 +41,12 @@ export function IntegrationsCatalog() {
     };
   }, []);
 
-  const isOwnerOfSelected = useMemo(() => {
+  const canManageSelected = useMemo(() => {
     if (!account || !selectedCompanyId) return false;
-    return account.access.companyMemberships.some(
-      (m) => m.companyId === selectedCompanyId && m.role === "owner",
+    return hasCompanyPermissionInAccess(
+      account.access,
+      selectedCompanyId,
+      "integrations.manage",
     );
   }, [account, selectedCompanyId]);
 
@@ -52,7 +55,7 @@ export function IntegrationsCatalog() {
       setCatalog(null);
       return;
     }
-    if (!isOwnerOfSelected) {
+    if (!canManageSelected) {
       setCatalog(null);
       return;
     }
@@ -77,7 +80,7 @@ export function IntegrationsCatalog() {
     return () => {
       cancelled = true;
     };
-  }, [selectedCompanyId, isOwnerOfSelected]);
+  }, [selectedCompanyId, canManageSelected]);
 
   function handleCompanyPick(c: { companyId: string; companyName: string }) {
     setPickerOpen(false);
@@ -95,10 +98,12 @@ export function IntegrationsCatalog() {
     );
   }
 
-  const hasOwnerCompanies = account.access.companyMemberships.some(
-    (m) => m.role === "owner",
-  );
-  if (!hasOwnerCompanies && !account.access.isSuperAdmin) {
+  const hasManageableCompanies =
+    account.access.isSuperAdmin ||
+    account.access.companyMemberships.some((m) =>
+      hasCompanyPermissionInAccess(account.access, m.companyId, "integrations.manage"),
+    );
+  if (!hasManageableCompanies) {
     return (
       <section className="rounded-[1.5rem] border border-slate-200 bg-white p-8">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
@@ -145,7 +150,7 @@ export function IntegrationsCatalog() {
     );
   }
 
-  if (!isOwnerOfSelected) {
+  if (!canManageSelected) {
     return (
       <section className="rounded-[1.5rem] border border-rose-200 bg-rose-50 p-8 text-sm text-rose-800">
         <h1 className="text-3xl font-semibold tracking-tight text-rose-900">
