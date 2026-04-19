@@ -50,18 +50,26 @@ export function IntegrationsCatalog() {
     );
   }, [account, selectedCompanyId]);
 
-  useEffect(() => {
-    if (!selectedCompanyId) {
-      setCatalog(null);
-      return;
-    }
-    if (!canManageSelected) {
-      setCatalog(null);
-      return;
-    }
-    let cancelled = false;
-    setLoading(true);
+  // Reset derived state on input change, at render time. React bails out of a
+  // re-render when the setter receives the identical value, so this is the
+  // idiomatic alternative to synchronous setState inside useEffect.
+  const [lastInputs, setLastInputs] = useState({
+    companyId: selectedCompanyId,
+    canManage: canManageSelected,
+  });
+  if (
+    lastInputs.companyId !== selectedCompanyId ||
+    lastInputs.canManage !== canManageSelected
+  ) {
+    setLastInputs({ companyId: selectedCompanyId, canManage: canManageSelected });
+    setCatalog(null);
     setErrorMessage(null);
+    setLoading(Boolean(selectedCompanyId && canManageSelected));
+  }
+
+  useEffect(() => {
+    if (!selectedCompanyId || !canManageSelected) return;
+    let cancelled = false;
     fetchIntegrationCatalog(selectedCompanyId)
       .then((res) => {
         if (!cancelled) setCatalog(res);

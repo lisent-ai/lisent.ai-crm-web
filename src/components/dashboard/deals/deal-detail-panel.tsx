@@ -185,7 +185,7 @@ export function DealDetailPanel({
           </section>
 
           {aiEnabled && deal.sourceLeadId ? (
-            <SourceLeadAIInsights leadId={deal.sourceLeadId} />
+            <SourceLeadAIInsights key={deal.sourceLeadId} leadId={deal.sourceLeadId} />
           ) : null}
 
           {Object.keys(deal.extraData).length > 0 ? (
@@ -213,9 +213,11 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
   const [lead, setLead] = useState<Lead | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // leadId is the component's key (parent remounts on change), so initial
+  // loading=true from useState is already correct — no synchronous setState
+  // inside the effect needed.
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
     getLead(leadId)
       .then((next) => {
         if (!cancelled) setLead(next);

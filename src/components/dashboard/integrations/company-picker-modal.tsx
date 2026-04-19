@@ -34,11 +34,21 @@ export function CompanyPickerModal({
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Render-time reset whenever the modal transitions to open. Avoids
+  // synchronous setState inside useEffect (react-hooks/set-state-in-effect).
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+  if (prevIsOpen !== isOpen) {
+    setPrevIsOpen(isOpen);
+    if (isOpen) {
+      setCompanies([]);
+      setErrorMessage(null);
+      setLoading(true);
+    }
+  }
+
   useEffect(() => {
     if (!isOpen) return;
     let cancelled = false;
-    setLoading(true);
-    setErrorMessage(null);
     listCompanies()
       .then((list) => {
         if (!cancelled) setCompanies(list);

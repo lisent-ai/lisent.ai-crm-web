@@ -166,7 +166,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
           <header className="mb-3 flex items-center justify-between gap-3">
             <div>
               <h2 className="text-lg font-semibold tracking-tight text-slate-950">
-                Green API'ye yapıştırman gereken Webhook URL
+                Green API&apos;ye yapıştırman gereken Webhook URL
               </h2>
               <p className="mt-1 text-sm text-slate-700">
                 Green API konsolu →{" "}
