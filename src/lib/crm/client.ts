@@ -48,6 +48,16 @@ type CRMLeadRecord = {
   extra_data?: Record<string, unknown>;
   created_at: string;
   updated_at: string;
+
+  // AI Lead Qualifier write-through metadata — all nullable.
+  ai_score?: number | null;
+  ai_status?: string | null;
+  ai_session_id?: string | null;
+  ai_champ?: Record<string, unknown> | null;
+  ai_reasoning?: Record<string, unknown> | null;
+  ai_score_breakdown?: Record<string, unknown> | null;
+  ai_last_scored_at?: string | null;
+  ai_path?: string | null;
 };
 
 type CRMDealRecord = {
@@ -172,6 +182,19 @@ export type LeadStatus =
 
 export type LeadAssignmentMethod = "manual" | "round_robin";
 
+/** AI Lead Qualifier write-through metadata columns. All nullable — a lead
+ * that hasn't been scored yet simply has nothing in these fields. */
+export type LeadAIMetadata = {
+  aiScore?: number | null;
+  aiStatus?: "pending" | "chatting" | "qualified" | "disqualified" | "paused" | "error" | null;
+  aiSessionId?: string | null;
+  aiChamp?: Record<string, unknown> | null;
+  aiReasoning?: Record<string, unknown> | null;
+  aiScoreBreakdown?: Record<string, unknown> | null;
+  aiLastScoredAt?: string | null;
+  aiPath?: "fast" | "chat" | null;
+};
+
 export type Lead = {
   id: string;
   customerId: string;
@@ -192,7 +215,7 @@ export type Lead = {
   extraData: Record<string, string>;
   createdAt: string;
   updatedAt: string;
-};
+} & LeadAIMetadata;
 
 export type Deal = {
   id: string;
@@ -504,6 +527,14 @@ function mapLead(record: CRMLeadRecord): Lead {
     extraData: normalizeExtraData(record.extra_data),
     createdAt: record.created_at,
     updatedAt: record.updated_at,
+    aiScore: record.ai_score ?? null,
+    aiStatus: (record.ai_status ?? null) as Lead["aiStatus"],
+    aiSessionId: record.ai_session_id ?? null,
+    aiChamp: record.ai_champ ?? null,
+    aiReasoning: record.ai_reasoning ?? null,
+    aiScoreBreakdown: record.ai_score_breakdown ?? null,
+    aiLastScoredAt: record.ai_last_scored_at ?? null,
+    aiPath: (record.ai_path ?? null) as Lead["aiPath"],
   };
 }
 
@@ -780,6 +811,18 @@ export async function listLeads(
     `/leads?${query.toString()}`,
   );
   return response.data.map(mapLead);
+}
+
+/** Fetch one lead by id. Returns null on 404 so callers can treat "deleted
+ *  source lead" gracefully (e.g. deal detail showing AI insights). */
+export async function getLead(leadId: string): Promise<Lead | null> {
+  try {
+    const record = await requestCRM<CRMLeadRecord>(`/leads/${leadId}`);
+    return mapLead(record);
+  } catch (err) {
+    if (err instanceof CRMClientError && err.status === 404) return null;
+    throw err;
+  }
 }
 
 export async function createLead(input: UpsertLeadInput): Promise<Lead> {
@@ -1180,6 +1223,7 @@ type CRMGreenAPIRecord = {
   company_id: string;
   id_instance: string;
   api_token_masked: string;
+  webhook_url: string;
   webhook_url_token?: string | null;
   is_active: boolean;
   created_at: string;
@@ -1191,6 +1235,8 @@ export type GreenAPIIntegration = {
   companyId: string;
   idInstance: string;
   apiTokenMasked: string;
+  /** Fully-qualified URL the operator pastes into Green API's console. */
+  webhookUrl: string;
   webhookUrlToken: string | null;
   isActive: boolean;
   createdAt: string;
@@ -1203,6 +1249,7 @@ function mapGreenAPIIntegration(record: CRMGreenAPIRecord): GreenAPIIntegration 
     companyId: record.company_id,
     idInstance: record.id_instance,
     apiTokenMasked: record.api_token_masked,
+    webhookUrl: record.webhook_url,
     webhookUrlToken: record.webhook_url_token ?? null,
     isActive: record.is_active,
     createdAt: record.created_at,
@@ -1249,32 +1296,76 @@ export async function deleteGreenAPIIntegration(companyId: string): Promise<void
   });
 }
 
-// ─── AI Lead Qualifier Webhook Token ─────────────────────────────────────────
+export async function rotateGreenAPIWebhookToken(
+  companyId: string,
+): Promise<GreenAPIIntegration> {
+  const record = await requestCRM<CRMGreenAPIRecord>(
+    `/companies/${companyId}/integrations/greenapi/rotate-webhook-token`,
+    { method: "POST" },
+  );
+  return mapGreenAPIIntegration(record);
+}
 
-export type QualifierTokenResponse = {
-  companyId: string;
-  token: string;
-  webhookUrl: string;
+// ─── AI Lead Qualifier Webhook Token + AI Config (Faz 5) ────────────────────
+
+/**
+ * AI config schema. All fields optional; the backend accepts unknown keys
+ * but validates the listed ones strictly. Persist as-is through PATCH
+ * /internal/company/:id/qualifier-config.
+ */
+export type QualifierAIConfig = {
+  qualification_threshold?: number;
+  handoff_aggressiveness?: "conservative" | "balanced" | "aggressive";
+  language?: "tr" | "en";
+  sector?: "construction" | "general";
+  custom_prompt_prefix?: string;
+  ideal_customer_profile?: string;
+  forbidden_topics?: string[];
 };
 
 export type QualifierConfigResponse = {
   companyId: string;
-  token: string | null;
+  tokenPrimary: string | null;
+  tokenSecondary: string | null;
   webhookUrl: string | null;
   fallbackUrl: string | null;
+  aiConfig: QualifierAIConfig;
 };
 
-export async function generateQualifierToken(
-  companyId: string,
-): Promise<QualifierTokenResponse> {
-  const record = await requestCRM<{ company_id: string; token: string; webhook_url: string }>(
-    `/internal/company/${companyId}/generate-qualifier-token`,
-    { method: "POST" },
-  );
+export type QualifierRotateResponse = {
+  companyId: string;
+  tokenPrimary: string;
+  tokenSecondary: string | null;
+  webhookUrl: string;
+  rotationNotice: string;
+};
+
+type CRMQualifierConfig = {
+  company_id: string;
+  token_primary: string | null;
+  token_secondary: string | null;
+  webhook_url: string | null;
+  fallback_url: string | null;
+  ai_config: Record<string, unknown>;
+  token?: string | null;
+};
+
+type CRMQualifierRotate = {
+  company_id: string;
+  token_primary: string;
+  token_secondary: string | null;
+  webhook_url: string;
+  rotation_notice: string;
+};
+
+function mapQualifierConfig(r: CRMQualifierConfig): QualifierConfigResponse {
   return {
-    companyId: record.company_id,
-    token: record.token,
-    webhookUrl: record.webhook_url,
+    companyId: r.company_id,
+    tokenPrimary: r.token_primary ?? r.token ?? null,
+    tokenSecondary: r.token_secondary ?? null,
+    webhookUrl: r.webhook_url ?? null,
+    fallbackUrl: r.fallback_url ?? null,
+    aiConfig: (r.ai_config ?? {}) as QualifierAIConfig,
   };
 }
 
@@ -1282,32 +1373,401 @@ export async function getQualifierConfig(
   companyId: string,
 ): Promise<QualifierConfigResponse | null> {
   try {
-    const record = await requestCRM<{
-      company_id: string;
-      token: string | null;
-      webhook_url: string | null;
-      fallback_url: string | null;
-    }>(`/internal/company/${companyId}/qualifier-config`);
-    return {
-      companyId: record.company_id,
-      token: record.token ?? null,
-      webhookUrl: record.webhook_url ?? null,
-      fallbackUrl: record.fallback_url ?? null,
-    };
-  } catch {
-    return null;
+    const record = await requestCRM<CRMQualifierConfig>(
+      `/companies/${companyId}/qualifier-config`,
+    );
+    return mapQualifierConfig(record);
+  } catch (err) {
+    if (err instanceof CRMClientError && err.status === 404) return null;
+    throw err;
   }
+}
+
+export async function updateQualifierConfig(
+  companyId: string,
+  input: { fallbackUrl?: string; aiConfig?: QualifierAIConfig },
+): Promise<void> {
+  const body: Record<string, unknown> = {};
+  if (input.fallbackUrl !== undefined) body.fallback_url = input.fallbackUrl;
+  if (input.aiConfig !== undefined) body.ai_config = input.aiConfig;
+  await requestCRM<void>(`/companies/${companyId}/qualifier-config`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+}
+
+export async function rotateQualifierToken(
+  companyId: string,
+): Promise<QualifierRotateResponse> {
+  const record = await requestCRM<CRMQualifierRotate>(
+    `/companies/${companyId}/qualifier-tokens/regenerate`,
+    { method: "POST" },
+  );
+  return {
+    companyId: record.company_id,
+    tokenPrimary: record.token_primary,
+    tokenSecondary: record.token_secondary ?? null,
+    webhookUrl: record.webhook_url,
+    rotationNotice: record.rotation_notice,
+  };
+}
+
+export async function revokeQualifierSecondaryToken(companyId: string): Promise<void> {
+  await requestCRM<void>(`/companies/${companyId}/qualifier-tokens/revoke`, {
+    method: "POST",
+  });
+}
+
+// Backwards-compatible aliases for the pre-Faz-5 callers in
+// src/components/dashboard/companies/company-qualifier-panel.tsx. The
+// Integrations Hub uses rotateQualifierToken + updateQualifierConfig
+// directly; this shim keeps the legacy panel working until it is
+// retired alongside the other legacy company-scoped panels.
+
+export type QualifierTokenResponse = {
+  companyId: string;
+  token: string;
+  webhookUrl: string;
+};
+
+export async function generateQualifierToken(
+  companyId: string,
+): Promise<QualifierTokenResponse> {
+  const rotation = await rotateQualifierToken(companyId);
+  return {
+    companyId: rotation.companyId,
+    token: rotation.tokenPrimary,
+    webhookUrl: rotation.webhookUrl,
+  };
 }
 
 export async function updateQualifierFallbackUrl(
   companyId: string,
   fallbackUrl: string,
 ): Promise<void> {
-  await requestCRM<void>(`/internal/company/${companyId}/qualifier-config`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ fallback_url: fallbackUrl }),
+  await updateQualifierConfig(companyId, { fallbackUrl });
+}
+
+// ─── GreenAPI test connection (Faz 5) ───────────────────────────────────────
+
+export type GreenAPITestResult = {
+  ok: boolean;
+  upstreamStatus: number;
+  upstreamLatency: string;
+  message: string;
+};
+
+export async function testGreenAPIConnection(
+  companyId: string,
+): Promise<GreenAPITestResult> {
+  const record = await requestCRM<{
+    ok: boolean;
+    upstream_status: number;
+    upstream_latency: string;
+    message: string;
+  }>(`/companies/${companyId}/integrations/greenapi/test`, { method: "POST" });
+  return {
+    ok: record.ok,
+    upstreamStatus: record.upstream_status,
+    upstreamLatency: record.upstream_latency,
+    message: record.message,
+  };
+}
+
+// ─── AI Lead Qualifier RAG Webhook (Faz 6) ──────────────────────────────────
+
+export type QualifierRAGConfig = {
+  companyId: string;
+  tokenPrimary: string | null;
+  tokenSecondary: string | null;
+  webhookUrl: string | null;
+};
+
+export type QualifierRAGRotateResult = {
+  companyId: string;
+  tokenPrimary: string;
+  tokenSecondary: string | null;
+  webhookUrl: string;
+  rotationNotice: string;
+};
+
+type CRMRAGConfig = {
+  company_id: string;
+  token_primary: string | null;
+  token_secondary: string | null;
+  webhook_url: string | null;
+};
+
+type CRMRAGRotate = {
+  company_id: string;
+  token_primary: string;
+  token_secondary: string | null;
+  webhook_url: string;
+  rotation_notice: string;
+};
+
+export async function getQualifierRAGConfig(
+  companyId: string,
+): Promise<QualifierRAGConfig | null> {
+  try {
+    const r = await requestCRM<CRMRAGConfig>(
+      `/companies/${companyId}/qualifier-rag-config`,
+    );
+    return {
+      companyId: r.company_id,
+      tokenPrimary: r.token_primary ?? null,
+      tokenSecondary: r.token_secondary ?? null,
+      webhookUrl: r.webhook_url ?? null,
+    };
+  } catch (err) {
+    if (err instanceof CRMClientError && err.status === 404) return null;
+    throw err;
+  }
+}
+
+export async function rotateQualifierRAGToken(
+  companyId: string,
+): Promise<QualifierRAGRotateResult> {
+  const r = await requestCRM<CRMRAGRotate>(
+    `/companies/${companyId}/qualifier-rag-tokens/regenerate`,
+    { method: "POST" },
+  );
+  return {
+    companyId: r.company_id,
+    tokenPrimary: r.token_primary,
+    tokenSecondary: r.token_secondary ?? null,
+    webhookUrl: r.webhook_url,
+    rotationNotice: r.rotation_notice,
+  };
+}
+
+export async function revokeQualifierRAGSecondaryToken(
+  companyId: string,
+): Promise<void> {
+  await requestCRM<void>(`/companies/${companyId}/qualifier-rag-tokens/revoke`, {
+    method: "POST",
   });
+}
+
+// ─── Intranet integration (Faz 7) ───────────────────────────────────────────
+
+export type IntranetConfig = {
+  id: string;
+  companyId: string;
+  inboundUrl: string;
+  tokenPrimary: string;
+  tokenSecondary: string | null;
+  hmacSecretPrimaryMasked: string;
+  hmacSecretSecondaryMasked: string | null;
+  fieldMapping: Record<string, unknown>;
+  targetEntity: "lead" | "customer";
+  isActive: boolean;
+  lastDeliveryAt: string | null;
+  lastDeliveryStatus: string | null;
+  deliveryCountTotal: number;
+  deliveryCountSuccess: number;
+  deliveryCountFailed: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type IntranetDelivery = {
+  id: string;
+  eventType: string | null;
+  status: "accepted" | "rejected" | "failed";
+  errorMessage?: string;
+  mappedEntityId?: string;
+  idempotencyKey?: string;
+  latencyMs?: number;
+  createdAt: string;
+};
+
+type CRMIntranetStatus = {
+  id: string;
+  company_id: string;
+  inbound_url: string;
+  token_primary: string;
+  token_secondary?: string | null;
+  hmac_secret_primary_masked: string;
+  hmac_secret_secondary_masked?: string | null;
+  field_mapping: Record<string, unknown>;
+  target_entity: "lead" | "customer";
+  is_active: boolean;
+  last_delivery_at: string | null;
+  last_delivery_status: string | null;
+  delivery_count_total: number;
+  delivery_count_success: number;
+  delivery_count_failed: number;
+  created_at: string;
+  updated_at: string;
+};
+
+function mapIntranetStatus(r: CRMIntranetStatus): IntranetConfig {
+  return {
+    id: r.id,
+    companyId: r.company_id,
+    inboundUrl: r.inbound_url,
+    tokenPrimary: r.token_primary,
+    tokenSecondary: r.token_secondary ?? null,
+    hmacSecretPrimaryMasked: r.hmac_secret_primary_masked,
+    hmacSecretSecondaryMasked: r.hmac_secret_secondary_masked ?? null,
+    fieldMapping: r.field_mapping,
+    targetEntity: r.target_entity,
+    isActive: r.is_active,
+    lastDeliveryAt: r.last_delivery_at,
+    lastDeliveryStatus: r.last_delivery_status,
+    deliveryCountTotal: r.delivery_count_total,
+    deliveryCountSuccess: r.delivery_count_success,
+    deliveryCountFailed: r.delivery_count_failed,
+    createdAt: r.created_at,
+    updatedAt: r.updated_at,
+  };
+}
+
+export async function getIntranetConfig(
+  companyId: string,
+): Promise<IntranetConfig | null> {
+  try {
+    const r = await requestCRM<CRMIntranetStatus>(
+      `/companies/${companyId}/integrations/intranet`,
+    );
+    return mapIntranetStatus(r);
+  } catch (err) {
+    if (err instanceof CRMClientError && err.status === 404) return null;
+    throw err;
+  }
+}
+
+/** Creates the integration the first time; response includes the freshly-minted
+ * HMAC secret plain text so the integrator can copy it once. Subsequent calls
+ * (with the record already existing) update fieldMapping/targetEntity and omit
+ * the secret. */
+export async function upsertIntranetIntegration(
+  companyId: string,
+  input: {
+    fieldMapping: Record<string, unknown>;
+    targetEntity: "lead" | "customer";
+  },
+): Promise<{ integration: IntranetConfig; hmacSecretPlain?: string }> {
+  const body = JSON.stringify({
+    field_mapping: input.fieldMapping,
+    target_entity: input.targetEntity,
+  });
+  const response = await requestCRM<
+    CRMIntranetStatus | { integration: CRMIntranetStatus; hmac_secret_plain: string }
+  >(`/companies/${companyId}/integrations/intranet`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body,
+  });
+  if (response && typeof response === "object" && "integration" in response) {
+    return {
+      integration: mapIntranetStatus(response.integration),
+      hmacSecretPlain: response.hmac_secret_plain,
+    };
+  }
+  return { integration: mapIntranetStatus(response as CRMIntranetStatus) };
+}
+
+export async function patchIntranetIntegration(
+  companyId: string,
+  input: {
+    fieldMapping?: Record<string, unknown>;
+    targetEntity?: "lead" | "customer";
+  },
+): Promise<IntranetConfig> {
+  const body: Record<string, unknown> = {};
+  if (input.fieldMapping !== undefined) body.field_mapping = input.fieldMapping;
+  if (input.targetEntity !== undefined) body.target_entity = input.targetEntity;
+  const r = await requestCRM<CRMIntranetStatus>(
+    `/companies/${companyId}/integrations/intranet`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    },
+  );
+  return mapIntranetStatus(r);
+}
+
+export async function disconnectIntranetIntegration(companyId: string): Promise<void> {
+  await requestCRM<void>(`/companies/${companyId}/integrations/intranet`, {
+    method: "DELETE",
+  });
+}
+
+export async function rotateIntranetToken(
+  companyId: string,
+): Promise<{ inboundUrl: string; tokenPrimary: string; tokenSecondary: string | null; rotationNotice: string }> {
+  const r = await requestCRM<{
+    inbound_url: string;
+    token_primary: string;
+    token_secondary: string | null;
+    rotation_notice: string;
+  }>(`/companies/${companyId}/integrations/intranet/rotate-token`, { method: "POST" });
+  return {
+    inboundUrl: r.inbound_url,
+    tokenPrimary: r.token_primary,
+    tokenSecondary: r.token_secondary,
+    rotationNotice: r.rotation_notice,
+  };
+}
+
+export async function revokeIntranetSecondaryToken(companyId: string): Promise<void> {
+  await requestCRM<void>(
+    `/companies/${companyId}/integrations/intranet/revoke-secondary-token`,
+    { method: "POST" },
+  );
+}
+
+export async function rotateIntranetSecret(
+  companyId: string,
+): Promise<{ hmacSecretPrimary: string; rotationNotice: string; secondaryMasked: string }> {
+  const r = await requestCRM<{
+    hmac_secret_primary: string;
+    rotation_notice: string;
+    secondary_masked: string;
+  }>(`/companies/${companyId}/integrations/intranet/rotate-secret`, { method: "POST" });
+  return {
+    hmacSecretPrimary: r.hmac_secret_primary,
+    rotationNotice: r.rotation_notice,
+    secondaryMasked: r.secondary_masked,
+  };
+}
+
+export async function revokeIntranetSecondarySecret(companyId: string): Promise<void> {
+  await requestCRM<void>(
+    `/companies/${companyId}/integrations/intranet/revoke-secondary-secret`,
+    { method: "POST" },
+  );
+}
+
+export async function listIntranetDeliveries(
+  companyId: string,
+): Promise<IntranetDelivery[]> {
+  const rows = await requestCRM<
+    {
+      id: string;
+      event_type: string | null;
+      status: "accepted" | "rejected" | "failed";
+      error_message?: string;
+      mapped_entity_id?: string;
+      idempotency_key?: string;
+      latency_ms?: number;
+      created_at: string;
+    }[]
+  >(`/companies/${companyId}/integrations/intranet/deliveries`);
+  return rows.map((r) => ({
+    id: r.id,
+    eventType: r.event_type,
+    status: r.status,
+    errorMessage: r.error_message,
+    mappedEntityId: r.mapped_entity_id,
+    idempotencyKey: r.idempotency_key,
+    latencyMs: r.latency_ms,
+    createdAt: r.created_at,
+  }));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1326,4 +1786,79 @@ export async function createCustomerFromImportPayload(
   });
 
   return ensureCustomerCompany(mapCustomer(response), companyId);
+}
+
+// ─── Integrations Hub ──────────────────────────────────────────────────────
+
+export type IntegrationSlug =
+  | "ai-lead-qualifier"
+  | "greenapi"
+  | "intranet"
+  // Legacy deep-link slugs — the detail page resolves these to the
+  // unified ai-lead-qualifier panel with the matching tab pre-selected.
+  | "qualifier-lead-webhook"
+  | "qualifier-rag-webhook"
+  | "qualifier-fallback"
+  | "qualifier-ai-config";
+
+export type IntegrationStatus =
+  | "not_configured"
+  | "active"
+  | "paused"
+  | "error"
+  | "coming_soon";
+
+export type SubComponentSummary = {
+  key: string;
+  label: string;
+  status: IntegrationStatus;
+};
+
+export type IntegrationSummary = {
+  slug: IntegrationSlug;
+  name: string;
+  category: string;
+  description: string;
+  status: IntegrationStatus;
+  /** Explicit operator Connect/Disconnect state. When false, Leads + Deals
+   *  UI hides ALL AI chips + insights even if the DB has metadata. */
+  connected: boolean;
+  last_connected_at?: string;
+  masked_credentials?: string;
+  requires_owner_role: boolean;
+  sub_components?: SubComponentSummary[];
+};
+
+/** True iff the AI Lead Qualifier card is in "Connected" state. Treats a
+ *  missing catalog entry as disconnected — safe default for gating UI. */
+export function isAIQualifierConnected(catalog: IntegrationCatalog | null): boolean {
+  if (!catalog) return false;
+  const entry = catalog.available.find((a) => a.slug === "ai-lead-qualifier");
+  return Boolean(entry?.connected);
+}
+
+export async function connectAIQualifier(companyId: string): Promise<void> {
+  await requestCRM<unknown>(`/companies/${companyId}/qualifier-connect`, {
+    method: "POST",
+  });
+}
+
+export async function disconnectAIQualifier(companyId: string): Promise<void> {
+  await requestCRM<unknown>(`/companies/${companyId}/qualifier-disconnect`, {
+    method: "POST",
+  });
+}
+
+export type IntegrationCatalog = {
+  company_id: string;
+  available: IntegrationSummary[];
+  generated_at: string;
+};
+
+export async function fetchIntegrationCatalog(
+  companyId: string,
+): Promise<IntegrationCatalog> {
+  return requestCRM<IntegrationCatalog>(
+    `/companies/${companyId}/integrations`,
+  );
 }

@@ -8,6 +8,8 @@ import {
   convertLead,
   createLead,
   deleteLead as deleteLeadRequest,
+  fetchIntegrationCatalog,
+  isAIQualifierConnected,
   listCompanies,
   listCustomers,
   listLeads,
@@ -124,10 +126,15 @@ export function LeadDirectory() {
     [activeCompanyId, companies],
   );
 
+  // AI visibility gate — owner pressed "Connect" on AI Qualifier card?
+  // If not, leads list + detail panel hide all AI chips / insights.
+  const [aiEnabled, setAIEnabled] = useState(false);
+
   useEffect(() => {
     if (!selectedCompany?.id) {
       setCustomers([]);
       setMembers([]);
+      setAIEnabled(false);
       return;
     }
 
@@ -136,7 +143,7 @@ export function LeadDirectory() {
 
     async function loadReferenceData() {
       try {
-        const [nextCustomers, nextMembers] = await Promise.all([
+        const [nextCustomers, nextMembers, catalog] = await Promise.all([
           listCustomers(companyId).catch(() => []),
           listCompanyMembers(companyId).catch((error) => {
             if (error instanceof CompanyMembershipClientError) {
@@ -144,15 +151,18 @@ export function LeadDirectory() {
             }
             throw error;
           }),
+          fetchIntegrationCatalog(companyId).catch(() => null),
         ]);
 
         if (!cancelled) {
           setCustomers(nextCustomers);
           setMembers(nextMembers);
+          setAIEnabled(isAIQualifierConnected(catalog));
         }
       } catch {
         if (!cancelled) {
           setMembers([]);
+          setAIEnabled(false);
         }
       }
     }
@@ -591,6 +601,7 @@ export function LeadDirectory() {
 
       <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <LeadList
+          aiEnabled={aiEnabled}
           companiesLoading={companiesLoading}
           leads={leads}
           leadsLoading={leadsLoading}
@@ -599,6 +610,7 @@ export function LeadDirectory() {
         />
 
         <LeadDetailPanel
+          aiEnabled={aiEnabled}
           assignableMembersCount={assignableMembers.length}
           customerLabel={customerLabel}
           lead={selectedLead}

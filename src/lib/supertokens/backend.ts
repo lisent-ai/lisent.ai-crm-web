@@ -33,6 +33,7 @@ export function ensureBackendSuperTokensInit(request?: Request) {
   }
 
   SuperTokens.init({
+    debug: process.env.SUPERTOKENS_DEBUG === "true",
     appInfo: resolveAppInfoForBackend(request),
     supertokens: {
       connectionURI: getSuperTokensConnectionURI(),
@@ -90,7 +91,16 @@ export function ensureBackendSuperTokensInit(request?: Request) {
           }),
         },
       }),
-      Session.init(),
+      Session.init({
+        // Force cookie-based session transfer. Next.js 16 App Router clients
+        // do not reliably send the "st-auth-mode" hint, so the SDK was
+        // silently falling back to header-mode on sign-in — tokens returned
+        // only as response headers, no Set-Cookie emitted, browser never
+        // had a session, /api/crm/* replied 401 on every call. Pinning the
+        // transfer method avoids that drift and matches the browser's
+        // cookie-only expectations (supertokens-web-js default).
+        getTokenTransferMethod: () => "cookie",
+      }),
       UserMetadata.init(),
     ],
   });

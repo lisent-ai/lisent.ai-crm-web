@@ -18,6 +18,11 @@ type LeadDetailPanelProps = {
   onAssignRoundRobin: (lead: Lead) => void;
   onConvert: (lead: Lead) => void;
   onDelete: (lead: Lead) => void;
+  /** When false the AI Lead Qualifier insights block is hidden entirely
+   *  (even if the lead row still has ai_score / ai_champ / ai_reasoning).
+   *  Controlled from Lead Directory based on the company's Connect
+   *  lifecycle in the Integrations Hub. */
+  aiEnabled: boolean;
 };
 
 export function LeadDetailPanel({
@@ -29,6 +34,7 @@ export function LeadDetailPanel({
   onAssignRoundRobin,
   onConvert,
   onDelete,
+  aiEnabled,
 }: Readonly<LeadDetailPanelProps>) {
   return (
     <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
@@ -116,6 +122,8 @@ export function LeadDetailPanel({
             title="Lead record"
           />
 
+          {aiEnabled ? <AIInsightsSection lead={lead} /> : null}
+
           <section className="rounded-[1.1rem] border border-slate-200 bg-slate-50 p-4">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-600">
               Extra data
@@ -132,5 +140,88 @@ export function LeadDetailPanel({
         </div>
       )}
     </section>
+  );
+}
+
+/**
+ * Renders the AI Lead Qualifier metadata attached to a lead. Collapses
+ * itself to nothing when the lead has never been scored — that way the
+ * panel stays clean for pre-qualifier leads and only surfaces AI insights
+ * when they actually exist.
+ */
+function AIInsightsSection({ lead }: { lead: Lead }) {
+  const hasAny =
+    typeof lead.aiScore === "number" ||
+    lead.aiStatus ||
+    lead.aiReasoning ||
+    lead.aiChamp ||
+    lead.aiScoreBreakdown;
+  if (!hasAny) return null;
+
+  return (
+    <section className="rounded-[1.1rem] border border-violet-200 bg-violet-50/60 p-4">
+      <header className="flex items-center justify-between gap-3">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-800">
+          AI Lead Qualifier insights
+        </p>
+        {lead.aiLastScoredAt ? (
+          <span className="text-xs text-violet-700">
+            scored {formatDateTime(lead.aiLastScoredAt)}
+          </span>
+        ) : null}
+      </header>
+
+      <div className="mt-3 grid gap-3 md:grid-cols-3">
+        {typeof lead.aiScore === "number" ? (
+          <Metric label="AI score" value={`${Math.round(lead.aiScore)} / 100`} />
+        ) : null}
+        {lead.aiStatus ? <Metric label="AI status" value={lead.aiStatus} /> : null}
+        {lead.aiPath ? <Metric label="Path" value={lead.aiPath} /> : null}
+      </div>
+
+      {lead.aiScoreBreakdown ? (
+        <details className="mt-4">
+          <summary className="cursor-pointer text-xs font-semibold text-violet-800">
+            Score breakdown
+          </summary>
+          <pre className="mt-2 overflow-auto rounded-xl bg-white p-3 text-xs leading-6 text-slate-800">
+            {JSON.stringify(lead.aiScoreBreakdown, null, 2)}
+          </pre>
+        </details>
+      ) : null}
+
+      {lead.aiChamp ? (
+        <details className="mt-3">
+          <summary className="cursor-pointer text-xs font-semibold text-violet-800">
+            CHAMP extraction
+          </summary>
+          <pre className="mt-2 overflow-auto rounded-xl bg-white p-3 text-xs leading-6 text-slate-800">
+            {JSON.stringify(lead.aiChamp, null, 2)}
+          </pre>
+        </details>
+      ) : null}
+
+      {lead.aiReasoning ? (
+        <details className="mt-3" open>
+          <summary className="cursor-pointer text-xs font-semibold text-violet-800">
+            Reasoning report
+          </summary>
+          <pre className="mt-2 overflow-auto rounded-xl bg-white p-3 text-xs leading-6 text-slate-800">
+            {JSON.stringify(lead.aiReasoning, null, 2)}
+          </pre>
+        </details>
+      ) : null}
+    </section>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-violet-200 bg-white p-3">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-700">
+        {label}
+      </p>
+      <p className="mt-1 text-base font-semibold text-slate-900">{value}</p>
+    </div>
   );
 }

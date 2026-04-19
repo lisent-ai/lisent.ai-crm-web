@@ -35,8 +35,9 @@ export function CompanyQualifierPanel({ companyId }: Readonly<Props>) {
 
   useEffect(() => {
     getQualifierConfig(companyId).then((cfg) => {
-      const patched = cfg && cfg.token
-        ? { ...cfg, webhookUrl: buildWebhookUrl(cfg.token) }
+      const activeToken = cfg?.tokenPrimary ?? cfg?.tokenSecondary ?? null;
+      const patched = cfg && activeToken
+        ? { ...cfg, webhookUrl: cfg.webhookUrl ?? buildWebhookUrl(activeToken) }
         : cfg;
       setConfig(patched);
       setFallbackUrl(patched?.fallbackUrl ?? "");
@@ -46,16 +47,18 @@ export function CompanyQualifierPanel({ companyId }: Readonly<Props>) {
   }, [companyId]);
 
   async function handleGenerate() {
-    if (!confirm("Yeni bir webhook token üretilecek. Önceki token geçersiz olur. Devam edilsin mi?")) return;
+    if (!confirm("Yeni bir webhook token üretilecek. Önceki token rotation penceresinde geçerli kalır. Devam edilsin mi?")) return;
     setGenerating(true);
     setError("");
     try {
       const result = await generateQualifierToken(companyId);
       setConfig((prev) => ({
         companyId: result.companyId,
-        token: result.token,
-        webhookUrl: buildWebhookUrl(result.token),
+        tokenPrimary: result.token,
+        tokenSecondary: prev?.tokenPrimary ?? null,
+        webhookUrl: result.webhookUrl,
         fallbackUrl: prev?.fallbackUrl ?? null,
+        aiConfig: prev?.aiConfig ?? {},
       }));
     } catch (err) {
       setError(err instanceof CRMClientError ? err.message : "Token üretilemedi.");

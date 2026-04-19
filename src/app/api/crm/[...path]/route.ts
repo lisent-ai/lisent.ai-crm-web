@@ -86,11 +86,66 @@ function parsePagination(searchParams: URLSearchParams) {
   };
 }
 
+const REQUEST_ID_HEADER = "x-request-id";
+const REQUEST_ID_MAX_LEN = 128;
+
+function isPlausibleRequestID(value: string): boolean {
+  if (!value || value.length > REQUEST_ID_MAX_LEN) {
+    return false;
+  }
+  for (let i = 0; i < value.length; i += 1) {
+    const code = value.charCodeAt(i);
+    if (code < 0x20 || code === 0x7f) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function resolveRequestID(request: NextRequest): string {
+  const incoming = request.headers.get(REQUEST_ID_HEADER) ?? "";
+  if (isPlausibleRequestID(incoming)) {
+    return incoming;
+  }
+  return crypto.randomUUID();
+}
+
+/**
+ * Rewrites /companies/:id/qualifier-config and /companies/:id/qualifier-tokens/*
+ * into the /internal/company/:id/* shape the CRM service actually registers.
+ * Keeps the BFF's public URL surface uniform (everything under /companies/:id/)
+ * while not having to add duplicate routes on the backend.
+ */
+function rewriteQualifierPath(pathSegments: string[]): string[] {
+  const [, resourceId, kind, ...rest] = pathSegments;
+  if (!resourceId || !kind) return pathSegments;
+  if (kind === "qualifier-config") {
+    return ["internal", "company", resourceId, "qualifier-config", ...rest];
+  }
+  if (kind === "qualifier-tokens") {
+    return ["internal", "company", resourceId, "qualifier-token", ...rest];
+  }
+  if (kind === "qualifier-rag-config") {
+    return ["internal", "company", resourceId, "rag-config", ...rest];
+  }
+  if (kind === "qualifier-rag-tokens") {
+    return ["internal", "company", resourceId, "rag-token", ...rest];
+  }
+  if (kind === "qualifier-connect") {
+    return ["internal", "company", resourceId, "qualifier", "connect"];
+  }
+  if (kind === "qualifier-disconnect") {
+    return ["internal", "company", resourceId, "qualifier", "disconnect"];
+  }
+  return pathSegments;
+}
+
 function buildForwardHeaders(
   request: NextRequest,
   apiKey: string,
   userID: string,
-  userName?: string,
+  userName: string | undefined,
+  requestID: string,
 ): Headers {
   const headers = new Headers();
   const contentType = request.headers.get("content-type");
@@ -106,6 +161,7 @@ function buildForwardHeaders(
   if (userName?.trim()) {
     headers.set("x-user-name", userName.trim());
   }
+  headers.set(REQUEST_ID_HEADER, requestID);
   return headers;
 }
 
@@ -124,6 +180,7 @@ async function fetchCRMJSON<T>(
       config.apiKey,
       account.userId,
       account.displayName,
+      resolveRequestID(request),
     ),
     cache: "no-store",
   });
@@ -140,6 +197,10 @@ async function relayUpstreamResponse(upstreamResponse: Response) {
   const responseContentType = upstreamResponse.headers.get("content-type");
   if (responseContentType) {
     responseHeaders.set("content-type", responseContentType);
+  }
+  const upstreamRequestID = upstreamResponse.headers.get(REQUEST_ID_HEADER);
+  if (upstreamRequestID) {
+    responseHeaders.set(REQUEST_ID_HEADER, upstreamRequestID);
   }
 
   return new Response(upstreamResponse.body, {
@@ -170,6 +231,7 @@ async function sendUpstreamRequest(
       config.apiKey,
       account.userId,
       account.displayName,
+      resolveRequestID(request),
     ),
     body,
     cache: "no-store",
@@ -756,9 +818,22 @@ async function forwardRequest(
         const permission =
           method === "GET" || action === "apply" ? "imports.run" : "imports.manage";
         allowed = hasCompanyPermissionInAccess(account.access, resourceId, permission);
+      } else if (pathSegments[2] === "integrations") {
+        // All /companies/:id/integrations/* paths (catalog GET + per-slug
+        // config CRUD for greenapi, intranet, etc.) gate behind
+        // integrations.manage. Owner-only as of Faz 0.1.
+        allowed = hasCompanyPermissionInAccess(
+          account.access,
+          resourceId,
+          "integrations.manage",
+        );
       } else if (
-        pathSegments[2] === "integrations" &&
-        pathSegments[3] === "greenapi"
+        pathSegments[2] === "qualifier-config" ||
+        pathSegments[2] === "qualifier-tokens" ||
+        pathSegments[2] === "qualifier-rag-config" ||
+        pathSegments[2] === "qualifier-rag-tokens" ||
+        pathSegments[2] === "qualifier-connect" ||
+        pathSegments[2] === "qualifier-disconnect"
       ) {
         allowed = hasCompanyPermissionInAccess(
           account.access,
@@ -776,11 +851,27 @@ async function forwardRequest(
         return Response.json({ error: "forbidden" }, { status: 403 });
       }
 
+      // The qualifier endpoints live under /internal/company/:id/* on the
+      // CRM side (singular "company", internal prefix). Rewrite the path
+      // before forwarding so the BFF's public URL can stay symmetric with
+      // the rest of the /companies/:id/* surface.
+      let upstreamSegments = pathSegments;
+      if (
+        pathSegments[2] === "qualifier-config" ||
+        pathSegments[2] === "qualifier-tokens" ||
+        pathSegments[2] === "qualifier-rag-config" ||
+        pathSegments[2] === "qualifier-rag-tokens" ||
+        pathSegments[2] === "qualifier-connect" ||
+        pathSegments[2] === "qualifier-disconnect"
+      ) {
+        upstreamSegments = rewriteQualifierPath(pathSegments);
+      }
+
       const upstreamResponse = await sendUpstreamRequest(
         request,
         config,
         account,
-        pathSegments,
+        upstreamSegments,
       );
       if (method === "DELETE" && upstreamResponse.ok && pathSegments.length === 2) {
         await removeCompanyFromAllMembers(resourceId);
@@ -1044,7 +1135,9 @@ async function forwardRequest(
 
   if (resource === "internal" && pathSegments[1] === "company" && pathSegments[2]) {
     const companyId = pathSegments[2];
-    if (!hasCompanyPermissionInAccess(account.access, companyId, "qualifier.manage")) {
+    // qualifier config/token + rag token management is an owner-only
+    // integration surface (Faz 0.1 tightened integrations.manage).
+    if (!hasCompanyPermissionInAccess(account.access, companyId, "integrations.manage")) {
       return Response.json({ error: "forbidden" }, { status: 403 });
     }
 

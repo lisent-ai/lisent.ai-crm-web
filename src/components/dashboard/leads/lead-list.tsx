@@ -7,12 +7,55 @@ import {
   statusBadgeClasses,
 } from "./lead-utils";
 
+/** Colored score pill: red <50, amber 50-74, green ≥75. */
+function AIScoreChip({ score }: { score: number }) {
+  const clamped = Math.max(0, Math.min(100, Math.round(score)));
+  const tone =
+    clamped >= 75
+      ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+      : clamped >= 50
+      ? "border-amber-200 bg-amber-50 text-amber-800"
+      : "border-rose-200 bg-rose-50 text-rose-800";
+  return (
+    <span
+      className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${tone}`}
+      aria-label={`AI score ${clamped} of 100`}
+    >
+      AI {clamped}
+    </span>
+  );
+}
+
+function AIStatusChip({ status }: { status: NonNullable<Lead["aiStatus"]> }) {
+  const map: Record<NonNullable<Lead["aiStatus"]>, { label: string; className: string }> = {
+    qualified:    { label: "AI · qualified",     className: "border-emerald-200 bg-emerald-50 text-emerald-800" },
+    chatting:     { label: "AI · chatting",      className: "border-cyan-200 bg-cyan-50 text-cyan-800" },
+    pending:      { label: "AI · pending",       className: "border-slate-200 bg-slate-50 text-slate-700" },
+    disqualified: { label: "AI · disqualified",  className: "border-rose-200 bg-rose-50 text-rose-800" },
+    paused:       { label: "AI · paused",        className: "border-amber-200 bg-amber-50 text-amber-800" },
+    error:        { label: "AI · error",         className: "border-rose-300 bg-rose-100 text-rose-900" },
+  };
+  const entry = map[status];
+  if (!entry) return null;
+  return (
+    <span
+      className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${entry.className}`}
+    >
+      {entry.label}
+    </span>
+  );
+}
+
 type LeadListProps = {
   companiesLoading: boolean;
   leadsLoading: boolean;
   leads: Lead[];
   selectedLeadId: string | null;
   onSelectLead: (leadId: string) => void;
+  /** When false the list hides every AI chip (score + status) even if the
+   *  lead rows contain AI metadata. Controlled from Lead Directory by the
+   *  AI Qualifier Connect/Disconnect lifecycle. */
+  aiEnabled: boolean;
 };
 
 export function LeadList({
@@ -21,6 +64,7 @@ export function LeadList({
   leads,
   selectedLeadId,
   onSelectLead,
+  aiEnabled,
 }: Readonly<LeadListProps>) {
   return (
     <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
@@ -69,13 +113,21 @@ export function LeadList({
                         "No contact info"}
                     </p>
                   </div>
-                  <span
-                    className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${statusBadgeClasses(
-                      lead.status,
-                    )}`}
-                  >
-                    {lead.status}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {aiEnabled && typeof lead.aiScore === "number" ? (
+                      <AIScoreChip score={lead.aiScore} />
+                    ) : null}
+                    {aiEnabled && lead.aiStatus ? (
+                      <AIStatusChip status={lead.aiStatus} />
+                    ) : null}
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${statusBadgeClasses(
+                        lead.status,
+                      )}`}
+                    >
+                      {lead.status}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="mt-4 grid gap-2 text-sm text-slate-600">

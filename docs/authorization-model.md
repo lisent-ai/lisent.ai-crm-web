@@ -58,6 +58,26 @@ Current membership shape:
 - `POST/GET/DELETE /companies/:id/...`
   - company-scoped routes are blocked unless the signed-in user can access that company
 
+## Role Matrix
+
+| Permission | owner | admin | member | viewer |
+|------------|-------|-------|--------|--------|
+| company.read | ✓ | ✓ | ✓ | ✓ |
+| company.update | ✓ | ✓ | — | — |
+| company.delete | ✓ | — | — | — |
+| customers.read | ✓ | ✓ | ✓ | ✓ |
+| customers.write | ✓ | ✓ | ✓ | — |
+| imports.run | ✓ | ✓ | ✓ | — |
+| imports.manage | ✓ | ✓ | — | — |
+| integrations.manage | ✓ | — | — | — |
+| qualifier.manage | ✓ | ✓ | — | — |
+| members.read | ✓ | ✓ | — | — |
+| members.manage | ✓ | ✓ | — | — |
+
+### Change log
+
+- **2026-04-19** — `integrations.manage` tightened to owner-only. Admin role lost this permission. Rationale: integrations hold encrypted credentials (GreenAPI tokens, RAG webhook tokens, Intranet HMAC secrets); surface area reduced to the strictest role. Admins who need to rotate credentials must now ask an owner.
+
 ## Limitation
 
 This implementation currently stores only owner memberships created by company creation flow.

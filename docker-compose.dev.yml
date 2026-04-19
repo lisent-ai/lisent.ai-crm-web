@@ -69,6 +69,11 @@ services:
         NEXT_PUBLIC_API_BASE_PATH: /api/auth
         NEXT_PUBLIC_WEBSITE_BASE_PATH: /auth
         NEXT_PUBLIC_UI_ONLY_MODE: "false"
+        # Integrations Hub (Faz 4+). NEXT_PUBLIC_* vars are baked at build time
+        # by Next.js, so they belong under build.args (runtime environment:
+        # wouldn't take effect on client bundles).
+        NEXT_PUBLIC_INTEGRATIONS_HUB_ENABLED: "true"
+        NEXT_PUBLIC_INTRANET_INTEGRATION_ENABLED: "true"
     container_name: lisent-dev-crm-web
     restart: unless-stopped
     environment:
@@ -80,6 +85,10 @@ services:
       CRM_BASE_URL: http://crm-service:9090
       CRM_INTERNAL_API_KEY: ${CRM_INTERNAL_API_KEY:-dev-crm-internal-api-key}
       PLATFORM_SUPER_ADMIN_EMAILS: ${PLATFORM_SUPER_ADMIN_EMAILS:-contact@acarkaan.com}
+      # Turn on SuperTokens SDK debug output so a 401 on the BFF prints exactly
+      # why verifySession() failed. Set to "false" once the session issue is
+      # resolved — debug logs are verbose.
+      SUPERTOKENS_DEBUG: "true"
     ports:
       - "3111:3011"
     depends_on:

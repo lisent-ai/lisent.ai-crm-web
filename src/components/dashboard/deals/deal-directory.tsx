@@ -13,6 +13,8 @@ import {
   createDealComment,
   createDeal,
   deleteDeal as deleteDealRequest,
+  fetchIntegrationCatalog,
+  isAIQualifierConnected,
   listCompanies,
   listCustomers,
   listDeals,
@@ -115,11 +117,14 @@ export function DealDirectory() {
     [activeCompanyId, companies],
   );
 
+  const [aiEnabled, setAIEnabled] = useState(false);
+
   useEffect(() => {
     if (!selectedCompany?.id) {
       setCustomers([]);
       setLeads([]);
       setMembers([]);
+      setAIEnabled(false);
       return;
     }
 
@@ -128,7 +133,7 @@ export function DealDirectory() {
 
     async function loadReferenceData() {
       try {
-        const [nextCustomers, nextLeads, nextMembers] = await Promise.all([
+        const [nextCustomers, nextLeads, nextMembers, catalog] = await Promise.all([
           listCustomers(companyId).catch(() => []),
           listLeads(companyId).catch(() => []),
           listCompanyMembers(companyId).catch((error) => {
@@ -137,18 +142,21 @@ export function DealDirectory() {
             }
             throw error;
           }),
+          fetchIntegrationCatalog(companyId).catch(() => null),
         ]);
 
         if (!cancelled) {
           setCustomers(nextCustomers);
           setLeads(nextLeads);
           setMembers(nextMembers);
+          setAIEnabled(isAIQualifierConnected(catalog));
         }
       } catch {
         if (!cancelled) {
           setCustomers([]);
           setLeads([]);
           setMembers([]);
+          setAIEnabled(false);
         }
       }
     }
@@ -464,6 +472,7 @@ export function DealDirectory() {
 
       {detailDeal ? (
         <DealDetailPanel
+          aiEnabled={aiEnabled}
           commentDraft={commentDraft}
           companyLabel={companyName}
           customerLabel={customerLabelById.get(detailDeal.customerId) ?? "—"}

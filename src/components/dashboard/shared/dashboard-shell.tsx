@@ -13,16 +13,31 @@ import type { AccountProfile } from "@/lib/auth/account-profile";
 import { getCompanyMembershipSummary } from "@/lib/auth/access-control";
 import { getCompanyRoleLabel, getPlatformRoleLabel } from "@/lib/auth/roles";
 import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
+import { featureFlags } from "@/config/feature-flags";
 
-const navItems = [
-  { href: "/dashboard", label: "Overview" },
-  { href: "/dashboard/companies", label: "Companies" },
-  { href: "/dashboard/access", label: "Team Access" },
-  { href: "/dashboard/imports", label: "Customer Import" },
-  { href: "/dashboard/tasks", label: "Tasks" },
-  { href: "/dashboard/leads", label: "Leads" },
-  { href: "/dashboard/deals", label: "Deals" },
-  { href: "/dashboard/customers", label: "Customers" },
+type NavItem = {
+  href: string;
+  label: string;
+  carriesCompany: boolean;
+  /** When false, hide the item entirely (feature-flagged). */
+  visible: boolean;
+};
+
+const navItems: NavItem[] = [
+  { href: "/dashboard", label: "Overview", carriesCompany: false, visible: true },
+  { href: "/dashboard/companies", label: "Companies", carriesCompany: true, visible: true },
+  { href: "/dashboard/access", label: "Team Access", carriesCompany: true, visible: true },
+  { href: "/dashboard/imports", label: "Customer Import", carriesCompany: true, visible: true },
+  { href: "/dashboard/tasks", label: "Tasks", carriesCompany: true, visible: true },
+  {
+    href: "/dashboard/integrations",
+    label: "Integrations",
+    carriesCompany: true,
+    visible: featureFlags.integrationsHub,
+  },
+  { href: "/dashboard/leads", label: "Leads", carriesCompany: true, visible: true },
+  { href: "/dashboard/deals", label: "Deals", carriesCompany: true, visible: true },
+  { href: "/dashboard/customers", label: "Customers", carriesCompany: true, visible: true },
 ];
 
 const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE !== "false";
@@ -93,27 +108,18 @@ export function DashboardShell({
       ? getCompanyMembershipSummary(account.access, selectedCompanyId)
       : null;
 
-  function buildNavHref(baseHref: string) {
-    if (
-      (baseHref === "/dashboard/companies" ||
-        baseHref === "/dashboard/access" ||
-        baseHref === "/dashboard/tasks" ||
-        baseHref === "/dashboard/leads" ||
-        baseHref === "/dashboard/deals" ||
-        baseHref === "/dashboard/customers" ||
-        baseHref === "/dashboard/imports") &&
-      selectedCompanyId
-    ) {
+  function buildNavHref(item: NavItem) {
+    if (item.carriesCompany && selectedCompanyId) {
       const nextSearch = new URLSearchParams({
         company: selectedCompanyId,
       });
       if (selectedCompanyName) {
         nextSearch.set("companyName", selectedCompanyName);
       }
-      return `${baseHref}?${nextSearch.toString()}`;
+      return `${item.href}?${nextSearch.toString()}`;
     }
 
-    return baseHref;
+    return item.href;
   }
 
   const shell = (
@@ -133,9 +139,9 @@ export function DashboardShell({
           </div>
 
           <nav className="mt-8 grid gap-2">
-            {navItems.map((item) => {
+            {navItems.filter((item) => item.visible).map((item) => {
               const active = pathname === item.href;
-              const href = buildNavHref(item.href);
+              const href = buildNavHref(item);
 
               return (
                 <Link

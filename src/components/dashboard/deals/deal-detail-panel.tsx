@@ -1,4 +1,6 @@
-import type { Deal } from "@/lib/crm/client";
+import { useEffect, useState } from "react";
+
+import { CRMClientError, getLead, type Deal, type Lead } from "@/lib/crm/client";
 import { CompactMeta, DetailSectionCompact } from "@/components/dashboard/customers/customer-ui";
 
 import { DealCommentsPanel } from "./deal-comments-panel";
@@ -24,6 +26,7 @@ type DealDetailPanelProps = {
   onDelete: (deal: Deal) => void;
   onCommentDraftChange: (value: string) => void;
   onAddComment: () => void;
+  aiEnabled: boolean;
 };
 
 export function DealDetailPanel({
@@ -38,6 +41,7 @@ export function DealDetailPanel({
   onDelete,
   onCommentDraftChange,
   onAddComment,
+  aiEnabled,
 }: Readonly<DealDetailPanelProps>) {
   if (!deal) {
     return null;
@@ -180,6 +184,10 @@ export function DealDetailPanel({
             </div>
           </section>
 
+          {aiEnabled && deal.sourceLeadId ? (
+            <SourceLeadAIInsights leadId={deal.sourceLeadId} />
+          ) : null}
+
           {Object.keys(deal.extraData).length > 0 ? (
             <section className="rounded-[1.1rem] border border-slate-200 bg-slate-50 p-4">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-600">
@@ -193,5 +201,108 @@ export function DealDetailPanel({
         </div>
       </section>
     </div>
+  );
+}
+
+/**
+ * Loads the deal's source lead and surfaces its AI qualifier metadata.
+ * Hidden completely when the source lead is missing or was never scored —
+ * avoids cluttering pre-qualifier deals.
+ */
+function SourceLeadAIInsights({ leadId }: { leadId: string }) {
+  const [lead, setLead] = useState<Lead | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    getLead(leadId)
+      .then((next) => {
+        if (!cancelled) setLead(next);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        if (!(err instanceof CRMClientError)) throw err;
+        setLead(null);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [leadId]);
+
+  if (loading) return null;
+  if (!lead) return null;
+
+  const hasAny =
+    typeof lead.aiScore === "number" || lead.aiStatus || lead.aiReasoning || lead.aiChamp;
+  if (!hasAny) return null;
+
+  return (
+    <section className="rounded-[1.1rem] border border-violet-200 bg-violet-50/60 p-4">
+      <header className="flex items-center justify-between gap-3">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-800">
+          AI insights (source lead)
+        </p>
+        {lead.aiLastScoredAt ? (
+          <span className="text-xs text-violet-700">
+            scored {formatDateTime(lead.aiLastScoredAt)}
+          </span>
+        ) : null}
+      </header>
+
+      <div className="mt-3 grid gap-3 md:grid-cols-3">
+        {typeof lead.aiScore === "number" ? (
+          <article className="rounded-xl border border-violet-200 bg-white p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-700">
+              AI score
+            </p>
+            <p className="mt-1 text-base font-semibold text-slate-900">
+              {Math.round(lead.aiScore)} / 100
+            </p>
+          </article>
+        ) : null}
+        {lead.aiStatus ? (
+          <article className="rounded-xl border border-violet-200 bg-white p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-700">
+              AI status
+            </p>
+            <p className="mt-1 text-base font-semibold text-slate-900">{lead.aiStatus}</p>
+          </article>
+        ) : null}
+        {lead.aiPath ? (
+          <article className="rounded-xl border border-violet-200 bg-white p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-700">
+              Path
+            </p>
+            <p className="mt-1 text-base font-semibold text-slate-900">{lead.aiPath}</p>
+          </article>
+        ) : null}
+      </div>
+
+      {lead.aiReasoning ? (
+        <details className="mt-3" open>
+          <summary className="cursor-pointer text-xs font-semibold text-violet-800">
+            Reasoning report
+          </summary>
+          <pre className="mt-2 overflow-auto rounded-xl bg-white p-3 text-xs leading-6 text-slate-800">
+            {JSON.stringify(lead.aiReasoning, null, 2)}
+          </pre>
+        </details>
+      ) : null}
+
+      {lead.aiChamp ? (
+        <details className="mt-3">
+          <summary className="cursor-pointer text-xs font-semibold text-violet-800">
+            CHAMP extraction
+          </summary>
+          <pre className="mt-2 overflow-auto rounded-xl bg-white p-3 text-xs leading-6 text-slate-800">
+            {JSON.stringify(lead.aiChamp, null, 2)}
+          </pre>
+        </details>
+      ) : null}
+    </section>
   );
 }

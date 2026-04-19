@@ -38,7 +38,6 @@ const rolePermissions: Record<CompanyRole, CompanyPermission[]> = {
     "customers.write",
     "imports.run",
     "imports.manage",
-    "integrations.manage",
     "qualifier.manage",
     "members.read",
     "members.manage",
