@@ -1552,14 +1552,19 @@ export async function revokeQualifierRAGSecondaryToken(
 
 // ─── Intranet integration (Faz 7) ───────────────────────────────────────────
 
+export type IntranetAuthMode = "hmac" | "bearer" | "hmac_or_bearer";
+
 export type IntranetConfig = {
   id: string;
   companyId: string;
   inboundUrl: string;
   tokenPrimary: string;
   tokenSecondary: string | null;
+  authMode: IntranetAuthMode;
   hmacSecretPrimaryMasked: string;
   hmacSecretSecondaryMasked: string | null;
+  bearerTokenPrimaryMasked: string | null;
+  bearerTokenSecondaryMasked: string | null;
   fieldMapping: Record<string, unknown>;
   targetEntity: "lead" | "customer";
   isActive: boolean;
@@ -1589,8 +1594,11 @@ type CRMIntranetStatus = {
   inbound_url: string;
   token_primary: string;
   token_secondary?: string | null;
+  auth_mode?: IntranetAuthMode;
   hmac_secret_primary_masked: string;
   hmac_secret_secondary_masked?: string | null;
+  bearer_token_primary_masked?: string | null;
+  bearer_token_secondary_masked?: string | null;
   field_mapping: Record<string, unknown>;
   target_entity: "lead" | "customer";
   is_active: boolean;
@@ -1610,8 +1618,11 @@ function mapIntranetStatus(r: CRMIntranetStatus): IntranetConfig {
     inboundUrl: r.inbound_url,
     tokenPrimary: r.token_primary,
     tokenSecondary: r.token_secondary ?? null,
+    authMode: r.auth_mode ?? "hmac_or_bearer",
     hmacSecretPrimaryMasked: r.hmac_secret_primary_masked,
     hmacSecretSecondaryMasked: r.hmac_secret_secondary_masked ?? null,
+    bearerTokenPrimaryMasked: r.bearer_token_primary_masked ?? null,
+    bearerTokenSecondaryMasked: r.bearer_token_secondary_masked ?? null,
     fieldMapping: r.field_mapping,
     targetEntity: r.target_entity,
     isActive: r.is_active,
@@ -1648,23 +1659,35 @@ export async function upsertIntranetIntegration(
   input: {
     fieldMapping: Record<string, unknown>;
     targetEntity: "lead" | "customer";
+    authMode?: IntranetAuthMode;
   },
-): Promise<{ integration: IntranetConfig; hmacSecretPlain?: string }> {
-  const body = JSON.stringify({
+): Promise<{
+  integration: IntranetConfig;
+  hmacSecretPlain?: string;
+  bearerTokenPlain?: string;
+}> {
+  const payload: Record<string, unknown> = {
     field_mapping: input.fieldMapping,
     target_entity: input.targetEntity,
-  });
+  };
+  if (input.authMode) payload.auth_mode = input.authMode;
   const response = await requestCRM<
-    CRMIntranetStatus | { integration: CRMIntranetStatus; hmac_secret_plain: string }
+    | CRMIntranetStatus
+    | {
+        integration: CRMIntranetStatus;
+        hmac_secret_plain: string;
+        bearer_token_plain?: string;
+      }
   >(`/companies/${companyId}/integrations/intranet`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body,
+    body: JSON.stringify(payload),
   });
   if (response && typeof response === "object" && "integration" in response) {
     return {
       integration: mapIntranetStatus(response.integration),
       hmacSecretPlain: response.hmac_secret_plain,
+      bearerTokenPlain: response.bearer_token_plain,
     };
   }
   return { integration: mapIntranetStatus(response as CRMIntranetStatus) };
@@ -1675,11 +1698,13 @@ export async function patchIntranetIntegration(
   input: {
     fieldMapping?: Record<string, unknown>;
     targetEntity?: "lead" | "customer";
+    authMode?: IntranetAuthMode;
   },
 ): Promise<IntranetConfig> {
   const body: Record<string, unknown> = {};
   if (input.fieldMapping !== undefined) body.field_mapping = input.fieldMapping;
   if (input.targetEntity !== undefined) body.target_entity = input.targetEntity;
+  if (input.authMode !== undefined) body.auth_mode = input.authMode;
   const r = await requestCRM<CRMIntranetStatus>(
     `/companies/${companyId}/integrations/intranet`,
     {
@@ -1739,6 +1764,28 @@ export async function rotateIntranetSecret(
 export async function revokeIntranetSecondarySecret(companyId: string): Promise<void> {
   await requestCRM<void>(
     `/companies/${companyId}/integrations/intranet/revoke-secondary-secret`,
+    { method: "POST" },
+  );
+}
+
+export async function rotateIntranetBearer(
+  companyId: string,
+): Promise<{ bearerTokenPrimary: string; rotationNotice: string; secondaryMasked: string }> {
+  const r = await requestCRM<{
+    bearer_token_primary: string;
+    rotation_notice: string;
+    secondary_masked: string;
+  }>(`/companies/${companyId}/integrations/intranet/rotate-bearer`, { method: "POST" });
+  return {
+    bearerTokenPrimary: r.bearer_token_primary,
+    rotationNotice: r.rotation_notice,
+    secondaryMasked: r.secondary_masked,
+  };
+}
+
+export async function revokeIntranetSecondaryBearer(companyId: string): Promise<void> {
+  await requestCRM<void>(
+    `/companies/${companyId}/integrations/intranet/revoke-secondary-bearer`,
     { method: "POST" },
   );
 }
