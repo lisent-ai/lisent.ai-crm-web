@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 
 import {
   CRMClientError,
@@ -9,7 +9,12 @@ import {
   rotateQualifierRAGToken,
   type QualifierRAGConfig,
 } from "@/lib/crm/client";
-import { listRagDocuments, type RagDocument } from "@/lib/qualifier/client";
+import {
+  getRagDocument,
+  listRagDocuments,
+  type RagChunk,
+  type RagDocument,
+} from "@/lib/qualifier/client";
 
 type Props = {
   companyId: string;
@@ -34,6 +39,10 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
   const [docs, setDocs] = useState<RagDocument[] | null>(null);
   const [docsLoading, setDocsLoading] = useState(false);
   const [docsError, setDocsError] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [chunkCache, setChunkCache] = useState<Record<string, RagChunk[]>>({});
+  const [chunkLoading, setChunkLoading] = useState<string | null>(null);
+  const [chunkError, setChunkError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -62,6 +71,28 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
       setDocsLoading(false);
     }
   }, [companyId]);
+
+  const toggleExpanded = useCallback(
+    async (recordId: string) => {
+      if (expanded === recordId) {
+        setExpanded(null);
+        return;
+      }
+      setExpanded(recordId);
+      setChunkError(null);
+      if (chunkCache[recordId]) return;
+      setChunkLoading(recordId);
+      try {
+        const { chunks } = await getRagDocument(companyId, recordId);
+        setChunkCache((prev) => ({ ...prev, [recordId]: chunks }));
+      } catch (err) {
+        setChunkError(err instanceof Error ? err.message : "Could not load content");
+      } finally {
+        setChunkLoading(null);
+      }
+    },
+    [companyId, expanded, chunkCache],
+  );
 
   useEffect(() => {
     void load();
@@ -250,10 +281,11 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
             No documents yet. POST to the webhook to add some.
           </p>
         ) : (
-          <div className="max-h-96 overflow-auto rounded-xl border border-slate-200">
+          <div className="max-h-[32rem] overflow-auto rounded-xl border border-slate-200">
             <table className="w-full text-left text-xs">
               <thead className="sticky top-0 bg-slate-50 text-slate-600">
                 <tr>
+                  <th className="px-3 py-2 font-semibold w-6"></th>
                   <th className="px-3 py-2 font-semibold">record_id</th>
                   <th className="px-3 py-2 font-semibold">Title</th>
                   <th className="px-3 py-2 font-semibold text-right">Chunks</th>
@@ -261,16 +293,71 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                 </tr>
               </thead>
               <tbody>
-                {docs.map((d) => (
-                  <tr key={d.doc_ref} className="border-t border-slate-100">
-                    <td className="px-3 py-2 font-mono text-slate-800">{d.doc_ref}</td>
-                    <td className="px-3 py-2 text-slate-700">{d.title || "—"}</td>
-                    <td className="px-3 py-2 text-right text-slate-700">{d.chunk_count}</td>
-                    <td className="px-3 py-2 text-slate-500">
-                      {d.updated_at ? new Date(d.updated_at).toLocaleString() : "—"}
-                    </td>
-                  </tr>
-                ))}
+                {docs.map((d) => {
+                  const isOpen = expanded === d.doc_ref;
+                  const chunks = chunkCache[d.doc_ref];
+                  return (
+                    <Fragment key={d.doc_ref}>
+                      <tr
+                        className="cursor-pointer border-t border-slate-100 hover:bg-slate-50"
+                        onClick={() => void toggleExpanded(d.doc_ref)}
+                      >
+                        <td className="px-3 py-2 text-slate-400">{isOpen ? "▾" : "▸"}</td>
+                        <td className="px-3 py-2 font-mono text-slate-800">{d.doc_ref}</td>
+                        <td className="px-3 py-2 text-slate-700">{d.title || "—"}</td>
+                        <td className="px-3 py-2 text-right text-slate-700">{d.chunk_count}</td>
+                        <td className="px-3 py-2 text-slate-500">
+                          {d.updated_at ? new Date(d.updated_at).toLocaleString() : "—"}
+                        </td>
+                      </tr>
+                      {isOpen ? (
+                        <tr className="border-t border-slate-100 bg-slate-50">
+                          <td colSpan={5} className="px-3 py-3">
+                            {chunkLoading === d.doc_ref ? (
+                              <p className="text-slate-500">Loading content…</p>
+                            ) : chunkError && !chunks ? (
+                              <p className="text-rose-700">{chunkError}</p>
+                            ) : !chunks ? null : (
+                              <div className="space-y-3">
+                                {chunks.map((c) => (
+                                  <div
+                                    key={c.id}
+                                    className="rounded-lg border border-slate-200 bg-white p-3"
+                                  >
+                                    <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-wide text-slate-500">
+                                      <span>chunk #{c.chunk_index}</span>
+                                      {c.source_url ? (
+                                        <a
+                                          href={c.source_url}
+                                          target="_blank"
+                                          rel="noreferrer"
+                                          className="text-sky-600 hover:underline"
+                                        >
+                                          source
+                                        </a>
+                                      ) : null}
+                                    </div>
+                                    <pre className="whitespace-pre-wrap break-words font-sans text-xs leading-relaxed text-slate-800">
+                                      {c.content}
+                                    </pre>
+                                    {Object.keys(c.metadata ?? {}).length > 0 ? (
+                                      <details className="mt-2 text-[11px] text-slate-500">
+                                        <summary className="cursor-pointer">metadata</summary>
+                                        <pre className="mt-1 overflow-x-auto rounded bg-slate-100 p-2 font-mono">
+                                          {JSON.stringify(c.metadata, null, 2)}
+                                        </pre>
+                                      </details>
+                                    ) : null}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      ) : null}
+                    </Fragment>
+                  );
+                })}
               </tbody>
             </table>
           </div>

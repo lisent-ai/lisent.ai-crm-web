@@ -40,3 +40,22 @@ export async function listRagDocuments(
 ): Promise<RagDocument[]> {
   return requestQualifier<RagDocument[]>(`rag/${companyId}/documents?limit=${limit}`);
 }
+
+export type RagChunk = {
+  id: string;
+  doc_ref: string;
+  chunk_index: number;
+  title: string;
+  content: string;
+  source_url: string | null;
+  metadata: Record<string, unknown>;
+};
+
+export async function getRagDocument(
+  companyId: string,
+  recordId: string,
+): Promise<{ doc_ref: string; chunks: RagChunk[] }> {
+  return requestQualifier(
+    `rag/${companyId}/documents/${encodeURIComponent(recordId)}`,
+  );
+}
