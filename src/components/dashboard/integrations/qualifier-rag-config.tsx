@@ -9,6 +9,7 @@ import {
   rotateQualifierRAGToken,
   type QualifierRAGConfig,
 } from "@/lib/crm/client";
+import { listRagDocuments, type RagDocument } from "@/lib/qualifier/client";
 
 type Props = {
   companyId: string;
@@ -30,6 +31,9 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
   const [showSecondary, setShowSecondary] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [docs, setDocs] = useState<RagDocument[] | null>(null);
+  const [docsLoading, setDocsLoading] = useState(false);
+  const [docsError, setDocsError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -46,9 +50,23 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
     }
   }, [companyId]);
 
+  const loadDocs = useCallback(async () => {
+    setDocsLoading(true);
+    setDocsError(null);
+    try {
+      const next = await listRagDocuments(companyId);
+      setDocs(next);
+    } catch (err) {
+      setDocsError(err instanceof Error ? err.message : "Could not load documents");
+    } finally {
+      setDocsLoading(false);
+    }
+  }, [companyId]);
+
   useEffect(() => {
     void load();
-  }, [load]);
+    void loadDocs();
+  }, [load, loadDocs]);
 
   async function handleRotate() {
     if (!confirm("Rotate the RAG token? The previous token stays valid as secondary until you revoke it.")) {
@@ -100,9 +118,9 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
   -H "Content-Type: application/json" \\
   -H "X-Idempotency-Key: $(uuidgen)" \\
   -d '{
-    "documents": [
+    "data": [
       {
-        "doc_ref": "policy-v1",
+        "record_id": "policy-v1",
         "title": "Return policy",
         "content": "We offer...",
         "source_url": "https://example.com/policy"
@@ -201,6 +219,64 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
         </div>
       </article>
 
+      <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+        <header className="mb-4 flex items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-semibold tracking-tight text-slate-950">
+              Ingested documents {docs ? `(${docs.length})` : ""}
+            </h3>
+            <p className="mt-1 text-sm text-slate-600">
+              One row per <code>record_id</code>. Each chat turn searches these
+              via Postgres full-text and injects the top 3 hits into the prompt.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={loadDocs}
+            disabled={docsLoading}
+            className="shrink-0 rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-50"
+          >
+            {docsLoading ? "Refreshing…" : "Refresh"}
+          </button>
+        </header>
+        {docsError ? (
+          <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+            {docsError}
+          </p>
+        ) : docsLoading && !docs ? (
+          <p className="text-sm text-slate-500">Loading documents…</p>
+        ) : !docs || docs.length === 0 ? (
+          <p className="text-sm text-slate-500">
+            No documents yet. POST to the webhook to add some.
+          </p>
+        ) : (
+          <div className="max-h-96 overflow-auto rounded-xl border border-slate-200">
+            <table className="w-full text-left text-xs">
+              <thead className="sticky top-0 bg-slate-50 text-slate-600">
+                <tr>
+                  <th className="px-3 py-2 font-semibold">record_id</th>
+                  <th className="px-3 py-2 font-semibold">Title</th>
+                  <th className="px-3 py-2 font-semibold text-right">Chunks</th>
+                  <th className="px-3 py-2 font-semibold">Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                {docs.map((d) => (
+                  <tr key={d.doc_ref} className="border-t border-slate-100">
+                    <td className="px-3 py-2 font-mono text-slate-800">{d.doc_ref}</td>
+                    <td className="px-3 py-2 text-slate-700">{d.title || "—"}</td>
+                    <td className="px-3 py-2 text-right text-slate-700">{d.chunk_count}</td>
+                    <td className="px-3 py-2 text-slate-500">
+                      {d.updated_at ? new Date(d.updated_at).toLocaleString() : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </article>
+
       {config?.webhookUrl ? (
         <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
           <h3 className="text-sm font-semibold tracking-tight text-slate-950">
@@ -208,7 +284,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
           </h3>
           <p className="mt-1 text-sm text-slate-600">
             Send documents directly to the webhook. Re-posting with the same{" "}
-            <code>doc_ref</code> replaces the earlier content (idempotent).
+            <code>record_id</code> replaces the earlier content (idempotent).
           </p>
           <pre className="mt-3 max-h-72 overflow-auto rounded-xl bg-slate-900 p-4 text-xs leading-relaxed text-slate-100">
             {curlSnippet}

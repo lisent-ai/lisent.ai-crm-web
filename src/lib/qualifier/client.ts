@@ -25,3 +25,18 @@ export async function listQualifierLeads(
   const data = await requestQualifier<{ data: QualifierLead[] }>(`leads/${companyId}`);
   return data.data;
 }
+
+export type RagDocument = {
+  doc_ref: string;
+  title: string | null;
+  source_url: string | null;
+  chunk_count: number;
+  updated_at: string | null;
+};
+
+export async function listRagDocuments(
+  companyId: string,
+  limit = 1000,
+): Promise<RagDocument[]> {
+  return requestQualifier<RagDocument[]>(`rag/${companyId}/documents?limit=${limit}`);
+}

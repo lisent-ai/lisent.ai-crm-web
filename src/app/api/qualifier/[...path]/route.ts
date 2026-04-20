@@ -34,7 +34,7 @@ async function handle(request: NextRequest, context: { params: Promise<{ path?: 
     const pathSegments = params.path ?? [];
     const [resource, companyId] = pathSegments;
 
-    if (resource === "leads" && companyId) {
+    if ((resource === "leads" || resource === "rag") && companyId) {
       if (!hasCompanyPermissionInAccess(account.access, companyId, "company.read")) {
         return Response.json({ error: "forbidden" }, { status: 403 });
       }
