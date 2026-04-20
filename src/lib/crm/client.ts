@@ -1321,6 +1321,7 @@ export type QualifierAIConfig = {
   custom_prompt_prefix?: string;
   ideal_customer_profile?: string;
   forbidden_topics?: string[];
+  manual_qualify?: boolean;
 };
 
 export type QualifierConfigResponse = {

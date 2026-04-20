@@ -27,6 +27,8 @@ import {
   type CompanyMember,
 } from "@/lib/auth/company-membership-client";
 
+import { startLeadQualify } from "@/lib/qualifier/client";
+
 import { LeadConvertModal } from "./lead-convert-modal";
 import { LeadDeleteModal } from "./lead-delete-modal";
 import { LeadDetailPanel } from "./lead-detail-panel";
@@ -530,6 +532,24 @@ export function LeadDirectory() {
     }
   }
 
+  async function startQualifyLead(lead: Lead) {
+    if (!selectedCompany) return;
+    setSaving(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    try {
+      await startLeadQualify(selectedCompany.id, lead.id);
+      await reloadReferenceData(selectedCompany.id);
+      setSuccessMessage("AI qualification started for this lead.");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : "Failed to start qualification.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
   async function assignLeadRoundRobin(lead: Lead) {
     if (!selectedCompany) {
       return;
@@ -618,6 +638,7 @@ export function LeadDirectory() {
           onConvert={openConvertLeadModal}
           onDelete={setPendingDeleteLead}
           onEdit={openEditModal}
+          onStartQualify={startQualifyLead}
           saving={saving}
         />
       </div>

@@ -18,6 +18,7 @@ type LeadDetailPanelProps = {
   onAssignRoundRobin: (lead: Lead) => void;
   onConvert: (lead: Lead) => void;
   onDelete: (lead: Lead) => void;
+  onStartQualify: (lead: Lead) => void;
   /** When false the AI Lead Qualifier insights block is hidden entirely
    *  (even if the lead row still has ai_score / ai_champ / ai_reasoning).
    *  Controlled from Lead Directory based on the company's Connect
@@ -34,8 +35,10 @@ export function LeadDetailPanel({
   onAssignRoundRobin,
   onConvert,
   onDelete,
+  onStartQualify,
   aiEnabled,
 }: Readonly<LeadDetailPanelProps>) {
+  const canStartQualify = aiEnabled && lead?.aiStatus === "pending";
   return (
     <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
       {lead ? (
@@ -70,6 +73,16 @@ export function LeadDetailPanel({
           </div>
 
           <div className="flex flex-wrap gap-3">
+            {canStartQualify ? (
+              <button
+                className="rounded-full bg-violet-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-violet-700 disabled:opacity-50"
+                disabled={saving}
+                onClick={() => onStartQualify(lead)}
+                type="button"
+              >
+                {saving ? "Starting…" : "Start qualify"}
+              </button>
+            ) : null}
             <button
               className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
               disabled={saving}

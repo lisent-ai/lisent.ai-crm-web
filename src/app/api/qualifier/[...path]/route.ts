@@ -80,3 +80,11 @@ async function handle(request: NextRequest, context: { params: Promise<{ path?: 
 export async function GET(request: NextRequest, context: { params: Promise<{ path?: string[] }> }) {
   return handle(request, context);
 }
+
+export async function POST(request: NextRequest, context: { params: Promise<{ path?: string[] }> }) {
+  return handle(request, context);
+}
+
+export async function PATCH(request: NextRequest, context: { params: Promise<{ path?: string[] }> }) {
+  return handle(request, context);
+}

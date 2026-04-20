@@ -19,6 +19,20 @@ async function requestQualifier<T>(path: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+async function postQualifier<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(`/api/qualifier/${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body ?? {}),
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Qualifier API error: ${res.status} ${text.slice(0, 200)}`);
+  }
+  return res.json() as Promise<T>;
+}
+
 export async function listQualifierLeads(
   companyId: string,
 ): Promise<QualifierLead[]> {
@@ -57,5 +71,24 @@ export async function getRagDocument(
 ): Promise<{ doc_ref: string; chunks: RagChunk[] }> {
   return requestQualifier(
     `rag/${companyId}/documents/${encodeURIComponent(recordId)}`,
+  );
+}
+
+export type StartQualifyResponse = {
+  ok: boolean;
+  session_id?: string;
+  new_stage?: string;
+  already_active?: boolean;
+  stage?: string;
+};
+
+export async function startLeadQualify(
+  companyId: string,
+  leadId: string,
+  actor = "dashboard",
+): Promise<StartQualifyResponse> {
+  return postQualifier(
+    `leads/${companyId}/${encodeURIComponent(leadId)}/start-qualify`,
+    { actor },
   );
 }

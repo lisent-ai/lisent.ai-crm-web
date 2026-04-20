@@ -375,6 +375,9 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
   const [forbiddenTopics, setForbiddenTopics] = useState(
     (config?.aiConfig?.forbidden_topics ?? []).join(", "),
   );
+  const [manualQualify, setManualQualify] = useState(
+    Boolean(config?.aiConfig?.manual_qualify),
+  );
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -386,6 +389,7 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
     setCustomPromptPrefix(config.aiConfig?.custom_prompt_prefix ?? "");
     setIdealCustomerProfile(config.aiConfig?.ideal_customer_profile ?? "");
     setForbiddenTopics((config.aiConfig?.forbidden_topics ?? []).join(", "));
+    setManualQualify(Boolean(config.aiConfig?.manual_qualify));
   }, [config]);
 
   async function handleSave(event: React.FormEvent) {
@@ -404,6 +408,7 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean),
+      manual_qualify: manualQualify,
     };
     try {
       await updateQualifierConfig(companyId, { aiConfig: nextConfig });
@@ -491,6 +496,23 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
             className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
             placeholder="Describe your best-fit customer. Guides score calibration."
           />
+        </label>
+
+        <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm">
+          <input
+            type="checkbox"
+            checked={manualQualify}
+            onChange={(e) => setManualQualify(e.target.checked)}
+            className="mt-0.5 h-4 w-4 rounded border-slate-300"
+          />
+          <span className="grid gap-0.5">
+            <span className="font-semibold text-slate-700">Manual qualify mode</span>
+            <span className="text-xs text-slate-500">
+              New leads score and land in the CRM as <code>pending</code>. AI chat
+              and WhatsApp greetings only fire when you click Start Qualify on
+              the lead.
+            </span>
+          </span>
         </label>
 
         <label className="grid gap-1 text-sm">
