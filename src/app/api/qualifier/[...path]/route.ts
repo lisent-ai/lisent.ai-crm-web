@@ -52,7 +52,24 @@ async function handle(request: NextRequest, context: { params: Promise<{ path?: 
     const ct = request.headers.get("content-type");
     if (ct) headers.set("content-type", ct);
 
-    const upstream = await fetch(upstreamURL, { method, headers, body, cache: "no-store" });
+    let upstream: Response;
+    try {
+      upstream = await fetch(upstreamURL, { method, headers, body, cache: "no-store" });
+    } catch (err) {
+      console.error("[qualifier-proxy] fetch failed", { upstreamURL, err: (err as Error).message });
+      return Response.json(
+        { error: "qualifier unreachable", detail: (err as Error).message, upstreamURL },
+        { status: 502 },
+      );
+    }
+    if (!upstream.ok) {
+      const text = await upstream.text();
+      console.error("[qualifier-proxy] upstream non-2xx", { upstreamURL, status: upstream.status, body: text.slice(0, 500) });
+      return new Response(text, {
+        status: upstream.status,
+        headers: { "content-type": upstream.headers.get("content-type") ?? "text/plain" },
+      });
+    }
     const resHeaders = new Headers();
     const resct = upstream.headers.get("content-type");
     if (resct) resHeaders.set("content-type", resct);
