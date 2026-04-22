@@ -20,6 +20,13 @@ services:
       CRM_BASE_URL: ${CRM_BASE_URL}
       CRM_INTERNAL_API_KEY: ${CRM_INTERNAL_API_KEY}
       PLATFORM_SUPER_ADMIN_EMAILS: ${PLATFORM_SUPER_ADMIN_EMAILS:-}
+
+      # Phase 2.O — qualifier v1 BFF proxy (/api/qualifier-v1/*). All three
+      # MUST be set in Dokploy. QUALIFIER_PLATFORM_TOKEN must exactly match
+      # the qualifier app's PLATFORM_ADMIN_TOKEN value.
+      QUALIFIER_BASE_URL: ${QUALIFIER_BASE_URL}
+      QUALIFIER_PLATFORM_TOKEN: ${QUALIFIER_PLATFORM_TOKEN}
+      QUALIFIER_INTERNAL_API_KEY: ${QUALIFIER_INTERNAL_API_KEY}
     networks:
       - dokploy-network
 
