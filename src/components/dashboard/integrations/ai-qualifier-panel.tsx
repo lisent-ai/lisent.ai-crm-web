@@ -9,6 +9,8 @@ import { CRMClientError, disconnectAIQualifier } from "@/lib/crm/client";
 import { APIKeysPanel } from "./api-keys-panel";
 import { QualifierConfigPanel } from "./qualifier-config-panel";
 import { QualifierRAGConfigPanel } from "./qualifier-rag-config";
+import { UsagePanel } from "./usage-panel";
+import { V1ConfigPanel } from "./v1-config-panel";
 
 type Props = {
   companyId: string;
@@ -23,7 +25,9 @@ type Tab =
   | "fallback"
   | "ai-config"
   | "channels"
-  | "api-keys";
+  | "api-keys"
+  | "usage"
+  | "v1-config";
 
 const TAB_LABELS: Record<Tab, string> = {
   overview: "Overview",
@@ -33,6 +37,8 @@ const TAB_LABELS: Record<Tab, string> = {
   "ai-config": "AI Config",
   channels: "Channels",
   "api-keys": "API Keys",
+  usage: "Usage",
+  "v1-config": "Scoring Config (v1)",
 };
 
 /**
@@ -98,6 +104,12 @@ export function AIQualifierPanel({ companyId, companyName, initialTab = "overvie
       ) : null}
       {tab === "api-keys" ? (
         <APIKeysPanel companyId={companyId} companyName={companyName} />
+      ) : null}
+      {tab === "usage" ? (
+        <UsagePanel companyId={companyId} companyName={companyName} />
+      ) : null}
+      {tab === "v1-config" ? (
+        <V1ConfigPanel companyId={companyId} companyName={companyName} />
       ) : null}
     </section>
   );

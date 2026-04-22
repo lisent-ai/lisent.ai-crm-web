@@ -91,3 +91,57 @@ export async function revokeAPIKey(companyId: string, keyId: string): Promise<vo
     method: "DELETE",
   });
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 2.O.3 — Usage endpoint
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type UsageResponse = {
+  tenant_id: string;
+  plan: string;
+  today: Record<string, number>;
+  month_to_date: Record<string, number>;
+  rate_limit_per_min: number | null;
+};
+
+export async function getUsage(companyId: string): Promise<UsageResponse> {
+  return bffRequest<UsageResponse>(companyId, "/usage");
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Phase 2.O.4 — Config endpoint
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type TenantConfigResponse = {
+  tenant_id: string;
+  qualification_framework: string;
+  supported_frameworks: string[];
+  config: Record<string, unknown>;
+  domain_claims: string[];
+  outbound_webhook_url: string | null;
+  branding: Record<string, unknown>;
+};
+
+export type ConfigPatchInput = {
+  qualification_framework?: "champ" | "bant" | "meddic";
+  qualification_threshold?: number;
+  handoff_aggressiveness?: "conservative" | "balanced" | "aggressive";
+  scoring_weights?: Record<string, number>;
+  outbound_webhook_url?: string;
+  branding?: Record<string, unknown>;
+  cta_calendly_url?: string;
+};
+
+export async function getConfig(companyId: string): Promise<TenantConfigResponse> {
+  return bffRequest<TenantConfigResponse>(companyId, "/config");
+}
+
+export async function patchConfig(
+  companyId: string,
+  patch: ConfigPatchInput,
+): Promise<TenantConfigResponse> {
+  return bffRequest<TenantConfigResponse>(companyId, "/config", {
+    method: "PATCH",
+    body: JSON.stringify(patch),
+  });
+}
