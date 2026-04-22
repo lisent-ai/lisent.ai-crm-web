@@ -39,6 +39,49 @@ Important boundary:
 - company memberships remain source-of-truth access data in the web app / SuperTokens
 - because of that split, round-robin assignment is orchestrated in the web app and then persisted back to CRM as lead assignee fields
 
+## Current Deal UI Status
+
+Deal management now also has a real dedicated surface in this repo.
+
+Implemented in web:
+
+- `/dashboard/deals`
+- kanban-style deal board
+- deal create/edit/delete flows
+- deal detail popup
+- deal stage history display
+- shared deal comments
+- related record display:
+  - company
+  - customer
+  - source lead
+
+Important boundary:
+
+- deal records, stage history, and deal comments remain source-of-truth CRM data in `lisent.ai-CRM-service`
+- the web app is responsible for session validation, tenant access, and BFF forwarding only
+
+## Current Task UI Status
+
+Task workflow now has a dedicated page in this repo.
+
+Implemented in web:
+
+- `/dashboard/tasks`
+- publish to one teammate
+- publish to everyone in the selected company
+- broadcast task grouping in the UI
+- response inbox via `Open Tickets`
+- accepted-work queue via `My Tasks`
+- creator delete flow for mistakenly published tasks
+
+Current interaction model:
+
+- `Open Tickets` shows tasks still waiting for acceptance
+- `My Tasks` shows tasks only after the signed-in user accepts them
+- individual task visibility is restricted to creator and assignee
+- broadcast tasks are still grouped for the creator so outcome counts stay readable
+
 ## System Boundary
 
 Current intended architecture:
@@ -79,7 +122,8 @@ Current notable BFF behavior already implemented:
 - company/customer authorization
 - lead authorization by company
 - deal authorization by company
-- lead/deal forwarding through `/api/crm/[...path]`
+- task authorization with creator/assignee visibility rules
+- lead/deal/task forwarding through `/api/crm/[...path]`
 
 Those routes should:
 
@@ -116,11 +160,16 @@ Implemented now:
 - company creation forwards creator user id and display name to the CRM service
 - company/customer authorization in `/api/crm/[...path]`
 - lead/deal authorization in `/api/crm/[...path]`
+- task authorization in `/api/crm/[...path]`
 - owner membership assignment on company creation
 - company memberships stored in SuperTokens User Metadata
 - dedicated leads dashboard page
+- dedicated deals dashboard page
+- dedicated tasks dashboard page
 - round-robin lead assignment using company memberships
 - lead conversion flow from web UI to CRM service
+- deal kanban board with comments and stage history
+- task publish / accept / reject / done workflow
 
 Validated:
 
@@ -140,7 +189,9 @@ src/
       session/route.ts
     auth/[[...path]]/page.tsx
     dashboard/account/page.tsx
+    dashboard/deals/page.tsx
     dashboard/leads/page.tsx
+    dashboard/tasks/page.tsx
     dashboard/page.tsx
     globals.css
     layout.tsx
@@ -160,8 +211,12 @@ src/
         company-workspace.tsx
       customers/
         customer-directory.tsx
+      deals/
+        ...
       leads/
         lead-directory.tsx
+      tasks/
+        ...
       home/
         dashboard-hero.tsx
         dashboard-overview.tsx
@@ -290,6 +345,42 @@ Current implemented behavior:
   - `converted_at`
 
 This gives the UI a clear transition from prospect tracking to customer/deal tracking without manually recreating records.
+
+## Deal Workflow Model
+
+Current implemented behavior:
+
+- deals are shown in a kanban-style board by stage
+- detail opens in a popup instead of expanding the page layout
+- stage history is displayed from CRM data
+- comments are shared through CRM so teammates can see each other's updates
+- deal conversion from leads can pre-fill downstream deal context
+
+The current deal board is not drag-and-drop yet.
+
+Stage changes still happen through explicit edit flows that write back to CRM.
+
+## Task Workflow Model
+
+Current implemented behavior:
+
+- publisher can create:
+  - individual task
+  - broadcast task
+- broadcast publish is implemented as one CRM task per recipient plus a shared `broadcast_group_id`
+- `Open Tickets` is the response inbox for pending assignments
+- `My Tasks` is the accepted-work queue for the current user
+- after acceptance:
+  - task leaves `Open Tickets`
+  - task appears in `My Tasks`
+- publisher can delete a task they created
+- for broadcast tasks, delete removes every task copy in that publish group
+
+Current access rule:
+
+- creator and assignee can see an individual task
+- unrelated company members should not see that task
+- creator can still monitor grouped outcomes for broadcast tasks
 
 ## Recommended Next Improvements
 

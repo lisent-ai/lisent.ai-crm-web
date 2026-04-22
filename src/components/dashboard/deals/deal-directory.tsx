@@ -421,6 +421,28 @@ export function DealDirectory() {
     }
   }
 
+  function scheduleDeal(deal: Deal) {
+    if (!selectedCompany) {
+      return;
+    }
+
+    const nextSearch = new URLSearchParams({
+      company: selectedCompany.id,
+      companyName,
+      compose: "1",
+      linkedType: "deal",
+      linkedId: deal.id,
+      title: `Meeting: ${deal.name || "Deal"}`,
+      eventType: "meeting",
+    });
+
+    if (deal.customerId) {
+      nextSearch.set("customerId", deal.customerId);
+    }
+
+    window.location.assign(`/dashboard/calendar?${nextSearch.toString()}`);
+  }
+
   return (
     <div className="grid min-w-0 gap-6">
       <DealHeader
@@ -482,6 +504,7 @@ export function DealDirectory() {
           onCommentDraftChange={setCommentDraft}
           onDelete={setPendingDeleteDeal}
           onEdit={openEditModal}
+          onSchedule={scheduleDeal}
           saving={saving}
           sourceLeadLabel={leadLabelById.get(detailDeal.sourceLeadId) ?? "—"}
         />

@@ -108,6 +108,76 @@ web app and the CRM service.
   - `won`
   - `lost`
 
+## Deal Management
+
+- dedicated `/dashboard/deals` page
+- kanban-style deal board
+- company-scoped deal listing
+- deal detail popup
+- deal create flow
+- deal edit flow
+- deal delete flow
+- deal fields include:
+  - name
+  - stage
+  - amount
+  - currency
+  - expected close date
+  - termination date
+  - won reason
+  - loss reason
+  - assignee user id
+  - assignee user name
+  - source lead id
+  - extra data
+- related records shown in UI:
+  - company
+  - customer
+  - source lead
+- deal stage history shown in UI
+- shared deal comments stored in CRM service
+- kanban cards show comment counts and key metadata
+- deal backend filtering by:
+  - company
+  - customer
+  - stage
+  - assignee
+  - search query
+
+## Task Management
+
+- dedicated `/dashboard/tasks` page
+- publish a task to one teammate
+- publish a task to everyone in the selected company
+- broadcast tasks grouped in the UI by one publish action
+- task response workflow:
+  - pending
+  - accepted
+  - rejected
+- task status workflow:
+  - open
+  - in progress
+  - done
+  - canceled
+- `Open Tickets` acts as the response inbox
+- `My Tasks` shows accepted work only
+- accepted tasks move out of `Open Tickets` and into `My Tasks`
+- task creator can delete a mistakenly published task
+- broadcast delete removes all task copies in that publish group
+- task visibility rules:
+  - individual task is visible to creator and assignee only
+  - creator can still monitor broadcast task outcomes
+- task fields include:
+  - title
+  - note
+  - due date
+  - assignee
+  - creator
+  - response status
+  - assignment scope
+  - broadcast group id
+  - extra data
+
 ## Customer Import
 
 - CSV upload import flow
@@ -142,6 +212,8 @@ web app and the CRM service.
   - companies
   - customer import
   - leads
+  - deals
+  - tasks
   - customers
   - account settings
 - wide dashboard layout
@@ -166,8 +238,7 @@ web app and the CRM service.
 ## Notes
 
 - some CRM domains exist at API level before full web UI exists
-- deals, calls, and tasks are available in the service, but do not yet
-  have full dedicated dashboard pages in the web app
+- calls remain available at API level without a full dedicated dashboard page yet
 
 ## Recommended Next Improvements
 

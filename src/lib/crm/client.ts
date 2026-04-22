@@ -127,6 +127,31 @@ type CRMTaskRecord = {
   updated_at: string;
 };
 
+type CRMCalendarEventRecord = {
+  id: string;
+  company_id?: string | null;
+  customer_id?: string | null;
+  title?: string;
+  description?: string;
+  event_type?: string;
+  status?: string;
+  start_at: string;
+  end_at?: string | null;
+  all_day?: boolean;
+  assignee_user_id?: string | null;
+  assignee_user_name?: string | null;
+  linked_entity_type?: string;
+  linked_entity_id?: string | null;
+  location?: string;
+  meeting_url?: string;
+  reminder_minutes_before?: number | null;
+  created_by_user_id?: string | null;
+  created_by_user_name?: string | null;
+  extra_data?: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
+};
+
 type MappingSuggestion = {
   target_field: string;
   source_headers: string[];
@@ -296,6 +321,46 @@ export type Task = {
   updatedAt: string;
 };
 
+export type CalendarEventType =
+  | "call"
+  | "meeting"
+  | "demo"
+  | "follow_up"
+  | "deadline";
+
+export type CalendarEventStatus =
+  | "scheduled"
+  | "completed"
+  | "canceled"
+  | "missed";
+
+export type CalendarLinkedEntityType = "" | "lead" | "deal" | "customer" | "company";
+
+export type CalendarEvent = {
+  id: string;
+  companyId: string;
+  customerId: string;
+  title: string;
+  description: string;
+  eventType: CalendarEventType;
+  status: CalendarEventStatus;
+  startAt: string;
+  endAt: string;
+  allDay: boolean;
+  assigneeUserId: string;
+  assigneeUserName: string;
+  linkedEntityType: CalendarLinkedEntityType;
+  linkedEntityId: string;
+  location: string;
+  meetingUrl: string;
+  reminderMinutesBefore: number | null;
+  createdByUserId: string;
+  createdByUserName: string;
+  extraData: Record<string, string>;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type LeadFilters = {
   status?: string;
   source?: string;
@@ -319,6 +384,19 @@ export type TaskFilters = {
   createdByUserId?: string;
   assignmentScope?: string;
   broadcastGroupId?: string;
+  q?: string;
+};
+
+export type CalendarEventFilters = {
+  companyId?: string;
+  customerId?: string;
+  assigneeUserId?: string;
+  eventType?: string;
+  status?: string;
+  linkedEntityType?: string;
+  linkedEntityId?: string;
+  startFrom?: string;
+  startTo?: string;
   q?: string;
 };
 
@@ -390,6 +468,26 @@ export type UpsertTaskInput = {
   responseStatus?: TaskResponseStatus;
   assignmentScope?: TaskAssignmentScope;
   broadcastGroupId?: string;
+  extraData?: Record<string, string>;
+};
+
+export type UpsertCalendarEventInput = {
+  companyId: string;
+  customerId?: string;
+  title: string;
+  description: string;
+  eventType: CalendarEventType;
+  status: CalendarEventStatus;
+  startAt: string;
+  endAt?: string;
+  allDay: boolean;
+  assigneeUserId?: string;
+  assigneeUserName?: string;
+  linkedEntityType?: CalendarLinkedEntityType;
+  linkedEntityId?: string;
+  location: string;
+  meetingUrl: string;
+  reminderMinutesBefore?: number | null;
   extraData?: Record<string, string>;
 };
 
@@ -600,6 +698,37 @@ function mapTask(record: CRMTaskRecord): Task {
     assignmentScope:
       (record.assignment_scope?.trim() || "individual") as TaskAssignmentScope,
     broadcastGroupId: record.broadcast_group_id ?? "",
+    extraData: normalizeExtraData(record.extra_data),
+    createdAt: record.created_at,
+    updatedAt: record.updated_at,
+  };
+}
+
+function mapCalendarEvent(record: CRMCalendarEventRecord): CalendarEvent {
+  return {
+    id: record.id,
+    companyId: record.company_id ?? "",
+    customerId: record.customer_id ?? "",
+    title: record.title?.trim() || "Untitled event",
+    description: record.description?.trim() || "",
+    eventType: (record.event_type?.trim() || "follow_up") as CalendarEventType,
+    status: (record.status?.trim() || "scheduled") as CalendarEventStatus,
+    startAt: record.start_at,
+    endAt: record.end_at ?? "",
+    allDay: Boolean(record.all_day),
+    assigneeUserId: record.assignee_user_id?.trim() || "",
+    assigneeUserName: record.assignee_user_name?.trim() || "",
+    linkedEntityType:
+      (record.linked_entity_type?.trim() || "") as CalendarLinkedEntityType,
+    linkedEntityId: record.linked_entity_id ?? "",
+    location: record.location?.trim() || "",
+    meetingUrl: record.meeting_url?.trim() || "",
+    reminderMinutesBefore:
+      typeof record.reminder_minutes_before === "number"
+        ? record.reminder_minutes_before
+        : null,
+    createdByUserId: record.created_by_user_id?.trim() || "",
+    createdByUserName: record.created_by_user_name?.trim() || "",
     extraData: normalizeExtraData(record.extra_data),
     createdAt: record.created_at,
     updatedAt: record.updated_at,
@@ -1063,6 +1192,118 @@ export async function updateTask(taskId: string, input: Partial<UpsertTaskInput>
 
 export async function deleteTask(taskId: string): Promise<void> {
   await requestCRM<void>(`/tasks/${taskId}`, {
+    method: "DELETE",
+  });
+}
+
+export async function listCalendarEvents(
+  filters: CalendarEventFilters = {},
+): Promise<CalendarEvent[]> {
+  const query = new URLSearchParams({
+    limit: "100",
+    offset: "0",
+  });
+
+  if (filters.companyId?.trim()) {
+    query.set("company_id", filters.companyId.trim());
+  }
+  if (filters.customerId?.trim()) {
+    query.set("customer_id", filters.customerId.trim());
+  }
+  if (filters.assigneeUserId?.trim()) {
+    query.set("assignee_user_id", filters.assigneeUserId.trim());
+  }
+  if (filters.eventType?.trim()) {
+    query.set("event_type", filters.eventType.trim());
+  }
+  if (filters.status?.trim()) {
+    query.set("status", filters.status.trim());
+  }
+  if (filters.linkedEntityType?.trim()) {
+    query.set("linked_entity_type", filters.linkedEntityType.trim());
+  }
+  if (filters.linkedEntityId?.trim()) {
+    query.set("linked_entity_id", filters.linkedEntityId.trim());
+  }
+  if (filters.startFrom?.trim()) {
+    query.set("start_from", filters.startFrom.trim());
+  }
+  if (filters.startTo?.trim()) {
+    query.set("start_to", filters.startTo.trim());
+  }
+  if (filters.q?.trim()) {
+    query.set("q", filters.q.trim());
+  }
+
+  const response = await requestCRM<CRMListResponse<CRMCalendarEventRecord>>(
+    `/calendar-events?${query.toString()}`,
+  );
+  return response.data.map(mapCalendarEvent);
+}
+
+export async function createCalendarEvent(
+  input: UpsertCalendarEventInput,
+): Promise<CalendarEvent> {
+  const payload = await requestCRM<CRMCalendarEventRecord>("/calendar-events", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: input.companyId,
+      customer_id: input.customerId?.trim() || undefined,
+      title: input.title.trim(),
+      description: input.description.trim(),
+      event_type: input.eventType,
+      status: input.status,
+      start_at: input.startAt,
+      end_at: input.endAt?.trim() || undefined,
+      all_day: input.allDay,
+      assignee_user_id: input.assigneeUserId?.trim() || "",
+      assignee_user_name: input.assigneeUserName?.trim() || "",
+      linked_entity_type: input.linkedEntityType?.trim() || "",
+      linked_entity_id: input.linkedEntityId?.trim() || undefined,
+      location: input.location.trim(),
+      meeting_url: input.meetingUrl.trim(),
+      reminder_minutes_before: input.reminderMinutesBefore ?? undefined,
+      extra_data: input.extraData ?? {},
+    }),
+  });
+
+  return mapCalendarEvent(payload);
+}
+
+export async function updateCalendarEvent(
+  eventId: string,
+  input: UpsertCalendarEventInput,
+): Promise<CalendarEvent> {
+  const payload = await requestCRM<CRMCalendarEventRecord>(`/calendar-events/${eventId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      company_id: input.companyId,
+      customer_id: input.customerId?.trim() || null,
+      title: input.title.trim(),
+      description: input.description.trim(),
+      event_type: input.eventType,
+      status: input.status,
+      start_at: input.startAt,
+      end_at: input.endAt?.trim() || null,
+      all_day: input.allDay,
+      assignee_user_id: input.assigneeUserId?.trim() || "",
+      assignee_user_name: input.assigneeUserName?.trim() || "",
+      linked_entity_type: input.linkedEntityType?.trim() || "",
+      linked_entity_id: input.linkedEntityId?.trim() || null,
+      location: input.location.trim(),
+      meeting_url: input.meetingUrl.trim(),
+      reminder_minutes_before: input.reminderMinutesBefore ?? null,
+      extra_data: input.extraData ?? {},
+    }),
+  });
+
+  return mapCalendarEvent(payload);
+}
+
+export async function deleteCalendarEvent(eventId: string): Promise<void> {
+  await requestCRM<void>(`/calendar-events/${eventId}`, {
     method: "DELETE",
   });
 }

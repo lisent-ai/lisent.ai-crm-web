@@ -50,6 +50,11 @@ type CRMTaskRecord = {
   broadcast_group_id?: string | null;
 };
 
+type CRMCalendarEventRecord = {
+  id: string;
+  company_id?: string | null;
+};
+
 type RouteContext = {
   params: Promise<{
     path?: string[];
@@ -745,6 +750,108 @@ async function listAuthorizedTasks(
   });
 }
 
+async function authorizeCalendarEventById(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+  eventId: string,
+  permission: "company.read" | "customers.write",
+) {
+  if (account.access.isSuperAdmin) {
+    return null;
+  }
+
+  try {
+    const event = await fetchCRMJSON<CRMCalendarEventRecord>(
+      request,
+      config,
+      account,
+      ["calendar-events", eventId],
+    );
+    if (!event.company_id) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    if (!hasCompanyPermissionInAccess(account.access, event.company_id, permission)) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+  } catch (error) {
+    if (error instanceof Response) {
+      return relayUpstreamResponse(error);
+    }
+    return Response.json({ error: "Failed to authorize calendar event." }, { status: 500 });
+  }
+
+  return null;
+}
+
+async function listAuthorizedCalendarEvents(
+  request: NextRequest,
+  config: { baseURL: string; apiKey: string },
+  account: AccountProfile,
+) {
+  if (account.access.isSuperAdmin) {
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      ["calendar-events"],
+    );
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const searchParams = request.nextUrl.searchParams;
+  const requestedCompanyId = searchParams.get("company_id")?.trim();
+  if (requestedCompanyId) {
+    if (!hasCompanyPermissionInAccess(account.access, requestedCompanyId, "company.read")) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      ["calendar-events"],
+    );
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  const allowedCompanyIds = account.access.companyMemberships
+    .filter((membership) =>
+      hasCompanyPermissionInAccess(account.access, membership.companyId, "company.read"),
+    )
+    .map((membership) => membership.companyId);
+  const { limit, offset } = parsePagination(searchParams);
+  if (allowedCompanyIds.length === 0) {
+    return Response.json({ data: [], limit, offset });
+  }
+
+  const allEvents: CRMCalendarEventRecord[] = [];
+  const extraParams = new URLSearchParams(searchParams);
+  extraParams.delete("limit");
+  extraParams.delete("offset");
+  extraParams.delete("company_id");
+  const extraQuery = extraParams.toString();
+  for (const companyId of allowedCompanyIds) {
+    const payload = await fetchCRMJSON<CRMListResponse<CRMCalendarEventRecord>>(
+      request,
+      config,
+      account,
+      ["calendar-events"],
+      `?limit=100&offset=0&company_id=${encodeURIComponent(companyId)}${
+        extraQuery ? `&${extraQuery}` : ""
+      }`,
+    );
+    allEvents.push(...payload.data);
+  }
+
+  return Response.json({
+    data: allEvents.slice(offset, offset + limit),
+    limit,
+    offset,
+  });
+}
+
 async function forwardRequest(
   request: NextRequest,
   context: RouteContext,
@@ -1133,6 +1240,65 @@ async function forwardRequest(
     }
   }
 
+  if (resource === "calendar-events") {
+    if (method === "GET" && pathSegments.length === 1) {
+      return listAuthorizedCalendarEvents(request, config, account);
+    }
+
+    if (method === "POST" && pathSegments.length === 1) {
+      const body = await readJSONBody(request);
+      const companyId =
+        typeof body?.company_id === "string" ? body.company_id.trim() : "";
+      if (!companyId) {
+        return Response.json({ error: "company_id is required" }, { status: 400 });
+      }
+
+      if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+        return Response.json({ error: "forbidden" }, { status: 403 });
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+
+    if (resourceId) {
+      const authFailure = await authorizeCalendarEventById(
+        request,
+        config,
+        account,
+        resourceId,
+        method === "GET" ? "company.read" : "customers.write",
+      );
+      if (authFailure) {
+        return authFailure;
+      }
+
+      if (method === "PATCH" || method === "PUT") {
+        const body = await readJSONBody(request);
+        const companyId =
+          typeof body?.company_id === "string" ? body.company_id.trim() : "";
+        if (companyId) {
+          if (!hasCompanyPermissionInAccess(account.access, companyId, "customers.write")) {
+            return Response.json({ error: "forbidden" }, { status: 403 });
+          }
+        }
+      }
+
+      const upstreamResponse = await sendUpstreamRequest(
+        request,
+        config,
+        account,
+        pathSegments,
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+  }
+
   if (resource === "internal" && pathSegments[1] === "company" && pathSegments[2]) {
     const companyId = pathSegments[2];
     // qualifier config/token + rag token management is an owner-only
@@ -1197,6 +1363,19 @@ async function forwardRequest(
 
   if (resource === "tasks" && resourceId) {
     const authFailure = await authorizeTaskById(
+      request,
+      config,
+      account,
+      resourceId,
+      method === "GET" ? "company.read" : "customers.write",
+    );
+    if (authFailure) {
+      return authFailure;
+    }
+  }
+
+  if (resource === "calendar-events" && resourceId) {
+    const authFailure = await authorizeCalendarEventById(
       request,
       config,
       account,

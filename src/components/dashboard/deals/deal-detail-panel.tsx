@@ -23,6 +23,7 @@ type DealDetailPanelProps = {
   commentDraft: string;
   onClose: () => void;
   onEdit: (deal: Deal) => void;
+  onSchedule: (deal: Deal) => void;
   onDelete: (deal: Deal) => void;
   onCommentDraftChange: (value: string) => void;
   onAddComment: () => void;
@@ -38,6 +39,7 @@ export function DealDetailPanel({
   commentDraft,
   onClose,
   onEdit,
+  onSchedule,
   onDelete,
   onCommentDraftChange,
   onAddComment,
@@ -109,6 +111,14 @@ export function DealDetailPanel({
               type="button"
             >
               Edit deal
+            </button>
+            <button
+              className="rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-700 transition hover:border-cyan-400 hover:bg-cyan-100 disabled:opacity-50"
+              disabled={saving}
+              onClick={() => onSchedule(deal)}
+              type="button"
+            >
+              Schedule activity
             </button>
             <button
               className="rounded-full border border-rose-300 bg-rose-50 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:border-rose-400 hover:bg-rose-100 disabled:opacity-50"

@@ -17,6 +17,7 @@ type LeadDetailPanelProps = {
   onEdit: (lead: Lead) => void;
   onAssignRoundRobin: (lead: Lead) => void;
   onConvert: (lead: Lead) => void;
+  onSchedule: (lead: Lead) => void;
   onDelete: (lead: Lead) => void;
   onStartQualify: (lead: Lead) => void;
   /** When false the AI Lead Qualifier insights block is hidden entirely
@@ -34,6 +35,7 @@ export function LeadDetailPanel({
   onEdit,
   onAssignRoundRobin,
   onConvert,
+  onSchedule,
   onDelete,
   onStartQualify,
   aiEnabled,
@@ -106,6 +108,14 @@ export function LeadDetailPanel({
               type="button"
             >
               Convert lead
+            </button>
+            <button
+              className="rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-700 transition hover:border-cyan-400 hover:bg-cyan-100 disabled:opacity-50"
+              disabled={saving}
+              onClick={() => onSchedule(lead)}
+              type="button"
+            >
+              Schedule follow-up
             </button>
             <button
               className="rounded-full border border-rose-300 bg-rose-50 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:border-rose-400 hover:bg-rose-100 disabled:opacity-50"

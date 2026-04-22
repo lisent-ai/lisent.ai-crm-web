@@ -473,6 +473,28 @@ export function LeadDirectory() {
     }
   }
 
+  function scheduleLead(lead: Lead) {
+    if (!selectedCompany) {
+      return;
+    }
+
+    const nextSearch = new URLSearchParams({
+      company: selectedCompany.id,
+      companyName,
+      compose: "1",
+      linkedType: "lead",
+      linkedId: lead.id,
+      title: `Follow up: ${lead.name || "Lead"}`,
+      eventType: "follow_up",
+    });
+
+    if (lead.customerId) {
+      nextSearch.set("customerId", lead.customerId);
+    }
+
+    window.location.assign(`/dashboard/calendar?${nextSearch.toString()}`);
+  }
+
   function openConvertLeadModal(lead: Lead) {
     setConvertState(buildConvertState(lead));
     setSelectedLeadId(lead.id);
@@ -638,6 +660,7 @@ export function LeadDirectory() {
           onConvert={openConvertLeadModal}
           onDelete={setPendingDeleteLead}
           onEdit={openEditModal}
+          onSchedule={scheduleLead}
           onStartQualify={startQualifyLead}
           saving={saving}
         />

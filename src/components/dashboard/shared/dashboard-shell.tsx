@@ -29,6 +29,7 @@ const navItems: NavItem[] = [
   { href: "/dashboard/access", label: "Team Access", carriesCompany: true, visible: true },
   { href: "/dashboard/imports", label: "Customer Import", carriesCompany: true, visible: true },
   { href: "/dashboard/tasks", label: "Tasks", carriesCompany: true, visible: true },
+  { href: "/dashboard/calendar", label: "Calendar", carriesCompany: true, visible: true },
   {
     href: "/dashboard/integrations",
     label: "Integrations",
