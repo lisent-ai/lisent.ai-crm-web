@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { CRMClientError, disconnectAIQualifier } from "@/lib/crm/client";
 
+import { APIKeysPanel } from "./api-keys-panel";
 import { QualifierConfigPanel } from "./qualifier-config-panel";
 import { QualifierRAGConfigPanel } from "./qualifier-rag-config";
 
@@ -15,7 +16,14 @@ type Props = {
   initialTab?: Tab;
 };
 
-type Tab = "overview" | "lead-webhook" | "rag" | "fallback" | "ai-config" | "channels";
+type Tab =
+  | "overview"
+  | "lead-webhook"
+  | "rag"
+  | "fallback"
+  | "ai-config"
+  | "channels"
+  | "api-keys";
 
 const TAB_LABELS: Record<Tab, string> = {
   overview: "Overview",
@@ -24,6 +32,7 @@ const TAB_LABELS: Record<Tab, string> = {
   fallback: "Callback URL",
   "ai-config": "AI Config",
   channels: "Channels",
+  "api-keys": "API Keys",
 };
 
 /**
@@ -86,6 +95,9 @@ export function AIQualifierPanel({ companyId, companyName, initialTab = "overvie
       ) : null}
       {tab === "channels" ? (
         <ChannelsSection companyId={companyId} companyName={companyName} />
+      ) : null}
+      {tab === "api-keys" ? (
+        <APIKeysPanel companyId={companyId} companyName={companyName} />
       ) : null}
     </section>
   );
