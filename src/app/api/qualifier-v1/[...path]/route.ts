@@ -95,6 +95,12 @@ async function handle(
     if (ct) headers.set("content-type", ct);
     const userId = session.getUserId();
     if (userId) headers.set("x-lisent-actor-id", userId);
+    // SSE resume: browsers auto-attach Last-Event-ID on EventSource reconnect.
+    // Forward it so the qualifier can replay events since that id.
+    const lastEventId = request.headers.get("last-event-id");
+    if (lastEventId) headers.set("last-event-id", lastEventId);
+    const accept = request.headers.get("accept");
+    if (accept) headers.set("accept", accept);
 
     let upstream: Response;
     try {
@@ -119,13 +125,21 @@ async function handle(
       );
     }
 
-    // Transparent pass-through of status + body
+    // Transparent pass-through of status + body.
+    // For SSE (`text/event-stream`), keep upstream's no-buffer hints so
+    // intermediaries (Cloudflare, nginx, service workers) don't coalesce
+    // frames into bigger chunks and break the stream.
     const resHeaders = new Headers();
     const resct = upstream.headers.get("content-type");
     if (resct) resHeaders.set("content-type", resct);
-    // Forward Retry-After for 429
     const retryAfter = upstream.headers.get("retry-after");
     if (retryAfter) resHeaders.set("retry-after", retryAfter);
+    const isSSE = (resct ?? "").toLowerCase().startsWith("text/event-stream");
+    if (isSSE) {
+      resHeaders.set("cache-control", "no-cache, no-transform");
+      resHeaders.set("x-accel-buffering", "no");
+      resHeaders.set("connection", "keep-alive");
+    }
 
     return new Response(upstream.body, {
       status: upstream.status,
