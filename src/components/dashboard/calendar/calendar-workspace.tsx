@@ -2,6 +2,19 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import {
+  Calendar as CalendarIcon,
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  ClipboardList,
+  Filter,
+  ListChecks,
+  Plus,
+  Search,
+  Users,
+  UserPlus,
+} from "lucide-react";
 
 import {
   CompanyMembershipClientError,
@@ -82,17 +95,6 @@ function formatDayTitle(value: Date) {
     weekday: "short",
     day: "2-digit",
     month: "short",
-  });
-}
-
-function formatEventTime(event: CalendarEvent) {
-  if (event.allDay) {
-    return "All day";
-  }
-
-  return new Date(event.startAt).toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
   });
 }
 
@@ -210,16 +212,107 @@ function buildFormFromEvent(event: CalendarEvent): CalendarEventFormState {
 function getEventTone(eventType: CalendarEventType) {
   switch (eventType) {
     case "call":
-      return "border-sky-200 bg-sky-50 text-sky-700";
+      return "border-[#e9d5ff] bg-[#faf5ff] text-[#6d28d9]";
     case "meeting":
-      return "border-violet-200 bg-violet-50 text-violet-700";
+      return "border-[#bfdbfe] bg-[#eff6ff] text-[#1e40af]";
     case "demo":
-      return "border-emerald-200 bg-emerald-50 text-emerald-700";
+      return "border-[#bbf7d0] bg-[#f0fdf4] text-[#047857]";
     case "deadline":
-      return "border-rose-200 bg-rose-50 text-rose-700";
+      return "border-[#fecaca] bg-[#fef2f2] text-[#b91c1c]";
     default:
-      return "border-amber-200 bg-amber-50 text-amber-700";
+      return "border-[#fde68a] bg-[#fffbeb] text-[#b45309]";
   }
+}
+
+function buildMemberInitials(name: string): string {
+  const parts = (name || "").trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0]!.slice(0, 2).toUpperCase();
+  return (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase();
+}
+
+type CalendarTab = {
+  key: string;
+  label: string;
+  icon: typeof CalendarIcon;
+  /** Which eventType to filter by; empty string means no filter (all). */
+  filter: string;
+};
+
+const CALENDAR_TABS: CalendarTab[] = [
+  { key: "all", label: "All Scheduled", icon: ClipboardList, filter: "all" },
+  { key: "events", label: "Events", icon: CalendarDays, filter: "call" },
+  { key: "meetings", label: "Meetings", icon: Users, filter: "meeting" },
+  { key: "tasks", label: "Task Reminders", icon: ListChecks, filter: "follow_up" },
+];
+
+const DAY_START_HOUR = 8;
+const DAY_END_HOUR = 20;
+const HOUR_HEIGHT_PX = 64;
+const HOURS = Array.from(
+  { length: DAY_END_HOUR - DAY_START_HOUR + 1 },
+  (_, index) => DAY_START_HOUR + index,
+);
+
+function formatHourLabel(hour: number): string {
+  if (hour === 0) return "12 AM";
+  if (hour === 12) return "12 PM";
+  if (hour < 12) return `${hour} AM`;
+  return `${hour - 12} PM`;
+}
+
+function formatRangeShort(start: Date, end: Date): string {
+  const sameMonth =
+    start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
+  const startLabel = start.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: sameMonth ? undefined : "short",
+  });
+  const endLabel = end.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+  return `${startLabel} - ${endLabel}`;
+}
+
+type EventSlot = {
+  top: number;
+  height: number;
+};
+
+function computeEventSlot(event: CalendarEvent): EventSlot {
+  const start = new Date(event.startAt);
+  const end = event.endAt ? new Date(event.endAt) : new Date(start.getTime() + 60 * 60 * 1000);
+  if (Number.isNaN(start.getTime())) {
+    return { top: 0, height: HOUR_HEIGHT_PX };
+  }
+  const startFrac = start.getHours() + start.getMinutes() / 60;
+  const endFrac = Number.isNaN(end.getTime())
+    ? startFrac + 1
+    : end.getHours() + end.getMinutes() / 60;
+  const clampedStart = Math.max(DAY_START_HOUR, Math.min(DAY_END_HOUR, startFrac));
+  const clampedEnd = Math.max(clampedStart + 0.25, Math.min(DAY_END_HOUR + 1, endFrac));
+  return {
+    top: (clampedStart - DAY_START_HOUR) * HOUR_HEIGHT_PX,
+    height: Math.max(36, (clampedEnd - clampedStart) * HOUR_HEIGHT_PX - 4),
+  };
+}
+
+function formatRangeTime(event: CalendarEvent): string {
+  if (event.allDay) return "All day";
+  const start = new Date(event.startAt);
+  const startLabel = start.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  if (!event.endAt) return startLabel;
+  const end = new Date(event.endAt);
+  const endLabel = end.toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  return `${startLabel} - ${endLabel}`;
 }
 
 export function CalendarWorkspace() {
@@ -234,7 +327,7 @@ export function CalendarWorkspace() {
   const [members, setMembers] = useState<CompanyMember[]>([]);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [activeCompanyId, setActiveCompanyId] = useState(searchCompanyId);
-  const [view, setView] = useState<CalendarView>("month");
+  const [view, setView] = useState<CalendarView>("week");
   const [activeDate, setActiveDate] = useState(() => new Date());
   const [eventTypeFilter, setEventTypeFilter] = useState("all");
   const [assigneeFilter, setAssigneeFilter] = useState("all");
@@ -246,6 +339,8 @@ export function CalendarWorkspace() {
   const [editingEventId, setEditingEventId] = useState<string | null>(null);
   const [form, setForm] = useState<CalendarEventFormState>(emptyForm);
   const [composeConsumed, setComposeConsumed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterOpen, setFilterOpen] = useState(false);
 
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
@@ -452,21 +547,6 @@ export function CalendarWorkspace() {
     setComposeConsumed(true);
   }, [composeConsumed, searchParams, selectedCompany]);
 
-  const eventsByDay = useMemo(() => {
-    const map = new Map<string, CalendarEvent[]>();
-    for (const event of events) {
-      const dayKey = buildDateInputValue(event.startAt);
-      map.set(dayKey, [...(map.get(dayKey) ?? []), event]);
-    }
-    for (const [key, value] of map.entries()) {
-      map.set(
-        key,
-        [...value].sort((left, right) => left.startAt.localeCompare(right.startAt)),
-      );
-    }
-    return map;
-  }, [events]);
-
   const monthDays = useMemo(() => {
     const days: Date[] = [];
     const cursor = new Date(range.start);
@@ -480,11 +560,6 @@ export function CalendarWorkspace() {
   const weekDays = useMemo(
     () => Array.from({ length: 7 }, (_, index) => addDays(startOfWeek(activeDate), index)),
     [activeDate],
-  );
-
-  const agendaEvents = useMemo(
-    () => [...events].sort((left, right) => left.startAt.localeCompare(right.startAt)),
-    [events],
   );
 
   const customerLabelById = useMemo(
@@ -669,392 +744,303 @@ function openCreateModal(date?: Date) {
     setActiveDate((current) => new Date(current.getFullYear(), current.getMonth() + direction, 1));
   }
 
+  const visibleEvents = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return events;
+    return events.filter((event) => {
+      const haystack = [
+        event.title,
+        event.description,
+        event.location,
+        event.meetingUrl,
+        getLinkedLabel(event),
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(query);
+    });
+    // getLinkedLabel depends on label maps but this is a cheap client filter;
+    // re-computing on every keystroke is fine.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [events, searchQuery, customerLabelById, leadLabelById, dealLabelById, companyName]);
+
+  const visibleEventsByDay = useMemo(() => {
+    const map = new Map<string, CalendarEvent[]>();
+    for (const event of visibleEvents) {
+      const dayKey = buildDateInputValue(event.startAt);
+      map.set(dayKey, [...(map.get(dayKey) ?? []), event]);
+    }
+    for (const [key, value] of map.entries()) {
+      map.set(
+        key,
+        [...value].sort((a, b) => a.startAt.localeCompare(b.startAt)),
+      );
+    }
+    return map;
+  }, [visibleEvents]);
+
+  const filteredAgendaEvents = useMemo(
+    () => [...visibleEvents].sort((a, b) => a.startAt.localeCompare(b.startAt)),
+    [visibleEvents],
+  );
+
+  const activeTabKey =
+    CALENDAR_TABS.find((tab) => tab.filter === eventTypeFilter)?.key ?? "all";
+  const viewLabel = view === "agenda" ? "Day" : view === "week" ? "Week" : "Month";
+  const avatars = members.slice(0, 3);
+  const extraAvatarCount = Math.max(0, members.length - avatars.length);
+
   return (
-    <div className="grid min-w-0 gap-6">
-      <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-700/80">
-              Calendar
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">
-              CRM activity calendar
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-              Track follow-ups, meetings, demos, and deadlines tied directly to your
-              leads, deals, customers, and company work.
-            </p>
+    <div className="flex min-w-0 flex-col gap-5">
+      <header className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
+            Calendar
+          </h1>
+          <p className="mt-1 text-sm text-[var(--text-tertiary)]">
+            Stay organized and on track with your personalized calendar
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          {avatars.length > 0 && (
+            <div className="flex items-center">
+              {avatars.map((member) => (
+                <span
+                  aria-hidden="true"
+                  className="-ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-[var(--surface)] bg-[linear-gradient(135deg,_#6366f1,_#8b5cf6)] text-[11px] font-semibold text-white first:ml-0"
+                  key={member.userId}
+                  title={member.displayName}
+                >
+                  {buildMemberInitials(member.displayName)}
+                </span>
+              ))}
+              {extraAvatarCount > 0 && (
+                <span
+                  aria-hidden="true"
+                  className="-ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-[var(--surface)] bg-[var(--surface-inset)] text-[11px] font-semibold text-[var(--text-secondary)]"
+                >
+                  +{extraAvatarCount}
+                </span>
+              )}
+            </div>
+          )}
+          <button
+            className="inline-flex h-9 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+            type="button"
+          >
+            <UserPlus className="h-4 w-4" aria-hidden="true" />
+            Invite
+          </button>
+        </div>
+      </header>
+
+      <div className="flex flex-col gap-3 border-b border-[var(--border-subtle)] md:flex-row md:items-center md:justify-between">
+        <nav aria-label="Calendar filters" className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto">
+          {CALENDAR_TABS.map((tab) => {
+            const Icon = tab.icon;
+            const active = tab.key === activeTabKey;
+            return (
+              <button
+                aria-current={active ? "page" : undefined}
+                className={`relative inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2.5 text-sm transition ${
+                  active
+                    ? "font-semibold text-[var(--text-primary)]"
+                    : "font-medium text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                }`}
+                key={tab.key}
+                onClick={() => setEventTypeFilter(tab.filter)}
+                type="button"
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                {tab.label}
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-2 bottom-0 h-[2px] rounded-full bg-[var(--text-primary)]"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        <div className="flex items-center gap-2 pb-3 md:pb-2">
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]" aria-hidden="true" />
+            <input
+              aria-label="Search calendar"
+              className="h-9 w-[180px] rounded-full border border-[var(--border-default)] bg-[var(--surface)] pl-9 pr-3 text-sm text-[var(--text-primary)] transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)] focus:outline-none lg:w-[220px]"
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search..."
+              type="search"
+              value={searchQuery}
+            />
+          </div>
+
+          <div className="relative">
+            <button
+              aria-expanded={filterOpen}
+              aria-haspopup="menu"
+              className="inline-flex h-9 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+              onClick={() => setFilterOpen((prev) => !prev)}
+              type="button"
+            >
+              <Filter className="h-4 w-4" aria-hidden="true" />
+              Filter
+              {assigneeFilter !== "all" && (
+                <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[var(--accent-soft)] px-1.5 text-[10px] font-semibold text-[var(--accent-strong)]">
+                  1
+                </span>
+              )}
+            </button>
+            {filterOpen && (
+              <div
+                className="absolute right-0 top-full z-20 mt-2 w-[260px] rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)]"
+                role="menu"
+              >
+                <p className="px-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                  Assignee
+                </p>
+                <select
+                  className="mt-2 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--text-primary)] outline-none transition focus:border-[var(--border-strong)]"
+                  onChange={(event) => setAssigneeFilter(event.target.value)}
+                  value={assigneeFilter}
+                >
+                  <option value="all">All assignees</option>
+                  {members
+                    .filter((member) => member.role !== "viewer")
+                    .sort((a, b) => a.displayName.localeCompare(b.displayName))
+                    .map((member) => (
+                      <option key={member.userId} value={member.userId}>
+                        {member.displayName}
+                      </option>
+                    ))}
+                </select>
+                <div className="mt-3 flex justify-end gap-2">
+                  <button
+                    className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)]"
+                    onClick={() => {
+                      setAssigneeFilter("all");
+                    }}
+                    type="button"
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="rounded-full bg-[var(--text-primary)] px-3 py-1.5 text-xs font-medium text-white transition hover:opacity-90"
+                    onClick={() => setFilterOpen(false)}
+                    type="button"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <button
-            className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#164e63)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110 disabled:opacity-50"
+            className="inline-flex h-9 items-center gap-2 rounded-full bg-[var(--text-primary)] px-4 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
             disabled={!selectedCompany || saving}
             onClick={() => openCreateModal()}
             type="button"
           >
-            New event
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            New
           </button>
         </div>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Company
-            </p>
-            <p className="mt-2 text-lg font-semibold text-slate-950">{companyName}</p>
-          </div>
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Visible range
-            </p>
-            <p className="mt-2 text-lg font-semibold text-slate-950">
-              {view === "month"
-                ? formatMonthTitle(activeDate)
-                : `${formatDayTitle(range.start)} - ${formatDayTitle(range.end)}`}
-            </p>
-          </div>
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Scheduled
-            </p>
-            <p className="mt-2 text-2xl font-semibold text-slate-950">
-              {events.filter((event) => event.status === "scheduled").length}
-            </p>
-          </div>
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Assigned
-            </p>
-            <p className="mt-2 text-2xl font-semibold text-slate-950">
-              {events.filter((event) => event.assigneeUserId).length}
-            </p>
-          </div>
-        </div>
-      </section>
+      </div>
 
       {errorMessage ? (
-        <div className="rounded-[1.3rem] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </div>
       ) : null}
-
       {successMessage ? (
-        <div className="rounded-[1.3rem] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+        <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-green)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
           {successMessage}
         </div>
       ) : null}
 
-      <section className="rounded-[1.8rem] border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              className="rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-              onClick={() => moveRange(-1)}
-              type="button"
-            >
-              Prev
-            </button>
-            <button
-              className="rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-              onClick={() => setActiveDate(new Date())}
-              type="button"
-            >
-              Today
-            </button>
-            <button
-              className="rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-              onClick={() => moveRange(1)}
-              type="button"
-            >
-              Next
-            </button>
-            <span className="ml-2 text-sm font-semibold text-slate-950">
-              {view === "month"
-                ? formatMonthTitle(activeDate)
-                : `${formatDayTitle(range.start)} - ${formatDayTitle(range.end)}`}
-            </span>
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-center gap-3">
+          <h2 className="text-xl font-semibold tracking-tight text-[var(--text-primary)]">
+            {formatMonthTitle(activeDate)}
+          </h2>
+          <button
+            className="inline-flex h-8 items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-xs font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+            onClick={() => setActiveDate(new Date())}
+            type="button"
+          >
+            Today
+          </button>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <div className="inline-flex h-8 items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] p-0.5">
+            {(
+              [
+                { label: "Day", value: "agenda" },
+                { label: "Week", value: "week" },
+                { label: "Month", value: "month" },
+              ] as { label: string; value: CalendarView }[]
+            ).map((option) => {
+              const active = option.value === view;
+              return (
+                <button
+                  className={`h-7 rounded-full px-3 text-xs font-medium transition ${
+                    active
+                      ? "bg-[var(--text-primary)] text-white"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                  }`}
+                  key={option.value}
+                  onClick={() => setView(option.value)}
+                  type="button"
+                >
+                  {option.label}
+                </button>
+              );
+            })}
           </div>
+          <span className="hidden h-8 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-xs font-medium text-[var(--text-secondary)] sm:inline-flex">
+            <CalendarIcon className="h-3.5 w-3.5" aria-hidden="true" />
+            {formatRangeShort(range.start, range.end)}
+          </span>
+        </div>
+      </div>
 
-          <div className="flex flex-wrap gap-2">
-            {(["month", "week", "agenda"] as CalendarView[]).map((item) => (
-              <button
-                className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                  view === item
-                    ? "bg-slate-900 text-white"
-                    : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-950"
-                }`}
-                key={item}
-                onClick={() => setView(item)}
-                type="button"
-              >
-                {item[0].toUpperCase() + item.slice(1)}
-              </button>
-            ))}
+      <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-2 shadow-[var(--shadow-card)] md:p-3">
+        {loading ? (
+          <div className="flex min-h-[400px] items-center justify-center px-4 text-sm text-[var(--text-tertiary)]">
+            Loading calendar…
           </div>
-        </div>
-
-        <div className="mt-4 grid gap-3 lg:grid-cols-[minmax(0,1fr)_220px_220px]">
-          <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Event type
-            <select
-              className="rounded-[1rem] border border-slate-200 px-4 py-3 text-sm font-medium text-slate-950 outline-none transition focus:border-cyan-400"
-              onChange={(event) => setEventTypeFilter(event.target.value)}
-              value={eventTypeFilter}
-            >
-              <option value="all">All types</option>
-              <option value="follow_up">Follow-up</option>
-              <option value="call">Call</option>
-              <option value="meeting">Meeting</option>
-              <option value="demo">Demo</option>
-              <option value="deadline">Deadline</option>
-            </select>
-          </label>
-
-          <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Assignee
-            <select
-              className="rounded-[1rem] border border-slate-200 px-4 py-3 text-sm font-medium text-slate-950 outline-none transition focus:border-cyan-400"
-              onChange={(event) => setAssigneeFilter(event.target.value)}
-              value={assigneeFilter}
-            >
-              <option value="all">All assignees</option>
-              {members
-                .filter((member) => member.role !== "viewer")
-                .sort((left, right) => left.displayName.localeCompare(right.displayName))
-                .map((member) => (
-                  <option key={member.userId} value={member.userId}>
-                    {member.displayName}
-                  </option>
-                ))}
-            </select>
-          </label>
-        </div>
-
-        <div className="mt-5">
-          {loading ? (
-            <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-8 text-sm text-slate-500">
-              Loading calendar...
-            </div>
-          ) : view === "month" ? (
-            <div className="overflow-hidden rounded-[1.3rem] border border-slate-200">
-              <div className="grid grid-cols-7 border-b border-slate-200 bg-slate-50">
-                {weekdayLabels.map((label) => (
-                  <div
-                    className="px-3 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500"
-                    key={label}
-                  >
-                    {label}
-                  </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-7">
-                {monthDays.map((day) => {
-                  const key = buildDateInputValue(day.toISOString());
-                  const dayEvents = eventsByDay.get(key) ?? [];
-                  const isCurrentMonth = day.getMonth() === activeDate.getMonth();
-                  const isToday =
-                    buildDateInputValue(day.toISOString()) ===
-                    buildDateInputValue(new Date().toISOString());
-
-                  return (
-                    <div
-                      className={`min-h-44 border-b border-r border-slate-200 p-3 ${!isCurrentMonth ? "bg-slate-50/80" : "bg-white"}`}
-                      key={key}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span
-                          className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-                            isToday
-                              ? "bg-slate-900 text-white"
-                              : "text-slate-700"
-                          }`}
-                        >
-                          {day.getDate()}
-                        </span>
-                        <button
-                          className="rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-950"
-                          onClick={() => openCreateModal(day)}
-                          type="button"
-                        >
-                          +
-                        </button>
-                      </div>
-
-                      <div className="mt-3 grid gap-2">
-                        {dayEvents.length === 0 ? (
-                          <p className="text-xs leading-5 text-slate-400">No CRM activity.</p>
-                        ) : (
-                          dayEvents.map((event) => (
-                            <button
-                              className={`rounded-xl border px-3 py-2 text-left text-xs font-semibold transition hover:brightness-95 ${getEventTone(
-                                event.eventType,
-                              )}`}
-                              key={event.id}
-                              onClick={() => openEditModal(event)}
-                              type="button"
-                            >
-                              <p>{formatEventTime(event)}</p>
-                              <p className="mt-1 truncate text-sm font-semibold">{event.title}</p>
-                            </button>
-                          ))
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ) : view === "week" ? (
-            <div className="grid gap-4 lg:grid-cols-7">
-              {weekDays.map((day) => {
-                const key = buildDateInputValue(day.toISOString());
-                const dayEvents = eventsByDay.get(key) ?? [];
-                const isToday =
-                  buildDateInputValue(day.toISOString()) ===
-                  buildDateInputValue(new Date().toISOString());
-
-                return (
-                  <section
-                    className="rounded-[1.2rem] border border-slate-200 bg-slate-50/70 p-3"
-                    key={key}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                          {weekdayLabels[day.getDay()]}
-                        </p>
-                        <p
-                          className={`mt-2 text-lg font-semibold ${
-                            isToday ? "text-cyan-700" : "text-slate-950"
-                          }`}
-                        >
-                          {day.getDate()}
-                        </p>
-                      </div>
-                      <button
-                        className="rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-950"
-                        onClick={() => openCreateModal(day)}
-                        type="button"
-                      >
-                        +
-                      </button>
-                    </div>
-
-                    <div className="mt-3 grid gap-2">
-                      {dayEvents.length === 0 ? (
-                        <p className="text-xs leading-5 text-slate-400">No activity.</p>
-                      ) : (
-                        dayEvents.map((event) => (
-                          <button
-                            className={`rounded-xl border px-3 py-2 text-left transition hover:brightness-95 ${getEventTone(
-                              event.eventType,
-                            )}`}
-                            key={event.id}
-                            onClick={() => openEditModal(event)}
-                            type="button"
-                          >
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em]">
-                              {formatEventTime(event)}
-                            </p>
-                            <p className="mt-1 text-sm font-semibold">{event.title}</p>
-                            {getLinkedLabel(event) ? (
-                              <p className="mt-1 text-xs opacity-80">{getLinkedLabel(event)}</p>
-                            ) : null}
-                          </button>
-                        ))
-                      )}
-                    </div>
-                  </section>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="grid gap-3">
-              {agendaEvents.length === 0 ? (
-                <div className="rounded-[1.2rem] border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-sm text-slate-500">
-                  No upcoming CRM activity in this range.
-                </div>
-              ) : (
-                agendaEvents.map((event) => (
-                  <article
-                    className="rounded-[1.2rem] border border-slate-200 bg-[linear-gradient(145deg,_#ffffff,_#f8fafc)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.05)]"
-                    key={event.id}
-                  >
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-                          {formatDayTitle(new Date(event.startAt))}
-                        </p>
-                        <h3 className="mt-2 text-lg font-semibold text-slate-950">
-                          {event.title}
-                        </h3>
-                        <p className="mt-1 text-sm text-slate-600">
-                          {event.description || "No description recorded."}
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <span
-                          className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${getEventTone(
-                            event.eventType,
-                          )}`}
-                        >
-                          {event.eventType.replace("_", " ")}
-                        </span>
-                        <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
-                          {event.status}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 grid gap-3 md:grid-cols-3">
-                      <div className="rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-3">
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                          When
-                        </p>
-                        <p className="mt-1 text-sm font-semibold text-slate-950">
-                          {event.allDay
-                            ? "All day"
-                            : `${formatEventTime(event)}${event.endAt ? ` - ${new Date(event.endAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}` : ""}`}
-                        </p>
-                      </div>
-                      <div className="rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-3">
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                          Assignee
-                        </p>
-                        <p className="mt-1 text-sm font-semibold text-slate-950">
-                          {memberLabelById.get(event.assigneeUserId) ||
-                            event.assigneeUserName ||
-                            "Unassigned"}
-                        </p>
-                      </div>
-                      <div className="rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-3">
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                          Linked record
-                        </p>
-                        <p className="mt-1 text-sm font-semibold text-slate-950">
-                          {getLinkedLabel(event) || "No linked record"}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-3">
-                      <p className="text-xs text-slate-500">
-                        {event.location || event.meetingUrl || "No location or meeting link"}
-                      </p>
-                      <button
-                        className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-                        onClick={() => openEditModal(event)}
-                        type="button"
-                      >
-                        Open event
-                      </button>
-                    </div>
-                  </article>
-                ))
-              )}
-            </div>
-          )}
-        </div>
+        ) : view === "week" ? (
+          <WeekGrid
+            activeDate={activeDate}
+            eventsByDay={visibleEventsByDay}
+            getLinkedLabel={getLinkedLabel}
+            onCreate={openCreateModal}
+            onEdit={openEditModal}
+            onNext={() => moveRange(1)}
+            onPrev={() => moveRange(-1)}
+            viewLabel={viewLabel}
+            weekDays={weekDays}
+          />
+        ) : view === "month" ? (
+          <MonthGrid
+            activeDate={activeDate}
+            eventsByDay={visibleEventsByDay}
+            monthDays={monthDays}
+            onCreate={openCreateModal}
+            onEdit={openEditModal}
+          />
+        ) : (
+          <AgendaList
+            events={filteredAgendaEvents}
+            getLinkedLabel={getLinkedLabel}
+            memberLabelById={memberLabelById}
+            onEdit={openEditModal}
+          />
+        )}
       </section>
 
       {showModal && selectedCompany ? (
@@ -1073,6 +1059,323 @@ function openCreateModal(date?: Date) {
           saving={saving}
         />
       ) : null}
+    </div>
+  );
+}
+
+type WeekGridProps = {
+  weekDays: Date[];
+  activeDate: Date;
+  eventsByDay: Map<string, CalendarEvent[]>;
+  onPrev: () => void;
+  onNext: () => void;
+  onCreate: (date?: Date) => void;
+  onEdit: (event: CalendarEvent) => void;
+  getLinkedLabel: (event: CalendarEvent) => string;
+  viewLabel: string;
+};
+
+function WeekGrid({
+  weekDays,
+  activeDate,
+  eventsByDay,
+  onPrev,
+  onNext,
+  onCreate,
+  onEdit,
+  getLinkedLabel,
+  viewLabel,
+}: Readonly<WeekGridProps>) {
+  const todayKey = buildDateInputValue(new Date().toISOString());
+  const activeKey = buildDateInputValue(activeDate.toISOString());
+
+  return (
+    <div className="overflow-hidden rounded-[var(--radius-card)]">
+      <div className="grid grid-cols-[72px_repeat(7,minmax(0,1fr))] border-b border-[var(--border-subtle)] bg-[var(--surface)]">
+        <div className="flex items-center justify-center gap-1 px-2 py-3">
+          <button
+            aria-label={`Previous ${viewLabel.toLowerCase()}`}
+            className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+            onClick={onPrev}
+            type="button"
+          >
+            <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+          </button>
+          <button
+            aria-label={`Next ${viewLabel.toLowerCase()}`}
+            className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+            onClick={onNext}
+            type="button"
+          >
+            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+        {weekDays.map((day) => {
+          const key = buildDateInputValue(day.toISOString());
+          const isToday = key === todayKey;
+          const isActive = key === activeKey;
+          const label = day
+            .toLocaleDateString("en-GB", { weekday: "short" })
+            .toUpperCase();
+          return (
+            <div
+              className={`relative flex items-center gap-2 border-l border-[var(--border-subtle)] px-3 py-3 ${
+                isActive ? "text-[var(--text-primary)]" : "text-[var(--text-tertiary)]"
+              }`}
+              key={key}
+            >
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">
+                {label} {day.getDate()}
+              </span>
+              {isToday && (
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-1.5 w-1.5 rounded-full bg-[var(--accent)]"
+                />
+              )}
+              {isActive && (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-3 bottom-0 h-[2px] rounded-full bg-[var(--text-primary)]"
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="scrollbar-thin max-h-[620px] overflow-y-auto">
+        <div
+          className="grid grid-cols-[72px_repeat(7,minmax(0,1fr))]"
+          style={{ height: `${HOURS.length * HOUR_HEIGHT_PX}px` }}
+        >
+          <div className="relative">
+            {HOURS.map((hour) => (
+              <div
+                className="flex items-start justify-end pr-3 pt-1 text-[11px] font-medium text-[var(--text-tertiary)]"
+                key={hour}
+                style={{ height: `${HOUR_HEIGHT_PX}px` }}
+              >
+                {formatHourLabel(hour)}
+              </div>
+            ))}
+          </div>
+          {weekDays.map((day) => {
+            const key = buildDateInputValue(day.toISOString());
+            const dayEvents = eventsByDay.get(key) ?? [];
+            return (
+              <button
+                aria-label={`Create event on ${day.toLocaleDateString()}`}
+                className="relative cursor-pointer border-l border-[var(--border-subtle)] text-left"
+                key={key}
+                onClick={(event) => {
+                  // Only open create when clicking empty slot area (not an event).
+                  if ((event.target as HTMLElement).closest("[data-event-card]")) return;
+                  onCreate(day);
+                }}
+                type="button"
+              >
+                {HOURS.map((hour) => (
+                  <div
+                    className="border-b border-[var(--border-subtle)]"
+                    key={hour}
+                    style={{ height: `${HOUR_HEIGHT_PX}px` }}
+                  />
+                ))}
+                {dayEvents.map((event) => {
+                  const slot = computeEventSlot(event);
+                  const linked = getLinkedLabel(event);
+                  return (
+                    <button
+                      className={`absolute left-1 right-1 flex flex-col gap-1 rounded-[10px] border px-2 py-1.5 text-left transition hover:brightness-95 ${getEventTone(
+                        event.eventType,
+                      )}`}
+                      data-event-card="true"
+                      key={event.id}
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        onEdit(event);
+                      }}
+                      style={{ top: `${slot.top}px`, height: `${slot.height}px` }}
+                      type="button"
+                    >
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.12em] opacity-80">
+                        {formatRangeTime(event)}
+                      </span>
+                      <span className="line-clamp-2 text-[12px] font-semibold leading-tight">
+                        {event.title || "Untitled"}
+                      </span>
+                      {linked && slot.height > 60 ? (
+                        <span className="truncate text-[10px] opacity-70">{linked}</span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type MonthGridProps = {
+  monthDays: Date[];
+  activeDate: Date;
+  eventsByDay: Map<string, CalendarEvent[]>;
+  onCreate: (date?: Date) => void;
+  onEdit: (event: CalendarEvent) => void;
+};
+
+function MonthGrid({
+  monthDays,
+  activeDate,
+  eventsByDay,
+  onCreate,
+  onEdit,
+}: Readonly<MonthGridProps>) {
+  const todayKey = buildDateInputValue(new Date().toISOString());
+
+  return (
+    <div className="overflow-hidden rounded-[var(--radius-card)]">
+      <div className="grid grid-cols-7 border-b border-[var(--border-subtle)]">
+        {weekdayLabels.map((label) => (
+          <div
+            className="px-3 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]"
+            key={label}
+          >
+            {label}
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-7">
+        {monthDays.map((day) => {
+          const key = buildDateInputValue(day.toISOString());
+          const dayEvents = eventsByDay.get(key) ?? [];
+          const isCurrentMonth = day.getMonth() === activeDate.getMonth();
+          const isToday = key === todayKey;
+
+          return (
+            <div
+              className={`group relative flex min-h-[120px] flex-col gap-2 border-b border-l border-[var(--border-subtle)] p-2 ${
+                isCurrentMonth ? "bg-[var(--surface)]" : "bg-[var(--surface-subtle)]"
+              }`}
+              key={key}
+            >
+              <div className="flex items-center justify-between">
+                <span
+                  className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold ${
+                    isToday
+                      ? "bg-[var(--text-primary)] text-white"
+                      : isCurrentMonth
+                        ? "text-[var(--text-primary)]"
+                        : "text-[var(--text-tertiary)]"
+                  }`}
+                >
+                  {day.getDate()}
+                </span>
+                <button
+                  aria-label={`Add event on ${day.toLocaleDateString()}`}
+                  className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-tertiary)] opacity-0 transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)] group-hover:opacity-100"
+                  onClick={() => onCreate(day)}
+                  type="button"
+                >
+                  <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="flex flex-col gap-1">
+                {dayEvents.slice(0, 3).map((event) => (
+                  <button
+                    className={`w-full truncate rounded-md border px-2 py-1 text-left text-[11px] font-medium transition hover:brightness-95 ${getEventTone(
+                      event.eventType,
+                    )}`}
+                    key={event.id}
+                    onClick={() => onEdit(event)}
+                    type="button"
+                  >
+                    {event.title || "Untitled"}
+                  </button>
+                ))}
+                {dayEvents.length > 3 && (
+                  <span className="text-[10px] text-[var(--text-tertiary)]">
+                    +{dayEvents.length - 3} more
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+type AgendaListProps = {
+  events: CalendarEvent[];
+  memberLabelById: Map<string, string>;
+  getLinkedLabel: (event: CalendarEvent) => string;
+  onEdit: (event: CalendarEvent) => void;
+};
+
+function AgendaList({
+  events,
+  memberLabelById,
+  getLinkedLabel,
+  onEdit,
+}: Readonly<AgendaListProps>) {
+  if (events.length === 0) {
+    return (
+      <div className="flex min-h-[200px] items-center justify-center rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-subtle)] px-4 text-center text-sm text-[var(--text-tertiary)]">
+        No upcoming activity in this range.
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-2">
+      {events.map((event) => {
+        const linked = getLinkedLabel(event);
+        const assignee =
+          memberLabelById.get(event.assigneeUserId) || event.assigneeUserName || "";
+        return (
+          <button
+            className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] p-4 text-left transition hover:border-[var(--border-strong)] hover:bg-[var(--surface-subtle)] md:flex-row md:items-center md:justify-between"
+            key={event.id}
+            onClick={() => onEdit(event)}
+            type="button"
+          >
+            <div className="flex items-center gap-3">
+              <span
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border text-[11px] font-semibold uppercase ${getEventTone(
+                  event.eventType,
+                )}`}
+              >
+                {event.eventType.slice(0, 2)}
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-[var(--text-primary)]">
+                  {event.title || "Untitled"}
+                </p>
+                <p className="text-xs text-[var(--text-tertiary)]">
+                  {formatDayTitle(new Date(event.startAt))} · {formatRangeTime(event)}
+                  {linked ? ` · ${linked}` : ""}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--text-secondary)]">
+                {event.status}
+              </span>
+              {assignee && (
+                <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--text-secondary)]">
+                  {assignee}
+                </span>
+              )}
+            </div>
+          </button>
+        );
+      })}
     </div>
   );
 }

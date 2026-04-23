@@ -2,18 +2,96 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0b0f19;
+
+  --surface: #ffffff;
+  --surface-muted: #f7f8fa;
+  --surface-subtle: #fbfbfc;
+  --surface-inset: #f2f4f7;
+
+  --border-subtle: #eceef2;
+  --border-default: #e1e4ea;
+  --border-strong: #c9ced6;
+
+  --text-primary: #0b0f19;
+  --text-secondary: #4b5563;
+  --text-tertiary: #6b7280;
+  --text-muted: #9ca3af;
+
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --accent-soft: #e0ecff;
+
+  --signal-purple: #8b5cf6;
+  --signal-red: #ef4444;
+  --signal-blue: #3b82f6;
+  --signal-green: #10b981;
+  --signal-amber: #f59e0b;
+
+  --shadow-xs: 0 1px 2px rgba(11, 15, 25, 0.04);
+  --shadow-sm: 0 2px 8px rgba(11, 15, 25, 0.05);
+  --shadow-md: 0 8px 24px rgba(11, 15, 25, 0.06);
+  --shadow-lg: 0 18px 50px rgba(11, 15, 25, 0.08);
+
+  --radius-card: 1rem;
+  --radius-card-lg: 1.25rem;
+  --radius-pill: 9999px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-inset: var(--surface-inset);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
+
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-signal-purple: var(--signal-purple);
+  --color-signal-red: var(--signal-red);
+  --color-signal-blue: var(--signal-blue);
+  --color-signal-green: var(--signal-green);
+  --color-signal-amber: var(--signal-amber);
+
+  --shadow-card: var(--shadow-sm);
+  --shadow-card-hover: var(--shadow-md);
+  --shadow-float: var(--shadow-lg);
+
+  --radius-card: var(--radius-card);
+  --radius-card-lg: var(--radius-card-lg);
+  --radius-pill: var(--radius-pill);
+
   --font-sans: "Space Grotesk", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
 }
 
 body {
-  background: var(--background);
+  background: var(--surface-muted);
   color: var(--foreground);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
 }

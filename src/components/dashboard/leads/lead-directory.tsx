@@ -1,7 +1,8 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Calendar, CheckCircle2, PencilLine, Trash2 } from "lucide-react";
 
 import {
   CRMClientError,
@@ -29,13 +30,16 @@ import {
 
 import { startLeadQualify } from "@/lib/qualifier/client";
 
+import { LeadBulkActionBar } from "./lead-bulk-action-bar";
 import { LeadConvertModal } from "./lead-convert-modal";
 import { LeadDeleteModal } from "./lead-delete-modal";
-import { LeadDetailPanel } from "./lead-detail-panel";
-import { LeadFilters } from "./lead-filters";
+import { LeadDetailDrawer, type LeadDetailView } from "./lead-detail-drawer";
 import { LeadFormModal } from "./lead-form-modal";
 import { LeadHeader } from "./lead-header";
-import { LeadList } from "./lead-list";
+import { LeadKpiStrip } from "./lead-kpi-strip";
+import { LeadStatusTabs } from "./lead-status-tabs";
+import { LeadTable } from "./lead-table";
+import { LeadToolbar } from "./lead-toolbar";
 import {
   buildConvertState,
   buildLeadForm,
@@ -44,7 +48,7 @@ import {
   type LeadConvertState,
   type LeadFormState,
 } from "./lead-types";
-import { parseLeadValue } from "./lead-utils";
+import { buildLeadCsv, downloadCsv, parseLeadValue } from "./lead-utils";
 
 export function LeadDirectory() {
   const searchParams = useSearchParams();
@@ -67,12 +71,22 @@ export function LeadDirectory() {
   const [assigneeFilter, setAssigneeFilter] = useState("all");
   const [showOnlyUnassigned, setShowOnlyUnassigned] = useState(false);
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerView, setDrawerView] = useState<LeadDetailView>("profile");
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [showConvertModal, setShowConvertModal] = useState(false);
   const [pendingDeleteLead, setPendingDeleteLead] = useState<Lead | null>(null);
+  const [pendingBulkDelete, setPendingBulkDelete] = useState(false);
   const [editingLeadId, setEditingLeadId] = useState<string | null>(null);
   const [leadForm, setLeadForm] = useState<LeadFormState>(emptyLeadForm);
   const [convertState, setConvertState] = useState<LeadConvertState | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
+  const [rowMenu, setRowMenu] = useState<{
+    lead: Lead;
+    top: number;
+    left: number;
+  } | null>(null);
+  const rowMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
@@ -128,8 +142,6 @@ export function LeadDirectory() {
     [activeCompanyId, companies],
   );
 
-  // AI visibility gate — owner pressed "Connect" on AI Qualifier card?
-  // If not, leads list + detail panel hide all AI chips / insights.
   const [aiEnabled, setAIEnabled] = useState(false);
 
   useEffect(() => {
@@ -199,12 +211,7 @@ export function LeadDirectory() {
 
         if (!cancelled) {
           setLeads(nextLeads);
-          setSelectedLeadId((current) => {
-            if (current && nextLeads.some((lead) => lead.id === current)) {
-              return current;
-            }
-            return nextLeads[0]?.id ?? null;
-          });
+          setSelectedIds(new Set());
         }
       } catch (error) {
         if (!cancelled) {
@@ -232,8 +239,26 @@ export function LeadDirectory() {
     statusFilter,
   ]);
 
+  useEffect(() => {
+    if (!rowMenu) return;
+    function onPointer(event: MouseEvent) {
+      if (!rowMenuRef.current?.contains(event.target as Node)) {
+        setRowMenu(null);
+      }
+    }
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setRowMenu(null);
+    }
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [rowMenu]);
+
   const selectedLead = useMemo(
-    () => leads.find((lead) => lead.id === selectedLeadId) ?? leads[0] ?? null,
+    () => leads.find((lead) => lead.id === selectedLeadId) ?? null,
     [leads, selectedLeadId],
   );
 
@@ -241,7 +266,7 @@ export function LeadDirectory() {
     if (searchCompanyName?.trim()) {
       return searchCompanyName;
     }
-    return selectedCompany?.name ?? "Selected company";
+    return selectedCompany?.name ?? "";
   }, [searchCompanyName, selectedCompany?.name]);
 
   const sourceOptions = useMemo(() => {
@@ -288,8 +313,9 @@ export function LeadDirectory() {
   );
 
   const customerLabel =
-    selectedLead?.customerId &&
-    customers.find((customer) => customer.id === selectedLead.customerId)?.name;
+    selectedLead?.customerId
+      ? customers.find((customer) => customer.id === selectedLead.customerId)?.name
+      : undefined;
 
   function updateCompanyState(nextCompany: Company) {
     setCompanies((current) =>
@@ -317,7 +343,7 @@ export function LeadDirectory() {
       if (current && nextLeads.some((lead) => lead.id === current)) {
         return current;
       }
-      return nextLeads[0]?.id ?? null;
+      return null;
     });
     return nextLeads;
   }
@@ -385,6 +411,7 @@ export function LeadDirectory() {
     setEditingLeadId(lead.id);
     setLeadForm(buildLeadForm(lead));
     setShowLeadModal(true);
+    setRowMenu(null);
   }
 
   function closeLeadModal() {
@@ -461,6 +488,7 @@ export function LeadDirectory() {
       const nextLeads = await reloadReferenceData(selectedCompany.id);
       if (selectedLeadId === pendingDeleteLead.id) {
         setSelectedLeadId(nextLeads[0]?.id ?? null);
+        setDrawerOpen(false);
       }
       setPendingDeleteLead(null);
       setSuccessMessage("Lead removed.");
@@ -473,6 +501,44 @@ export function LeadDirectory() {
     }
   }
 
+  async function handleBulkDelete() {
+    if (!selectedCompany || selectedIds.size === 0) return;
+    setSaving(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    const ids = Array.from(selectedIds);
+    const succeeded: string[] = [];
+    const failed: string[] = [];
+    for (const id of ids) {
+      try {
+        await deleteLeadRequest(id);
+        succeeded.push(id);
+      } catch {
+        failed.push(id);
+      }
+    }
+    await reloadReferenceData(selectedCompany.id);
+    setSelectedIds(new Set());
+    setPendingBulkDelete(false);
+    if (failed.length === 0) {
+      setSuccessMessage(`${succeeded.length} lead${succeeded.length === 1 ? "" : "s"} removed.`);
+    } else if (succeeded.length === 0) {
+      setErrorMessage(`Failed to delete ${failed.length} lead${failed.length === 1 ? "" : "s"}.`);
+    } else {
+      setSuccessMessage(`${succeeded.length} deleted, ${failed.length} failed.`);
+    }
+    setSaving(false);
+  }
+
+  function handleBulkExport() {
+    const rows = leads.filter((lead) => selectedIds.has(lead.id));
+    if (rows.length === 0) return;
+    const csv = buildLeadCsv(rows);
+    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+    downloadCsv(`leads-${stamp}.csv`, csv);
+    setSuccessMessage(`${rows.length} lead${rows.length === 1 ? "" : "s"} exported.`);
+  }
+
   function scheduleLead(lead: Lead) {
     if (!selectedCompany) {
       return;
@@ -480,7 +546,7 @@ export function LeadDirectory() {
 
     const nextSearch = new URLSearchParams({
       company: selectedCompany.id,
-      companyName,
+      companyName: companyName || selectedCompany.name,
       compose: "1",
       linkedType: "lead",
       linkedId: lead.id,
@@ -499,6 +565,7 @@ export function LeadDirectory() {
     setConvertState(buildConvertState(lead));
     setSelectedLeadId(lead.id);
     setShowConvertModal(true);
+    setRowMenu(null);
   }
 
   function closeConvertModal() {
@@ -613,58 +680,171 @@ export function LeadDirectory() {
     }
   }
 
+  function toggleOne(id: string) {
+    setSelectedIds((current) => {
+      const next = new Set(current);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleAll() {
+    setSelectedIds((current) => {
+      if (current.size === leads.length) return new Set();
+      return new Set(leads.map((l) => l.id));
+    });
+  }
+
+  function handleRowClick(lead: Lead) {
+    setSelectedLeadId(lead.id);
+    setDrawerView("profile");
+    setDrawerOpen(true);
+  }
+
+  function handleAIClick(lead: Lead) {
+    setSelectedLeadId(lead.id);
+    setDrawerView("ai");
+    setDrawerOpen(true);
+  }
+
+  function openRowMenu(lead: Lead, anchor: HTMLElement) {
+    const rect = anchor.getBoundingClientRect();
+    setRowMenu({
+      lead,
+      top: rect.bottom + window.scrollY + 6,
+      left: Math.max(8, rect.right - 180 + window.scrollX),
+    });
+  }
+
   return (
-    <div className="grid gap-6">
-      <LeadHeader
-        company={selectedCompany}
-        companyName={companyName}
-        leadCount={leads.length}
-        onCreate={openCreateModal}
-        pipelineCounts={pipelineCounts}
+    <div className="flex min-w-0 flex-col gap-5">
+      <LeadHeader companyName={companyName} leadCount={leads.length} />
+
+      <LeadKpiStrip leads={leads} loading={companiesLoading || leadsLoading} />
+
+      {errorMessage ? (
+        <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
+          {errorMessage}
+        </div>
+      ) : null}
+      {successMessage ? (
+        <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-green)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
+          {successMessage}
+        </div>
+      ) : null}
+
+      {!selectedCompany && !companiesLoading ? (
+        <div className="flex min-h-[200px] items-center justify-center rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-4 text-center text-sm text-[var(--text-tertiary)]">
+          Pick a workspace from the top bar to see leads.
+        </div>
+      ) : (
+        <section className="overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
+          <div className="border-b border-[var(--border-subtle)] px-4 pt-1 sm:px-5">
+            <LeadStatusTabs
+              counts={pipelineCounts}
+              onChange={setStatusFilter}
+              totalCount={leads.length}
+              value={statusFilter}
+            />
+          </div>
+
+          <div className="border-b border-[var(--border-subtle)] px-4 py-3 sm:px-5">
+            <LeadToolbar
+              assigneeFilter={assigneeFilter}
+              assigneeOptions={assigneeOptions}
+              canAdd={!!selectedCompany && !saving}
+              onAdd={openCreateModal}
+              onAssigneeChange={setAssigneeFilter}
+              onSearchChange={setSearchQuery}
+              onShowUnassignedChange={setShowOnlyUnassigned}
+              onSourceChange={setSourceFilter}
+              searchQuery={searchQuery}
+              showOnlyUnassigned={showOnlyUnassigned}
+              sourceFilter={sourceFilter}
+              sourceOptions={sourceOptions}
+            />
+          </div>
+
+          <LeadTable
+            activeLeadId={drawerOpen ? selectedLeadId : null}
+            aiEnabled={aiEnabled}
+            leads={leads}
+            loading={companiesLoading || leadsLoading}
+            onAIScoreClick={handleAIClick}
+            onOpenRowMenu={openRowMenu}
+            onRowClick={handleRowClick}
+            onToggleAll={toggleAll}
+            onToggleOne={toggleOne}
+            selectedIds={selectedIds}
+          />
+        </section>
+      )}
+
+      {rowMenu ? (
+        <div
+          className="absolute z-40 w-[180px] rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-1 shadow-[var(--shadow-float)]"
+          ref={rowMenuRef}
+          role="menu"
+          style={{ top: rowMenu.top, left: rowMenu.left }}
+        >
+          <RowMenuItem
+            icon={<PencilLine className="h-4 w-4" aria-hidden="true" />}
+            label="Edit"
+            onClick={() => openEditModal(rowMenu.lead)}
+          />
+          <RowMenuItem
+            disabled={rowMenu.lead.status === "converted"}
+            icon={<CheckCircle2 className="h-4 w-4" aria-hidden="true" />}
+            label="Convert"
+            onClick={() => openConvertLeadModal(rowMenu.lead)}
+          />
+          <RowMenuItem
+            icon={<Calendar className="h-4 w-4" aria-hidden="true" />}
+            label="Schedule"
+            onClick={() => {
+              scheduleLead(rowMenu.lead);
+              setRowMenu(null);
+            }}
+          />
+          <div className="my-1 border-t border-[var(--border-subtle)]" />
+          <RowMenuItem
+            icon={<Trash2 className="h-4 w-4" aria-hidden="true" />}
+            label="Delete"
+            onClick={() => {
+              setPendingDeleteLead(rowMenu.lead);
+              setRowMenu(null);
+            }}
+            tone="danger"
+          />
+        </div>
+      ) : null}
+
+      <LeadDetailDrawer
+        aiEnabled={aiEnabled}
+        assignableMembersCount={assignableMembers.length}
+        customerLabel={customerLabel}
+        lead={selectedLead}
+        onAssignRoundRobin={assignLeadRoundRobin}
+        onChangeView={setDrawerView}
+        onClose={() => setDrawerOpen(false)}
+        onConvert={openConvertLeadModal}
+        onDelete={(lead) => setPendingDeleteLead(lead)}
+        onEdit={openEditModal}
+        onSchedule={scheduleLead}
+        onStartQualify={startQualifyLead}
+        open={drawerOpen && !!selectedLead}
+        saving={saving}
+        view={drawerView}
+      />
+
+      <LeadBulkActionBar
+        count={selectedIds.size}
+        onClear={() => setSelectedIds(new Set())}
+        onDelete={() => setPendingBulkDelete(true)}
+        onExport={handleBulkExport}
         saving={saving}
       />
-
-      <LeadFilters
-        assigneeFilter={assigneeFilter}
-        assigneeOptions={assigneeOptions}
-        errorMessage={errorMessage}
-        onAssigneeChange={setAssigneeFilter}
-        onSearchChange={setSearchQuery}
-        onShowUnassignedChange={setShowOnlyUnassigned}
-        onSourceChange={setSourceFilter}
-        onStatusChange={setStatusFilter}
-        searchQuery={searchQuery}
-        showOnlyUnassigned={showOnlyUnassigned}
-        sourceFilter={sourceFilter}
-        sourceOptions={sourceOptions}
-        statusFilter={statusFilter}
-        successMessage={successMessage}
-      />
-
-      <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <LeadList
-          aiEnabled={aiEnabled}
-          companiesLoading={companiesLoading}
-          leads={leads}
-          leadsLoading={leadsLoading}
-          onSelectLead={setSelectedLeadId}
-          selectedLeadId={selectedLeadId}
-        />
-
-        <LeadDetailPanel
-          aiEnabled={aiEnabled}
-          assignableMembersCount={assignableMembers.length}
-          customerLabel={customerLabel}
-          lead={selectedLead}
-          onAssignRoundRobin={assignLeadRoundRobin}
-          onConvert={openConvertLeadModal}
-          onDelete={setPendingDeleteLead}
-          onEdit={openEditModal}
-          onSchedule={scheduleLead}
-          onStartQualify={startQualifyLead}
-          saving={saving}
-        />
-      </div>
 
       {showLeadModal ? (
         <LeadFormModal
@@ -699,6 +879,98 @@ export function LeadDirectory() {
           saving={saving}
         />
       ) : null}
+
+      {pendingBulkDelete ? (
+        <BulkDeleteConfirmModal
+          count={selectedIds.size}
+          onClose={() => setPendingBulkDelete(false)}
+          onConfirm={() => void handleBulkDelete()}
+          saving={saving}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function RowMenuItem({
+  icon,
+  label,
+  onClick,
+  tone,
+  disabled,
+}: Readonly<{
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+  tone?: "danger";
+  disabled?: boolean;
+}>) {
+  return (
+    <button
+      className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-sm transition disabled:opacity-40 ${
+        tone === "danger"
+          ? "text-[var(--signal-red)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))]"
+          : "text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+      }`}
+      disabled={disabled}
+      onClick={onClick}
+      role="menuitem"
+      type="button"
+    >
+      {icon}
+      {label}
+    </button>
+  );
+}
+
+function BulkDeleteConfirmModal({
+  count,
+  onClose,
+  onConfirm,
+  saving,
+}: Readonly<{
+  count: number;
+  onClose: () => void;
+  onConfirm: () => void;
+  saving: boolean;
+}>) {
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-[rgba(11,15,25,0.45)] px-4 py-8 sm:items-center"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="my-auto w-full max-w-md rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-float)]"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+      >
+        <h2 className="text-lg font-semibold text-[var(--text-primary)]">
+          Delete {count} lead{count === 1 ? "" : "s"}?
+        </h2>
+        <p className="mt-2 text-sm text-[var(--text-tertiary)]">
+          This permanently removes the selected leads from the workspace. This
+          action cannot be undone.
+        </p>
+        <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <button
+            className="inline-flex h-10 items-center justify-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)]"
+            disabled={saving}
+            onClick={onClose}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="inline-flex h-10 items-center justify-center rounded-full bg-[var(--signal-red)] px-5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+            disabled={saving}
+            onClick={onConfirm}
+            type="button"
+          >
+            {saving ? "Deleting…" : `Delete ${count}`}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

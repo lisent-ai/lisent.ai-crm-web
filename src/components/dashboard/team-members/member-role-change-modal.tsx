@@ -1,20 +1,24 @@
-type CompanyMemberRemoveModalProps = {
-  companyName: string;
+import { getCompanyRoleLabel, type CompanyRole } from "@/lib/auth/roles";
+
+type MemberRoleChangeModalProps = {
   memberName: string;
   memberEmail: string;
+  currentRole: CompanyRole;
+  nextRole: CompanyRole;
   saving: boolean;
   onConfirm: () => void;
   onClose: () => void;
 };
 
-export function CompanyMemberRemoveModal({
-  companyName,
+export function MemberRoleChangeModal({
   memberName,
   memberEmail,
+  currentRole,
+  nextRole,
   saving,
   onConfirm,
   onClose,
-}: Readonly<CompanyMemberRemoveModalProps>) {
+}: Readonly<MemberRoleChangeModalProps>) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 py-8"
@@ -22,17 +26,17 @@ export function CompanyMemberRemoveModal({
       role="presentation"
     >
       <div
-        className="w-full max-w-2xl rounded-[1.6rem] border border-rose-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)]"
+        className="w-full max-w-2xl rounded-[1.6rem] border border-sky-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)]"
         onClick={(event) => event.stopPropagation()}
         role="presentation"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
-              Remove member
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">
+              Change role
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-              Remove {memberName}
+              Update {memberName}
             </h2>
           </div>
           <button
@@ -46,8 +50,8 @@ export function CompanyMemberRemoveModal({
         </div>
 
         <p className="mt-5 text-sm leading-7 text-slate-700">
-          This will remove the selected team member from {companyName}. They will
-          lose access to this company workspace.
+          This will change the selected team member&apos;s access level for the
+          current company.
         </p>
 
         <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-4">
@@ -58,16 +62,25 @@ export function CompanyMemberRemoveModal({
           <p className="mt-1 break-all text-sm text-slate-600">
             {memberEmail || "No email available"}
           </p>
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-700">
+            <span className="rounded-full border border-slate-200 bg-white px-3 py-1 font-semibold">
+              {getCompanyRoleLabel(currentRole)}
+            </span>
+            <span className="text-slate-400">to</span>
+            <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 font-semibold text-sky-800">
+              {getCompanyRoleLabel(nextRole)}
+            </span>
+          </div>
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <button
-            className="rounded-full bg-rose-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(225,29,72,0.3)] transition hover:bg-rose-500 disabled:opacity-50"
+            className="rounded-full bg-sky-700 px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(3,105,161,0.28)] transition hover:bg-sky-600 disabled:opacity-50"
             disabled={saving}
             onClick={onConfirm}
             type="button"
           >
-            {saving ? "Removing..." : "Confirm remove"}
+            {saving ? "Updating..." : "Confirm role change"}
           </button>
           <button
             className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950 disabled:opacity-50"
