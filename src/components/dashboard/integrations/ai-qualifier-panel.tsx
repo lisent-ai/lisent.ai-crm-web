@@ -11,6 +11,7 @@ import { QualifierConfigPanel } from "./qualifier-config-panel";
 import { QualifierRAGConfigPanel } from "./qualifier-rag-config";
 import { UsagePanel } from "./usage-panel";
 import { V1ConfigPanel } from "./v1-config-panel";
+import { WebhookPanel } from "./webhook-panel";
 
 type Props = {
   companyId: string;
@@ -27,7 +28,8 @@ type Tab =
   | "channels"
   | "api-keys"
   | "usage"
-  | "v1-config";
+  | "v1-config"
+  | "webhooks";
 
 const TAB_LABELS: Record<Tab, string> = {
   overview: "Overview",
@@ -39,6 +41,7 @@ const TAB_LABELS: Record<Tab, string> = {
   "api-keys": "API Keys",
   usage: "Usage",
   "v1-config": "Scoring Config (v1)",
+  webhooks: "Outbound Webhooks",
 };
 
 /**
@@ -110,6 +113,9 @@ export function AIQualifierPanel({ companyId, companyName, initialTab = "overvie
       ) : null}
       {tab === "v1-config" ? (
         <V1ConfigPanel companyId={companyId} companyName={companyName} />
+      ) : null}
+      {tab === "webhooks" ? (
+        <WebhookPanel companyId={companyId} companyName={companyName} />
       ) : null}
     </section>
   );
