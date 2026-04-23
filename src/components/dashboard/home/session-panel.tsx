@@ -2,8 +2,8 @@
 
 import { useSyncExternalStore } from "react";
 
-import { DashboardOverview } from "@/components/dashboard/home/dashboard-overview";
 import { SessionPanelSkeleton } from "@/components/dashboard/home/session-panel-skeleton";
+import { WorkspaceOverview } from "@/components/dashboard/home/workspace-overview";
 import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
 
 const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE === "true";
@@ -16,7 +16,7 @@ export function SessionPanel() {
   );
 
   if (uiOnlyMode) {
-    return <DashboardOverview />;
+    return <WorkspaceOverview />;
   }
 
   ensureFrontendSuperTokensInit();
@@ -25,5 +25,5 @@ export function SessionPanel() {
     return <SessionPanelSkeleton />;
   }
 
-  return <DashboardOverview />;
+  return <WorkspaceOverview />;
 }

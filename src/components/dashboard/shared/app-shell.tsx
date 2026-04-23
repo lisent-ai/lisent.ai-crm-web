@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { SessionAuth } from "supertokens-auth-react/recipe/session";
 
 import { AppSidebar } from "@/components/dashboard/shared/app-sidebar";
@@ -12,7 +12,13 @@ import {
   getAccountProfile,
 } from "@/lib/account/client";
 import type { AccountProfile } from "@/lib/auth/account-profile";
+import { listCompanies } from "@/lib/crm/client";
 import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
+import {
+  clearStoredCompany,
+  readStoredCompany,
+  storeCompany,
+} from "@/lib/workspace/workspace-context";
 
 const uiOnlyMode = process.env.NEXT_PUBLIC_UI_ONLY_MODE !== "false";
 
@@ -22,6 +28,8 @@ type AppShellProps = {
 
 export function AppShell({ children }: Readonly<AppShellProps>) {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -29,6 +37,7 @@ export function AppShell({ children }: Readonly<AppShellProps>) {
   );
   const [account, setAccount] = useState<AccountProfile | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const hydratedRef = useRef(false);
 
   if (!uiOnlyMode) {
     ensureFrontendSuperTokensInit();
@@ -65,6 +74,70 @@ export function AppShell({ children }: Readonly<AppShellProps>) {
   const companyId = searchParams.get("company")?.trim() ?? "";
   const companyName = searchParams.get("companyName")?.trim() ?? "";
 
+  // Persist selection to localStorage whenever URL carries one.
+  useEffect(() => {
+    if (uiOnlyMode) return;
+    if (!companyId) return;
+    storeCompany(companyId, companyName);
+  }, [companyId, companyName]);
+
+  // One-shot hydration: if URL has no company but localStorage does,
+  // restore it silently. Validates against the user's current company
+  // list — clears stale entries and auto-selects when the user only
+  // has one workspace.
+  useEffect(() => {
+    if (uiOnlyMode) return;
+    if (hydratedRef.current) return;
+    if (companyId) {
+      hydratedRef.current = true;
+      return;
+    }
+
+    hydratedRef.current = true;
+    let cancelled = false;
+
+    async function hydrate() {
+      const stored = readStoredCompany();
+      try {
+        const companies = await listCompanies();
+        if (cancelled) return;
+
+        let nextId = "";
+        let nextName = "";
+
+        if (stored) {
+          const match = companies.find((c) => c.id === stored.id);
+          if (match) {
+            nextId = match.id;
+            nextName = match.name;
+          } else {
+            clearStoredCompany();
+          }
+        }
+
+        if (!nextId && companies.length === 1) {
+          nextId = companies[0]!.id;
+          nextName = companies[0]!.name;
+        }
+
+        if (!nextId) return;
+
+        storeCompany(nextId, nextName);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("company", nextId);
+        if (nextName) params.set("companyName", nextName);
+        router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+      } catch {
+        /* network / auth errors — stay in unselected state */
+      }
+    }
+
+    void hydrate();
+    return () => {
+      cancelled = true;
+    };
+  }, [companyId, pathname, router, searchParams]);
+
   const shell = (
     <div className="flex min-h-screen bg-[var(--surface-muted)] text-[var(--text-primary)]">
       <AppSidebar companyId={companyId} companyName={companyName} />
@@ -86,6 +159,7 @@ export function AppShell({ children }: Readonly<AppShellProps>) {
       <MobileDrawer
         companyId={companyId}
         companyName={companyName}
+        demoMode={uiOnlyMode}
         onClose={() => setDrawerOpen(false)}
         open={drawerOpen}
       />

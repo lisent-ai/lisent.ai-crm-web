@@ -13,12 +13,14 @@ import {
   isNavActive,
   type NavItem,
 } from "@/components/dashboard/shared/nav-config";
+import { WorkspaceSwitcher } from "@/components/dashboard/shared/workspace-switcher";
 
 type MobileDrawerProps = {
   open: boolean;
   onClose: () => void;
   companyId: string;
   companyName: string;
+  demoMode: boolean;
 };
 
 export function MobileDrawer({
@@ -26,6 +28,7 @@ export function MobileDrawer({
   onClose,
   companyId,
   companyName,
+  demoMode,
 }: Readonly<MobileDrawerProps>) {
   const pathname = usePathname();
 
@@ -95,6 +98,14 @@ export function MobileDrawer({
         </div>
 
         <div className="flex-1 overflow-y-auto p-3">
+          <div className="px-1 pb-3">
+            <WorkspaceSwitcher
+              companyId={companyId}
+              companyName={companyName}
+              demoMode={demoMode}
+              variant="block"
+            />
+          </div>
           <DrawerSection label="Workspace" items={topItems} pathname={pathname} companyId={companyId} companyName={companyName} onNavigate={onClose} />
           {sideItems.length > 0 && (
             <DrawerSection

@@ -7,6 +7,7 @@ import { Bell, Menu, Upload } from "lucide-react";
 import { AppTabs } from "@/components/dashboard/shared/app-tabs";
 import { SearchCommand } from "@/components/dashboard/shared/search-command";
 import { UserMenu } from "@/components/dashboard/shared/user-menu";
+import { WorkspaceSwitcher } from "@/components/dashboard/shared/workspace-switcher";
 import type { AccountProfile } from "@/lib/auth/account-profile";
 
 type AppTopbarProps = {
@@ -56,6 +57,14 @@ export function AppTopbar({
             width={60}
           />
         </Link>
+
+        <div className="hidden shrink-0 md:block">
+          <WorkspaceSwitcher
+            companyId={companyId}
+            companyName={companyName}
+            demoMode={demoMode}
+          />
+        </div>
 
         <div className="hidden min-w-0 flex-1 md:block">
           <AppTabs companyId={companyId} companyName={companyName} />

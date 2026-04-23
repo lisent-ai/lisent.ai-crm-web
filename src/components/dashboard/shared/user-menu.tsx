@@ -9,6 +9,7 @@ import { signOut } from "supertokens-auth-react/recipe/session";
 import type { AccountProfile } from "@/lib/auth/account-profile";
 import { getCompanyMembershipSummary } from "@/lib/auth/access-control";
 import { getCompanyRoleLabel, getPlatformRoleLabel } from "@/lib/auth/roles";
+import { clearStoredCompany } from "@/lib/workspace/workspace-context";
 
 type UserMenuProps = {
   account: AccountProfile | null;
@@ -62,6 +63,7 @@ export function UserMenu({
 
   async function handleSignOut() {
     setOpen(false);
+    clearStoredCompany();
     await signOut();
     router.replace("/auth/sign-in");
   }
