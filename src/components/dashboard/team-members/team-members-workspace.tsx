@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Building2, Pencil, Plus, Trash2, UserPlus } from "lucide-react";
+import { Building2, MoreHorizontal, Plus, Trash2, UserPlus } from "lucide-react";
 
 import { AddTeamMemberModal } from "@/components/dashboard/team-members/add-team-member-modal";
 import { CompanyMemberRemoveModal } from "@/components/dashboard/companies/company-member-remove-modal";
@@ -26,6 +26,45 @@ import type { AccountProfile } from "@/lib/auth/account-profile";
 import { getCompanyRoleLabel, type CompanyRole } from "@/lib/auth/roles";
 
 const ADMIN_ROLES: CompanyRole[] = ["owner", "admin"];
+
+const ROLE_PRIORITY: Record<CompanyRole, number> = {
+  owner: 0,
+  admin: 1,
+  member: 2,
+  viewer: 3,
+};
+
+const AVATAR_PALETTE = [
+  "linear-gradient(135deg,_#6366f1,_#8b5cf6)",
+  "linear-gradient(135deg,_#0ea5e9,_#22d3ee)",
+  "linear-gradient(135deg,_#10b981,_#34d399)",
+  "linear-gradient(135deg,_#f59e0b,_#fbbf24)",
+  "linear-gradient(135deg,_#ec4899,_#f472b6)",
+  "linear-gradient(135deg,_#ef4444,_#f87171)",
+  "linear-gradient(135deg,_#8b5cf6,_#ec4899)",
+  "linear-gradient(135deg,_#0891b2,_#10b981)",
+];
+
+function avatarGradient(key: string): string {
+  let hash = 0;
+  for (let i = 0; i < key.length; i++) {
+    hash = (hash * 31 + key.charCodeAt(i)) & 0xffffffff;
+  }
+  return AVATAR_PALETTE[Math.abs(hash) % AVATAR_PALETTE.length]!;
+}
+
+function roleTone(role: CompanyRole): string {
+  switch (role) {
+    case "owner":
+      return "bg-[color-mix(in_srgb,_var(--signal-amber)_18%,_var(--surface))] text-[#92400e]";
+    case "admin":
+      return "bg-[var(--accent-soft)] text-[var(--accent-strong)]";
+    case "member":
+      return "bg-[color-mix(in_srgb,_var(--signal-green)_14%,_var(--surface))] text-[#065f46]";
+    case "viewer":
+      return "bg-[var(--surface-inset)] text-[var(--text-secondary)]";
+  }
+}
 
 type PendingRoleChange = { member: CompanyMember; nextRole: CompanyRole };
 type PendingRemoval = { member: CompanyMember };
@@ -99,10 +138,14 @@ export function TeamMembersWorkspace() {
       if (ADMIN_ROLES.includes(member.role)) admins.push(member);
       else accountUsers.push(member);
     }
-    const byName = (a: CompanyMember, b: CompanyMember) =>
-      a.displayName.localeCompare(b.displayName);
-    admins.sort(byName);
-    accountUsers.sort(byName);
+    const sorter = (a: CompanyMember, b: CompanyMember) => {
+      const aPriority = a.isCurrentUser ? -1 : ROLE_PRIORITY[a.role];
+      const bPriority = b.isCurrentUser ? -1 : ROLE_PRIORITY[b.role];
+      if (aPriority !== bPriority) return aPriority - bPriority;
+      return (a.displayName || a.email).localeCompare(b.displayName || b.email);
+    };
+    admins.sort(sorter);
+    accountUsers.sort(sorter);
     return { admins, accountUsers };
   }, [members]);
 
@@ -169,18 +212,19 @@ export function TeamMembersWorkspace() {
 
   return (
     <div className="flex min-w-0 flex-col gap-6">
-      <header className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+      <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
             Team members
           </h1>
-          <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-            Manage your team members and their account permissions here.
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-tertiary)]">
+            Manage your team members and their account permissions
+            {companyName ? ` in ${companyName}.` : "."}
           </p>
         </div>
         {canManageMembers && assignableRoles.length > 0 && (
           <button
-            className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-primary)] transition hover:border-[var(--border-strong)]"
+            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-primary)] shadow-[var(--shadow-xs)] transition hover:border-[var(--border-strong)] hover:bg-[var(--surface-subtle)]"
             onClick={() => setInviteOpen(true)}
             type="button"
           >
@@ -204,7 +248,11 @@ export function TeamMembersWorkspace() {
       ) : null}
 
       <Section
+        access={account?.access ?? null}
+        assignableRoles={assignableRoles}
         canManageMembers={canManageMembers}
+        companyId={companyId}
+        count={admins.length}
         description="Admins can add and remove users and manage organization-level settings."
         loading={loading}
         members={admins}
@@ -212,29 +260,27 @@ export function TeamMembersWorkspace() {
         onRoleChange={(member, nextRole) =>
           setPendingRoleChange({ member, nextRole })
         }
+        removingUserId={removingUserId}
         title="Admin users"
         updatingUserId={updatingUserId}
-        removingUserId={removingUserId}
-        assignableRoles={assignableRoles}
-        access={account?.access ?? null}
-        companyId={companyId}
       />
 
       <Section
+        access={account?.access ?? null}
+        assignableRoles={assignableRoles}
         canManageMembers={canManageMembers}
-        description="Account users can access and review data in their assigned workspace without managing organization settings."
+        companyId={companyId}
+        count={accountUsers.length}
+        description="Account users can access leads, deals and customers for this workspace without touching organization-level settings."
         loading={loading}
         members={accountUsers}
         onRemove={(member) => setPendingRemoval({ member })}
         onRoleChange={(member, nextRole) =>
           setPendingRoleChange({ member, nextRole })
         }
+        removingUserId={removingUserId}
         title="Account users"
         updatingUserId={updatingUserId}
-        removingUserId={removingUserId}
-        assignableRoles={assignableRoles}
-        access={account?.access ?? null}
-        companyId={companyId}
       />
 
       {inviteOpen && (
@@ -280,6 +326,7 @@ export function TeamMembersWorkspace() {
 type SectionProps = {
   title: string;
   description: string;
+  count: number;
   members: CompanyMember[];
   loading: boolean;
   canManageMembers: boolean;
@@ -295,6 +342,7 @@ type SectionProps = {
 function Section({
   title,
   description,
+  count,
   members,
   loading,
   canManageMembers,
@@ -307,12 +355,19 @@ function Section({
   onRemove,
 }: Readonly<SectionProps>) {
   return (
-    <section className="grid gap-4 border-t border-[var(--border-subtle)] pt-6 lg:grid-cols-[260px_minmax(0,1fr)]">
+    <section className="grid gap-5 border-t border-[var(--border-subtle)] pt-6 lg:grid-cols-[280px_minmax(0,1fr)]">
       <div>
-        <h2 className="text-base font-semibold text-[var(--text-primary)]">
-          {title}
-        </h2>
-        <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">
+        <div className="flex items-center gap-2">
+          <h2 className="text-base font-semibold text-[var(--text-primary)]">
+            {title}
+          </h2>
+          {!loading && count > 0 && (
+            <span className="inline-flex h-5 min-w-[22px] items-center justify-center rounded-full bg-[var(--surface-muted)] px-1.5 text-[11px] font-medium text-[var(--text-secondary)]">
+              {count}
+            </span>
+          )}
+        </div>
+        <p className="mt-2 text-sm leading-6 text-[var(--text-tertiary)]">
           {description}
         </p>
       </div>
@@ -329,12 +384,12 @@ function Section({
             <div className="hidden md:block">
               <table className="w-full table-fixed">
                 <thead>
-                  <tr className="border-b border-[var(--border-subtle)] text-left text-xs font-medium uppercase tracking-[0.12em] text-[var(--text-tertiary)]">
-                    <th className="w-[42%] px-5 py-3">Name</th>
+                  <tr className="border-b border-[var(--border-subtle)] text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">
+                    <th className="w-[44%] px-5 py-3">Name</th>
                     <th className="w-[18%] px-5 py-3">Date added</th>
                     <th className="w-[18%] px-5 py-3">Last active</th>
-                    <th className="w-[16%] px-5 py-3">Role</th>
-                    <th className="w-[6%] px-5 py-3 text-right">Actions</th>
+                    <th className="w-[14%] px-5 py-3">Role</th>
+                    <th className="w-[6%] px-5 py-3 text-right" aria-label="Actions" />
                   </tr>
                 </thead>
                 <tbody>
@@ -411,8 +466,8 @@ function MemberRow({
   const isRemoving = removingUserId === member.userId;
 
   return (
-    <tr className="border-b border-[var(--border-subtle)] last:border-b-0">
-      <td className="px-5 py-3">
+    <tr className="border-b border-[var(--border-subtle)] transition last:border-b-0 hover:bg-[var(--surface-subtle)]">
+      <td className="px-5 py-3.5">
         <div className="flex min-w-0 items-center gap-3">
           <Avatar name={member.displayName || member.email} />
           <div className="min-w-0">
@@ -430,44 +485,29 @@ function MemberRow({
           </div>
         </div>
       </td>
-      <td className="px-5 py-3 text-sm text-[var(--text-secondary)]">
+      <td className="px-5 py-3.5 text-sm text-[var(--text-secondary)]">
         {formatDate(member.createdAt)}
       </td>
-      <td className="px-5 py-3 text-sm text-[var(--text-secondary)]">
+      <td className="px-5 py-3.5 text-sm text-[var(--text-secondary)]">
         {formatDate(member.updatedAt)}
       </td>
-      <td className="px-5 py-3">
-        <select
-          className="w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-2.5 py-1.5 text-xs font-medium text-[var(--text-primary)] outline-none transition focus:border-[var(--border-strong)] disabled:opacity-60"
-          disabled={!canManageThis || isUpdating}
-          onChange={(event) =>
-            onRoleChange(member, event.target.value as CompanyRole)
-          }
+      <td className="px-5 py-3.5">
+        <RoleControl
+          canManage={canManageThis}
+          isUpdating={isUpdating}
+          onChange={(next) => onRoleChange(member, next)}
+          options={roleOptions}
           value={member.role}
-        >
-          {roleOptions.map((r) => (
-            <option key={r} value={r}>
-              {getCompanyRoleLabel(r)}
-            </option>
-          ))}
-        </select>
+        />
       </td>
-      <td className="px-5 py-3">
-        <div className="flex justify-end gap-1">
+      <td className="px-5 py-3.5">
+        <div className="flex justify-end">
           <button
-            aria-label="Edit role"
-            className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)] disabled:opacity-40"
-            disabled
-            title="Use the role select to change role"
-            type="button"
-          >
-            <Pencil className="h-4 w-4" aria-hidden="true" />
-          </button>
-          <button
-            aria-label="Remove member"
-            className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))] hover:text-[var(--signal-red)] disabled:opacity-40"
+            aria-label={`Remove ${member.displayName || member.email}`}
+            className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))] hover:text-[var(--signal-red)] disabled:pointer-events-none disabled:opacity-30"
             disabled={!canManageThis || isRemoving}
             onClick={() => onRemove(member)}
+            title={canManageThis ? "Remove member" : "You can't remove this member"}
             type="button"
           >
             <Trash2 className="h-4 w-4" aria-hidden="true" />
@@ -475,6 +515,52 @@ function MemberRow({
         </div>
       </td>
     </tr>
+  );
+}
+
+type RoleControlProps = {
+  value: CompanyRole;
+  options: readonly CompanyRole[];
+  canManage: boolean;
+  isUpdating: boolean;
+  onChange: (next: CompanyRole) => void;
+};
+
+function RoleControl({
+  value,
+  options,
+  canManage,
+  isUpdating,
+  onChange,
+}: Readonly<RoleControlProps>) {
+  if (!canManage || options.length <= 1) {
+    return (
+      <span
+        className={`inline-flex h-7 items-center rounded-full px-3 text-xs font-medium ${roleTone(value)}`}
+      >
+        {getCompanyRoleLabel(value)}
+      </span>
+    );
+  }
+  return (
+    <div className="relative inline-block">
+      <select
+        className={`appearance-none rounded-full pl-3 pr-7 py-1 text-xs font-medium outline-none transition focus:ring-2 focus:ring-[var(--accent-soft)] disabled:opacity-60 ${roleTone(value)}`}
+        disabled={isUpdating}
+        onChange={(event) => onChange(event.target.value as CompanyRole)}
+        value={value}
+      >
+        {options.map((r) => (
+          <option key={r} value={r}>
+            {getCompanyRoleLabel(r)}
+          </option>
+        ))}
+      </select>
+      <MoreHorizontal
+        aria-hidden="true"
+        className="pointer-events-none absolute right-1.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 opacity-50"
+      />
+    </div>
   );
 }
 
@@ -544,18 +630,15 @@ function MemberCard({
         </div>
       </div>
 
-      <select
-        className="w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--text-primary)] outline-none transition focus:border-[var(--border-strong)] disabled:opacity-60"
-        disabled={!canManageThis || isUpdating}
-        onChange={(event) => onRoleChange(member, event.target.value as CompanyRole)}
-        value={member.role}
-      >
-        {roleOptions.map((r) => (
-          <option key={r} value={r}>
-            {getCompanyRoleLabel(r)}
-          </option>
-        ))}
-      </select>
+      <div>
+        <RoleControl
+          canManage={canManageThis}
+          isUpdating={isUpdating}
+          onChange={(next) => onRoleChange(member, next)}
+          options={roleOptions}
+          value={member.role}
+        />
+      </div>
     </div>
   );
 }
@@ -568,10 +651,12 @@ function Avatar({ name }: Readonly<{ name: string }>) {
       : parts.length === 1
         ? parts[0]!.slice(0, 2).toUpperCase()
         : (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase();
+  const gradient = avatarGradient(name || "anon");
   return (
     <span
       aria-hidden="true"
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,_#6366f1,_#8b5cf6)] text-xs font-semibold text-white"
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white shadow-[var(--shadow-xs)]"
+      style={{ backgroundImage: gradient }}
     >
       {initials}
     </span>
