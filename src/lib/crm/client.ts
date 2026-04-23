@@ -480,6 +480,10 @@ export type CreateLeadCommentInput = {
   body: string;
 };
 
+export type UpdateLeadCommentInput = {
+  body: string;
+};
+
 export type UpsertTaskInput = {
   companyId: string;
   customerId?: string;
@@ -1392,6 +1396,39 @@ export async function createLeadComment(
     createdAt: payload.created_at,
     updatedAt: payload.updated_at,
   };
+}
+
+export async function updateLeadComment(
+  leadId: string,
+  commentId: string,
+  input: UpdateLeadCommentInput,
+): Promise<LeadComment> {
+  const payload = await requestCRM<CRMLeadCommentRecord>(
+    `/leads/${leadId}/comments/${commentId}`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        body: input.body.trim(),
+      }),
+    },
+  );
+
+  return {
+    id: payload.id,
+    leadId: payload.lead_id,
+    body: payload.body?.trim() || "",
+    authorUserId: payload.author_user_id?.trim() || "",
+    authorUserName: payload.author_user_name?.trim() || "",
+    createdAt: payload.created_at,
+    updatedAt: payload.updated_at,
+  };
+}
+
+export async function deleteLeadComment(leadId: string, commentId: string): Promise<void> {
+  await requestCRM<void>(`/leads/${leadId}/comments/${commentId}`, {
+    method: "DELETE",
+  });
 }
 
 export async function convertLead(

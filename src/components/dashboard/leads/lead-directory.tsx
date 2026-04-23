@@ -4,11 +4,14 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Calendar, CheckCircle2, PencilLine, Trash2 } from "lucide-react";
 
+import { getAccountProfile } from "@/lib/account/client";
+import type { AccountProfile } from "@/lib/auth/account-profile";
 import {
   CRMClientError,
   convertLead,
   createLead,
   createLeadComment,
+  deleteLeadComment,
   deleteLead as deleteLeadRequest,
   fetchIntegrationCatalog,
   isAIQualifierConnected,
@@ -23,6 +26,7 @@ import {
   type LeadComment,
   type LeadAssignmentMethod,
   type UpsertLeadInput,
+  updateLeadComment,
   updateCompanyExtraData,
   updateLead,
 } from "@/lib/crm/client";
@@ -60,6 +64,7 @@ export function LeadDirectory() {
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName");
 
+  const [account, setAccount] = useState<AccountProfile | null>(null);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [members, setMembers] = useState<CompanyMember[]>([]);
@@ -79,6 +84,8 @@ export function LeadDirectory() {
   const [leadComments, setLeadComments] = useState<LeadComment[]>([]);
   const [leadCommentsLoading, setLeadCommentsLoading] = useState(false);
   const [leadCommentDraft, setLeadCommentDraft] = useState("");
+  const [editingLeadCommentId, setEditingLeadCommentId] = useState<string | null>(null);
+  const [editingLeadCommentBody, setEditingLeadCommentBody] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerView, setDrawerView] = useState<LeadDetailView>("profile");
   const [showLeadModal, setShowLeadModal] = useState(false);
@@ -101,6 +108,28 @@ export function LeadDirectory() {
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
   }, [searchCompanyId]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadAccount() {
+      try {
+        const nextAccount = await getAccountProfile();
+        if (!cancelled) {
+          setAccount(nextAccount);
+        }
+      } catch {
+        if (!cancelled) {
+          setAccount(null);
+        }
+      }
+    }
+
+    void loadAccount();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -332,6 +361,8 @@ export function LeadDirectory() {
       setLeadComments([]);
       setLeadCommentsLoading(false);
       setLeadCommentDraft("");
+      setEditingLeadCommentId(null);
+      setEditingLeadCommentBody("");
       return;
     }
 
@@ -340,7 +371,6 @@ export function LeadDirectory() {
 
     async function loadLeadComments() {
       setLeadCommentsLoading(true);
-      setLeadCommentDraft("");
       try {
         const nextComments = await listLeadComments(leadId);
         if (!cancelled) {
@@ -680,6 +710,66 @@ export function LeadDirectory() {
     }
   }
 
+  function startEditingLeadComment(comment: LeadComment) {
+    setEditingLeadCommentId(comment.id);
+    setEditingLeadCommentBody(comment.body);
+  }
+
+  function stopEditingLeadComment() {
+    setEditingLeadCommentId(null);
+    setEditingLeadCommentBody("");
+  }
+
+  async function handleSaveEditedLeadComment() {
+    if (!selectedLead || !editingLeadCommentId || !editingLeadCommentBody.trim()) {
+      return;
+    }
+
+    setSaving(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    try {
+      await updateLeadComment(selectedLead.id, editingLeadCommentId, {
+        body: editingLeadCommentBody,
+      });
+      const nextComments = await listLeadComments(selectedLead.id);
+      setLeadComments(nextComments);
+      stopEditingLeadComment();
+      setSuccessMessage("Lead note updated.");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof CRMClientError ? error.message : "Failed to update lead note.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleDeleteLeadComment(comment: LeadComment) {
+    if (!selectedLead) {
+      return;
+    }
+
+    setSaving(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    try {
+      await deleteLeadComment(selectedLead.id, comment.id);
+      const nextComments = await listLeadComments(selectedLead.id);
+      setLeadComments(nextComments);
+      if (editingLeadCommentId === comment.id) {
+        stopEditingLeadComment();
+      }
+      setSuccessMessage("Lead note deleted.");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof CRMClientError ? error.message : "Failed to delete lead note.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
   function handleBulkExport() {
     const rows = leads.filter((lead) => selectedIds.has(lead.id));
     if (rows.length === 0) return;
@@ -962,15 +1052,23 @@ export function LeadDirectory() {
       ) : null}
 
       <LeadDetailDrawer
+        account={account}
         aiEnabled={aiEnabled}
         assignableMembersCount={assignableMembers.length}
         commentDraft={leadCommentDraft}
         comments={leadComments}
         commentsLoading={leadCommentsLoading}
         customerLabel={customerLabel}
+        editingCommentBody={editingLeadCommentBody}
+        editingCommentId={editingLeadCommentId}
         lead={selectedLead}
         onAddComment={() => void handleAddLeadComment()}
         onCommentDraftChange={setLeadCommentDraft}
+        onDeleteComment={(comment) => void handleDeleteLeadComment(comment)}
+        onEditComment={startEditingLeadComment}
+        onEditingCommentBodyChange={setEditingLeadCommentBody}
+        onSaveEditedComment={() => void handleSaveEditedLeadComment()}
+        onStopEditingComment={stopEditingLeadComment}
         onAssignRoundRobin={assignLeadRoundRobin}
         onChangeView={setDrawerView}
         onClose={() => setDrawerOpen(false)}

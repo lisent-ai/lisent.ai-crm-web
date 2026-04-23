@@ -1,3 +1,5 @@
+import { PencilLine, Trash2, X } from "lucide-react";
+
 import type { Lead, LeadComment } from "@/lib/crm/client";
 
 import { formatDateTime } from "./lead-utils";
@@ -5,20 +7,36 @@ import { formatDateTime } from "./lead-utils";
 type LeadNotesPanelProps = {
   commentDraft: string;
   comments: LeadComment[];
+  currentUserId: string;
+  editingCommentBody: string;
+  editingCommentId: string | null;
   lead: Lead;
   loading: boolean;
   saving: boolean;
   onAddComment: () => void;
+  onDeleteComment: (comment: LeadComment) => void;
+  onEditComment: (comment: LeadComment) => void;
+  onEditingCommentBodyChange: (value: string) => void;
+  onSaveEditedComment: () => void;
+  onStopEditing: () => void;
   onCommentDraftChange: (value: string) => void;
 };
 
 export function LeadNotesPanel({
   commentDraft,
   comments,
+  currentUserId,
+  editingCommentBody,
+  editingCommentId,
   lead,
   loading,
   saving,
   onAddComment,
+  onDeleteComment,
+  onEditComment,
+  onEditingCommentBodyChange,
+  onSaveEditedComment,
+  onStopEditing,
   onCommentDraftChange,
 }: Readonly<LeadNotesPanelProps>) {
   return (
@@ -73,7 +91,23 @@ export function LeadNotesPanel({
               No team notes yet. Start the thread for this lead.
             </div>
           ) : (
-            comments.map((comment) => <LeadCommentRow comment={comment} key={comment.id} />)
+            comments.map((comment) => (
+              <LeadCommentRow
+                canManage={
+                  !!currentUserId && comment.authorUserId === currentUserId
+                }
+                comment={comment}
+                editingBody={editingCommentBody}
+                isEditing={editingCommentId === comment.id}
+                key={comment.id}
+                onDelete={() => onDeleteComment(comment)}
+                onEdit={() => onEditComment(comment)}
+                onEditingBodyChange={onEditingCommentBodyChange}
+                onSave={onSaveEditedComment}
+                onStopEditing={onStopEditing}
+                saving={saving}
+              />
+            ))
           )}
         </div>
       </div>
@@ -81,7 +115,29 @@ export function LeadNotesPanel({
   );
 }
 
-function LeadCommentRow({ comment }: Readonly<{ comment: LeadComment }>) {
+function LeadCommentRow({
+  canManage,
+  comment,
+  editingBody,
+  isEditing,
+  onDelete,
+  onEdit,
+  onEditingBodyChange,
+  onSave,
+  onStopEditing,
+  saving,
+}: Readonly<{
+  canManage: boolean;
+  comment: LeadComment;
+  editingBody: string;
+  isEditing: boolean;
+  onDelete: () => void;
+  onEdit: () => void;
+  onEditingBodyChange: (value: string) => void;
+  onSave: () => void;
+  onStopEditing: () => void;
+  saving: boolean;
+}>) {
   const authorLabel = comment.authorUserName || comment.authorUserId || "Unknown";
 
   return (
@@ -93,13 +149,77 @@ function LeadCommentRow({ comment }: Readonly<{ comment: LeadComment }>) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm font-semibold text-[var(--text-primary)]">{authorLabel}</p>
-            <p className="text-xs text-[var(--text-tertiary)]">
-              {formatDateTime(comment.createdAt)}
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-xs text-[var(--text-tertiary)]">
+                {formatDateTime(comment.createdAt)}
+              </p>
+              {canManage ? (
+                <div className="flex items-center gap-1">
+                  {isEditing ? (
+                    <button
+                      aria-label="Cancel editing note"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+                      disabled={saving}
+                      onClick={onStopEditing}
+                      type="button"
+                    >
+                      <X aria-hidden="true" className="h-4 w-4" />
+                    </button>
+                  ) : (
+                    <button
+                      aria-label="Edit note"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+                      disabled={saving}
+                      onClick={onEdit}
+                      type="button"
+                    >
+                      <PencilLine aria-hidden="true" className="h-4 w-4" />
+                    </button>
+                  )}
+                  <button
+                    aria-label="Delete note"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
+                    disabled={saving}
+                    onClick={onDelete}
+                    type="button"
+                  >
+                    <Trash2 aria-hidden="true" className="h-4 w-4" />
+                  </button>
+                </div>
+              ) : null}
+            </div>
           </div>
-          <p className="mt-2 whitespace-pre-wrap text-sm leading-7 text-[var(--text-secondary)]">
-            {comment.body}
-          </p>
+          {isEditing ? (
+            <div className="mt-3 grid gap-3">
+              <textarea
+                className="min-h-24 rounded-2xl border border-[var(--border-default)] bg-white px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-sky-400"
+                onChange={(event) => onEditingBodyChange(event.target.value)}
+                value={editingBody}
+              />
+              <div className="flex justify-end gap-2">
+                <button
+                  className="rounded-full border border-[var(--border-default)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)]"
+                  disabled={saving}
+                  onClick={onStopEditing}
+                  type="button"
+                >
+                  Cancel
+                </button>
+                <button
+                  className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+                  disabled={saving || !editingBody.trim()}
+                  onClick={onSave}
+                  type="button"
+                >
+                  {saving ? "Saving..." : "Save"}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p className="mt-2 whitespace-pre-wrap text-sm leading-7 text-[var(--text-secondary)]">
+              {comment.body}
+            </p>
+          )}
         </div>
       </div>
     </div>

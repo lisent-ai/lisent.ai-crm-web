@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import type { Lead, LeadComment } from "@/lib/crm/client";
+import type { AccountProfile } from "@/lib/auth/account-profile";
 
 import { LeadAIInsights } from "./lead-ai-insights";
 import { LeadNotesPanel } from "./lead-notes-panel";
@@ -38,11 +39,19 @@ type LeadDetailDrawerProps = {
   commentsLoading: boolean;
   commentDraft: string;
   comments: LeadComment[];
+  account: AccountProfile | null;
+  editingCommentBody: string;
+  editingCommentId: string | null;
   assignableMembersCount: number;
   aiEnabled: boolean;
   onClose: () => void;
   onCommentDraftChange: (value: string) => void;
   onAddComment: () => void;
+  onDeleteComment: (comment: LeadComment) => void;
+  onEditComment: (comment: LeadComment) => void;
+  onEditingCommentBodyChange: (value: string) => void;
+  onSaveEditedComment: () => void;
+  onStopEditingComment: () => void;
   onChangeView: (next: LeadDetailView) => void;
   onEdit: (lead: Lead) => void;
   onAssignRoundRobin: (lead: Lead) => void;
@@ -177,10 +186,18 @@ function ProfileView({
   commentsLoading,
   commentDraft,
   comments,
+  account,
+  editingCommentBody,
+  editingCommentId,
   assignableMembersCount,
   aiEnabled,
   onCommentDraftChange,
   onAddComment,
+  onDeleteComment,
+  onEditComment,
+  onEditingCommentBodyChange,
+  onSaveEditedComment,
+  onStopEditingComment,
   onChangeView,
   onEdit,
   onAssignRoundRobin,
@@ -308,9 +325,17 @@ function ProfileView({
       <LeadNotesPanel
         commentDraft={commentDraft}
         comments={comments}
+        currentUserId={account?.userId ?? ""}
+        editingCommentBody={editingCommentBody}
+        editingCommentId={editingCommentId}
         lead={lead}
         loading={commentsLoading}
         onAddComment={onAddComment}
+        onDeleteComment={onDeleteComment}
+        onEditComment={onEditComment}
+        onEditingCommentBodyChange={onEditingCommentBodyChange}
+        onSaveEditedComment={onSaveEditedComment}
+        onStopEditing={onStopEditingComment}
         onCommentDraftChange={onCommentDraftChange}
         saving={saving}
       />
