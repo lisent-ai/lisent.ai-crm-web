@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Building2, CheckCheck, User } from "lucide-react";
 
 import { OverviewHeader } from "@/components/dashboard/home/overview-header";
 import { QuickActionsPanel } from "@/components/dashboard/home/quick-actions-panel";
 import { StatCard } from "@/components/dashboard/home/stat-card";
-import { WorkspacesGrid } from "@/components/dashboard/home/workspaces-grid";
+import { WorkspaceSnapshot } from "@/components/dashboard/home/workspace-snapshot";
 import {
   CRMClientError,
   type Company,
@@ -58,15 +58,6 @@ export function WorkspaceOverview() {
     };
   }, []);
 
-  const customerCountByCompany = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const customer of customers) {
-      if (!customer.companyId) continue;
-      map.set(customer.companyId, (map.get(customer.companyId) ?? 0) + 1);
-    }
-    return map;
-  }, [customers]);
-
   const activeLabel = activeCompanyName || "None selected";
 
   return (
@@ -108,25 +99,10 @@ export function WorkspaceOverview() {
       </section>
 
       <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <div className="grid gap-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-semibold text-[var(--text-primary)]">
-                Your workspaces
-              </p>
-              <p className="text-xs text-[var(--text-tertiary)]">
-                Click a workspace to open its dashboard
-              </p>
-            </div>
-          </div>
-          <WorkspacesGrid
-            activeCompanyId={activeCompanyId}
-            companies={companies}
-            customerCountByCompany={customerCountByCompany}
-            loading={loading}
-          />
-        </div>
-
+        <WorkspaceSnapshot
+          companyId={activeCompanyId}
+          companyName={activeCompanyName}
+        />
         <QuickActionsPanel
           companyId={activeCompanyId}
           companyName={activeCompanyName}
