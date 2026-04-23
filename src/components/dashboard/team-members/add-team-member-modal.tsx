@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
 import { getCompanyRoleLabel, type CompanyRole } from "@/lib/auth/roles";
@@ -26,13 +27,22 @@ export function AddTeamMemberModal({
   const [role, setRole] = useState<CompanyRole>(
     assignableRoles.find((r) => r !== "owner") ?? assignableRoles[0] ?? "member",
   );
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Portal mount gate — renders on client only to avoid SSR document access.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") onClose();
     }
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [onClose]);
 
   function handleSubmit(e: React.FormEvent) {
@@ -41,14 +51,16 @@ export function AddTeamMemberModal({
     onSubmit(email.trim(), role);
   }
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(11,15,25,0.45)] px-4 py-8"
+      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-[rgba(11,15,25,0.45)] px-4 py-8 sm:items-center"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="w-full max-w-md rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-float)]"
+        className="my-auto w-full max-w-md rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-float)] sm:p-6"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
       >
@@ -110,16 +122,16 @@ export function AddTeamMemberModal({
             </p>
           )}
 
-          <div className="mt-1 flex justify-end gap-2">
+          <div className="mt-1 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <button
-              className="inline-flex h-9 items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+              className="inline-flex h-10 items-center justify-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
               onClick={onClose}
               type="button"
             >
               Cancel
             </button>
             <button
-              className="inline-flex h-9 items-center rounded-full bg-[var(--text-primary)] px-4 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
+              className="inline-flex h-10 items-center justify-center rounded-full bg-[var(--text-primary)] px-5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
               disabled={saving || !email.trim() || assignableRoles.length === 0}
               type="submit"
             >
@@ -128,6 +140,7 @@ export function AddTeamMemberModal({
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
