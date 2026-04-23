@@ -2,12 +2,16 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Building2, Check, ChevronDown, Plus } from "lucide-react";
+import { Building2, Check, ChevronDown, Plus, Trash2 } from "lucide-react";
 
 import {
   CreateWorkspaceModal,
   OPEN_CREATE_WORKSPACE_EVENT,
 } from "@/components/dashboard/shared/create-workspace-modal";
+import { DeleteWorkspaceModal } from "@/components/dashboard/shared/delete-workspace-modal";
+import { getAccountProfile } from "@/lib/account/client";
+import { getCompanyRoleForAccess } from "@/lib/auth/access-control";
+import type { AccountProfile } from "@/lib/auth/account-profile";
 import { CRMClientError, type Company, listCompanies } from "@/lib/crm/client";
 import { clearStoredCompany, storeCompany } from "@/lib/workspace/workspace-context";
 
@@ -37,7 +41,9 @@ export function WorkspaceSwitcher({
 
   const [open, setOpen] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<Company | null>(null);
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [account, setAccount] = useState<AccountProfile | null>(null);
   const [loadState, setLoadState] = useState<LoadState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -49,8 +55,12 @@ export function WorkspaceSwitcher({
       setLoadState("loading");
       setErrorMessage(null);
       try {
-        const next = await listCompanies();
+        const [next, nextAccount] = await Promise.all([
+          listCompanies(),
+          getAccountProfile().catch(() => null),
+        ]);
         setCompanies(next);
+        if (nextAccount) setAccount(nextAccount);
         lastFetchAt.current = Date.now();
         setLoadState("idle");
 
@@ -216,37 +226,64 @@ export function WorkspaceSwitcher({
             <div className="scrollbar-thin max-h-[320px] overflow-y-auto">
               {companies.map((company) => {
                 const active = company.id === companyId;
+                const canDelete =
+                  account !== null &&
+                  (account.access.isSuperAdmin ||
+                    getCompanyRoleForAccess(account.access, company.id) === "owner");
                 return (
-                  <button
-                    aria-current={active ? "true" : undefined}
-                    className={`flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${
+                  <div
+                    className={`group flex w-full items-center gap-1 rounded-xl px-1 transition ${
                       active
-                        ? "bg-[var(--surface-inset)] font-semibold text-[var(--text-primary)]"
-                        : "font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+                        ? "bg-[var(--surface-inset)]"
+                        : "hover:bg-[var(--surface-muted)]"
                     }`}
                     key={company.id}
-                    onClick={() => handleSelect(company.id, company.name)}
-                    role="menuitem"
-                    type="button"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-soft)] text-[11px] font-semibold text-[var(--accent-strong)]"
+                    <button
+                      aria-current={active ? "true" : undefined}
+                      className={`flex min-w-0 flex-1 items-center gap-3 rounded-xl px-2 py-2 text-left text-sm transition ${
+                        active
+                          ? "font-semibold text-[var(--text-primary)]"
+                          : "font-medium text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
+                      }`}
+                      onClick={() => handleSelect(company.id, company.name)}
+                      role="menuitem"
+                      type="button"
                     >
-                      {buildInitials(company.name)}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate">{company.name || "Untitled"}</p>
-                      {company.industry || company.country ? (
-                        <p className="truncate text-[11px] text-[var(--text-tertiary)]">
-                          {[company.industry, company.country].filter(Boolean).join(" · ")}
-                        </p>
-                      ) : null}
-                    </div>
-                    {active && (
-                      <Check className="h-4 w-4 shrink-0 text-[var(--accent-strong)]" aria-hidden="true" />
+                      <span
+                        aria-hidden="true"
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--accent-soft)] text-[11px] font-semibold text-[var(--accent-strong)]"
+                      >
+                        {buildInitials(company.name)}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate">{company.name || "Untitled"}</p>
+                        {company.industry || company.country ? (
+                          <p className="truncate text-[11px] text-[var(--text-tertiary)]">
+                            {[company.industry, company.country].filter(Boolean).join(" · ")}
+                          </p>
+                        ) : null}
+                      </div>
+                      {active && (
+                        <Check className="h-4 w-4 shrink-0 text-[var(--accent-strong)]" aria-hidden="true" />
+                      )}
+                    </button>
+                    {canDelete && (
+                      <button
+                        aria-label={`Delete ${company.name || "workspace"}`}
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--text-tertiary)] opacity-0 transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_12%,_var(--surface))] hover:text-[var(--signal-red)] focus-visible:opacity-100 group-hover:opacity-100"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setOpen(false);
+                          setDeleteTarget(company);
+                        }}
+                        title={`Delete ${company.name || "workspace"}`}
+                        type="button"
+                      >
+                        <Trash2 className="h-4 w-4" aria-hidden="true" />
+                      </button>
                     )}
-                  </button>
+                  </div>
                 );
               })}
             </div>
@@ -281,6 +318,29 @@ export function WorkspaceSwitcher({
             params.set("company", company.id);
             if (company.name) params.set("companyName", company.name);
             router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+          }}
+        />
+      )}
+
+      {deleteTarget && !demoMode && (
+        <DeleteWorkspaceModal
+          companyId={deleteTarget.id}
+          companyName={deleteTarget.name}
+          onClose={() => setDeleteTarget(null)}
+          onDeleted={(deletedId) => {
+            setDeleteTarget(null);
+            lastFetchAt.current = 0;
+            void loadCompanies(true);
+            if (deletedId === companyId) {
+              clearStoredCompany();
+              const params = new URLSearchParams(searchParams.toString());
+              params.delete("company");
+              params.delete("companyName");
+              const query = params.toString();
+              router.replace(query ? `/dashboard?${query}` : "/dashboard", {
+                scroll: false,
+              });
+            }
           }}
         />
       )}
