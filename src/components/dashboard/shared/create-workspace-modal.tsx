@@ -23,8 +23,6 @@ export function CreateWorkspaceModal({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Portal mount gate — renders on client only to avoid SSR document access.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") onClose();
