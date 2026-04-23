@@ -60,6 +60,16 @@ type CRMLeadRecord = {
   ai_path?: string | null;
 };
 
+type CRMLeadCommentRecord = {
+  id: string;
+  lead_id: string;
+  body: string;
+  author_user_id?: string | null;
+  author_user_name?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 type CRMDealRecord = {
   id: string;
   customer_id?: string | null;
@@ -294,6 +304,16 @@ export type DealComment = {
   updatedAt: string;
 };
 
+export type LeadComment = {
+  id: string;
+  leadId: string;
+  body: string;
+  authorUserId: string;
+  authorUserName: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type TaskStatus = "open" | "in_progress" | "done" | "canceled";
 export type TaskResponseStatus = "pending" | "accepted" | "rejected";
 export type TaskAssignmentScope = "individual" | "broadcast";
@@ -453,6 +473,10 @@ export type UpsertDealInput = {
 };
 
 export type CreateDealCommentInput = {
+  body: string;
+};
+
+export type CreateLeadCommentInput = {
   body: string;
 };
 
@@ -1323,6 +1347,45 @@ export async function createDealComment(
   return {
     id: payload.id,
     dealId: payload.deal_id,
+    body: payload.body?.trim() || "",
+    authorUserId: payload.author_user_id?.trim() || "",
+    authorUserName: payload.author_user_name?.trim() || "",
+    createdAt: payload.created_at,
+    updatedAt: payload.updated_at,
+  };
+}
+
+export async function listLeadComments(leadId: string): Promise<LeadComment[]> {
+  const response = await requestCRM<CRMListResponse<CRMLeadCommentRecord>>(
+    `/leads/${leadId}/comments`,
+  );
+
+  return response.data.map((comment) => ({
+    id: comment.id,
+    leadId: comment.lead_id,
+    body: comment.body?.trim() || "",
+    authorUserId: comment.author_user_id?.trim() || "",
+    authorUserName: comment.author_user_name?.trim() || "",
+    createdAt: comment.created_at,
+    updatedAt: comment.updated_at,
+  }));
+}
+
+export async function createLeadComment(
+  leadId: string,
+  input: CreateLeadCommentInput,
+): Promise<LeadComment> {
+  const payload = await requestCRM<CRMLeadCommentRecord>(`/leads/${leadId}/comments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      body: input.body.trim(),
+    }),
+  });
+
+  return {
+    id: payload.id,
+    leadId: payload.lead_id,
     body: payload.body?.trim() || "",
     authorUserId: payload.author_user_id?.trim() || "",
     authorUserName: payload.author_user_name?.trim() || "",

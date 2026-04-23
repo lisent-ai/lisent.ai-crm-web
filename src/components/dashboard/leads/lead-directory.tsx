@@ -8,16 +8,19 @@ import {
   CRMClientError,
   convertLead,
   createLead,
+  createLeadComment,
   deleteLead as deleteLeadRequest,
   fetchIntegrationCatalog,
   isAIQualifierConnected,
   listCompanies,
   listCustomers,
+  listLeadComments,
   listLeads,
   type Company,
   type ConvertLeadInput,
   type Customer,
   type Lead,
+  type LeadComment,
   type LeadAssignmentMethod,
   type UpsertLeadInput,
   updateCompanyExtraData,
@@ -73,6 +76,9 @@ export function LeadDirectory() {
   const [assigneeFilter, setAssigneeFilter] = useState("all");
   const [showOnlyUnassigned, setShowOnlyUnassigned] = useState(false);
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
+  const [leadComments, setLeadComments] = useState<LeadComment[]>([]);
+  const [leadCommentsLoading, setLeadCommentsLoading] = useState(false);
+  const [leadCommentDraft, setLeadCommentDraft] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerView, setDrawerView] = useState<LeadDetailView>("profile");
   const [showLeadModal, setShowLeadModal] = useState(false);
@@ -320,6 +326,47 @@ export function LeadDirectory() {
     selectedLead?.customerId
       ? customers.find((customer) => customer.id === selectedLead.customerId)?.name
       : undefined;
+
+  useEffect(() => {
+    if (!drawerOpen || !selectedLead?.id) {
+      setLeadComments([]);
+      setLeadCommentsLoading(false);
+      setLeadCommentDraft("");
+      return;
+    }
+
+    const leadId = selectedLead.id;
+    let cancelled = false;
+
+    async function loadLeadComments() {
+      setLeadCommentsLoading(true);
+      setLeadCommentDraft("");
+      try {
+        const nextComments = await listLeadComments(leadId);
+        if (!cancelled) {
+          setLeadComments(nextComments);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setErrorMessage(
+            error instanceof CRMClientError
+              ? error.message
+              : "Failed to load lead notes.",
+          );
+          setLeadComments([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLeadCommentsLoading(false);
+        }
+      }
+    }
+
+    void loadLeadComments();
+    return () => {
+      cancelled = true;
+    };
+  }, [drawerOpen, selectedLead?.id]);
 
   function updateCompanyState(nextCompany: Company) {
     setCompanies((current) =>
@@ -609,6 +656,30 @@ export function LeadDirectory() {
     setSaving(false);
   }
 
+  async function handleAddLeadComment() {
+    if (!selectedLead || !selectedCompany || !leadCommentDraft.trim()) {
+      return;
+    }
+
+    setSaving(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    try {
+      await createLeadComment(selectedLead.id, { body: leadCommentDraft });
+      await reloadReferenceData(selectedCompany.id);
+      const nextComments = await listLeadComments(selectedLead.id);
+      setLeadComments(nextComments);
+      setLeadCommentDraft("");
+      setSuccessMessage("Team note added to the lead.");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof CRMClientError ? error.message : "Failed to add lead note.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
   function handleBulkExport() {
     const rows = leads.filter((lead) => selectedIds.has(lead.id));
     if (rows.length === 0) return;
@@ -893,8 +964,13 @@ export function LeadDirectory() {
       <LeadDetailDrawer
         aiEnabled={aiEnabled}
         assignableMembersCount={assignableMembers.length}
+        commentDraft={leadCommentDraft}
+        comments={leadComments}
+        commentsLoading={leadCommentsLoading}
         customerLabel={customerLabel}
         lead={selectedLead}
+        onAddComment={() => void handleAddLeadComment()}
+        onCommentDraftChange={setLeadCommentDraft}
         onAssignRoundRobin={assignLeadRoundRobin}
         onChangeView={setDrawerView}
         onClose={() => setDrawerOpen(false)}

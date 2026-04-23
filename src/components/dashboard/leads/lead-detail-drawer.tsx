@@ -15,9 +15,10 @@ import {
   X,
 } from "lucide-react";
 
-import type { Lead } from "@/lib/crm/client";
+import type { Lead, LeadComment } from "@/lib/crm/client";
 
 import { LeadAIInsights } from "./lead-ai-insights";
+import { LeadNotesPanel } from "./lead-notes-panel";
 import {
   formatAssignmentLabel,
   formatCurrency,
@@ -34,9 +35,14 @@ type LeadDetailDrawerProps = {
   view: LeadDetailView;
   customerLabel: string | undefined;
   saving: boolean;
+  commentsLoading: boolean;
+  commentDraft: string;
+  comments: LeadComment[];
   assignableMembersCount: number;
   aiEnabled: boolean;
   onClose: () => void;
+  onCommentDraftChange: (value: string) => void;
+  onAddComment: () => void;
   onChangeView: (next: LeadDetailView) => void;
   onEdit: (lead: Lead) => void;
   onAssignRoundRobin: (lead: Lead) => void;
@@ -168,8 +174,13 @@ function ProfileView({
   lead,
   customerLabel,
   saving,
+  commentsLoading,
+  commentDraft,
+  comments,
   assignableMembersCount,
   aiEnabled,
+  onCommentDraftChange,
+  onAddComment,
   onChangeView,
   onEdit,
   onAssignRoundRobin,
@@ -294,12 +305,15 @@ function ProfileView({
         />
       </div>
 
-      {/* Notes */}
-      <CardSection title="Notes">
-        <p className="text-sm leading-6 text-[var(--text-secondary)]">
-          {lead.notes || "No notes recorded for this lead yet."}
-        </p>
-      </CardSection>
+      <LeadNotesPanel
+        commentDraft={commentDraft}
+        comments={comments}
+        lead={lead}
+        loading={commentsLoading}
+        onAddComment={onAddComment}
+        onCommentDraftChange={onCommentDraftChange}
+        saving={saving}
+      />
 
       {/* Details */}
       <CardSection title="Details">
