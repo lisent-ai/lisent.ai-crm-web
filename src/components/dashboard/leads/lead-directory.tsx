@@ -19,6 +19,7 @@ import {
   type Customer,
   type Lead,
   type LeadAssignmentMethod,
+  type UpsertLeadInput,
   updateCompanyExtraData,
   updateLead,
 } from "@/lib/crm/client";
@@ -31,6 +32,7 @@ import {
 import { startLeadQualify } from "@/lib/qualifier/client";
 
 import { LeadBulkActionBar } from "./lead-bulk-action-bar";
+import { LeadBulkAssignModal } from "./lead-bulk-assign-modal";
 import { LeadConvertModal } from "./lead-convert-modal";
 import { LeadDeleteModal } from "./lead-delete-modal";
 import { LeadDetailDrawer, type LeadDetailView } from "./lead-detail-drawer";
@@ -76,6 +78,8 @@ export function LeadDirectory() {
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [showConvertModal, setShowConvertModal] = useState(false);
   const [pendingDeleteLead, setPendingDeleteLead] = useState<Lead | null>(null);
+  const [showBulkAssignModal, setShowBulkAssignModal] = useState(false);
+  const [bulkAssignUserId, setBulkAssignUserId] = useState("");
   const [pendingBulkDelete, setPendingBulkDelete] = useState(false);
   const [editingLeadId, setEditingLeadId] = useState<string | null>(null);
   const [leadForm, setLeadForm] = useState<LeadFormState>(emptyLeadForm);
@@ -401,6 +405,28 @@ export function LeadDirectory() {
     };
   }
 
+  function buildLeadUpdateInput(
+    lead: Lead,
+    overrides: Partial<UpsertLeadInput> = {},
+  ): UpsertLeadInput {
+    return {
+      companyId: selectedCompany?.id ?? lead.companyId,
+      customerId: lead.customerId,
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      notes: lead.notes,
+      status: lead.status,
+      source: lead.source,
+      assigneeUserId: lead.assigneeUserId,
+      assigneeUserName: lead.assigneeUserName,
+      assignmentMethod: lead.assignmentMethod,
+      value: lead.value,
+      extraData: lead.extraData,
+      ...overrides,
+    };
+  }
+
   function openCreateModal() {
     setEditingLeadId(null);
     setLeadForm(emptyLeadForm);
@@ -530,6 +556,59 @@ export function LeadDirectory() {
     setSaving(false);
   }
 
+  async function handleBulkAssign() {
+    if (!selectedCompany || selectedIds.size === 0) return;
+
+    const assignee = assignableMembers.find((member) => member.userId === bulkAssignUserId);
+    if (!assignee) {
+      setErrorMessage("Select a teammate to assign the selected leads.");
+      return;
+    }
+
+    setSaving(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    const rows = leads.filter((lead) => selectedIds.has(lead.id));
+    const succeeded: string[] = [];
+    const failed: string[] = [];
+
+    for (const lead of rows) {
+      try {
+        await updateLead(
+          lead.id,
+          buildLeadUpdateInput(lead, {
+            assigneeUserId: assignee.userId,
+            assigneeUserName: assignee.displayName,
+            assignmentMethod: "manual",
+          }),
+        );
+        succeeded.push(lead.id);
+      } catch {
+        failed.push(lead.id);
+      }
+    }
+
+    await reloadReferenceData(selectedCompany.id);
+    setSelectedIds(new Set());
+    setShowBulkAssignModal(false);
+    setBulkAssignUserId("");
+
+    if (failed.length === 0) {
+      setSuccessMessage(
+        `${succeeded.length} lead${succeeded.length === 1 ? "" : "s"} assigned to ${assignee.displayName}.`,
+      );
+    } else if (succeeded.length === 0) {
+      setErrorMessage(
+        `Failed to assign ${failed.length} lead${failed.length === 1 ? "" : "s"}.`,
+      );
+    } else {
+      setSuccessMessage(`${succeeded.length} assigned, ${failed.length} failed.`);
+    }
+
+    setSaving(false);
+  }
+
   function handleBulkExport() {
     const rows = leads.filter((lead) => selectedIds.has(lead.id));
     if (rows.length === 0) return;
@@ -653,19 +732,10 @@ export function LeadDirectory() {
         assignmentMethod: "round_robin",
       });
       await updateLead(lead.id, {
-        companyId: selectedCompany.id,
-        customerId: lead.customerId,
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        notes: lead.notes,
-        status: lead.status,
-        source: lead.source,
+        ...buildLeadUpdateInput(lead),
         assigneeUserId: assignment.assigneeUserId,
         assigneeUserName: assignment.assigneeUserName,
         assignmentMethod: "round_robin",
-        value: lead.value,
-        extraData: lead.extraData,
       });
       await reloadReferenceData(selectedCompany.id);
       setSuccessMessage(`Assigned to ${assignment.assigneeUserName} via round-robin.`);
@@ -839,12 +909,29 @@ export function LeadDirectory() {
       />
 
       <LeadBulkActionBar
+        canAssign={assignableMembers.length > 0}
         count={selectedIds.size}
+        onAssign={() => setShowBulkAssignModal(true)}
         onClear={() => setSelectedIds(new Set())}
         onDelete={() => setPendingBulkDelete(true)}
         onExport={handleBulkExport}
         saving={saving}
       />
+
+      {showBulkAssignModal ? (
+        <LeadBulkAssignModal
+          assigneeUserId={bulkAssignUserId}
+          assignableMembers={assignableMembers}
+          count={selectedIds.size}
+          onAssigneeChange={setBulkAssignUserId}
+          onClose={() => {
+            setShowBulkAssignModal(false);
+            setBulkAssignUserId("");
+          }}
+          onConfirm={() => void handleBulkAssign()}
+          saving={saving}
+        />
+      ) : null}
 
       {showLeadModal ? (
         <LeadFormModal

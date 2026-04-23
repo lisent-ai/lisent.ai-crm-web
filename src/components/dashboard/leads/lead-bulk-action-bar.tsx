@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Download, Trash2, X } from "lucide-react";
+import { Download, Trash2, UserPlus, X } from "lucide-react";
 
 type LeadBulkActionBarProps = {
+  canAssign: boolean;
   count: number;
+  onAssign: () => void;
   onClear: () => void;
   onDelete: () => void;
   onExport: () => void;
@@ -13,7 +15,9 @@ type LeadBulkActionBarProps = {
 };
 
 export function LeadBulkActionBar({
+  canAssign,
   count,
+  onAssign,
   onClear,
   onDelete,
   onExport,
@@ -39,6 +43,15 @@ export function LeadBulkActionBar({
           {count} selected
         </span>
         <span aria-hidden="true" className="h-5 w-px bg-white/20" />
+        <button
+          className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-white/90 transition hover:bg-white/10 disabled:opacity-50"
+          disabled={saving || !canAssign}
+          onClick={onAssign}
+          type="button"
+        >
+          <UserPlus aria-hidden="true" className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">Assign</span>
+        </button>
         <button
           className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-white/90 transition hover:bg-white/10 disabled:opacity-50"
           disabled={saving}
