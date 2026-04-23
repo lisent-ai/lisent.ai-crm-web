@@ -118,14 +118,10 @@ export function IntegrationsCatalog() {
           Integrations
         </h1>
         <p className="mt-2 text-sm leading-6 text-slate-600">
-          You need to be the owner of at least one company to manage integrations.
+          You need to be the owner of at least one workspace to manage integrations.
         </p>
         <p className="mt-4 text-sm text-slate-600">
-          Create a company from the{" "}
-          <a className="font-semibold text-cyan-700 hover:underline" href="/dashboard/companies">
-            Companies
-          </a>{" "}
-          page, then return here.
+          Create one from the workspace switcher in the top bar, then return here.
         </p>
       </section>
     );

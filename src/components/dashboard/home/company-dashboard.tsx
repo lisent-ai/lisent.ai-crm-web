@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Briefcase, Building2, Target, User } from "lucide-react";
 
+import { requestCreateWorkspace } from "@/components/dashboard/shared/create-workspace-modal";
+
 import { ActivityChart } from "@/components/dashboard/home/activity-chart";
 import { OverviewHeader } from "@/components/dashboard/home/overview-header";
 import { PipelineOverview } from "@/components/dashboard/home/pipeline-overview";
@@ -189,12 +191,13 @@ function EmptyCompanyDashboard() {
           >
             Go to Overview
           </Link>
-          <Link
+          <button
             className="inline-flex items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-            href="/dashboard/companies?create=1"
+            onClick={requestCreateWorkspace}
+            type="button"
           >
             Create workspace
-          </Link>
+          </button>
         </div>
       </div>
     </div>

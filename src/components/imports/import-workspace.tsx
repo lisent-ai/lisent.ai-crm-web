@@ -208,9 +208,9 @@ export function ImportWorkspace() {
           <div className="flex flex-wrap gap-3">
             <Link
               className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
-              href="/dashboard/companies"
+              href="/dashboard"
             >
-              Back to companies
+              Back to overview
             </Link>
             <span className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white">
               Company ID: {companyId || "-"}

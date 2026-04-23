@@ -2,7 +2,6 @@ import type { ComponentType } from "react";
 
 import {
   Briefcase,
-  Building2,
   Calendar,
   CheckSquare,
   Gauge,
@@ -35,7 +34,6 @@ export type NavItem = {
 export const navItems: NavItem[] = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard, placement: "top", carriesCompany: false, visible: true },
   { href: "/dashboard/workspace", label: "Dashboard", icon: Gauge, placement: "top", carriesCompany: true, visible: true },
-  { href: "/dashboard/companies", label: "Companies", icon: Building2, placement: "top", carriesCompany: true, visible: true },
   { href: "/dashboard/leads", label: "Leads", icon: Target, placement: "top", carriesCompany: true, visible: true },
   { href: "/dashboard/deals", label: "Deals", icon: Briefcase, placement: "top", carriesCompany: true, visible: true },
   { href: "/dashboard/customers", label: "Customers", icon: User, placement: "top", carriesCompany: true, visible: true },

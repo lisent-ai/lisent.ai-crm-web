@@ -10,6 +10,8 @@ import {
 import type { ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
 
+import { requestCreateWorkspace } from "@/components/dashboard/shared/create-workspace-modal";
+
 type QuickActionsPanelProps = {
   companyId: string;
   companyName: string;
@@ -22,6 +24,7 @@ type ActionRow = {
   ctaLabel: string;
   badge?: string;
   href?: string;
+  onClick?: () => void;
   tone?: "primary" | "ghost";
 };
 
@@ -42,10 +45,10 @@ export function QuickActionsPanel({ companyId, companyName }: Readonly<QuickActi
     },
     {
       icon: Building2,
-      title: "Companies",
-      description: "Manage your workspaces",
-      ctaLabel: "Open",
-      href: "/dashboard/companies",
+      title: "New workspace",
+      description: "Spin up a fresh environment",
+      ctaLabel: "Create",
+      onClick: requestCreateWorkspace,
       tone: "primary",
     },
     {
@@ -135,6 +138,10 @@ function ActionRowView({ row }: Readonly<{ row: ActionRow }>) {
         <Link className={ctaClass} href={row.href}>
           {row.ctaLabel}
         </Link>
+      ) : row.onClick ? (
+        <button className={ctaClass} onClick={row.onClick} type="button">
+          {row.ctaLabel}
+        </button>
       ) : (
         <span className={ctaClass}>{row.ctaLabel}</span>
       )}

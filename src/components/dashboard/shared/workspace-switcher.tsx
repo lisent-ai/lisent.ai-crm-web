@@ -1,10 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Building2, Check, ChevronDown, Plus } from "lucide-react";
 
+import {
+  CreateWorkspaceModal,
+  OPEN_CREATE_WORKSPACE_EVENT,
+} from "@/components/dashboard/shared/create-workspace-modal";
 import { CRMClientError, type Company, listCompanies } from "@/lib/crm/client";
 import { clearStoredCompany, storeCompany } from "@/lib/workspace/workspace-context";
 
@@ -33,6 +36,7 @@ export function WorkspaceSwitcher({
   const lastFetchAt = useRef<number>(0);
 
   const [open, setOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loadState, setLoadState] = useState<LoadState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -74,6 +78,17 @@ export function WorkspaceSwitcher({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void loadCompanies();
   }, [loadCompanies]);
+
+  useEffect(() => {
+    if (demoMode) return;
+    function onOpenRequest() {
+      setCreateOpen(true);
+    }
+    window.addEventListener(OPEN_CREATE_WORKSPACE_EVENT, onOpenRequest);
+    return () => {
+      window.removeEventListener(OPEN_CREATE_WORKSPACE_EVENT, onOpenRequest);
+    };
+  }, [demoMode]);
 
   useEffect(() => {
     if (!open) return;
@@ -239,16 +254,35 @@ export function WorkspaceSwitcher({
 
           <div className="my-1 border-t border-[var(--border-subtle)]" />
 
-          <Link
-            className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
-            href="/dashboard/companies?create=1"
-            onClick={() => setOpen(false)}
+          <button
+            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+            onClick={() => {
+              setOpen(false);
+              setCreateOpen(true);
+            }}
             role="menuitem"
+            type="button"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
             Create new workspace
-          </Link>
+          </button>
         </div>
+      )}
+
+      {createOpen && !demoMode && (
+        <CreateWorkspaceModal
+          onClose={() => setCreateOpen(false)}
+          onCreated={(company) => {
+            setCreateOpen(false);
+            storeCompany(company.id, company.name);
+            lastFetchAt.current = 0;
+            void loadCompanies(true);
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("company", company.id);
+            if (company.name) params.set("companyName", company.name);
+            router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+          }}
+        />
       )}
     </div>
   );

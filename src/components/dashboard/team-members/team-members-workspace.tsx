@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Building2, MoreHorizontal, Plus, Trash2, UserPlus } from "lucide-react";
 
+import { requestCreateWorkspace } from "@/components/dashboard/shared/create-workspace-modal";
+
 import { AddTeamMemberModal } from "@/components/dashboard/team-members/add-team-member-modal";
-import { CompanyMemberRemoveModal } from "@/components/dashboard/companies/company-member-remove-modal";
-import { CompanyRoleChangeModal } from "@/components/dashboard/companies/company-role-change-modal";
+import { MemberRemoveModal } from "@/components/dashboard/team-members/member-remove-modal";
+import { MemberRoleChangeModal } from "@/components/dashboard/team-members/member-role-change-modal";
 import {
   addCompanyMember,
   CompanyMembershipClientError,
@@ -298,7 +299,7 @@ export function TeamMembersWorkspace() {
       )}
 
       {pendingRoleChange && (
-        <CompanyRoleChangeModal
+        <MemberRoleChangeModal
           currentRole={pendingRoleChange.member.role}
           memberEmail={pendingRoleChange.member.email}
           memberName={pendingRoleChange.member.displayName}
@@ -310,7 +311,7 @@ export function TeamMembersWorkspace() {
       )}
 
       {pendingRemoval && (
-        <CompanyMemberRemoveModal
+        <MemberRemoveModal
           companyName={companyName}
           memberEmail={pendingRemoval.member.email}
           memberName={pendingRemoval.member.displayName}
@@ -716,13 +717,14 @@ function EmptyWorkspace() {
             members here.
           </p>
         </div>
-        <Link
+        <button
           className="inline-flex items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-          href="/dashboard/companies?create=1"
+          onClick={requestCreateWorkspace}
+          type="button"
         >
           <Building2 className="h-4 w-4" aria-hidden="true" />
           Create workspace
-        </Link>
+        </button>
       </div>
     </div>
   );
