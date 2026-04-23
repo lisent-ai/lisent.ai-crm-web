@@ -42,7 +42,7 @@ export function LeadStatusTabs({
   return (
     <div
       aria-label="Filter leads by status"
-      className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto border-b border-[var(--border-subtle)]"
+      className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto"
       role="tablist"
     >
       {options.map((option) => {

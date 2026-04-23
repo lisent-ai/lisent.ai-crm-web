@@ -47,7 +47,7 @@ export function LeadTable({
 
   if (loading) {
     return (
-      <div className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-4 shadow-[var(--shadow-card)]">
+      <div className="p-4">
         <div className="grid gap-2">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
@@ -62,14 +62,14 @@ export function LeadTable({
 
   if (leads.length === 0) {
     return (
-      <div className="flex min-h-[240px] items-center justify-center rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-4 text-center text-sm text-[var(--text-tertiary)]">
+      <div className="flex min-h-[240px] items-center justify-center px-4 text-center text-sm text-[var(--text-tertiary)]">
         No leads match the current filters yet.
       </div>
     );
   }
 
   return (
-    <div className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
+    <div>
       {/* Desktop / tablet table */}
       <div className="hidden md:block">
         <div className="overflow-x-auto">

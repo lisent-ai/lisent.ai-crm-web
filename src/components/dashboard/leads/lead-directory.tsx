@@ -715,28 +715,6 @@ export function LeadDirectory() {
 
       <LeadKpiStrip leads={leads} loading={companiesLoading || leadsLoading} />
 
-      <LeadStatusTabs
-        counts={pipelineCounts}
-        onChange={setStatusFilter}
-        totalCount={leads.length}
-        value={statusFilter}
-      />
-
-      <LeadToolbar
-        assigneeFilter={assigneeFilter}
-        assigneeOptions={assigneeOptions}
-        canAdd={!!selectedCompany && !saving}
-        onAdd={openCreateModal}
-        onAssigneeChange={setAssigneeFilter}
-        onSearchChange={setSearchQuery}
-        onShowUnassignedChange={setShowOnlyUnassigned}
-        onSourceChange={setSourceFilter}
-        searchQuery={searchQuery}
-        showOnlyUnassigned={showOnlyUnassigned}
-        sourceFilter={sourceFilter}
-        sourceOptions={sourceOptions}
-      />
-
       {errorMessage ? (
         <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
@@ -753,17 +731,45 @@ export function LeadDirectory() {
           Pick a workspace from the top bar to see leads.
         </div>
       ) : (
-        <LeadTable
-          activeLeadId={drawerOpen ? selectedLeadId : null}
-          aiEnabled={aiEnabled}
-          leads={leads}
-          loading={companiesLoading || leadsLoading}
-          onOpenRowMenu={openRowMenu}
-          onRowClick={handleRowClick}
-          onToggleAll={toggleAll}
-          onToggleOne={toggleOne}
-          selectedIds={selectedIds}
-        />
+        <section className="overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
+          <div className="border-b border-[var(--border-subtle)] px-4 pt-1 sm:px-5">
+            <LeadStatusTabs
+              counts={pipelineCounts}
+              onChange={setStatusFilter}
+              totalCount={leads.length}
+              value={statusFilter}
+            />
+          </div>
+
+          <div className="border-b border-[var(--border-subtle)] px-4 py-3 sm:px-5">
+            <LeadToolbar
+              assigneeFilter={assigneeFilter}
+              assigneeOptions={assigneeOptions}
+              canAdd={!!selectedCompany && !saving}
+              onAdd={openCreateModal}
+              onAssigneeChange={setAssigneeFilter}
+              onSearchChange={setSearchQuery}
+              onShowUnassignedChange={setShowOnlyUnassigned}
+              onSourceChange={setSourceFilter}
+              searchQuery={searchQuery}
+              showOnlyUnassigned={showOnlyUnassigned}
+              sourceFilter={sourceFilter}
+              sourceOptions={sourceOptions}
+            />
+          </div>
+
+          <LeadTable
+            activeLeadId={drawerOpen ? selectedLeadId : null}
+            aiEnabled={aiEnabled}
+            leads={leads}
+            loading={companiesLoading || leadsLoading}
+            onOpenRowMenu={openRowMenu}
+            onRowClick={handleRowClick}
+            onToggleAll={toggleAll}
+            onToggleOne={toggleOne}
+            selectedIds={selectedIds}
+          />
+        </section>
       )}
 
       {rowMenu ? (
