@@ -181,7 +181,7 @@ export function WorkspaceSwitcher({
           className={`${
             variant === "block"
               ? "left-0 right-0"
-              : "left-0 w-[min(300px,calc(100vw-2rem))]"
+              : "left-0 w-[300px] max-w-[calc(100vw-2rem)]"
           } absolute top-full z-40 mt-2 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-2 shadow-[var(--shadow-float)]`}
           role="menu"
         >
