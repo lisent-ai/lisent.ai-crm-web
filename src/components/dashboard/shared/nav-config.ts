@@ -41,7 +41,7 @@ export const navItems: NavItem[] = [
   { href: "/dashboard/customers", label: "Customers", icon: User, placement: "top", carriesCompany: true, visible: true },
   { href: "/dashboard/tasks", label: "Tasks", icon: CheckSquare, placement: "top", carriesCompany: true, visible: true },
   { href: "/dashboard/calendar", label: "Calendar", icon: Calendar, placement: "side", carriesCompany: true, visible: true },
-  { href: "/dashboard/access", label: "Team Access", icon: Users, placement: "side", carriesCompany: true, visible: true },
+  { href: "/dashboard/access", label: "Team Members", icon: Users, placement: "side", carriesCompany: true, visible: true },
   { href: "/dashboard/imports", label: "Customer Import", icon: Upload, placement: "side", carriesCompany: true, visible: true },
   {
     href: "/dashboard/integrations",
