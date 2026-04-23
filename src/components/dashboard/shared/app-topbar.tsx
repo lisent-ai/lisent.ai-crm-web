@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Bell, Menu, Upload } from "lucide-react";
 
@@ -43,10 +44,17 @@ export function AppTopbar({
 
         <Link
           aria-label="Lisent CRM home"
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,_#f97316,_#ef4444)] text-xs font-semibold text-white shadow-[var(--shadow-sm)] md:hidden"
+          className="flex shrink-0 items-center md:hidden"
           href="/dashboard"
         >
-          L
+          <Image
+            alt="Lisent"
+            className="h-auto w-14 sm:w-16"
+            height={34}
+            priority
+            src="/lisent-logo.png"
+            width={60}
+          />
         </Link>
 
         <div className="hidden min-w-0 flex-1 md:block">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HelpCircle, Plus } from "lucide-react";
@@ -21,13 +22,20 @@ export function AppSidebar({ companyId, companyName }: Readonly<AppSidebarProps>
   const items = getSideNavItems();
 
   return (
-    <aside className="sticky top-0 hidden h-screen w-[72px] shrink-0 flex-col items-center gap-2 border-r border-[var(--border-subtle)] bg-[var(--surface)] py-5 md:flex">
+    <aside className="sticky top-0 hidden h-screen w-[80px] shrink-0 flex-col items-center gap-2 border-r border-[var(--border-subtle)] bg-[var(--surface)] py-4 md:flex">
       <Link
         aria-label="Lisent workspace"
-        className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[linear-gradient(135deg,_#f97316,_#ef4444)] text-sm font-semibold text-white shadow-[var(--shadow-sm)]"
+        className="flex h-14 w-14 items-center justify-center rounded-[14px] transition hover:bg-[var(--surface-muted)]"
         href="/dashboard"
       >
-        L
+        <Image
+          alt="Lisent"
+          className="h-auto w-14"
+          height={38}
+          priority
+          src="/lisent-logo.png"
+          width={68}
+        />
       </Link>
 
       <div className="mt-4 flex flex-1 flex-col items-center gap-1">

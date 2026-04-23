@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -71,9 +72,14 @@ export function MobileDrawer({
       >
         <div className="flex items-center justify-between border-b border-[var(--border-subtle)] px-4 py-4">
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,_#f97316,_#ef4444)] text-xs font-semibold text-white">
-              L
-            </span>
+            <Image
+              alt="Lisent"
+              className="h-auto w-14"
+              height={34}
+              priority
+              src="/lisent-logo.png"
+              width={60}
+            />
             <span className="text-sm font-semibold text-[var(--text-primary)]">
               Lisent CRM
             </span>
