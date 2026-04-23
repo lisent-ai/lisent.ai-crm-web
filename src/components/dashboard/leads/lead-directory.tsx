@@ -33,7 +33,7 @@ import { startLeadQualify } from "@/lib/qualifier/client";
 import { LeadBulkActionBar } from "./lead-bulk-action-bar";
 import { LeadConvertModal } from "./lead-convert-modal";
 import { LeadDeleteModal } from "./lead-delete-modal";
-import { LeadDetailDrawer } from "./lead-detail-drawer";
+import { LeadDetailDrawer, type LeadDetailView } from "./lead-detail-drawer";
 import { LeadFormModal } from "./lead-form-modal";
 import { LeadHeader } from "./lead-header";
 import { LeadKpiStrip } from "./lead-kpi-strip";
@@ -72,6 +72,7 @@ export function LeadDirectory() {
   const [showOnlyUnassigned, setShowOnlyUnassigned] = useState(false);
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerView, setDrawerView] = useState<LeadDetailView>("profile");
   const [showLeadModal, setShowLeadModal] = useState(false);
   const [showConvertModal, setShowConvertModal] = useState(false);
   const [pendingDeleteLead, setPendingDeleteLead] = useState<Lead | null>(null);
@@ -697,6 +698,13 @@ export function LeadDirectory() {
 
   function handleRowClick(lead: Lead) {
     setSelectedLeadId(lead.id);
+    setDrawerView("profile");
+    setDrawerOpen(true);
+  }
+
+  function handleAIClick(lead: Lead) {
+    setSelectedLeadId(lead.id);
+    setDrawerView("ai");
     setDrawerOpen(true);
   }
 
@@ -763,6 +771,7 @@ export function LeadDirectory() {
             aiEnabled={aiEnabled}
             leads={leads}
             loading={companiesLoading || leadsLoading}
+            onAIScoreClick={handleAIClick}
             onOpenRowMenu={openRowMenu}
             onRowClick={handleRowClick}
             onToggleAll={toggleAll}
@@ -817,6 +826,7 @@ export function LeadDirectory() {
         customerLabel={customerLabel}
         lead={selectedLead}
         onAssignRoundRobin={assignLeadRoundRobin}
+        onChangeView={setDrawerView}
         onClose={() => setDrawerOpen(false)}
         onConvert={openConvertLeadModal}
         onDelete={(lead) => setPendingDeleteLead(lead)}
@@ -825,6 +835,7 @@ export function LeadDirectory() {
         onStartQualify={startQualifyLead}
         open={drawerOpen && !!selectedLead}
         saving={saving}
+        view={drawerView}
       />
 
       <LeadBulkActionBar

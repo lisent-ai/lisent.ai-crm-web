@@ -21,6 +21,7 @@ type LeadTableProps = {
   onToggleAll: () => void;
   onRowClick: (lead: Lead) => void;
   onOpenRowMenu: (lead: Lead, anchor: HTMLElement) => void;
+  onAIScoreClick: (lead: Lead) => void;
   activeLeadId: string | null;
   aiEnabled: boolean;
 };
@@ -33,6 +34,7 @@ export function LeadTable({
   onToggleAll,
   onRowClick,
   onOpenRowMenu,
+  onAIScoreClick,
   activeLeadId,
   aiEnabled,
 }: Readonly<LeadTableProps>) {
@@ -102,6 +104,7 @@ export function LeadTable({
                   aiEnabled={aiEnabled}
                   key={lead.id}
                   lead={lead}
+                  onAIClick={onAIScoreClick}
                   onOpenMenu={onOpenRowMenu}
                   onRowClick={onRowClick}
                   onToggle={onToggleOne}
@@ -121,6 +124,7 @@ export function LeadTable({
             aiEnabled={aiEnabled}
             key={lead.id}
             lead={lead}
+            onAIClick={onAIScoreClick}
             onOpenMenu={onOpenRowMenu}
             onRowClick={onRowClick}
             onToggle={onToggleOne}
@@ -167,6 +171,7 @@ type RowCommonProps = {
   onToggle: (id: string) => void;
   onRowClick: (lead: Lead) => void;
   onOpenMenu: (lead: Lead, anchor: HTMLElement) => void;
+  onAIClick: (lead: Lead) => void;
 };
 
 function LeadRow({
@@ -177,6 +182,7 @@ function LeadRow({
   onToggle,
   onRowClick,
   onOpenMenu,
+  onAIClick,
 }: Readonly<RowCommonProps>) {
   const active = lead.id === activeLeadId;
   return (
@@ -231,9 +237,17 @@ function LeadRow({
         <span className="truncate">{formatAssignmentLabel(lead)}</span>
       </td>
       {aiEnabled && (
-        <td className="hidden px-3 py-3 xl:table-cell">
+        <td className="hidden px-3 py-3 xl:table-cell" onClick={(event) => event.stopPropagation()}>
           {typeof lead.aiScore === "number" ? (
-            <AIScoreChip score={lead.aiScore} />
+            <button
+              aria-label={`Open AI qualification · score ${Math.round(lead.aiScore)}`}
+              className="rounded-full transition hover:brightness-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
+              onClick={() => onAIClick(lead)}
+              title="View AI qualification details"
+              type="button"
+            >
+              <AIScoreChip score={lead.aiScore} />
+            </button>
           ) : (
             <span className="text-xs text-[var(--text-muted)]">—</span>
           )}
@@ -261,6 +275,7 @@ function LeadCard({
   onToggle,
   onRowClick,
   onOpenMenu,
+  onAIClick,
 }: Readonly<RowCommonProps>) {
   const active = lead.id === activeLeadId;
   return (
@@ -315,7 +330,14 @@ function LeadCard({
         </span>
       </div>
       {aiEnabled && typeof lead.aiScore === "number" ? (
-        <AIScoreChip score={lead.aiScore} />
+        <button
+          aria-label={`Open AI qualification · score ${Math.round(lead.aiScore)}`}
+          className="self-start rounded-full transition hover:brightness-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
+          onClick={() => onAIClick(lead)}
+          type="button"
+        >
+          <AIScoreChip score={lead.aiScore} />
+        </button>
       ) : null}
     </div>
   );
