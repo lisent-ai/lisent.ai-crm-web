@@ -113,6 +113,11 @@ export function LeadDetailDrawer(props: Readonly<LeadDetailDrawerProps>) {
         className={`relative mx-auto flex min-h-full w-full items-start justify-center transition duration-200 ${
           open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         }`}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) {
+            onClose();
+          }
+        }}
         role="dialog"
       >
           <div className="flex w-full max-w-[860px] flex-col overflow-hidden rounded-[28px] border border-[var(--border-subtle)] bg-[linear-gradient(180deg,color-mix(in_srgb,_var(--surface)_92%,_white)_0%,_var(--surface-subtle)_100%)] shadow-[0_30px_80px_rgba(15,23,42,0.24)]">
@@ -350,6 +355,15 @@ function ProfileView({
               tone="danger"
             />
           </div>
+
+          <LeadAIQualifierSummary
+            aiEnabled={aiEnabled}
+            aiScore={aiScore}
+            lead={lead}
+            onOpen={() => onChangeView("ai")}
+            onStartQualify={onStartQualify}
+            saving={saving}
+          />
         </div>
 
         <div className="border-t border-[var(--border-subtle)] px-3 sm:px-4">
@@ -595,6 +609,97 @@ function CardSection({
         {title}
       </h3>
       <div className="mt-3">{children}</div>
+    </section>
+  );
+}
+
+function LeadAIQualifierSummary({
+  lead,
+  aiEnabled,
+  aiScore,
+  saving,
+  onOpen,
+  onStartQualify,
+}: Readonly<{
+  lead: Lead;
+  aiEnabled: boolean;
+  aiScore: number | null;
+  saving: boolean;
+  onOpen: () => void;
+  onStartQualify: (lead: Lead) => void;
+}>) {
+  const hasInsights =
+    typeof lead.aiScore === "number" ||
+    !!lead.aiStatus ||
+    !!lead.aiReasoning ||
+    !!lead.aiChamp ||
+    !!lead.aiScoreBreakdown;
+  const canStartQualify = aiEnabled && lead.aiStatus === "pending";
+
+  if (!aiEnabled && !hasInsights) {
+    return null;
+  }
+
+  return (
+    <section className="mt-4 rounded-[22px] border border-violet-200 bg-gradient-to-br from-violet-50 via-[#faf7ff] to-indigo-50 px-4 py-4 shadow-[0_14px_30px_rgba(99,102,241,0.12)]">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-violet-600 text-white shadow-sm">
+              <Sparkles aria-hidden="true" className="h-4 w-4" />
+            </span>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-violet-900">
+                AI Qualifier
+              </p>
+              <p className="text-sm font-medium text-slate-900">
+                {aiScore !== null ? `Score ${aiScore}/100` : "Lead not scored yet"}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
+              Status: {lead.aiStatus || "not_started"}
+            </span>
+            {lead.aiChamp ? (
+              <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
+                Champion: {lead.aiChamp}
+              </span>
+            ) : null}
+          </div>
+
+          <p className="mt-3 text-sm leading-6 text-slate-700">
+            {!aiEnabled
+              ? "AI Lead Qualifier is not connected for this workspace yet."
+              : lead.aiReasoning?.trim()
+                ? lead.aiReasoning.trim()
+                : "Open the qualifier to review scoring details, signals, and the latest AI assessment for this lead."}
+          </p>
+        </div>
+
+        <div className="flex shrink-0 flex-wrap gap-2">
+          {canStartQualify ? (
+            <button
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-violet-600 px-4 text-sm font-semibold text-white transition hover:bg-violet-700 disabled:opacity-50"
+              disabled={saving}
+              onClick={() => onStartQualify(lead)}
+              type="button"
+            >
+              <Sparkles aria-hidden="true" className="h-4 w-4" />
+              {saving ? "Starting..." : "Start qualify"}
+            </button>
+          ) : null}
+          <button
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-violet-200 bg-white/90 px-4 text-sm font-semibold text-violet-700 transition hover:border-violet-300 hover:bg-white"
+            onClick={onOpen}
+            type="button"
+          >
+            <Sparkles aria-hidden="true" className="h-4 w-4" />
+            Open AI qualifier
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
