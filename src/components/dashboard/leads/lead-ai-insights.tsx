@@ -2,19 +2,140 @@ import type { Lead } from "@/lib/crm/client";
 
 import { formatDateTime } from "./lead-utils";
 
-const SCORE_DIMENSIONS: {
-  key: string;
-  label: string;
-  max: number;
-  tone: "emerald" | "sky" | "violet" | "amber" | "slate";
-}[] = [
-  { key: "budget", label: "Budget", max: 30, tone: "emerald" },
-  { key: "timeline", label: "Timeline", max: 25, tone: "sky" },
-  { key: "project_type", label: "Project type", max: 20, tone: "violet" },
-  { key: "authority", label: "Authority", max: 15, tone: "amber" },
-  { key: "data_quality", label: "Data quality", max: 10, tone: "slate" },
-];
+// Phase 3/7 ensemble scoring shape. The rule-based Fit-Score dimensions
+// (budget / timeline / project_type / authority / data_quality) have been
+// retired — the score now comes from a 3-persona LLM ensemble with a
+// formula-audit shadow. What sales reps actually need on the panel is the
+// call-prep context the LLM produced, not weight bars.
 
+type SalesContext = {
+  who_they_are?: string;
+  company_or_buyer_profile?: string;
+  recommended_opening?: string;
+  risks_to_watch?: string[];
+  key_questions_for_call?: string[];
+};
+
+type PreScoreEnsemble = {
+  median_direct_score?: number;
+  formula_audit_score?: number;
+  divergent?: boolean;
+  divergence_abs?: number;
+  extraction_confidence?: number;
+  persona_scores?: Record<string, number>;
+};
+
+type PreScoreFallback = {
+  reason?: string;
+  total?: number;
+};
+
+type OSINT = {
+  provider?: string;
+  cache_hit?: boolean;
+  phone_country?: string;
+  email_domain_type?: string;
+  email_site_count?: number;
+};
+
+type ScoreBreakdown = {
+  fit_score?: number;
+  sales_context?: SalesContext;
+  pre_score_ensemble?: PreScoreEnsemble;
+  pre_score_fallback?: PreScoreFallback;
+  osint?: OSINT;
+};
+
+function isRecord(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
+
+function pickRecord(parent: Record<string, unknown>, key: string): Record<string, unknown> | undefined {
+  const v = parent[key];
+  return isRecord(v) ? v : undefined;
+}
+
+function pickStringArray(parent: Record<string, unknown>, key: string): string[] | undefined {
+  const v = parent[key];
+  if (!Array.isArray(v)) return undefined;
+  return v.filter((x): x is string => typeof x === "string");
+}
+
+function pickString(parent: Record<string, unknown>, key: string): string | undefined {
+  const v = parent[key];
+  return typeof v === "string" && v.trim() ? v : undefined;
+}
+
+function pickNumber(parent: Record<string, unknown>, key: string): number | undefined {
+  const v = parent[key];
+  return typeof v === "number" ? v : undefined;
+}
+
+function pickBool(parent: Record<string, unknown>, key: string): boolean | undefined {
+  const v = parent[key];
+  return typeof v === "boolean" ? v : undefined;
+}
+
+function parseBreakdown(raw: unknown): ScoreBreakdown {
+  if (!isRecord(raw)) return {};
+  const out: ScoreBreakdown = {};
+  const fit = pickNumber(raw, "fit_score");
+  if (fit !== undefined) out.fit_score = fit;
+
+  const sc = pickRecord(raw, "sales_context");
+  if (sc) {
+    out.sales_context = {
+      who_they_are: pickString(sc, "who_they_are"),
+      company_or_buyer_profile: pickString(sc, "company_or_buyer_profile"),
+      recommended_opening: pickString(sc, "recommended_opening"),
+      risks_to_watch: pickStringArray(sc, "risks_to_watch"),
+      key_questions_for_call: pickStringArray(sc, "key_questions_for_call"),
+    };
+  }
+
+  const ens = pickRecord(raw, "pre_score_ensemble");
+  if (ens) {
+    const personaScoresRaw = pickRecord(ens, "persona_scores");
+    const personaScores: Record<string, number> | undefined = personaScoresRaw
+      ? Object.fromEntries(
+          Object.entries(personaScoresRaw).filter(
+            (e): e is [string, number] => typeof e[1] === "number",
+          ),
+        )
+      : undefined;
+    out.pre_score_ensemble = {
+      median_direct_score: pickNumber(ens, "median_direct_score"),
+      formula_audit_score: pickNumber(ens, "formula_audit_score"),
+      divergent: pickBool(ens, "divergent"),
+      divergence_abs: pickNumber(ens, "divergence_abs"),
+      extraction_confidence: pickNumber(ens, "extraction_confidence"),
+      persona_scores: personaScores,
+    };
+  }
+
+  const fb = pickRecord(raw, "pre_score_fallback");
+  if (fb) {
+    out.pre_score_fallback = {
+      reason: pickString(fb, "reason"),
+      total: pickNumber(fb, "total"),
+    };
+  }
+
+  const osint = pickRecord(raw, "osint");
+  if (osint) {
+    out.osint = {
+      provider: pickString(osint, "provider"),
+      cache_hit: pickBool(osint, "cache_hit"),
+      phone_country: pickString(osint, "phone_country"),
+      email_domain_type: pickString(osint, "email_domain_type"),
+      email_site_count: pickNumber(osint, "email_site_count"),
+    };
+  }
+
+  return out;
+}
+
+// CHAMP (chat-path, dormant until Phase 8) — kept as-is, rendered only when data exists.
 const CHAMP_DIMENSIONS = [
   { key: "challenges", label: "Challenges", letter: "C" },
   { key: "authority", label: "Authority", letter: "H" },
@@ -32,8 +153,11 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
   if (!hasAny) return null;
 
   const score = typeof lead.aiScore === "number" ? Math.round(lead.aiScore) : null;
-  const breakdown = (lead.aiScoreBreakdown ?? {}) as Record<string, unknown>;
+  const breakdown = parseBreakdown(lead.aiScoreBreakdown);
   const champ = (lead.aiChamp ?? null) as Record<string, unknown> | null;
+  const hasChampData =
+    champ !== null &&
+    CHAMP_DIMENSIONS.some((d) => typeof champ[`${d.key}_score`] === "number");
 
   return (
     <section className="rounded-[1.25rem] border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-indigo-50 p-4 shadow-[0_10px_30px_rgba(99,102,241,0.08)]">
@@ -58,32 +182,35 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
       </header>
 
       {score !== null ? (
-        <div className="mt-4 grid gap-4 md:grid-cols-[auto_1fr] md:items-center">
+        <div className="mt-4 flex flex-wrap items-center gap-4">
           <ScoreDial value={score} />
-          <div className="grid gap-2">
-            {SCORE_DIMENSIONS.map((dim) => {
-              const raw = breakdown[dim.key];
-              const n = typeof raw === "number" ? raw : 0;
-              return (
-                <ScoreBar
-                  key={dim.key}
-                  label={dim.label}
-                  max={dim.max}
-                  tone={dim.tone}
-                  value={n}
-                />
-              );
-            })}
-          </div>
+          <EnsembleSummary
+            ensemble={breakdown.pre_score_ensemble}
+            fallback={breakdown.pre_score_fallback}
+          />
         </div>
       ) : null}
 
-      {champ ? <ChampSection champ={champ} /> : null}
+      {breakdown.pre_score_fallback ? (
+        <FallbackBanner fallback={breakdown.pre_score_fallback} />
+      ) : null}
 
-      {lead.aiReasoning ? (
+      {breakdown.sales_context ? (
+        <SalesContextBlock context={breakdown.sales_context} />
+      ) : null}
+
+      {breakdown.osint ? <OSINTPanel osint={breakdown.osint} /> : null}
+
+      {breakdown.pre_score_ensemble ? (
+        <EnsembleDetails ensemble={breakdown.pre_score_ensemble} />
+      ) : null}
+
+      {hasChampData && champ ? <ChampSection champ={champ} /> : null}
+
+      {lead.aiReasoning && Object.keys(lead.aiReasoning).length > 0 ? (
         <details className="mt-4 rounded-xl border border-violet-100 bg-white">
           <summary className="cursor-pointer px-3 py-2 text-xs font-semibold uppercase tracking-wide text-violet-700">
-            Reasoning report
+            Reasoning report (raw)
           </summary>
           <pre className="m-0 overflow-auto border-t border-violet-100 p-3 text-xs leading-6 text-slate-800">
             {JSON.stringify(lead.aiReasoning, null, 2)}
@@ -114,36 +241,285 @@ function ScoreDial({ value }: Readonly<{ value: number }>) {
   );
 }
 
-function ScoreBar({
-  label,
-  value,
-  max,
-  tone,
-}: Readonly<{
-  label: string;
-  value: number;
-  max: number;
-  tone: "emerald" | "sky" | "violet" | "amber" | "slate";
-}>) {
-  const pct = max > 0 ? Math.max(0, Math.min(100, (value / max) * 100)) : 0;
-  const tones: Record<typeof tone, string> = {
-    emerald: "bg-emerald-500",
-    sky: "bg-sky-500",
-    violet: "bg-violet-500",
-    amber: "bg-amber-500",
-    slate: "bg-slate-400",
+function EnsembleSummary({
+  ensemble,
+  fallback,
+}: Readonly<{ ensemble?: PreScoreEnsemble; fallback?: PreScoreFallback }>) {
+  if (fallback) {
+    return (
+      <div className="min-w-[200px] flex-1 text-xs text-slate-600">
+        <p className="mb-1 font-semibold uppercase tracking-wider text-amber-700">
+          Fallback mode
+        </p>
+        <p className="text-slate-700">
+          LLM ensemble unavailable — score derived from form data quality heuristics.
+        </p>
+      </div>
+    );
+  }
+  if (!ensemble) return null;
+  const confidence =
+    typeof ensemble.extraction_confidence === "number"
+      ? Math.round(ensemble.extraction_confidence * 100)
+      : null;
+  return (
+    <div className="min-w-[200px] flex-1 grid gap-1.5 text-xs">
+      {typeof ensemble.formula_audit_score === "number" &&
+      typeof ensemble.median_direct_score === "number" ? (
+        <div className="flex items-center gap-2 text-slate-700">
+          <span className="font-semibold">LLM median</span>
+          <span className="font-mono text-violet-900">
+            {ensemble.median_direct_score}
+          </span>
+          <span className="text-slate-400">·</span>
+          <span className="font-semibold">Formula audit</span>
+          <span className="font-mono text-slate-600">
+            {ensemble.formula_audit_score}
+          </span>
+          {ensemble.divergent ? (
+            <span
+              title={`|LLM − formula| = ${ensemble.divergence_abs ?? "?"}`}
+              className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-amber-700"
+            >
+              divergent
+            </span>
+          ) : null}
+        </div>
+      ) : null}
+      {confidence !== null ? (
+        <div className="flex items-center gap-2 text-slate-700">
+          <span className="font-semibold">Confidence</span>
+          <span
+            className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+              confidence >= 70
+                ? "bg-emerald-100 text-emerald-700"
+                : confidence >= 50
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-rose-100 text-rose-700"
+            }`}
+          >
+            {confidence}%
+          </span>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function FallbackBanner({ fallback }: Readonly<{ fallback: PreScoreFallback }>) {
+  return (
+    <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50/70 p-3">
+      <div className="flex items-start gap-2">
+        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500 text-[11px] font-bold text-white">
+          !
+        </span>
+        <div className="text-xs">
+          <p className="font-semibold text-amber-900">Fallback scoring applied</p>
+          <p className="mt-1 leading-relaxed text-amber-800">
+            {fallback.reason
+              ? `Reason: ${fallback.reason}.`
+              : "The LLM ensemble failed for this lead."}
+            {" "}
+            The score ({typeof fallback.total === "number" ? fallback.total : "?"}) is a
+            basic data-quality estimate. Expect reduced accuracy — treat this lead with
+            your own judgment.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
+  const { who_they_are, company_or_buyer_profile, recommended_opening, risks_to_watch, key_questions_for_call } = context;
+  const hasAny =
+    who_they_are ||
+    company_or_buyer_profile ||
+    recommended_opening ||
+    (risks_to_watch && risks_to_watch.length) ||
+    (key_questions_for_call && key_questions_for_call.length);
+  if (!hasAny) return null;
+
+  return (
+    <div className="mt-4 rounded-xl border border-violet-100 bg-white p-4">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-violet-700">
+        Call prep
+      </p>
+      <div className="grid gap-4 md:grid-cols-2">
+        {who_they_are ? (
+          <InfoCard label="Who they are" body={who_they_are} />
+        ) : null}
+        {company_or_buyer_profile ? (
+          <InfoCard label="Company / buyer profile" body={company_or_buyer_profile} />
+        ) : null}
+      </div>
+      {recommended_opening ? (
+        <div className="mt-4 rounded-lg border border-emerald-100 bg-emerald-50/60 p-3">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-800">
+            Recommended opening
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-emerald-950">
+            {recommended_opening}
+          </p>
+        </div>
+      ) : null}
+      {key_questions_for_call && key_questions_for_call.length > 0 ? (
+        <div className="mt-4">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-violet-700">
+            Key questions for the call
+          </p>
+          <ol className="mt-2 grid gap-1.5 pl-0 text-sm text-slate-800">
+            {key_questions_for_call.map((q, i) => (
+              <li
+                key={`${i}-${q.slice(0, 24)}`}
+                className="flex items-start gap-2 rounded-lg bg-slate-50/70 px-3 py-2"
+              >
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-violet-600 text-[10px] font-bold text-white">
+                  {i + 1}
+                </span>
+                <span className="leading-snug">{q}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
+      {risks_to_watch && risks_to_watch.length > 0 ? (
+        <div className="mt-4">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-rose-700">
+            Risks to watch
+          </p>
+          <ul className="mt-2 grid gap-1.5 pl-0 text-sm text-slate-800">
+            {risks_to_watch.map((r, i) => (
+              <li
+                key={`${i}-${r.slice(0, 24)}`}
+                className="flex items-start gap-2 rounded-lg border border-rose-100 bg-rose-50/40 px-3 py-2"
+              >
+                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500" />
+                <span className="leading-snug">{r}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function InfoCard({ label, body }: Readonly<{ label: string; body: string }>) {
+  return (
+    <div className="rounded-lg border border-slate-100 bg-slate-50/60 p-3">
+      <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+        {label}
+      </p>
+      <p className="mt-1 text-sm leading-relaxed text-slate-800">{body}</p>
+    </div>
+  );
+}
+
+function OSINTPanel({ osint }: Readonly<{ osint: OSINT }>) {
+  const providerLabel =
+    osint.provider === "self_hosted"
+      ? "Self-hosted OSINT"
+      : osint.provider === "stub"
+        ? "OSINT disabled (stub)"
+        : osint.provider === "stub_osint_failure"
+          ? "OSINT fetch failed"
+          : (osint.provider ?? "OSINT");
+
+  const parts: Array<[string, string]> = [];
+  if (osint.phone_country) {
+    parts.push(["Phone country", osint.phone_country]);
+  }
+  if (osint.email_domain_type) {
+    parts.push(["Email domain", formatDomainType(osint.email_domain_type)]);
+  }
+  if (typeof osint.email_site_count === "number") {
+    parts.push(["Email footprint", `${osint.email_site_count} sites`]);
+  }
+
+  return (
+    <details className="mt-4 rounded-xl border border-sky-100 bg-white">
+      <summary className="cursor-pointer list-none px-3 py-2 text-xs font-semibold uppercase tracking-wide text-sky-700">
+        <span className="flex items-center gap-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-sky-500 text-[10px] font-bold text-white">
+            ◎
+          </span>
+          Enrichment — {providerLabel}
+          {osint.cache_hit ? (
+            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-semibold uppercase text-emerald-700">
+              cached
+            </span>
+          ) : null}
+        </span>
+      </summary>
+      <div className="grid gap-2 border-t border-sky-100 p-3">
+        {parts.length === 0 ? (
+          <p className="text-xs text-slate-500">No enrichment signals available.</p>
+        ) : (
+          parts.map(([k, v]) => (
+            <div key={k} className="flex items-baseline justify-between gap-3 text-xs">
+              <span className="text-slate-500">{k}</span>
+              <span className="font-mono text-slate-800">{v}</span>
+            </div>
+          ))
+        )}
+      </div>
+    </details>
+  );
+}
+
+function formatDomainType(t: string): string {
+  const map: Record<string, string> = {
+    corporate_verified: "corporate (verified)",
+    corporate_suspected: "corporate (suspected)",
+    freemail: "freemail (gmail/hotmail/...)",
+    disposable: "disposable",
+    missing: "unknown",
   };
+  return map[t] ?? t;
+}
+
+function EnsembleDetails({ ensemble }: Readonly<{ ensemble: PreScoreEnsemble }>) {
+  const personas = ensemble.persona_scores;
+  if (!personas || Object.keys(personas).length === 0) return null;
+  return (
+    <details className="mt-4 rounded-xl border border-violet-100 bg-white">
+      <summary className="cursor-pointer list-none px-3 py-2 text-xs font-semibold uppercase tracking-wide text-violet-700">
+        <span className="flex items-center gap-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-violet-600 text-[10px] font-bold text-white">
+            Σ
+          </span>
+          Persona ensemble
+        </span>
+      </summary>
+      <div className="grid gap-2 border-t border-violet-100 p-3">
+        {Object.entries(personas).map(([name, n]) => (
+          <PersonaBar key={name} label={name} value={n} />
+        ))}
+      </div>
+    </details>
+  );
+}
+
+function PersonaBar({ label, value }: Readonly<{ label: string; value: number }>) {
+  const pct = Math.max(0, Math.min(100, value));
+  const tone =
+    label === "skeptic"
+      ? "bg-rose-500"
+      : label === "opportunity"
+        ? "bg-emerald-500"
+        : "bg-violet-500";
   return (
     <div className="grid gap-1">
       <div className="flex items-baseline justify-between gap-2 text-xs">
-        <span className="font-medium text-slate-700">{label}</span>
+        <span className="font-medium capitalize text-slate-700">{label}</span>
         <span className="font-mono text-slate-500">
-          {value} <span className="text-slate-400">/ {max}</span>
+          {value} <span className="text-slate-400">/ 100</span>
         </span>
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200/60">
         <div
-          className={`h-full rounded-full ${tones[tone]} transition-[width] duration-500`}
+          className={`h-full rounded-full ${tone} transition-[width] duration-500`}
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -159,31 +535,33 @@ function ChampSection({ champ }: Readonly<{ champ: Record<string, unknown> }>) {
   const confidence = typeof champ.confidence === "string" ? (champ.confidence as string) : null;
 
   return (
-    <div className="mt-4 rounded-xl border border-violet-100 bg-white p-3">
-      <div className="mb-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-violet-700">
-            CHAMP extraction
-          </p>
-          {confidence ? (
-            <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ${
-                confidence === "high"
-                  ? "bg-emerald-100 text-emerald-700"
-                  : confidence === "medium"
-                    ? "bg-amber-100 text-amber-700"
-                    : "bg-slate-200 text-slate-600"
-              }`}
-            >
-              {confidence} confidence
-            </span>
-          ) : null}
+    <details className="mt-4 rounded-xl border border-violet-100 bg-white" open>
+      <summary className="cursor-pointer list-none px-3 py-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <p className="text-xs font-semibold uppercase tracking-wide text-violet-700">
+              CHAMP extraction (chat path)
+            </p>
+            {confidence ? (
+              <span
+                className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ${
+                  confidence === "high"
+                    ? "bg-emerald-100 text-emerald-700"
+                    : confidence === "medium"
+                      ? "bg-amber-100 text-amber-700"
+                      : "bg-slate-200 text-slate-600"
+                }`}
+              >
+                {confidence} confidence
+              </span>
+            ) : null}
+          </div>
+          <span className="font-mono text-xs text-slate-500">
+            {total} <span className="text-slate-400">/ 100</span>
+          </span>
         </div>
-        <span className="font-mono text-xs text-slate-500">
-          {total} <span className="text-slate-400">/ 100</span>
-        </span>
-      </div>
-      <div className="grid gap-2 md:grid-cols-2">
+      </summary>
+      <div className="grid gap-2 border-t border-violet-100 p-3 md:grid-cols-2">
         {CHAMP_DIMENSIONS.map((d) => {
           const raw = champ[`${d.key}_score`];
           const conf = champ[`${d.key}_confidence`];
@@ -227,7 +605,7 @@ function ChampSection({ champ }: Readonly<{ champ: Record<string, unknown> }>) {
           );
         })}
       </div>
-    </div>
+    </details>
   );
 }
 
