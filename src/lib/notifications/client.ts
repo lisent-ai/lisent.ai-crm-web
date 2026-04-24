@@ -26,7 +26,6 @@ export type DashboardNotification = {
 };
 
 const READ_KEY_PREFIX = "lisent.crm.notifications.read.v1";
-const ASSIGNMENT_LOOKBACK_DAYS = 7;
 const DUE_SOON_DAYS = 3;
 
 export async function listDashboardNotifications(input: {
@@ -129,10 +128,9 @@ function buildTaskNotifications(
     if (
       task.responseStatus === "accepted" &&
       task.status !== "done" &&
-      task.status !== "canceled" &&
-      task.dueDate
+      task.status !== "canceled"
     ) {
-      const dueAt = new Date(task.dueDate).getTime();
+      const dueAt = task.dueDate ? new Date(task.dueDate).getTime() : Number.NaN;
       if (Number.isFinite(dueAt) && dueAt <= soonThreshold) {
         notifications.push({
           id: `task_due:${task.id}:${task.dueDate}`,
@@ -141,6 +139,16 @@ function buildTaskNotifications(
           body: task.title || "One of your accepted tasks needs attention.",
           href,
           createdAt: task.dueDate,
+          entityId: task.id,
+        });
+      } else {
+        notifications.push({
+          id: `task_active:${task.id}:${task.updatedAt || task.createdAt}`,
+          kind: "task_due",
+          title: "Assigned task in progress",
+          body: task.title || "One of your accepted tasks is still open.",
+          href,
+          createdAt: task.updatedAt || task.createdAt,
           entityId: task.id,
         });
       }
@@ -156,7 +164,7 @@ function buildLeadNotifications(
   companyName: string,
 ) {
   return leads
-    .filter((lead) => wasRecentlyTouched(lead.updatedAt, ASSIGNMENT_LOOKBACK_DAYS))
+    .filter((lead) => lead.status !== "converted" && lead.status !== "lost")
     .map<DashboardNotification>((lead) => ({
       id: `lead_assigned:${lead.id}:${lead.updatedAt}`,
       kind: "lead_assigned",
@@ -175,7 +183,6 @@ function buildDealNotifications(
 ) {
   return deals
     .filter((deal) => deal.stage !== "won" && deal.stage !== "lost")
-    .filter((deal) => wasRecentlyTouched(deal.updatedAt, ASSIGNMENT_LOOKBACK_DAYS))
     .map<DashboardNotification>((deal) => ({
       id: `deal_assigned:${deal.id}:${deal.updatedAt}`,
       kind: "deal_assigned",
@@ -198,18 +205,4 @@ function buildWorkspaceHref(pathname: string, companyId: string, companyName: st
 
   const qs = query.toString();
   return qs ? `${pathname}?${qs}` : pathname;
-}
-
-function wasRecentlyTouched(iso: string, days: number) {
-  if (!iso) {
-    return false;
-  }
-
-  const time = new Date(iso).getTime();
-  if (!Number.isFinite(time)) {
-    return false;
-  }
-
-  const lookbackMs = days * 24 * 60 * 60 * 1000;
-  return Date.now() - time <= lookbackMs;
 }

@@ -635,6 +635,7 @@ function LeadAIQualifierSummary({
     !!lead.aiChamp ||
     !!lead.aiScoreBreakdown;
   const canStartQualify = aiEnabled && lead.aiStatus === "pending";
+  const reasoningSummary = summarizeAIReasoning(lead.aiReasoning);
 
   if (!aiEnabled && !hasInsights) {
     return null;
@@ -662,9 +663,14 @@ function LeadAIQualifierSummary({
             <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
               Status: {lead.aiStatus || "not_started"}
             </span>
-            {lead.aiChamp ? (
+            {lead.aiPath ? (
               <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
-                Champion: {lead.aiChamp}
+                Path: {lead.aiPath}
+              </span>
+            ) : null}
+            {hasStructuredData(lead.aiChamp) ? (
+              <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
+                CHAMP scoring ready
               </span>
             ) : null}
           </div>
@@ -672,8 +678,8 @@ function LeadAIQualifierSummary({
           <p className="mt-3 text-sm leading-6 text-slate-700">
             {!aiEnabled
               ? "AI Lead Qualifier is not connected for this workspace yet."
-              : lead.aiReasoning?.trim()
-                ? lead.aiReasoning.trim()
+              : reasoningSummary
+                ? reasoningSummary
                 : "Open the qualifier to review scoring details, signals, and the latest AI assessment for this lead."}
           </p>
         </div>
@@ -702,6 +708,49 @@ function LeadAIQualifierSummary({
       </div>
     </section>
   );
+}
+
+function hasStructuredData(value: unknown) {
+  return !!value && typeof value === "object" && Object.keys(value).length > 0;
+}
+
+function summarizeAIReasoning(value: unknown) {
+  if (!value) {
+    return "";
+  }
+
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  if (typeof value !== "object" || Array.isArray(value)) {
+    return "";
+  }
+
+  const record = value as Record<string, unknown>;
+  const preferredKeys = [
+    "summary",
+    "reason",
+    "decision",
+    "headline",
+    "verdict",
+    "next_step",
+  ];
+
+  for (const key of preferredKeys) {
+    const candidate = record[key];
+    if (typeof candidate === "string" && candidate.trim()) {
+      return candidate.trim();
+    }
+  }
+
+  for (const candidate of Object.values(record)) {
+    if (typeof candidate === "string" && candidate.trim()) {
+      return candidate.trim();
+    }
+  }
+
+  return "";
 }
 
 function LeadInfoTile({

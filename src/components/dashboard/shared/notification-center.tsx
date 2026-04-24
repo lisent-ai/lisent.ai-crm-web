@@ -144,16 +144,13 @@ export function NotificationCenter({
     });
   }
 
-  const buttonDisabled = demoMode || !userId;
-
   return (
     <div className="relative" ref={containerRef}>
       <button
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label="Notifications"
-        className="relative inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)] disabled:cursor-not-allowed disabled:opacity-50"
-        disabled={buttonDisabled}
+        className="relative inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
@@ -219,6 +216,8 @@ export function NotificationCenter({
 
           {demoMode ? (
             <NotificationEmptyState message="Notifications are unavailable in demo mode." />
+          ) : !userId ? (
+            <NotificationEmptyState message="Your account session is still loading. Open this again in a moment." />
           ) : !companyId ? (
             <NotificationEmptyState message="Select a workspace to see notifications." />
           ) : errorMessage ? (
