@@ -19,7 +19,7 @@ export function SearchCommand() {
   return (
     <button
       aria-label="Search"
-      className="group inline-flex h-9 min-w-[180px] items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm text-[var(--text-tertiary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-secondary)] md:min-w-[240px] lg:min-w-[320px]"
+      className="group inline-flex h-9 w-full min-w-0 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm text-[var(--text-tertiary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-secondary)] md:min-w-[240px] lg:min-w-[320px]"
       type="button"
     >
       <Search className="h-4 w-4" aria-hidden="true" />
