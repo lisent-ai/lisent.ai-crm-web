@@ -74,9 +74,9 @@ export function LeadTable({
     <div>
       {/* Desktop / tablet table */}
       <div className="hidden md:block">
-        <div className="overflow-x-auto">
+        <div className="max-h-[62vh] overflow-auto">
           <table className="w-full min-w-[720px] table-fixed border-collapse">
-            <thead>
+            <thead className="sticky top-0 z-10 bg-[var(--surface)]">
               <tr className="border-b border-[var(--border-subtle)] text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">
                 <th className="w-[44px] px-4 py-3">
                   <HeaderCheckbox
@@ -117,7 +117,8 @@ export function LeadTable({
       </div>
 
       {/* Mobile card stack */}
-      <div className="flex flex-col divide-y divide-[var(--border-subtle)] md:hidden">
+      <div className="max-h-[62vh] overflow-y-auto md:hidden">
+        <div className="flex flex-col divide-y divide-[var(--border-subtle)]">
         {leads.map((lead) => (
           <LeadCard
             activeLeadId={activeLeadId}
@@ -131,6 +132,7 @@ export function LeadTable({
             selected={selectedIds.has(lead.id)}
           />
         ))}
+        </div>
       </div>
     </div>
   );

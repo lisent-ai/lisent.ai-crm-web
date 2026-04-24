@@ -5,10 +5,13 @@ import { Field } from "./customer-ui";
 
 type CustomerListSectionProps = {
   customers: Customer[];
+  selectedIds: Set<string>;
   selectedCustomerId: string | null;
   selectedCompanyCountry: string;
   searchQuery: string;
   statusFilter: string;
+  onToggleAll: () => void;
+  onToggleOne: (customerId: string) => void;
   onSearchQueryChange: (value: string) => void;
   onStatusFilterChange: (value: string) => void;
   onViewCustomer: (customer: Customer) => void;
@@ -18,16 +21,22 @@ type CustomerListSectionProps = {
 
 export function CustomerListSection({
   customers,
+  selectedIds,
   selectedCustomerId,
   selectedCompanyCountry,
   searchQuery,
   statusFilter,
+  onToggleAll,
+  onToggleOne,
   onSearchQueryChange,
   onStatusFilterChange,
   onViewCustomer,
   onEditCustomer,
   onDeleteCustomer,
 }: Readonly<CustomerListSectionProps>) {
+  const allSelected = customers.length > 0 && customers.every((customer) => selectedIds.has(customer.id));
+  const indeterminate = selectedIds.size > 0 && !allSelected;
+
   return (
     <section className="w-full min-w-0 rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -71,6 +80,13 @@ export function CustomerListSection({
           <table className="w-full min-w-[1100px] text-left text-sm">
             <thead className="sticky top-0 bg-slate-100 text-xs uppercase tracking-[0.22em] text-slate-500">
               <tr>
+                <th className="w-[52px] px-4 py-3 font-medium">
+                  <HeaderCheckbox
+                    checked={allSelected}
+                    indeterminate={indeterminate}
+                    onChange={onToggleAll}
+                  />
+                </th>
                 <th className="px-4 py-3 font-medium">Name</th>
                 <th className="px-4 py-3 font-medium">Phone</th>
                 <th className="px-4 py-3 font-medium">Email</th>
@@ -82,6 +98,7 @@ export function CustomerListSection({
             <tbody>
               {customers.map((customer) => {
                 const selected = customer.id === selectedCustomerId;
+                const checked = selectedIds.has(customer.id);
 
                 return (
                   <tr
@@ -90,6 +107,15 @@ export function CustomerListSection({
                     }`}
                     key={customer.id}
                   >
+                    <td className="px-4 py-3">
+                      <input
+                        aria-label={`Select ${customer.name || "customer"}`}
+                        checked={checked}
+                        className="h-4 w-4 rounded border-slate-300 accent-sky-600"
+                        onChange={() => onToggleOne(customer.id)}
+                        type="checkbox"
+                      />
+                    </td>
                     <td className="px-4 py-3 text-slate-900">{customer.name}</td>
                     <td className="px-4 py-3 text-slate-600">{customer.phone}</td>
                     <td className="px-4 py-3 text-slate-600">{customer.email}</td>
@@ -144,5 +170,30 @@ export function CustomerListSection({
         </div>
       )}
     </section>
+  );
+}
+
+function HeaderCheckbox({
+  checked,
+  indeterminate,
+  onChange,
+}: Readonly<{
+  checked: boolean;
+  indeterminate: boolean;
+  onChange: () => void;
+}>) {
+  return (
+    <input
+      aria-label="Select all customers"
+      checked={checked}
+      className="h-4 w-4 rounded border-slate-300 accent-sky-600"
+      onChange={onChange}
+      ref={(node) => {
+        if (node) {
+          node.indeterminate = indeterminate;
+        }
+      }}
+      type="checkbox"
+    />
   );
 }

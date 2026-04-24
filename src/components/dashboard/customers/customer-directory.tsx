@@ -15,6 +15,8 @@ import {
 } from "@/lib/crm/client";
 
 import { CustomerCompanyHeader } from "./customer-company-header";
+import { CustomerBulkActionBar } from "./customer-bulk-action-bar";
+import { CustomerBulkDeleteModal } from "./customer-bulk-delete-modal";
 import { CustomerDeleteModal } from "./customer-delete-modal";
 import { CustomerDetailDrawer } from "./customer-detail-drawer";
 import { CustomerFormModal } from "./customer-form-modal";
@@ -33,15 +35,21 @@ export function CustomerDirectory() {
   const [companiesLoading, setCompaniesLoading] = useState(true);
   const [customersLoading, setCustomersLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [customerForm, setCustomerForm] =
     useState<CustomerFormState>(emptyCustomerForm);
   const [editingCustomerId, setEditingCustomerId] = useState<string | null>(null);
   const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
+  const [selectedCustomerIds, setSelectedCustomerIds] = useState<Set<string>>(
+    () => new Set(),
+  );
   const [viewingCustomerId, setViewingCustomerId] = useState<string | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [showForm, setShowForm] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [pendingBulkDelete, setPendingBulkDelete] = useState(false);
   const [customerPendingDelete, setCustomerPendingDelete] =
     useState<Customer | null>(null);
 
@@ -113,6 +121,7 @@ export function CustomerDirectory() {
           return;
         }
         setCustomers(nextCustomers);
+        setSelectedCustomerIds(new Set());
         setSelectedCustomerId((current) => {
           if (current && nextCustomers.some((customer) => customer.id === current)) {
             return current;
@@ -242,6 +251,7 @@ export function CustomerDirectory() {
 
     try {
       setErrorMessage(null);
+      setSuccessMessage(null);
 
       const payload = {
         companyId: selectedCompany.id,
@@ -266,6 +276,9 @@ export function CustomerDirectory() {
       } else {
         setShowForm(false);
       }
+      setSuccessMessage(
+        editingCustomerId ? "Customer updated successfully." : "Customer created successfully.",
+      );
     } catch (error) {
       const message =
         error instanceof CRMClientError ? error.message : "Failed to save customer.";
@@ -294,6 +307,7 @@ export function CustomerDirectory() {
 
     try {
       setErrorMessage(null);
+      setSuccessMessage(null);
       await deleteCustomerRequest(customerId);
       const nextCustomers = await reloadCustomers(selectedCompany.id);
 
@@ -310,7 +324,13 @@ export function CustomerDirectory() {
         closeEditModal();
       }
 
+      setSelectedCustomerIds((current) => {
+        const next = new Set(current);
+        next.delete(customerId);
+        return next;
+      });
       setCustomerPendingDelete(null);
+      setSuccessMessage("Customer deleted.");
     } catch (error) {
       const message =
         error instanceof CRMClientError ? error.message : "Failed to delete customer.";
@@ -327,6 +347,75 @@ export function CustomerDirectory() {
     setShowEditModal(false);
     resetCustomerForm();
     setShowForm(true);
+  }
+
+  function toggleOne(customerId: string) {
+    setSelectedCustomerIds((current) => {
+      const next = new Set(current);
+      if (next.has(customerId)) {
+        next.delete(customerId);
+      } else {
+        next.add(customerId);
+      }
+      return next;
+    });
+  }
+
+  function toggleAll() {
+    setSelectedCustomerIds((current) => {
+      if (current.size === filteredCustomers.length) {
+        return new Set();
+      }
+      return new Set(filteredCustomers.map((customer) => customer.id));
+    });
+  }
+
+  async function handleBulkDelete() {
+    if (!selectedCompany || selectedCustomerIds.size === 0) {
+      return;
+    }
+
+    setSaving(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    const ids = Array.from(selectedCustomerIds);
+    const succeeded: string[] = [];
+    const failed: string[] = [];
+
+    for (const id of ids) {
+      try {
+        await deleteCustomerRequest(id);
+        succeeded.push(id);
+      } catch {
+        failed.push(id);
+      }
+    }
+
+    const nextCustomers = await reloadCustomers(selectedCompany.id);
+    setPendingBulkDelete(false);
+    setSelectedCustomerIds(new Set());
+
+    if (selectedCustomerId && !nextCustomers.some((customer) => customer.id === selectedCustomerId)) {
+      setSelectedCustomerId(nextCustomers[0]?.id ?? null);
+    }
+    if (viewingCustomerId && !nextCustomers.some((customer) => customer.id === viewingCustomerId)) {
+      setViewingCustomerId(null);
+    }
+
+    if (failed.length === 0) {
+      setSuccessMessage(
+        `${succeeded.length} customer${succeeded.length === 1 ? "" : "s"} removed.`,
+      );
+    } else if (succeeded.length === 0) {
+      setErrorMessage(
+        `Failed to delete ${failed.length} customer${failed.length === 1 ? "" : "s"}.`,
+      );
+    } else {
+      setSuccessMessage(`${succeeded.length} deleted, ${failed.length} failed.`);
+    }
+
+    setSaving(false);
   }
 
   const loading = companiesLoading || customersLoading;
@@ -348,6 +437,11 @@ export function CustomerDirectory() {
           {errorMessage}
         </div>
       )}
+      {successMessage && (
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          {successMessage}
+        </div>
+      )}
 
       {loading && (
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
@@ -361,14 +455,24 @@ export function CustomerDirectory() {
         onEditCustomer={editCustomer}
         onSearchQueryChange={setSearchQuery}
         onStatusFilterChange={setStatusFilter}
+        onToggleAll={toggleAll}
+        onToggleOne={toggleOne}
         onViewCustomer={(customer) => {
           setSelectedCustomerId(customer.id);
           setViewingCustomerId(customer.id);
         }}
         searchQuery={searchQuery}
+        selectedIds={selectedCustomerIds}
         selectedCompanyCountry={selectedCompany?.country ?? "-"}
         selectedCustomerId={selectedCustomer?.id ?? null}
         statusFilter={statusFilter}
+      />
+
+      <CustomerBulkActionBar
+        count={selectedCustomerIds.size}
+        onClear={() => setSelectedCustomerIds(new Set())}
+        onDelete={() => setPendingBulkDelete(true)}
+        saving={saving}
       />
 
       {viewingCustomer && selectedCompany && (
@@ -410,6 +514,15 @@ export function CustomerDirectory() {
           customerName={customerPendingDelete.name}
           onClose={() => setCustomerPendingDelete(null)}
           onConfirmDelete={() => void removeCustomer(customerPendingDelete.id)}
+        />
+      )}
+
+      {pendingBulkDelete && (
+        <CustomerBulkDeleteModal
+          count={selectedCustomerIds.size}
+          onClose={() => setPendingBulkDelete(false)}
+          onConfirmDelete={() => void handleBulkDelete()}
+          saving={saving}
         />
       )}
     </div>
