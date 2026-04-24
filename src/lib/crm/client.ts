@@ -942,32 +942,46 @@ export async function listLeads(
   companyId: string,
   filters: LeadFilters = {},
 ): Promise<Lead[]> {
-  const query = new URLSearchParams({
-    limit: "100",
-    offset: "0",
-    company_id: companyId,
-  });
+  const limit = 100;
+  let offset = 0;
+  const records: CRMLeadRecord[] = [];
 
-  if (filters.status?.trim()) {
-    query.set("status", filters.status.trim());
-  }
-  if (filters.source?.trim()) {
-    query.set("source", filters.source.trim());
-  }
-  if (filters.assigneeUserId?.trim()) {
-    query.set("assignee_user_id", filters.assigneeUserId.trim());
-  }
-  if (filters.q?.trim()) {
-    query.set("q", filters.q.trim());
-  }
-  if (filters.unassigned) {
-    query.set("unassigned", "true");
+  while (true) {
+    const query = new URLSearchParams({
+      limit: String(limit),
+      offset: String(offset),
+      company_id: companyId,
+    });
+
+    if (filters.status?.trim()) {
+      query.set("status", filters.status.trim());
+    }
+    if (filters.source?.trim()) {
+      query.set("source", filters.source.trim());
+    }
+    if (filters.assigneeUserId?.trim()) {
+      query.set("assignee_user_id", filters.assigneeUserId.trim());
+    }
+    if (filters.q?.trim()) {
+      query.set("q", filters.q.trim());
+    }
+    if (filters.unassigned) {
+      query.set("unassigned", "true");
+    }
+
+    const response = await requestCRM<CRMListResponse<CRMLeadRecord>>(
+      `/leads?${query.toString()}`,
+    );
+    records.push(...response.data);
+
+    if (response.data.length < limit) {
+      break;
+    }
+
+    offset += limit;
   }
 
-  const response = await requestCRM<CRMListResponse<CRMLeadRecord>>(
-    `/leads?${query.toString()}`,
-  );
-  return response.data.map(mapLead);
+  return records.map(mapLead);
 }
 
 /** Fetch one lead by id. Returns null on 404 so callers can treat "deleted
