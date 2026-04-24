@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Bell, Menu, Upload } from "lucide-react";
+import { Menu, Upload } from "lucide-react";
 
+import { NotificationCenter } from "@/components/dashboard/shared/notification-center";
 import { AppTabs } from "@/components/dashboard/shared/app-tabs";
 import { SearchCommand } from "@/components/dashboard/shared/search-command";
 import { UserMenu } from "@/components/dashboard/shared/user-menu";
@@ -83,17 +84,12 @@ export function AppTopbar({
             Import
           </Link>
 
-          <button
-            aria-label="Notifications"
-            className="relative inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
-            type="button"
-          >
-            <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
-            <span
-              aria-hidden="true"
-              className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[var(--signal-red)]"
-            />
-          </button>
+          <NotificationCenter
+            account={account}
+            companyId={companyId}
+            companyName={companyName}
+            demoMode={demoMode}
+          />
 
           <UserMenu
             account={account}
