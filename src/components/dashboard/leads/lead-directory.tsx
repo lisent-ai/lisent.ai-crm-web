@@ -1102,6 +1102,7 @@ export function LeadDirectory() {
         commentDraft={leadCommentDraft}
         comments={leadComments}
         commentsLoading={leadCommentsLoading}
+        companyName={companyName}
         customerLabel={customerLabel}
         editingCommentBody={editingLeadCommentBody}
         editingCommentId={editingLeadCommentId}
