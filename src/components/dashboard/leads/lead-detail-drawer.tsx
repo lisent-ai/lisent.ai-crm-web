@@ -192,6 +192,7 @@ function DrawerBody(props: Readonly<DrawerBodyProps>) {
 
 function ProfileView({
   lead,
+  companyName,
   customerLabel,
   saving,
   commentsLoading,
