@@ -167,7 +167,7 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
             AI
           </span>
           <p className="text-sm font-semibold tracking-[0.14em] text-violet-900">
-            LEAD QUALIFIER
+            LEAD DEĞERLENDİRME
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -175,7 +175,7 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
           {lead.aiPath ? <PathPill path={lead.aiPath} /> : null}
           {lead.aiLastScoredAt ? (
             <span className="text-[11px] text-violet-700/80">
-              scored {formatDateTime(lead.aiLastScoredAt)}
+              {formatDateTime(lead.aiLastScoredAt)} tarihinde değerlendirildi
             </span>
           ) : null}
         </div>
@@ -210,7 +210,7 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
       {lead.aiReasoning && Object.keys(lead.aiReasoning).length > 0 ? (
         <details className="mt-4 rounded-xl border border-violet-100 bg-white">
           <summary className="cursor-pointer px-3 py-2 text-xs font-semibold uppercase tracking-wide text-violet-700">
-            Reasoning report (raw)
+            Ham analiz çıktısı
           </summary>
           <pre className="m-0 overflow-auto border-t border-violet-100 p-3 text-xs leading-6 text-slate-800">
             {JSON.stringify(lead.aiReasoning, null, 2)}
@@ -249,10 +249,10 @@ function EnsembleSummary({
     return (
       <div className="min-w-[200px] flex-1 text-xs text-slate-600">
         <p className="mb-1 font-semibold uppercase tracking-wider text-amber-700">
-          Fallback mode
+          Yedek mod
         </p>
         <p className="text-slate-700">
-          LLM ensemble unavailable — score derived from form data quality heuristics.
+          LLM değerlendirmesi çalışmadı — puan form verisinin kalitesinden hesaplandı.
         </p>
       </div>
     );
@@ -267,28 +267,28 @@ function EnsembleSummary({
       {typeof ensemble.formula_audit_score === "number" &&
       typeof ensemble.median_direct_score === "number" ? (
         <div className="flex items-center gap-2 text-slate-700">
-          <span className="font-semibold">LLM median</span>
+          <span className="font-semibold">LLM medyan</span>
           <span className="font-mono text-violet-900">
             {ensemble.median_direct_score}
           </span>
           <span className="text-slate-400">·</span>
-          <span className="font-semibold">Formula audit</span>
+          <span className="font-semibold">Formül denetimi</span>
           <span className="font-mono text-slate-600">
             {ensemble.formula_audit_score}
           </span>
           {ensemble.divergent ? (
             <span
-              title={`|LLM − formula| = ${ensemble.divergence_abs ?? "?"}`}
+              title={`|LLM − formül| = ${ensemble.divergence_abs ?? "?"}`}
               className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-amber-700"
             >
-              divergent
+              fark var
             </span>
           ) : null}
         </div>
       ) : null}
       {confidence !== null ? (
         <div className="flex items-center gap-2 text-slate-700">
-          <span className="font-semibold">Confidence</span>
+          <span className="font-semibold">Güven</span>
           <span
             className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
               confidence >= 70
@@ -314,15 +314,15 @@ function FallbackBanner({ fallback }: Readonly<{ fallback: PreScoreFallback }>) 
           !
         </span>
         <div className="text-xs">
-          <p className="font-semibold text-amber-900">Fallback scoring applied</p>
+          <p className="font-semibold text-amber-900">Yedek puanlama devrede</p>
           <p className="mt-1 leading-relaxed text-amber-800">
             {fallback.reason
-              ? `Reason: ${fallback.reason}.`
-              : "The LLM ensemble failed for this lead."}
+              ? `Sebep: ${fallback.reason}.`
+              : "Bu lead için LLM değerlendirmesi başarısız oldu."}
             {" "}
-            The score ({typeof fallback.total === "number" ? fallback.total : "?"}) is a
-            basic data-quality estimate. Expect reduced accuracy — treat this lead with
-            your own judgment.
+            Puan ({typeof fallback.total === "number" ? fallback.total : "?"}) sadece
+            form verisinin kalitesinden türetildi. Doğruluk düşük — bu lead&apos;e
+            kendi değerlendirmenle bak.
           </p>
         </div>
       </div>
@@ -343,20 +343,20 @@ function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
   return (
     <div className="mt-4 rounded-xl border border-violet-100 bg-white p-4">
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-violet-700">
-        Call prep
+        Arama hazırlığı
       </p>
       <div className="grid gap-4 md:grid-cols-2">
         {who_they_are ? (
-          <InfoCard label="Who they are" body={who_they_are} />
+          <InfoCard label="Kim bu kişi" body={who_they_are} />
         ) : null}
         {company_or_buyer_profile ? (
-          <InfoCard label="Company / buyer profile" body={company_or_buyer_profile} />
+          <InfoCard label="Firma / alıcı profili" body={company_or_buyer_profile} />
         ) : null}
       </div>
       {recommended_opening ? (
         <div className="mt-4 rounded-lg border border-emerald-100 bg-emerald-50/60 p-3">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-800">
-            Recommended opening
+            Açılış önerisi
           </p>
           <p className="mt-1 text-sm leading-relaxed text-emerald-950">
             {recommended_opening}
@@ -366,7 +366,7 @@ function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
       {key_questions_for_call && key_questions_for_call.length > 0 ? (
         <div className="mt-4">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-violet-700">
-            Key questions for the call
+            Aramada sorulacak sorular
           </p>
           <ol className="mt-2 grid gap-1.5 pl-0 text-sm text-slate-800">
             {key_questions_for_call.map((q, i) => (
@@ -386,7 +386,7 @@ function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
       {risks_to_watch && risks_to_watch.length > 0 ? (
         <div className="mt-4">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-rose-700">
-            Risks to watch
+            Dikkat edilecekler
           </p>
           <ul className="mt-2 grid gap-1.5 pl-0 text-sm text-slate-800">
             {risks_to_watch.map((r, i) => (
@@ -421,20 +421,20 @@ function OSINTPanel({ osint }: Readonly<{ osint: OSINT }>) {
     osint.provider === "self_hosted"
       ? "Self-hosted OSINT"
       : osint.provider === "stub"
-        ? "OSINT disabled (stub)"
+        ? "OSINT devre dışı (stub)"
         : osint.provider === "stub_osint_failure"
-          ? "OSINT fetch failed"
+          ? "OSINT çekilemedi"
           : (osint.provider ?? "OSINT");
 
   const parts: Array<[string, string]> = [];
   if (osint.phone_country) {
-    parts.push(["Phone country", osint.phone_country]);
+    parts.push(["Telefon ülkesi", osint.phone_country]);
   }
   if (osint.email_domain_type) {
-    parts.push(["Email domain", formatDomainType(osint.email_domain_type)]);
+    parts.push(["E-posta domaini", formatDomainType(osint.email_domain_type)]);
   }
   if (typeof osint.email_site_count === "number") {
-    parts.push(["Email footprint", `${osint.email_site_count} sites`]);
+    parts.push(["E-posta ayak izi", `${osint.email_site_count} site`]);
   }
 
   return (
@@ -444,17 +444,17 @@ function OSINTPanel({ osint }: Readonly<{ osint: OSINT }>) {
           <span className="flex h-5 w-5 items-center justify-center rounded-md bg-sky-500 text-[10px] font-bold text-white">
             ◎
           </span>
-          Enrichment — {providerLabel}
+          Zenginleştirme — {providerLabel}
           {osint.cache_hit ? (
             <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-semibold uppercase text-emerald-700">
-              cached
+              önbellek
             </span>
           ) : null}
         </span>
       </summary>
       <div className="grid gap-2 border-t border-sky-100 p-3">
         {parts.length === 0 ? (
-          <p className="text-xs text-slate-500">No enrichment signals available.</p>
+          <p className="text-xs text-slate-500">Zenginleştirme sinyali yok.</p>
         ) : (
           parts.map(([k, v]) => (
             <div key={k} className="flex items-baseline justify-between gap-3 text-xs">
@@ -470,11 +470,11 @@ function OSINTPanel({ osint }: Readonly<{ osint: OSINT }>) {
 
 function formatDomainType(t: string): string {
   const map: Record<string, string> = {
-    corporate_verified: "corporate (verified)",
-    corporate_suspected: "corporate (suspected)",
+    corporate_verified: "kurumsal (doğrulanmış)",
+    corporate_suspected: "kurumsal (tahmini)",
     freemail: "freemail (gmail/hotmail/...)",
-    disposable: "disposable",
-    missing: "unknown",
+    disposable: "tek kullanımlık",
+    missing: "bilinmiyor",
   };
   return map[t] ?? t;
 }
@@ -489,7 +489,7 @@ function EnsembleDetails({ ensemble }: Readonly<{ ensemble: PreScoreEnsemble }>)
           <span className="flex h-5 w-5 items-center justify-center rounded-md bg-violet-600 text-[10px] font-bold text-white">
             Σ
           </span>
-          Persona ensemble
+          Persona skorları
         </span>
       </summary>
       <div className="grid gap-2 border-t border-violet-100 p-3">
@@ -540,7 +540,7 @@ function ChampSection({ champ }: Readonly<{ champ: Record<string, unknown> }>) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-violet-700">
-              CHAMP extraction (chat path)
+              CHAMP çıkarımı (sohbet yolu)
             </p>
             {confidence ? (
               <span
@@ -552,7 +552,7 @@ function ChampSection({ champ }: Readonly<{ champ: Record<string, unknown> }>) {
                       : "bg-slate-200 text-slate-600"
                 }`}
               >
-                {confidence} confidence
+                güven: {confidence}
               </span>
             ) : null}
           </div>
@@ -593,7 +593,7 @@ function ChampSection({ champ }: Readonly<{ champ: Record<string, unknown> }>) {
               </div>
               {c !== null ? (
                 <p className="mt-1 text-[10px] text-slate-400">
-                  confidence {Math.round(c * 100)}%
+                  güven %{Math.round(c * 100)}
                 </p>
               ) : null}
               {typeof notes === "string" && notes ? (
@@ -633,11 +633,12 @@ function PathPill({ path }: Readonly<{ path: string }>) {
     path === "fast"
       ? "bg-emerald-50 text-emerald-700 border-emerald-200"
       : "bg-violet-50 text-violet-700 border-violet-200";
+  const label = path === "fast" ? "hızlı yol" : path === "chat" ? "sohbet yolu" : path;
   return (
     <span
       className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${cls}`}
     >
-      {path} path
+      {label}
     </span>
   );
 }
