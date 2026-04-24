@@ -44,13 +44,13 @@ export function AuthFormCard({
       : "Start with email and password. Tenant assignment comes next.";
 
   return (
-    <div className="rounded-[1.8rem] border border-white/10 bg-white/6 p-7 text-violet-50 shadow-[0_18px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl">
-      <div className="flex items-center justify-between">
+    <div className="rounded-[1.6rem] border border-white/10 bg-white/6 p-5 text-violet-50 shadow-[0_18px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:rounded-[1.8rem] sm:p-7">
+      <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-violet-300/70">
             Workspace auth
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
             {title}
           </h2>
           <p className="mt-3 text-sm leading-6 text-violet-100/60">{subtitle}</p>
@@ -59,7 +59,7 @@ export function AuthFormCard({
 
       <div className="mt-6 grid grid-cols-2 rounded-full border border-white/8 bg-white/5 p-1 text-sm font-semibold">
         <Link
-          className={`rounded-full px-4 py-2 text-center transition ${
+          className={`rounded-full px-3 py-2 text-center transition sm:px-4 ${
             mode === "signin"
               ? "bg-violet-400/18 text-white shadow-[0_0_24px_rgba(172,107,255,0.28)]"
               : "text-violet-100/55 hover:text-violet-50"
@@ -69,7 +69,7 @@ export function AuthFormCard({
           Sign in
         </Link>
         <Link
-          className={`rounded-full px-4 py-2 text-center transition ${
+          className={`rounded-full px-3 py-2 text-center transition sm:px-4 ${
             mode === "signup"
               ? "bg-violet-400/18 text-white shadow-[0_0_24px_rgba(172,107,255,0.28)]"
               : "text-violet-100/55 hover:text-violet-50"
