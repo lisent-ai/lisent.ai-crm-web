@@ -25,7 +25,6 @@ import {
   type Lead,
   type LeadComment,
   type LeadAssignmentMethod,
-  type UpsertLeadInput,
   updateLeadComment,
   updateCompanyExtraData,
   updateLead,
@@ -482,28 +481,6 @@ export function LeadDirectory() {
     };
   }
 
-  function buildLeadUpdateInput(
-    lead: Lead,
-    overrides: Partial<UpsertLeadInput> = {},
-  ): UpsertLeadInput {
-    return {
-      companyId: selectedCompany?.id ?? lead.companyId,
-      customerId: lead.customerId,
-      name: lead.name,
-      email: lead.email,
-      phone: lead.phone,
-      notes: lead.notes,
-      status: lead.status,
-      source: lead.source,
-      assigneeUserId: lead.assigneeUserId,
-      assigneeUserName: lead.assigneeUserName,
-      assignmentMethod: lead.assignmentMethod,
-      value: lead.value,
-      extraData: lead.extraData,
-      ...overrides,
-    };
-  }
-
   function openCreateModal() {
     setEditingLeadId(null);
     setLeadForm(emptyLeadForm);
@@ -652,14 +629,11 @@ export function LeadDirectory() {
 
     for (const lead of rows) {
       try {
-        await updateLead(
-          lead.id,
-          buildLeadUpdateInput(lead, {
-            assigneeUserId: assignee.userId,
-            assigneeUserName: assignee.displayName,
-            assignmentMethod: "manual",
-          }),
-        );
+        await updateLead(lead.id, {
+          assigneeUserId: assignee.userId,
+          assigneeUserName: assignee.displayName,
+          assignmentMethod: "manual",
+        });
         succeeded.push(lead.id);
       } catch {
         failed.push(lead.id);
@@ -893,7 +867,6 @@ export function LeadDirectory() {
         assignmentMethod: "round_robin",
       });
       await updateLead(lead.id, {
-        ...buildLeadUpdateInput(lead),
         assigneeUserId: assignment.assigneeUserId,
         assigneeUserName: assignment.assigneeUserName,
         assignmentMethod: "round_robin",

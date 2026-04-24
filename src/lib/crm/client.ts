@@ -1007,25 +1007,33 @@ export async function createLead(input: UpsertLeadInput): Promise<Lead> {
 
 export async function updateLead(
   leadId: string,
-  input: UpsertLeadInput,
+  input: Partial<UpsertLeadInput>,
 ): Promise<Lead> {
   const payload = await requestCRM<CRMLeadRecord>(`/leads/${leadId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      company_id: input.companyId,
-      customer_id: input.customerId?.trim() || null,
-      name: input.name.trim(),
-      email: input.email.trim(),
-      phone: input.phone.trim(),
-      notes: input.notes.trim(),
-      status: input.status,
-      source: input.source.trim(),
-      assignee_user_id: input.assigneeUserId.trim(),
-      assignee_user_name: input.assigneeUserName.trim(),
-      assignment_method: input.assignmentMethod,
-      value: input.value,
-      extra_data: input.extraData ?? {},
+      ...(input.companyId !== undefined ? { company_id: input.companyId } : {}),
+      ...(input.customerId !== undefined
+        ? { customer_id: input.customerId.trim() || null }
+        : {}),
+      ...(input.name !== undefined ? { name: input.name.trim() } : {}),
+      ...(input.email !== undefined ? { email: input.email.trim() } : {}),
+      ...(input.phone !== undefined ? { phone: input.phone.trim() } : {}),
+      ...(input.notes !== undefined ? { notes: input.notes.trim() } : {}),
+      ...(input.status !== undefined ? { status: input.status } : {}),
+      ...(input.source !== undefined ? { source: input.source.trim() } : {}),
+      ...(input.assigneeUserId !== undefined
+        ? { assignee_user_id: input.assigneeUserId.trim() }
+        : {}),
+      ...(input.assigneeUserName !== undefined
+        ? { assignee_user_name: input.assigneeUserName.trim() }
+        : {}),
+      ...(input.assignmentMethod !== undefined
+        ? { assignment_method: input.assignmentMethod }
+        : {}),
+      ...(input.value !== undefined ? { value: input.value } : {}),
+      ...(input.extraData !== undefined ? { extra_data: input.extraData ?? {} } : {}),
     }),
   });
   return mapLead(payload);
