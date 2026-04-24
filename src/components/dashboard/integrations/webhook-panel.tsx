@@ -4,11 +4,34 @@ import { useCallback, useEffect, useState } from "react";
 
 import {
   WebhookConfig,
+  WebhookPatchInput,
   WebhookPatchResult,
+  WebhookPayloadMode,
   getWebhookConfig,
   patchWebhookConfig,
   testWebhook,
 } from "@/lib/qualifier/webhook-client";
+
+const CATEGORY_LABELS: Record<string, string> = {
+  scoring: "Scoring",
+  lifecycle: "Lifecycle",
+  pipeline: "Pipeline",
+};
+
+function splitPatterns(enabled: string[]): { exacts: Set<string>; customs: string[] } {
+  const exacts = new Set<string>();
+  const customs: string[] = [];
+  for (const raw of enabled) {
+    const p = (raw ?? "").trim();
+    if (!p) continue;
+    if (p === "*" || p.endsWith(".*")) {
+      customs.push(p);
+    } else {
+      exacts.add(p);
+    }
+  }
+  return { exacts, customs };
+}
 
 type Props = {
   companyId: string;
@@ -26,6 +49,11 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
   const [justRotatedSecret, setJustRotatedSecret] = useState<string | null>(null);
   const [lastTestResult, setLastTestResult] = useState<string | null>(null);
 
+  const [selectedEvents, setSelectedEvents] = useState<Set<string>>(new Set());
+  const [customPatterns, setCustomPatterns] = useState<string>("");
+  const [payloadMode, setPayloadMode] = useState<WebhookPayloadMode>("full");
+  const [savingEvents, setSavingEvents] = useState(false);
+
   const refresh = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -33,6 +61,10 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
       const cfg = await getWebhookConfig(companyId);
       setConfig(cfg);
       setUrlInput(cfg.url ?? "");
+      const { exacts, customs } = splitPatterns(cfg.enabled_events ?? ["*"]);
+      setSelectedEvents(exacts);
+      setCustomPatterns(customs.join("\n"));
+      setPayloadMode(cfg.payload_mode ?? "full");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load webhook config");
     } finally {
@@ -64,6 +96,54 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
       setError(err instanceof Error ? err.message : "Save failed");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const toggleEvent = (event: string) => {
+    setSelectedEvents((prev) => {
+      const next = new Set(prev);
+      if (next.has(event)) next.delete(event);
+      else next.add(event);
+      return next;
+    });
+  };
+
+  const toggleCategory = (events: string[], enable: boolean) => {
+    setSelectedEvents((prev) => {
+      const next = new Set(prev);
+      for (const e of events) {
+        if (enable) next.add(e);
+        else next.delete(e);
+      }
+      return next;
+    });
+  };
+
+  const saveEventSelection = async () => {
+    setSavingEvents(true);
+    setNotice(null);
+    setError(null);
+    try {
+      const customs = customPatterns
+        .split(/[\n,]/)
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+      const patterns = [...Array.from(selectedEvents), ...customs];
+      if (patterns.length === 0) {
+        setError("Select at least one event (or add a '*' pattern)");
+        return;
+      }
+      const patch: WebhookPatchInput = {
+        enabled_events: patterns,
+        payload_mode: payloadMode,
+      };
+      await patchWebhookConfig(companyId, patch);
+      setNotice("Event selection saved");
+      await refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Save failed");
+    } finally {
+      setSavingEvents(false);
     }
   };
 
@@ -198,6 +278,114 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
             {lastTestResult}
           </div>
         ) : null}
+      </div>
+
+      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">
+        <div>
+          <h3 className="text-sm font-semibold text-slate-900">Event selection</h3>
+          <p className="mt-1 text-xs text-slate-500">
+            Choose which events fan out to your webhook. Use <code className="rounded bg-slate-100 px-1">*</code>{" "}
+            (all) or prefix patterns like <code className="rounded bg-slate-100 px-1">lead.*</code>{" "}
+            under &quot;Custom patterns&quot; to grant future event types without re-deploying.
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          {Object.entries(config?.event_catalog ?? {}).map(([category, events]) => {
+            const allOn = events.every((e) => selectedEvents.has(e));
+            return (
+              <div key={category} className="rounded-xl border border-slate-100 p-3">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-700">
+                    {CATEGORY_LABELS[category] ?? category}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => toggleCategory(events, !allOn)}
+                    className="text-[11px] font-medium text-sky-700 hover:text-sky-900"
+                  >
+                    {allOn ? "Clear" : "Select all"}
+                  </button>
+                </div>
+                <ul className="mt-2 space-y-1.5">
+                  {events.map((e) => (
+                    <li key={e}>
+                      <label className="flex items-center gap-2 text-xs text-slate-700">
+                        <input
+                          type="checkbox"
+                          checked={selectedEvents.has(e)}
+                          onChange={() => toggleEvent(e)}
+                          className="h-3.5 w-3.5 rounded border-slate-300"
+                        />
+                        <code className="font-mono text-[11px] text-slate-800">{e}</code>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+
+        <div>
+          <label htmlFor="custom-patterns" className="block text-xs font-medium text-slate-700">
+            Custom patterns (one per line)
+          </label>
+          <textarea
+            id="custom-patterns"
+            value={customPatterns}
+            onChange={(e) => setCustomPatterns(e.target.value)}
+            placeholder={"lead.*\n*"}
+            rows={2}
+            className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-xs text-slate-900 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
+          />
+        </div>
+
+        <fieldset>
+          <legend className="text-xs font-medium text-slate-700">Payload mode</legend>
+          <div className="mt-2 flex flex-wrap gap-4 text-xs text-slate-700">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="payload-mode"
+                value="full"
+                checked={payloadMode === "full"}
+                onChange={() => setPayloadMode("full")}
+              />
+              <span>
+                <span className="font-medium">Full snapshot</span>
+                <span className="ml-1 text-slate-500">— embed entire event body (default)</span>
+              </span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="payload-mode"
+                value="minimal"
+                checked={payloadMode === "minimal"}
+                onChange={() => setPayloadMode("minimal")}
+              />
+              <span>
+                <span className="font-medium">Minimal</span>
+                <span className="ml-1 text-slate-500">— lead_id only; pull detail via REST</span>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div className="flex items-center justify-between border-t border-slate-100 pt-3">
+          <div className="text-[11px] text-slate-500">
+            Current: <code className="font-mono">{(config?.enabled_events ?? []).join(", ") || "—"}</code>
+          </div>
+          <button
+            type="button"
+            disabled={savingEvents}
+            onClick={() => void saveEventSelection()}
+            className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 disabled:opacity-50"
+          >
+            {savingEvents ? "Saving…" : "Save event selection"}
+          </button>
+        </div>
       </div>
 
       <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-6">

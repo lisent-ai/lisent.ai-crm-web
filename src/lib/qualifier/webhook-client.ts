@@ -8,10 +8,15 @@
 
 import { QualifierV1Error } from "./api-keys-client";
 
+export type WebhookPayloadMode = "full" | "minimal";
+
 export type WebhookConfig = {
   url: string | null;
   has_secret: boolean;
   secret_rotated_at: string | null;
+  enabled_events: string[];
+  payload_mode: WebhookPayloadMode;
+  event_catalog: Record<string, string[]>;
   dlq_size: number;
   recent_dlq: Array<{
     event_id: string | null;
@@ -28,6 +33,15 @@ export type WebhookPatchResult = {
   has_secret: boolean;
   secret: string | null;  // plaintext, returned ONCE
   secret_rotated_at: string | null;
+  enabled_events: string[];
+  payload_mode: WebhookPayloadMode;
+};
+
+export type WebhookPatchInput = {
+  url?: string;
+  rotate_secret?: boolean;
+  enabled_events?: string[];
+  payload_mode?: WebhookPayloadMode;
 };
 
 export type WebhookTestResult = {
@@ -75,7 +89,7 @@ export async function getWebhookConfig(companyId: string): Promise<WebhookConfig
 
 export async function patchWebhookConfig(
   companyId: string,
-  patch: { url?: string; rotate_secret?: boolean },
+  patch: WebhookPatchInput,
 ): Promise<WebhookPatchResult> {
   return bffRequest<WebhookPatchResult>(companyId, "/config/webhook", {
     method: "PATCH",
