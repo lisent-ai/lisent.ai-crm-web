@@ -13,10 +13,13 @@ type LeadStatusTabsProps = {
   onChange: (next: string) => void;
   counts: ReadonlyArray<{ status: LeadStatus; count: number }>;
   totalCount: number;
+  assignedToMeCount: number;
+  assignedToMeDisabled?: boolean;
 };
 
 const LABELS: Record<string, string> = {
   all: "All",
+  assigned_to_me: "Assigned to me",
   new: "New",
   contacted: "Contacted",
   qualified: "Qualified",
@@ -29,9 +32,16 @@ export function LeadStatusTabs({
   onChange,
   counts,
   totalCount,
+  assignedToMeCount,
+  assignedToMeDisabled = false,
 }: Readonly<LeadStatusTabsProps>) {
   const options: StatusTabOption[] = [
     { value: "all", label: LABELS.all ?? "All", count: totalCount },
+    {
+      value: "assigned_to_me",
+      label: LABELS.assigned_to_me ?? "Assigned to me",
+      count: assignedToMeCount,
+    },
     ...leadStatuses.map((status) => ({
       value: status,
       label: LABELS[status] ?? status,
@@ -47,14 +57,20 @@ export function LeadStatusTabs({
     >
       {options.map((option) => {
         const active = option.value === value;
+        const disabled = option.value === "assigned_to_me" && assignedToMeDisabled;
         return (
           <button
             aria-selected={active}
             className={`relative inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2.5 text-sm transition ${
+              disabled
+                ? "cursor-not-allowed text-[var(--text-muted)]"
+                : ""
+            } ${
               active
                 ? "font-semibold text-[var(--text-primary)]"
                 : "font-medium text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
             }`}
+            disabled={disabled}
             key={option.value}
             onClick={() => onChange(option.value)}
             role="tab"

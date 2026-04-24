@@ -58,6 +58,28 @@ import {
 } from "./lead-types";
 import { buildLeadCsv, downloadCsv, parseLeadValue } from "./lead-utils";
 
+function buildLeadFilters(input: {
+  tab: string;
+  accountUserId: string;
+  sourceFilter: string;
+  assigneeFilter: string;
+  searchQuery: string;
+  showOnlyUnassigned: boolean;
+}) {
+  const assignedToMeActive = input.tab === "assigned_to_me";
+  const explicitAssigneeFilter = input.assigneeFilter === "all" ? "" : input.assigneeFilter;
+  const effectiveAssigneeFilter =
+    explicitAssigneeFilter || (assignedToMeActive ? input.accountUserId : "");
+
+  return {
+    status: input.tab === "all" || assignedToMeActive ? "" : input.tab,
+    source: input.sourceFilter === "all" ? "" : input.sourceFilter,
+    assigneeUserId: effectiveAssigneeFilter,
+    q: input.searchQuery,
+    unassigned: assignedToMeActive ? false : input.showOnlyUnassigned,
+  };
+}
+
 export function LeadDirectory() {
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
@@ -179,6 +201,26 @@ export function LeadDirectory() {
     () => companies.find((company) => company.id === activeCompanyId) ?? null,
     [activeCompanyId, companies],
   );
+  const accountUserId = account?.userId?.trim() ?? "";
+  const leadFilters = useMemo(
+    () =>
+      buildLeadFilters({
+        tab: statusFilter,
+        accountUserId,
+        sourceFilter,
+        assigneeFilter,
+        searchQuery,
+        showOnlyUnassigned,
+      }),
+    [
+      accountUserId,
+      assigneeFilter,
+      searchQuery,
+      showOnlyUnassigned,
+      sourceFilter,
+      statusFilter,
+    ],
+  );
 
   const [aiEnabled, setAIEnabled] = useState(false);
 
@@ -239,13 +281,7 @@ export function LeadDirectory() {
       setLeadsLoading(true);
       setErrorMessage(null);
       try {
-        const nextLeads = await listLeads(companyId, {
-          status: statusFilter === "all" ? "" : statusFilter,
-          source: sourceFilter === "all" ? "" : sourceFilter,
-          assigneeUserId: assigneeFilter === "all" ? "" : assigneeFilter,
-          q: searchQuery,
-          unassigned: showOnlyUnassigned,
-        });
+        const nextLeads = await listLeads(companyId, leadFilters);
 
         if (!cancelled) {
           setLeads(nextLeads);
@@ -269,12 +305,8 @@ export function LeadDirectory() {
       cancelled = true;
     };
   }, [
-    assigneeFilter,
-    searchQuery,
+    leadFilters,
     selectedCompany?.id,
-    showOnlyUnassigned,
-    sourceFilter,
-    statusFilter,
   ]);
 
   useEffect(() => {
@@ -350,6 +382,14 @@ export function LeadDirectory() {
     [leads],
   );
 
+  const assignedToMeCount = useMemo(
+    () =>
+      accountUserId
+        ? leads.filter((lead) => lead.assigneeUserId === accountUserId).length
+        : 0,
+    [accountUserId, leads],
+  );
+
   const customerLabel =
     selectedLead?.customerId
       ? customers.find((customer) => customer.id === selectedLead.customerId)?.name
@@ -405,13 +445,7 @@ export function LeadDirectory() {
 
   async function reloadReferenceData(companyId: string) {
     const [nextLeads, nextCustomers, nextMembers] = await Promise.all([
-      listLeads(companyId, {
-        status: statusFilter === "all" ? "" : statusFilter,
-        source: sourceFilter === "all" ? "" : sourceFilter,
-        assigneeUserId: assigneeFilter === "all" ? "" : assigneeFilter,
-        q: searchQuery,
-        unassigned: showOnlyUnassigned,
-      }),
+      listLeads(companyId, leadFilters),
       listCustomers(companyId).catch(() => []),
       listCompanyMembers(companyId).catch(() => []),
     ]);
@@ -426,6 +460,41 @@ export function LeadDirectory() {
       return null;
     });
     return nextLeads;
+  }
+
+  function handleStatusTabChange(next: string) {
+    if (next === "assigned_to_me") {
+      setAssigneeFilter("all");
+      setShowOnlyUnassigned(false);
+    }
+
+    setStatusFilter(next);
+  }
+
+  function handleAssigneeFilterChange(next: string) {
+    setAssigneeFilter(next);
+
+    if (!accountUserId) {
+      return;
+    }
+
+    if (next === accountUserId) {
+      setShowOnlyUnassigned(false);
+      setStatusFilter("assigned_to_me");
+      return;
+    }
+
+    if (next !== "all" && statusFilter === "assigned_to_me") {
+      setStatusFilter("all");
+    }
+  }
+
+  function handleShowOnlyUnassignedChange(next: boolean) {
+    setShowOnlyUnassigned(next);
+
+    if (next && statusFilter === "assigned_to_me") {
+      setStatusFilter("all");
+    }
   }
 
   async function resolveAssignment(
@@ -946,8 +1015,10 @@ export function LeadDirectory() {
         <section className="overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
           <div className="border-b border-[var(--border-subtle)] px-4 pt-1 sm:px-5">
             <LeadStatusTabs
+              assignedToMeCount={assignedToMeCount}
+              assignedToMeDisabled={!accountUserId}
               counts={pipelineCounts}
-              onChange={setStatusFilter}
+              onChange={handleStatusTabChange}
               totalCount={leads.length}
               value={statusFilter}
             />
@@ -959,9 +1030,9 @@ export function LeadDirectory() {
               assigneeOptions={assigneeOptions}
               canAdd={!!selectedCompany && !saving}
               onAdd={openCreateModal}
-              onAssigneeChange={setAssigneeFilter}
+              onAssigneeChange={handleAssigneeFilterChange}
               onSearchChange={setSearchQuery}
-              onShowUnassignedChange={setShowOnlyUnassigned}
+              onShowUnassignedChange={handleShowOnlyUnassignedChange}
               onSourceChange={setSourceFilter}
               searchQuery={searchQuery}
               showOnlyUnassigned={showOnlyUnassigned}
