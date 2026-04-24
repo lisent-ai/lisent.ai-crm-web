@@ -469,12 +469,20 @@ function OSINTPanel({ osint }: Readonly<{ osint: OSINT }>) {
 }
 
 function formatDomainType(t: string): string {
+  // Objective categorization — no "suspected", no "freemail" as a
+  // judgment. gmail/outlook users are the majority of real leads;
+  // labeling them as inferior to a corporate domain would be misleading.
   const map: Record<string, string> = {
-    corporate_verified: "kurumsal (doğrulanmış)",
-    corporate_suspected: "kurumsal (tahmini)",
-    freemail: "freemail (gmail/hotmail/...)",
+    registry_tld: "resmi tescilli (.gov/.edu)",
+    country_tld: "ülke domaini (.com.tr, .de, .co.uk, ...)",
+    generic_tld: "özel domain (.com, .net, ...)",
+    public_provider: "genel e-posta servisi (gmail/outlook/yahoo)",
     disposable: "tek kullanımlık",
-    missing: "bilinmiyor",
+    missing: "bilgi yok",
+    // Back-compat for records stored under the old labels
+    corporate_verified: "resmi tescilli",
+    corporate_suspected: "özel domain",
+    freemail: "genel e-posta servisi",
   };
   return map[t] ?? t;
 }
