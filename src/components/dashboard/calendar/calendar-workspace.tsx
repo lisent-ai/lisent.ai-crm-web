@@ -57,6 +57,14 @@ function endOfDay(value: Date) {
   return new Date(value.getFullYear(), value.getMonth(), value.getDate(), 23, 59, 59, 999);
 }
 
+function isPastDateForNewEvent(value: Date, allDay = false) {
+  const now = new Date();
+  if (allDay) {
+    return startOfDay(value).getTime() < startOfDay(now).getTime();
+  }
+  return value.getTime() < now.getTime();
+}
+
 function addDays(value: Date, amount: number) {
   const next = new Date(value);
   next.setDate(next.getDate() + amount);
@@ -594,7 +602,13 @@ export function CalendarWorkspace() {
     }
   }
 
-function openCreateModal(date?: Date) {
+  function openCreateModal(date?: Date) {
+    if (date && isPastDateForNewEvent(date, true)) {
+      setErrorMessage("New activities cannot be scheduled on past dates.");
+      setSuccessMessage(null);
+      return;
+    }
+
     const nextForm = emptyForm();
     if (date) {
       const start = startOfDay(date);
@@ -636,6 +650,14 @@ function openCreateModal(date?: Date) {
     }
     if (form.linkedEntityType && !form.linkedEntityId.trim()) {
       setErrorMessage("Please choose the record you want to link.");
+      return;
+    }
+
+    const startCandidate = new Date(
+      form.allDay ? `${form.startAt}T00:00:00` : form.startAt,
+    );
+    if (!editingEventId && isPastDateForNewEvent(startCandidate, form.allDay)) {
+      setErrorMessage("New activities cannot be scheduled on past dates.");
       return;
     }
 
@@ -963,6 +985,26 @@ function openCreateModal(date?: Date) {
 
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
+          {view !== "week" ? (
+            <div className="inline-flex h-8 items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] p-0.5">
+              <button
+                aria-label={`Previous ${viewLabel.toLowerCase()}`}
+                className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+                onClick={() => moveRange(-1)}
+                type="button"
+              >
+                <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <button
+                aria-label={`Next ${viewLabel.toLowerCase()}`}
+                className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+                onClick={() => moveRange(1)}
+                type="button"
+              >
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+          ) : null}
           <h2 className="text-xl font-semibold tracking-tight text-[var(--text-primary)]">
             {formatMonthTitle(activeDate)}
           </h2>
@@ -1255,6 +1297,7 @@ function MonthGrid({
           const dayEvents = eventsByDay.get(key) ?? [];
           const isCurrentMonth = day.getMonth() === activeDate.getMonth();
           const isToday = key === todayKey;
+          const isPastDay = startOfDay(day).getTime() < startOfDay(new Date()).getTime();
 
           return (
             <div
@@ -1277,7 +1320,8 @@ function MonthGrid({
                 </span>
                 <button
                   aria-label={`Add event on ${day.toLocaleDateString()}`}
-                  className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-tertiary)] opacity-0 transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)] group-hover:opacity-100"
+                  className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-tertiary)] opacity-0 transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)] group-hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-[var(--text-tertiary)]"
+                  disabled={isPastDay}
                   onClick={() => onCreate(day)}
                   type="button"
                 >

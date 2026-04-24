@@ -43,6 +43,25 @@ type CalendarEventModalProps = {
   onSave: () => void;
 };
 
+function buildMinDateValue() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function buildMinDateTimeValue() {
+  const now = new Date();
+  now.setSeconds(0, 0);
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
 const eventTypeOptions: Array<{ value: CalendarEventType; label: string }> = [
   { value: "follow_up", label: "Follow-up" },
   { value: "call", label: "Call" },
@@ -106,11 +125,14 @@ export function CalendarEventModal({
             label: deal.name || deal.id,
           }))
         : form.linkedEntityType === "customer"
-          ? customers.map((customer) => ({
-              value: customer.id,
-              label: customer.name || customer.email || customer.id,
-            }))
-          : [];
+        ? customers.map((customer) => ({
+            value: customer.id,
+            label: customer.name || customer.email || customer.id,
+          }))
+        : [];
+
+  const minimumStartValue = form.allDay ? buildMinDateValue() : buildMinDateTimeValue();
+  const minimumEndValue = form.startAt.trim() ? form.startAt : minimumStartValue;
 
   return (
     <div
@@ -231,6 +253,7 @@ export function CalendarEventModal({
             {form.allDay ? "Start date" : "Start"}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
+              min={!editing ? minimumStartValue : undefined}
               onChange={(event) => updateField("startAt", event.target.value)}
               type={form.allDay ? "date" : "datetime-local"}
               value={form.startAt}
@@ -241,6 +264,7 @@ export function CalendarEventModal({
             {form.allDay ? "End date" : "End"}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
+              min={minimumEndValue}
               onChange={(event) => updateField("endAt", event.target.value)}
               type={form.allDay ? "date" : "datetime-local"}
               value={form.endAt}
