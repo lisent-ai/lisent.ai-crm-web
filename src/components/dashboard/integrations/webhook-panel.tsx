@@ -166,7 +166,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
 
   if (loading && !config) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-center text-sm text-[var(--text-tertiary)] sm:p-8">
         Loading webhook config…
       </div>
     );
@@ -175,43 +175,48 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
   return (
     <section className="space-y-6">
       <header>
-        <h2 className="text-xl font-semibold text-slate-900">Outbound Webhooks</h2>
-        <p className="mt-1 text-sm text-slate-500">
-          <strong>{companyName}</strong> — Qualifier publishes each{" "}
-          <code className="rounded bg-slate-100 px-1 py-0.5 text-xs">score.updated</code>{" "}
-          event to your HTTPS endpoint with an HMAC-SHA256 signature. Retry policy: 6
-          attempts over ~7h; failures land in DLQ.
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">
+          Outbound Webhooks
+        </h2>
+        <p className="mt-1 text-sm text-[var(--text-tertiary)]">
+          <strong className="text-[var(--text-secondary)]">{companyName}</strong> — Qualifier
+          publishes each{" "}
+          <code className="rounded bg-[var(--surface-inset)] px-1 py-0.5 font-mono text-xs text-[var(--text-primary)]">
+            score.updated
+          </code>{" "}
+          event to your HTTPS endpoint with an HMAC-SHA256 signature. Retry policy: 6 attempts over
+          ~7h; failures land in DLQ.
         </p>
       </header>
 
       {error ? (
-        <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {error}
         </div>
       ) : null}
 
       {notice ? (
-        <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+        <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
           {notice}
         </div>
       ) : null}
 
       {justRotatedSecret ? (
-        <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+        <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-amber)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-amber)]">
           <div className="font-semibold">New webhook signing secret (copy now — shown once):</div>
-          <code className="mt-2 block break-all rounded bg-white px-2 py-1 font-mono text-xs text-slate-900">
+          <code className="mt-2 block break-all rounded-xl bg-[var(--surface)] px-2 py-1 font-mono text-xs text-[var(--text-primary)]">
             {justRotatedSecret}
           </code>
-          <p className="mt-2 text-xs text-amber-800">
-            Update your consumer&apos;s verifier with this value. Existing in-flight
-            retries will be signed with the new secret on their next attempt.
+          <p className="mt-2 text-xs">
+            Update your consumer&apos;s verifier with this value. Existing in-flight retries will be
+            signed with the new secret on their next attempt.
           </p>
         </div>
       ) : null}
 
-      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">
+      <div className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <div>
-          <label htmlFor="webhook-url" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="webhook-url" className="block text-sm font-medium text-[var(--text-secondary)]">
             Destination URL
           </label>
           <input
@@ -220,37 +225,37 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
             placeholder="https://consumer.example.com/lisent/webhook"
-            className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-mono text-slate-900 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
+            className="mt-1 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] transition focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
           />
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-[var(--text-tertiary)]">
             HTTPS only. Consumer must return 2xx within 10s; otherwise the delivery is
             retried per the schedule above.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
-          <div className="text-xs text-slate-600">
-            <span className="font-medium text-slate-700">Signing secret:</span>{" "}
+        <div className="flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="text-xs text-[var(--text-secondary)]">
+            <span className="font-medium text-[var(--text-primary)]">Signing secret:</span>{" "}
             {config?.has_secret ? (
               <>
-                <span className="text-emerald-700">configured</span>
+                <span className="text-[var(--signal-green)]">configured</span>
                 {config.secret_rotated_at ? (
-                  <span className="text-slate-500">
+                  <span className="text-[var(--text-tertiary)]">
                     {" "}
                     (rotated {new Date(config.secret_rotated_at).toLocaleString()})
                   </span>
                 ) : null}
               </>
             ) : (
-              <span className="text-slate-500">not set — will be generated on first save</span>
+              <span className="text-[var(--text-tertiary)]">not set — will be generated on first save</span>
             )}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               disabled={saving}
               onClick={() => void save()}
-              className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 disabled:opacity-50"
+              className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
             >
               {saving ? "Saving…" : "Save URL"}
             </button>
@@ -258,7 +263,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
               type="button"
               disabled={saving || !config?.url}
               onClick={() => void save({ rotate: true })}
-              className="rounded-lg border border-amber-300 px-4 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-50 disabled:opacity-50"
+              className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-amber)] transition hover:bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] disabled:opacity-50"
             >
               Rotate secret
             </button>
@@ -266,7 +271,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
               type="button"
               disabled={!config?.url || !config?.has_secret}
               onClick={() => void runTest()}
-              className="rounded-lg border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+              className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
             >
               Send test event
             </button>
@@ -274,35 +279,37 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
         </div>
 
         {lastTestResult ? (
-          <div className="rounded-lg border border-sky-200 bg-sky-50 px-3 py-2 text-xs text-sky-800">
+          <div className="rounded-xl border border-[color-mix(in_srgb,_var(--accent)_24%,_transparent)] bg-[var(--accent-soft)] px-3 py-2 text-xs text-[var(--accent-strong)]">
             {lastTestResult}
           </div>
         ) : null}
       </div>
 
-      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">
+      <div className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <div>
-          <h3 className="text-sm font-semibold text-slate-900">Event selection</h3>
-          <p className="mt-1 text-xs text-slate-500">
-            Choose which events fan out to your webhook. Use <code className="rounded bg-slate-100 px-1">*</code>{" "}
-            (all) or prefix patterns like <code className="rounded bg-slate-100 px-1">lead.*</code>{" "}
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">Event selection</h3>
+          <p className="mt-1 text-xs text-[var(--text-tertiary)]">
+            Choose which events fan out to your webhook. Use{" "}
+            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">*</code>{" "}
+            (all) or prefix patterns like{" "}
+            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">lead.*</code>{" "}
             under &quot;Custom patterns&quot; to grant future event types without re-deploying.
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {Object.entries(config?.event_catalog ?? {}).map(([category, events]) => {
             const allOn = events.every((e) => selectedEvents.has(e));
             return (
-              <div key={category} className="rounded-xl border border-slate-100 p-3">
-                <div className="flex items-center justify-between">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-700">
+              <div key={category} className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
                     {CATEGORY_LABELS[category] ?? category}
                   </div>
                   <button
                     type="button"
                     onClick={() => toggleCategory(events, !allOn)}
-                    className="text-[11px] font-medium text-sky-700 hover:text-sky-900"
+                    className="text-[11px] font-medium text-[var(--accent-strong)] transition hover:text-[var(--accent)]"
                   >
                     {allOn ? "Clear" : "Select all"}
                   </button>
@@ -310,14 +317,14 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
                 <ul className="mt-2 space-y-1.5">
                   {events.map((e) => (
                     <li key={e}>
-                      <label className="flex items-center gap-2 text-xs text-slate-700">
+                      <label className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
                         <input
                           type="checkbox"
                           checked={selectedEvents.has(e)}
                           onChange={() => toggleEvent(e)}
-                          className="h-3.5 w-3.5 rounded border-slate-300"
+                          className="h-3.5 w-3.5 rounded border-[var(--border-default)] accent-[var(--accent)]"
                         />
-                        <code className="font-mono text-[11px] text-slate-800">{e}</code>
+                        <code className="font-mono text-[11px] text-[var(--text-primary)]">{e}</code>
                       </label>
                     </li>
                   ))}
@@ -328,7 +335,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
         </div>
 
         <div>
-          <label htmlFor="custom-patterns" className="block text-xs font-medium text-slate-700">
+          <label htmlFor="custom-patterns" className="block text-xs font-medium text-[var(--text-secondary)]">
             Custom patterns (one per line)
           </label>
           <textarea
@@ -337,80 +344,85 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
             onChange={(e) => setCustomPatterns(e.target.value)}
             placeholder={"lead.*\n*"}
             rows={2}
-            className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-xs text-slate-900 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
+            className="mt-1 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)] transition focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
           />
         </div>
 
         <fieldset>
-          <legend className="text-xs font-medium text-slate-700">Payload mode</legend>
-          <div className="mt-2 flex flex-wrap gap-4 text-xs text-slate-700">
-            <label className="flex items-center gap-2">
+          <legend className="text-xs font-medium text-[var(--text-secondary)]">Payload mode</legend>
+          <div className="mt-2 flex flex-col gap-2 text-xs text-[var(--text-secondary)] sm:flex-row sm:flex-wrap sm:gap-4">
+            <label className="flex items-start gap-2">
               <input
                 type="radio"
                 name="payload-mode"
                 value="full"
                 checked={payloadMode === "full"}
                 onChange={() => setPayloadMode("full")}
+                className="mt-0.5 accent-[var(--accent)]"
               />
               <span>
-                <span className="font-medium">Full snapshot</span>
-                <span className="ml-1 text-slate-500">— embed entire event body (default)</span>
+                <span className="font-medium text-[var(--text-primary)]">Full snapshot</span>
+                <span className="ml-1 text-[var(--text-tertiary)]">— embed entire event body (default)</span>
               </span>
             </label>
-            <label className="flex items-center gap-2">
+            <label className="flex items-start gap-2">
               <input
                 type="radio"
                 name="payload-mode"
                 value="minimal"
                 checked={payloadMode === "minimal"}
                 onChange={() => setPayloadMode("minimal")}
+                className="mt-0.5 accent-[var(--accent)]"
               />
               <span>
-                <span className="font-medium">Minimal</span>
-                <span className="ml-1 text-slate-500">— lead_id only; pull detail via REST</span>
+                <span className="font-medium text-[var(--text-primary)]">Minimal</span>
+                <span className="ml-1 text-[var(--text-tertiary)]">— lead_id only; pull detail via REST</span>
               </span>
             </label>
           </div>
         </fieldset>
 
-        <div className="flex items-center justify-between border-t border-slate-100 pt-3">
-          <div className="text-[11px] text-slate-500">
-            Current: <code className="font-mono">{(config?.enabled_events ?? []).join(", ") || "—"}</code>
+        <div className="flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-[11px] text-[var(--text-tertiary)]">
+            Current:{" "}
+            <code className="break-all font-mono text-[var(--text-secondary)]">
+              {(config?.enabled_events ?? []).join(", ") || "—"}
+            </code>
           </div>
           <button
             type="button"
             disabled={savingEvents}
             onClick={() => void saveEventSelection()}
-            className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 disabled:opacity-50"
+            className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50 sm:self-end"
           >
             {savingEvents ? "Saving…" : "Save event selection"}
           </button>
         </div>
       </div>
 
-      <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-6">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-slate-900">
+      <div className="space-y-3 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
             Dead-letter queue ({config?.dlq_size ?? 0})
           </h3>
           <button
             type="button"
             onClick={() => void refresh()}
-            className="text-xs font-medium text-slate-600 hover:text-slate-900"
+            className="text-xs font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
           >
             Refresh
           </button>
         </div>
 
         {!config || config.recent_dlq.length === 0 ? (
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-[var(--text-tertiary)]">
             No failed deliveries. All events delivered successfully.
           </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
-                <tr className="border-b border-slate-100 text-left text-slate-500">
+                <tr className="border-b border-[var(--border-subtle)] text-left text-[var(--text-tertiary)]">
                   <th className="py-2 pr-4 font-medium">Event ID</th>
                   <th className="py-2 pr-4 font-medium">Type</th>
                   <th className="py-2 pr-4 font-medium">Attempts</th>
@@ -422,15 +434,15 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
                 {config.recent_dlq.map((e) => (
                   <tr
                     key={`${e.event_id}-${e.delivery_id}`}
-                    className="border-b border-slate-50 font-mono"
+                    className="border-b border-[var(--border-subtle)] font-mono"
                   >
-                    <td className="py-1.5 pr-4 text-slate-800">{e.event_id ?? "—"}</td>
-                    <td className="py-1.5 pr-4 text-slate-600">{e.event_type ?? "—"}</td>
-                    <td className="py-1.5 pr-4 text-slate-600">
+                    <td className="py-1.5 pr-4 text-[var(--text-primary)]">{e.event_id ?? "—"}</td>
+                    <td className="py-1.5 pr-4 text-[var(--text-secondary)]">{e.event_type ?? "—"}</td>
+                    <td className="py-1.5 pr-4 text-[var(--text-secondary)]">
                       {e.attempt != null ? e.attempt + 1 : "—"}
                     </td>
-                    <td className="py-1.5 pr-4 text-rose-700">{e.dlq_reason ?? "—"}</td>
-                    <td className="py-1.5 pr-4 text-slate-500">
+                    <td className="py-1.5 pr-4 text-[var(--signal-red)]">{e.dlq_reason ?? "—"}</td>
+                    <td className="py-1.5 pr-4 text-[var(--text-tertiary)]">
                       {e.dlq_at_ms ? new Date(e.dlq_at_ms).toLocaleString() : "—"}
                     </td>
                   </tr>
@@ -441,23 +453,24 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
         )}
       </div>
 
-      <details className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-600">
-        <summary className="cursor-pointer font-medium text-slate-800">
+      <details className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-xs text-[var(--text-secondary)]">
+        <summary className="cursor-pointer font-medium text-[var(--text-primary)]">
           Consumer verification (signature contract)
         </summary>
         <div className="mt-3 space-y-3">
           <p>
-            Lisent sends a <code className="rounded bg-white px-1 py-0.5">POST</code> with these
-            headers:
+            Lisent sends a{" "}
+            <code className="rounded bg-[var(--surface)] px-1 py-0.5 font-mono text-[var(--text-primary)]">POST</code>{" "}
+            with these headers:
           </p>
-          <pre className="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs text-slate-100">{`X-Lisent-Signature: sha256=<hex>
+          <pre className="overflow-x-auto rounded-xl bg-[var(--text-primary)] p-3 font-mono text-xs text-[var(--surface)]">{`X-Lisent-Signature: sha256=<hex>
 X-Lisent-Timestamp:  <unix-ms>
 X-Lisent-Event-Id:   <unique id, dedupe on this>
 X-Lisent-Event-Type: score.updated
 X-Lisent-Delivery-Id:<uuid, retry-unique>
 Content-Type:        application/json`}</pre>
           <p>Verify by computing:</p>
-          <pre className="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs text-slate-100">{`expected = "sha256=" + hex(HMAC_SHA256(secret, \`\${timestamp}.\${rawBody}\`))
+          <pre className="overflow-x-auto rounded-xl bg-[var(--text-primary)] p-3 font-mono text-xs text-[var(--surface)]">{`expected = "sha256=" + hex(HMAC_SHA256(secret, \`\${timestamp}.\${rawBody}\`))
 if not constant_time_equals(expected, received):  reject
 if abs(now_ms - timestamp_ms) > 300_000:           reject (replay)`}</pre>
           <p>
