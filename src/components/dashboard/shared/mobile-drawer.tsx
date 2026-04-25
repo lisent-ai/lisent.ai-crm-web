@@ -9,7 +9,6 @@ import { X } from "lucide-react";
 import {
   buildNavHref,
   getSideNavItems,
-  getTopNavItems,
   isNavActive,
   type NavItem,
 } from "@/components/dashboard/shared/nav-config";
@@ -49,7 +48,6 @@ export function MobileDrawer({
     };
   }, [open, onClose]);
 
-  const topItems = getTopNavItems();
   const sideItems = getSideNavItems();
 
   return (
@@ -106,10 +104,8 @@ export function MobileDrawer({
               variant="block"
             />
           </div>
-          <DrawerSection label="Workspace" items={topItems} pathname={pathname} companyId={companyId} companyName={companyName} onNavigate={onClose} />
           {sideItems.length > 0 && (
             <DrawerSection
-              className="mt-4"
               label="Tools"
               items={sideItems}
               pathname={pathname}
