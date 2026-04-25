@@ -110,7 +110,7 @@ export function LeadToolbar({
 
           {filterOpen && (
             <div
-              className="absolute right-0 top-full z-30 mt-2 w-[280px] max-w-[calc(100vw-2rem)] rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)]"
+              className="fixed inset-x-3 top-[140px] z-30 mx-auto w-auto max-w-[340px] rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)] sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mx-0 sm:mt-2 sm:w-[280px] sm:max-w-[calc(100vw-2rem)]"
               role="menu"
             >
               <FilterSelect

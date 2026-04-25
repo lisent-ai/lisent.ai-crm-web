@@ -164,7 +164,7 @@ export function NotificationCenter({
 
       {open && (
         <div
-          className="absolute right-0 top-full z-40 mt-2 w-[360px] max-w-[calc(100vw-1.5rem)] rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)]"
+          className="fixed inset-x-3 top-[64px] z-40 mx-auto w-auto max-w-[420px] rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)] sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mx-0 sm:mt-2 sm:w-[360px] sm:max-w-[calc(100vw-1.5rem)]"
           role="menu"
         >
           <div className="flex items-start justify-between gap-3 px-2 pb-3">
