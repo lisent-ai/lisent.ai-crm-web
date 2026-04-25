@@ -100,33 +100,6 @@ export function AppTopbar({
             />
           </div>
         </div>
-
-        <div className="mt-3 grid gap-2 md:hidden">
-          <WorkspaceSwitcher
-            companyId={companyId}
-            companyName={companyName}
-            demoMode={demoMode}
-            variant="block"
-          />
-
-          <div className="flex items-center gap-2">
-            <div className="min-w-0 flex-1">
-              <SearchCommand />
-            </div>
-
-            <Link
-              className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-[var(--text-primary)] px-4 text-sm font-medium text-white transition hover:opacity-90"
-              href={importHref}
-            >
-              <Upload className="h-4 w-4" aria-hidden="true" />
-              Import
-            </Link>
-          </div>
-
-          <div className="border-t border-[var(--border-subtle)] pt-1">
-            <AppTabs companyId={companyId} companyName={companyName} />
-          </div>
-        </div>
       </div>
     </header>
   );
