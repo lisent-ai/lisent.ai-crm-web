@@ -100,7 +100,7 @@ export function IntegrationsCatalog() {
 
   if (!account) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-8 text-sm text-slate-600">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
         Loading your profile…
       </section>
     );
@@ -113,14 +113,14 @@ export function IntegrationsCatalog() {
     );
   if (!hasManageableCompanies) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
+        <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
           Integrations
         </h1>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+        <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
           You need to be the owner of at least one workspace to manage integrations.
         </p>
-        <p className="mt-4 text-sm text-slate-600">
+        <p className="mt-4 text-sm text-[var(--text-secondary)]">
           Create one from the workspace switcher in the top bar, then return here.
         </p>
       </section>
@@ -129,18 +129,18 @@ export function IntegrationsCatalog() {
 
   if (!selectedCompanyId) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
+        <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
           Integrations
         </h1>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+        <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
           Pick a company to manage its integrations. Each company has its own
           credentials and webhooks.
         </p>
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
-          className="mt-6 rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500"
+          className="mt-6 rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
           Pick a company
         </button>
@@ -156,8 +156,8 @@ export function IntegrationsCatalog() {
 
   if (!canManageSelected) {
     return (
-      <section className="rounded-[1.5rem] border border-rose-200 bg-rose-50 p-8 text-sm text-rose-800">
-        <h1 className="text-3xl font-semibold tracking-tight text-rose-900">
+      <section className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-6 text-sm text-[var(--signal-red)] sm:p-8">
+        <h1 className="text-2xl font-semibold tracking-tight text-[var(--signal-red)] sm:text-3xl">
           Access denied
         </h1>
         <p className="mt-3 leading-6">
@@ -167,7 +167,7 @@ export function IntegrationsCatalog() {
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
-          className="mt-6 rounded-full border border-rose-300 bg-white px-4 py-2 text-xs font-semibold text-rose-700"
+          className="mt-6 rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-red)]"
         >
           Pick another company
         </button>
@@ -183,14 +183,14 @@ export function IntegrationsCatalog() {
 
   return (
     <section className="space-y-6">
-      <header className="flex flex-wrap items-center justify-between gap-4 rounded-[1.5rem] border border-slate-200 bg-white px-6 py-5">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+      <header className="flex flex-col gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] px-5 py-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
             Integrations
           </h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">
             Configuring{" "}
-            <span className="font-semibold text-slate-900">
+            <span className="font-semibold text-[var(--text-primary)]">
               {selectedCompanyName || selectedCompanyId}
             </span>
             . Each tenant / company has its own credentials.
@@ -199,22 +199,22 @@ export function IntegrationsCatalog() {
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
-          className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+          className="self-start rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] sm:self-auto"
         >
           Switch company
         </button>
       </header>
 
       {loading ? (
-        <div className="rounded-[1.5rem] border border-slate-200 bg-white p-6 text-sm text-slate-500">
+        <div className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
           Loading integrations…
         </div>
       ) : errorMessage ? (
-        <div className="rounded-[1.5rem] border border-rose-200 bg-rose-50 p-6 text-sm text-rose-700">
+        <div className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-6 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </div>
       ) : catalog ? (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {catalog.available.map((integration) => (
             <IntegrationCard
               key={integration.slug}

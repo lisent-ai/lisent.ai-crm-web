@@ -9,23 +9,27 @@ const BADGES: Record<IntegrationStatus, BadgeStyle> = {
   active: {
     label: "Active",
     className:
-      "border-emerald-200 bg-emerald-50 text-emerald-700",
+      "border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] text-[var(--signal-green)]",
   },
   not_configured: {
     label: "Not configured",
-    className: "border-slate-200 bg-slate-50 text-slate-700",
+    className:
+      "border-[var(--border-subtle)] bg-[var(--surface-muted)] text-[var(--text-secondary)]",
   },
   paused: {
     label: "Paused",
-    className: "border-amber-200 bg-amber-50 text-amber-700",
+    className:
+      "border-[color-mix(in_srgb,_var(--signal-amber)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] text-[var(--signal-amber)]",
   },
   error: {
     label: "Error",
-    className: "border-rose-200 bg-rose-50 text-rose-700",
+    className:
+      "border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))] text-[var(--signal-red)]",
   },
   coming_soon: {
     label: "Coming soon",
-    className: "border-cyan-200 bg-cyan-50 text-cyan-700",
+    className:
+      "border-[color-mix(in_srgb,_var(--accent)_24%,_transparent)] bg-[var(--accent-soft)] text-[var(--accent-strong)]",
   },
 };
 

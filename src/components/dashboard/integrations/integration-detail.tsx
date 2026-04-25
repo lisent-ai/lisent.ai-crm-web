@@ -72,7 +72,7 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
 
   if (!account) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-8 text-sm text-slate-600">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
         Loading your profile…
       </section>
     );
@@ -80,10 +80,10 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
 
   if (!companyId) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-8">
-        <p className="text-sm text-slate-600">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
+        <p className="text-sm text-[var(--text-secondary)]">
           No company selected. Return to the{" "}
-          <Link className="font-semibold text-cyan-700 hover:underline" href="/dashboard/integrations">
+          <Link className="font-semibold text-[var(--accent-strong)] hover:underline" href="/dashboard/integrations">
             Integrations catalog
           </Link>{" "}
           and pick one first.
@@ -94,15 +94,15 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
 
   if (!canManage) {
     return (
-      <section className="rounded-[1.5rem] border border-rose-200 bg-rose-50 p-8 text-sm text-rose-800">
-        <h1 className="text-2xl font-semibold tracking-tight text-rose-900">
+      <section className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-6 text-sm text-[var(--signal-red)] sm:p-8">
+        <h1 className="text-xl font-semibold tracking-tight text-[var(--signal-red)] sm:text-2xl">
           Access denied
         </h1>
         <p className="mt-3 leading-6">
           Integration management is restricted to the company owner.
         </p>
         <Link
-          className="mt-6 inline-block rounded-full border border-rose-300 bg-white px-4 py-2 text-xs font-semibold text-rose-700"
+          className="mt-6 inline-block rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-red)]"
           href={backHref}
         >
           Back to catalog
@@ -113,19 +113,19 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
 
   return (
     <section className="space-y-6">
-      <header className="rounded-[1.5rem] border border-slate-200 bg-white px-6 py-5">
+      <header className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] px-5 py-5 sm:px-6">
         <Link
-          className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-700 hover:underline"
+          className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--accent-strong)] hover:underline"
           href={backHref}
         >
           ← Back to integrations
         </Link>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
           {SLUG_TITLES[slug] ?? slug}
         </h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
           Configuring{" "}
-          <span className="font-semibold text-slate-900">
+          <span className="font-semibold text-[var(--text-primary)]">
             {companyName || companyId}
           </span>
           .
@@ -159,8 +159,8 @@ function SlugBody({ slug, companyId, companyName }: { slug: string; companyId: s
       return <IntranetConfigPanel companyId={companyId} />;
     default:
       return (
-        <article className="rounded-[1.5rem] border border-slate-200 bg-white p-8 text-sm text-slate-700">
-          Unknown integration slug: <code>{slug}</code>
+        <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
+          Unknown integration slug: <code className="font-mono text-[var(--text-primary)]">{slug}</code>
         </article>
       );
   }
