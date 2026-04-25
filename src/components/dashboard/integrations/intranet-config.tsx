@@ -305,146 +305,133 @@ curl -X POST "${config.inboundUrl}" \\
 
   return (
     <section className="space-y-6">
-      {/* Status + rotation */}
-      <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
-        <header className="mb-4">
-          <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
-            Inbound webhook + rotation
-          </h2>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]">
+      {/* Inbound URL — most important: needed to test or paste into ERP. */}
+      {config ? (
+        <article className="rounded-3xl border border-[color-mix(in_srgb,_var(--accent)_20%,_transparent)] bg-[var(--accent-soft)] p-5 sm:p-6">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--accent-strong)]">
+                Inbound URL
+              </p>
+              <h2 className="mt-1 text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
+                Send your intranet payloads here
+              </h2>
+            </div>
+            <span
+              className={`shrink-0 self-start rounded-full border px-3 py-1 text-[11px] font-semibold ${
+                config.isActive
+                  ? "border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] text-[var(--signal-green)]"
+                  : "border-[var(--border-subtle)] bg-[var(--surface)] text-[var(--text-tertiary)]"
+              }`}
+            >
+              {config.isActive ? "Active" : "Inactive"}
+            </span>
+          </div>
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
+            <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
+              {config.inboundUrl}
+            </code>
+            <button
+              type="button"
+              className="shrink-0 rounded-full border border-[color-mix(in_srgb,_var(--accent)_30%,_transparent)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-strong)] transition hover:bg-[var(--accent-soft)]"
+              onClick={() => {
+                void navigator.clipboard.writeText(config.inboundUrl);
+                setSuccessMessage("URL copied");
+              }}
+            >
+              Copy URL
+            </button>
+          </div>
+          <p className="mt-3 text-xs text-[var(--text-secondary)]">
             HMAC-signed or Bearer-token; dual-active rotation. 1 MiB body cap.
             Idempotency via{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">X-Idempotency-Key</code>.
+            <code className="rounded bg-[var(--surface)] px-1 font-mono text-[var(--text-primary)]">X-Idempotency-Key</code>.
           </p>
-        </header>
+        </article>
+      ) : (
+        <article className="rounded-3xl border border-dashed border-[var(--border-default)] bg-[var(--surface)] p-5 text-sm text-[var(--text-secondary)] sm:p-6">
+          No integration yet. Configure the field mapping below and save to
+          create the webhook.
+        </article>
+      )}
 
-        {config ? (
-          <div className="grid gap-3 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm">
-            <div className="flex flex-col gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
-                Inbound URL
-              </span>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
-                  {config.inboundUrl}
-                </code>
-                <button
-                  type="button"
-                  className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-                  onClick={() => {
-                    void navigator.clipboard.writeText(config.inboundUrl);
-                    setSuccessMessage("URL copied");
-                  }}
-                >
-                  Copy
-                </button>
-              </div>
-            </div>
+      {/* Configuration summary */}
+      {config ? (
+        <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+          <header className="mb-4">
+            <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
+              Configuration
+            </h2>
+          </header>
+          <dl className="grid gap-3 sm:grid-cols-2">
+            <KV label="Auth mode" value={authModeLabel(config.authMode)} />
+            <KV label="Target" value={config.targetEntity} />
+            <KV
+              label="Deliveries"
+              value={`${config.deliveryCountSuccess} ok · ${config.deliveryCountFailed} fail · ${config.deliveryCountTotal} total`}
+            />
+            <KV
+              label="Last delivery"
+              value={
+                config.lastDeliveryAt
+                  ? `${config.lastDeliveryStatus ?? "unknown"} · ${new Date(config.lastDeliveryAt).toLocaleString()}`
+                  : "—"
+              }
+            />
+          </dl>
+        </article>
+      ) : null}
 
-            <div className="grid gap-2 text-sm sm:grid-cols-2">
-              <KV label="Auth mode" value={authModeLabel(config.authMode)} />
-              <KV label="Target" value={config.targetEntity} />
-              <KV label="Token primary" value={config.tokenPrimary} mono />
-              <KV label="Token secondary" value={config.tokenSecondary ?? "—"} mono />
-              <KV label="HMAC primary" value={config.hmacSecretPrimaryMasked} mono />
-              <KV
-                label="HMAC secondary"
-                value={config.hmacSecretSecondaryMasked ?? "—"}
-                mono
-              />
-              <KV
-                label="Bearer primary"
-                value={config.bearerTokenPrimaryMasked ?? "—"}
-                mono
-              />
-              <KV
-                label="Bearer secondary"
-                value={config.bearerTokenSecondaryMasked ?? "—"}
-                mono
-              />
-              <KV label="Active" value={config.isActive ? "yes" : "no"} />
-              <KV
-                label="Deliveries"
-                value={`${config.deliveryCountSuccess} ok / ${config.deliveryCountFailed} fail / ${config.deliveryCountTotal} total`}
-              />
-              <KV
-                label="Last delivery"
-                value={
-                  config.lastDeliveryAt
-                    ? `${config.lastDeliveryStatus ?? "unknown"} at ${new Date(config.lastDeliveryAt).toLocaleString()}`
-                    : "—"
-                }
-              />
-            </div>
-
-            <div className="mt-2 flex flex-wrap gap-2 sm:gap-3">
-              <button
-                type="button"
-                onClick={handleRotateToken}
-                disabled={rotating}
-                className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
-              >
-                Rotate token
-              </button>
-              {config.tokenSecondary ? (
-                <button
-                  type="button"
-                  onClick={handleRevokeToken}
-                  className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
-                >
-                  Revoke secondary token
-                </button>
-              ) : null}
-              <button
-                type="button"
-                onClick={handleRotateSecret}
-                disabled={rotating}
-                className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
-              >
-                Rotate HMAC secret
-              </button>
-              {config.hmacSecretSecondaryMasked ? (
-                <button
-                  type="button"
-                  onClick={handleRevokeSecret}
-                  className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
-                >
-                  Revoke secondary HMAC
-                </button>
-              ) : null}
-              <button
-                type="button"
-                onClick={handleRotateBearer}
-                disabled={rotating}
-                className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
-              >
-                {config.bearerTokenPrimaryMasked ? "Rotate bearer token" : "Mint bearer token"}
-              </button>
-              {config.bearerTokenSecondaryMasked ? (
-                <button
-                  type="button"
-                  onClick={handleRevokeBearer}
-                  className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
-                >
-                  Revoke secondary bearer
-                </button>
-              ) : null}
-              <button
-                type="button"
-                onClick={handleDisconnect}
-                className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
-              >
-                Disconnect
-              </button>
-            </div>
+      {/* Credentials — split into focused cards instead of one big strip. */}
+      {config ? (
+        <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+          <header className="mb-4">
+            <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
+              Credentials
+            </h2>
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+              Each credential type can be rotated independently. Old values
+              stay valid as <em>secondary</em> until you revoke them — gives
+              your sender a grace window to redeploy.
+            </p>
+          </header>
+          <div className="grid gap-3">
+            <CredentialBlock
+              label="Inbound token"
+              hint="Path-bound token, included in the URL above."
+              primary={config.tokenPrimary}
+              secondary={config.tokenSecondary}
+              rotateLabel={config.tokenPrimary ? "Rotate token" : "Generate token"}
+              onRotate={handleRotateToken}
+              onRevoke={handleRevokeToken}
+              rotating={rotating}
+              mono
+            />
+            <CredentialBlock
+              label="HMAC secret"
+              hint="Sign request bodies with sha256(secret, body) and pass it as X-Intranet-Signature."
+              primary={config.hmacSecretPrimaryMasked}
+              secondary={config.hmacSecretSecondaryMasked}
+              rotateLabel={config.hmacSecretPrimaryMasked ? "Rotate HMAC secret" : "Generate HMAC secret"}
+              onRotate={handleRotateSecret}
+              onRevoke={handleRevokeSecret}
+              rotating={rotating}
+              mono
+            />
+            <CredentialBlock
+              label="Bearer token"
+              hint="Static token sent as Authorization: Bearer …"
+              primary={config.bearerTokenPrimaryMasked}
+              secondary={config.bearerTokenSecondaryMasked}
+              rotateLabel={config.bearerTokenPrimaryMasked ? "Rotate bearer token" : "Mint bearer token"}
+              onRotate={handleRotateBearer}
+              onRevoke={handleRevokeBearer}
+              rotating={rotating}
+              mono
+            />
           </div>
-        ) : (
-          <p className="rounded-2xl bg-[var(--surface-muted)] p-4 text-sm text-[var(--text-secondary)]">
-            No integration yet. Configure the field mapping below and save to
-            create the webhook.
-          </p>
-        )}
-      </article>
+        </article>
+      ) : null}
 
       {revealedSecret ? (
         <RevealPanel
@@ -466,7 +453,7 @@ curl -X POST "${config.inboundUrl}" \\
       {/* Field mapping editor */}
       <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
-          <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
+          <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
             Field mapping
           </h2>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
@@ -523,7 +510,7 @@ curl -X POST "${config.inboundUrl}" \\
               onChange={(e) => setMappingText(e.target.value)}
               rows={12}
               spellCheck={false}
-              className="rounded-xl border border-[var(--border-default)] bg-[var(--text-primary)] px-3 py-2 font-mono text-xs text-[var(--surface)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
+              className="rounded-xl border border-[var(--border-default)] bg-[var(--text-primary)] px-3 py-2 font-mono text-xs leading-relaxed text-[var(--surface)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             />
             {mappingError ? (
               <span className="text-xs text-[var(--signal-red)]">{mappingError}</span>
@@ -545,9 +532,11 @@ curl -X POST "${config.inboundUrl}" \\
       {/* Curl snippets */}
       {config ? (
         <article className="grid gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
-          <h3 className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
-            Request examples
-          </h3>
+          <header>
+            <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
+              Request examples
+            </h2>
+          </header>
           {showBearerSnippet ? (
             <div className="grid gap-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
@@ -575,7 +564,7 @@ curl -X POST "${config.inboundUrl}" \\
       {config ? (
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
           <header className="mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-            <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
+            <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
               Recent deliveries
             </h2>
             <button
@@ -595,7 +584,7 @@ curl -X POST "${config.inboundUrl}" \\
                   key={d.id}
                   className="grid gap-1 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-3 text-xs"
                 >
-                  <span className="flex items-center justify-between gap-2">
+                  <span className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-semibold capitalize text-[var(--text-primary)]">
                       {d.status}
                     </span>
@@ -612,12 +601,38 @@ curl -X POST "${config.inboundUrl}" \\
                     </span>
                   ) : null}
                   {d.errorMessage ? (
-                    <span className="text-[var(--signal-red)]">error: {d.errorMessage}</span>
+                    <span className="break-words text-[var(--signal-red)]">
+                      error: {d.errorMessage}
+                    </span>
                   ) : null}
                 </li>
               ))}
             </ul>
           )}
+        </article>
+      ) : null}
+
+      {/* Danger zone — disconnect lives alone, far from rotate controls. */}
+      {config ? (
+        <article className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_6%,_var(--surface))] p-5 sm:p-6">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+            <div className="min-w-0">
+              <h2 className="text-base font-semibold tracking-tight text-[var(--signal-red)] sm:text-lg">
+                Disconnect
+              </h2>
+              <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                Removes all tokens and stops accepting inbound payloads. Field
+                mapping is kept so reconnecting later restores it.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleDisconnect}
+              className="shrink-0 rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))]"
+            >
+              Disconnect integration
+            </button>
+          </div>
         </article>
       ) : null}
 
@@ -638,17 +653,84 @@ curl -X POST "${config.inboundUrl}" \\
 function KV({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="min-w-0">
-      <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
+      <dt className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
         {label}
-      </span>
-      <div
-        className={`mt-0.5 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--text-primary)] ${
+      </dt>
+      <dd
+        className={`mt-1 break-words text-[var(--text-primary)] ${
           mono ? "font-mono text-xs" : "text-sm"
         }`}
       >
         {value}
-      </div>
+      </dd>
     </div>
+  );
+}
+
+function CredentialBlock({
+  label,
+  hint,
+  primary,
+  secondary,
+  rotateLabel,
+  onRotate,
+  onRevoke,
+  rotating,
+  mono,
+}: Readonly<{
+  label: string;
+  hint: string;
+  primary: string | null;
+  secondary: string | null;
+  rotateLabel: string;
+  onRotate: () => void;
+  onRevoke: () => void;
+  rotating: boolean;
+  mono?: boolean;
+}>) {
+  const valueClass = `mt-1 break-all text-[var(--text-primary)] ${mono ? "font-mono text-xs" : "text-sm"}`;
+  return (
+    <section className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4">
+      <div className="flex flex-col gap-1 border-b border-[var(--border-subtle)] pb-3 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        <div className="min-w-0">
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">{label}</h3>
+          <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">{hint}</p>
+        </div>
+        <div className="flex flex-wrap gap-2 sm:shrink-0">
+          <button
+            type="button"
+            onClick={onRotate}
+            disabled={rotating}
+            className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
+          >
+            {rotating ? "Working…" : rotateLabel}
+          </button>
+          {secondary ? (
+            <button
+              type="button"
+              onClick={onRevoke}
+              className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-3 py-1.5 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
+            >
+              Revoke secondary
+            </button>
+          ) : null}
+        </div>
+      </div>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <div className="min-w-0">
+          <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
+            Primary
+          </span>
+          <div className={valueClass}>{primary || "—"}</div>
+        </div>
+        <div className="min-w-0">
+          <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
+            Secondary <span className="font-normal text-[var(--text-muted)]">(rotation window)</span>
+          </span>
+          <div className={valueClass}>{secondary || "—"}</div>
+        </div>
+      </div>
+    </section>
   );
 }
 
