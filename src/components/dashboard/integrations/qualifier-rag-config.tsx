@@ -162,7 +162,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
 
   if (loading) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-6 text-sm text-slate-500">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
         Loading RAG config…
       </section>
     );
@@ -170,12 +170,12 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
 
   return (
     <section className="space-y-6">
-      <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+      <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
-          <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+          <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
             RAG webhook + token rotation
           </h2>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">
             POST knowledge base documents here; the AI chat grounds its answers
             on them. Dual-active rotation lets you roll the token without
             dropping uploads mid-flight.
@@ -183,18 +183,18 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
         </header>
 
         {config?.webhookUrl ? (
-          <div className="mb-4 grid gap-3 rounded-xl bg-slate-50 p-4 text-sm">
+          <div className="mb-4 grid gap-3 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
                 Webhook URL
               </span>
-              <div className="mt-1 flex items-center gap-2">
-                <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-lg bg-white px-3 py-2 text-xs text-slate-800">
+              <div className="mt-1 flex flex-col gap-2 sm:flex-row sm:items-center">
+                <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
                   {config.webhookUrl}
                 </code>
                 <button
                   type="button"
-                  className="shrink-0 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                  className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                   onClick={() => {
                     if (config.webhookUrl) {
                       void navigator.clipboard.writeText(config.webhookUrl);
@@ -223,7 +223,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
             />
           </div>
         ) : (
-          <p className="mb-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-600">
+          <p className="mb-4 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm text-[var(--text-secondary)]">
             No RAG token yet. Generate one below to enable document uploads.
           </p>
         )}
@@ -233,7 +233,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
             type="button"
             onClick={handleRotate}
             disabled={rotating}
-            className="rounded-full bg-slate-950 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+            className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
           >
             {rotating ? "Rotating…" : config?.tokenPrimary ? "Rotate token" : "Generate token"}
           </button>
@@ -242,7 +242,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
               type="button"
               onClick={handleRevoke}
               disabled={revoking}
-              className="rounded-full border border-rose-300 bg-rose-50 px-5 py-2.5 text-xs font-semibold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50"
+              className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-5 py-2.5 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
             >
               {revoking ? "Revoking…" : "Revoke secondary"}
             </button>
@@ -250,45 +250,47 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
         </div>
       </article>
 
-      <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
-        <header className="mb-4 flex items-center justify-between gap-3">
-          <div>
-            <h3 className="text-sm font-semibold tracking-tight text-slate-950">
+      <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+        <header className="mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+          <div className="min-w-0">
+            <h3 className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
               Ingested documents {docs ? `(${docs.length})` : ""}
             </h3>
-            <p className="mt-1 text-sm text-slate-600">
-              One row per <code>record_id</code>. Each chat turn searches these
-              via Postgres full-text and injects the top 3 hits into the prompt.
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+              One row per{" "}
+              <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">record_id</code>.
+              Each chat turn searches these via Postgres full-text and injects the top 3 hits
+              into the prompt.
             </p>
           </div>
           <button
             type="button"
             onClick={loadDocs}
             disabled={docsLoading}
-            className="shrink-0 rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-50"
+            className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
           >
             {docsLoading ? "Refreshing…" : "Refresh"}
           </button>
         </header>
         {docsError ? (
-          <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+          <p className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
             {docsError}
           </p>
         ) : docsLoading && !docs ? (
-          <p className="text-sm text-slate-500">Loading documents…</p>
+          <p className="text-sm text-[var(--text-tertiary)]">Loading documents…</p>
         ) : !docs || docs.length === 0 ? (
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-[var(--text-tertiary)]">
             No documents yet. POST to the webhook to add some.
           </p>
         ) : (
-          <div className="max-h-[32rem] overflow-auto rounded-xl border border-slate-200">
+          <div className="max-h-[32rem] overflow-auto rounded-2xl border border-[var(--border-subtle)]">
             <table className="w-full text-left text-xs">
-              <thead className="sticky top-0 bg-slate-50 text-slate-600">
+              <thead className="sticky top-0 bg-[var(--surface-muted)] text-[var(--text-tertiary)]">
                 <tr>
-                  <th className="px-3 py-2 font-semibold w-6"></th>
+                  <th className="w-6 px-3 py-2 font-semibold"></th>
                   <th className="px-3 py-2 font-semibold">record_id</th>
                   <th className="px-3 py-2 font-semibold">Title</th>
-                  <th className="px-3 py-2 font-semibold text-right">Chunks</th>
+                  <th className="px-3 py-2 text-right font-semibold">Chunks</th>
                   <th className="px-3 py-2 font-semibold">Updated</th>
                 </tr>
               </thead>
@@ -299,51 +301,51 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                   return (
                     <Fragment key={d.doc_ref}>
                       <tr
-                        className="cursor-pointer border-t border-slate-100 hover:bg-slate-50"
+                        className="cursor-pointer border-t border-[var(--border-subtle)] transition hover:bg-[var(--surface-muted)]"
                         onClick={() => void toggleExpanded(d.doc_ref)}
                       >
-                        <td className="px-3 py-2 text-slate-400">{isOpen ? "▾" : "▸"}</td>
-                        <td className="px-3 py-2 font-mono text-slate-800">{d.doc_ref}</td>
-                        <td className="px-3 py-2 text-slate-700">{d.title || "—"}</td>
-                        <td className="px-3 py-2 text-right text-slate-700">{d.chunk_count}</td>
-                        <td className="px-3 py-2 text-slate-500">
+                        <td className="px-3 py-2 text-[var(--text-muted)]">{isOpen ? "▾" : "▸"}</td>
+                        <td className="px-3 py-2 font-mono text-[var(--text-primary)]">{d.doc_ref}</td>
+                        <td className="px-3 py-2 text-[var(--text-secondary)]">{d.title || "—"}</td>
+                        <td className="px-3 py-2 text-right text-[var(--text-secondary)]">{d.chunk_count}</td>
+                        <td className="px-3 py-2 text-[var(--text-tertiary)]">
                           {d.updated_at ? new Date(d.updated_at).toLocaleString() : "—"}
                         </td>
                       </tr>
                       {isOpen ? (
-                        <tr className="border-t border-slate-100 bg-slate-50">
+                        <tr className="border-t border-[var(--border-subtle)] bg-[var(--surface-muted)]">
                           <td colSpan={5} className="px-3 py-3">
                             {chunkLoading === d.doc_ref ? (
-                              <p className="text-slate-500">Loading content…</p>
+                              <p className="text-[var(--text-tertiary)]">Loading content…</p>
                             ) : chunkError && !chunks ? (
-                              <p className="text-rose-700">{chunkError}</p>
+                              <p className="text-[var(--signal-red)]">{chunkError}</p>
                             ) : !chunks ? null : (
                               <div className="space-y-3">
                                 {chunks.map((c) => (
                                   <div
                                     key={c.id}
-                                    className="rounded-lg border border-slate-200 bg-white p-3"
+                                    className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3"
                                   >
-                                    <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-wide text-slate-500">
+                                    <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-wide text-[var(--text-tertiary)]">
                                       <span>chunk #{c.chunk_index}</span>
                                       {c.source_url ? (
                                         <a
                                           href={c.source_url}
                                           target="_blank"
                                           rel="noreferrer"
-                                          className="text-sky-600 hover:underline"
+                                          className="text-[var(--accent-strong)] hover:underline"
                                         >
                                           source
                                         </a>
                                       ) : null}
                                     </div>
-                                    <pre className="whitespace-pre-wrap break-words font-sans text-xs leading-relaxed text-slate-800">
+                                    <pre className="whitespace-pre-wrap break-words font-sans text-xs leading-relaxed text-[var(--text-primary)]">
                                       {c.content}
                                     </pre>
                                     {Object.keys(c.metadata ?? {}).length > 0 ? (
-                                      <details className="mt-2 text-[11px] text-slate-500">
+                                      <details className="mt-2 text-[11px] text-[var(--text-tertiary)]">
                                         <summary className="cursor-pointer">metadata</summary>
-                                        <pre className="mt-1 overflow-x-auto rounded bg-slate-100 p-2 font-mono">
+                                        <pre className="mt-1 overflow-x-auto rounded-lg bg-[var(--surface-inset)] p-2 font-mono text-[var(--text-secondary)]">
                                           {JSON.stringify(c.metadata, null, 2)}
                                         </pre>
                                       </details>
@@ -365,27 +367,28 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
       </article>
 
       {config?.webhookUrl ? (
-        <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
-          <h3 className="text-sm font-semibold tracking-tight text-slate-950">
+        <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+          <h3 className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
             Ingestion example
           </h3>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">
             Send documents directly to the webhook. Re-posting with the same{" "}
-            <code>record_id</code> replaces the earlier content (idempotent).
+            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">record_id</code>{" "}
+            replaces the earlier content (idempotent).
           </p>
-          <pre className="mt-3 max-h-72 overflow-auto rounded-xl bg-slate-900 p-4 text-xs leading-relaxed text-slate-100">
+          <pre className="mt-3 max-h-72 overflow-auto rounded-2xl bg-[var(--text-primary)] p-4 font-mono text-xs leading-relaxed text-[var(--surface)]">
             {curlSnippet}
           </pre>
         </article>
       ) : null}
 
       {successMessage ? (
-        <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+        <p className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
           {successMessage}
         </p>
       ) : null}
       {errorMessage ? (
-        <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+        <p className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </p>
       ) : null}
@@ -408,18 +411,18 @@ function TokenRow({
 }) {
   return (
     <div>
-      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
         {label}
       </span>
-      <div className="mt-1 flex items-center gap-2">
-        <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-lg bg-white px-3 py-2 text-xs font-mono text-slate-800">
+      <div className="mt-1 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
           {token ? (show ? token : mask(token)) : "—"}
         </code>
         {token ? (
           <button
             type="button"
             onClick={toggle}
-            className="shrink-0 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+            className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
             {show ? "Hide" : "Reveal"}
           </button>

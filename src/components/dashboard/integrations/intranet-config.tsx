@@ -297,7 +297,7 @@ curl -X POST "${config.inboundUrl}" \\
 
   if (loading) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-6 text-sm text-slate-500">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
         Loading intranet config…
       </section>
     );
@@ -306,30 +306,31 @@ curl -X POST "${config.inboundUrl}" \\
   return (
     <section className="space-y-6">
       {/* Status + rotation */}
-      <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+      <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
-          <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+          <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
             Inbound webhook + rotation
           </h2>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">
             HMAC-signed or Bearer-token; dual-active rotation. 1 MiB body cap.
-            Idempotency via <code>X-Idempotency-Key</code>.
+            Idempotency via{" "}
+            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">X-Idempotency-Key</code>.
           </p>
         </header>
 
         {config ? (
-          <div className="grid gap-3 rounded-xl bg-slate-50 p-4 text-sm">
+          <div className="grid gap-3 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm">
             <div className="flex flex-col gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
                 Inbound URL
               </span>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-lg bg-white px-3 py-2 text-xs text-slate-800">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
                   {config.inboundUrl}
                 </code>
                 <button
                   type="button"
-                  className="shrink-0 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                  className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                   onClick={() => {
                     void navigator.clipboard.writeText(config.inboundUrl);
                     setSuccessMessage("URL copied");
@@ -340,7 +341,7 @@ curl -X POST "${config.inboundUrl}" \\
               </div>
             </div>
 
-            <div className="grid gap-2 text-sm md:grid-cols-2">
+            <div className="grid gap-2 text-sm sm:grid-cols-2">
               <KV label="Auth mode" value={authModeLabel(config.authMode)} />
               <KV label="Target" value={config.targetEntity} />
               <KV label="Token primary" value={config.tokenPrimary} mono />
@@ -376,12 +377,12 @@ curl -X POST "${config.inboundUrl}" \\
               />
             </div>
 
-            <div className="mt-2 flex flex-wrap gap-3">
+            <div className="mt-2 flex flex-wrap gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={handleRotateToken}
                 disabled={rotating}
-                className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-50"
+                className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
               >
                 Rotate token
               </button>
@@ -389,7 +390,7 @@ curl -X POST "${config.inboundUrl}" \\
                 <button
                   type="button"
                   onClick={handleRevokeToken}
-                  className="rounded-full border border-rose-300 bg-rose-50 px-4 py-2 text-xs font-semibold text-rose-700 transition hover:bg-rose-100"
+                  className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
                 >
                   Revoke secondary token
                 </button>
@@ -398,7 +399,7 @@ curl -X POST "${config.inboundUrl}" \\
                 type="button"
                 onClick={handleRotateSecret}
                 disabled={rotating}
-                className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-50"
+                className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
               >
                 Rotate HMAC secret
               </button>
@@ -406,7 +407,7 @@ curl -X POST "${config.inboundUrl}" \\
                 <button
                   type="button"
                   onClick={handleRevokeSecret}
-                  className="rounded-full border border-rose-300 bg-rose-50 px-4 py-2 text-xs font-semibold text-rose-700 transition hover:bg-rose-100"
+                  className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
                 >
                   Revoke secondary HMAC
                 </button>
@@ -415,7 +416,7 @@ curl -X POST "${config.inboundUrl}" \\
                 type="button"
                 onClick={handleRotateBearer}
                 disabled={rotating}
-                className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 disabled:opacity-50"
+                className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
               >
                 {config.bearerTokenPrimaryMasked ? "Rotate bearer token" : "Mint bearer token"}
               </button>
@@ -423,7 +424,7 @@ curl -X POST "${config.inboundUrl}" \\
                 <button
                   type="button"
                   onClick={handleRevokeBearer}
-                  className="rounded-full border border-rose-300 bg-rose-50 px-4 py-2 text-xs font-semibold text-rose-700 transition hover:bg-rose-100"
+                  className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
                 >
                   Revoke secondary bearer
                 </button>
@@ -431,14 +432,14 @@ curl -X POST "${config.inboundUrl}" \\
               <button
                 type="button"
                 onClick={handleDisconnect}
-                className="rounded-full border border-rose-300 bg-rose-50 px-4 py-2 text-xs font-semibold text-rose-700 transition hover:bg-rose-100"
+                className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
               >
                 Disconnect
               </button>
             </div>
           </div>
         ) : (
-          <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-600">
+          <p className="rounded-2xl bg-[var(--surface-muted)] p-4 text-sm text-[var(--text-secondary)]">
             No integration yet. Configure the field mapping below and save to
             create the webhook.
           </p>
@@ -463,52 +464,58 @@ curl -X POST "${config.inboundUrl}" \\
       ) : null}
 
       {/* Field mapping editor */}
-      <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+      <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
-          <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+          <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
             Field mapping
           </h2>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">
             JMESPath expressions evaluated against{" "}
-            <code>{`{event, payload}`}</code>. Nested <code>extra_data</code>{" "}
-            is supported.
+            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">{`{event, payload}`}</code>.
+            Nested{" "}
+            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">extra_data</code>{" "}
+            is supported. Leave the editor empty (
+            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">{"{}"}</code>) to
+            let the Groq LLM auto-suggest a mapping from the first incoming payload.
           </p>
         </header>
 
         <form onSubmit={handleSave} className="grid gap-4">
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <label className="grid gap-1 text-sm">
-              <span className="font-semibold text-slate-700">Target entity</span>
+              <span className="font-semibold text-[var(--text-secondary)]">Target entity</span>
               <select
                 value={targetEntity}
                 onChange={(e) => setTargetEntity(e.target.value as "lead" | "customer")}
-                className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm capitalize focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+                className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm capitalize text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
               >
                 <option value="lead">lead</option>
                 <option value="customer">customer</option>
               </select>
             </label>
             <label className="grid gap-1 text-sm">
-              <span className="font-semibold text-slate-700">Auth mode</span>
+              <span className="font-semibold text-[var(--text-secondary)]">Auth mode</span>
               <select
                 value={authMode}
                 onChange={(e) => setAuthMode(e.target.value as IntranetAuthMode)}
-                className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+                className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
               >
                 <option value="hmac_or_bearer">HMAC or Bearer (both accepted)</option>
                 <option value="bearer">Bearer only (static header)</option>
                 <option value="hmac">HMAC only (body signature)</option>
               </select>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-[var(--text-tertiary)]">
                 Bearer = paste a static{" "}
-                <code>Authorization: Bearer …</code> header. HMAC = compute{" "}
-                <code>sha256(secret, body)</code> per request.
+                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">Authorization: Bearer …</code>{" "}
+                header. HMAC = compute{" "}
+                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">sha256(secret, body)</code>{" "}
+                per request.
               </span>
             </label>
           </div>
 
           <label className="grid gap-1 text-sm">
-            <span className="font-semibold text-slate-700">
+            <span className="font-semibold text-[var(--text-secondary)]">
               field_mapping (JSON)
             </span>
             <textarea
@@ -516,10 +523,10 @@ curl -X POST "${config.inboundUrl}" \\
               onChange={(e) => setMappingText(e.target.value)}
               rows={12}
               spellCheck={false}
-              className="rounded-xl border border-slate-200 bg-slate-900 px-3 py-2 font-mono text-xs text-slate-100 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+              className="rounded-xl border border-[var(--border-default)] bg-[var(--text-primary)] px-3 py-2 font-mono text-xs text-[var(--surface)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             />
             {mappingError ? (
-              <span className="text-xs text-rose-600">{mappingError}</span>
+              <span className="text-xs text-[var(--signal-red)]">{mappingError}</span>
             ) : null}
           </label>
 
@@ -527,7 +534,7 @@ curl -X POST "${config.inboundUrl}" \\
             <button
               type="submit"
               disabled={saving}
-              className="rounded-full bg-slate-950 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+              className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
             >
               {saving ? "Saving…" : config ? "Save mapping" : "Create integration"}
             </button>
@@ -537,26 +544,26 @@ curl -X POST "${config.inboundUrl}" \\
 
       {/* Curl snippets */}
       {config ? (
-        <article className="grid gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-6">
-          <h3 className="text-sm font-semibold tracking-tight text-slate-950">
+        <article className="grid gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+          <h3 className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
             Request examples
           </h3>
           {showBearerSnippet ? (
             <div className="grid gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
                 Bearer (simplest — paste-and-go)
               </span>
-              <pre className="max-h-80 overflow-auto rounded-xl bg-slate-900 p-4 text-xs leading-relaxed text-slate-100">
+              <pre className="max-h-80 overflow-auto rounded-2xl bg-[var(--text-primary)] p-4 font-mono text-xs leading-relaxed text-[var(--surface)]">
                 {bearerSnippet}
               </pre>
             </div>
           ) : null}
           {showHmacSnippet ? (
             <div className="grid gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
                 HMAC (body-signed — tamper-proof)
               </span>
-              <pre className="max-h-80 overflow-auto rounded-xl bg-slate-900 p-4 text-xs leading-relaxed text-slate-100">
+              <pre className="max-h-80 overflow-auto rounded-2xl bg-[var(--text-primary)] p-4 font-mono text-xs leading-relaxed text-[var(--surface)]">
                 {hmacSnippet}
               </pre>
             </div>
@@ -566,46 +573,46 @@ curl -X POST "${config.inboundUrl}" \\
 
       {/* Delivery history */}
       {config ? (
-        <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
-          <header className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+        <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+          <header className="mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+            <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
               Recent deliveries
             </h2>
             <button
               type="button"
-              className="rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+              className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
               onClick={() => void refreshDeliveries()}
             >
               Refresh
             </button>
           </header>
           {deliveries.length === 0 ? (
-            <p className="text-sm text-slate-500">No deliveries yet.</p>
+            <p className="text-sm text-[var(--text-tertiary)]">No deliveries yet.</p>
           ) : (
             <ul className="grid gap-2">
               {deliveries.map((d) => (
                 <li
                   key={d.id}
-                  className="grid gap-1 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs"
+                  className="grid gap-1 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-3 text-xs"
                 >
-                  <span className="flex items-center justify-between">
-                    <span className="font-semibold capitalize text-slate-800">
+                  <span className="flex items-center justify-between gap-2">
+                    <span className="font-semibold capitalize text-[var(--text-primary)]">
                       {d.status}
                     </span>
-                    <span className="text-slate-500">
+                    <span className="text-[var(--text-tertiary)]">
                       {new Date(d.createdAt).toLocaleString()}
                     </span>
                   </span>
                   {d.eventType ? (
-                    <span className="text-slate-600">event: {d.eventType}</span>
+                    <span className="text-[var(--text-secondary)]">event: {d.eventType}</span>
                   ) : null}
                   {d.mappedEntityId ? (
-                    <span className="font-mono text-slate-600">
+                    <span className="break-all font-mono text-[var(--text-secondary)]">
                       entity: {d.mappedEntityId}
                     </span>
                   ) : null}
                   {d.errorMessage ? (
-                    <span className="text-rose-700">error: {d.errorMessage}</span>
+                    <span className="text-[var(--signal-red)]">error: {d.errorMessage}</span>
                   ) : null}
                 </li>
               ))}
@@ -615,12 +622,12 @@ curl -X POST "${config.inboundUrl}" \\
       ) : null}
 
       {successMessage ? (
-        <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+        <p className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
           {successMessage}
         </p>
       ) : null}
       {errorMessage ? (
-        <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+        <p className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </p>
       ) : null}
@@ -630,12 +637,12 @@ curl -X POST "${config.inboundUrl}" \\
 
 function KV({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
-    <div>
-      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+    <div className="min-w-0">
+      <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
         {label}
       </span>
       <div
-        className={`mt-0.5 overflow-hidden text-ellipsis whitespace-nowrap text-slate-800 ${
+        className={`mt-0.5 overflow-hidden text-ellipsis whitespace-nowrap text-[var(--text-primary)] ${
           mono ? "font-mono text-xs" : "text-sm"
         }`}
       >
@@ -668,33 +675,35 @@ function RevealPanel({
   onDismiss: () => void;
 }) {
   return (
-    <article className="rounded-[1.5rem] border border-amber-200 bg-amber-50 p-6">
-      <h3 className="text-sm font-semibold tracking-tight text-amber-900">{label}</h3>
-      <p className="mt-1 text-xs text-amber-800">
+    <article className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-amber)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] p-5 sm:p-6">
+      <h3 className="text-sm font-semibold tracking-tight text-[var(--signal-amber)]">{label}</h3>
+      <p className="mt-1 text-xs text-[var(--text-secondary)]">
         Copy it now. The Integrations Hub only stores the hash — you can regenerate but
         not re-reveal.
       </p>
-      <div className="mt-3 flex items-center gap-2">
-        <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-lg bg-white px-3 py-2 font-mono text-xs text-amber-900">
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
           {value}
         </code>
-        <button
-          type="button"
-          onClick={() => {
-            void navigator.clipboard.writeText(value);
-            onCopyMessage();
-          }}
-          className="shrink-0 rounded-full border border-amber-400 bg-white px-3 py-1.5 text-xs font-semibold text-amber-800 transition hover:bg-amber-100"
-        >
-          Copy
-        </button>
-        <button
-          type="button"
-          onClick={onDismiss}
-          className="shrink-0 rounded-full border border-amber-400 bg-white px-3 py-1.5 text-xs font-semibold text-amber-800 transition hover:bg-amber-100"
-        >
-          Dismiss
-        </button>
+        <div className="flex shrink-0 flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              void navigator.clipboard.writeText(value);
+              onCopyMessage();
+            }}
+            className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--signal-amber)] transition hover:bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))]"
+          >
+            Copy
+          </button>
+          <button
+            type="button"
+            onClick={onDismiss}
+            className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--signal-amber)] transition hover:bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))]"
+          >
+            Dismiss
+          </button>
+        </div>
       </div>
     </article>
   );

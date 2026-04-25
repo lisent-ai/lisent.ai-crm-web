@@ -105,7 +105,7 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
 
   if (loading && !data) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-center text-sm text-[var(--text-tertiary)] sm:p-8">
         Loading config…
       </div>
     );
@@ -114,31 +114,31 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
   return (
     <section className="space-y-6">
       <header>
-        <h2 className="text-xl font-semibold text-slate-900">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">
           Scoring & Integration Config
         </h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-[var(--text-tertiary)]">
           Framework, threshold, aggressiveness, and outbound webhook for{" "}
-          <strong>{companyName}</strong>. Changes apply immediately.
+          <strong className="text-[var(--text-secondary)]">{companyName}</strong>. Changes apply
+          immediately.
         </p>
       </header>
 
       {error ? (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {error}
         </div>
       ) : null}
 
-      {/* Framework */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.04)]">
-        <h3 className="text-sm font-semibold text-slate-900">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
           Qualification Framework
         </h3>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-[var(--text-tertiary)]">
           Pick the methodology that best fits your sales motion. Affects prompt
           templates and scoring dimensions.
         </p>
-        <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-3">
+        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
           {(data?.supported_frameworks ?? ["champ", "bant", "meddic"]).map(
             (f) => {
               const active = framework === f;
@@ -148,16 +148,16 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
                   type="button"
                   onClick={() => setFramework(f)}
                   aria-pressed={active}
-                  className={`rounded-xl border p-3 text-left transition ${
+                  className={`rounded-2xl border p-3 text-left transition ${
                     active
-                      ? "border-slate-950 bg-slate-50"
-                      : "border-slate-200 hover:border-slate-400"
+                      ? "border-[var(--text-primary)] bg-[var(--surface-muted)]"
+                      : "border-[var(--border-subtle)] hover:border-[var(--border-strong)]"
                   }`}
                 >
-                  <div className="text-sm font-bold uppercase text-slate-900">
+                  <div className="text-sm font-bold uppercase text-[var(--text-primary)]">
                     {f}
                   </div>
-                  <div className="mt-1 text-xs text-slate-600">
+                  <div className="mt-1 text-xs text-[var(--text-secondary)]">
                     {FRAMEWORK_DESCRIPTIONS[f] ?? ""}
                   </div>
                 </button>
@@ -167,12 +167,11 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
         </div>
       </div>
 
-      {/* Threshold */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.04)]">
-        <h3 className="text-sm font-semibold text-slate-900">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
           Qualification Threshold
         </h3>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-[var(--text-tertiary)]">
           Score ≥ threshold → lead marked qualified + handed off.
           Default 75. Dynamic adjustments (project type, budget) may still
           apply at scoring time.
@@ -184,7 +183,7 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
             max="100"
             value={threshold}
             onChange={(e) => setThreshold(Number(e.target.value))}
-            className="flex-1"
+            className="flex-1 accent-[var(--accent)]"
           />
           <input
             type="number"
@@ -192,17 +191,16 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
             max="100"
             value={threshold}
             onChange={(e) => setThreshold(Number(e.target.value))}
-            className="w-20 rounded-xl border border-slate-300 px-3 py-1 text-sm"
+            className="w-20 rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
           />
         </div>
       </div>
 
-      {/* Aggressiveness */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.04)]">
-        <h3 className="text-sm font-semibold text-slate-900">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
           Handoff Aggressiveness
         </h3>
-        <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-3">
+        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
           {AGGRESSIVENESS_OPTIONS.map((opt) => {
             const active = aggressiveness === opt.value;
             return (
@@ -211,28 +209,27 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
                 type="button"
                 onClick={() => setAggressiveness(opt.value)}
                 aria-pressed={active}
-                className={`rounded-xl border p-3 text-left transition ${
+                className={`rounded-2xl border p-3 text-left transition ${
                   active
-                    ? "border-slate-950 bg-slate-50"
-                    : "border-slate-200 hover:border-slate-400"
+                    ? "border-[var(--text-primary)] bg-[var(--surface-muted)]"
+                    : "border-[var(--border-subtle)] hover:border-[var(--border-strong)]"
                 }`}
               >
-                <div className="text-sm font-bold text-slate-900">
+                <div className="text-sm font-bold text-[var(--text-primary)]">
                   {opt.label}
                 </div>
-                <div className="mt-1 text-xs text-slate-600">{opt.desc}</div>
+                <div className="mt-1 text-xs text-[var(--text-secondary)]">{opt.desc}</div>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Outbound webhook */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.04)]">
-        <h3 className="text-sm font-semibold text-slate-900">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
           Outbound Webhook URL
         </h3>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-[var(--text-tertiary)]">
           When a lead is qualified, Lisent POSTs the full scoring payload to
           this URL. HMAC-signed; configure your secret under Integrations →
           Webhooks (coming soon).
@@ -242,39 +239,37 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
           value={webhookUrl}
           onChange={(e) => setWebhookUrl(e.target.value)}
           placeholder="https://your-crm.example.com/hooks/lisent"
-          className="mt-3 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          className="mt-3 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
         />
       </div>
 
-      {/* Calendly CTA */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.04)]">
-        <h3 className="text-sm font-semibold text-slate-900">
+      <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
           Medium-score CTA Calendly URL
         </h3>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-[var(--text-tertiary)]">
           Fallback self-service booking link for leads between{" "}
-          <code>CTA_MEDIUM_FLOOR</code> and threshold. High-score leads route
-          to high-touch CTAs defined elsewhere.
+          <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">CTA_MEDIUM_FLOOR</code>{" "}
+          and threshold. High-score leads route to high-touch CTAs defined elsewhere.
         </p>
         <input
           type="url"
           value={ctaCalendly}
           onChange={(e) => setCtaCalendly(e.target.value)}
           placeholder="https://calendly.com/your-team/intro"
-          className="mt-3 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"
+          className="mt-3 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
         />
       </div>
 
-      {/* Save */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="text-xs text-slate-500">
+      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-xs text-[var(--text-tertiary)]">
           {savedAt ? `Saved at ${savedAt.toLocaleTimeString()}` : null}
         </div>
         <button
           type="button"
           onClick={handleSave}
           disabled={saving}
-          className="rounded-full bg-slate-950 px-6 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-50"
+          className="rounded-full bg-[var(--text-primary)] px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50 sm:self-end"
         >
           {saving ? "Saving…" : "Save changes"}
         </button>

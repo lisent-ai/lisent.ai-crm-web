@@ -53,7 +53,7 @@ export function QualifierConfigPanel({ companyId, section }: Readonly<Props>) {
 
   if (loading) {
     return (
-      <section className="rounded-[1.5rem] border border-slate-200 bg-white p-6 text-sm text-slate-500">
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
         Loading qualifier config…
       </section>
     );
@@ -92,12 +92,12 @@ export function QualifierConfigPanel({ companyId, section }: Readonly<Props>) {
       ) : null}
 
       {successMessage ? (
-        <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+        <p className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
           {successMessage}
         </p>
       ) : null}
       {errorMessage ? (
-        <p className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+        <p className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </p>
       ) : null}
@@ -140,12 +140,12 @@ function FallbackSection({ companyId, config, onChange, setError, setSuccess }: 
   }
 
   return (
-    <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+    <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
       <header className="mb-4">
-        <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+        <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
           Fallback callback URL
         </h2>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
           Qualified leads and score updates are POSTed here. Leave blank to rely
           on the global CRM webhook. HTTPS is required in production.
         </p>
@@ -156,13 +156,13 @@ function FallbackSection({ companyId, config, onChange, setError, setSuccess }: 
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://your-crm.example.com/leads/inbound"
-          className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+          className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
         />
         <div>
           <button
             type="submit"
             disabled={saving}
-            className="rounded-full bg-slate-950 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+            className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
           >
             {saving ? "Saving…" : "Save"}
           </button>
@@ -239,12 +239,12 @@ function LeadWebhookSection({ companyId, config, onChange, setError, setSuccess 
   }
 
   return (
-    <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+    <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
       <header className="mb-4">
-        <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+        <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
           Lead webhook URL + token rotation
         </h2>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
           Per-company webhook for inbound leads. Dual-active rotation: rotating
           slides the current token into a secondary slot so integrators have a
           grace window before you revoke it.
@@ -252,18 +252,18 @@ function LeadWebhookSection({ companyId, config, onChange, setError, setSuccess 
       </header>
 
       {config?.webhookUrl ? (
-        <div className="mb-4 grid gap-3 rounded-xl bg-slate-50 p-4 text-sm">
+        <div className="mb-4 grid gap-3 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
               Webhook URL
             </span>
-            <div className="mt-1 flex items-center gap-2">
-              <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-lg bg-white px-3 py-2 text-xs text-slate-800">
+            <div className="mt-1 flex flex-col gap-2 sm:flex-row sm:items-center">
+              <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
                 {config.webhookUrl}
               </code>
               <button
                 type="button"
-                className="shrink-0 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+                className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                 onClick={() => {
                   if (config.webhookUrl) {
                     void navigator.clipboard.writeText(config.webhookUrl);
@@ -298,7 +298,7 @@ function LeadWebhookSection({ companyId, config, onChange, setError, setSuccess 
           type="button"
           onClick={handleRotate}
           disabled={rotating}
-          className="rounded-full bg-slate-950 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+          className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
         >
           {rotating ? "Rotating…" : config?.tokenPrimary ? "Rotate token" : "Generate token"}
         </button>
@@ -307,7 +307,7 @@ function LeadWebhookSection({ companyId, config, onChange, setError, setSuccess 
             type="button"
             onClick={handleRevokeSecondary}
             disabled={revoking}
-            className="rounded-full border border-rose-300 bg-rose-50 px-5 py-2.5 text-xs font-semibold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50"
+            className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-5 py-2.5 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
           >
             {revoking ? "Revoking…" : "Revoke secondary"}
           </button>
@@ -332,18 +332,18 @@ function TokenRow({
 }) {
   return (
     <div>
-      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
         {label}
       </span>
-      <div className="mt-1 flex items-center gap-2">
-        <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-lg bg-white px-3 py-2 text-xs font-mono text-slate-800">
+      <div className="mt-1 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
           {token ? (show ? token : mask(token)) : "—"}
         </code>
         {token ? (
           <button
             type="button"
             onClick={toggle}
-            className="shrink-0 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
+            className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
             {show ? "Hide" : "Reveal"}
           </button>
@@ -424,12 +424,12 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
   }
 
   return (
-    <article className="rounded-[1.5rem] border border-slate-200 bg-white p-6">
+    <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
       <header className="mb-4">
-        <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+        <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
           AI config
         </h2>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
           Applied to scoring and chat for this company only. Unknown keys are
           preserved untouched.
         </p>
@@ -437,8 +437,8 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
       <form onSubmit={handleSave} className="grid gap-4">
         <div className="grid gap-1 text-sm">
           <label className="flex items-center justify-between">
-            <span className="font-semibold text-slate-700">Qualification threshold</span>
-            <span className="font-mono text-slate-900">{threshold}</span>
+            <span className="font-semibold text-[var(--text-secondary)]">Qualification threshold</span>
+            <span className="font-mono text-[var(--text-primary)]">{threshold}</span>
           </label>
           <input
             type="range"
@@ -446,14 +446,14 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
             max={95}
             value={threshold}
             onChange={(e) => setThreshold(Number(e.target.value))}
-            className="w-full"
+            className="w-full accent-[var(--accent)]"
           />
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-[var(--text-tertiary)]">
             Score ≥ threshold ⇒ fast-qualified. Lower values hand off earlier.
           </p>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-3">
           <Select<QualifierAIConfig["handoff_aggressiveness"]>
             label="Handoff aggressiveness"
             value={aggressiveness}
@@ -475,55 +475,55 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
         </div>
 
         <label className="grid gap-1 text-sm">
-          <span className="font-semibold text-slate-700">Custom prompt prefix</span>
+          <span className="font-semibold text-[var(--text-secondary)]">Custom prompt prefix</span>
           <textarea
             value={customPromptPrefix}
             onChange={(e) => setCustomPromptPrefix(e.target.value)}
             maxLength={2000}
             rows={3}
-            className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+            className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             placeholder="Prepended to every AI system prompt for this company."
           />
         </label>
 
         <label className="grid gap-1 text-sm">
-          <span className="font-semibold text-slate-700">Ideal customer profile</span>
+          <span className="font-semibold text-[var(--text-secondary)]">Ideal customer profile</span>
           <textarea
             value={idealCustomerProfile}
             onChange={(e) => setIdealCustomerProfile(e.target.value)}
             maxLength={2000}
             rows={3}
-            className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+            className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             placeholder="Describe your best-fit customer. Guides score calibration."
           />
         </label>
 
-        <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm">
+        <label className="flex items-start gap-3 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-3 text-sm">
           <input
             type="checkbox"
             checked={manualQualify}
             onChange={(e) => setManualQualify(e.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-slate-300"
+            className="mt-0.5 h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
           />
           <span className="grid gap-0.5">
-            <span className="font-semibold text-slate-700">Manual qualify mode</span>
-            <span className="text-xs text-slate-500">
-              New leads score and land in the CRM as <code>pending</code>. AI chat
-              and WhatsApp greetings only fire when you click Start Qualify on
-              the lead.
+            <span className="font-semibold text-[var(--text-secondary)]">Manual qualify mode</span>
+            <span className="text-xs text-[var(--text-tertiary)]">
+              New leads score and land in the CRM as{" "}
+              <code className="rounded bg-[var(--surface)] px-1 font-mono text-[var(--text-primary)]">pending</code>.
+              AI chat and WhatsApp greetings only fire when you click Start Qualify on the lead.
             </span>
           </span>
         </label>
 
         <label className="grid gap-1 text-sm">
-          <span className="font-semibold text-slate-700">Forbidden topics</span>
+          <span className="font-semibold text-[var(--text-secondary)]">Forbidden topics</span>
           <input
             value={forbiddenTopics}
             onChange={(e) => setForbiddenTopics(e.target.value)}
-            className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+            className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             placeholder="comma,separated,list"
           />
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-[var(--text-tertiary)]">
             The AI will refuse to discuss these topics during qualification chat.
           </p>
         </label>
@@ -532,7 +532,7 @@ function AIConfigSection({ companyId, config, onChange, setError, setSuccess }: 
           <button
             type="submit"
             disabled={saving}
-            className="rounded-full bg-slate-950 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+            className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
           >
             {saving ? "Saving…" : "Save AI config"}
           </button>
@@ -555,11 +555,11 @@ function Select<T extends string | undefined>({
 }) {
   return (
     <label className="grid gap-1 text-sm">
-      <span className="font-semibold text-slate-700">{label}</span>
+      <span className="font-semibold text-[var(--text-secondary)]">{label}</span>
       <select
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value as T)}
-        className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm capitalize focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-100"
+        className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm capitalize text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
       >
         {options.map((opt) => (
           <option key={opt} value={opt}>
