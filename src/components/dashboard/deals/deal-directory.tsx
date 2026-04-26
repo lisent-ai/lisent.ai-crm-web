@@ -455,13 +455,13 @@ export function DealDirectory() {
       />
 
       {errorMessage ? (
-        <div className="rounded-[1.3rem] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="rounded-[var(--radius-card-lg)] border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </div>
       ) : null}
 
       {successMessage ? (
-        <div className="rounded-[1.3rem] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+        <div className="rounded-[var(--radius-card-lg)] border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
           {successMessage}
         </div>
       ) : null}
@@ -487,7 +487,7 @@ export function DealDirectory() {
           }}
           selectedDealId={selectedDealId}
         />
-        <section className="rounded-[1.35rem] border border-dashed border-slate-300 bg-slate-50 px-5 py-4 text-sm text-slate-600">
+        <section className="rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-5 py-4 text-sm text-[var(--text-secondary)]">
           Click a deal card to open its full detail view in a popup without leaving the board.
         </section>
       </div>

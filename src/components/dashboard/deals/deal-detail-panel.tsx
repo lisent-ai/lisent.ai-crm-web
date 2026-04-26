@@ -51,24 +51,24 @@ export function DealDetailPanel({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 px-4 py-8"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_srgb,_var(--text-primary)_40%,_transparent)] px-4 py-8"
       onClick={onClose}
       role="presentation"
     >
       <section
-        className="flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white shadow-[0_28px_80px_rgba(15,23,42,0.22)]"
+        className="flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-float)]"
         onClick={(event) => event.stopPropagation()}
         role="presentation"
       >
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5">
+        <div className="flex items-start justify-between gap-4 border-b border-[var(--border-subtle)] px-6 py-5">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
               Deal detail
             </p>
-            <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+            <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
               {deal.name || "Untitled deal"}
             </h3>
-            <p className="mt-2 text-sm leading-7 text-slate-600">
+            <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">
               {deal.stage === "won"
                 ? deal.wonReason || "No win reason recorded yet."
                 : deal.stage === "lost"
@@ -86,7 +86,7 @@ export function DealDetailPanel({
               {formatStageLabel(deal.stage)}
             </span>
             <button
-              className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+              className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-default)] hover:text-[var(--text-primary)]"
               onClick={onClose}
               type="button"
             >
@@ -105,7 +105,7 @@ export function DealDetailPanel({
 
           <div className="flex flex-wrap gap-3">
             <button
-              className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+              className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
               disabled={saving}
               onClick={() => onEdit(deal)}
               type="button"
@@ -113,7 +113,7 @@ export function DealDetailPanel({
               Edit deal
             </button>
             <button
-              className="rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-700 transition hover:border-cyan-400 hover:bg-cyan-100 disabled:opacity-50"
+              className="rounded-full border border-[color-mix(in_srgb,_var(--accent)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--accent)_10%,_var(--surface))] px-5 py-3 text-sm font-semibold text-[var(--accent-strong)] transition hover:border-[var(--accent)] hover:bg-[color-mix(in_srgb,_var(--accent)_18%,_var(--surface))] disabled:opacity-50"
               disabled={saving}
               onClick={() => onSchedule(deal)}
               type="button"
@@ -121,7 +121,7 @@ export function DealDetailPanel({
               Schedule activity
             </button>
             <button
-              className="rounded-full border border-rose-300 bg-rose-50 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:border-rose-400 hover:bg-rose-100 disabled:opacity-50"
+              className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-5 py-3 text-sm font-semibold text-[var(--signal-red)] transition hover:border-[color-mix(in_srgb,_var(--signal-red)_55%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
               disabled={saving}
               onClick={() => onDelete(deal)}
               type="button"
@@ -156,36 +156,36 @@ export function DealDetailPanel({
             saving={saving}
           />
 
-          <section className="rounded-[1.1rem] border border-slate-200 bg-slate-50">
-            <header className="border-b border-slate-200 px-4 py-3">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-600">
+          <section className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)]">
+            <header className="border-b border-[var(--border-subtle)] px-4 py-3">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
                 Stage history
               </p>
             </header>
             <div className="grid gap-3 px-4 py-4">
               {deal.stageHistory.length === 0 ? (
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-[var(--text-tertiary)]">
                   No stage history recorded yet.
                 </p>
               ) : (
                 deal.stageHistory.map((entry) => (
                   <div
-                    className="rounded-2xl border border-slate-200 bg-white px-4 py-4"
+                    className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-4"
                     key={entry.id}
                   >
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <p className="text-sm font-semibold text-slate-950">
+                      <p className="text-sm font-semibold text-[var(--text-primary)]">
                         {formatStageLabel(entry.stage)}
                       </p>
-                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
                         {formatStageDuration(entry)}
                       </span>
                     </div>
-                    <p className="mt-2 text-sm text-slate-600">
+                    <p className="mt-2 text-sm text-[var(--text-secondary)]">
                       {formatDateTime(entry.enteredAt)} to{" "}
                       {entry.exitedAt ? formatDateTime(entry.exitedAt) : "Now"}
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-[var(--text-tertiary)]">
                       Changed by {entry.changedByUserName || entry.changedByUserId || "System"}
                     </p>
                   </div>
@@ -199,11 +199,11 @@ export function DealDetailPanel({
           ) : null}
 
           {Object.keys(deal.extraData).length > 0 ? (
-            <section className="rounded-[1.1rem] border border-slate-200 bg-slate-50 p-4">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-600">
+            <section className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
                 Extra data
               </p>
-              <pre className="mt-3 overflow-auto rounded-2xl bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+              <pre className="mt-3 overflow-auto rounded-2xl bg-[color-mix(in_srgb,_var(--text-primary)_92%,_transparent)] p-4 text-xs leading-6 text-[var(--surface)]">
                 {JSON.stringify(deal.extraData, null, 2)}
               </pre>
             </section>
@@ -253,13 +253,13 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
   if (!hasAny) return null;
 
   return (
-    <section className="rounded-[1.1rem] border border-violet-200 bg-violet-50/60 p-4">
+    <section className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-purple)_8%,_var(--surface))] p-4">
       <header className="flex items-center justify-between gap-3">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-800">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--signal-purple)]">
           AI insights (source lead)
         </p>
         {lead.aiLastScoredAt ? (
-          <span className="text-xs text-violet-700">
+          <span className="text-xs text-[var(--signal-purple)]">
             scored {formatDateTime(lead.aiLastScoredAt)}
           </span>
         ) : null}
@@ -267,39 +267,39 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
 
       <div className="mt-3 grid gap-3 md:grid-cols-3">
         {typeof lead.aiScore === "number" ? (
-          <article className="rounded-xl border border-violet-200 bg-white p-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-700">
+          <article className="rounded-xl border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[var(--surface)] p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--signal-purple)]">
               AI score
             </p>
-            <p className="mt-1 text-base font-semibold text-slate-900">
+            <p className="mt-1 text-base font-semibold text-[var(--text-primary)]">
               {Math.round(lead.aiScore)} / 100
             </p>
           </article>
         ) : null}
         {lead.aiStatus ? (
-          <article className="rounded-xl border border-violet-200 bg-white p-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-700">
+          <article className="rounded-xl border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[var(--surface)] p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--signal-purple)]">
               AI status
             </p>
-            <p className="mt-1 text-base font-semibold text-slate-900">{lead.aiStatus}</p>
+            <p className="mt-1 text-base font-semibold text-[var(--text-primary)]">{lead.aiStatus}</p>
           </article>
         ) : null}
         {lead.aiPath ? (
-          <article className="rounded-xl border border-violet-200 bg-white p-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-700">
+          <article className="rounded-xl border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[var(--surface)] p-3">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--signal-purple)]">
               Path
             </p>
-            <p className="mt-1 text-base font-semibold text-slate-900">{lead.aiPath}</p>
+            <p className="mt-1 text-base font-semibold text-[var(--text-primary)]">{lead.aiPath}</p>
           </article>
         ) : null}
       </div>
 
       {lead.aiReasoning ? (
         <details className="mt-3" open>
-          <summary className="cursor-pointer text-xs font-semibold text-violet-800">
+          <summary className="cursor-pointer text-xs font-semibold text-[var(--signal-purple)]">
             Reasoning report
           </summary>
-          <pre className="mt-2 overflow-auto rounded-xl bg-white p-3 text-xs leading-6 text-slate-800">
+          <pre className="mt-2 overflow-auto rounded-xl bg-[var(--surface)] p-3 text-xs leading-6 text-[var(--text-primary)]">
             {JSON.stringify(lead.aiReasoning, null, 2)}
           </pre>
         </details>
@@ -307,10 +307,10 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
 
       {lead.aiChamp ? (
         <details className="mt-3">
-          <summary className="cursor-pointer text-xs font-semibold text-violet-800">
+          <summary className="cursor-pointer text-xs font-semibold text-[var(--signal-purple)]">
             CHAMP extraction
           </summary>
-          <pre className="mt-2 overflow-auto rounded-xl bg-white p-3 text-xs leading-6 text-slate-800">
+          <pre className="mt-2 overflow-auto rounded-xl bg-[var(--surface)] p-3 text-xs leading-6 text-[var(--text-primary)]">
             {JSON.stringify(lead.aiChamp, null, 2)}
           </pre>
         </details>

@@ -31,15 +31,15 @@ export function DealFormModal({
     <DealModalFrame onClose={onClose}>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-700/80">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent-strong)]">
             {editing ? "Edit deal" : "New deal"}
           </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
             {editing ? "Update opportunity" : "Capture a new opportunity"}
           </h2>
         </div>
         <button
-          className="rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+          className="rounded-full border border-[var(--border-subtle)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           onClick={onClose}
           type="button"
         >
@@ -142,7 +142,7 @@ export function DealFormModal({
           ]}
           value={form.assigneeUserId}
         />
-        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-600">
+        <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-3 text-sm leading-6 text-[var(--text-secondary)]">
           The assignee is stored directly on the deal record, so ownership is visible
           in the pipeline even if the deal is not yet tied to a customer lifecycle.
         </div>
@@ -168,7 +168,7 @@ export function DealFormModal({
 
       <div className="mt-8 flex flex-wrap gap-3">
         <button
-          className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+          className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
           disabled={saving}
           onClick={onSave}
           type="button"
@@ -176,7 +176,7 @@ export function DealFormModal({
           {saving ? "Saving..." : editing ? "Save changes" : "Create deal"}
         </button>
         <button
-          className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
+          className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           onClick={onClose}
           type="button"
         >
@@ -200,9 +200,9 @@ function TextField({
 }>) {
   return (
     <label className="grid gap-2">
-      <span className="text-sm font-medium text-slate-700">{label}</span>
+      <span className="text-sm font-medium text-[var(--text-secondary)]">{label}</span>
       <input
-        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-400"
+        className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         value={value}
@@ -224,9 +224,9 @@ function NumberField({
 }>) {
   return (
     <label className="grid gap-2">
-      <span className="text-sm font-medium text-slate-700">{label}</span>
+      <span className="text-sm font-medium text-[var(--text-secondary)]">{label}</span>
       <input
-        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-400"
+        className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
         inputMode="decimal"
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
@@ -248,9 +248,9 @@ function DateField({
 }>) {
   return (
     <label className="grid gap-2">
-      <span className="text-sm font-medium text-slate-700">{label}</span>
+      <span className="text-sm font-medium text-[var(--text-secondary)]">{label}</span>
       <input
-        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400"
+        className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)]"
         onChange={(event) => onChange(event.target.value)}
         type="date"
         value={value}
@@ -272,9 +272,9 @@ function SelectField({
 }>) {
   return (
     <label className="grid gap-2">
-      <span className="text-sm font-medium text-slate-700">{label}</span>
+      <span className="text-sm font-medium text-[var(--text-secondary)]">{label}</span>
       <select
-        className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400"
+        className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)]"
         onChange={(event) => onChange(event.target.value)}
         value={value}
       >

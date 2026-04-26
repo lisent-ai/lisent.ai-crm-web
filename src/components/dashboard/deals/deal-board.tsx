@@ -97,13 +97,13 @@ export function DealBoard({
   }
 
   return (
-    <section className="min-w-0 overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_18px_60px_rgba(15,23,42,0.06)]">
+    <section className="min-w-0 overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
             Kanban board
           </p>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-[var(--text-secondary)]">
             {dealsLoading ? "Loading board..." : `${deals.length} deals in the pipeline`}
           </p>
         </div>

@@ -14,24 +14,24 @@ type DealBoardColumnProps = {
 };
 
 const stageDotClasses: Record<DealStage, string> = {
-  new: "bg-violet-400",
-  qualified: "bg-sky-400",
-  proposal: "bg-fuchsia-400",
-  negotiation: "bg-amber-400",
-  won: "bg-emerald-400",
-  lost: "bg-rose-400",
+  new: "bg-[var(--signal-purple)]",
+  qualified: "bg-[var(--signal-blue)]",
+  proposal: "bg-[var(--signal-purple)]",
+  negotiation: "bg-[var(--signal-amber)]",
+  won: "bg-[var(--signal-green)]",
+  lost: "bg-[var(--signal-red)]",
 };
 
 const stageShellClasses: Record<DealStage, string> = {
-  new: "border-violet-200 bg-[linear-gradient(180deg,_rgba(245,243,255,0.9),_#ffffff_30%)]",
+  new: "border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-purple)_6%,_var(--surface))]",
   qualified:
-    "border-sky-200 bg-[linear-gradient(180deg,_rgba(240,249,255,0.95),_#ffffff_30%)]",
+    "border-[color-mix(in_srgb,_var(--accent)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--accent)_6%,_var(--surface))]",
   proposal:
-    "border-fuchsia-200 bg-[linear-gradient(180deg,_rgba(253,244,255,0.95),_#ffffff_30%)]",
+    "border-[color-mix(in_srgb,_var(--signal-purple)_32%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-purple)_8%,_var(--surface))]",
   negotiation:
-    "border-amber-200 bg-[linear-gradient(180deg,_rgba(255,251,235,0.95),_#ffffff_30%)]",
-  won: "border-emerald-200 bg-[linear-gradient(180deg,_rgba(236,253,245,0.95),_#ffffff_30%)]",
-  lost: "border-rose-200 bg-[linear-gradient(180deg,_rgba(255,241,242,0.95),_#ffffff_30%)]",
+    "border-[color-mix(in_srgb,_var(--signal-amber)_32%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_8%,_var(--surface))]",
+  won: "border-[color-mix(in_srgb,_var(--signal-green)_32%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))]",
+  lost: "border-[color-mix(in_srgb,_var(--signal-red)_32%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))]",
 };
 
 export function DealBoardColumn({
@@ -47,16 +47,16 @@ export function DealBoardColumn({
 
   return (
     <div
-      className={`w-[310px] shrink-0 self-start rounded-[1.8rem] border p-4 shadow-[0_18px_48px_rgba(15,23,42,0.08)] ${stageShellClasses[stage]}`}
+      className={`w-[310px] shrink-0 self-start rounded-[var(--radius-card-lg)] border p-4 shadow-[var(--shadow-card)] ${stageShellClasses[stage]}`}
     >
-      <div className="rounded-[1.45rem] border border-white/80 bg-white/92 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+      <div className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-4 shadow-[var(--shadow-xs)]">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className={`h-2.5 w-2.5 rounded-full ${stageDotClasses[stage]}`} />
-              <p className="truncate text-base font-semibold text-slate-950">{stageLabel}</p>
+              <p className="truncate text-base font-semibold text-[var(--text-primary)]">{stageLabel}</p>
             </div>
-            <p className="mt-1 text-sm leading-6 text-slate-500">{stageDescription}</p>
+            <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">{stageDescription}</p>
           </div>
           <span
             className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${stageBadgeClasses(
@@ -67,11 +67,11 @@ export function DealBoardColumn({
           </span>
         </div>
 
-        <div className="mt-4 rounded-[1.15rem] border border-slate-200 bg-[linear-gradient(145deg,_#f8fafc,_#ffffff)] px-3 py-3">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+        <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-3">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
             Column total
           </p>
-          <p className="mt-1 text-lg font-semibold text-slate-950">
+          <p className="mt-1 text-lg font-semibold text-[var(--text-primary)]">
             {formatMoney(totalValue, deals[0]?.currency || "EUR")}
           </p>
         </div>
@@ -79,7 +79,7 @@ export function DealBoardColumn({
 
       <div className="mt-4 grid max-h-[calc(100vh-18rem)] gap-3 overflow-y-auto pr-1">
         {deals.length === 0 ? (
-          <div className="rounded-[1.25rem] border border-dashed border-slate-300 bg-white/80 px-4 py-8 text-center text-sm text-slate-500">
+          <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-4 py-8 text-center text-sm text-[var(--text-tertiary)]">
             No deals here yet.
           </div>
         ) : (

@@ -25,23 +25,23 @@ export function DealList({
   onSelectDeal,
 }: Readonly<DealListProps>) {
   return (
-    <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+    <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
           Deal list
         </p>
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="mt-2 text-sm text-[var(--text-secondary)]">
           {dealsLoading ? "Loading deals..." : `${deals.length} deals in view`}
         </p>
       </div>
 
       <div className="mt-5 grid gap-3">
         {companiesLoading || dealsLoading ? (
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-6 text-sm text-slate-500">
+          <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
             Deal pipeline is loading...
           </div>
         ) : deals.length === 0 ? (
-          <div className="rounded-[1.2rem] border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-sm leading-7 text-slate-500">
+          <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-8 text-sm leading-7 text-[var(--text-tertiary)]">
             No deals match the active filters yet.
           </div>
         ) : (
@@ -50,10 +50,10 @@ export function DealList({
 
             return (
               <button
-                className={`rounded-[1.4rem] border px-4 py-4 text-left transition ${
+                className={`rounded-[var(--radius-card-lg)] border px-4 py-4 text-left transition ${
                   active
-                    ? "border-cyan-300 bg-cyan-50 shadow-[0_12px_24px_rgba(8,145,178,0.08)]"
-                    : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                    ? "border-[var(--accent)] bg-[color-mix(in_srgb,_var(--accent)_8%,_var(--surface))] shadow-[var(--shadow-card)]"
+                    : "border-[var(--border-subtle)] bg-[var(--surface)] hover:border-[var(--border-default)] hover:bg-[var(--surface-muted)]"
                 }`}
                 key={deal.id}
                 onClick={() => onSelectDeal(deal.id)}
@@ -61,10 +61,10 @@ export function DealList({
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="text-base font-semibold text-slate-950">
+                    <p className="text-base font-semibold text-[var(--text-primary)]">
                       {deal.name || "Untitled deal"}
                     </p>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="mt-1 text-sm text-[var(--text-tertiary)]">
                       {customerLabelById.get(deal.customerId) || "No related customer"}
                     </p>
                   </div>
@@ -77,7 +77,7 @@ export function DealList({
                   </span>
                 </div>
 
-                <div className="mt-4 grid gap-2 text-sm text-slate-600">
+                <div className="mt-4 grid gap-2 text-sm text-[var(--text-secondary)]">
                   <p>Amount: {formatMoney(deal.amount, deal.currency)}</p>
                   <p>Assignee: {formatAssigneeLabel(deal)}</p>
                   <p>Close target: {deal.closeDate || "Not set"}</p>

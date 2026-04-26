@@ -67,17 +67,17 @@ export function formatStageLabel(stage: DealStage) {
 export function stageBadgeClasses(stage: DealStage) {
   switch (stage) {
     case "won":
-      return "border-emerald-300 bg-emerald-50 text-emerald-700";
+      return "border-[color-mix(in_srgb,_var(--signal-green)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] text-[var(--signal-green)]";
     case "lost":
-      return "border-rose-300 bg-rose-50 text-rose-700";
+      return "border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))] text-[var(--signal-red)]";
     case "proposal":
-      return "border-fuchsia-300 bg-fuchsia-50 text-fuchsia-700";
+      return "border-[color-mix(in_srgb,_var(--signal-purple)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-purple)_10%,_var(--surface))] text-[var(--signal-purple)]";
     case "negotiation":
-      return "border-amber-300 bg-amber-50 text-amber-700";
+      return "border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_12%,_var(--surface))] text-[#92400e]";
     case "qualified":
-      return "border-sky-300 bg-sky-50 text-sky-700";
+      return "border-[color-mix(in_srgb,_var(--accent)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--accent)_10%,_var(--surface))] text-[var(--accent-strong)]";
     default:
-      return "border-slate-300 bg-slate-100 text-slate-700";
+      return "border-[var(--border-default)] bg-[var(--surface-inset)] text-[var(--text-secondary)]";
   }
 }
 

@@ -22,12 +22,12 @@ export function DealFilters({
   onAssigneeFilterChange,
 }: Readonly<DealFiltersProps>) {
   return (
-    <section className="min-w-0 rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+    <section className="min-w-0 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(200px,0.8fr)_minmax(200px,0.8fr)]">
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-slate-700">Search</span>
+          <span className="text-sm font-medium text-[var(--text-secondary)]">Search</span>
           <input
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-400"
+            className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
             onChange={(event) => onSearchQueryChange(event.target.value)}
             placeholder="Deal name, assignee, won/lost reason..."
             value={searchQuery}
@@ -35,9 +35,9 @@ export function DealFilters({
         </label>
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-slate-700">Stage</span>
+          <span className="text-sm font-medium text-[var(--text-secondary)]">Stage</span>
           <select
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400"
+            className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)]"
             onChange={(event) => onStageFilterChange(event.target.value)}
             value={stageFilter}
           >
@@ -51,9 +51,9 @@ export function DealFilters({
         </label>
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-slate-700">Assignee</span>
+          <span className="text-sm font-medium text-[var(--text-secondary)]">Assignee</span>
           <select
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400"
+            className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)]"
             onChange={(event) => onAssigneeFilterChange(event.target.value)}
             value={assigneeFilter}
           >
