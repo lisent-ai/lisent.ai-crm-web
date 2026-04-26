@@ -493,15 +493,15 @@ const EXTRA_DATA_HIDDEN_KEYS: ReadonlySet<string> = new Set([
 function ExtraDataPanel({
   extraData,
 }: Readonly<{ extraData: Record<string, unknown> }>) {
-  const entries = Object.entries(extraData)
-    .filter(
+  const entries = dedupeCaseVariants(
+    Object.entries(extraData).filter(
       ([k, v]) =>
         !EXTRA_DATA_HIDDEN_KEYS.has(k) &&
         v !== null &&
         v !== undefined &&
         !(typeof v === "string" && v.trim() === ""),
-    )
-    .sort(([a], [b]) => a.localeCompare(b));
+    ),
+  ).sort(([a], [b]) => a.localeCompare(b));
 
   if (entries.length === 0) return null;
 
@@ -535,6 +535,66 @@ function ExtraDataPanel({
       </dl>
     </details>
   );
+}
+
+/**
+ * Some inbound integrations (notably Meta Lead Ads ETLs) duplicate every
+ * field in two casing conventions — `ad_id` AND `AdId`, `full_name` AND
+ * `FullName`, etc. Both end up in extra_data and the panel renders them
+ * twice. Collapse pairs that normalize to the same canonical key, keeping
+ * the snake_case form when present (it humanizes more naturally — `Ad Id`
+ * vs `AdId`). When values for the same canonical key disagree, both
+ * variants are kept so the operator can spot the inconsistency.
+ */
+function dedupeCaseVariants(
+  entries: Array<[string, unknown]>,
+): Array<[string, unknown]> {
+  const groups = new Map<string, Array<[string, unknown]>>();
+  for (const entry of entries) {
+    const canonical = entry[0].replace(/[_\s-]+/g, "").toLowerCase();
+    const bucket = groups.get(canonical);
+    if (bucket) {
+      bucket.push(entry);
+    } else {
+      groups.set(canonical, [entry]);
+    }
+  }
+  const out: Array<[string, unknown]> = [];
+  for (const bucket of groups.values()) {
+    if (bucket.length === 1) {
+      out.push(bucket[0]);
+      continue;
+    }
+    // All values agree → keep one (prefer the snake_case spelling for
+    // nicer humanization).
+    const first = bucket[0][1];
+    const allEqual = bucket.every(([, v]) => valuesEqual(v, first));
+    if (allEqual) {
+      const preferred =
+        bucket.find(([k]) => k.includes("_")) ?? bucket[0];
+      out.push(preferred);
+    } else {
+      // Disagreement is interesting — surface every variant so the
+      // operator notices the partner is sending inconsistent values.
+      for (const entry of bucket) {
+        out.push(entry);
+      }
+    }
+  }
+  return out;
+}
+
+function valuesEqual(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (typeof a === "object" && a !== null && b !== null) {
+    try {
+      return JSON.stringify(a) === JSON.stringify(b);
+    } catch {
+      return false;
+    }
+  }
+  return false;
 }
 
 function humanizeKey(key: string): string {
