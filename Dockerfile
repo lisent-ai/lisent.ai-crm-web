@@ -3,6 +3,10 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 RUN apk add --no-cache libc6-compat
+# Pin npm to v11 in this stage so lockfile v3 (authored locally with npm@11)
+# parses correctly. Does not affect package versions — `npm ci` is
+# deterministic; only the npm CLI tool is upgraded.
+RUN npm install -g npm@11
 COPY package.json package-lock.json ./
 RUN npm ci
 
