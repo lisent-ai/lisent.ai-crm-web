@@ -21,7 +21,7 @@ export function DealDeleteModal({
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--signal-red)]">
           Delete deal
         </p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
+        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
           Remove {deal.name || "this deal"}?
         </h2>
         <p className="mt-4 text-sm leading-7 text-[var(--text-secondary)]">

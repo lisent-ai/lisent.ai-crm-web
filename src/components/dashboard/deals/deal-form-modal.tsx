@@ -30,16 +30,16 @@ export function DealFormModal({
   return (
     <DealModalFrame onClose={onClose}>
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent-strong)]">
             {editing ? "Edit deal" : "New deal"}
           </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
             {editing ? "Update opportunity" : "Capture a new opportunity"}
           </h2>
         </div>
         <button
-          className="rounded-full border border-[var(--border-subtle)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+          className="shrink-0 rounded-full border border-[var(--border-subtle)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] sm:px-5 sm:py-3"
           onClick={onClose}
           type="button"
         >

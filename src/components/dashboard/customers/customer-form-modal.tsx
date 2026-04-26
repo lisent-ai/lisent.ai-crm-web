@@ -25,21 +25,21 @@ export function CustomerFormModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_srgb,_var(--text-primary)_35%,_transparent)] px-4 py-8"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-[color-mix(in_srgb,_var(--text-primary)_35%,_transparent)] px-0 pt-10 sm:items-center sm:px-4 sm:py-8"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="w-full max-w-3xl rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-float)]"
+        className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-y-auto rounded-t-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-float)] sm:rounded-[var(--radius-card-lg)] sm:p-6"
         onClick={(event) => event.stopPropagation()}
         role="presentation"
       >
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
+          <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-tertiary)]">
               {eyebrow}
             </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
+            <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
               {title}
             </h2>
             <p className="mt-1 text-sm text-[var(--text-secondary)]">{subtitle}</p>

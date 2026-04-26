@@ -51,21 +51,21 @@ export function DealDetailPanel({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_srgb,_var(--text-primary)_40%,_transparent)] px-4 py-8"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-[color-mix(in_srgb,_var(--text-primary)_40%,_transparent)] px-0 pt-10 sm:items-center sm:px-4 sm:py-8"
       onClick={onClose}
       role="presentation"
     >
       <section
-        className="flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-float)]"
+        className="flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-t-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-float)] sm:rounded-[var(--radius-card-lg)]"
         onClick={(event) => event.stopPropagation()}
         role="presentation"
       >
-        <div className="flex items-start justify-between gap-4 border-b border-[var(--border-subtle)] px-6 py-5">
-          <div>
+        <div className="flex flex-col gap-4 border-b border-[var(--border-subtle)] px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:px-6 sm:py-5">
+          <div className="min-w-0">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
               Deal detail
             </p>
-            <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
+            <h3 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
               {deal.name || "Untitled deal"}
             </h3>
             <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">
@@ -77,7 +77,7 @@ export function DealDetailPanel({
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-end gap-3">
+          <div className="flex flex-wrap items-center justify-start gap-3 sm:justify-end">
             <span
               className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${stageBadgeClasses(
                 deal.stage,
@@ -95,7 +95,7 @@ export function DealDetailPanel({
           </div>
         </div>
 
-        <div className="grid gap-5 overflow-y-auto px-6 py-6">
+        <div className="grid gap-5 overflow-y-auto px-5 py-5 sm:px-6 sm:py-6">
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <CompactMeta label="Amount" value={formatMoney(deal.amount, deal.currency)} />
             <CompactMeta label="Assignee" value={formatAssigneeLabel(deal)} />

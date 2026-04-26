@@ -27,20 +27,20 @@ export function CustomerDetailDrawer({
         type="button"
       />
 
-      <aside className="absolute inset-y-0 right-0 z-10 flex w-full max-w-[560px] flex-col border-l border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-lg)]">
+      <aside className="absolute inset-y-0 right-0 z-10 flex w-full max-w-full flex-col bg-[var(--surface)] shadow-[var(--shadow-lg)] sm:max-w-[560px] sm:border-l sm:border-[var(--border-subtle)]">
         <div className="border-b border-[var(--border-subtle)] px-5 py-4">
           <div className="flex items-start justify-between gap-3">
-            <div>
+            <div className="min-w-0">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--text-tertiary)]">
                 Customer Detail
               </p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
+              <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
                 {customer.name}
               </h2>
-              <p className="mt-1 text-sm text-[var(--text-secondary)]">{customer.email}</p>
+              <p className="mt-1 truncate text-sm text-[var(--text-secondary)]">{customer.email}</p>
             </div>
             <button
-              className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+              className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
               onClick={onClose}
               type="button"
             >
