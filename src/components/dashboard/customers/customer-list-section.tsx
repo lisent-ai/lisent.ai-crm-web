@@ -38,17 +38,17 @@ export function CustomerListSection({
   const indeterminate = selectedIds.size > 0 && !allSelected;
 
   return (
-    <section className="w-full min-w-0 rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+    <section className="w-full min-w-0 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--text-tertiary)]">
             Customer list
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
             Related customers
           </h2>
         </div>
-        <span className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-600">
+        <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)]">
           {customers.length} visible
         </span>
       </div>
@@ -61,9 +61,9 @@ export function CustomerListSection({
           value={searchQuery}
         />
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-slate-700">Status filter</span>
+          <span className="text-sm font-medium text-[var(--text-secondary)]">Status filter</span>
           <select
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400"
+            className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)]"
             onChange={(event) => onStatusFilterChange(event.target.value)}
             value={statusFilter}
           >
@@ -75,10 +75,10 @@ export function CustomerListSection({
         </label>
       </div>
 
-      <div className="mt-5 min-w-0 overflow-hidden rounded-[1.4rem] border border-slate-200">
+      <div className="mt-5 min-w-0 overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)]">
         <div className="max-h-[46rem] overflow-y-auto overflow-x-auto">
           <table className="w-full min-w-[1100px] text-left text-sm">
-            <thead className="sticky top-0 bg-slate-100 text-xs uppercase tracking-[0.22em] text-slate-500">
+            <thead className="sticky top-0 bg-[var(--surface-inset)] text-xs uppercase tracking-[0.22em] text-[var(--text-tertiary)]">
               <tr>
                 <th className="w-[52px] px-4 py-3 font-medium">
                   <HeaderCheckbox
@@ -102,8 +102,10 @@ export function CustomerListSection({
 
                 return (
                   <tr
-                    className={`border-t border-slate-200 ${
-                      selected ? "bg-sky-50/60" : "bg-white"
+                    className={`border-t border-[var(--border-subtle)] ${
+                      selected
+                        ? "bg-[color-mix(in_srgb,_var(--accent)_8%,_var(--surface))]"
+                        : "bg-[var(--surface)]"
                     }`}
                     key={customer.id}
                   >
@@ -111,15 +113,15 @@ export function CustomerListSection({
                       <input
                         aria-label={`Select ${customer.name || "customer"}`}
                         checked={checked}
-                        className="h-4 w-4 rounded border-slate-300 accent-sky-600"
+                        className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent-strong)]"
                         onChange={() => onToggleOne(customer.id)}
                         type="checkbox"
                       />
                     </td>
-                    <td className="px-4 py-3 text-slate-900">{customer.name}</td>
-                    <td className="px-4 py-3 text-slate-600">{customer.phone}</td>
-                    <td className="px-4 py-3 text-slate-600">{customer.email}</td>
-                    <td className="px-4 py-3 text-slate-600">
+                    <td className="px-4 py-3 text-[var(--text-primary)]">{customer.name}</td>
+                    <td className="px-4 py-3 text-[var(--text-secondary)]">{customer.phone}</td>
+                    <td className="px-4 py-3 text-[var(--text-secondary)]">{customer.email}</td>
+                    <td className="px-4 py-3 text-[var(--text-secondary)]">
                       {describeCustomerCountry(
                         customer.countryCode,
                         customer.extraData,
@@ -127,28 +129,28 @@ export function CustomerListSection({
                       )}
                     </td>
                     <td className="px-4 py-3">
-                      <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
                         {customer.status}
                       </span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex flex-nowrap gap-2">
                         <button
-                          className="whitespace-nowrap rounded-full border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
+                          className="whitespace-nowrap rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                           onClick={() => onViewCustomer(customer)}
                           type="button"
                         >
                           View
                         </button>
                         <button
-                          className="whitespace-nowrap rounded-full border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
+                          className="whitespace-nowrap rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                           onClick={() => onEditCustomer(customer)}
                           type="button"
                         >
                           Edit
                         </button>
                         <button
-                          className="whitespace-nowrap rounded-full border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700 transition hover:border-red-300 hover:bg-red-100"
+                          className="whitespace-nowrap rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-3 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
                           onClick={() => onDeleteCustomer(customer)}
                           type="button"
                         >
@@ -165,7 +167,7 @@ export function CustomerListSection({
       </div>
 
       {customers.length === 0 && (
-        <div className="mt-4 rounded-[1.4rem] border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-500">
+        <div className="mt-4 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-5 py-4 text-sm text-[var(--text-tertiary)]">
           No customers matched the current filters.
         </div>
       )}
@@ -186,7 +188,7 @@ function HeaderCheckbox({
     <input
       aria-label="Select all customers"
       checked={checked}
-      className="h-4 w-4 rounded border-slate-300 accent-sky-600"
+      className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent-strong)]"
       onChange={onChange}
       ref={(node) => {
         if (node) {

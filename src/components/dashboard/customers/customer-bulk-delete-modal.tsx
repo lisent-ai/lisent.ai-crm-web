@@ -13,26 +13,26 @@ export function CustomerBulkDeleteModal({
 }: Readonly<CustomerBulkDeleteModalProps>) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 py-8"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_srgb,_var(--text-primary)_35%,_transparent)] px-4 py-8"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="w-full max-w-2xl rounded-[1.6rem] border border-rose-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.2)]"
+        className="w-full max-w-2xl rounded-[var(--radius-card-lg)] border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[var(--surface)] p-6 shadow-[var(--shadow-float)]"
         onClick={(event) => event.stopPropagation()}
         role="presentation"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--signal-red)]">
               Delete customers
             </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
               Remove {count} selected customer{count === 1 ? "" : "s"}
             </h2>
           </div>
           <button
-            className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
+            className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
             onClick={onClose}
             type="button"
           >
@@ -40,13 +40,13 @@ export function CustomerBulkDeleteModal({
           </button>
         </div>
 
-        <p className="mt-5 text-sm leading-7 text-slate-700">
+        <p className="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
           This will permanently remove the selected customer records from the CRM.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <button
-            className="rounded-full bg-rose-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(225,29,72,0.3)] transition hover:bg-rose-500 disabled:opacity-50"
+            className="rounded-full bg-[var(--signal-red)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-md)] transition hover:opacity-90 disabled:opacity-50"
             disabled={saving}
             onClick={onConfirmDelete}
             type="button"
@@ -54,7 +54,7 @@ export function CustomerBulkDeleteModal({
             {saving ? "Deleting..." : `Confirm delete ${count}`}
           </button>
           <button
-            className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950 disabled:opacity-50"
+            className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
             disabled={saving}
             onClick={onClose}
             type="button"

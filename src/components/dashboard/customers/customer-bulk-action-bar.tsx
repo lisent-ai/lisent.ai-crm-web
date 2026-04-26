@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { Trash2, X } from "lucide-react";
 
@@ -11,17 +11,17 @@ type CustomerBulkActionBarProps = {
   saving: boolean;
 };
 
+const noopSubscribe = () => () => {};
+const getClient = () => true;
+const getServer = () => false;
+
 export function CustomerBulkActionBar({
   count,
   onClear,
   onDelete,
   saving,
 }: Readonly<CustomerBulkActionBarProps>) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(noopSubscribe, getClient, getServer);
 
   if (!mounted || count === 0) {
     return null;
