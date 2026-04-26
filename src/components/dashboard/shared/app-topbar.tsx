@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Menu, Upload } from "lucide-react";
 
 import { NotificationCenter } from "@/components/dashboard/shared/notification-center";
@@ -26,6 +27,7 @@ export function AppTopbar({
   demoMode,
   onOpenDrawer,
 }: Readonly<AppTopbarProps>) {
+  const t = useTranslations();
   const importHref = companyId
     ? `/dashboard/imports?company=${encodeURIComponent(companyId)}${
         companyName ? `&companyName=${encodeURIComponent(companyName)}` : ""
@@ -37,7 +39,7 @@ export function AppTopbar({
       <div className="px-4 py-3 md:px-6">
         <div className="flex items-center gap-3 md:gap-6">
           <button
-            aria-label="Open navigation"
+            aria-label={t("nav.openNavigation")}
             className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border-subtle)] text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)] md:hidden"
             onClick={onOpenDrawer}
             type="button"
@@ -46,7 +48,7 @@ export function AppTopbar({
           </button>
 
           <Link
-            aria-label="Lisent CRM home"
+            aria-label={t("nav.lisentHome")}
             className="flex shrink-0 items-center md:hidden"
             href="/dashboard"
           >
@@ -72,7 +74,7 @@ export function AppTopbar({
             <AppTabs companyId={companyId} companyName={companyName} />
           </div>
 
-          <div className="ml-auto flex items-center gap-2 md:ml-0 md:gap-3">
+          <div className="ms-auto flex items-center gap-2 md:ms-0 md:gap-3">
             <div className="hidden md:block">
               <SearchCommand />
             </div>
@@ -82,7 +84,7 @@ export function AppTopbar({
               href={importHref}
             >
               <Upload className="h-4 w-4" aria-hidden="true" />
-              Import
+              {t("nav.import")}
             </Link>
 
             <NotificationCenter

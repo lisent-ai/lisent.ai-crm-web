@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
 
 import { AuthMode } from "@/components/auth/auth-types";
@@ -23,6 +24,17 @@ type AuthFormCardProps = {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
+function renderFieldError(
+  t: ReturnType<typeof useTranslations>,
+  raw: string | undefined,
+): string {
+  if (!raw) return "";
+  if (raw.startsWith("validation.")) {
+    return t(raw as never);
+  }
+  return raw;
+}
+
 export function AuthFormCard({
   mode,
   email,
@@ -36,19 +48,18 @@ export function AuthFormCard({
   onSignUpProfileChange,
   onSubmit,
 }: Readonly<AuthFormCardProps>) {
-  const title =
-    mode === "signin" ? "Access your workspace" : "Create your workspace access";
+  const t = useTranslations();
+
+  const title = mode === "signin" ? t("auth.signInTitle") : t("auth.signUpTitle");
   const subtitle =
-    mode === "signin"
-      ? "Use the company account details issued to your team."
-      : "Start with email and password. Tenant assignment comes next.";
+    mode === "signin" ? t("auth.signInSubtitle") : t("auth.signUpSubtitle");
 
   return (
     <div className="rounded-[1.6rem] border border-white/10 bg-white/6 p-5 text-violet-50 shadow-[0_18px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:rounded-[1.8rem] sm:p-7">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-violet-300/70">
-            Workspace auth
+            {t("auth.workspaceAuth")}
           </p>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
             {title}
@@ -66,7 +77,7 @@ export function AuthFormCard({
           }`}
           href="/auth/sign-in"
         >
-          Sign in
+          {t("auth.signIn")}
         </Link>
         <Link
           className={`rounded-full px-3 py-2 text-center transition sm:px-4 ${
@@ -76,7 +87,7 @@ export function AuthFormCard({
           }`}
           href="/auth/sign-up"
         >
-          Sign up
+          {t("auth.signUp")}
         </Link>
       </div>
 
@@ -84,7 +95,9 @@ export function AuthFormCard({
         {mode === "signup" ? (
           <div className="grid gap-5 md:grid-cols-2">
             <label className="grid gap-2">
-              <span className="text-sm font-medium text-violet-100/80">Name</span>
+              <span className="text-sm font-medium text-violet-100/80">
+                {t("account.fields.firstName")}
+              </span>
               <input
                 autoComplete="given-name"
                 className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white outline-none transition placeholder:text-violet-100/35 focus:border-violet-300/50 focus:bg-white/10"
@@ -95,17 +108,21 @@ export function AuthFormCard({
                     firstName: event.target.value,
                   })
                 }
-                placeholder="Your first name"
+                placeholder={t("account.placeholders.firstName")}
                 type="text"
                 value={signUpProfile.firstName}
               />
               {formErrors.first_name ? (
-                <span className="text-xs text-red-600">{formErrors.first_name}</span>
+                <span className="text-xs text-red-600">
+                  {renderFieldError(t, formErrors.first_name)}
+                </span>
               ) : null}
             </label>
 
             <label className="grid gap-2">
-              <span className="text-sm font-medium text-violet-100/80">Surname</span>
+              <span className="text-sm font-medium text-violet-100/80">
+                {t("account.fields.lastName")}
+              </span>
               <input
                 autoComplete="family-name"
                 className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white outline-none transition placeholder:text-violet-100/35 focus:border-violet-300/50 focus:bg-white/10"
@@ -116,30 +133,36 @@ export function AuthFormCard({
                     lastName: event.target.value,
                   })
                 }
-                placeholder="Your surname"
+                placeholder={t("account.placeholders.lastName")}
                 type="text"
                 value={signUpProfile.lastName}
               />
               {formErrors.last_name ? (
-                <span className="text-xs text-red-600">{formErrors.last_name}</span>
+                <span className="text-xs text-red-600">
+                  {renderFieldError(t, formErrors.last_name)}
+                </span>
               ) : null}
             </label>
           </div>
         ) : null}
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-violet-100/80">Email</span>
+          <span className="text-sm font-medium text-violet-100/80">
+            {t("auth.emailLabel")}
+          </span>
           <input
             autoComplete="email"
             className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white outline-none transition placeholder:text-violet-100/35 focus:border-violet-300/50 focus:bg-white/10"
             name="email"
             onChange={(event) => onEmailChange(event.target.value)}
-            placeholder="name@company.com"
+            placeholder={t("auth.emailPlaceholder")}
             type="email"
             value={email}
           />
           {formErrors.email ? (
-            <span className="text-xs text-red-600">{formErrors.email}</span>
+            <span className="text-xs text-red-600">
+              {renderFieldError(t, formErrors.email)}
+            </span>
           ) : null}
         </label>
 
@@ -147,7 +170,7 @@ export function AuthFormCard({
           <div className="grid gap-5 md:grid-cols-[1fr_1fr]">
             <label className="grid gap-2">
               <span className="text-sm font-medium text-violet-100/80">
-                Phone number
+                {t("account.fields.phoneNumber")}
               </span>
               <input
                 autoComplete="tel"
@@ -159,19 +182,21 @@ export function AuthFormCard({
                     phoneNumber: event.target.value,
                   })
                 }
-                placeholder="+49 555 123 4567"
+                placeholder={t("account.placeholders.phoneNumber")}
                 type="tel"
                 value={signUpProfile.phoneNumber}
               />
               {formErrors.phone_number ? (
                 <span className="text-xs text-red-600">
-                  {formErrors.phone_number}
+                  {renderFieldError(t, formErrors.phone_number)}
                 </span>
               ) : null}
             </label>
 
             <label className="grid gap-2">
-              <span className="text-sm font-medium text-violet-100/80">Gender</span>
+              <span className="text-sm font-medium text-violet-100/80">
+                {t("account.fields.gender")}
+              </span>
               <div className="grid grid-cols-2 gap-3">
                 {genderOptions.map((option) => {
                   const active = signUpProfile.gender === option.value;
@@ -193,33 +218,41 @@ export function AuthFormCard({
                       }
                       type="button"
                     >
-                      {option.label}
+                      {t(option.labelKey)}
                     </button>
                   );
                 })}
               </div>
               {formErrors.gender ? (
-                <span className="text-xs text-red-600">{formErrors.gender}</span>
+                <span className="text-xs text-red-600">
+                  {renderFieldError(t, formErrors.gender)}
+                </span>
               ) : null}
             </label>
           </div>
         ) : null}
 
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-violet-100/80">Password</span>
+          <span className="text-sm font-medium text-violet-100/80">
+            {t("auth.passwordLabel")}
+          </span>
           <input
             autoComplete={mode === "signin" ? "current-password" : "new-password"}
             className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 text-sm text-white outline-none transition placeholder:text-violet-100/35 focus:border-violet-300/50 focus:bg-white/10"
             name="password"
             onChange={(event) => onPasswordChange(event.target.value)}
             placeholder={
-              mode === "signin" ? "Enter your password" : "Create a strong password"
+              mode === "signin"
+                ? t("auth.passwordPlaceholderSignIn")
+                : t("auth.passwordPlaceholderSignUp")
             }
             type="password"
             value={password}
           />
           {formErrors.password ? (
-            <span className="text-xs text-red-600">{formErrors.password}</span>
+            <span className="text-xs text-red-600">
+              {renderFieldError(t, formErrors.password)}
+            </span>
           ) : null}
         </label>
 
@@ -236,27 +269,27 @@ export function AuthFormCard({
         >
           {busy
             ? mode === "signin"
-              ? "Signing in..."
-              : "Creating account..."
+              ? t("auth.signingIn")
+              : t("auth.creatingAccount")
             : mode === "signin"
-              ? "Sign in"
-              : "Create account"}
+              ? t("auth.signInButton")
+              : t("auth.signUpButton")}
         </button>
       </form>
 
       <div className="mt-6 text-sm text-violet-100/60">
         {mode === "signin" ? (
           <>
-            New workspace user?{" "}
+            {t("auth.newWorkspaceUser")}{" "}
             <Link className="font-semibold text-white" href="/auth/sign-up">
-              Create an account
+              {t("auth.createAnAccount")}
             </Link>
           </>
         ) : (
           <>
-            Already have access?{" "}
+            {t("auth.alreadyHaveAccess")}{" "}
             <Link className="font-semibold text-white" href="/auth/sign-in">
-              Sign in instead
+              {t("auth.signInInstead")}
             </Link>
           </>
         )}

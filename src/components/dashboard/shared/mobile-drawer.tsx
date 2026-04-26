@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { X } from "lucide-react";
 
@@ -31,6 +32,7 @@ export function MobileDrawer({
   demoMode,
 }: Readonly<MobileDrawerProps>) {
   const pathname = usePathname();
+  const t = useTranslations();
 
   useEffect(() => {
     if (!open) return;
@@ -58,7 +60,7 @@ export function MobileDrawer({
       className={`fixed inset-0 z-40 md:hidden ${open ? "" : "pointer-events-none"}`}
     >
       <button
-        aria-label="Close navigation"
+        aria-label={t("nav.closeNavigation")}
         className={`absolute inset-0 bg-[rgba(11,15,25,0.45)] transition-opacity ${
           open ? "opacity-100" : "opacity-0"
         }`}
@@ -68,9 +70,9 @@ export function MobileDrawer({
       />
 
       <aside
-        aria-label="Navigation"
-        className={`absolute inset-y-0 left-0 flex w-[86%] max-w-[320px] flex-col bg-[var(--surface)] shadow-[var(--shadow-float)] transition-transform duration-200 ${
-          open ? "translate-x-0" : "-translate-x-full"
+        aria-label={t("nav.navigation")}
+        className={`absolute inset-y-0 start-0 flex w-[86%] max-w-[320px] flex-col bg-[var(--surface)] shadow-[var(--shadow-float)] transition-transform duration-200 ${
+          open ? "translate-x-0" : "-translate-x-full rtl:translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between border-b border-[var(--border-subtle)] px-4 py-4">
@@ -84,11 +86,11 @@ export function MobileDrawer({
               width={60}
             />
             <span className="text-sm font-semibold text-[var(--text-primary)]">
-              Lisent CRM
+              {t("nav.brandName")}
             </span>
           </div>
           <button
-            aria-label="Close"
+            aria-label={t("common.close")}
             className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
             onClick={onClose}
             type="button"
@@ -106,11 +108,18 @@ export function MobileDrawer({
               variant="block"
             />
           </div>
-          <DrawerSection label="Workspace" items={topItems} pathname={pathname} companyId={companyId} companyName={companyName} onNavigate={onClose} />
+          <DrawerSection
+            label={t("nav.sectionWorkspace")}
+            items={topItems}
+            pathname={pathname}
+            companyId={companyId}
+            companyName={companyName}
+            onNavigate={onClose}
+          />
           {sideItems.length > 0 && (
             <DrawerSection
               className="mt-4"
-              label="Tools"
+              label={t("nav.sectionTools")}
               items={sideItems}
               pathname={pathname}
               companyId={companyId}
@@ -141,6 +150,7 @@ function DrawerSection({
   onNavigate: () => void;
   className?: string;
 }>) {
+  const t = useTranslations();
   return (
     <div className={className}>
       <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
@@ -164,7 +174,7 @@ function DrawerSection({
               onClick={onNavigate}
             >
               <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           );
         })}

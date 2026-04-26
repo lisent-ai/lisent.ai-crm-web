@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   FormEvent,
   useEffect,
@@ -26,6 +27,7 @@ import { ensureFrontendSuperTokensInit } from "@/lib/supertokens/frontend";
 export function AuthPage() {
   ensureFrontendSuperTokensInit();
 
+  const t = useTranslations();
   const pathname = usePathname();
   const router = useRouter();
   const mode = useMemo(() => resolveMode(pathname), [pathname]);
@@ -89,7 +91,7 @@ export function AuthPage() {
         }
 
         if (response.status === "WRONG_CREDENTIALS_ERROR") {
-          setSubmitError("Email or password is incorrect.");
+          setSubmitError(t("auth.wrongCredentials"));
           return;
         }
 
@@ -122,7 +124,7 @@ export function AuthPage() {
       router.replace("/dashboard");
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "Authentication failed.";
+        error instanceof Error ? error.message : t("auth.authFailed");
       setSubmitError(message);
     } finally {
       setBusy(false);

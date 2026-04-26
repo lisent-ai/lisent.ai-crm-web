@@ -156,7 +156,7 @@ export function NotificationCenter({
       >
         <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
         {unreadCount > 0 ? (
-          <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[var(--signal-red)] px-1 text-[10px] font-semibold text-white">
+          <span className="absolute -end-0.5 -top-0.5 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[var(--signal-red)] px-1 text-[10px] font-semibold text-white">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         ) : null}
@@ -164,7 +164,7 @@ export function NotificationCenter({
 
       {open && (
         <div
-          className="fixed inset-x-3 top-[64px] z-40 mx-auto w-auto max-w-[420px] rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)] sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mx-0 sm:mt-2 sm:w-[360px] sm:max-w-[calc(100vw-1.5rem)]"
+          className="fixed inset-x-3 top-[64px] z-40 mx-auto w-auto max-w-[420px] rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)] sm:absolute sm:inset-auto sm:end-0 sm:top-full sm:mx-0 sm:mt-2 sm:w-[360px] sm:max-w-[calc(100vw-1.5rem)]"
           role="menu"
         >
           <div className="flex items-start justify-between gap-3 px-2 pb-3">
@@ -236,7 +236,7 @@ export function NotificationCenter({
           ) : items.length === 0 ? (
             <NotificationEmptyState message="Nothing new right now. Assigned work and pipeline changes will show up here." />
           ) : (
-            <div className="grid max-h-[420px] gap-2 overflow-y-auto pr-1">
+            <div className="grid max-h-[420px] gap-2 overflow-y-auto pe-1">
               {items.map((item) => {
                 const unread = !readState[item.id];
                 return (

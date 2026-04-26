@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { Lead } from "@/lib/crm/client";
 
 import { formatDateTime } from "./lead-utils";
@@ -144,6 +148,7 @@ const CHAMP_DIMENSIONS = [
 ] as const;
 
 export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
+  const t = useTranslations();
   const hasAny =
     typeof lead.aiScore === "number" ||
     lead.aiStatus ||
@@ -167,7 +172,7 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
             AI
           </span>
           <p className="text-sm font-semibold tracking-[0.14em] text-violet-900">
-            LEAD DEĞERLENDİRME
+            {t("qualifier.leadAssessment")}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -175,7 +180,7 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
           {lead.aiPath ? <PathPill path={lead.aiPath} /> : null}
           {lead.aiLastScoredAt ? (
             <span className="text-[11px] text-violet-700/80">
-              {formatDateTime(lead.aiLastScoredAt)} tarihinde değerlendirildi
+              {t("qualifier.scoredAt", { date: formatDateTime(lead.aiLastScoredAt) })}
             </span>
           ) : null}
         </div>
@@ -210,7 +215,7 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
       {lead.aiReasoning && Object.keys(lead.aiReasoning).length > 0 ? (
         <details className="mt-4 rounded-xl border border-violet-100 bg-white">
           <summary className="cursor-pointer px-3 py-2 text-xs font-semibold uppercase tracking-wide text-violet-700">
-            Ham analiz çıktısı
+            {t("qualifier.rawAnalysis")}
           </summary>
           <pre className="m-0 overflow-auto border-t border-violet-100 p-3 text-xs leading-6 text-slate-800">
             {JSON.stringify(lead.aiReasoning, null, 2)}
@@ -245,14 +250,15 @@ function EnsembleSummary({
   ensemble,
   fallback,
 }: Readonly<{ ensemble?: PreScoreEnsemble; fallback?: PreScoreFallback }>) {
+  const t = useTranslations();
   if (fallback) {
     return (
       <div className="min-w-[200px] flex-1 text-xs text-slate-600">
         <p className="mb-1 font-semibold uppercase tracking-wider text-amber-700">
-          Yedek mod
+          {t("qualifier.fallbackMode")}
         </p>
         <p className="text-slate-700">
-          LLM değerlendirmesi çalışmadı — puan form verisinin kalitesinden hesaplandı.
+          {t("qualifier.fallbackExplanation")}
         </p>
       </div>
     );
@@ -267,12 +273,12 @@ function EnsembleSummary({
       {typeof ensemble.formula_audit_score === "number" &&
       typeof ensemble.median_direct_score === "number" ? (
         <div className="flex items-center gap-2 text-slate-700">
-          <span className="font-semibold">LLM medyan</span>
+          <span className="font-semibold">{t("qualifier.llmMedian")}</span>
           <span className="font-mono text-violet-900">
             {ensemble.median_direct_score}
           </span>
           <span className="text-slate-400">·</span>
-          <span className="font-semibold">Formül denetimi</span>
+          <span className="font-semibold">{t("qualifier.formulaAudit")}</span>
           <span className="font-mono text-slate-600">
             {ensemble.formula_audit_score}
           </span>
@@ -331,6 +337,7 @@ function FallbackBanner({ fallback }: Readonly<{ fallback: PreScoreFallback }>) 
 }
 
 function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
+  const t = useTranslations();
   const { who_they_are, company_or_buyer_profile, recommended_opening, risks_to_watch, key_questions_for_call } = context;
   const hasAny =
     who_they_are ||
@@ -343,20 +350,20 @@ function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
   return (
     <div className="mt-4 rounded-xl border border-violet-100 bg-white p-4">
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-violet-700">
-        Arama hazırlığı
+        {t("qualifier.salesContext")}
       </p>
       <div className="grid gap-4 md:grid-cols-2">
         {who_they_are ? (
-          <InfoCard label="Kim bu kişi" body={who_they_are} />
+          <InfoCard label={t("qualifier.whoTheyAre")} body={who_they_are} />
         ) : null}
         {company_or_buyer_profile ? (
-          <InfoCard label="Firma / alıcı profili" body={company_or_buyer_profile} />
+          <InfoCard label={t("qualifier.companyOrBuyerProfile")} body={company_or_buyer_profile} />
         ) : null}
       </div>
       {recommended_opening ? (
         <div className="mt-4 rounded-lg border border-emerald-100 bg-emerald-50/60 p-3">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-emerald-800">
-            Açılış önerisi
+            {t("qualifier.recommendedOpening")}
           </p>
           <p className="mt-1 text-sm leading-relaxed text-emerald-950">
             {recommended_opening}
@@ -366,7 +373,7 @@ function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
       {key_questions_for_call && key_questions_for_call.length > 0 ? (
         <div className="mt-4">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-violet-700">
-            Aramada sorulacak sorular
+            {t("qualifier.keyQuestions")}
           </p>
           <ol className="mt-2 grid gap-1.5 pl-0 text-sm text-slate-800">
             {key_questions_for_call.map((q, i) => (
@@ -386,7 +393,7 @@ function SalesContextBlock({ context }: Readonly<{ context: SalesContext }>) {
       {risks_to_watch && risks_to_watch.length > 0 ? (
         <div className="mt-4">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-rose-700">
-            Dikkat edilecekler
+            {t("qualifier.risksToWatch")}
           </p>
           <ul className="mt-2 grid gap-1.5 pl-0 text-sm text-slate-800">
             {risks_to_watch.map((r, i) => (

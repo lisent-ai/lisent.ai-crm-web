@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import {
   buildNavHref,
@@ -16,11 +17,12 @@ type AppTabsProps = {
 
 export function AppTabs({ companyId, companyName }: Readonly<AppTabsProps>) {
   const pathname = usePathname();
+  const t = useTranslations();
   const items = getTopNavItems();
 
   return (
     <nav
-      aria-label="Primary"
+      aria-label={t("nav.primary")}
       className="scrollbar-thin -mb-px flex min-w-0 items-center gap-1 overflow-x-auto"
     >
       {items.map((item) => {
@@ -37,7 +39,7 @@ export function AppTabs({ companyId, companyName }: Readonly<AppTabsProps>) {
             href={href}
             key={item.href}
           >
-            {item.label}
+            {t(item.labelKey)}
             {active && (
               <span
                 aria-hidden="true"

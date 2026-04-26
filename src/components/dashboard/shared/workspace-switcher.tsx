@@ -146,7 +146,7 @@ export function WorkspaceSwitcher({
 
   const triggerClass =
     variant === "block"
-      ? "flex w-full items-center gap-3 rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2.5 text-left text-sm transition hover:border-[var(--border-strong)]"
+      ? "flex w-full items-center gap-3 rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2.5 text-start text-sm transition hover:border-[var(--border-strong)]"
       : "inline-flex h-9 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] max-w-[240px] lg:max-w-[280px]";
 
   return (
@@ -190,8 +190,8 @@ export function WorkspaceSwitcher({
         <div
           className={`${
             variant === "block"
-              ? "left-0 right-0"
-              : "left-0 w-[300px] max-w-[calc(100vw-2rem)]"
+              ? "start-0 end-0"
+              : "start-0 w-[300px] max-w-[calc(100vw-2rem)]"
           } absolute top-full z-40 mt-2 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-2 shadow-[var(--shadow-float)]`}
           role="menu"
         >
@@ -241,7 +241,7 @@ export function WorkspaceSwitcher({
                   >
                     <button
                       aria-current={active ? "true" : undefined}
-                      className={`flex min-w-0 flex-1 items-center gap-3 rounded-xl px-2 py-2 text-left text-sm transition ${
+                      className={`flex min-w-0 flex-1 items-center gap-3 rounded-xl px-2 py-2 text-start text-sm transition ${
                         active
                           ? "font-semibold text-[var(--text-primary)]"
                           : "font-medium text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
@@ -292,7 +292,7 @@ export function WorkspaceSwitcher({
           <div className="my-1 border-t border-[var(--border-subtle)]" />
 
           <button
-            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm font-medium text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-start text-sm font-medium text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
             onClick={() => {
               setOpen(false);
               setCreateOpen(true);

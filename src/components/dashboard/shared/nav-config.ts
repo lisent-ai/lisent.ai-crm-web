@@ -20,30 +20,40 @@ type IconComponent = ComponentType<LucideProps>;
 
 export type NavPlacement = "top" | "side";
 
+export type NavLabelKey =
+  | "nav.overview"
+  | "nav.dashboard"
+  | "nav.leads"
+  | "nav.deals"
+  | "nav.customers"
+  | "nav.tasks"
+  | "nav.calendar"
+  | "nav.teamMembers"
+  | "nav.customerImport"
+  | "nav.integrations";
+
 export type NavItem = {
   href: string;
-  label: string;
+  labelKey: NavLabelKey;
   icon: IconComponent;
   placement: NavPlacement;
-  /** Appends the `company` (and optional `companyName`) query param when one is selected. */
   carriesCompany: boolean;
-  /** Feature-flag gated visibility. */
   visible: boolean;
 };
 
 export const navItems: NavItem[] = [
-  { href: "/dashboard", label: "Overview", icon: LayoutDashboard, placement: "top", carriesCompany: false, visible: true },
-  { href: "/dashboard/workspace", label: "Dashboard", icon: Gauge, placement: "top", carriesCompany: true, visible: true },
-  { href: "/dashboard/leads", label: "Leads", icon: Target, placement: "top", carriesCompany: true, visible: true },
-  { href: "/dashboard/deals", label: "Deals", icon: Briefcase, placement: "top", carriesCompany: true, visible: true },
-  { href: "/dashboard/customers", label: "Customers", icon: User, placement: "top", carriesCompany: true, visible: true },
-  { href: "/dashboard/tasks", label: "Tasks", icon: CheckSquare, placement: "top", carriesCompany: true, visible: true },
-  { href: "/dashboard/calendar", label: "Calendar", icon: Calendar, placement: "side", carriesCompany: true, visible: true },
-  { href: "/dashboard/access", label: "Team Members", icon: Users, placement: "side", carriesCompany: true, visible: true },
-  { href: "/dashboard/imports", label: "Customer Import", icon: Upload, placement: "side", carriesCompany: true, visible: true },
+  { href: "/dashboard", labelKey: "nav.overview", icon: LayoutDashboard, placement: "top", carriesCompany: false, visible: true },
+  { href: "/dashboard/workspace", labelKey: "nav.dashboard", icon: Gauge, placement: "top", carriesCompany: true, visible: true },
+  { href: "/dashboard/leads", labelKey: "nav.leads", icon: Target, placement: "top", carriesCompany: true, visible: true },
+  { href: "/dashboard/deals", labelKey: "nav.deals", icon: Briefcase, placement: "top", carriesCompany: true, visible: true },
+  { href: "/dashboard/customers", labelKey: "nav.customers", icon: User, placement: "top", carriesCompany: true, visible: true },
+  { href: "/dashboard/tasks", labelKey: "nav.tasks", icon: CheckSquare, placement: "top", carriesCompany: true, visible: true },
+  { href: "/dashboard/calendar", labelKey: "nav.calendar", icon: Calendar, placement: "side", carriesCompany: true, visible: true },
+  { href: "/dashboard/access", labelKey: "nav.teamMembers", icon: Users, placement: "side", carriesCompany: true, visible: true },
+  { href: "/dashboard/imports", labelKey: "nav.customerImport", icon: Upload, placement: "side", carriesCompany: true, visible: true },
   {
     href: "/dashboard/integrations",
-    label: "Integrations",
+    labelKey: "nav.integrations",
     icon: Plug,
     placement: "side",
     carriesCompany: true,
@@ -74,9 +84,6 @@ export function getSideNavItems(): NavItem[] {
   return navItems.filter((item) => item.placement === "side" && item.visible);
 }
 
-/**
- * Active-state test. Exact match for Overview (/dashboard); prefix match for nested routes.
- */
 export function isNavActive(pathname: string, href: string): boolean {
   if (href === "/dashboard") {
     return pathname === "/dashboard";

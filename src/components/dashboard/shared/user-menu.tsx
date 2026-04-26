@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, LogOut, Settings } from "lucide-react";
 import { signOut } from "supertokens-auth-react/recipe/session";
@@ -27,6 +28,7 @@ export function UserMenu({
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const t = useTranslations();
 
   useEffect(() => {
     if (!open) return;
@@ -47,10 +49,10 @@ export function UserMenu({
   }, [open]);
 
   const displayName = demoMode
-    ? "Demo user"
-    : account?.displayName ?? "Workspace user";
+    ? t("userMenu.demoUser")
+    : account?.displayName ?? t("userMenu.workspaceUser");
   const email = demoMode
-    ? "demo-user@lisent.ai"
+    ? t("userMenu.demoEmail")
     : account?.email ?? "—";
   const initials = buildInitials(displayName);
 
@@ -73,8 +75,8 @@ export function UserMenu({
       <button
         aria-expanded={open}
         aria-haspopup="menu"
-        aria-label="Open account menu"
-        className="inline-flex items-center gap-2 rounded-full p-1 pr-2 text-sm font-medium text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)]"
+        aria-label={t("userMenu.openMenu")}
+        className="inline-flex items-center gap-2 rounded-full p-1 pe-2 text-sm font-medium text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)]"
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
@@ -89,7 +91,7 @@ export function UserMenu({
 
       {open && (
         <div
-          className="absolute right-0 top-full z-40 mt-2 w-72 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-2 shadow-[var(--shadow-float)]"
+          className="absolute end-0 top-full z-40 mt-2 w-72 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-2 shadow-[var(--shadow-float)]"
           role="menu"
         >
           <div className="px-3 py-3">
@@ -126,18 +128,18 @@ export function UserMenu({
             role="menuitem"
           >
             <Settings className="h-4 w-4" aria-hidden="true" />
-            Account settings
+            {t("userMenu.accountSettings")}
           </Link>
 
           {!demoMode && (
             <button
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-[var(--signal-red)] transition hover:bg-[var(--surface-muted)]"
+              className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-start text-sm text-[var(--signal-red)] transition hover:bg-[var(--surface-muted)]"
               onClick={() => void handleSignOut()}
               role="menuitem"
               type="button"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
-              Sign out
+              {t("userMenu.signOut")}
             </button>
           )}
         </div>
