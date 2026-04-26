@@ -4,6 +4,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 import { SuperTokensProvider } from "@/components/auth/supertokens-provider";
+import { LocaleSync } from "@/components/locale-sync";
 import {
   defaultLocale,
   isRtl,
@@ -36,6 +37,7 @@ export default async function RootLayout({
     >
       <body className="antialiased" suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <LocaleSync currentLocale={locale} />
           <SuperTokensProvider>{children}</SuperTokensProvider>
         </NextIntlClientProvider>
       </body>
