@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.tolgee.io/schema.json",
+  "apiUrl": "https://i18n.lisent.ai",
+  "projectId": 2,
+  "format": "JSON_ICU",
+  "push": {
+    "files": [
+      { "path": "messages/en.json", "language": "en" },
+      { "path": "messages/tr.json", "language": "tr" }
+    ],
+    "forceMode": "OVERRIDE",
+    "languages": ["en", "tr"]
+  },
+  "pull": {
+    "path": "messages/{languageTag}.json",
+    "languages": [
+      "tr", "en", "de", "fr", "es", "it", "pt", "nl",
+      "pl", "ru", "ar", "sv", "da", "no", "fi"
+    ]
+  }
+}
