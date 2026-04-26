@@ -51,6 +51,7 @@ const rolePermissions: Record<CompanyRole, CompanyPermission[]> = {
     "customers.write",
     "imports.run",
     "integrations.read",
+    "members.read",
   ],
   viewer: ["company.read", "customers.read"],
 };
