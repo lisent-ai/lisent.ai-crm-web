@@ -36,7 +36,16 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="antialiased" suppressHydrationWarning>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        {/* `key={locale}` forces a clean re-mount of the provider subtree
+            when the active locale changes (e.g. after the user saves a new
+            preference in account settings) so every `useTranslations()`
+            consumer picks up the new messages instead of holding the stale
+            ones from the initial mount. */}
+        <NextIntlClientProvider
+          key={locale}
+          locale={locale}
+          messages={messages}
+        >
           <LocaleSync currentLocale={locale} />
           <SuperTokensProvider>{children}</SuperTokensProvider>
         </NextIntlClientProvider>

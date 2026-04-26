@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
@@ -35,7 +34,6 @@ function profileFieldsFromAccount(account: AccountProfile): SignUpProfileFields 
 
 export function AccountSettings() {
   const t = useTranslations();
-  const router = useRouter();
 
   const [account, setAccount] = useState<AccountProfile | null>(null);
   const [form, setForm] = useState<SignUpProfileFields | null>(null);
@@ -117,7 +115,14 @@ export function AccountSettings() {
       setAccount(nextAccount);
       setForm(profileFieldsFromAccount(nextAccount));
       setSuccessMessage(t("account.saved"));
-      router.refresh();
+      // Hard reload (instead of router.refresh) so the new NEXT_LOCALE
+      // cookie is committed by the browser before the next request and
+      // server-side `getLocale()` re-resolves with the freshly saved
+      // account language. router.refresh leaves the SPA shell in place,
+      // which can keep stale i18n state on the page after a locale change.
+      if (typeof window !== "undefined") {
+        window.location.reload();
+      }
     } catch (error) {
       if (error instanceof AccountClientError) {
         setFieldErrors(error.fieldErrors);
