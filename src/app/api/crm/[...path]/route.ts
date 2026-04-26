@@ -11,6 +11,7 @@ import {
 } from "@/lib/auth/access-control";
 import { loadAccountProfile } from "@/lib/auth/account-server";
 import type { AccountProfile } from "@/lib/auth/account-profile";
+import type { CompanyPermission } from "@/lib/auth/roles";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
 type CRMListResponse<T> = {
@@ -926,13 +927,21 @@ async function forwardRequest(
           method === "GET" || action === "apply" ? "imports.run" : "imports.manage";
         allowed = hasCompanyPermissionInAccess(account.access, resourceId, permission);
       } else if (pathSegments[2] === "integrations") {
-        // All /companies/:id/integrations/* paths (catalog GET + per-slug
-        // config CRUD for greenapi, intranet, etc.) gate behind
-        // integrations.manage. Owner-only as of Faz 0.1.
+        // Split: the catalog endpoint (/companies/:id/integrations) is a
+        // safe, read-only summary with masked credentials only — open it to
+        // any role with integrations.read so team members can see whether
+        // the owner has connected AI/WhatsApp/Intranet and the leads UI can
+        // surface AI chips for them. Per-slug detail GETs (e.g. /greenapi,
+        // /intranet) and any write/rotate/delete still require
+        // integrations.manage because they return raw webhook tokens or
+        // mutate config.
+        const isCatalog = pathSegments.length === 3;
+        const requiredPermission: CompanyPermission =
+          isCatalog && method === "GET" ? "integrations.read" : "integrations.manage";
         allowed = hasCompanyPermissionInAccess(
           account.access,
           resourceId,
-          "integrations.manage",
+          requiredPermission,
         );
       } else if (
         pathSegments[2] === "qualifier-config" ||

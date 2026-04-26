@@ -12,6 +12,7 @@ export type CompanyPermission =
   | "customers.write"
   | "imports.run"
   | "imports.manage"
+  | "integrations.read"
   | "integrations.manage"
   | "qualifier.manage"
   | "members.read"
@@ -26,6 +27,7 @@ const rolePermissions: Record<CompanyRole, CompanyPermission[]> = {
     "customers.write",
     "imports.run",
     "imports.manage",
+    "integrations.read",
     "integrations.manage",
     "qualifier.manage",
     "members.read",
@@ -38,11 +40,18 @@ const rolePermissions: Record<CompanyRole, CompanyPermission[]> = {
     "customers.write",
     "imports.run",
     "imports.manage",
+    "integrations.read",
     "qualifier.manage",
     "members.read",
     "members.manage",
   ],
-  member: ["company.read", "customers.read", "customers.write", "imports.run"],
+  member: [
+    "company.read",
+    "customers.read",
+    "customers.write",
+    "imports.run",
+    "integrations.read",
+  ],
   viewer: ["company.read", "customers.read"],
 };
 

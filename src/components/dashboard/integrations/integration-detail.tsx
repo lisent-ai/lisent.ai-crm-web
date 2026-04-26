@@ -94,15 +94,19 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
 
   if (!canManage) {
     return (
-      <section className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-6 text-sm text-[var(--signal-red)] sm:p-8">
-        <h1 className="text-xl font-semibold tracking-tight text-[var(--signal-red)] sm:text-2xl">
-          Access denied
+      <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
+        <h1 className="text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
+          Configuration restricted
         </h1>
         <p className="mt-3 leading-6">
-          Integration management is restricted to the company owner.
+          Integration setup screens (tokens, secrets, AI config) are
+          restricted to the company owner. Once the owner connects an
+          integration, it works automatically for everyone in this workspace —
+          you can see the connection status and use AI features in the
+          catalog.
         </p>
         <Link
-          className="mt-6 inline-block rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-red)]"
+          className="mt-6 inline-block rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--border-strong)]"
           href={backHref}
         >
           Back to catalog

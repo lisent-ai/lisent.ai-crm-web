@@ -15,6 +15,7 @@ type Props = {
   integration: IntegrationSummary;
   companyId: string;
   companyName: string;
+  canManage?: boolean;
   onConfigure?: () => void;
   onConnected?: () => void;
 };
@@ -23,6 +24,7 @@ export function IntegrationCard({
   integration,
   companyId,
   companyName,
+  canManage = true,
   onConfigure,
   onConnected,
 }: Readonly<Props>) {
@@ -112,6 +114,13 @@ export function IntegrationCard({
             >
               Coming soon
             </button>
+          ) : !canManage ? (
+            <span
+              className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-inset)] px-4 py-2 text-xs font-semibold text-[var(--text-tertiary)]"
+              title="Configuration is restricted to the company owner"
+            >
+              View only
+            </span>
           ) : isQualifierDisconnected ? (
             <button
               type="button"

@@ -6,7 +6,7 @@ import { hasCompanyPermissionInAccess } from "@/lib/auth/access-control";
 import type { AccountProfile } from "@/lib/auth/account-profile";
 import { CRMClientError, listCompanies, type Company } from "@/lib/crm/client";
 
-type OwnerCompany = {
+type ViewableCompany = {
   companyId: string;
   companyName: string;
 };
@@ -14,13 +14,14 @@ type OwnerCompany = {
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  onSelect: (company: OwnerCompany) => void;
+  onSelect: (company: ViewableCompany) => void;
   account: AccountProfile | null;
 };
 
 /**
- * Modal that lists companies the operator can manage integrations on:
- * owners (per integrations.manage in Faz 0.1) and super admins (no scope).
+ * Modal that lists companies whose integrations the operator can at least
+ * view. Owners get full management; admins/members get read-only access so
+ * they can see connection status and AI features pick up the owner's setup.
  */
 export function CompanyPickerModal({
   isOpen,
@@ -69,11 +70,11 @@ export function CompanyPickerModal({
     };
   }, [isOpen]);
 
-  const manageableCompanies = useMemo<OwnerCompany[]>(() => {
+  const viewableCompanies = useMemo<ViewableCompany[]>(() => {
     if (!account) return [];
     return companies
       .filter((c) =>
-        hasCompanyPermissionInAccess(account.access, c.id, "integrations.manage"),
+        hasCompanyPermissionInAccess(account.access, c.id, "integrations.read"),
       )
       .map((c) => ({ companyId: c.id, companyName: c.name || c.id }));
   }, [companies, account]);
@@ -108,7 +109,8 @@ export function CompanyPickerModal({
           Select a company
         </h2>
         <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
-          Integrations are configured per company. Choose the company you want to manage.
+          Integrations live per company. Pick the workspace whose connections
+          you want to inspect.
         </p>
 
         <div className="mt-6 min-h-0 flex-1 overflow-y-auto">
@@ -120,14 +122,15 @@ export function CompanyPickerModal({
             <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-4 text-sm text-[var(--signal-red)]">
               {errorMessage}
             </div>
-          ) : manageableCompanies.length === 0 ? (
+          ) : viewableCompanies.length === 0 ? (
             <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-sm text-[var(--text-secondary)]">
-              You don&apos;t own any companies yet. Create one from the{" "}
-              <span className="font-semibold text-[var(--text-primary)]">Companies</span> page first.
+              You don&apos;t belong to any companies yet. Create one from the{" "}
+              <span className="font-semibold text-[var(--text-primary)]">Companies</span> page,
+              or ask an owner to invite you.
             </div>
           ) : (
-            <ul className="grid gap-2" role="listbox" aria-label="Manageable companies">
-              {manageableCompanies.map((c, idx) => (
+            <ul className="grid gap-2" role="listbox" aria-label="Viewable companies">
+              {viewableCompanies.map((c, idx) => (
                 <li key={c.companyId}>
                   <button
                     ref={idx === 0 ? firstFocusable : null}

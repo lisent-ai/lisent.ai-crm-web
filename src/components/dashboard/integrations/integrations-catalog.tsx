@@ -41,6 +41,19 @@ export function IntegrationsCatalog() {
     };
   }, []);
 
+  // Members/admins can VIEW the catalog (status, masked credentials) so that
+  // AI chips on leads/deals reflect the owner's setup. Only owners can MANAGE
+  // (configure, connect, rotate, delete) — those gates live downstream on
+  // each Configure button and on the detail page itself.
+  const canViewSelected = useMemo(() => {
+    if (!account || !selectedCompanyId) return false;
+    return hasCompanyPermissionInAccess(
+      account.access,
+      selectedCompanyId,
+      "integrations.read",
+    );
+  }, [account, selectedCompanyId]);
+
   const canManageSelected = useMemo(() => {
     if (!account || !selectedCompanyId) return false;
     return hasCompanyPermissionInAccess(
@@ -55,20 +68,20 @@ export function IntegrationsCatalog() {
   // idiomatic alternative to synchronous setState inside useEffect.
   const [lastInputs, setLastInputs] = useState({
     companyId: selectedCompanyId,
-    canManage: canManageSelected,
+    canView: canViewSelected,
   });
   if (
     lastInputs.companyId !== selectedCompanyId ||
-    lastInputs.canManage !== canManageSelected
+    lastInputs.canView !== canViewSelected
   ) {
-    setLastInputs({ companyId: selectedCompanyId, canManage: canManageSelected });
+    setLastInputs({ companyId: selectedCompanyId, canView: canViewSelected });
     setCatalog(null);
     setErrorMessage(null);
-    setLoading(Boolean(selectedCompanyId && canManageSelected));
+    setLoading(Boolean(selectedCompanyId && canViewSelected));
   }
 
   useEffect(() => {
-    if (!selectedCompanyId || !canManageSelected) return;
+    if (!selectedCompanyId || !canViewSelected) return;
     let cancelled = false;
     fetchIntegrationCatalog(selectedCompanyId)
       .then((res) => {
@@ -88,7 +101,7 @@ export function IntegrationsCatalog() {
     return () => {
       cancelled = true;
     };
-  }, [selectedCompanyId, canManageSelected]);
+  }, [selectedCompanyId, canViewSelected]);
 
   function handleCompanyPick(c: { companyId: string; companyName: string }) {
     setPickerOpen(false);
@@ -106,22 +119,20 @@ export function IntegrationsCatalog() {
     );
   }
 
-  const hasManageableCompanies =
+  const hasViewableCompanies =
     account.access.isSuperAdmin ||
     account.access.companyMemberships.some((m) =>
-      hasCompanyPermissionInAccess(account.access, m.companyId, "integrations.manage"),
+      hasCompanyPermissionInAccess(account.access, m.companyId, "integrations.read"),
     );
-  if (!hasManageableCompanies) {
+  if (!hasViewableCompanies) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
           Integrations
         </h1>
         <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
-          You need to be the owner of at least one workspace to manage integrations.
-        </p>
-        <p className="mt-4 text-sm text-[var(--text-secondary)]">
-          Create one from the workspace switcher in the top bar, then return here.
+          You don&apos;t have access to any workspaces yet. Ask an owner to invite you,
+          or create your own workspace from the switcher in the top bar.
         </p>
       </section>
     );
@@ -154,15 +165,14 @@ export function IntegrationsCatalog() {
     );
   }
 
-  if (!canManageSelected) {
+  if (!canViewSelected) {
     return (
       <section className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-6 text-sm text-[var(--signal-red)] sm:p-8">
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--signal-red)] sm:text-3xl">
           Access denied
         </h1>
         <p className="mt-3 leading-6">
-          Integration management is restricted to the company owner. You don&apos;t
-          have the owner role on this company.
+          You don&apos;t have access to this company&apos;s integrations.
         </p>
         <button
           type="button"
@@ -205,6 +215,14 @@ export function IntegrationsCatalog() {
         </button>
       </header>
 
+      {!canManageSelected ? (
+        <div className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-xs text-[var(--text-secondary)]">
+          You&apos;re viewing this company&apos;s integrations in read-only mode.
+          Configuration changes (connect, rotate tokens, edit AI config) are
+          restricted to the company owner.
+        </div>
+      ) : null}
+
       {loading ? (
         <div className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
           Loading integrations…
@@ -221,6 +239,7 @@ export function IntegrationsCatalog() {
               integration={integration}
               companyId={selectedCompanyId}
               companyName={selectedCompanyName}
+              canManage={canManageSelected}
               onConnected={() => {
                 // After Connect, re-fetch so the card flips from
                 // "Connect" to "Configure" and sub-components refresh.
