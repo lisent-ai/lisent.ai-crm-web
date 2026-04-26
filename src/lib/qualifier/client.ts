@@ -1,5 +1,7 @@
 "use client";
 
+import { readLocaleCookie } from "@/lib/i18n/locale-client";
+
 export type QualifierLead = {
   id: string;
   lead_id: string;
@@ -19,11 +21,26 @@ async function requestQualifier<T>(path: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+function withLocale(body: unknown): unknown {
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return body;
+  }
+  const record = body as Record<string, unknown>;
+  if ("language" in record && record.language) {
+    return record;
+  }
+  const locale = readLocaleCookie();
+  if (!locale) {
+    return record;
+  }
+  return { ...record, language: locale };
+}
+
 async function postQualifier<T>(path: string, body: unknown): Promise<T> {
   const res = await fetch(`/api/qualifier/${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body ?? {}),
+    body: JSON.stringify(withLocale(body) ?? {}),
     cache: "no-store",
   });
   if (!res.ok) {
