@@ -138,19 +138,6 @@ export function AccountSettings() {
 
   return (
     <div className="grid gap-6">
-      <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[linear-gradient(180deg,_var(--surface),_var(--accent-soft))] p-6 shadow-[var(--shadow-card)]">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent-strong)]">
-          Account settings
-        </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
-          Manage your workspace profile
-        </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--text-secondary)]">
-          These fields live on the web-auth side in SuperTokens metadata. They
-          control how the signed-in user is presented inside the CRM shell.
-        </p>
-      </section>
-
       {errorMessage ? (
         <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
