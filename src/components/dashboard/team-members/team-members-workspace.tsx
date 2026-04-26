@@ -217,11 +217,12 @@ export function TeamMembersWorkspace() {
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
             Team members
+            {companyName ? (
+              <span className="ml-2 text-base font-medium text-[var(--text-tertiary)]">
+                · {companyName}
+              </span>
+            ) : null}
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-tertiary)]">
-            Manage your team members and their account permissions
-            {companyName ? ` in ${companyName}.` : "."}
-          </p>
         </div>
         {canManageMembers && assignableRoles.length > 0 && (
           <button

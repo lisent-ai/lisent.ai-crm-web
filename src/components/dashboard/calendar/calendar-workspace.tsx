@@ -819,9 +819,6 @@ export function CalendarWorkspace() {
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
             Calendar
           </h1>
-          <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-            Stay organized and on track with your personalized calendar
-          </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           {avatars.length > 0 && (

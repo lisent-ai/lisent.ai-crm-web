@@ -21,18 +21,9 @@ export function DealHeader({
   return (
     <section className="min-w-0 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent-strong)]">
-            Deal pipeline
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
-            {companyName}
-          </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--text-secondary)]">
-            Track opportunities from first qualification to proposal, negotiation,
-            and final outcome with assignees, termination info, and stage history.
-          </p>
-        </div>
+        <h2 className="min-w-0 truncate text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
+          {companyName}
+        </h2>
 
         <div className="flex flex-wrap gap-3 lg:justify-end">
           <button

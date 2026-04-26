@@ -22,14 +22,9 @@ export function CustomerCompanyHeader({
   return (
     <section className="w-full min-w-0 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent-strong)]">
-            Selected company
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
-            {companyName}
-          </h2>
-        </div>
+        <h2 className="min-w-0 truncate text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
+          {companyName}
+        </h2>
 
         <div className="flex items-center lg:justify-end">
           <button

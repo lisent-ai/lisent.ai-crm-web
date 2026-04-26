@@ -496,18 +496,9 @@ export function TaskWorkspace() {
     <div className="grid min-w-0 gap-6">
       <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent-strong)]">
-              Tasks
-            </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
-              Tickets and my queue
-            </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--text-secondary)]">
-              Publish lightweight tasks to a teammate or to the whole company. Each
-              person can accept or reject their own copy, then move work forward.
-            </p>
-          </div>
+          <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
+            Tasks
+          </h1>
 
           <button
             className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-md)] transition hover:opacity-90 disabled:opacity-50"
