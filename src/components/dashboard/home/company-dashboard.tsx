@@ -141,7 +141,7 @@ export function CompanyDashboard() {
         />
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)]">
         <ActivityChart
           deals={deals}
           emptyHint={t("home.activity.empty")}
@@ -150,7 +150,7 @@ export function CompanyDashboard() {
         <QuickActionsPanel companyId={companyId} companyName={companyName} />
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)]">
         <PipelineOverview
           deals={deals}
           emptyHint={t("home.pipeline.empty")}

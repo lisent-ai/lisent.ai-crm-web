@@ -104,7 +104,7 @@ export function WorkspaceSnapshot({
   return (
     <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
             {t("home.snapshot.eyebrow")}
           </p>
@@ -113,11 +113,11 @@ export function WorkspaceSnapshot({
           </p>
         </div>
         <Link
-          className="inline-flex h-9 items-center gap-1.5 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+          className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] whitespace-nowrap transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           href={dashboardHref}
         >
-          {t("home.snapshot.openFullDashboard")}
-          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          <span className="truncate">{t("home.snapshot.openFullDashboard")}</span>
+          <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" />
         </Link>
       </div>
 
@@ -175,19 +175,19 @@ function MiniStat({
   loading: boolean;
 }>) {
   return (
-    <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] p-4">
+    <div className="min-w-0 rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] p-4">
       <div className="flex items-center gap-2 text-[var(--text-tertiary)]">
-        {icon}
-        <span className="text-xs font-medium">{label}</span>
+        <span className="shrink-0">{icon}</span>
+        <span className="truncate text-xs font-medium">{label}</span>
       </div>
-      <p className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
+      <p className="mt-2 truncate text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
         {loading ? (
           <span className="inline-block h-6 w-12 animate-pulse rounded bg-[var(--surface-inset)]" />
         ) : (
           primary
         )}
       </p>
-      <p className="mt-1 text-xs text-[var(--text-tertiary)]">{secondary}</p>
+      <p className="mt-1 line-clamp-2 text-xs text-[var(--text-tertiary)]">{secondary}</p>
     </div>
   );
 }

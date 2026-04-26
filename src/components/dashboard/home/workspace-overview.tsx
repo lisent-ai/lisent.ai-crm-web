@@ -72,7 +72,7 @@ export function WorkspaceOverview() {
         </div>
       )}
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard
           icon={Building2}
           label={t("home.workspaceOverview.workspaces")}
@@ -104,7 +104,7 @@ export function WorkspaceOverview() {
         />
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)]">
         <WorkspaceSnapshot
           companyId={activeCompanyId}
           companyName={activeCompanyName}
