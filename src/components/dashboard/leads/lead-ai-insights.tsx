@@ -609,10 +609,13 @@ function ExtraDataValue({ value }: Readonly<{ value: unknown }>) {
     return <span className="text-slate-400">—</span>;
   }
   if (typeof value === "boolean") {
-    return <span className="font-mono">{value ? "true" : "false"}</span>;
+    return <span>{value ? "True" : "False"}</span>;
   }
-  if (typeof value === "number" || typeof value === "string") {
+  if (typeof value === "number") {
     return <span>{String(value)}</span>;
+  }
+  if (typeof value === "string") {
+    return <span>{humanizeStringValue(value)}</span>;
   }
   // Arrays / nested objects — render as compact JSON for transparency.
   return (
@@ -620,6 +623,37 @@ function ExtraDataValue({ value }: Readonly<{ value: unknown }>) {
       {JSON.stringify(value, null, 2)}
     </pre>
   );
+}
+
+/**
+ * Inbound data values often arrive snake_case'd by the partner ETL —
+ * `studio_apartment`, `i_want_to_start_a_new_life_by_the_sea`,
+ * `£135,000_–_£300,000`. Strip underscores, sentence-case the result.
+ * Identifiers (URLs, emails, no-underscore strings) pass through
+ * untouched so we don't mangle real data.
+ */
+function humanizeStringValue(raw: string): string {
+  const value = raw.trim();
+  if (value === "") return "—";
+
+  // Common partner-sent stringified booleans / nulls.
+  const upper = value.toUpperCase();
+  if (upper === "TRUE") return "True";
+  if (upper === "FALSE") return "False";
+  if (upper === "NULL" || upper === "NONE") return "—";
+
+  // Don't touch URLs / emails — underscores in usernames or paths are
+  // part of the identifier and should stay verbatim.
+  if (/^https?:\/\//i.test(value) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    return value;
+  }
+
+  if (!value.includes("_")) {
+    return value;
+  }
+
+  const spaced = value.replace(/_+/g, " ").replace(/\s+/g, " ").trim();
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
 }
 
 function formatDomainType(t: string): string {
