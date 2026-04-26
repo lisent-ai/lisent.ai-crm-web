@@ -206,6 +206,10 @@ export function LeadAIInsights({ lead }: Readonly<{ lead: Lead }>) {
 
       {breakdown.osint ? <OSINTPanel osint={breakdown.osint} /> : null}
 
+      {lead.extraData && Object.keys(lead.extraData).length > 0 ? (
+        <ExtraDataPanel extraData={lead.extraData} />
+      ) : null}
+
       {breakdown.pre_score_ensemble ? (
         <EnsembleDetails ensemble={breakdown.pre_score_ensemble} />
       ) : null}
@@ -472,6 +476,89 @@ function OSINTPanel({ osint }: Readonly<{ osint: OSINT }>) {
         )}
       </div>
     </details>
+  );
+}
+
+// Fields already shown elsewhere on the panel (lead header, OSINT, etc.)
+// — hide them from the Inbound Data block to avoid duplication. Anything
+// not in this set gets surfaced as-is from extra_data.
+const EXTRA_DATA_HIDDEN_KEYS: ReadonlySet<string> = new Set([
+  "name",
+  "email",
+  "phone",
+  "notes",
+  "osint", // OSINTPanel already renders this
+]);
+
+function ExtraDataPanel({
+  extraData,
+}: Readonly<{ extraData: Record<string, unknown> }>) {
+  const entries = Object.entries(extraData)
+    .filter(
+      ([k, v]) =>
+        !EXTRA_DATA_HIDDEN_KEYS.has(k) &&
+        v !== null &&
+        v !== undefined &&
+        !(typeof v === "string" && v.trim() === ""),
+    )
+    .sort(([a], [b]) => a.localeCompare(b));
+
+  if (entries.length === 0) return null;
+
+  return (
+    <details className="mt-4 rounded-xl border border-slate-200 bg-white" open>
+      <summary className="cursor-pointer list-none px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-700">
+        <span className="flex items-center gap-2">
+          <span className="flex h-5 w-5 items-center justify-center rounded-md bg-slate-600 text-[10px] font-bold text-white">
+            ⊞
+          </span>
+          Inbound Data
+          <span className="ml-auto text-[10px] font-medium normal-case tracking-normal text-slate-400">
+            {entries.length} alan
+          </span>
+        </span>
+      </summary>
+      <dl className="grid gap-2 border-t border-slate-100 p-3 sm:grid-cols-2">
+        {entries.map(([key, value]) => (
+          <div
+            className="min-w-0 rounded-lg border border-slate-100 bg-slate-50/60 p-2.5"
+            key={key}
+          >
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+              {humanizeKey(key)}
+            </dt>
+            <dd className="mt-1 min-w-0 break-words text-sm leading-snug text-slate-800">
+              <ExtraDataValue value={value} />
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </details>
+  );
+}
+
+function humanizeKey(key: string): string {
+  return key
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim();
+}
+
+function ExtraDataValue({ value }: Readonly<{ value: unknown }>) {
+  if (value === null || value === undefined) {
+    return <span className="text-slate-400">—</span>;
+  }
+  if (typeof value === "boolean") {
+    return <span className="font-mono">{value ? "true" : "false"}</span>;
+  }
+  if (typeof value === "number" || typeof value === "string") {
+    return <span>{String(value)}</span>;
+  }
+  // Arrays / nested objects — render as compact JSON for transparency.
+  return (
+    <pre className="m-0 max-h-48 overflow-auto rounded bg-slate-100/70 p-2 font-mono text-[11px] leading-5 text-slate-700">
+      {JSON.stringify(value, null, 2)}
+    </pre>
   );
 }
 
