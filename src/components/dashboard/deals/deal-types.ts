@@ -1,17 +1,19 @@
 import type { Deal, DealStage } from "@/lib/crm/client";
 
-export const dealStages: Array<{
+export const dealStageOptions: Array<{
   value: DealStage;
-  label: string;
-  description: string;
+  labelKey: string;
+  descriptionKey: string;
 }> = [
-  { value: "new", label: "New", description: "Fresh opportunity created" },
-  { value: "qualified", label: "Qualified", description: "Opportunity confirmed as serious" },
-  { value: "proposal", label: "Proposal", description: "Proposal shared with the buyer" },
-  { value: "negotiation", label: "Negotiation", description: "Commercial terms are being discussed" },
-  { value: "won", label: "Won", description: "Sale successfully closed" },
-  { value: "lost", label: "Lost", description: "Opportunity was not won" },
+  { value: "new", labelKey: "deals.stage.new", descriptionKey: "deals.stage.newDescription" },
+  { value: "qualified", labelKey: "deals.stage.qualified", descriptionKey: "deals.stage.qualifiedDescription" },
+  { value: "proposal", labelKey: "deals.stage.proposal", descriptionKey: "deals.stage.proposalDescription" },
+  { value: "negotiation", labelKey: "deals.stage.negotiation", descriptionKey: "deals.stage.negotiationDescription" },
+  { value: "won", labelKey: "deals.stage.won", descriptionKey: "deals.stage.wonDescription" },
+  { value: "lost", labelKey: "deals.stage.lost", descriptionKey: "deals.stage.lostDescription" },
 ];
+
+export const dealStageValues: DealStage[] = dealStageOptions.map((stage) => stage.value);
 
 export const supportedDealCurrencies = ["EUR", "USD", "GBP", "TRY"] as const;
 

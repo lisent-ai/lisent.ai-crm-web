@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import type { CompanyMember } from "@/lib/auth/company-membership-client";
 
 import { SelectField } from "./lead-form-fields";
@@ -22,19 +24,19 @@ export function LeadBulkAssignModal({
   onConfirm,
   saving,
 }: Readonly<LeadBulkAssignModalProps>) {
+  const t = useTranslations();
   return (
     <LeadModalFrame onClose={onClose}>
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">
-            Bulk assignment
+            {t("leads.bulkAssign.eyebrow")}
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-            Assign {count} selected lead{count === 1 ? "" : "s"}
+            {t("leads.bulkAssign.title", { count })}
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            Choose one teammate and we&apos;ll apply a manual assignment to every
-            selected lead.
+            {t("leads.bulkAssign.description")}
           </p>
         </div>
         <button
@@ -42,16 +44,16 @@ export function LeadBulkAssignModal({
           onClick={onClose}
           type="button"
         >
-          Close
+          {t("common.close")}
         </button>
       </div>
 
       <div className="mt-6">
         <SelectField
-          label="Assign to"
+          label={t("leads.bulkAssign.assignTo")}
           onChange={onAssigneeChange}
           options={[
-            { label: "Select teammate", value: "" },
+            { label: t("leads.bulkAssign.selectTeammate"), value: "" },
             ...assignableMembers.map((member) => ({
               label: member.displayName,
               value: member.userId,
@@ -68,7 +70,9 @@ export function LeadBulkAssignModal({
           onClick={onConfirm}
           type="button"
         >
-          {saving ? "Assigning..." : `Assign ${count} lead${count === 1 ? "" : "s"}`}
+          {saving
+            ? t("leads.bulkAssign.assigning")
+            : t("leads.bulkAssign.assignCta", { count })}
         </button>
         <button
           className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
@@ -76,7 +80,7 @@ export function LeadBulkAssignModal({
           onClick={onClose}
           type="button"
         >
-          Cancel
+          {t("common.cancel")}
         </button>
       </div>
     </LeadModalFrame>

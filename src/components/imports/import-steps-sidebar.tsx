@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { steps, stepSequence } from "./import-config";
 import { Stat } from "./import-ui";
 import { type StepId } from "./import-types";
@@ -17,12 +21,13 @@ export function ImportStepsSidebar({
   rowsLoaded: number;
   onGoToStep: (stepId: StepId) => void;
 }>) {
+  const t = useTranslations();
   const activeStepMeta = steps.find((step) => step.id === activeStep) ?? steps[0];
 
   return (
     <aside className="rounded-[1.8rem] border border-slate-200 bg-[linear-gradient(180deg,_#fffdf7,_#f8fafc)] p-4 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-slate-950">Import steps</h2>
+        <h2 className="text-lg font-semibold text-slate-950">{t("imports.sidebar.title")}</h2>
         <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
           {activeStepMeta.stepNumber} / 03
         </span>
@@ -53,17 +58,17 @@ export function ImportStepsSidebar({
                   active ? "text-slate-300" : "text-slate-500"
                 }`}
               >
-                Step {step.stepNumber}
+                {t("imports.sidebar.stepNumber", { number: step.stepNumber })}
               </p>
               <h3 className="mt-2 text-xl font-semibold tracking-tight">
-                {step.label}
+                {t(step.labelKey as never)}
               </h3>
               <p
                 className={`mt-3 text-sm leading-6 ${
                   active ? "text-slate-200" : unlocked ? "text-slate-600" : "text-slate-400"
                 }`}
               >
-                {step.summary}
+                {t(step.summaryKey as never)}
               </p>
             </button>
           );
@@ -72,12 +77,12 @@ export function ImportStepsSidebar({
 
       <div className="mt-4 rounded-[1.3rem] border border-slate-200 bg-white p-4">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-          Progress
+          {t("imports.sidebar.progress")}
         </p>
         <div className="mt-3 grid gap-3">
-          <Stat label="Headers" value={String(headersCount)} />
-          <Stat label="Mapped fields" value={String(mappedCount)} />
-          <Stat label="Rows loaded" value={String(rowsLoaded)} />
+          <Stat label={t("imports.sidebar.headers")} value={String(headersCount)} />
+          <Stat label={t("imports.sidebar.mappedFields")} value={String(mappedCount)} />
+          <Stat label={t("imports.sidebar.rowsLoaded")} value={String(rowsLoaded)} />
         </div>
       </div>
     </aside>

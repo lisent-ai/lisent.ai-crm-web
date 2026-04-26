@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Building2, Check, ChevronDown, Plus, Trash2 } from "lucide-react";
 
@@ -33,6 +34,7 @@ export function WorkspaceSwitcher({
   demoMode,
   variant = "pill",
 }: Readonly<WorkspaceSwitcherProps>) {
+  const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -73,12 +75,12 @@ export function WorkspaceSwitcher({
         const message =
           error instanceof CRMClientError
             ? error.message
-            : "Unable to load workspaces.";
+            : t("workspace.loadFailed");
         setErrorMessage(message);
         setLoadState("error");
       }
     },
-    [companies.length, companyId, demoMode],
+    [companies.length, companyId, demoMode, t],
   );
 
   useEffect(() => {
@@ -141,7 +143,7 @@ export function WorkspaceSwitcher({
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
-  const activeLabel = companyName || companyId || "Select workspace";
+  const activeLabel = companyName || companyId || t("workspace.select");
   const activeInitials = companyName ? buildInitials(companyName) : "—";
 
   const triggerClass =
@@ -154,7 +156,7 @@ export function WorkspaceSwitcher({
       <button
         aria-expanded={open}
         aria-haspopup="menu"
-        aria-label="Switch workspace"
+        aria-label={t("workspace.switch")}
         className={triggerClass}
         onClick={handleOpen}
         type="button"
@@ -169,7 +171,7 @@ export function WorkspaceSwitcher({
             </span>
             <div className="min-w-0 flex-1">
               <p className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--text-tertiary)]">
-                Workspace
+                {t("workspace.label")}
               </p>
               <p className="mt-0.5 truncate text-sm font-semibold text-[var(--text-primary)]">
                 {activeLabel}
@@ -197,27 +199,27 @@ export function WorkspaceSwitcher({
         >
           <div className="px-3 py-2">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-              Workspaces
+              {t("workspace.workspaces")}
             </p>
           </div>
 
           {loadState === "loading" && companies.length === 0 && (
             <div className="px-3 py-3 text-sm text-[var(--text-tertiary)]">
-              Loading workspaces…
+              {t("workspace.loading")}
             </div>
           )}
 
           {loadState === "error" && companies.length === 0 && (
             <div className="px-3 py-3">
               <p className="text-sm text-[var(--signal-red)]">
-                {errorMessage ?? "Unable to load workspaces."}
+                {errorMessage ?? t("workspace.loadFailed")}
               </p>
               <button
                 className="mt-2 text-xs font-medium text-[var(--accent-strong)] hover:underline"
                 onClick={() => void loadCompanies(true)}
                 type="button"
               >
-                Retry
+                {t("workspace.retry")}
               </button>
             </div>
           )}
@@ -257,7 +259,7 @@ export function WorkspaceSwitcher({
                         {buildInitials(company.name)}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate">{company.name || "Untitled"}</p>
+                        <p className="truncate">{company.name || t("workspace.untitled")}</p>
                         {company.industry || company.country ? (
                           <p className="truncate text-[11px] text-[var(--text-tertiary)]">
                             {[company.industry, company.country].filter(Boolean).join(" · ")}
@@ -270,14 +272,14 @@ export function WorkspaceSwitcher({
                     </button>
                     {canDelete && (
                       <button
-                        aria-label={`Delete ${company.name || "workspace"}`}
+                        aria-label={t("workspace.deleteName", { name: company.name || t("workspace.workspaceWord") })}
                         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--text-tertiary)] opacity-0 transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_12%,_var(--surface))] hover:text-[var(--signal-red)] focus-visible:opacity-100 group-hover:opacity-100"
                         onClick={(event) => {
                           event.stopPropagation();
                           setOpen(false);
                           setDeleteTarget(company);
                         }}
-                        title={`Delete ${company.name || "workspace"}`}
+                        title={t("workspace.deleteName", { name: company.name || t("workspace.workspaceWord") })}
                         type="button"
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
@@ -301,7 +303,7 @@ export function WorkspaceSwitcher({
             type="button"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
-            Create new workspace
+            {t("workspace.create")}
           </button>
         </div>
       )}

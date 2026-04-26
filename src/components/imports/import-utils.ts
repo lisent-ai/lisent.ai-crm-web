@@ -1,8 +1,11 @@
 import { type AvailableField, type MappingRow } from "./import-types";
 
+type Translator = (key: string, values?: Record<string, string | number>) => string;
+
 export function describeImportRow(
   row: Record<string, string>,
   rowNumber: number,
+  t?: Translator,
 ) {
   const keys = ["name", "full_name", "first_name", "email", "phone"];
   for (const key of keys) {
@@ -18,7 +21,9 @@ export function describeImportRow(
     }
   }
 
-  return `Row ${rowNumber}`;
+  return t
+    ? t("imports.utils.rowFallback", { number: rowNumber })
+    : `Row ${rowNumber}`;
 }
 
 export function buildMappingRows(
@@ -31,7 +36,14 @@ export function buildMappingRows(
     reason: string;
   }>,
   availableFields: AvailableField[],
+  t?: Translator,
 ): MappingRow[] {
+  const autoReason = t
+    ? t("imports.utils.mappedAutomatically")
+    : "Mapped automatically from the header name.";
+  const noSuggestionReason = t
+    ? t("imports.utils.noStrongSuggestion")
+    : "No strong suggestion from AI.";
   return headers.map((header) => {
     const suggestion = suggestions.find((item) =>
       item.source_headers.includes(header),
@@ -47,9 +59,7 @@ export function buildMappingRows(
       confidence: suggestion?.confidence ?? (fallbackTarget ? 0.64 : 0),
       reason:
         suggestion?.reason ??
-        (fallbackTarget
-          ? "Mapped automatically from the header name."
-          : "No strong suggestion from AI."),
+        (fallbackTarget ? autoReason : noSuggestionReason),
     };
   });
 }

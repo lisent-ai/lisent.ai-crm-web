@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -25,6 +26,7 @@ import { deriveCountryCode } from "./customer-utils";
 import { emptyCustomerForm, type CustomerFormState } from "./customer-types";
 
 export function CustomerDirectory() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName");
@@ -76,7 +78,7 @@ export function CustomerDirectory() {
         const message =
           error instanceof CRMClientError
             ? error.message
-            : "Failed to load companies.";
+            : t("customers.errors.loadCompanies");
         setErrorMessage(message);
       } finally {
         if (!cancelled) {
@@ -89,7 +91,7 @@ export function CustomerDirectory() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (companies.length === 0) {
@@ -135,7 +137,7 @@ export function CustomerDirectory() {
         const message =
           error instanceof CRMClientError
             ? error.message
-            : "Failed to load customers.";
+            : t("customers.errors.loadCustomers");
         setErrorMessage(message);
       } finally {
         if (!cancelled) {
@@ -154,14 +156,14 @@ export function CustomerDirectory() {
     return () => {
       cancelled = true;
     };
-  }, [selectedCompany?.id]);
+  }, [selectedCompany?.id, t]);
 
   const companyName = useMemo(() => {
     if (searchCompanyName?.trim()) {
       return searchCompanyName;
     }
-    return selectedCompany?.name ?? "Selected company";
-  }, [searchCompanyName, selectedCompany?.name]);
+    return selectedCompany?.name ?? t("customers.selectedCompany");
+  }, [searchCompanyName, selectedCompany?.name, t]);
 
   const filteredCustomers = useMemo(() => {
     return customers.filter((customer) => {
@@ -277,11 +279,11 @@ export function CustomerDirectory() {
         setShowForm(false);
       }
       setSuccessMessage(
-        editingCustomerId ? "Customer updated successfully." : "Customer created successfully.",
+        editingCustomerId ? t("customers.success.updated") : t("customers.success.created"),
       );
     } catch (error) {
       const message =
-        error instanceof CRMClientError ? error.message : "Failed to save customer.";
+        error instanceof CRMClientError ? error.message : t("customers.errors.saveCustomer");
       setErrorMessage(message);
     }
   }
@@ -330,10 +332,10 @@ export function CustomerDirectory() {
         return next;
       });
       setCustomerPendingDelete(null);
-      setSuccessMessage("Customer deleted.");
+      setSuccessMessage(t("customers.success.deleted"));
     } catch (error) {
       const message =
-        error instanceof CRMClientError ? error.message : "Failed to delete customer.";
+        error instanceof CRMClientError ? error.message : t("customers.errors.deleteCustomer");
       setErrorMessage(message);
     }
   }
@@ -404,15 +406,16 @@ export function CustomerDirectory() {
     }
 
     if (failed.length === 0) {
-      setSuccessMessage(
-        `${succeeded.length} customer${succeeded.length === 1 ? "" : "s"} removed.`,
-      );
+      setSuccessMessage(t("customers.success.bulkDeleted", { count: succeeded.length }));
     } else if (succeeded.length === 0) {
-      setErrorMessage(
-        `Failed to delete ${failed.length} customer${failed.length === 1 ? "" : "s"}.`,
-      );
+      setErrorMessage(t("customers.errors.bulkDeleteFailed", { count: failed.length }));
     } else {
-      setSuccessMessage(`${succeeded.length} deleted, ${failed.length} failed.`);
+      setSuccessMessage(
+        t("customers.success.bulkDeletedPartial", {
+          succeeded: succeeded.length,
+          failed: failed.length,
+        }),
+      );
     }
 
     setSaving(false);
@@ -445,7 +448,7 @@ export function CustomerDirectory() {
 
       {loading && (
         <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-3 text-sm text-[var(--text-secondary)]">
-          Loading customer data...
+          {t("customers.loading")}
         </div>
       )}
 
@@ -492,7 +495,7 @@ export function CustomerDirectory() {
           onFormChange={setCustomerForm}
           onSubmit={() => void saveCustomer()}
           subtitle={selectedCompany.name}
-          title={customerForm.name || "Customer"}
+          title={customerForm.name || t("customers.fields.customer")}
         />
       )}
 
@@ -503,7 +506,7 @@ export function CustomerDirectory() {
           onClose={closeAddModal}
           onFormChange={setCustomerForm}
           onSubmit={() => void saveCustomer()}
-          subtitle="Create a new customer record for this company."
+          subtitle={t("customers.form.createSubtitle")}
           title={companyName}
         />
       )}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Briefcase, Building2, Target, User } from "lucide-react";
 
 import { requestCreateWorkspace } from "@/components/dashboard/shared/create-workspace-modal";
@@ -26,6 +27,7 @@ import {
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 export function CompanyDashboard() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const companyId = searchParams.get("company")?.trim() ?? "";
   const companyName = searchParams.get("companyName")?.trim() ?? "";
@@ -66,7 +68,7 @@ export function CompanyDashboard() {
         const message =
           error instanceof CRMClientError
             ? error.message
-            : "Failed to load workspace dashboard.";
+            : t("home.errors.loadDashboard");
         setErrorMessage(message);
       } finally {
         if (!cancelled) setLoading(false);
@@ -77,7 +79,7 @@ export function CompanyDashboard() {
     return () => {
       cancelled = true;
     };
-  }, [companyId]);
+  }, [companyId, t]);
 
   const newLeadsCount = useMemo(
     () => leads.filter((l) => l.status === "new").length,
@@ -93,8 +95,8 @@ export function CompanyDashboard() {
   }
 
   const subtitle = companyName
-    ? `Workspace · ${companyName}`
-    : "Workspace — company selected";
+    ? t("home.company.subtitleWithName", { name: companyName })
+    : t("home.company.subtitleSelected");
 
   return (
     <div className="grid gap-5">
@@ -109,40 +111,40 @@ export function CompanyDashboard() {
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           icon={Target}
-          label="Leads"
+          label={t("home.kpi.leads")}
           loading={loading}
           trend={leadsTrend}
           value={String(leads.length)}
-          hint={`${newLeadsCount} new · last 7d trend`}
+          hint={t("home.kpi.leadsHint", { count: newLeadsCount })}
         />
         <StatCard
           icon={Briefcase}
-          label="Deals"
+          label={t("home.kpi.deals")}
           loading={loading}
           trend={dealsTrend}
           value={String(deals.length)}
-          hint={dealsAmount || "No amount yet"}
+          hint={dealsAmount || t("home.kpi.dealsAmountEmpty")}
         />
         <StatCard
           icon={User}
-          label="Customers in workspace"
+          label={t("home.kpi.customersInWorkspace")}
           loading={loading}
           value={String(customers.length)}
-          hint="This workspace"
+          hint={t("home.kpi.customersHint")}
         />
         <StatCard
           icon={Building2}
-          label="Open pipeline value"
+          label={t("home.kpi.openPipelineValue")}
           loading={loading}
           value={openPipelineValue || "—"}
-          hint="Excluding won & lost"
+          hint={t("home.kpi.openPipelineHint")}
         />
       </section>
 
       <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
         <ActivityChart
           deals={deals}
-          emptyHint="No activity in the last 7 days yet."
+          emptyHint={t("home.activity.empty")}
           leads={leads}
         />
         <QuickActionsPanel companyId={companyId} companyName={companyName} />
@@ -151,12 +153,12 @@ export function CompanyDashboard() {
       <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
         <PipelineOverview
           deals={deals}
-          emptyHint="No deals created yet."
+          emptyHint={t("home.pipeline.empty")}
         />
         <RecentLeadsList
           companyId={companyId}
           companyName={companyName}
-          emptyHint="No leads yet."
+          emptyHint={t("home.recentLeads.empty")}
           leads={leads}
         />
       </section>
@@ -165,9 +167,10 @@ export function CompanyDashboard() {
 }
 
 function EmptyCompanyDashboard() {
+  const t = useTranslations();
   return (
     <div className="grid gap-5">
-      <OverviewHeader subtitle="Pick a workspace to open its dashboard" />
+      <OverviewHeader subtitle={t("home.company.pickWorkspace")} />
       <div className="flex flex-col items-center gap-4 rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-6 py-12 text-center shadow-[var(--shadow-card)]">
         <span
           aria-hidden="true"
@@ -177,11 +180,10 @@ function EmptyCompanyDashboard() {
         </span>
         <div>
           <p className="text-base font-semibold text-[var(--text-primary)]">
-            No workspace selected
+            {t("home.company.noWorkspaceSelected")}
           </p>
           <p className="mt-1 max-w-md text-sm text-[var(--text-tertiary)]">
-            Use the workspace switcher in the top bar or pick one from the
-            Overview to see leads, deals and pipeline for that workspace.
+            {t("home.company.noWorkspaceHelp")}
           </p>
         </div>
         <div className="flex flex-wrap justify-center gap-2">
@@ -189,14 +191,14 @@ function EmptyCompanyDashboard() {
             className="inline-flex items-center rounded-full bg-[var(--text-primary)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
             href="/dashboard"
           >
-            Go to Overview
+            {t("home.company.goToOverview")}
           </Link>
           <button
             className="inline-flex items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
             onClick={requestCreateWorkspace}
             type="button"
           >
-            Create workspace
+            {t("home.company.createWorkspace")}
           </button>
         </div>
       </div>

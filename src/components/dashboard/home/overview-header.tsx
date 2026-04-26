@@ -1,17 +1,19 @@
 "use client";
 
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type OverviewHeaderProps = {
   subtitle?: string;
 };
 
 export function OverviewHeader({ subtitle }: Readonly<OverviewHeaderProps>) {
+  const t = useTranslations();
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
-          Overview
+          {t("home.overview.title")}
         </h1>
         {subtitle ? (
           <p className="mt-1 text-sm text-[var(--text-tertiary)]">{subtitle}</p>
@@ -24,13 +26,13 @@ export function OverviewHeader({ subtitle }: Readonly<OverviewHeaderProps>) {
           type="button"
         >
           <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
-          Customize
+          {t("home.overview.customize")}
         </button>
         <button
           className="inline-flex h-9 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           type="button"
         >
-          This week
+          {t("home.overview.thisWeek")}
           <ChevronDown className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>

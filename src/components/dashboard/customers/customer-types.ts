@@ -12,4 +12,11 @@ export const emptyCustomerForm: CustomerFormState = {
   status: "Active",
 };
 
-export const customerStatusOptions = ["Active", "Prospect", "Needs review"];
+export const customerStatusOptions: Array<{
+  value: string;
+  labelKey: string;
+}> = [
+  { value: "Active", labelKey: "customers.status.active" },
+  { value: "Prospect", labelKey: "customers.status.prospect" },
+  { value: "Needs review", labelKey: "customers.status.needsReview" },
+];

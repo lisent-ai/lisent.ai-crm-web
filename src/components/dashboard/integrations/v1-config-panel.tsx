@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import {
@@ -14,33 +15,10 @@ type Props = {
   companyName: string;
 };
 
-const FRAMEWORK_DESCRIPTIONS: Record<string, string> = {
-  champ:
-    "Challenges, Authority, Money, Prioritization — modern B2B standard, challenge-first.",
-  bant: "Budget, Authority, Need, Timeline — classic IBM framework, fast sort.",
-  meddic:
-    "Metrics, Economic buyer, Decision criteria/process, Identify pain, Champion — enterprise complex deals.",
-};
-
-const AGGRESSIVENESS_OPTIONS = [
-  {
-    value: "conservative",
-    label: "Conservative",
-    desc: "Wait for more signals (threshold ≈ 85)",
-  },
-  {
-    value: "balanced",
-    label: "Balanced",
-    desc: "Default — threshold ≈ 75",
-  },
-  {
-    value: "aggressive",
-    label: "Aggressive",
-    desc: "Hand off early (threshold ≈ 65)",
-  },
-] as const;
+const AGGRESSIVENESS_VALUES = ["conservative", "balanced", "aggressive"] as const;
 
 export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
+  const t = useTranslations();
   const [data, setData] = useState<TenantConfigResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -70,11 +48,11 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
       setData(d);
       hydrate(d);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load config");
+      setError(err instanceof Error ? err.message : t("integrations.v1.loadFailed"));
     } finally {
       setLoading(false);
     }
-  }, [companyId, hydrate]);
+  }, [companyId, hydrate, t]);
 
   useEffect(() => {
     void refresh();
@@ -97,7 +75,7 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
       hydrate(updated);
       setSavedAt(new Date());
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Save failed");
+      setError(err instanceof Error ? err.message : t("integrations.errors.saveFailed"));
     } finally {
       setSaving(false);
     }
@@ -106,7 +84,7 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
   if (loading && !data) {
     return (
       <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-center text-sm text-[var(--text-tertiary)] sm:p-8">
-        Loading config…
+        {t("integrations.v1.loading")}
       </div>
     );
   }
@@ -115,12 +93,15 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
     <section className="space-y-6">
       <header>
         <h2 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">
-          Scoring & Integration Config
+          {t("integrations.v1.title")}
         </h2>
         <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-          Framework, threshold, aggressiveness, and outbound webhook for{" "}
-          <strong className="text-[var(--text-secondary)]">{companyName}</strong>. Changes apply
-          immediately.
+          {t.rich("integrations.v1.description", {
+            name: companyName,
+            strong: (chunks) => (
+              <strong className="text-[var(--text-secondary)]">{chunks}</strong>
+            ),
+          })}
         </p>
       </header>
 
@@ -132,16 +113,19 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
 
       <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
         <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-          Qualification Framework
+          {t("integrations.v1.frameworkTitle")}
         </h3>
         <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-          Pick the methodology that best fits your sales motion. Affects prompt
-          templates and scoring dimensions.
+          {t("integrations.v1.frameworkDescription")}
         </p>
         <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
           {(data?.supported_frameworks ?? ["champ", "bant", "meddic"]).map(
             (f) => {
               const active = framework === f;
+              const descKey =
+                f === "champ" || f === "bant" || f === "meddic"
+                  ? `integrations.v1.frameworkDescriptions.${f}`
+                  : null;
               return (
                 <button
                   key={f}
@@ -158,7 +142,7 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
                     {f}
                   </div>
                   <div className="mt-1 text-xs text-[var(--text-secondary)]">
-                    {FRAMEWORK_DESCRIPTIONS[f] ?? ""}
+                    {descKey ? t(descKey as never) : ""}
                   </div>
                 </button>
               );
@@ -169,12 +153,10 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
 
       <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
         <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-          Qualification Threshold
+          {t("integrations.v1.thresholdTitle")}
         </h3>
         <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-          Score ≥ threshold → lead marked qualified + handed off.
-          Default 75. Dynamic adjustments (project type, budget) may still
-          apply at scoring time.
+          {t("integrations.v1.thresholdDescription")}
         </p>
         <div className="mt-3 flex items-center gap-3">
           <input
@@ -198,16 +180,16 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
 
       <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
         <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-          Handoff Aggressiveness
+          {t("integrations.v1.aggressivenessTitle")}
         </h3>
         <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
-          {AGGRESSIVENESS_OPTIONS.map((opt) => {
-            const active = aggressiveness === opt.value;
+          {AGGRESSIVENESS_VALUES.map((value) => {
+            const active = aggressiveness === value;
             return (
               <button
-                key={opt.value}
+                key={value}
                 type="button"
-                onClick={() => setAggressiveness(opt.value)}
+                onClick={() => setAggressiveness(value)}
                 aria-pressed={active}
                 className={`rounded-2xl border p-3 text-left transition ${
                   active
@@ -216,9 +198,11 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
                 }`}
               >
                 <div className="text-sm font-bold text-[var(--text-primary)]">
-                  {opt.label}
+                  {t(`integrations.v1.aggressiveness.${value}.label`)}
                 </div>
-                <div className="mt-1 text-xs text-[var(--text-secondary)]">{opt.desc}</div>
+                <div className="mt-1 text-xs text-[var(--text-secondary)]">
+                  {t(`integrations.v1.aggressiveness.${value}.desc`)}
+                </div>
               </button>
             );
           })}
@@ -227,43 +211,45 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
 
       <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
         <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-          Outbound Webhook URL
+          {t("integrations.v1.outboundWebhookTitle")}
         </h3>
         <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-          When a lead is qualified, Lisent POSTs the full scoring payload to
-          this URL. HMAC-signed; configure your secret under Integrations →
-          Webhooks (coming soon).
+          {t("integrations.v1.outboundWebhookDescription")}
         </p>
         <input
           type="url"
           value={webhookUrl}
           onChange={(e) => setWebhookUrl(e.target.value)}
-          placeholder="https://your-crm.example.com/hooks/lisent"
+          placeholder={t("integrations.v1.outboundWebhookPlaceholder")}
           className="mt-3 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
         />
       </div>
 
       <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
         <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-          Medium-score CTA Calendly URL
+          {t("integrations.v1.calendlyTitle")}
         </h3>
         <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-          Fallback self-service booking link for leads between{" "}
-          <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">CTA_MEDIUM_FLOOR</code>{" "}
-          and threshold. High-score leads route to high-touch CTAs defined elsewhere.
+          {t.rich("integrations.v1.calendlyDescription", {
+            code: (chunks) => (
+              <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
+                {chunks}
+              </code>
+            ),
+          })}
         </p>
         <input
           type="url"
           value={ctaCalendly}
           onChange={(e) => setCtaCalendly(e.target.value)}
-          placeholder="https://calendly.com/your-team/intro"
+          placeholder={t("integrations.v1.calendlyPlaceholder")}
           className="mt-3 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
         />
       </div>
 
       <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="text-xs text-[var(--text-tertiary)]">
-          {savedAt ? `Saved at ${savedAt.toLocaleTimeString()}` : null}
+          {savedAt ? t("integrations.v1.savedAt", { time: savedAt.toLocaleTimeString() }) : null}
         </div>
         <button
           type="button"
@@ -271,7 +257,7 @@ export function V1ConfigPanel({ companyId, companyName }: Readonly<Props>) {
           disabled={saving}
           className="rounded-full bg-[var(--text-primary)] px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50 sm:self-end"
         >
-          {saving ? "Saving…" : "Save changes"}
+          {saving ? t("common.saving") : t("integrations.v1.saveChanges")}
         </button>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   CompanyMembershipClientError,
@@ -35,7 +36,7 @@ import { DealFormModal } from "./deal-form-modal";
 import { DealHeader } from "./deal-header";
 import {
   buildDealForm,
-  dealStages,
+  dealStageOptions,
   emptyDealForm,
   supportedDealCurrencies,
   type DealFormState,
@@ -43,6 +44,7 @@ import {
 import { parseDealAmount } from "./deal-utils";
 
 export function DealDirectory() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName");
@@ -87,7 +89,7 @@ export function DealDirectory() {
           setErrorMessage(
             error instanceof CRMClientError
               ? error.message
-              : "Failed to load companies.",
+              : t("deals.errors.loadCompanies"),
           );
         }
       }
@@ -97,7 +99,7 @@ export function DealDirectory() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (companies.length === 0) {
@@ -209,7 +211,7 @@ export function DealDirectory() {
       } catch (error) {
         if (!cancelled) {
           setErrorMessage(
-            error instanceof CRMClientError ? error.message : "Failed to load deals.",
+            error instanceof CRMClientError ? error.message : t("deals.errors.loadDeals"),
           );
         }
       } finally {
@@ -228,7 +230,7 @@ export function DealDirectory() {
       cancelled = true;
       window.clearInterval(intervalId);
     };
-  }, [assigneeFilter, searchQuery, selectedCompany?.id, stageFilter]);
+  }, [assigneeFilter, searchQuery, selectedCompany?.id, stageFilter, t]);
 
   const selectedDeal = useMemo(
     () => deals.find((deal) => deal.id === selectedDealId) ?? deals[0] ?? null,
@@ -244,8 +246,8 @@ export function DealDirectory() {
     if (searchCompanyName?.trim()) {
       return searchCompanyName;
     }
-    return selectedCompany?.name ?? "Selected company";
-  }, [searchCompanyName, selectedCompany?.name]);
+    return selectedCompany?.name ?? t("deals.selectedCompany");
+  }, [searchCompanyName, selectedCompany?.name, t]);
 
   const customerLabelById = useMemo(
     () =>
@@ -260,7 +262,7 @@ export function DealDirectory() {
 
   const pipelineCounts = useMemo(
     () =>
-      dealStages.map((stage) => ({
+      dealStageOptions.map((stage) => ({
         stage: stage.value,
         count: deals.filter((deal) => deal.stage === stage.value).length,
       })) as Array<{ stage: DealStage; count: number }>,
@@ -321,11 +323,11 @@ export function DealDirectory() {
 
     const name = dealForm.name.trim();
     if (!name) {
-      setErrorMessage("Deal name is required.");
+      setErrorMessage(t("deals.errors.nameRequired"));
       return;
     }
     if (!supportedDealCurrencies.includes(dealForm.currency as (typeof supportedDealCurrencies)[number])) {
-      setErrorMessage("Please choose a supported currency.");
+      setErrorMessage(t("deals.errors.unsupportedCurrency"));
       return;
     }
 
@@ -358,13 +360,13 @@ export function DealDirectory() {
       const nextDeals = await reloadDeals(selectedCompany.id);
       setSelectedDealId(savedDeal.id || (nextDeals[0]?.id ?? null));
       setSuccessMessage(
-        editingDealId ? "Deal updated successfully." : "Deal created successfully.",
+        editingDealId ? t("deals.success.updated") : t("deals.success.created"),
       );
       setCommentDraft("");
       closeFormModal();
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to save deal.",
+        error instanceof CRMClientError ? error.message : t("deals.errors.saveDeal"),
       );
     } finally {
       setSaving(false);
@@ -386,10 +388,10 @@ export function DealDirectory() {
         current === pendingDeleteDeal.id ? nextDeals[0]?.id ?? null : current,
       );
       setPendingDeleteDeal(null);
-      setSuccessMessage("Deal deleted successfully.");
+      setSuccessMessage(t("deals.success.deleted"));
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to delete deal.",
+        error instanceof CRMClientError ? error.message : t("deals.errors.deleteDeal"),
       );
     } finally {
       setSaving(false);
@@ -411,10 +413,10 @@ export function DealDirectory() {
         nextDeals.find((deal) => deal.id === selectedDeal.id) ?? nextDeals[0] ?? null;
       setSelectedDealId(refreshedDeal?.id ?? null);
       setCommentDraft("");
-      setSuccessMessage("Comment added to the deal.");
+      setSuccessMessage(t("deals.success.commentAdded"));
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to add comment.",
+        error instanceof CRMClientError ? error.message : t("deals.errors.addComment"),
       );
     } finally {
       setSaving(false);
@@ -432,7 +434,7 @@ export function DealDirectory() {
       compose: "1",
       linkedType: "deal",
       linkedId: deal.id,
-      title: `Meeting: ${deal.name || "Deal"}`,
+      title: t("deals.meetingTitle", { name: deal.name || t("deals.deal") }),
       eventType: "meeting",
     });
 
@@ -488,7 +490,7 @@ export function DealDirectory() {
           selectedDealId={selectedDealId}
         />
         <section className="rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-5 py-4 text-sm text-[var(--text-secondary)]">
-          Click a deal card to open its full detail view in a popup without leaving the board.
+          {t("deals.boardHint")}
         </section>
       </div>
 

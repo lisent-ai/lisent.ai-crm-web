@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Calendar, CheckCircle2, PencilLine, Trash2 } from "lucide-react";
 
 import { getAccountProfile } from "@/lib/account/client";
@@ -81,6 +82,7 @@ function buildLeadFilters(input: {
 }
 
 export function LeadDirectory() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName");
@@ -168,7 +170,7 @@ export function LeadDirectory() {
           setErrorMessage(
             error instanceof CRMClientError
               ? error.message
-              : "Failed to load companies.",
+              : t("leads.errors.loadCompanies"),
           );
         }
       } finally {
@@ -290,7 +292,7 @@ export function LeadDirectory() {
       } catch (error) {
         if (!cancelled) {
           setErrorMessage(
-            error instanceof CRMClientError ? error.message : "Failed to load leads.",
+            error instanceof CRMClientError ? error.message : t("leads.errors.loadLeads"),
           );
         }
       } finally {
@@ -349,10 +351,10 @@ export function LeadDirectory() {
       ),
     );
     return [
-      { label: "All sources", value: "all" },
+      { label: t("leads.filters.allSources"), value: "all" },
       ...values.map((value) => ({ label: value, value })),
     ];
-  }, [leads]);
+  }, [leads, t]);
 
   const assignableMembers = useMemo(
     () =>
@@ -364,13 +366,13 @@ export function LeadDirectory() {
 
   const assigneeOptions = useMemo(
     () => [
-      { label: "All assignees", value: "all" },
+      { label: t("leads.filters.allAssignees"), value: "all" },
       ...assignableMembers.map((member) => ({
         label: member.displayName,
         value: member.userId,
       })),
     ],
-    [assignableMembers],
+    [assignableMembers, t],
   );
 
   const pipelineCounts = useMemo(
@@ -420,7 +422,7 @@ export function LeadDirectory() {
           setErrorMessage(
             error instanceof CRMClientError
               ? error.message
-              : "Failed to load lead notes.",
+              : t("leads.errors.loadNotes"),
           );
           setLeadComments([]);
         }
@@ -525,7 +527,7 @@ export function LeadDirectory() {
     }
 
     if (assignableMembers.length === 0) {
-      throw new Error("Round-robin requires at least one assignable team member.");
+      throw new Error(t("leads.errors.roundRobinNoMembers"));
     }
 
     const lastUserId = company.extraData.lead_assignment_last_user_id?.trim() || "";
@@ -575,7 +577,7 @@ export function LeadDirectory() {
     }
 
     if (!leadForm.name.trim()) {
-      setErrorMessage("Lead name is required.");
+      setErrorMessage(t("leads.errors.nameRequired"));
       return;
     }
 
@@ -610,14 +612,16 @@ export function LeadDirectory() {
       await reloadReferenceData(assignment.company.id);
       setSelectedLeadId(savedLead.id);
       setSuccessMessage(
-        editingLeadId ? "Lead updated successfully." : "Lead created successfully.",
+        editingLeadId
+          ? t("leads.success.updated")
+          : t("leads.success.created"),
       );
       closeLeadModal();
     } catch (error) {
       setErrorMessage(
         error instanceof CRMClientError || error instanceof Error
           ? error.message
-          : "Failed to save lead.",
+          : t("leads.errors.saveLead"),
       );
     } finally {
       setSaving(false);
@@ -640,10 +644,10 @@ export function LeadDirectory() {
         setDrawerOpen(false);
       }
       setPendingDeleteLead(null);
-      setSuccessMessage("Lead removed.");
+      setSuccessMessage(t("leads.success.removed"));
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to delete lead.",
+        error instanceof CRMClientError ? error.message : t("leads.errors.deleteLead"),
       );
     } finally {
       setSaving(false);
@@ -670,11 +674,16 @@ export function LeadDirectory() {
     setSelectedIds(new Set());
     setPendingBulkDelete(false);
     if (failed.length === 0) {
-      setSuccessMessage(`${succeeded.length} lead${succeeded.length === 1 ? "" : "s"} removed.`);
+      setSuccessMessage(t("leads.success.bulkRemoved", { count: succeeded.length }));
     } else if (succeeded.length === 0) {
-      setErrorMessage(`Failed to delete ${failed.length} lead${failed.length === 1 ? "" : "s"}.`);
+      setErrorMessage(t("leads.errors.bulkDeleteFailed", { count: failed.length }));
     } else {
-      setSuccessMessage(`${succeeded.length} deleted, ${failed.length} failed.`);
+      setSuccessMessage(
+        t("leads.success.bulkPartial", {
+          succeeded: succeeded.length,
+          failed: failed.length,
+        }),
+      );
     }
     setSaving(false);
   }
@@ -684,7 +693,7 @@ export function LeadDirectory() {
 
     const assignee = assignableMembers.find((member) => member.userId === bulkAssignUserId);
     if (!assignee) {
-      setErrorMessage("Select a teammate to assign the selected leads.");
+      setErrorMessage(t("leads.errors.selectTeammate"));
       return;
     }
 
@@ -716,14 +725,20 @@ export function LeadDirectory() {
 
     if (failed.length === 0) {
       setSuccessMessage(
-        `${succeeded.length} lead${succeeded.length === 1 ? "" : "s"} assigned to ${assignee.displayName}.`,
+        t("leads.success.bulkAssigned", {
+          count: succeeded.length,
+          assignee: assignee.displayName,
+        }),
       );
     } else if (succeeded.length === 0) {
-      setErrorMessage(
-        `Failed to assign ${failed.length} lead${failed.length === 1 ? "" : "s"}.`,
-      );
+      setErrorMessage(t("leads.errors.bulkAssignFailed", { count: failed.length }));
     } else {
-      setSuccessMessage(`${succeeded.length} assigned, ${failed.length} failed.`);
+      setSuccessMessage(
+        t("leads.success.bulkAssignPartial", {
+          succeeded: succeeded.length,
+          failed: failed.length,
+        }),
+      );
     }
 
     setSaving(false);
@@ -743,10 +758,10 @@ export function LeadDirectory() {
       const nextComments = await listLeadComments(selectedLead.id);
       setLeadComments(nextComments);
       setLeadCommentDraft("");
-      setSuccessMessage("Team note added to the lead.");
+      setSuccessMessage(t("leads.success.noteAdded"));
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to add lead note.",
+        error instanceof CRMClientError ? error.message : t("leads.errors.addNote"),
       );
     } finally {
       setSaving(false);
@@ -778,10 +793,10 @@ export function LeadDirectory() {
       const nextComments = await listLeadComments(selectedLead.id);
       setLeadComments(nextComments);
       stopEditingLeadComment();
-      setSuccessMessage("Lead note updated.");
+      setSuccessMessage(t("leads.success.noteUpdated"));
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to update lead note.",
+        error instanceof CRMClientError ? error.message : t("leads.errors.updateNote"),
       );
     } finally {
       setSaving(false);
@@ -803,10 +818,10 @@ export function LeadDirectory() {
       if (editingLeadCommentId === comment.id) {
         stopEditingLeadComment();
       }
-      setSuccessMessage("Lead note deleted.");
+      setSuccessMessage(t("leads.success.noteDeleted"));
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to delete lead note.",
+        error instanceof CRMClientError ? error.message : t("leads.errors.deleteNote"),
       );
     } finally {
       setSaving(false);
@@ -819,7 +834,7 @@ export function LeadDirectory() {
     const csv = buildLeadCsv(rows);
     const stamp = new Date().toISOString().replace(/[:.]/g, "-");
     downloadCsv(`leads-${stamp}.csv`, csv);
-    setSuccessMessage(`${rows.length} lead${rows.length === 1 ? "" : "s"} exported.`);
+    setSuccessMessage(t("leads.success.exported", { count: rows.length }));
   }
 
   function scheduleLead(lead: Lead) {
@@ -833,7 +848,7 @@ export function LeadDirectory() {
       compose: "1",
       linkedType: "lead",
       linkedId: lead.id,
-      title: `Follow up: ${lead.name || "Lead"}`,
+      title: t("leads.scheduleTitle", { name: lead.name || t("leads.fallback.lead") }),
       eventType: "follow_up",
     });
 
@@ -862,7 +877,7 @@ export function LeadDirectory() {
     }
 
     if (!convertState.name.trim()) {
-      setErrorMessage("Customer name is required for conversion.");
+      setErrorMessage(t("leads.errors.customerNameRequired"));
       return;
     }
 
@@ -892,12 +907,12 @@ export function LeadDirectory() {
       closeConvertModal();
       setSuccessMessage(
         convertState.createDeal
-          ? "Lead converted to customer and deal."
-          : "Lead converted to customer.",
+          ? t("leads.success.convertedWithDeal")
+          : t("leads.success.converted"),
       );
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to convert lead.",
+        error instanceof CRMClientError ? error.message : t("leads.errors.convertLead"),
       );
     } finally {
       setSaving(false);
@@ -912,10 +927,10 @@ export function LeadDirectory() {
     try {
       await startLeadQualify(selectedCompany.id, lead.id);
       await reloadReferenceData(selectedCompany.id);
-      setSuccessMessage("AI qualification started for this lead.");
+      setSuccessMessage(t("leads.success.aiStarted"));
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : "Failed to start qualification.",
+        error instanceof Error ? error.message : t("leads.errors.startQualify"),
       );
     } finally {
       setSaving(false);
@@ -941,12 +956,14 @@ export function LeadDirectory() {
         assignmentMethod: "round_robin",
       });
       await reloadReferenceData(selectedCompany.id);
-      setSuccessMessage(`Assigned to ${assignment.assigneeUserName} via round-robin.`);
+      setSuccessMessage(
+        t("leads.success.roundRobinAssigned", { name: assignment.assigneeUserName }),
+      );
     } catch (error) {
       setErrorMessage(
         error instanceof CRMClientError || error instanceof Error
           ? error.message
-          : "Failed to assign lead.",
+          : t("leads.errors.assignLead"),
       );
     } finally {
       setSaving(false);
@@ -1009,7 +1026,7 @@ export function LeadDirectory() {
 
       {!selectedCompany && !companiesLoading ? (
         <div className="flex min-h-[200px] items-center justify-center rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-4 text-center text-sm text-[var(--text-tertiary)]">
-          Pick a workspace from the top bar to see leads.
+          {t("leads.emptyState.pickWorkspace")}
         </div>
       ) : (
         <section className="overflow-hidden rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
@@ -1065,18 +1082,18 @@ export function LeadDirectory() {
         >
           <RowMenuItem
             icon={<PencilLine className="h-4 w-4" aria-hidden="true" />}
-            label="Edit"
+            label={t("leads.rowMenu.edit")}
             onClick={() => openEditModal(rowMenu.lead)}
           />
           <RowMenuItem
             disabled={rowMenu.lead.status === "converted"}
             icon={<CheckCircle2 className="h-4 w-4" aria-hidden="true" />}
-            label="Convert"
+            label={t("leads.rowMenu.convert")}
             onClick={() => openConvertLeadModal(rowMenu.lead)}
           />
           <RowMenuItem
             icon={<Calendar className="h-4 w-4" aria-hidden="true" />}
-            label="Schedule"
+            label={t("leads.rowMenu.schedule")}
             onClick={() => {
               scheduleLead(rowMenu.lead);
               setRowMenu(null);
@@ -1085,7 +1102,7 @@ export function LeadDirectory() {
           <div className="my-1 border-t border-[var(--border-subtle)]" />
           <RowMenuItem
             icon={<Trash2 className="h-4 w-4" aria-hidden="true" />}
-            label="Delete"
+            label={t("leads.rowMenu.delete")}
             onClick={() => {
               setPendingDeleteLead(rowMenu.lead);
               setRowMenu(null);
@@ -1240,6 +1257,7 @@ function BulkDeleteConfirmModal({
   onConfirm: () => void;
   saving: boolean;
 }>) {
+  const t = useTranslations();
   return (
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-[rgba(11,15,25,0.45)] px-4 py-8 sm:items-center"
@@ -1252,11 +1270,10 @@ function BulkDeleteConfirmModal({
         role="dialog"
       >
         <h2 className="text-lg font-semibold text-[var(--text-primary)]">
-          Delete {count} lead{count === 1 ? "" : "s"}?
+          {t("leads.bulkDelete.title", { count })}
         </h2>
         <p className="mt-2 text-sm text-[var(--text-tertiary)]">
-          This permanently removes the selected leads from the workspace. This
-          action cannot be undone.
+          {t("leads.bulkDelete.description")}
         </p>
         <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
           <button
@@ -1265,7 +1282,7 @@ function BulkDeleteConfirmModal({
             onClick={onClose}
             type="button"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             className="inline-flex h-10 items-center justify-center rounded-full bg-[var(--signal-red)] px-5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
@@ -1273,7 +1290,7 @@ function BulkDeleteConfirmModal({
             onClick={onConfirm}
             type="button"
           >
-            {saving ? "Deleting…" : `Delete ${count}`}
+            {saving ? t("leads.bulkDelete.deleting") : t("leads.bulkDelete.confirm", { count })}
           </button>
         </div>
       </div>

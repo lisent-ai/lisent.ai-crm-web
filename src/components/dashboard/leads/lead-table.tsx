@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { MoreHorizontal } from "lucide-react";
 
 import type { Lead } from "@/lib/crm/client";
@@ -38,6 +39,7 @@ export function LeadTable({
   activeLeadId,
   aiEnabled,
 }: Readonly<LeadTableProps>) {
+  const t = useTranslations();
   const allSelected = useMemo(
     () => leads.length > 0 && leads.every((l) => selectedIds.has(l.id)),
     [leads, selectedIds],
@@ -65,7 +67,7 @@ export function LeadTable({
   if (leads.length === 0) {
     return (
       <div className="flex min-h-[240px] items-center justify-center px-4 text-center text-sm text-[var(--text-tertiary)]">
-        No leads match the current filters yet.
+        {t("leads.table.empty")}
       </div>
     );
   }
@@ -85,16 +87,20 @@ export function LeadTable({
                     onChange={onToggleAll}
                   />
                 </th>
-                <th className="w-[28%] px-3 py-3">Name</th>
-                <th className="hidden w-[14%] px-3 py-3 lg:table-cell">Phone</th>
-                <th className="w-[14%] px-3 py-3">Source</th>
-                <th className="w-[12%] px-3 py-3">Status</th>
-                <th className="w-[12%] px-3 py-3 text-right">Value</th>
-                <th className="hidden w-[14%] px-3 py-3 lg:table-cell">Assignee</th>
+                <th className="w-[28%] px-3 py-3">{t("leads.table.name")}</th>
+                <th className="hidden w-[14%] px-3 py-3 lg:table-cell">
+                  {t("leads.table.phone")}
+                </th>
+                <th className="w-[14%] px-3 py-3">{t("leads.table.source")}</th>
+                <th className="w-[12%] px-3 py-3">{t("leads.table.status")}</th>
+                <th className="w-[12%] px-3 py-3 text-right">{t("leads.table.value")}</th>
+                <th className="hidden w-[14%] px-3 py-3 lg:table-cell">
+                  {t("leads.table.assignee")}
+                </th>
                 {aiEnabled && (
                   <th className="hidden w-[10%] px-3 py-3 xl:table-cell">AI</th>
                 )}
-                <th className="w-[52px] px-3 py-3" aria-label="Row actions" />
+                <th className="w-[52px] px-3 py-3" aria-label={t("leads.table.rowActions")} />
               </tr>
             </thead>
             <tbody>
@@ -147,6 +153,7 @@ function HeaderCheckbox({
   indeterminate: boolean;
   onChange: () => void;
 }>) {
+  const t = useTranslations();
   const setRef = useCallback(
     (node: HTMLInputElement | null) => {
       if (node) node.indeterminate = indeterminate;
@@ -155,7 +162,7 @@ function HeaderCheckbox({
   );
   return (
     <input
-      aria-label="Select all"
+      aria-label={t("leads.table.selectAll")}
       checked={checked}
       className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
       onChange={onChange}
@@ -186,7 +193,9 @@ function LeadRow({
   onOpenMenu,
   onAIClick,
 }: Readonly<RowCommonProps>) {
+  const t = useTranslations();
   const active = lead.id === activeLeadId;
+  const leadDisplayName = lead.name || t("leads.fallback.lead");
   return (
     <tr
       aria-selected={active}
@@ -199,7 +208,7 @@ function LeadRow({
     >
       <td className="px-4 py-3" onClick={(event) => event.stopPropagation()}>
         <input
-          aria-label={`Select ${lead.name || "lead"}`}
+          aria-label={t("leads.table.selectRow", { name: leadDisplayName })}
           checked={selected}
           className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
           onChange={() => onToggle(lead.id)}
@@ -211,7 +220,7 @@ function LeadRow({
           <Avatar name={lead.name || lead.email} />
           <div className="min-w-0">
             <p className="truncate font-medium text-[var(--text-primary)]">
-              {lead.name || "Unnamed lead"}
+              {lead.name || t("leads.fallback.unnamedLead")}
             </p>
             <p className="truncate text-xs text-[var(--text-tertiary)]">
               {lead.email || "—"}
@@ -229,7 +238,7 @@ function LeadRow({
         <span
           className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ${statusBadgeClasses(lead.status)}`}
         >
-          {lead.status}
+          {t(`leads.status.${lead.status}`)}
         </span>
       </td>
       <td className="px-3 py-3 text-right tabular-nums text-[var(--text-secondary)]">
@@ -242,10 +251,10 @@ function LeadRow({
         <td className="hidden px-3 py-3 xl:table-cell" onClick={(event) => event.stopPropagation()}>
           {typeof lead.aiScore === "number" ? (
             <button
-              aria-label={`Open AI qualification · score ${Math.round(lead.aiScore)}`}
+              aria-label={t("leads.table.openAIScore", { score: Math.round(lead.aiScore) })}
               className="rounded-full transition hover:brightness-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
               onClick={() => onAIClick(lead)}
-              title="View AI qualification details"
+              title={t("leads.table.viewAIDetails")}
               type="button"
             >
               <AIScoreChip score={lead.aiScore} />
@@ -257,7 +266,7 @@ function LeadRow({
       )}
       <td className="px-3 py-3" onClick={(event) => event.stopPropagation()}>
         <button
-          aria-label="Row actions"
+          aria-label={t("leads.table.rowActions")}
           className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
           onClick={(event) => onOpenMenu(lead, event.currentTarget)}
           type="button"
@@ -279,7 +288,9 @@ function LeadCard({
   onOpenMenu,
   onAIClick,
 }: Readonly<RowCommonProps>) {
+  const t = useTranslations();
   const active = lead.id === activeLeadId;
+  const leadDisplayName = lead.name || t("leads.fallback.lead");
   return (
     <div
       className={`flex flex-col gap-3 px-4 py-3 text-sm transition ${
@@ -288,7 +299,7 @@ function LeadCard({
     >
       <div className="flex items-start gap-3">
         <input
-          aria-label={`Select ${lead.name || "lead"}`}
+          aria-label={t("leads.table.selectRow", { name: leadDisplayName })}
           checked={selected}
           className="mt-1 h-4 w-4 shrink-0 rounded border-[var(--border-default)] accent-[var(--accent)]"
           onChange={() => onToggle(lead.id)}
@@ -302,7 +313,7 @@ function LeadCard({
           <Avatar name={lead.name || lead.email} />
           <div className="min-w-0 flex-1">
             <p className="truncate font-medium text-[var(--text-primary)]">
-              {lead.name || "Unnamed lead"}
+              {lead.name || t("leads.fallback.unnamedLead")}
             </p>
             <p className="truncate text-xs text-[var(--text-tertiary)]">
               {lead.email || lead.phone || "—"}
@@ -310,7 +321,7 @@ function LeadCard({
           </div>
         </button>
         <button
-          aria-label="Row actions"
+          aria-label={t("leads.table.rowActions")}
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
           onClick={(event) => onOpenMenu(lead, event.currentTarget)}
           type="button"
@@ -322,7 +333,7 @@ function LeadCard({
         <span
           className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-medium ${statusBadgeClasses(lead.status)}`}
         >
-          {lead.status}
+          {t(`leads.status.${lead.status}`)}
         </span>
         <span className="text-[var(--text-tertiary)]">
           {formatSourceLabel(lead.source)}
@@ -333,7 +344,7 @@ function LeadCard({
       </div>
       {aiEnabled && typeof lead.aiScore === "number" ? (
         <button
-          aria-label={`Open AI qualification · score ${Math.round(lead.aiScore)}`}
+          aria-label={t("leads.table.openAIScore", { score: Math.round(lead.aiScore) })}
           className="self-start rounded-full transition hover:brightness-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-300"
           onClick={() => onAIClick(lead)}
           type="button"

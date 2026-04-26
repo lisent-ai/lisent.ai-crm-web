@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 
 import { getAccountProfile } from "@/lib/account/client";
@@ -43,9 +44,9 @@ type TicketGroup = {
   hasActiveTask: boolean;
 };
 
-function formatDate(value: string) {
+function formatDate(value: string, fallback: string) {
   if (!value) {
-    return "No due date";
+    return fallback;
   }
 
   const parsed = new Date(value);
@@ -85,6 +86,7 @@ function taskStatusBadgeClasses(status: TaskStatus) {
 }
 
 export function TaskWorkspace() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName") ?? "";
@@ -134,7 +136,7 @@ export function TaskWorkspace() {
           setErrorMessage(
             error instanceof CRMClientError
               ? error.message
-              : "Failed to load the tasks workspace.",
+              : t("tasks.errors.loadWorkspace"),
           );
         }
       }
@@ -165,7 +167,7 @@ export function TaskWorkspace() {
   );
 
   const companyName =
-    selectedCompany?.name ?? searchCompanyName ?? "Selected company";
+    selectedCompany?.name ?? searchCompanyName ?? t("tasks.selectedCompanyFallback");
 
   async function reloadWorkspace(companyId: string) {
     const [nextTasks, nextMembers] = await Promise.all([
@@ -216,7 +218,7 @@ export function TaskWorkspace() {
           setErrorMessage(
             error instanceof CRMClientError
               ? error.message
-              : "Failed to load tasks.",
+              : t("tasks.errors.loadTasks"),
           );
         }
       } finally {
@@ -339,8 +341,8 @@ export function TaskWorkspace() {
           tasks: groupTasks,
           assigneeLabel:
             firstTask.assignmentScope === "broadcast"
-              ? `${groupTasks.length} teammates`
-              : firstTask.assigneeUserName || "Unassigned",
+              ? t("tasks.teammatesCount", { count: groupTasks.length })
+              : firstTask.assigneeUserName || t("tasks.unassigned"),
           hasActiveTask: hasOpenTicket,
         };
       })
@@ -370,7 +372,7 @@ export function TaskWorkspace() {
 
     const title = taskTitle.trim();
     if (!title) {
-      setErrorMessage("Task title is required.");
+      setErrorMessage(t("tasks.errors.titleRequired"));
       return;
     }
 
@@ -380,7 +382,7 @@ export function TaskWorkspace() {
         : assignableMembers.filter((member) => member.userId === assigneeUserId);
 
     if (targetMembers.length === 0) {
-      setErrorMessage("Choose at least one eligible teammate for this task.");
+      setErrorMessage(t("tasks.errors.noEligibleTeammate"));
       return;
     }
 
@@ -419,12 +421,12 @@ export function TaskWorkspace() {
       setShowCreateModal(false);
       setSuccessMessage(
         assignmentMode === "everyone"
-          ? "Task published to the team."
-          : "Task assigned successfully.",
+          ? t("tasks.success.publishedTeam")
+          : t("tasks.success.assigned"),
       );
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to publish task.",
+        error instanceof CRMClientError ? error.message : t("tasks.errors.publish"),
       );
     } finally {
       setSaving(false);
@@ -444,7 +446,7 @@ export function TaskWorkspace() {
       await reloadWorkspace(selectedCompany.id);
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to update task.",
+        error instanceof CRMClientError ? error.message : t("tasks.errors.update"),
       );
     } finally {
       setSaving(false);
@@ -458,15 +460,15 @@ export function TaskWorkspace() {
 
     const isCreator = group.createdByUserId === account.userId;
     if (!isCreator) {
-      setErrorMessage("Only the person who published this task can delete it.");
+      setErrorMessage(t("tasks.errors.onlyCreatorCanDelete"));
       return;
     }
 
     const isBroadcast = group.assignmentScope === "broadcast";
     const confirmed = window.confirm(
       isBroadcast
-        ? "Delete this published team task for everyone who received it?"
-        : "Delete this published task?",
+        ? t("tasks.confirm.deleteBroadcast")
+        : t("tasks.confirm.delete"),
     );
     if (!confirmed) {
       return;
@@ -480,12 +482,12 @@ export function TaskWorkspace() {
       await reloadWorkspace(selectedCompany.id);
       setSuccessMessage(
         isBroadcast
-          ? "The published team task was deleted."
-          : "The published task was deleted.",
+          ? t("tasks.success.deletedBroadcast")
+          : t("tasks.success.deleted"),
       );
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : "Failed to delete task.",
+        error instanceof CRMClientError ? error.message : t("tasks.errors.delete"),
       );
     } finally {
       setSaving(false);
@@ -497,7 +499,7 @@ export function TaskWorkspace() {
       <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
-            Tasks
+            {t("tasks.title")}
           </h1>
 
           <button
@@ -506,32 +508,32 @@ export function TaskWorkspace() {
             onClick={() => setShowCreateModal(true)}
             type="button"
           >
-            Publish task
+            {t("tasks.actions.publish")}
           </button>
         </div>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-              Company
+              {t("tasks.summary.company")}
             </p>
             <p className="mt-2 text-lg font-semibold text-[var(--text-primary)]">{companyName}</p>
           </div>
           <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-              Open tickets
+              {t("tasks.summary.openTickets")}
             </p>
             <p className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">{summary.openTickets}</p>
           </div>
           <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-              My pending
+              {t("tasks.summary.myPending")}
             </p>
             <p className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">{summary.myPending}</p>
           </div>
           <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-              In progress / done
+              {t("tasks.summary.inProgressDone")}
             </p>
             <p className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">
               {summary.inProgress} / {summary.done}
@@ -557,28 +559,28 @@ export function TaskWorkspace() {
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-                Open tickets
+                {t("tasks.openTickets.eyebrow")}
               </p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
-                Published work relevant to you
+                {t("tasks.openTickets.heading")}
               </h2>
               <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--text-tertiary)]">
-                Tasks still waiting for an answer from you or from recipients you assigned.
+                {t("tasks.openTickets.description")}
               </p>
             </div>
             <div className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
-              {summary.openTickets} active
+              {t("tasks.activeCount", { count: summary.openTickets })}
             </div>
           </div>
 
           <div className="mt-4 grid gap-3">
             {loading ? (
               <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-                Loading tasks...
+                {t("tasks.loading")}
               </div>
             ) : openTicketGroups.length === 0 ? (
               <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-                No published tickets yet. Create the first one for this company.
+                {t("tasks.empty.openTickets")}
               </div>
             ) : (
               openTicketGroups.map((group) => (
@@ -592,18 +594,18 @@ export function TaskWorkspace() {
                         {group.title}
                       </p>
                       <p className="mt-1 line-clamp-2 text-sm leading-6 text-[var(--text-secondary)]">
-                        {group.note || "No extra notes added."}
+                        {group.note || t("tasks.noExtraNotes")}
                       </p>
                     </div>
                     <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
-                      {group.assignmentScope === "broadcast" ? "Everyone" : "Individual"}
+                      {group.assignmentScope === "broadcast" ? t("tasks.scope.everyone") : t("tasks.scope.individual")}
                     </span>
                   </div>
 
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">
                     <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
-                        Assigned to
+                        {t("tasks.fields.assignedTo")}
                       </p>
                       <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
                         {group.assigneeLabel}
@@ -611,23 +613,23 @@ export function TaskWorkspace() {
                     </div>
                     <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
-                        Due
+                        {t("tasks.fields.due")}
                       </p>
                       <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
-                        {formatDate(group.dueDate)}
+                        {formatDate(group.dueDate, t("tasks.noDueDate"))}
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
                     <span className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] px-2.5 py-1 text-[#92400e]">
-                      Pending {group.pendingCount}
+                      {t("tasks.responseStatus.pending")} {group.pendingCount}
                     </span>
                     <span className="rounded-full border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] px-2.5 py-1 text-[var(--signal-green)]">
-                      Accepted {group.acceptedCount}
+                      {t("tasks.responseStatus.accepted")} {group.acceptedCount}
                     </span>
                     <span className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-2.5 py-1 text-[var(--signal-red)]">
-                      Rejected {group.rejectedCount}
+                      {t("tasks.responseStatus.rejected")} {group.rejectedCount}
                     </span>
                   </div>
 
@@ -655,7 +657,7 @@ export function TaskWorkspace() {
                             }
                             type="button"
                           >
-                            Accept
+                            {t("tasks.actions.accept")}
                           </button>
                           <button
                             className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-3 py-1.5 text-sm font-semibold text-[var(--signal-red)] transition hover:border-[color-mix(in_srgb,_var(--signal-red)_55%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
@@ -667,7 +669,7 @@ export function TaskWorkspace() {
                             }
                             type="button"
                           >
-                            Reject
+                            {t("tasks.actions.reject")}
                           </button>
                         </div>
                       );
@@ -676,8 +678,10 @@ export function TaskWorkspace() {
 
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-3">
                     <p className="text-xs text-[var(--text-tertiary)]">
-                      Published by {group.createdByUserName || group.createdByUserId || "System"} on{" "}
-                      {formatDate(group.createdAt)}
+                      {t("tasks.publishedBy", {
+                        author: group.createdByUserName || group.createdByUserId || t("tasks.systemUser"),
+                        date: formatDate(group.createdAt, t("tasks.noDueDate")),
+                      })}
                     </p>
 
                     {account && group.createdByUserId === account.userId ? (
@@ -687,7 +691,7 @@ export function TaskWorkspace() {
                         onClick={() => void handleDeleteGroup(group)}
                         type="button"
                       >
-                        Delete
+                        {t("tasks.actions.delete")}
                       </button>
                     ) : null}
                   </div>
@@ -701,22 +705,22 @@ export function TaskWorkspace() {
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-                My tasks
+                {t("tasks.myTasks.eyebrow")}
               </p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
-                Accepted work in your queue
+                {t("tasks.myTasks.heading")}
               </h2>
               <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--text-tertiary)]">
-                Tasks appear here only after you accept them.
+                {t("tasks.myTasks.description")}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-2">
               {[
-                ["accepted", "Open"],
-                ["in_progress", "In progress"],
-                ["done", "Done"],
-                ["all", "All"],
+                ["accepted", t("tasks.filter.open")],
+                ["in_progress", t("tasks.filter.inProgress")],
+                ["done", t("tasks.filter.done")],
+                ["all", t("tasks.filter.all")],
               ].map(([value, label]) => (
                 <button
                   className={`rounded-full px-3 py-1.5 text-sm font-semibold transition ${
@@ -741,11 +745,11 @@ export function TaskWorkspace() {
           <div className="mt-4 grid gap-3">
             {loading ? (
               <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-                Loading your tasks...
+                {t("tasks.loadingMy")}
               </div>
             ) : filteredMyTasks.length === 0 ? (
               <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-                No tasks matched this filter.
+                {t("tasks.empty.filtered")}
               </div>
             ) : (
               filteredMyTasks.map((task) => (
@@ -759,7 +763,7 @@ export function TaskWorkspace() {
                         {task.title}
                       </p>
                       <p className="mt-1 line-clamp-2 text-sm leading-6 text-[var(--text-secondary)]">
-                        {task.note || "No extra notes added."}
+                        {task.note || t("tasks.noExtraNotes")}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -768,14 +772,14 @@ export function TaskWorkspace() {
                           task.responseStatus,
                         )}`}
                       >
-                        {task.responseStatus}
+                        {t(`tasks.responseStatus.${task.responseStatus}`)}
                       </span>
                       <span
                         className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${taskStatusBadgeClasses(
                           task.status,
                         )}`}
                       >
-                        {task.status.replace("_", " ")}
+                        {t(`tasks.status.${task.status}`)}
                       </span>
                     </div>
                   </div>
@@ -783,18 +787,18 @@ export function TaskWorkspace() {
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">
                     <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
-                        Published by
+                        {t("tasks.fields.publishedBy")}
                       </p>
                       <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
-                        {task.createdByUserName || task.createdByUserId || "System"}
+                        {task.createdByUserName || task.createdByUserId || t("tasks.systemUser")}
                       </p>
                     </div>
                     <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
-                        Due
+                        {t("tasks.fields.due")}
                       </p>
                       <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
-                        {formatDate(task.dueDate)}
+                        {formatDate(task.dueDate, t("tasks.noDueDate"))}
                       </p>
                     </div>
                   </div>
@@ -809,7 +813,7 @@ export function TaskWorkspace() {
                         }
                         type="button"
                       >
-                        Start work
+                        {t("tasks.actions.startWork")}
                       </button>
                     ) : null}
 
@@ -821,7 +825,7 @@ export function TaskWorkspace() {
                         onClick={() => void handleTaskAction(task.id, { status: "done" })}
                         type="button"
                       >
-                        Mark done
+                        {t("tasks.actions.markDone")}
                       </button>
                     ) : null}
                   </div>

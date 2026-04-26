@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import type { Deal, DealStage } from "@/lib/crm/client";
 
-import { dealStages } from "./deal-types";
+import { dealStageOptions } from "./deal-types";
 import { DealBoardColumn } from "./deal-board-column";
 
 type DealBoardProps = {
@@ -22,6 +23,7 @@ export function DealBoard({
   customerLabelById,
   onSelectDeal,
 }: Readonly<DealBoardProps>) {
+  const t = useTranslations();
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const dragStateRef = useRef<{
     pointerId: number;
@@ -30,7 +32,7 @@ export function DealBoard({
   } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const dealsByStage = new Map<DealStage, Deal[]>(
-    dealStages.map((stage) => [
+    dealStageOptions.map((stage) => [
       stage.value,
       deals.filter((deal) => deal.stage === stage.value),
     ]),
@@ -101,10 +103,12 @@ export function DealBoard({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-            Kanban board
+            {t("deals.kanbanBoard")}
           </p>
           <p className="mt-2 text-sm text-[var(--text-secondary)]">
-            {dealsLoading ? "Loading board..." : `${deals.length} deals in the pipeline`}
+            {dealsLoading
+              ? t("deals.loadingBoard")
+              : t("deals.dealsInPipeline", { count: deals.length })}
           </p>
         </div>
       </div>
@@ -118,7 +122,7 @@ export function DealBoard({
         ref={scrollContainerRef}
       >
         <div className="flex min-w-max items-start gap-5">
-          {dealStages.map((stage) => (
+          {dealStageOptions.map((stage) => (
             <DealBoardColumn
               customerLabelById={customerLabelById}
               deals={dealsByStage.get(stage.value) ?? []}
@@ -126,8 +130,8 @@ export function DealBoard({
               onSelectDeal={onSelectDeal}
               selectedDealId={selectedDealId}
               stage={stage.value}
-              stageDescription={stage.description}
-              stageLabel={stage.label}
+              stageDescription={t(stage.descriptionKey as never)}
+              stageLabel={t(stage.labelKey as never)}
             />
           ))}
         </div>

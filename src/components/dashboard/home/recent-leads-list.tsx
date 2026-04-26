@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import type { Lead, LeadStatus } from "@/lib/crm/client";
 
@@ -10,20 +13,22 @@ type RecentLeadsListProps = {
   emptyHint?: string;
 };
 
-const STATUS_TONE: Record<LeadStatus, { bg: string; color: string; label: string }> = {
-  new: { bg: "var(--accent-soft)", color: "var(--accent-strong)", label: "New" },
-  contacted: { bg: "#fef3c7", color: "#b45309", label: "Contacted" },
-  qualified: { bg: "#d1fae5", color: "#047857", label: "Qualified" },
-  lost: { bg: "#fee2e2", color: "#b91c1c", label: "Lost" },
-  converted: { bg: "#ede9fe", color: "#6d28d9", label: "Converted" },
+const STATUS_TONE: Record<LeadStatus, { bg: string; color: string; labelKey: string }> = {
+  new: { bg: "var(--accent-soft)", color: "var(--accent-strong)", labelKey: "home.recentLeads.status.new" },
+  contacted: { bg: "#fef3c7", color: "#b45309", labelKey: "home.recentLeads.status.contacted" },
+  qualified: { bg: "#d1fae5", color: "#047857", labelKey: "home.recentLeads.status.qualified" },
+  lost: { bg: "#fee2e2", color: "#b91c1c", labelKey: "home.recentLeads.status.lost" },
+  converted: { bg: "#ede9fe", color: "#6d28d9", labelKey: "home.recentLeads.status.converted" },
 };
 
 export function RecentLeadsList({
   leads,
   companyId,
   companyName,
-  emptyHint = "Pick a company to see recent leads.",
+  emptyHint,
 }: Readonly<RecentLeadsListProps>) {
+  const t = useTranslations();
+  const resolvedEmptyHint = emptyHint ?? t("home.recentLeads.emptyDefault");
   const sorted = [...leads]
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
     .slice(0, 5);
@@ -40,24 +45,24 @@ export function RecentLeadsList({
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-[var(--text-primary)]">
-            Recent leads
+            {t("home.recentLeads.title")}
           </p>
           <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">
-            Latest inbound interest
+            {t("home.recentLeads.subtitle")}
           </p>
         </div>
         <Link
           className="inline-flex items-center gap-1 text-xs font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
           href={allHref}
         >
-          View all
+          {t("home.recentLeads.viewAll")}
           <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
         </Link>
       </div>
 
       {sorted.length === 0 ? (
         <div className="mt-5 flex min-h-[120px] items-center justify-center rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-subtle)] px-4 text-center text-sm text-[var(--text-tertiary)]">
-          {emptyHint}
+          {resolvedEmptyHint}
         </div>
       ) : (
         <ul className="mt-4 grid gap-1">
@@ -75,7 +80,7 @@ export function RecentLeadsList({
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-[var(--text-primary)]">
-                      {lead.name || "Unnamed lead"}
+                      {lead.name || t("home.recentLeads.unnamed")}
                     </p>
                     <p className="truncate text-xs text-[var(--text-tertiary)]">
                       {lead.email || lead.source || "—"}
@@ -85,7 +90,7 @@ export function RecentLeadsList({
                     className="rounded-full px-2 py-0.5 text-[11px] font-medium"
                     style={{ background: tone.bg, color: tone.color }}
                   >
-                    {tone.label}
+                    {t(tone.labelKey as never)}
                   </span>
                   <span className="hidden w-16 text-right text-xs tabular-nums text-[var(--text-tertiary)] sm:block">
                     {lead.value > 0 ? formatCompact(lead.value) : "—"}

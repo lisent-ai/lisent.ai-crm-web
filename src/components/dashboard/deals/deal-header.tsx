@@ -1,5 +1,11 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { Company, DealStage } from "@/lib/crm/client";
 import { CompactMeta } from "@/components/dashboard/customers/customer-ui";
+
+import { getStageLabelKey } from "./deal-utils";
 
 type DealHeaderProps = {
   company: Company | null;
@@ -18,6 +24,8 @@ export function DealHeader({
   onCreate,
   pipelineCounts,
 }: Readonly<DealHeaderProps>) {
+  const t = useTranslations();
+  const dash = "-";
   return (
     <section className="min-w-0 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
@@ -32,16 +40,16 @@ export function DealHeader({
             onClick={onCreate}
             type="button"
           >
-            Add deal
+            {t("deals.addDeal")}
           </button>
         </div>
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <CompactMeta label="Company ID" value={company?.id ?? "-"} />
-        <CompactMeta label="Country" value={company?.country ?? "-"} />
-        <CompactMeta label="Industry" value={company?.industry ?? "-"} />
-        <CompactMeta label="Records" value={String(dealCount)} />
+        <CompactMeta label={t("deals.fields.companyId")} value={company?.id ?? dash} />
+        <CompactMeta label={t("deals.fields.country")} value={company?.country ?? dash} />
+        <CompactMeta label={t("deals.fields.industry")} value={company?.industry ?? dash} />
+        <CompactMeta label={t("deals.fields.records")} value={String(dealCount)} />
       </div>
 
       <div className="mt-5 grid gap-3 md:grid-cols-3 xl:grid-cols-6">
@@ -51,7 +59,7 @@ export function DealHeader({
             key={item.stage}
           >
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-              {item.stage}
+              {t(getStageLabelKey(item.stage) as never)}
             </p>
             <p className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">{item.count}</p>
           </div>

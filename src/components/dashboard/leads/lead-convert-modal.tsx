@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { Field } from "@/components/dashboard/customers/customer-ui";
 import type { Lead } from "@/lib/crm/client";
 
@@ -24,15 +26,18 @@ export function LeadConvertModal({
   onConvert,
   onConvertStateChange,
 }: Readonly<LeadConvertModalProps>) {
+  const t = useTranslations();
   return (
     <LeadModalFrame onClose={onClose}>
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">
-            Convert lead
+            {t("leads.convertModal.eyebrow")}
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-            Convert {lead.name || "lead"}
+            {t("leads.convertModal.title", {
+              name: lead.name || t("leads.fallback.lead"),
+            })}
           </h2>
         </div>
         <button
@@ -40,52 +45,52 @@ export function LeadConvertModal({
           onClick={onClose}
           type="button"
         >
-          Close
+          {t("common.close")}
         </button>
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         <Field
-          label="Customer name"
+          label={t("leads.convertModal.customerName")}
           onChange={(value) =>
             onConvertStateChange((current) => ({ ...current, name: value }))
           }
-          placeholder="Jane Doe"
+          placeholder={t("leads.convertModal.customerNamePlaceholder")}
           value={convertState.name}
         />
         <Field
-          label="Email"
+          label={t("leads.convertModal.email")}
           onChange={(value) =>
             onConvertStateChange((current) => ({ ...current, email: value }))
           }
-          placeholder="jane@example.com"
+          placeholder={t("leads.convertModal.emailPlaceholder")}
           value={convertState.email}
         />
         <Field
-          label="Phone"
+          label={t("leads.convertModal.phone")}
           onChange={(value) =>
             onConvertStateChange((current) => ({ ...current, phone: value }))
           }
-          placeholder="+49 170 000 0000"
+          placeholder={t("leads.convertModal.phonePlaceholder")}
           value={convertState.phone}
         />
         <Field
-          label="Preferred language"
+          label={t("leads.convertModal.preferredLanguage")}
           onChange={(value) =>
             onConvertStateChange((current) => ({
               ...current,
               preferredLanguage: value,
             }))
           }
-          placeholder="en"
+          placeholder={t("leads.convertModal.preferredLanguagePlaceholder")}
           value={convertState.preferredLanguage}
         />
         <Field
-          label="Country code"
+          label={t("leads.convertModal.countryCode")}
           onChange={(value) =>
             onConvertStateChange((current) => ({ ...current, countryCode: value }))
           }
-          placeholder="DE"
+          placeholder={t("leads.convertModal.countryCodePlaceholder")}
           value={convertState.countryCode}
         />
       </div>
@@ -102,36 +107,39 @@ export function LeadConvertModal({
           }
           type="checkbox"
         />
-        Also create a deal while converting
+        {t("leads.convertModal.alsoCreateDeal")}
       </label>
 
       {convertState.createDeal ? (
         <div className="mt-5 grid gap-4 rounded-[1.4rem] border border-slate-200 bg-slate-50 p-4 md:grid-cols-3">
           <SelectField
-            label="Deal stage"
+            label={t("leads.convertModal.dealStage")}
             onChange={(value) =>
               onConvertStateChange((current) => ({ ...current, dealStage: value }))
             }
-            options={dealStages.map((stage) => ({ label: stage, value: stage }))}
+            options={dealStages.map((stage) => ({
+              label: t(`leads.dealStage.${stage}` as never),
+              value: stage,
+            }))}
             value={convertState.dealStage}
           />
           <Field
-            label="Amount"
+            label={t("leads.convertModal.amount")}
             onChange={(value) =>
               onConvertStateChange((current) => ({ ...current, dealAmount: value }))
             }
-            placeholder="5000"
+            placeholder={t("leads.convertModal.amountPlaceholder")}
             value={convertState.dealAmount}
           />
           <Field
-            label="Close date"
+            label={t("leads.convertModal.closeDate")}
             onChange={(value) =>
               onConvertStateChange((current) => ({
                 ...current,
                 dealCloseDate: value,
               }))
             }
-            placeholder="2026-04-30"
+            placeholder={t("leads.convertModal.closeDatePlaceholder")}
             value={convertState.dealCloseDate}
           />
         </div>
@@ -144,7 +152,9 @@ export function LeadConvertModal({
           onClick={onConvert}
           type="button"
         >
-          {saving ? "Converting..." : "Convert lead"}
+          {saving
+            ? t("leads.convertModal.converting")
+            : t("leads.convertModal.confirmConvert")}
         </button>
         <button
           className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
@@ -152,7 +162,7 @@ export function LeadConvertModal({
           onClick={onClose}
           type="button"
         >
-          Cancel
+          {t("common.cancel")}
         </button>
       </div>
     </LeadModalFrame>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 import {
   ArrowLeft,
   Building2,
@@ -92,13 +93,19 @@ export function LeadDetailDrawer(props: Readonly<LeadDetailDrawerProps>) {
 
   if (!mounted) return null;
 
-  return createPortal(
+  return createPortal(<DrawerRoot {...props} />, document.body);
+}
+
+function DrawerRoot(props: Readonly<LeadDetailDrawerProps>) {
+  const t = useTranslations();
+  const { open, onClose } = props;
+  return (
     <div
       aria-hidden={!open}
       className={`fixed inset-0 z-[95] ${open ? "" : "pointer-events-none"}`}
     >
       <button
-        aria-label="Close details"
+        aria-label={t("leads.drawer.closeDetails")}
         className={`absolute inset-0 bg-[rgba(11,15,25,0.45)] transition-opacity ${
           open ? "opacity-100" : "opacity-0"
         }`}
@@ -129,17 +136,17 @@ export function LeadDetailDrawer(props: Readonly<LeadDetailDrawerProps>) {
           </div>
         </aside>
       </div>
-    </div>,
-    document.body,
+    </div>
   );
 }
 
 function EmptyBody({ onClose }: Readonly<{ onClose: () => void }>) {
+  const t = useTranslations();
   return (
     <>
       <header className="flex items-center justify-end gap-2 border-b border-[var(--border-subtle)] px-5 py-4">
         <button
-          aria-label="Close"
+          aria-label={t("common.close")}
           className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
           onClick={onClose}
           type="button"
@@ -148,7 +155,7 @@ function EmptyBody({ onClose }: Readonly<{ onClose: () => void }>) {
         </button>
       </header>
       <div className="flex flex-1 items-center justify-center p-6 text-center text-sm text-[var(--text-tertiary)]">
-        Select a lead from the table to inspect its details.
+        {t("leads.drawer.emptyDetails")}
       </div>
     </>
   );
@@ -157,6 +164,7 @@ function EmptyBody({ onClose }: Readonly<{ onClose: () => void }>) {
 type DrawerBodyProps = LeadDetailDrawerProps & { lead: Lead };
 
 function DrawerBody(props: Readonly<DrawerBodyProps>) {
+  const t = useTranslations();
   const { view, lead, onClose, onChangeView, aiEnabled } = props;
 
   return (
@@ -169,13 +177,13 @@ function DrawerBody(props: Readonly<DrawerBodyProps>) {
             type="button"
           >
             <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
-            Back to profile
+            {t("leads.drawer.backToProfile")}
           </button>
         ) : (
           <span />
         )}
         <button
-          aria-label="Close"
+          aria-label={t("common.close")}
           className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
           onClick={onClose}
           type="button"
@@ -223,6 +231,7 @@ function ProfileView({
   onDelete,
   onStartQualify,
 }: Readonly<DrawerBodyProps>) {
+  const t = useTranslations();
   const [activeTab, setActiveTab] = useState<"overview" | "notes" | "activity" | "deals">(
     "overview",
   );
@@ -231,10 +240,10 @@ function ProfileView({
     typeof lead.aiScore === "number" ? Math.max(0, Math.min(100, Math.round(lead.aiScore))) : null;
   const hasLinkedDeal = !!lead.convertedDealId;
   const tabOptions = [
-    { value: "overview", label: "Overview" },
-    { value: "notes", label: "Notes" },
-    { value: "activity", label: "Activity" },
-    { value: "deals", label: "Deals" },
+    { value: "overview", label: t("leads.drawer.tabs.overview") },
+    { value: "notes", label: t("leads.drawer.tabs.notes") },
+    { value: "activity", label: t("leads.drawer.tabs.activity") },
+    { value: "deals", label: t("leads.drawer.tabs.deals") },
   ] as const;
 
   return (
@@ -250,18 +259,18 @@ function ProfileView({
                     className="truncate text-xl font-semibold tracking-tight text-[var(--text-primary)]"
                     id="lead-drawer-title"
                   >
-                    {lead.name || "Unnamed lead"}
+                    {lead.name || t("leads.fallback.unnamedLead")}
                   </h2>
                   <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ${statusBadgeClasses(lead.status)}`}
                   >
-                    {lead.status}
+                    {t(`leads.status.${lead.status}`)}
                   </span>
                   {aiEnabled && aiScore !== null ? (
                     <button
                       className="inline-flex items-center gap-1 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-[11px] font-semibold text-violet-700 transition hover:border-violet-300 hover:bg-violet-100"
                       onClick={() => onChangeView("ai")}
-                      title="View AI qualification"
+                      title={t("leads.drawer.viewAIQualification")}
                       type="button"
                     >
                       <Sparkles aria-hidden="true" className="h-3 w-3" />
@@ -307,7 +316,7 @@ function ProfileView({
                 type="button"
               >
                 <PhoneCall aria-hidden="true" className="h-4 w-4" />
-                Schedule a call
+                {t("leads.drawer.scheduleCall")}
               </button>
               <button
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[var(--border-default)] bg-white px-4 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--border-strong)]"
@@ -316,7 +325,7 @@ function ProfileView({
                 type="button"
               >
                 <PencilLine aria-hidden="true" className="h-4 w-4" />
-                Edit lead
+                {t("leads.drawer.editLead")}
               </button>
             </div>
           </div>
@@ -325,7 +334,7 @@ function ProfileView({
             {canStartQualify ? (
               <SecondaryAction
                 icon={<Sparkles className="h-4 w-4" aria-hidden="true" />}
-                label={saving ? "Starting…" : "Qualify"}
+                label={saving ? t("leads.drawer.starting") : t("leads.drawer.qualify")}
                 onClick={() => onStartQualify(lead)}
                 saving={saving}
                 tone="violet"
@@ -334,7 +343,7 @@ function ProfileView({
             <SecondaryAction
               disabled={lead.status === "converted"}
               icon={<CheckCircle2 className="h-4 w-4" aria-hidden="true" />}
-              label="Convert"
+              label={t("leads.drawer.convert")}
               onClick={() => onConvert(lead)}
               saving={saving}
               tone="ghost"
@@ -342,14 +351,14 @@ function ProfileView({
             <SecondaryAction
               disabled={assignableMembersCount === 0}
               icon={<UserCheck className="h-4 w-4" aria-hidden="true" />}
-              label="Round-robin"
+              label={t("leads.drawer.roundRobin")}
               onClick={() => onAssignRoundRobin(lead)}
               saving={saving}
               tone="ghost"
             />
             <SecondaryAction
               icon={<Trash2 className="h-4 w-4" aria-hidden="true" />}
-              label="Delete"
+              label={t("leads.drawer.delete")}
               onClick={() => onDelete(lead)}
               saving={saving}
               tone="danger"
@@ -368,7 +377,7 @@ function ProfileView({
 
         <div className="border-t border-[var(--border-subtle)] px-3 sm:px-4">
           <div
-            aria-label="Lead detail sections"
+            aria-label={t("leads.drawer.detailSections")}
             className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto"
             role="tablist"
           >
@@ -403,33 +412,33 @@ function ProfileView({
 
       {activeTab === "overview" ? (
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)]">
-          <CardSection title="Lead profile">
+          <CardSection title={t("leads.drawer.leadProfile")}>
             <div className="grid gap-3 sm:grid-cols-2">
               <LeadInfoTile
                 icon={<Building2 aria-hidden="true" className="h-4 w-4" />}
-                label="Source"
+                label={t("leads.drawer.source")}
                 value={formatSourceLabel(lead.source)}
               />
               <LeadInfoTile
                 icon={<UserCheck aria-hidden="true" className="h-4 w-4" />}
-                label="Assignee"
+                label={t("leads.drawer.assignee")}
                 value={formatAssignmentLabel(lead)}
               />
               <LeadInfoTile
                 icon={<CircleDollarSign aria-hidden="true" className="h-4 w-4" />}
-                label="Value"
+                label={t("leads.drawer.value")}
                 value={formatCurrency(lead.value)}
               />
               <LeadInfoTile
                 icon={<Link2 aria-hidden="true" className="h-4 w-4" />}
-                label="Linked customer"
-                value={customerLabel || "None yet"}
+                label={t("leads.drawer.linkedCustomer")}
+                value={customerLabel || t("leads.drawer.noneYet")}
               />
             </div>
             {lead.notes ? (
               <div className="mt-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-3">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  Context
+                  {t("leads.drawer.context")}
                 </p>
                 <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[var(--text-secondary)]">
                   {lead.notes}
@@ -438,13 +447,13 @@ function ProfileView({
             ) : null}
           </CardSection>
 
-          <CardSection title="Quick facts">
+          <CardSection title={t("leads.drawer.quickFacts")}>
             <dl className="grid gap-3 text-sm">
-              <DetailRow label="Customer ID" value={lead.customerId || "—"} monospace />
-              <DetailRow label="Converted customer" value={lead.convertedCustomerId || "—"} monospace />
-              <DetailRow label="Converted deal" value={lead.convertedDealId || "—"} monospace />
-              <DetailRow label="Created" value={formatDateTime(lead.createdAt)} />
-              <DetailRow label="Updated" value={formatDateTime(lead.updatedAt)} />
+              <DetailRow label={t("leads.drawer.customerId")} value={lead.customerId || "—"} monospace />
+              <DetailRow label={t("leads.drawer.convertedCustomer")} value={lead.convertedCustomerId || "—"} monospace />
+              <DetailRow label={t("leads.drawer.convertedDeal")} value={lead.convertedDealId || "—"} monospace />
+              <DetailRow label={t("leads.drawer.created")} value={formatDateTime(lead.createdAt)} />
+              <DetailRow label={t("leads.drawer.updated")} value={formatDateTime(lead.updatedAt)} />
             </dl>
           </CardSection>
         </div>
@@ -472,30 +481,34 @@ function ProfileView({
 
       {activeTab === "activity" ? (
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.85fr)]">
-          <CardSection title="Timeline">
+          <CardSection title={t("leads.drawer.timeline")}>
             <ol className="grid gap-4 text-sm">
-              <ActivityItem label="Lead created" value={formatDateTime(lead.createdAt)} />
-              <ActivityItem label="Last updated" value={formatDateTime(lead.updatedAt)} />
+              <ActivityItem label={t("leads.drawer.activity.created")} value={formatDateTime(lead.createdAt)} />
+              <ActivityItem label={t("leads.drawer.activity.lastUpdated")} value={formatDateTime(lead.updatedAt)} />
               {lead.convertedAt ? (
-                <ActivityItem label="Converted to customer" value={formatDateTime(lead.convertedAt)} />
+                <ActivityItem label={t("leads.drawer.activity.convertedToCustomer")} value={formatDateTime(lead.convertedAt)} />
               ) : null}
               {aiEnabled && lead.aiLastScoredAt ? (
-                <ActivityItem label="AI scored" value={formatDateTime(lead.aiLastScoredAt)} />
+                <ActivityItem label={t("leads.drawer.activity.aiScored")} value={formatDateTime(lead.aiLastScoredAt)} />
               ) : null}
             </ol>
           </CardSection>
 
-          <CardSection title="Status">
+          <CardSection title={t("leads.drawer.status")}>
             <div className="grid gap-3">
               <LeadInfoTile
                 icon={<FileText aria-hidden="true" className="h-4 w-4" />}
-                label="Current status"
-                value={lead.status}
+                label={t("leads.drawer.currentStatus")}
+                value={t(`leads.status.${lead.status}`)}
               />
               <LeadInfoTile
                 icon={<Clock3 aria-hidden="true" className="h-4 w-4" />}
-                label="Assignment mode"
-                value={lead.assignmentMethod || "manual"}
+                label={t("leads.drawer.assignmentMode")}
+                value={
+                  lead.assignmentMethod === "round_robin"
+                    ? t("leads.assignment.roundRobin")
+                    : t("leads.assignment.manual")
+                }
               />
             </div>
           </CardSection>
@@ -504,34 +517,34 @@ function ProfileView({
 
       {activeTab === "deals" ? (
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.9fr)]">
-          <CardSection title="Deal relationship">
+          <CardSection title={t("leads.drawer.dealRelationship")}>
             {hasLinkedDeal ? (
               <div className="grid gap-3">
                 <LeadInfoTile
                   icon={<Link2 aria-hidden="true" className="h-4 w-4" />}
-                  label="Linked deal ID"
+                  label={t("leads.drawer.linkedDealId")}
                   value={lead.convertedDealId || "—"}
                   monospace
                 />
                 <LeadInfoTile
                   icon={<UserCheck aria-hidden="true" className="h-4 w-4" />}
-                  label="Converted customer ID"
+                  label={t("leads.drawer.convertedCustomerId")}
                   value={lead.convertedCustomerId || "—"}
                   monospace
                 />
               </div>
             ) : (
               <p className="text-sm leading-6 text-[var(--text-tertiary)]">
-                No deal linked yet. Convert this lead when it becomes a customer opportunity.
+                {t("leads.drawer.noDealYet")}
               </p>
             )}
           </CardSection>
 
-          <CardSection title="Next step">
+          <CardSection title={t("leads.drawer.nextStep")}>
             <p className="text-sm leading-6 text-[var(--text-secondary)]">
               {hasLinkedDeal
-                ? "This lead is already tied to a deal. You can keep working through the deal workflow from the deals page."
-                : "Use Convert when the lead is ready so we create the related customer and optional deal in one flow."}
+                ? t("leads.drawer.dealLinkedHint")
+                : t("leads.drawer.dealUnlinkedHint")}
             </p>
           </CardSection>
         </div>
@@ -551,6 +564,7 @@ function AIView({
   aiEnabled: boolean;
   onStartQualify: (lead: Lead) => void;
 }>) {
+  const t = useTranslations();
   const canStartQualify = aiEnabled && lead.aiStatus === "pending";
   const hasInsights =
     typeof lead.aiScore === "number" ||
@@ -566,19 +580,18 @@ function AIView({
           AI
         </span>
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-violet-900">
-          Lead qualification
+          {t("leads.ai.leadQualification")}
         </p>
         <h2 className="truncate text-base font-semibold text-[var(--text-primary)]">
-          {lead.name || "Unnamed lead"}
+          {lead.name || t("leads.fallback.unnamedLead")}
         </h2>
         {!aiEnabled ? (
           <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-            AI Lead Qualifier is not connected for this workspace. Connect it
-            from Integrations to start scoring leads.
+            {t("leads.ai.notConnected")}
           </p>
         ) : hasInsights ? null : (
           <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-            This lead has not been scored yet.
+            {t("leads.ai.notScoredYet")}
           </p>
         )}
         {canStartQualify ? (
@@ -589,7 +602,7 @@ function AIView({
             type="button"
           >
             <Sparkles aria-hidden="true" className="h-4 w-4" />
-            {saving ? "Starting…" : "Start qualify"}
+            {saving ? t("leads.drawer.starting") : t("leads.ai.startQualify")}
           </button>
         ) : null}
       </div>
@@ -628,6 +641,7 @@ function LeadAIQualifierSummary({
   onOpen: () => void;
   onStartQualify: (lead: Lead) => void;
 }>) {
+  const t = useTranslations();
   const hasInsights =
     typeof lead.aiScore === "number" ||
     !!lead.aiStatus ||
@@ -651,36 +665,38 @@ function LeadAIQualifierSummary({
             </span>
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-violet-900">
-                AI Qualifier
+                {t("leads.ai.aiQualifier")}
               </p>
               <p className="text-sm font-medium text-slate-900">
-                {aiScore !== null ? `Score ${aiScore}/100` : "Lead not scored yet"}
+                {aiScore !== null
+                  ? t("leads.ai.scoreOf", { score: aiScore })
+                  : t("leads.ai.leadNotScoredYet")}
               </p>
             </div>
           </div>
 
           <div className="mt-3 flex flex-wrap gap-2">
             <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
-              Status: {lead.aiStatus || "not_started"}
+              {t("leads.ai.statusLabel", { status: lead.aiStatus || "not_started" })}
             </span>
             {lead.aiPath ? (
               <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
-                Path: {lead.aiPath}
+                {t("leads.ai.pathLabel", { path: lead.aiPath })}
               </span>
             ) : null}
             {hasStructuredData(lead.aiChamp) ? (
               <span className="inline-flex items-center rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-violet-700 ring-1 ring-violet-200">
-                CHAMP scoring ready
+                {t("leads.ai.champReady")}
               </span>
             ) : null}
           </div>
 
           <p className="mt-3 text-sm leading-6 text-slate-700">
             {!aiEnabled
-              ? "AI Lead Qualifier is not connected for this workspace yet."
+              ? t("leads.ai.notConnectedShort")
               : reasoningSummary
                 ? reasoningSummary
-                : "Open the qualifier to review scoring details, signals, and the latest AI assessment for this lead."}
+                : t("leads.ai.openHint")}
           </p>
         </div>
 
@@ -693,7 +709,7 @@ function LeadAIQualifierSummary({
               type="button"
             >
               <Sparkles aria-hidden="true" className="h-4 w-4" />
-              {saving ? "Starting..." : "Start qualify"}
+              {saving ? t("leads.drawer.starting") : t("leads.ai.startQualify")}
             </button>
           ) : null}
           <button
@@ -702,7 +718,7 @@ function LeadAIQualifierSummary({
             type="button"
           >
             <Sparkles aria-hidden="true" className="h-4 w-4" />
-            Open AI qualifier
+            {t("leads.ai.openQualifier")}
           </button>
         </div>
       </div>

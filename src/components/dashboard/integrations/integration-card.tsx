@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import {
@@ -28,6 +29,7 @@ export function IntegrationCard({
   onConfigure,
   onConnected,
 }: Readonly<Props>) {
+  const t = useTranslations();
   const disabled = integration.status === "coming_soon";
   const href = companyId
     ? `/dashboard/integrations/${integration.slug}?company=${encodeURIComponent(companyId)}&companyName=${encodeURIComponent(companyName)}`
@@ -47,7 +49,7 @@ export function IntegrationCard({
       onConnected?.();
     } catch (err) {
       setConnectError(
-        err instanceof CRMClientError ? err.message : "Connect failed",
+        err instanceof CRMClientError ? err.message : t("integrations.errors.connectFailed"),
       );
     } finally {
       setConnecting(false);
@@ -92,9 +94,15 @@ export function IntegrationCard({
                       ? "shrink-0 font-semibold text-[var(--signal-green)]"
                       : "shrink-0 text-[var(--text-muted)]"
                   }
-                  aria-label={`${sub.label} ${ok ? "configured" : "not configured"}`}
+                  aria-label={
+                    ok
+                      ? t("integrations.subComponent.configuredAria", { label: sub.label })
+                      : t("integrations.subComponent.notSetAria", { label: sub.label })
+                  }
                 >
-                  {ok ? "✓ configured" : "— not set"}
+                  {ok
+                    ? t("integrations.subComponent.configured")
+                    : t("integrations.subComponent.notSet")}
                 </span>
               </li>
             );
@@ -104,7 +112,9 @@ export function IntegrationCard({
       <footer className="mt-6 flex flex-col gap-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="text-xs text-[var(--text-tertiary)]">
-            {integration.requires_owner_role ? "Owner only" : "Any role"}
+            {integration.requires_owner_role
+              ? t("integrations.role.ownerOnly")
+              : t("integrations.role.anyRole")}
           </span>
           {disabled ? (
             <button
@@ -112,14 +122,14 @@ export function IntegrationCard({
               disabled
               className="cursor-not-allowed rounded-full border border-[var(--border-subtle)] bg-[var(--surface-inset)] px-4 py-2 text-xs font-semibold text-[var(--text-tertiary)]"
             >
-              Coming soon
+              {t("integrations.status.comingSoon")}
             </button>
           ) : !canManage ? (
             <span
               className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-inset)] px-4 py-2 text-xs font-semibold text-[var(--text-tertiary)]"
-              title="Configuration is restricted to the company owner"
+              title={t("integrations.role.viewOnlyTitle")}
             >
-              View only
+              {t("integrations.role.viewOnly")}
             </span>
           ) : isQualifierDisconnected ? (
             <button
@@ -127,17 +137,17 @@ export function IntegrationCard({
               onClick={handleConnect}
               disabled={connecting}
               className="rounded-full bg-[var(--accent)] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[var(--accent-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] disabled:opacity-60"
-              aria-label={`Connect ${integration.name}`}
+              aria-label={t("integrations.connectAria", { name: integration.name })}
             >
-              {connecting ? "Connecting…" : "Connect"}
+              {connecting ? t("integrations.connecting") : t("integrations.connect")}
             </button>
           ) : href ? (
             <Link
               href={href}
               className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-              aria-label={`Configure ${integration.name}`}
+              aria-label={t("integrations.configureAria", { name: integration.name })}
             >
-              Configure
+              {t("integrations.configure")}
             </Link>
           ) : (
             <button
@@ -145,7 +155,7 @@ export function IntegrationCard({
               onClick={onConfigure}
               className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
-              Configure
+              {t("integrations.configure")}
             </button>
           )}
         </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import {
@@ -12,11 +13,12 @@ import {
   testWebhook,
 } from "@/lib/qualifier/webhook-client";
 
-const CATEGORY_LABELS: Record<string, string> = {
-  scoring: "Scoring",
-  lifecycle: "Lifecycle",
-  pipeline: "Pipeline",
-};
+function categoryLabel(t: ReturnType<typeof useTranslations>, category: string): string {
+  if (category === "scoring" || category === "lifecycle" || category === "pipeline") {
+    return t(`integrations.webhooks.categories.${category}` as never);
+  }
+  return category;
+}
 
 function splitPatterns(enabled: string[]): { exacts: Set<string>; customs: string[] } {
   const exacts = new Set<string>();
@@ -39,6 +41,7 @@ type Props = {
 };
 
 export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
+  const t = useTranslations();
   const [config, setConfig] = useState<WebhookConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -66,11 +69,11 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
       setCustomPatterns(customs.join("\n"));
       setPayloadMode(cfg.payload_mode ?? "full");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load webhook config");
+      setError(err instanceof Error ? err.message : t("integrations.webhooks.loadFailed"));
     } finally {
       setLoading(false);
     }
-  }, [companyId]);
+  }, [companyId, t]);
 
   useEffect(() => {
     void refresh();
@@ -85,15 +88,19 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
       if (urlInput && urlInput !== (config?.url ?? "")) patch.url = urlInput;
       if (opts.rotate) patch.rotate_secret = true;
       if (Object.keys(patch).length === 0) {
-        setNotice("No changes to save");
+        setNotice(t("integrations.webhooks.noChanges"));
         return;
       }
       const result: WebhookPatchResult = await patchWebhookConfig(companyId, patch);
       if (result.secret) setJustRotatedSecret(result.secret);
-      setNotice(opts.rotate ? "Secret rotated" : "Webhook URL saved");
+      setNotice(
+        opts.rotate
+          ? t("integrations.webhooks.secretRotated")
+          : t("integrations.webhooks.urlSaved"),
+      );
       await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Save failed");
+      setError(err instanceof Error ? err.message : t("integrations.errors.saveFailed"));
     } finally {
       setSaving(false);
     }
@@ -130,7 +137,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
         .filter((s) => s.length > 0);
       const patterns = [...Array.from(selectedEvents), ...customs];
       if (patterns.length === 0) {
-        setError("Select at least one event (or add a '*' pattern)");
+        setError(t("integrations.webhooks.selectAtLeastOne"));
         return;
       }
       const patch: WebhookPatchInput = {
@@ -138,10 +145,10 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
         payload_mode: payloadMode,
       };
       await patchWebhookConfig(companyId, patch);
-      setNotice("Event selection saved");
+      setNotice(t("integrations.webhooks.eventSelectionSaved"));
       await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Save failed");
+      setError(err instanceof Error ? err.message : t("integrations.errors.saveFailed"));
     } finally {
       setSavingEvents(false);
     }
@@ -154,20 +161,20 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
       const result = await testWebhook(companyId, { score: 77 });
       setLastTestResult(
         result.enqueued
-          ? `Test event enqueued (event_id ${result.event_id}). Consumer should receive POST within ~1s.`
-          : "Test event not enqueued (no URL configured?)",
+          ? t("integrations.webhooks.testEnqueued", { eventId: result.event_id })
+          : t("integrations.webhooks.testNotEnqueued"),
       );
       // DLQ counter may change after delivery; refresh shortly.
       window.setTimeout(() => void refresh(), 2000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Test fire failed");
+      setError(err instanceof Error ? err.message : t("integrations.webhooks.testFailed"));
     }
   };
 
   if (loading && !config) {
     return (
       <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-center text-sm text-[var(--text-tertiary)] sm:p-8">
-        Loading webhook config…
+        {t("integrations.webhooks.loading")}
       </div>
     );
   }
@@ -176,16 +183,20 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
     <section className="space-y-6">
       <header>
         <h2 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">
-          Outbound Webhooks
+          {t("integrations.webhooks.title")}
         </h2>
         <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-          <strong className="text-[var(--text-secondary)]">{companyName}</strong> — Qualifier
-          publishes each{" "}
-          <code className="rounded bg-[var(--surface-inset)] px-1 py-0.5 font-mono text-xs text-[var(--text-primary)]">
-            score.updated
-          </code>{" "}
-          event to your HTTPS endpoint with an HMAC-SHA256 signature. Retry policy: 6 attempts over
-          ~7h; failures land in DLQ.
+          {t.rich("integrations.webhooks.description", {
+            name: companyName,
+            strong: (chunks) => (
+              <strong className="text-[var(--text-secondary)]">{chunks}</strong>
+            ),
+            code: (chunks) => (
+              <code className="rounded bg-[var(--surface-inset)] px-1 py-0.5 font-mono text-xs text-[var(--text-primary)]">
+                {chunks}
+              </code>
+            ),
+          })}
         </p>
       </header>
 
@@ -203,13 +214,12 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
 
       {justRotatedSecret ? (
         <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-amber)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-amber)]">
-          <div className="font-semibold">New webhook signing secret (copy now — shown once):</div>
+          <div className="font-semibold">{t("integrations.webhooks.newSecretLabel")}</div>
           <code className="mt-2 block break-all rounded-xl bg-[var(--surface)] px-2 py-1 font-mono text-xs text-[var(--text-primary)]">
             {justRotatedSecret}
           </code>
           <p className="mt-2 text-xs">
-            Update your consumer&apos;s verifier with this value. Existing in-flight retries will be
-            signed with the new secret on their next attempt.
+            {t("integrations.webhooks.newSecretHint")}
           </p>
         </div>
       ) : null}
@@ -217,37 +227,38 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
       <div className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <div>
           <label htmlFor="webhook-url" className="block text-sm font-medium text-[var(--text-secondary)]">
-            Destination URL
+            {t("integrations.webhooks.destinationUrl")}
           </label>
           <input
             id="webhook-url"
             type="url"
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
-            placeholder="https://consumer.example.com/lisent/webhook"
+            placeholder={t("integrations.webhooks.destinationPlaceholder")}
             className="mt-1 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] transition focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
           />
           <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-            HTTPS only. Consumer must return 2xx within 10s; otherwise the delivery is
-            retried per the schedule above.
+            {t("integrations.webhooks.destinationHint")}
           </p>
         </div>
 
         <div className="flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div className="text-xs text-[var(--text-secondary)]">
-            <span className="font-medium text-[var(--text-primary)]">Signing secret:</span>{" "}
+            <span className="font-medium text-[var(--text-primary)]">{t("integrations.webhooks.signingSecret")}:</span>{" "}
             {config?.has_secret ? (
               <>
-                <span className="text-[var(--signal-green)]">configured</span>
+                <span className="text-[var(--signal-green)]">{t("integrations.webhooks.configured")}</span>
                 {config.secret_rotated_at ? (
                   <span className="text-[var(--text-tertiary)]">
                     {" "}
-                    (rotated {new Date(config.secret_rotated_at).toLocaleString()})
+                    {t("integrations.webhooks.rotatedAt", {
+                      time: new Date(config.secret_rotated_at).toLocaleString(),
+                    })}
                   </span>
                 ) : null}
               </>
             ) : (
-              <span className="text-[var(--text-tertiary)]">not set — will be generated on first save</span>
+              <span className="text-[var(--text-tertiary)]">{t("integrations.webhooks.notSetWillGenerate")}</span>
             )}
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -257,7 +268,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
               onClick={() => void save()}
               className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
             >
-              {saving ? "Saving…" : "Save URL"}
+              {saving ? t("common.saving") : t("integrations.webhooks.saveUrl")}
             </button>
             <button
               type="button"
@@ -265,7 +276,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
               onClick={() => void save({ rotate: true })}
               className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-amber)] transition hover:bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] disabled:opacity-50"
             >
-              Rotate secret
+              {t("integrations.webhooks.rotateSecret")}
             </button>
             <button
               type="button"
@@ -273,7 +284,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
               onClick={() => void runTest()}
               className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
             >
-              Send test event
+              {t("integrations.webhooks.sendTestEvent")}
             </button>
           </div>
         </div>
@@ -287,13 +298,15 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
 
       <div className="space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <div>
-          <h3 className="text-sm font-semibold text-[var(--text-primary)]">Event selection</h3>
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">{t("integrations.webhooks.eventSelectionTitle")}</h3>
           <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-            Choose which events fan out to your webhook. Use{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">*</code>{" "}
-            (all) or prefix patterns like{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">lead.*</code>{" "}
-            under &quot;Custom patterns&quot; to grant future event types without re-deploying.
+            {t.rich("integrations.webhooks.eventSelectionDescription", {
+              code: (chunks) => (
+                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
+                  {chunks}
+                </code>
+              ),
+            })}
           </p>
         </div>
 
@@ -304,14 +317,14 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
               <div key={category} className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-3">
                 <div className="flex items-center justify-between gap-2">
                   <div className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
-                    {CATEGORY_LABELS[category] ?? category}
+                    {categoryLabel(t, category)}
                   </div>
                   <button
                     type="button"
                     onClick={() => toggleCategory(events, !allOn)}
                     className="text-[11px] font-medium text-[var(--accent-strong)] transition hover:text-[var(--accent)]"
                   >
-                    {allOn ? "Clear" : "Select all"}
+                    {allOn ? t("integrations.webhooks.clear") : t("integrations.webhooks.selectAll")}
                   </button>
                 </div>
                 <ul className="mt-2 space-y-1.5">
@@ -336,7 +349,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
 
         <div>
           <label htmlFor="custom-patterns" className="block text-xs font-medium text-[var(--text-secondary)]">
-            Custom patterns (one per line)
+            {t("integrations.webhooks.customPatternsLabel")}
           </label>
           <textarea
             id="custom-patterns"
@@ -349,7 +362,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
         </div>
 
         <fieldset>
-          <legend className="text-xs font-medium text-[var(--text-secondary)]">Payload mode</legend>
+          <legend className="text-xs font-medium text-[var(--text-secondary)]">{t("integrations.webhooks.payloadMode")}</legend>
           <div className="mt-2 flex flex-col gap-2 text-xs text-[var(--text-secondary)] sm:flex-row sm:flex-wrap sm:gap-4">
             <label className="flex items-start gap-2">
               <input
@@ -361,8 +374,8 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
                 className="mt-0.5 accent-[var(--accent)]"
               />
               <span>
-                <span className="font-medium text-[var(--text-primary)]">Full snapshot</span>
-                <span className="ml-1 text-[var(--text-tertiary)]">— embed entire event body (default)</span>
+                <span className="font-medium text-[var(--text-primary)]">{t("integrations.webhooks.payloadFullLabel")}</span>
+                <span className="ml-1 text-[var(--text-tertiary)]">{t("integrations.webhooks.payloadFullDesc")}</span>
               </span>
             </label>
             <label className="flex items-start gap-2">
@@ -375,8 +388,8 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
                 className="mt-0.5 accent-[var(--accent)]"
               />
               <span>
-                <span className="font-medium text-[var(--text-primary)]">Minimal</span>
-                <span className="ml-1 text-[var(--text-tertiary)]">— lead_id only; pull detail via REST</span>
+                <span className="font-medium text-[var(--text-primary)]">{t("integrations.webhooks.payloadMinimalLabel")}</span>
+                <span className="ml-1 text-[var(--text-tertiary)]">{t("integrations.webhooks.payloadMinimalDesc")}</span>
               </span>
             </label>
           </div>
@@ -384,7 +397,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
 
         <div className="flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-[11px] text-[var(--text-tertiary)]">
-            Current:{" "}
+            {t("integrations.webhooks.currentLabel")}:{" "}
             <code className="break-all font-mono text-[var(--text-secondary)]">
               {(config?.enabled_events ?? []).join(", ") || "—"}
             </code>
@@ -395,7 +408,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
             onClick={() => void saveEventSelection()}
             className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50 sm:self-end"
           >
-            {savingEvents ? "Saving…" : "Save event selection"}
+            {savingEvents ? t("common.saving") : t("integrations.webhooks.saveEventSelection")}
           </button>
         </div>
       </div>
@@ -403,31 +416,31 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
       <div className="space-y-3 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-            Dead-letter queue ({config?.dlq_size ?? 0})
+            {t("integrations.webhooks.dlqTitle", { count: config?.dlq_size ?? 0 })}
           </h3>
           <button
             type="button"
             onClick={() => void refresh()}
             className="text-xs font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
           >
-            Refresh
+            {t("integrations.refresh")}
           </button>
         </div>
 
         {!config || config.recent_dlq.length === 0 ? (
           <p className="text-xs text-[var(--text-tertiary)]">
-            No failed deliveries. All events delivered successfully.
+            {t("integrations.webhooks.dlqEmpty")}
           </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
                 <tr className="border-b border-[var(--border-subtle)] text-left text-[var(--text-tertiary)]">
-                  <th className="py-2 pr-4 font-medium">Event ID</th>
-                  <th className="py-2 pr-4 font-medium">Type</th>
-                  <th className="py-2 pr-4 font-medium">Attempts</th>
-                  <th className="py-2 pr-4 font-medium">Reason</th>
-                  <th className="py-2 pr-4 font-medium">Moved to DLQ</th>
+                  <th className="py-2 pr-4 font-medium">{t("integrations.webhooks.dlqCols.eventId")}</th>
+                  <th className="py-2 pr-4 font-medium">{t("integrations.webhooks.dlqCols.type")}</th>
+                  <th className="py-2 pr-4 font-medium">{t("integrations.webhooks.dlqCols.attempts")}</th>
+                  <th className="py-2 pr-4 font-medium">{t("integrations.webhooks.dlqCols.reason")}</th>
+                  <th className="py-2 pr-4 font-medium">{t("integrations.webhooks.dlqCols.movedToDlq")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -455,13 +468,17 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
 
       <details className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-xs text-[var(--text-secondary)]">
         <summary className="cursor-pointer font-medium text-[var(--text-primary)]">
-          Consumer verification (signature contract)
+          {t("integrations.webhooks.verificationTitle")}
         </summary>
         <div className="mt-3 space-y-3">
           <p>
-            Lisent sends a{" "}
-            <code className="rounded bg-[var(--surface)] px-1 py-0.5 font-mono text-[var(--text-primary)]">POST</code>{" "}
-            with these headers:
+            {t.rich("integrations.webhooks.verificationIntro", {
+              code: (chunks) => (
+                <code className="rounded bg-[var(--surface)] px-1 py-0.5 font-mono text-[var(--text-primary)]">
+                  {chunks}
+                </code>
+              ),
+            })}
           </p>
           <pre className="overflow-x-auto rounded-xl bg-[var(--text-primary)] p-3 font-mono text-xs text-[var(--surface)]">{`X-Lisent-Signature: sha256=<hex>
 X-Lisent-Timestamp:  <unix-ms>
@@ -469,13 +486,12 @@ X-Lisent-Event-Id:   <unique id, dedupe on this>
 X-Lisent-Event-Type: score.updated
 X-Lisent-Delivery-Id:<uuid, retry-unique>
 Content-Type:        application/json`}</pre>
-          <p>Verify by computing:</p>
+          <p>{t("integrations.webhooks.verifyByComputing")}</p>
           <pre className="overflow-x-auto rounded-xl bg-[var(--text-primary)] p-3 font-mono text-xs text-[var(--surface)]">{`expected = "sha256=" + hex(HMAC_SHA256(secret, \`\${timestamp}.\${rawBody}\`))
 if not constant_time_equals(expected, received):  reject
 if abs(now_ms - timestamp_ms) > 300_000:           reject (replay)`}</pre>
           <p>
-            Use raw request bytes for the body — do NOT re-serialize JSON (field order is
-            preserved by the sender).
+            {t("integrations.webhooks.verificationNote")}
           </p>
         </div>
       </details>

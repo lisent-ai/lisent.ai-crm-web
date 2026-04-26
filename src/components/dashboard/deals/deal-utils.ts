@@ -1,8 +1,8 @@
 import type { Deal, DealStage, DealStageHistory } from "@/lib/crm/client";
 
-import { dealStages } from "./deal-types";
+import { dealStageOptions } from "./deal-types";
 
-const stageLabelMap = new Map(dealStages.map((stage) => [stage.value, stage.label]));
+const stageLabelKeyMap = new Map(dealStageOptions.map((stage) => [stage.value, stage.labelKey]));
 
 export function parseDealAmount(value: string) {
   const parsed = Number.parseFloat(value.replace(/,/g, "."));
@@ -60,8 +60,8 @@ export function formatDateTime(value: string) {
   });
 }
 
-export function formatStageLabel(stage: DealStage) {
-  return stageLabelMap.get(stage) ?? stage;
+export function getStageLabelKey(stage: DealStage) {
+  return stageLabelKeyMap.get(stage) ?? `deals.stage.${stage}`;
 }
 
 export function stageBadgeClasses(stage: DealStage) {
@@ -81,10 +81,6 @@ export function stageBadgeClasses(stage: DealStage) {
   }
 }
 
-export function formatAssigneeLabel(deal: Deal) {
-  return deal.assigneeUserName || "Unassigned";
-}
-
 export function buildInitials(value: string) {
   const tokens = value
     .trim()
@@ -99,9 +95,9 @@ export function buildInitials(value: string) {
   return tokens.map((token) => token[0]?.toUpperCase() ?? "").join("");
 }
 
-export function formatShortDate(value: string) {
+export function formatShortDate(value: string, fallback: string) {
   if (!value) {
-    return "No date";
+    return fallback;
   }
 
   const parsed = new Date(value);

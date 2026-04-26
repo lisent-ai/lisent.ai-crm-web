@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 type CustomerDeleteModalProps = {
   customerName: string;
   customerEmail: string;
@@ -11,6 +15,7 @@ export function CustomerDeleteModal({
   onConfirmDelete,
   onClose,
 }: Readonly<CustomerDeleteModalProps>) {
+  const t = useTranslations();
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-[color-mix(in_srgb,_var(--text-primary)_35%,_transparent)] px-0 pt-10 sm:items-center sm:px-4 sm:py-8"
@@ -25,10 +30,10 @@ export function CustomerDeleteModal({
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--signal-red)]">
-              Delete customer
+              {t("customers.deleteCustomer")}
             </p>
             <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-              Remove {customerName}
+              {t("customers.deleteConfirmTitle", { name: customerName })}
             </h2>
           </div>
           <button
@@ -36,21 +41,21 @@ export function CustomerDeleteModal({
             onClick={onClose}
             type="button"
           >
-            Close
+            {t("common.close")}
           </button>
         </div>
 
         <p className="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
-          This will permanently remove the selected customer record from the CRM.
+          {t("customers.deleteConfirmDescription")}
         </p>
 
         <div className="mt-5 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-            Customer
+            {t("customers.fields.customer")}
           </p>
           <p className="mt-2 text-sm font-semibold text-[var(--text-primary)]">{customerName}</p>
           <p className="mt-1 break-all text-sm text-[var(--text-secondary)]">
-            {customerEmail || "No email available"}
+            {customerEmail || t("customers.noEmail")}
           </p>
         </div>
 
@@ -60,14 +65,14 @@ export function CustomerDeleteModal({
             onClick={onConfirmDelete}
             type="button"
           >
-            Confirm delete
+            {t("customers.confirmDelete")}
           </button>
           <button
             className="w-full rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] sm:w-auto"
             onClick={onClose}
             type="button"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
         </div>
       </div>

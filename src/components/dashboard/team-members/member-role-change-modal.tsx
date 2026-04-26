@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { getCompanyRoleLabel, type CompanyRole } from "@/lib/auth/roles";
 
 type MemberRoleChangeModalProps = {
@@ -19,6 +23,7 @@ export function MemberRoleChangeModal({
   onConfirm,
   onClose,
 }: Readonly<MemberRoleChangeModalProps>) {
+  const t = useTranslations();
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 py-8"
@@ -33,10 +38,10 @@ export function MemberRoleChangeModal({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-700">
-              Change role
+              {t("teamMembers.roleModal.eyebrow")}
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-              Update {memberName}
+              {t("teamMembers.roleModal.title", { name: memberName })}
             </h2>
           </div>
           <button
@@ -45,28 +50,27 @@ export function MemberRoleChangeModal({
             onClick={onClose}
             type="button"
           >
-            Close
+            {t("common.close")}
           </button>
         </div>
 
         <p className="mt-5 text-sm leading-7 text-slate-700">
-          This will change the selected team member&apos;s access level for the
-          current company.
+          {t("teamMembers.roleModal.description")}
         </p>
 
         <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-4">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-            Member
+            {t("teamMembers.member")}
           </p>
           <p className="mt-2 text-sm font-semibold text-slate-900">{memberName}</p>
           <p className="mt-1 break-all text-sm text-slate-600">
-            {memberEmail || "No email available"}
+            {memberEmail || t("teamMembers.noEmail")}
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-700">
             <span className="rounded-full border border-slate-200 bg-white px-3 py-1 font-semibold">
               {getCompanyRoleLabel(currentRole)}
             </span>
-            <span className="text-slate-400">to</span>
+            <span className="text-slate-400">{t("teamMembers.roleModal.to")}</span>
             <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 font-semibold text-sky-800">
               {getCompanyRoleLabel(nextRole)}
             </span>
@@ -80,7 +84,7 @@ export function MemberRoleChangeModal({
             onClick={onConfirm}
             type="button"
           >
-            {saving ? "Updating..." : "Confirm role change"}
+            {saving ? t("teamMembers.roleModal.updating") : t("teamMembers.roleModal.confirm")}
           </button>
           <button
             className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950 disabled:opacity-50"
@@ -88,7 +92,7 @@ export function MemberRoleChangeModal({
             onClick={onClose}
             type="button"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
         </div>
       </div>

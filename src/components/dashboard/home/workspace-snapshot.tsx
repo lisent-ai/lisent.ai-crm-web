@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { ArrowUpRight, Briefcase, Target, User, Wallet } from "lucide-react";
 
 import {
@@ -23,6 +24,7 @@ export function WorkspaceSnapshot({
   companyId,
   companyName,
 }: Readonly<WorkspaceSnapshotProps>) {
+  const t = useTranslations();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [deals, setDeals] = useState<Deal[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -59,7 +61,7 @@ export function WorkspaceSnapshot({
         const message =
           error instanceof CRMClientError
             ? error.message
-            : "Failed to load workspace snapshot.";
+            : t("home.errors.loadSnapshot");
         setErrorMessage(message);
       } finally {
         if (!cancelled) setLoading(false);
@@ -70,7 +72,7 @@ export function WorkspaceSnapshot({
     return () => {
       cancelled = true;
     };
-  }, [companyId]);
+  }, [companyId, t]);
 
   const newLeads = useMemo(
     () => leads.filter((l) => l.status === "new").length,
@@ -86,11 +88,10 @@ export function WorkspaceSnapshot({
     return (
       <div className="rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] p-6 text-center shadow-[var(--shadow-card)]">
         <p className="text-sm font-semibold text-[var(--text-primary)]">
-          No workspace selected
+          {t("home.snapshot.noWorkspaceSelected")}
         </p>
         <p className="mx-auto mt-1 max-w-md text-sm text-[var(--text-tertiary)]">
-          Use the workspace switcher in the top bar to select one and see a
-          snapshot here.
+          {t("home.snapshot.noWorkspaceHelp")}
         </p>
       </div>
     );
@@ -105,17 +106,17 @@ export function WorkspaceSnapshot({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-            Workspace snapshot
+            {t("home.snapshot.eyebrow")}
           </p>
           <p className="mt-1 truncate text-lg font-semibold text-[var(--text-primary)]">
-            {companyName || "Active workspace"}
+            {companyName || t("home.snapshot.activeWorkspace")}
           </p>
         </div>
         <Link
           className="inline-flex h-9 items-center gap-1.5 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           href={dashboardHref}
         >
-          Open full dashboard
+          {t("home.snapshot.openFullDashboard")}
           <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
         </Link>
       </div>
@@ -128,31 +129,31 @@ export function WorkspaceSnapshot({
         <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <MiniStat
             icon={<Target className="h-4 w-4" aria-hidden="true" />}
-            label="Leads"
+            label={t("home.kpi.leads")}
             loading={loading}
             primary={String(leads.length)}
-            secondary={`${newLeads} new`}
+            secondary={t("home.snapshot.newCount", { count: newLeads })}
           />
           <MiniStat
             icon={<Briefcase className="h-4 w-4" aria-hidden="true" />}
-            label="Deals"
+            label={t("home.kpi.deals")}
             loading={loading}
             primary={String(deals.length)}
-            secondary={`${openDeals.length} open`}
+            secondary={t("home.snapshot.openCount", { count: openDeals.length })}
           />
           <MiniStat
             icon={<User className="h-4 w-4" aria-hidden="true" />}
-            label="Customers"
+            label={t("home.kpi.customers")}
             loading={loading}
             primary={String(customers.length)}
-            secondary="In workspace"
+            secondary={t("home.snapshot.inWorkspace")}
           />
           <MiniStat
             icon={<Wallet className="h-4 w-4" aria-hidden="true" />}
-            label="Open pipeline"
+            label={t("home.snapshot.openPipeline")}
             loading={loading}
             primary={openPipelineValue || "—"}
-            secondary="Excluding won & lost"
+            secondary={t("home.kpi.openPipelineHint")}
           />
         </div>
       )}

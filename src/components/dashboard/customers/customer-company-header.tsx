@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { CompactMeta } from "./customer-ui";
 
 type CustomerCompanyHeaderProps = {
@@ -19,6 +23,7 @@ export function CustomerCompanyHeader({
   showAddModal,
   onToggleAddModal,
 }: Readonly<CustomerCompanyHeaderProps>) {
+  const t = useTranslations();
   return (
     <section className="w-full min-w-0 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
@@ -32,16 +37,16 @@ export function CustomerCompanyHeader({
             onClick={onToggleAddModal}
             type="button"
           >
-            {showAddModal ? "Close add popup" : "Add customer"}
+            {showAddModal ? t("customers.closeAddPopup") : t("customers.addCustomer")}
           </button>
         </div>
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <CompactMeta label="ID" value={companyId} />
-        <CompactMeta label="Country" value={country} />
-        <CompactMeta label="Industry" value={industry} />
-        <CompactMeta label="Records" value={String(recordCount)} />
+        <CompactMeta label={t("customers.fields.id")} value={companyId} />
+        <CompactMeta label={t("customers.fields.country")} value={country} />
+        <CompactMeta label={t("customers.fields.industry")} value={industry} />
+        <CompactMeta label={t("customers.fields.records")} value={String(recordCount)} />
       </div>
     </section>
   );

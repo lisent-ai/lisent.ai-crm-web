@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import {
   Briefcase,
   MessageSquare,
@@ -33,6 +34,7 @@ type KpiCard = {
 };
 
 export function LeadKpiStrip({ leads, loading }: Readonly<LeadKpiStripProps>) {
+  const t = useTranslations();
   const cards = useMemo<KpiCard[]>(() => {
     const qualified = leads.filter((l) => l.status === "qualified");
     const contacted = leads.filter((l) => l.status === "contacted");
@@ -44,42 +46,42 @@ export function LeadKpiStrip({ leads, loading }: Readonly<LeadKpiStripProps>) {
     return [
       {
         key: "total",
-        label: "Total leads",
+        label: t("leads.kpi.totalLeads"),
         value: new Intl.NumberFormat().format(total),
-        hint: "All pipelines",
+        hint: t("leads.kpi.allPipelines"),
         trend: computeLeadTrend(leads),
         spark: groupByDay(leads, (l) => l.createdAt, DAYS),
         icon: Users,
       },
       {
         key: "qualified",
-        label: "Qualified",
+        label: t("leads.kpi.qualified"),
         value: new Intl.NumberFormat().format(qualified.length),
-        hint: "Ready to progress",
+        hint: t("leads.kpi.readyToProgress"),
         trend: computeLeadTrend(qualified),
         spark: groupByDay(qualified, (l) => l.updatedAt || l.createdAt, DAYS),
         icon: Target,
       },
       {
         key: "contacted",
-        label: "In conversation",
+        label: t("leads.kpi.inConversation"),
         value: new Intl.NumberFormat().format(contacted.length),
-        hint: "Currently active",
+        hint: t("leads.kpi.currentlyActive"),
         trend: computeLeadTrend(contacted),
         spark: groupByDay(contacted, (l) => l.updatedAt || l.createdAt, DAYS),
         icon: MessageSquare,
       },
       {
         key: "conv",
-        label: "Conversion rate",
+        label: t("leads.kpi.conversionRate"),
         value: `${convRate.toFixed(1)}%`,
-        hint: `${converted.length} of ${total}`,
+        hint: t("leads.kpi.convertedOfTotal", { converted: converted.length, total }),
         trend: computeLeadTrend(converted),
         spark: groupByDay(converted, (l) => l.updatedAt || l.createdAt, DAYS),
         icon: Briefcase,
       },
     ];
-  }, [leads]);
+  }, [leads, t]);
 
   return (
     <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

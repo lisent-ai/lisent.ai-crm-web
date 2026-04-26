@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { Stat } from "./import-ui";
 import { formatCellValue } from "./import-utils";
 
@@ -16,13 +20,14 @@ export function ImportPreviewStep({
   onBack: () => void;
   onContinue: () => void;
 }>) {
+  const t = useTranslations();
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-3">
-        <Stat label="Headers" value={String(headers.length)} />
-        <Stat label="Rows shown" value={String(sampleRows.length)} />
-        <Stat label="Rows loaded" value={String(allRowsCount)} />
-        <Stat label="Unmapped" value={String(headers.length - mappedCount)} />
+        <Stat label={t("imports.preview.headers")} value={String(headers.length)} />
+        <Stat label={t("imports.preview.rowsShown")} value={String(sampleRows.length)} />
+        <Stat label={t("imports.preview.rowsLoaded")} value={String(allRowsCount)} />
+        <Stat label={t("imports.preview.unmapped")} value={String(headers.length - mappedCount)} />
       </div>
 
       <div className="mt-6 overflow-hidden rounded-[1.4rem] border border-slate-200 bg-white">
@@ -61,14 +66,14 @@ export function ImportPreviewStep({
           onClick={onBack}
           type="button"
         >
-          Back to source
+          {t("imports.preview.backToSource")}
         </button>
         <button
           className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#0f766e)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110"
           onClick={onContinue}
           type="button"
         >
-          Continue to mapping
+          {t("imports.preview.continueToMapping")}
         </button>
       </div>
     </div>

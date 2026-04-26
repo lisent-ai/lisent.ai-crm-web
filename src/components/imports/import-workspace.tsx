@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   applyImportProfile,
@@ -32,6 +33,7 @@ import {
 } from "./import-types";
 
 export function ImportWorkspace() {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [sourceMode, setSourceMode] = useState<"upload" | "url">("upload");
@@ -52,7 +54,7 @@ export function ImportWorkspace() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const companyId = searchParams.get("company") ?? "";
-  const companyName = searchParams.get("companyName") ?? "Selected company";
+  const companyName = searchParams.get("companyName") ?? t("imports.workspace.selectedCompany");
   const mappedCount = mappingRows.filter((row) => row.targetField !== "").length;
   const activeStepMeta = useMemo(
     () => steps.find((step) => step.id === activeStep) ?? steps[0],
@@ -90,7 +92,7 @@ export function ImportWorkspace() {
 
   async function continueToPreview() {
     if (!companyId.trim()) {
-      setErrorMessage("Open this page from a selected company first.");
+      setErrorMessage(t("imports.errors.openFromCompany"));
       return;
     }
 
@@ -100,13 +102,13 @@ export function ImportWorkspace() {
     try {
       const parsedCSV =
         sourceMode === "upload"
-          ? await parseSelectedFile(csvFile)
-          : await parseSelectedURL(csvURL);
+          ? await parseSelectedFile(csvFile, t as never)
+          : await parseSelectedURL(csvURL, t as never);
 
       const suggestion =
         sourceMode === "upload"
-          ? await uploadAndSuggest(companyId, csvFile)
-          : await suggestFromURL(companyId, csvURL);
+          ? await uploadAndSuggest(companyId, csvFile, t as never)
+          : await suggestFromURL(companyId, csvURL, t as never);
 
       setAllRows(parsedCSV.rows);
       setHeaders(suggestion.headers);
@@ -130,6 +132,7 @@ export function ImportWorkspace() {
                 description: field.description,
               }))
             : defaultAvailableFields,
+          t as never,
         ),
       );
       unlockAndGo("preview");
@@ -137,7 +140,7 @@ export function ImportWorkspace() {
       const message =
         error instanceof CRMClientError
           ? error.message
-          : "Failed to parse CSV and generate suggestions.";
+          : t("imports.errors.parseFailed");
       setErrorMessage(message);
     } finally {
       setLoadingSuggestion(false);
@@ -146,17 +149,17 @@ export function ImportWorkspace() {
 
   async function approveMapping() {
     if (!companyId.trim()) {
-      setErrorMessage("Open this page from a selected company first.");
+      setErrorMessage(t("imports.errors.openFromCompany"));
       return;
     }
 
     const mappingByField = buildMappingByField(mappingRows);
     if (Object.keys(mappingByField).length === 0) {
-      setErrorMessage("Map at least one source header before approval.");
+      setErrorMessage(t("imports.errors.mapAtLeastOne"));
       return;
     }
     if (allRows.length === 0) {
-      setErrorMessage("No CSV rows are loaded for import.");
+      setErrorMessage(t("imports.errors.noRows"));
       return;
     }
 
@@ -164,13 +167,13 @@ export function ImportWorkspace() {
     setImportProgress({
       completed: 0,
       total: allRows.length,
-      currentLabel: allRows[0] ? describeImportRow(allRows[0], 1) : "",
+      currentLabel: allRows[0] ? describeImportRow(allRows[0], 1, t as never) : "",
     });
     setErrorMessage(null);
 
     try {
       await approveImportProfile(companyId, mappingByField, fallbackAliasesEnabled);
-      await importCustomers(companyId, allRows, setImportProgress);
+      await importCustomers(companyId, allRows, setImportProgress, t as never);
       router.push(
         `/dashboard/customers?company=${companyId}&companyName=${encodeURIComponent(companyName)}&source=import-approved&imported=${allRows.length}`,
       );
@@ -178,7 +181,7 @@ export function ImportWorkspace() {
       const message =
         error instanceof CRMClientError
           ? error.message
-          : "Failed to approve mapping profile.";
+          : t("imports.errors.approveFailed");
       setErrorMessage(message);
     } finally {
       setApproving(false);
@@ -194,14 +197,13 @@ export function ImportWorkspace() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-              Customer import
+              {t("imports.workspace.eyebrow")}
             </p>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
               {companyName}
             </h1>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-              Import profiles are company-specific. The CSV preview and mapping
-              suggestions below come from the CRM service through secured BFF routes.
+              {t("imports.workspace.description")}
             </p>
           </div>
 
@@ -210,10 +212,10 @@ export function ImportWorkspace() {
               className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
               href="/dashboard"
             >
-              Back to overview
+              {t("imports.workspace.backToOverview")}
             </Link>
             <span className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white">
-              Company ID: {companyId || "-"}
+              {t("imports.workspace.companyIdLabel")}: {companyId || "-"}
             </span>
           </div>
         </div>
@@ -237,13 +239,13 @@ export function ImportWorkspace() {
 
         <section className="rounded-[1.8rem] border border-slate-200 bg-[linear-gradient(180deg,_#f8fafc,_#eff6ff)] p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700/80">
-            Step {activeStepMeta.stepNumber}
+            {t("imports.workspace.stepLabel", { step: activeStepMeta.stepNumber })}
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950">
-            {activeStepMeta.title}
+            {t(activeStepMeta.titleKey as never)}
           </h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-            {activeStepMeta.summary}
+            {t(activeStepMeta.summaryKey as never)}
           </p>
 
           <div className="mt-8">
@@ -290,37 +292,47 @@ export function ImportWorkspace() {
   );
 }
 
-async function uploadAndSuggest(companyId: string, file: File | null) {
+type Translator = (key: string, values?: Record<string, string | number>) => string;
+
+async function uploadAndSuggest(
+  companyId: string,
+  file: File | null,
+  t: Translator,
+) {
   if (!file) {
-    throw new CRMClientError("Please choose a CSV file first.", 400);
+    throw new CRMClientError(t("imports.errors.chooseFile"), 400);
   }
   return suggestImportFromCSVUpload(companyId, file);
 }
 
-async function suggestFromURL(companyId: string, fileURL: string) {
+async function suggestFromURL(
+  companyId: string,
+  fileURL: string,
+  t: Translator,
+) {
   if (fileURL.trim() === "") {
-    throw new CRMClientError("Please enter a CSV export URL first.", 400);
+    throw new CRMClientError(t("imports.errors.enterUrl"), 400);
   }
   return suggestImportFromCSVURL(companyId, fileURL);
 }
 
-async function parseSelectedFile(file: File | null) {
+async function parseSelectedFile(file: File | null, t: Translator) {
   if (!file) {
-    throw new CRMClientError("Please choose a CSV file first.", 400);
+    throw new CRMClientError(t("imports.errors.chooseFile"), 400);
   }
   return parseCSVFile(file);
 }
 
-async function parseSelectedURL(fileURL: string) {
+async function parseSelectedURL(fileURL: string, t: Translator) {
   if (fileURL.trim() === "") {
-    throw new CRMClientError("Please enter a CSV export URL first.", 400);
+    throw new CRMClientError(t("imports.errors.enterUrl"), 400);
   }
 
   try {
     return await parseCSVFromURL(fileURL);
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Failed to fetch CSV URL.";
+      error instanceof Error ? error.message : t("imports.errors.fetchUrlFailed");
     throw new CRMClientError(message, 400);
   }
 }
@@ -329,11 +341,12 @@ async function importCustomers(
   companyId: string,
   rows: Record<string, string>[],
   onProgress?: (progress: ImportProgress) => void,
+  t?: Translator,
 ) {
   const total = rows.length;
 
   for (const [index, row] of rows.entries()) {
-    const currentLabel = describeImportRow(row, index + 1);
+    const currentLabel = describeImportRow(row, index + 1, t);
     onProgress?.({
       completed: index,
       total,

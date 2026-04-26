@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Fragment, useCallback, useEffect, useState } from "react";
 
 import {
@@ -28,6 +29,7 @@ type Props = {
  * side into the AI Qualifier service directly (outside this BFF).
  */
 export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
+  const t = useTranslations();
   const [config, setConfig] = useState<QualifierRAGConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [rotating, setRotating] = useState(false);
@@ -52,12 +54,12 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
       setConfig(next);
     } catch (err) {
       setErrorMessage(
-        err instanceof CRMClientError ? err.message : "Could not load RAG config",
+        err instanceof CRMClientError ? err.message : t("integrations.rag.loadConfigFailed"),
       );
     } finally {
       setLoading(false);
     }
-  }, [companyId]);
+  }, [companyId, t]);
 
   const loadDocs = useCallback(async () => {
     setDocsLoading(true);
@@ -66,11 +68,11 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
       const next = await listRagDocuments(companyId);
       setDocs(next);
     } catch (err) {
-      setDocsError(err instanceof Error ? err.message : "Could not load documents");
+      setDocsError(err instanceof Error ? err.message : t("integrations.rag.loadDocsFailed"));
     } finally {
       setDocsLoading(false);
     }
-  }, [companyId]);
+  }, [companyId, t]);
 
   const toggleExpanded = useCallback(
     async (recordId: string) => {
@@ -86,12 +88,12 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
         const { chunks } = await getRagDocument(companyId, recordId);
         setChunkCache((prev) => ({ ...prev, [recordId]: chunks }));
       } catch (err) {
-        setChunkError(err instanceof Error ? err.message : "Could not load content");
+        setChunkError(err instanceof Error ? err.message : t("integrations.rag.loadContentFailed"));
       } finally {
         setChunkLoading(null);
       }
     },
-    [companyId, expanded, chunkCache],
+    [companyId, expanded, chunkCache, t],
   );
 
   useEffect(() => {
@@ -100,7 +102,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
   }, [load, loadDocs]);
 
   async function handleRotate() {
-    if (!confirm("Rotate the RAG token? The previous token stays valid as secondary until you revoke it.")) {
+    if (!confirm(t("integrations.rag.rotateConfirm"))) {
       return;
     }
     setRotating(true);
@@ -116,23 +118,23 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
       });
       setSuccessMessage(result.rotationNotice);
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Rotate failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.rotateFailed"));
     } finally {
       setRotating(false);
     }
   }
 
   async function handleRevoke() {
-    if (!confirm("Revoke the secondary RAG token?")) return;
+    if (!confirm(t("integrations.rag.revokeConfirm"))) return;
     setRevoking(true);
     setErrorMessage(null);
     setSuccessMessage(null);
     try {
       await revokeQualifierRAGSecondaryToken(companyId);
       setConfig((prev) => (prev ? { ...prev, tokenSecondary: null } : prev));
-      setSuccessMessage("Secondary token revoked.");
+      setSuccessMessage(t("integrations.qualifier.secondaryRevoked"));
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Revoke failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.revokeFailed"));
     } finally {
       setRevoking(false);
     }
@@ -163,7 +165,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
   if (loading) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
-        Loading RAG config…
+        {t("integrations.rag.loading")}
       </section>
     );
   }
@@ -173,12 +175,10 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
       <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
           <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
-            RAG webhook + token rotation
+            {t("integrations.rag.title")}
           </h2>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            POST knowledge base documents here; the AI chat grounds its answers
-            on them. Dual-active rotation lets you roll the token without
-            dropping uploads mid-flight.
+            {t("integrations.rag.description")}
           </p>
         </header>
 
@@ -186,7 +186,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
           <div className="mb-4 grid gap-3 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm">
             <div>
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
-                Webhook URL
+                {t("integrations.qualifier.webhookUrlLabel")}
               </span>
               <div className="mt-1 flex flex-col gap-2 sm:flex-row sm:items-center">
                 <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
@@ -198,24 +198,24 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                   onClick={() => {
                     if (config.webhookUrl) {
                       void navigator.clipboard.writeText(config.webhookUrl);
-                      setSuccessMessage("URL copied");
+                      setSuccessMessage(t("integrations.urlCopied"));
                     }
                   }}
                 >
-                  Copy
+                  {t("integrations.copy")}
                 </button>
               </div>
             </div>
 
             <TokenRow
-              label="Primary"
+              label={t("integrations.primary")}
               token={config.tokenPrimary}
               show={showPrimary}
               toggle={() => setShowPrimary((v) => !v)}
               mask={mask}
             />
             <TokenRow
-              label="Secondary (rotation window)"
+              label={`${t("integrations.secondary")} ${t("integrations.rotationWindow")}`}
               token={config.tokenSecondary}
               show={showSecondary}
               toggle={() => setShowSecondary((v) => !v)}
@@ -224,7 +224,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
           </div>
         ) : (
           <p className="mb-4 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm text-[var(--text-secondary)]">
-            No RAG token yet. Generate one below to enable document uploads.
+            {t("integrations.rag.noToken")}
           </p>
         )}
 
@@ -235,7 +235,11 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
             disabled={rotating}
             className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
           >
-            {rotating ? "Rotating…" : config?.tokenPrimary ? "Rotate token" : "Generate token"}
+            {rotating
+              ? t("integrations.rotating")
+              : config?.tokenPrimary
+                ? t("integrations.rotateToken")
+                : t("integrations.generateToken")}
           </button>
           {config?.tokenSecondary ? (
             <button
@@ -244,7 +248,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
               disabled={revoking}
               className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-5 py-2.5 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
             >
-              {revoking ? "Revoking…" : "Revoke secondary"}
+              {revoking ? t("integrations.revoking") : t("integrations.revokeSecondary")}
             </button>
           ) : null}
         </div>
@@ -254,13 +258,16 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
         <header className="mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <div className="min-w-0">
             <h3 className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
-              Ingested documents {docs ? `(${docs.length})` : ""}
+              {t("integrations.rag.ingestedDocuments", { count: docs?.length ?? 0 })}
             </h3>
             <p className="mt-1 text-sm text-[var(--text-secondary)]">
-              One row per{" "}
-              <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">record_id</code>.
-              Each chat turn searches these via Postgres full-text and injects the top 3 hits
-              into the prompt.
+              {t.rich("integrations.rag.ingestedDescription", {
+                code: (chunks) => (
+                  <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
+                    {chunks}
+                  </code>
+                ),
+              })}
             </p>
           </div>
           <button
@@ -269,7 +276,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
             disabled={docsLoading}
             className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
           >
-            {docsLoading ? "Refreshing…" : "Refresh"}
+            {docsLoading ? t("integrations.refreshing") : t("integrations.refresh")}
           </button>
         </header>
         {docsError ? (
@@ -277,10 +284,10 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
             {docsError}
           </p>
         ) : docsLoading && !docs ? (
-          <p className="text-sm text-[var(--text-tertiary)]">Loading documents…</p>
+          <p className="text-sm text-[var(--text-tertiary)]">{t("integrations.rag.loadingDocs")}</p>
         ) : !docs || docs.length === 0 ? (
           <p className="text-sm text-[var(--text-tertiary)]">
-            No documents yet. POST to the webhook to add some.
+            {t("integrations.rag.noDocuments")}
           </p>
         ) : (
           <div className="max-h-[32rem] overflow-auto rounded-2xl border border-[var(--border-subtle)]">
@@ -289,9 +296,9 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                 <tr>
                   <th className="w-6 px-3 py-2 font-semibold"></th>
                   <th className="px-3 py-2 font-semibold">record_id</th>
-                  <th className="px-3 py-2 font-semibold">Title</th>
-                  <th className="px-3 py-2 text-right font-semibold">Chunks</th>
-                  <th className="px-3 py-2 font-semibold">Updated</th>
+                  <th className="px-3 py-2 font-semibold">{t("integrations.rag.titleColumn")}</th>
+                  <th className="px-3 py-2 text-right font-semibold">{t("integrations.rag.chunksColumn")}</th>
+                  <th className="px-3 py-2 font-semibold">{t("integrations.rag.updatedColumn")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -316,7 +323,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                         <tr className="border-t border-[var(--border-subtle)] bg-[var(--surface-muted)]">
                           <td colSpan={5} className="px-3 py-3">
                             {chunkLoading === d.doc_ref ? (
-                              <p className="text-[var(--text-tertiary)]">Loading content…</p>
+                              <p className="text-[var(--text-tertiary)]">{t("integrations.rag.loadingContent")}</p>
                             ) : chunkError && !chunks ? (
                               <p className="text-[var(--signal-red)]">{chunkError}</p>
                             ) : !chunks ? null : (
@@ -327,7 +334,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                                     className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3"
                                   >
                                     <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-wide text-[var(--text-tertiary)]">
-                                      <span>chunk #{c.chunk_index}</span>
+                                      <span>{t("integrations.rag.chunkLabel", { index: c.chunk_index })}</span>
                                       {c.source_url ? (
                                         <a
                                           href={c.source_url}
@@ -335,7 +342,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                                           rel="noreferrer"
                                           className="text-[var(--accent-strong)] hover:underline"
                                         >
-                                          source
+                                          {t("integrations.rag.sourceLink")}
                                         </a>
                                       ) : null}
                                     </div>
@@ -344,7 +351,7 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
                                     </pre>
                                     {Object.keys(c.metadata ?? {}).length > 0 ? (
                                       <details className="mt-2 text-[11px] text-[var(--text-tertiary)]">
-                                        <summary className="cursor-pointer">metadata</summary>
+                                        <summary className="cursor-pointer">{t("integrations.rag.metadata")}</summary>
                                         <pre className="mt-1 overflow-x-auto rounded-lg bg-[var(--surface-inset)] p-2 font-mono text-[var(--text-secondary)]">
                                           {JSON.stringify(c.metadata, null, 2)}
                                         </pre>
@@ -369,12 +376,16 @@ export function QualifierRAGConfigPanel({ companyId }: Readonly<Props>) {
       {config?.webhookUrl ? (
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
           <h3 className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
-            Ingestion example
+            {t("integrations.rag.ingestionExampleTitle")}
           </h3>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            Send documents directly to the webhook. Re-posting with the same{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">record_id</code>{" "}
-            replaces the earlier content (idempotent).
+            {t.rich("integrations.rag.ingestionExampleDescription", {
+              code: (chunks) => (
+                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
+                  {chunks}
+                </code>
+              ),
+            })}
           </p>
           <pre className="mt-3 max-h-72 overflow-auto rounded-2xl bg-[var(--text-primary)] p-4 font-mono text-xs leading-relaxed text-[var(--surface)]">
             {curlSnippet}
@@ -409,6 +420,7 @@ function TokenRow({
   toggle: () => void;
   mask: (t: string | null | undefined) => string;
 }) {
+  const t = useTranslations();
   return (
     <div>
       <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
@@ -424,7 +436,7 @@ function TokenRow({
             onClick={toggle}
             className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
-            {show ? "Hide" : "Reveal"}
+            {show ? t("integrations.hide") : t("integrations.reveal")}
           </button>
         ) : null}
       </div>

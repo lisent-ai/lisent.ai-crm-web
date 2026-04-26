@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { Deal, DealComment } from "@/lib/crm/client";
 
 import { buildInitials, formatDateTime } from "./deal-utils";
@@ -17,12 +21,13 @@ export function DealCommentsPanel({
   onCommentDraftChange,
   onAddComment,
 }: Readonly<DealCommentsPanelProps>) {
+  const t = useTranslations();
   return (
     <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface-muted)]">
       <header className="border-b border-[var(--border-subtle)] px-4 py-3">
         <div className="flex items-center justify-between gap-3">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-            Comments
+            {t("deals.comments")}
           </p>
           <span className="rounded-full bg-[var(--surface)] px-2.5 py-1 text-xs font-semibold text-[var(--text-secondary)]">
             {deal.comments.length}
@@ -35,7 +40,7 @@ export function DealCommentsPanel({
           <textarea
             className="min-h-28 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
             onChange={(event) => onCommentDraftChange(event.target.value)}
-            placeholder="Leave an update, note, or handoff for the team..."
+            placeholder={t("deals.commentPlaceholder")}
             value={commentDraft}
           />
           <div className="flex justify-end">
@@ -45,7 +50,7 @@ export function DealCommentsPanel({
               onClick={onAddComment}
               type="button"
             >
-              {saving ? "Posting..." : "Add comment"}
+              {saving ? t("deals.posting") : t("deals.addComment")}
             </button>
           </div>
         </div>
@@ -53,7 +58,7 @@ export function DealCommentsPanel({
         <div className="grid gap-3">
           {deal.comments.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-              No comments yet. Start the thread for this deal.
+              {t("deals.commentsEmpty")}
             </div>
           ) : (
             deal.comments.map((comment) => (
@@ -67,7 +72,8 @@ export function DealCommentsPanel({
 }
 
 function DealCommentRow({ comment }: Readonly<{ comment: DealComment }>) {
-  const authorLabel = comment.authorUserName || comment.authorUserId || "Unknown";
+  const t = useTranslations();
+  const authorLabel = comment.authorUserName || comment.authorUserId || t("deals.unknownAuthor");
 
   return (
     <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-4">

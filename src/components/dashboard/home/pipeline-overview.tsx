@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { Deal, DealStage } from "@/lib/crm/client";
 
 type PipelineOverviewProps = {
@@ -5,19 +9,21 @@ type PipelineOverviewProps = {
   emptyHint?: string;
 };
 
-const STAGES: { key: DealStage; label: string; color: string }[] = [
-  { key: "new", label: "New", color: "var(--signal-blue)" },
-  { key: "qualified", label: "Qualified", color: "var(--accent)" },
-  { key: "proposal", label: "Proposal", color: "var(--signal-amber)" },
-  { key: "negotiation", label: "Negotiation", color: "var(--signal-purple)" },
-  { key: "won", label: "Won", color: "var(--signal-green)" },
-  { key: "lost", label: "Lost", color: "var(--signal-red)" },
+const STAGES: { key: DealStage; labelKey: string; color: string }[] = [
+  { key: "new", labelKey: "home.pipeline.stage.new", color: "var(--signal-blue)" },
+  { key: "qualified", labelKey: "home.pipeline.stage.qualified", color: "var(--accent)" },
+  { key: "proposal", labelKey: "home.pipeline.stage.proposal", color: "var(--signal-amber)" },
+  { key: "negotiation", labelKey: "home.pipeline.stage.negotiation", color: "var(--signal-purple)" },
+  { key: "won", labelKey: "home.pipeline.stage.won", color: "var(--signal-green)" },
+  { key: "lost", labelKey: "home.pipeline.stage.lost", color: "var(--signal-red)" },
 ];
 
 export function PipelineOverview({
   deals,
-  emptyHint = "Pick a company to see deal pipeline.",
+  emptyHint,
 }: Readonly<PipelineOverviewProps>) {
+  const t = useTranslations();
+  const resolvedEmptyHint = emptyHint ?? t("home.pipeline.emptyDefault");
   const counts = new Map<DealStage, { count: number; amount: number; currency: string }>();
   for (const deal of deals) {
     const prev = counts.get(deal.stage) ?? { count: 0, amount: 0, currency: deal.currency || "USD" };
@@ -32,20 +38,20 @@ export function PipelineOverview({
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-[var(--text-primary)]">
-            Pipeline overview
+            {t("home.pipeline.title")}
           </p>
           <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">
-            Deal distribution by stage
+            {t("home.pipeline.subtitle")}
           </p>
         </div>
         <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-2.5 py-0.5 text-xs font-medium text-[var(--text-secondary)]">
-          {total} total
+          {t("home.pipeline.totalBadge", { count: total })}
         </span>
       </div>
 
       {total === 0 ? (
         <div className="mt-5 flex min-h-[120px] items-center justify-center rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-subtle)] px-4 text-center text-sm text-[var(--text-tertiary)]">
-          {emptyHint}
+          {resolvedEmptyHint}
         </div>
       ) : (
         <div className="mt-5 grid gap-3">
@@ -56,7 +62,7 @@ export function PipelineOverview({
               <div key={stage.key}>
                 <div className="flex items-baseline justify-between gap-2 text-sm">
                   <span className="font-medium text-[var(--text-secondary)]">
-                    {stage.label}
+                    {t(stage.labelKey as never)}
                   </span>
                   <span className="text-xs text-[var(--text-tertiary)]">
                     {data.count}

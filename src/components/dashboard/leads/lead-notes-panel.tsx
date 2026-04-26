@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { PencilLine, Trash2, X } from "lucide-react";
 
 import type { Lead, LeadComment } from "@/lib/crm/client";
@@ -39,11 +40,12 @@ export function LeadNotesPanel({
   onStopEditing,
   onCommentDraftChange,
 }: Readonly<LeadNotesPanelProps>) {
+  const t = useTranslations();
   return (
     <section className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] p-4 shadow-[var(--shadow-xs)]">
       <div className="flex items-center justify-between gap-3">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-          Team notes
+          {t("leads.notes.teamNotes")}
         </h3>
         <span className="rounded-full bg-[var(--surface-muted)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text-secondary)]">
           {comments.length}
@@ -54,7 +56,7 @@ export function LeadNotesPanel({
         {lead.notes ? (
           <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-3">
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-              Lead context
+              {t("leads.notes.leadContext")}
             </p>
             <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[var(--text-secondary)]">
               {lead.notes}
@@ -66,7 +68,7 @@ export function LeadNotesPanel({
           <textarea
             className="min-h-28 rounded-2xl border border-[var(--border-default)] bg-white px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-sky-400"
             onChange={(event) => onCommentDraftChange(event.target.value)}
-            placeholder="Add a note, update, or handoff for the team..."
+            placeholder={t("leads.notes.draftPlaceholder")}
             value={commentDraft}
           />
           <div className="flex justify-end">
@@ -76,7 +78,7 @@ export function LeadNotesPanel({
               onClick={onAddComment}
               type="button"
             >
-              {saving ? "Posting..." : "Add note"}
+              {saving ? t("leads.notes.posting") : t("leads.notes.addNote")}
             </button>
           </div>
         </div>
@@ -84,11 +86,11 @@ export function LeadNotesPanel({
         <div className="grid gap-3">
           {loading ? (
             <div className="rounded-2xl border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-              Loading team notes...
+              {t("leads.notes.loading")}
             </div>
           ) : comments.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-              No team notes yet. Start the thread for this lead.
+              {t("leads.notes.empty")}
             </div>
           ) : (
             comments.map((comment) => (
@@ -138,7 +140,9 @@ function LeadCommentRow({
   onStopEditing: () => void;
   saving: boolean;
 }>) {
-  const authorLabel = comment.authorUserName || comment.authorUserId || "Unknown";
+  const t = useTranslations();
+  const authorLabel =
+    comment.authorUserName || comment.authorUserId || t("leads.notes.unknownAuthor");
 
   return (
     <div className="rounded-2xl border border-[var(--border-subtle)] bg-white px-4 py-4">
@@ -157,7 +161,7 @@ function LeadCommentRow({
                 <div className="flex items-center gap-1">
                   {isEditing ? (
                     <button
-                      aria-label="Cancel editing note"
+                      aria-label={t("leads.notes.cancelEditing")}
                       className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
                       disabled={saving}
                       onClick={onStopEditing}
@@ -167,7 +171,7 @@ function LeadCommentRow({
                     </button>
                   ) : (
                     <button
-                      aria-label="Edit note"
+                      aria-label={t("leads.notes.editNote")}
                       className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
                       disabled={saving}
                       onClick={onEdit}
@@ -177,7 +181,7 @@ function LeadCommentRow({
                     </button>
                   )}
                   <button
-                    aria-label="Delete note"
+                    aria-label={t("leads.notes.deleteNote")}
                     className="inline-flex h-8 w-8 items-center justify-center rounded-full text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
                     disabled={saving}
                     onClick={onDelete}
@@ -203,7 +207,7 @@ function LeadCommentRow({
                   onClick={onStopEditing}
                   type="button"
                 >
-                  Cancel
+                  {t("common.cancel")}
                 </button>
                 <button
                   className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
@@ -211,7 +215,7 @@ function LeadCommentRow({
                   onClick={onSave}
                   type="button"
                 >
-                  {saving ? "Saving..." : "Save"}
+                  {saving ? t("common.saving") : t("common.save")}
                 </button>
               </div>
             </div>

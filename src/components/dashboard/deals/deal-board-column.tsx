@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { Deal, DealStage } from "@/lib/crm/client";
 
 import { formatMoney, stageBadgeClasses } from "./deal-utils";
@@ -43,7 +47,9 @@ export function DealBoardColumn({
   customerLabelById,
   onSelectDeal,
 }: Readonly<DealBoardColumnProps>) {
+  const t = useTranslations();
   const totalValue = deals.reduce((sum, deal) => sum + deal.amount, 0);
+  const noCustomerLabel = t("deals.noRelatedCustomer");
 
   return (
     <div
@@ -69,7 +75,7 @@ export function DealBoardColumn({
 
         <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-3">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
-            Column total
+            {t("deals.columnTotal")}
           </p>
           <p className="mt-1 text-lg font-semibold text-[var(--text-primary)]">
             {formatMoney(totalValue, deals[0]?.currency || "EUR")}
@@ -80,12 +86,12 @@ export function DealBoardColumn({
       <div className="mt-4 grid max-h-[calc(100vh-18rem)] gap-3 overflow-y-auto pr-1">
         {deals.length === 0 ? (
           <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-4 py-8 text-center text-sm text-[var(--text-tertiary)]">
-            No deals here yet.
+            {t("deals.emptyColumn")}
           </div>
         ) : (
           deals.map((deal) => (
             <DealBoardCard
-              customerLabel={customerLabelById.get(deal.customerId) || "No related customer"}
+              customerLabel={customerLabelById.get(deal.customerId) || noCustomerLabel}
               deal={deal}
               isSelected={deal.id === selectedDealId}
               key={deal.id}

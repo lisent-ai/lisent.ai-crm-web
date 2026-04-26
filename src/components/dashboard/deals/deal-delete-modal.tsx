@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { Deal } from "@/lib/crm/client";
 
 import { DealModalFrame } from "./deal-modal-frame";
@@ -15,18 +19,18 @@ export function DealDeleteModal({
   onClose,
   onConfirm,
 }: Readonly<DealDeleteModalProps>) {
+  const t = useTranslations();
   return (
     <DealModalFrame onClose={onClose}>
       <div className="max-w-2xl">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--signal-red)]">
-          Delete deal
+          {t("deals.deleteDeal")}
         </p>
         <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-          Remove {deal.name || "this deal"}?
+          {t("deals.deleteConfirmTitle", { name: deal.name || t("deals.thisDeal") })}
         </h2>
         <p className="mt-4 text-sm leading-7 text-[var(--text-secondary)]">
-          This will permanently remove the deal record and its stage history. Related
-          customer and lead records will stay untouched.
+          {t("deals.deleteConfirmDescription")}
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -36,14 +40,14 @@ export function DealDeleteModal({
             onClick={onConfirm}
             type="button"
           >
-            {saving ? "Deleting..." : "Delete deal"}
+            {saving ? t("deals.deleting") : t("deals.deleteDeal")}
           </button>
           <button
             className="w-full rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] sm:w-auto"
             onClick={onClose}
             type="button"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
         </div>
       </div>

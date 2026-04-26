@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Filter, Plus, Search, X } from "lucide-react";
 
 type SelectOption = {
@@ -37,6 +38,7 @@ export function LeadToolbar({
   onAdd,
   canAdd,
 }: Readonly<LeadToolbarProps>) {
+  const t = useTranslations();
   const [filterOpen, setFilterOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -71,16 +73,16 @@ export function LeadToolbar({
           className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]"
         />
         <input
-          aria-label="Search leads"
+          aria-label={t("leads.toolbar.searchAria")}
           className="h-10 w-full rounded-full border border-[var(--border-default)] bg-[var(--surface)] pl-9 pr-9 text-sm text-[var(--text-primary)] transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)] focus:outline-none"
           onChange={(event) => onSearchChange(event.target.value)}
-          placeholder="Search name, email, phone, source…"
+          placeholder={t("leads.toolbar.searchPlaceholder")}
           type="search"
           value={searchQuery}
         />
         {searchQuery ? (
           <button
-            aria-label="Clear search"
+            aria-label={t("leads.toolbar.clearSearch")}
             className="absolute right-2 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
             onClick={() => onSearchChange("")}
             type="button"
@@ -100,7 +102,7 @@ export function LeadToolbar({
             type="button"
           >
             <Filter aria-hidden="true" className="h-4 w-4" />
-            Filter
+            {t("leads.toolbar.filter")}
             {activeFilterCount > 0 ? (
               <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[var(--accent-soft)] px-1.5 text-[10px] font-semibold text-[var(--accent-strong)]">
                 {activeFilterCount}
@@ -114,14 +116,14 @@ export function LeadToolbar({
               role="menu"
             >
               <FilterSelect
-                label="Source"
+                label={t("leads.toolbar.source")}
                 onChange={onSourceChange}
                 options={sourceOptions}
                 value={sourceFilter}
               />
               <div className="mt-3">
                 <FilterSelect
-                  label="Assignee"
+                  label={t("leads.toolbar.assignee")}
                   onChange={onAssigneeChange}
                   options={assigneeOptions}
                   value={assigneeFilter}
@@ -134,7 +136,7 @@ export function LeadToolbar({
                   onChange={(event) => onShowUnassignedChange(event.target.checked)}
                   type="checkbox"
                 />
-                Show only unassigned
+                {t("leads.toolbar.showOnlyUnassigned")}
               </label>
               <div className="mt-3 flex justify-end gap-2">
                 <button
@@ -146,14 +148,14 @@ export function LeadToolbar({
                   }}
                   type="button"
                 >
-                  Clear
+                  {t("leads.toolbar.clear")}
                 </button>
                 <button
                   className="rounded-full bg-[var(--text-primary)] px-3 py-1.5 text-xs font-medium text-white transition hover:opacity-90"
                   onClick={() => setFilterOpen(false)}
                   type="button"
                 >
-                  Apply
+                  {t("leads.toolbar.apply")}
                 </button>
               </div>
             </div>
@@ -167,8 +169,8 @@ export function LeadToolbar({
           type="button"
         >
           <Plus aria-hidden="true" className="h-4 w-4" />
-          <span className="hidden sm:inline">Add lead</span>
-          <span className="sm:hidden">Add</span>
+          <span className="hidden sm:inline">{t("leads.toolbar.addLead")}</span>
+          <span className="sm:hidden">{t("leads.toolbar.add")}</span>
         </button>
       </div>
     </div>

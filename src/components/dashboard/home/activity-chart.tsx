@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 type ActivityDatum = {
@@ -17,8 +18,11 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 export function ActivityChart({
   leads,
   deals,
-  emptyHint = "Pick a company to see weekly activity.",
+  emptyHint,
 }: Readonly<ActivityChartProps>) {
+  const t = useTranslations();
+  const fallbackEmptyHint = t("home.activity.emptyDefault");
+  const resolvedEmptyHint = emptyHint ?? fallbackEmptyHint;
   const { days, leadSeries, dealSeries, max } = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -57,22 +61,22 @@ export function ActivityChart({
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-semibold text-[var(--text-primary)]">
-            Weekly activity
+            {t("home.activity.title")}
           </p>
           <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">
-            New leads and deals over the last 7 days
+            {t("home.activity.subtitle")}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--text-tertiary)]">
-          <LegendDot color="var(--accent)" label="Leads" />
-          <LegendDot color="var(--signal-amber)" label="Deals" />
+          <LegendDot color="var(--accent)" label={t("home.activity.legendLeads")} />
+          <LegendDot color="var(--signal-amber)" label={t("home.activity.legendDeals")} />
         </div>
       </div>
 
       {hasData ? (
         <div className="mt-5">
           <svg
-            aria-label="Weekly lead and deal activity"
+            aria-label={t("home.activity.chartAriaLabel")}
             className="h-[220px] w-full"
             role="img"
             viewBox="0 0 700 260"
@@ -131,7 +135,7 @@ export function ActivityChart({
         </div>
       ) : (
         <div className="mt-5 flex min-h-[180px] items-center justify-center rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-subtle)] px-4 text-center text-sm text-[var(--text-tertiary)]">
-          {emptyHint}
+          {resolvedEmptyHint}
         </div>
       )}
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -16,6 +17,7 @@ import { CompanyPickerModal } from "./company-picker-modal";
 import { IntegrationCard } from "./integration-card";
 
 export function IntegrationsCatalog() {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCompanyId = searchParams.get("company")?.trim() ?? "";
@@ -92,7 +94,7 @@ export function IntegrationsCatalog() {
         setErrorMessage(
           err instanceof CRMClientError
             ? err.message
-            : "Could not load integrations",
+            : t("integrations.catalog.loadFailed"),
         );
       })
       .finally(() => {
@@ -114,7 +116,7 @@ export function IntegrationsCatalog() {
   if (!account) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
-        Loading your profile…
+        {t("integrations.loadingProfile")}
       </section>
     );
   }
@@ -128,11 +130,10 @@ export function IntegrationsCatalog() {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-          Integrations
+          {t("integrations.title")}
         </h1>
         <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
-          You don&apos;t have access to any workspaces yet. Ask an owner to invite you,
-          or create your own workspace from the switcher in the top bar.
+          {t("integrations.catalog.noAccess")}
         </p>
       </section>
     );
@@ -142,18 +143,17 @@ export function IntegrationsCatalog() {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-          Integrations
+          {t("integrations.title")}
         </h1>
         <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
-          Pick a company to manage its integrations. Each company has its own
-          credentials and webhooks.
+          {t("integrations.catalog.pickCompanyDescription")}
         </p>
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
           className="mt-6 rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
-          Pick a company
+          {t("integrations.catalog.pickCompany")}
         </button>
         <CompanyPickerModal
           isOpen={pickerOpen}
@@ -169,17 +169,17 @@ export function IntegrationsCatalog() {
     return (
       <section className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-6 text-sm text-[var(--signal-red)] sm:p-8">
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--signal-red)] sm:text-3xl">
-          Access denied
+          {t("integrations.catalog.accessDenied")}
         </h1>
         <p className="mt-3 leading-6">
-          You don&apos;t have access to this company&apos;s integrations.
+          {t("integrations.catalog.accessDeniedDescription")}
         </p>
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
           className="mt-6 rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-red)]"
         >
-          Pick another company
+          {t("integrations.catalog.pickAnother")}
         </button>
         <CompanyPickerModal
           isOpen={pickerOpen}
@@ -196,14 +196,15 @@ export function IntegrationsCatalog() {
       <header className="flex flex-col gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] px-5 py-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6">
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-            Integrations
+            {t("integrations.title")}
           </h1>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            Configuring{" "}
-            <span className="font-semibold text-[var(--text-primary)]">
-              {selectedCompanyName || selectedCompanyId}
-            </span>
-            . Each tenant / company has its own credentials.
+            {t.rich("integrations.catalog.configuringCompany", {
+              name: selectedCompanyName || selectedCompanyId,
+              strong: (chunks) => (
+                <span className="font-semibold text-[var(--text-primary)]">{chunks}</span>
+              ),
+            })}
           </p>
         </div>
         <button
@@ -211,21 +212,19 @@ export function IntegrationsCatalog() {
           onClick={() => setPickerOpen(true)}
           className="self-start rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] sm:self-auto"
         >
-          Switch company
+          {t("integrations.catalog.switchCompany")}
         </button>
       </header>
 
       {!canManageSelected ? (
         <div className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-xs text-[var(--text-secondary)]">
-          You&apos;re viewing this company&apos;s integrations in read-only mode.
-          Configuration changes (connect, rotate tokens, edit AI config) are
-          restricted to the company owner.
+          {t("integrations.catalog.readOnlyNotice")}
         </div>
       ) : null}
 
       {loading ? (
         <div className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
-          Loading integrations…
+          {t("integrations.catalog.loading")}
         </div>
       ) : errorMessage ? (
         <div className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-6 text-sm text-[var(--signal-red)]">

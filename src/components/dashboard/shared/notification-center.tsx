@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Bell,
@@ -33,6 +34,7 @@ export function NotificationCenter({
   companyName,
   demoMode,
 }: Readonly<NotificationCenterProps>) {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -88,7 +90,7 @@ export function NotificationCenter({
         }
       } catch {
         if (!cancelled) {
-          setErrorMessage("Failed to load notifications.");
+          setErrorMessage(t("notifications.loadFailed"));
         }
       } finally {
         if (!cancelled) {
@@ -112,7 +114,7 @@ export function NotificationCenter({
       window.clearInterval(intervalId);
       window.removeEventListener("focus", handleFocus);
     };
-  }, [companyId, companyName, demoMode, userId]);
+  }, [companyId, companyName, demoMode, t, userId]);
 
   const unreadCount = useMemo(
     () => items.filter((item) => !readState[item.id]).length,
@@ -149,7 +151,7 @@ export function NotificationCenter({
       <button
         aria-expanded={open}
         aria-haspopup="menu"
-        aria-label="Notifications"
+        aria-label={t("notifications.title")}
         className="relative inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
         onClick={() => setOpen((prev) => !prev)}
         type="button"
@@ -169,9 +171,11 @@ export function NotificationCenter({
         >
           <div className="flex items-start justify-between gap-3 px-2 pb-3">
             <div>
-              <p className="text-sm font-semibold text-[var(--text-primary)]">Notifications</p>
+              <p className="text-sm font-semibold text-[var(--text-primary)]">{t("notifications.title")}</p>
               <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-                {companyName ? `Current workspace: ${companyName}` : "Choose a workspace"}
+                {companyName
+                  ? t("notifications.currentWorkspace", { name: companyName })
+                  : t("notifications.chooseWorkspace")}
               </p>
             </div>
             <div className="flex items-center gap-1">
@@ -190,13 +194,13 @@ export function NotificationCenter({
                       setErrorMessage(null);
                     })
                     .catch(() => {
-                      setErrorMessage("Failed to load notifications.");
+                      setErrorMessage(t("notifications.loadFailed"));
                     })
                     .finally(() => {
                       setLoading(false);
                     });
                 }}
-                title="Refresh notifications"
+                title={t("notifications.refresh")}
                 type="button"
               >
                 <RefreshCw aria-hidden="true" className="h-4 w-4" />
@@ -208,18 +212,18 @@ export function NotificationCenter({
                   type="button"
                 >
                   <CheckCheck aria-hidden="true" className="h-3.5 w-3.5" />
-                  Mark all read
+                  {t("notifications.markAllRead")}
                 </button>
               ) : null}
             </div>
           </div>
 
           {demoMode ? (
-            <NotificationEmptyState message="Notifications are unavailable in demo mode." />
+            <NotificationEmptyState message={t("notifications.demoUnavailable")} />
           ) : !userId ? (
-            <NotificationEmptyState message="Your account session is still loading. Open this again in a moment." />
+            <NotificationEmptyState message={t("notifications.sessionLoading")} />
           ) : !companyId ? (
-            <NotificationEmptyState message="Select a workspace to see notifications." />
+            <NotificationEmptyState message={t("notifications.selectWorkspace")} />
           ) : errorMessage ? (
             <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
               {errorMessage}
@@ -234,7 +238,7 @@ export function NotificationCenter({
               ))}
             </div>
           ) : items.length === 0 ? (
-            <NotificationEmptyState message="Nothing new right now. Assigned work and pipeline changes will show up here." />
+            <NotificationEmptyState message={t("notifications.empty")} />
           ) : (
             <div className="grid max-h-[420px] gap-2 overflow-y-auto pe-1">
               {items.map((item) => {

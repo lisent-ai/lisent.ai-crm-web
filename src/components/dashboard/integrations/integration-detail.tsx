@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 
 import { getAccountProfile } from "@/lib/account/client";
@@ -16,13 +17,9 @@ type Props = {
   slug: string;
 };
 
-const SLUG_TITLES: Record<string, string> = {
-  "ai-lead-qualifier": "AI Lead Qualifier",
-  greenapi: "Green API (WhatsApp)",
-  intranet: "Intranet (Inbound Webhook)",
-  // Legacy deep-link slugs — titles omitted because they resolve to the
-  // unified AI Lead Qualifier panel with the matching tab pre-selected.
-};
+// Slug titles map to integrations.detail.slugTitles.* (resolved in component
+// via useTranslations). Provider names like "AI Lead Qualifier", "Green API",
+// "Intranet" are brand identifiers — the wrapper text is i18n only.
 
 /** Map legacy slugs to the tab they used to be. */
 const LEGACY_SLUG_TO_TAB: Record<string, "lead-webhook" | "rag" | "fallback" | "ai-config"> = {
@@ -38,6 +35,7 @@ const LEGACY_SLUG_TO_TAB: Record<string, "lead-webhook" | "rag" | "fallback" | "
  * Intranet panels alongside these.
  */
 export function IntegrationDetail({ slug }: Readonly<Props>) {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const companyId = searchParams.get("company")?.trim() ?? "";
   const companyName = searchParams.get("companyName")?.trim() ?? "";
@@ -73,7 +71,7 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
   if (!account) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
-        Loading your profile…
+        {t("integrations.loadingProfile")}
       </section>
     );
   }
@@ -82,11 +80,13 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
         <p className="text-sm text-[var(--text-secondary)]">
-          No company selected. Return to the{" "}
-          <Link className="font-semibold text-[var(--accent-strong)] hover:underline" href="/dashboard/integrations">
-            Integrations catalog
-          </Link>{" "}
-          and pick one first.
+          {t.rich("integrations.detail.noCompany", {
+            link: (chunks) => (
+              <Link className="font-semibold text-[var(--accent-strong)] hover:underline" href="/dashboard/integrations">
+                {chunks}
+              </Link>
+            ),
+          })}
         </p>
       </section>
     );
@@ -96,24 +96,27 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
         <h1 className="text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-          Configuration restricted
+          {t("integrations.detail.restrictedTitle")}
         </h1>
         <p className="mt-3 leading-6">
-          Integration setup screens (tokens, secrets, AI config) are
-          restricted to the company owner. Once the owner connects an
-          integration, it works automatically for everyone in this workspace —
-          you can see the connection status and use AI features in the
-          catalog.
+          {t("integrations.detail.restrictedDescription")}
         </p>
         <Link
           className="mt-6 inline-block rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] hover:border-[var(--border-strong)]"
           href={backHref}
         >
-          Back to catalog
+          {t("integrations.detail.backToCatalog")}
         </Link>
       </section>
     );
   }
+
+  const SLUG_KEY_MAP: Record<string, string> = {
+    "ai-lead-qualifier": "integrations.detail.slugTitles.aiLeadQualifier",
+    greenapi: "integrations.detail.slugTitles.greenapi",
+    intranet: "integrations.detail.slugTitles.intranet",
+  };
+  const slugTitle = SLUG_KEY_MAP[slug] ? t(SLUG_KEY_MAP[slug] as never) : slug;
 
   return (
     <section className="space-y-6">
@@ -122,17 +125,18 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
           className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--accent-strong)] hover:underline"
           href={backHref}
         >
-          ← Back to integrations
+          {t("integrations.detail.backLink")}
         </Link>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-3xl">
-          {SLUG_TITLES[slug] ?? slug}
+          {slugTitle}
         </h1>
         <p className="mt-1 text-sm text-[var(--text-secondary)]">
-          Configuring{" "}
-          <span className="font-semibold text-[var(--text-primary)]">
-            {companyName || companyId}
-          </span>
-          .
+          {t.rich("integrations.detail.configuringCompany", {
+            name: companyName || companyId,
+            strong: (chunks) => (
+              <span className="font-semibold text-[var(--text-primary)]">{chunks}</span>
+            ),
+          })}
         </p>
       </header>
 
@@ -142,6 +146,7 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
 }
 
 function SlugBody({ slug, companyId, companyName }: { slug: string; companyId: string; companyName: string }) {
+  const t = useTranslations();
   // Legacy deep-link slugs → unified qualifier panel with the matching tab.
   const legacyTab = LEGACY_SLUG_TO_TAB[slug];
   if (legacyTab) {
@@ -164,7 +169,7 @@ function SlugBody({ slug, companyId, companyName }: { slug: string; companyId: s
     default:
       return (
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
-          Unknown integration slug: <code className="font-mono text-[var(--text-primary)]">{slug}</code>
+          {t("integrations.detail.unknownSlug")}: <code className="font-mono text-[var(--text-primary)]">{slug}</code>
         </article>
       );
   }

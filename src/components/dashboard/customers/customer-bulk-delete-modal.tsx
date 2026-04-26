@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 type CustomerBulkDeleteModalProps = {
   count: number;
   onClose: () => void;
@@ -11,6 +15,7 @@ export function CustomerBulkDeleteModal({
   onConfirmDelete,
   saving,
 }: Readonly<CustomerBulkDeleteModalProps>) {
+  const t = useTranslations();
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-[color-mix(in_srgb,_var(--text-primary)_35%,_transparent)] px-0 pt-10 sm:items-center sm:px-4 sm:py-8"
@@ -25,10 +30,10 @@ export function CustomerBulkDeleteModal({
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--signal-red)]">
-              Delete customers
+              {t("customers.bulk.deleteEyebrow")}
             </p>
             <h2 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-              Remove {count} selected customer{count === 1 ? "" : "s"}
+              {t("customers.bulk.deleteTitle", { count })}
             </h2>
           </div>
           <button
@@ -36,12 +41,12 @@ export function CustomerBulkDeleteModal({
             onClick={onClose}
             type="button"
           >
-            Close
+            {t("common.close")}
           </button>
         </div>
 
         <p className="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
-          This will permanently remove the selected customer records from the CRM.
+          {t("customers.bulk.deleteDescription")}
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -51,7 +56,7 @@ export function CustomerBulkDeleteModal({
             onClick={onConfirmDelete}
             type="button"
           >
-            {saving ? "Deleting..." : `Confirm delete ${count}`}
+            {saving ? t("customers.deleting") : t("customers.bulk.confirmDelete", { count })}
           </button>
           <button
             className="w-full rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50 sm:w-auto"
@@ -59,7 +64,7 @@ export function CustomerBulkDeleteModal({
             onClick={onClose}
             type="button"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
         </div>
       </div>

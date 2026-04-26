@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { ToggleButton } from "./import-ui";
 
 export function ImportSourceStep({
@@ -19,27 +23,27 @@ export function ImportSourceStep({
   onSetCSVFile: (file: File | null) => void;
   onContinue: () => void;
 }>) {
+  const t = useTranslations();
   return (
     <div>
       <div className="inline-flex rounded-full border border-slate-200 bg-white p-1">
         <ToggleButton
           active={sourceMode === "upload"}
-          label="Upload CSV"
+          label={t("imports.source.uploadCsv")}
           onClick={() => onSetSourceMode("upload")}
         />
         <ToggleButton
           active={sourceMode === "url"}
-          label="Use URL"
+          label={t("imports.source.useUrl")}
           onClick={() => onSetSourceMode("url")}
         />
       </div>
 
       {sourceMode === "upload" ? (
         <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-white p-6">
-          <p className="text-base font-semibold text-slate-950">CSV upload</p>
+          <p className="text-base font-semibold text-slate-950">{t("imports.source.csvUpload")}</p>
           <p className="mt-2 text-sm leading-7 text-slate-600">
-            Upload a sample CSV file. The backend reads headers and sample rows,
-            then asks Groq for mapping suggestions.
+            {t("imports.source.csvUploadHelp")}
           </p>
           <input
             accept=".csv,text/csv"
@@ -51,15 +55,16 @@ export function ImportSourceStep({
             type="file"
           />
           <p className="mt-3 text-xs text-slate-500">
-            {csvFile ? `Selected: ${csvFile.name}` : "No file selected."}
+            {csvFile
+              ? t("imports.source.selectedFile", { name: csvFile.name })
+              : t("imports.source.noFileSelected")}
           </p>
         </div>
       ) : (
         <div className="mt-6 rounded-[1.5rem] border border-slate-200 bg-white p-6">
-          <p className="text-base font-semibold text-slate-950">CSV URL</p>
+          <p className="text-base font-semibold text-slate-950">{t("imports.source.csvUrl")}</p>
           <p className="mt-2 text-sm leading-7 text-slate-600">
-            Paste a direct CSV URL (for Google Sheets use the `/export?format=csv`
-            URL, not `/edit`).
+            {t("imports.source.csvUrlHelp")}
           </p>
           <input
             className="mt-5 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900"
@@ -77,7 +82,7 @@ export function ImportSourceStep({
           onClick={onContinue}
           type="button"
         >
-          {loadingSuggestion ? "Processing..." : "Continue to preview"}
+          {loadingSuggestion ? t("imports.source.processing") : t("imports.source.continueToPreview")}
         </button>
       </div>
     </div>

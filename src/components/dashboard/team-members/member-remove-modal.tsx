@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 type MemberRemoveModalProps = {
   companyName: string;
   memberName: string;
@@ -15,6 +19,7 @@ export function MemberRemoveModal({
   onConfirm,
   onClose,
 }: Readonly<MemberRemoveModalProps>) {
+  const t = useTranslations();
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 px-4 py-8"
@@ -29,10 +34,10 @@ export function MemberRemoveModal({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-rose-600">
-              Remove member
+              {t("teamMembers.removeModal.eyebrow")}
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-              Remove {memberName}
+              {t("teamMembers.removeModal.title", { name: memberName })}
             </h2>
           </div>
           <button
@@ -41,22 +46,21 @@ export function MemberRemoveModal({
             onClick={onClose}
             type="button"
           >
-            Close
+            {t("common.close")}
           </button>
         </div>
 
         <p className="mt-5 text-sm leading-7 text-slate-700">
-          This will remove the selected team member from {companyName}. They will
-          lose access to this company workspace.
+          {t("teamMembers.removeModal.description", { company: companyName })}
         </p>
 
         <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-4">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-            Member
+            {t("teamMembers.member")}
           </p>
           <p className="mt-2 text-sm font-semibold text-slate-900">{memberName}</p>
           <p className="mt-1 break-all text-sm text-slate-600">
-            {memberEmail || "No email available"}
+            {memberEmail || t("teamMembers.noEmail")}
           </p>
         </div>
 
@@ -67,7 +71,7 @@ export function MemberRemoveModal({
             onClick={onConfirm}
             type="button"
           >
-            {saving ? "Removing..." : "Confirm remove"}
+            {saving ? t("teamMembers.removeModal.removing") : t("teamMembers.removeModal.confirm")}
           </button>
           <button
             className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950 disabled:opacity-50"
@@ -75,7 +79,7 @@ export function MemberRemoveModal({
             onClick={onClose}
             type="button"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
         </div>
       </div>

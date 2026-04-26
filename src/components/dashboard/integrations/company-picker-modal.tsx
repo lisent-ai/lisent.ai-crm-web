@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { hasCompanyPermissionInAccess } from "@/lib/auth/access-control";
@@ -29,6 +30,7 @@ export function CompanyPickerModal({
   onSelect,
   account,
 }: Readonly<Props>) {
+  const t = useTranslations();
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const firstFocusable = useRef<HTMLButtonElement | null>(null);
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -59,7 +61,7 @@ export function CompanyPickerModal({
         setErrorMessage(
           err instanceof CRMClientError
             ? err.message
-            : "Could not load companies",
+            : t("integrations.companyPicker.loadFailed"),
         );
       })
       .finally(() => {
@@ -106,17 +108,16 @@ export function CompanyPickerModal({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 id="company-picker-title" className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
-          Select a company
+          {t("integrations.companyPicker.title")}
         </h2>
         <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
-          Integrations live per company. Pick the workspace whose connections
-          you want to inspect.
+          {t("integrations.companyPicker.description")}
         </p>
 
         <div className="mt-6 min-h-0 flex-1 overflow-y-auto">
           {loading ? (
             <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-sm text-[var(--text-secondary)]">
-              Loading companies…
+              {t("integrations.companyPicker.loading")}
             </div>
           ) : errorMessage ? (
             <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] p-4 text-sm text-[var(--signal-red)]">
@@ -124,12 +125,14 @@ export function CompanyPickerModal({
             </div>
           ) : viewableCompanies.length === 0 ? (
             <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-sm text-[var(--text-secondary)]">
-              You don&apos;t belong to any companies yet. Create one from the{" "}
-              <span className="font-semibold text-[var(--text-primary)]">Companies</span> page,
-              or ask an owner to invite you.
+              {t.rich("integrations.companyPicker.empty", {
+                companies: (chunks) => (
+                  <span className="font-semibold text-[var(--text-primary)]">{chunks}</span>
+                ),
+              })}
             </div>
           ) : (
-            <ul className="grid gap-2" role="listbox" aria-label="Viewable companies">
+            <ul className="grid gap-2" role="listbox" aria-label={t("integrations.companyPicker.listAria")}>
               {viewableCompanies.map((c, idx) => (
                 <li key={c.companyId}>
                   <button
@@ -155,7 +158,7 @@ export function CompanyPickerModal({
             onClick={onClose}
             className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
         </footer>
       </div>

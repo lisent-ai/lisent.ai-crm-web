@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { CRMClientError, disconnectAIQualifier } from "@/lib/crm/client";
@@ -31,18 +32,31 @@ type Tab =
   | "v1-config"
   | "webhooks";
 
-const TAB_LABELS: Record<Tab, string> = {
-  overview: "Overview",
-  "lead-webhook": "Lead Webhook",
-  rag: "Knowledge Base (RAG)",
-  fallback: "Callback URL",
-  "ai-config": "AI Config",
-  channels: "Channels",
-  "api-keys": "API Keys",
-  usage: "Usage",
-  "v1-config": "Scoring Config (v1)",
-  webhooks: "Outbound Webhooks",
+const TAB_KEYS: Record<Tab, string> = {
+  overview: "integrations.qualifier.tabs.overview",
+  "lead-webhook": "integrations.qualifier.tabs.leadWebhook",
+  rag: "integrations.qualifier.tabs.rag",
+  fallback: "integrations.qualifier.tabs.fallback",
+  "ai-config": "integrations.qualifier.tabs.aiConfig",
+  channels: "integrations.qualifier.tabs.channels",
+  "api-keys": "integrations.qualifier.tabs.apiKeys",
+  usage: "integrations.qualifier.tabs.usage",
+  "v1-config": "integrations.qualifier.tabs.v1Config",
+  webhooks: "integrations.qualifier.tabs.webhooks",
 };
+
+const TAB_ORDER: Tab[] = [
+  "overview",
+  "lead-webhook",
+  "rag",
+  "fallback",
+  "ai-config",
+  "channels",
+  "api-keys",
+  "usage",
+  "v1-config",
+  "webhooks",
+];
 
 /**
  * Unified AI Lead Qualifier integration page.
@@ -55,6 +69,7 @@ const TAB_LABELS: Record<Tab, string> = {
  * lead detail + deal detail) lives in the leads / deals components.
  */
 export function AIQualifierPanel({ companyId, companyName, initialTab = "overview" }: Readonly<Props>) {
+  const t = useTranslations();
   const [tab, setTab] = useState<Tab>(initialTab);
 
   // When the URL changes (e.g. deep-link from Channels tab into Green API),
@@ -67,10 +82,10 @@ export function AIQualifierPanel({ companyId, companyName, initialTab = "overvie
     <section className="space-y-6">
       <div className="-mx-1 overflow-x-auto px-1 pb-1 sm:overflow-visible sm:p-0">
         <nav
-          aria-label="AI Qualifier sections"
+          aria-label={t("integrations.qualifier.navAria")}
           className="flex min-w-max gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-1 text-xs font-semibold sm:flex-wrap sm:min-w-0"
         >
-          {(Object.keys(TAB_LABELS) as Tab[]).map((key) => {
+          {TAB_ORDER.map((key) => {
             const active = tab === key;
             return (
               <button
@@ -84,7 +99,7 @@ export function AIQualifierPanel({ companyId, companyName, initialTab = "overvie
                     : "text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)]"
                 }`}
               >
-                {TAB_LABELS[key]}
+                {t(TAB_KEYS[key] as never)}
               </button>
             );
           })}
@@ -124,16 +139,13 @@ export function AIQualifierPanel({ companyId, companyName, initialTab = "overvie
 }
 
 function OverviewSection({ companyId, companyName }: { companyId: string; companyName: string }) {
+  const t = useTranslations();
   const router = useRouter();
   const [disconnecting, setDisconnecting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleDisconnect() {
-    if (!confirm(
-      "Disconnect AI Lead Qualifier from this company? " +
-      "Lead scoring chips and insights will disappear from Leads + Deals screens. " +
-      "Tokens, AI config, and historical AI metadata are kept — reconnecting brings everything back.",
-    )) {
+    if (!confirm(t("integrations.qualifier.disconnectConfirm"))) {
       return;
     }
     setDisconnecting(true);
@@ -148,7 +160,7 @@ function OverviewSection({ companyId, companyName }: { companyId: string; compan
       router.push(`/dashboard/integrations?${params.toString()}`);
     } catch (err) {
       setErrorMessage(
-        err instanceof CRMClientError ? err.message : "Disconnect failed",
+        err instanceof CRMClientError ? err.message : t("integrations.errors.disconnectFailed"),
       );
       setDisconnecting(false);
     }
@@ -160,15 +172,13 @@ function OverviewSection({ companyId, companyName }: { companyId: string; compan
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div className="min-w-0">
             <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--signal-green)]">
-              Connected
+              {t("integrations.status.connected")}
             </p>
             <p className="mt-1 font-semibold">
-              AI Lead Qualifier is live for this company.
+              {t("integrations.qualifier.liveLine")}
             </p>
             <p className="mt-1 text-xs leading-6 text-[var(--text-secondary)]">
-              Incoming leads get scored, AI chips + insights appear on the
-              Leads and Deals screens. Disconnect to hide them without
-              deleting data.
+              {t("integrations.qualifier.liveDescription")}
             </p>
           </div>
           <button
@@ -177,7 +187,7 @@ function OverviewSection({ companyId, companyName }: { companyId: string; compan
             disabled={disconnecting}
             className="self-start rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] disabled:opacity-50 sm:self-auto"
           >
-            {disconnecting ? "Disconnecting…" : "Disconnect"}
+            {disconnecting ? t("integrations.disconnecting") : t("integrations.disconnect")}
           </button>
         </div>
         {errorMessage ? (
@@ -186,110 +196,120 @@ function OverviewSection({ companyId, companyName }: { companyId: string; compan
           </p>
         ) : null}
       </div>
-      {renderOverviewBody()}
+      <OverviewBody />
     </>
   );
 }
 
-function renderOverviewBody() {
+function OverviewBody() {
+  const t = useTranslations();
+  const codeClass = "rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]";
+  const strongClass = "text-[var(--text-primary)]";
   return (
     <article className="space-y-5 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 text-sm leading-6 text-[var(--text-secondary)] sm:p-6">
       <div>
         <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
-          How the Qualifier is wired
+          {t("integrations.qualifier.overview.title")}
         </h2>
         <p className="mt-2">
-          AI Lead Qualifier is the scoring + chat brain for this company.
-          Leads enter from one or more input channels, a CHAMP-based scorer
-          runs, a chat agent converses if needed, and the result — AI score
-          + status + reasoning — is written back onto the CRM{" "}
-          <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">leads</code>{" "}
-          row (and appears in deal detail screens).
+          {t.rich("integrations.qualifier.overview.intro", {
+            code: (chunks) => <code className={codeClass}>{chunks}</code>,
+          })}
         </p>
       </div>
 
       <div>
-        <h3 className="font-semibold text-[var(--text-primary)]">Inputs</h3>
+        <h3 className="font-semibold text-[var(--text-primary)]">
+          {t("integrations.qualifier.overview.inputsTitle")}
+        </h3>
         <ul className="mt-2 grid gap-1.5">
           <li>
-            <strong className="text-[var(--text-primary)]">Lead Webhook</strong> — your form
-            platforms POST JSON here (Zapier / n8n / Facebook Lead Ads / custom).
+            {t.rich("integrations.qualifier.overview.inputsLeadWebhook", {
+              strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+            })}
           </li>
           <li>
-            <strong className="text-[var(--text-primary)]">Green API (WhatsApp)</strong> — incoming
-            WhatsApp messages auto-route into qualification chat.
+            {t.rich("integrations.qualifier.overview.inputsGreenApi", {
+              strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+            })}
           </li>
           <li>
-            <strong className="text-[var(--text-primary)]">Intranet</strong> — HMAC-signed inbound
-            webhook from your internal systems / ERP.
+            {t.rich("integrations.qualifier.overview.inputsIntranet", {
+              strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+            })}
           </li>
         </ul>
       </div>
 
       <div>
-        <h3 className="font-semibold text-[var(--text-primary)]">Tuning</h3>
+        <h3 className="font-semibold text-[var(--text-primary)]">
+          {t("integrations.qualifier.overview.tuningTitle")}
+        </h3>
         <ul className="mt-2 grid gap-1.5">
           <li>
-            <strong className="text-[var(--text-primary)]">RAG</strong> — upload documents the AI
-            should ground its answers on during chat.
+            {t.rich("integrations.qualifier.overview.tuningRag", {
+              strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+            })}
           </li>
           <li>
-            <strong className="text-[var(--text-primary)]">AI Config</strong> — threshold, handoff
-            aggressiveness, language, sector, forbidden topics.
+            {t.rich("integrations.qualifier.overview.tuningAiConfig", {
+              strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+            })}
           </li>
           <li>
-            <strong className="text-[var(--text-primary)]">Callback URL</strong> — where qualified
-            leads are forwarded for systems outside the CRM.
+            {t.rich("integrations.qualifier.overview.tuningCallback", {
+              strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+            })}
           </li>
         </ul>
       </div>
 
       <div>
-        <h3 className="font-semibold text-[var(--text-primary)]">Outputs</h3>
+        <h3 className="font-semibold text-[var(--text-primary)]">
+          {t("integrations.qualifier.overview.outputsTitle")}
+        </h3>
         <ul className="mt-2 grid gap-1.5">
           <li>
-            CRM{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">leads.ai_score</code>,{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">ai_status</code>,{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">ai_champ</code>,{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">ai_reasoning</code>,{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">ai_score_breakdown</code>{" "}
-            populated on every scoring cycle.
+            {t.rich("integrations.qualifier.overview.outputsFields", {
+              code: (chunks) => <code className={codeClass}>{chunks}</code>,
+            })}
           </li>
           <li>
-            Lead list shows an <em>AI Score</em> column + status badge;
-            lead / deal detail panels render an <em>AI Insights</em> block.
+            {t.rich("integrations.qualifier.overview.outputsLeadList", {
+              em: (chunks) => <em>{chunks}</em>,
+            })}
           </li>
           <li>
-            When <strong className="text-[var(--text-primary)]">Callback URL</strong> is set,
-            qualified leads are also POSTed to the external endpoint (retried with backoff).
+            {t.rich("integrations.qualifier.overview.outputsCallback", {
+              strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+            })}
           </li>
         </ul>
       </div>
 
       <p className="rounded-xl bg-[var(--surface-muted)] p-3 text-xs text-[var(--text-secondary)]">
-        Tip — start with{" "}
-        <strong className="text-[var(--text-primary)]">Lead Webhook</strong> +{" "}
-        <strong className="text-[var(--text-primary)]">AI Config</strong>. That&apos;s the minimum
-        viable install; everything else is additive.
+        {t.rich("integrations.qualifier.overview.tip", {
+          strong: (chunks) => <strong className={strongClass}>{chunks}</strong>,
+        })}
       </p>
     </article>
   );
 }
 
 function ChannelsSection({ companyId, companyName }: { companyId: string; companyName: string }) {
+  const t = useTranslations();
   const greenapiHref = `/dashboard/integrations/greenapi?company=${encodeURIComponent(companyId)}&companyName=${encodeURIComponent(companyName)}`;
   const intranetHref = `/dashboard/integrations/intranet?company=${encodeURIComponent(companyId)}&companyName=${encodeURIComponent(companyName)}`;
   return (
     <article className="grid gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:grid-cols-2 sm:p-6">
       <ChannelCard
-        title="WhatsApp (Green API)"
-        description="Incoming WhatsApp messages kick off qualification chat automatically."
+        title={t("integrations.qualifier.channels.whatsappTitle")}
+        description={t("integrations.qualifier.channels.whatsappDescription")}
         href={greenapiHref}
       />
       <ChannelCard
-        title="Intranet (HMAC inbound)"
-        description="HMAC-signed webhook from your own intranet / ERP → leads pipeline."
+        title={t("integrations.qualifier.channels.intranetTitle")}
+        description={t("integrations.qualifier.channels.intranetDescription")}
         href={intranetHref}
       />
     </article>

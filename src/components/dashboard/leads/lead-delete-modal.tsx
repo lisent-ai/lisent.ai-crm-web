@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import type { Lead } from "@/lib/crm/client";
 
 import { LeadModalFrame } from "./lead-modal-frame";
@@ -16,15 +18,16 @@ export function LeadDeleteModal({
   onClose,
   onConfirm,
 }: Readonly<LeadDeleteModalProps>) {
+  const t = useTranslations();
   return (
     <LeadModalFrame onClose={onClose}>
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-rose-700">
-            Delete lead
+            {t("leads.deleteModal.eyebrow")}
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
-            Remove {lead.name || "lead"}
+            {t("leads.deleteModal.title", { name: lead.name || t("leads.fallback.lead") })}
           </h2>
         </div>
         <button
@@ -33,18 +36,17 @@ export function LeadDeleteModal({
           onClick={onClose}
           type="button"
         >
-          Close
+          {t("common.close")}
         </button>
       </div>
 
       <p className="mt-5 text-sm leading-7 text-slate-700">
-        This permanently removes the selected lead from the pipeline. Customer and
-        deal records created from other conversions will stay untouched.
+        {t("leads.deleteModal.description")}
       </p>
 
       <div className="mt-5 rounded-[1.4rem] border border-slate-200 bg-slate-50 px-4 py-4">
         <p className="text-sm font-semibold text-slate-900">
-          {lead.name || "Unnamed lead"}
+          {lead.name || t("leads.fallback.unnamedLead")}
         </p>
         <p className="mt-1 text-sm text-slate-600">{formatSourceLabel(lead.source)}</p>
       </div>
@@ -56,7 +58,7 @@ export function LeadDeleteModal({
           onClick={onConfirm}
           type="button"
         >
-          {saving ? "Removing..." : "Confirm delete"}
+          {saving ? t("leads.deleteModal.removing") : t("leads.deleteModal.confirm")}
         </button>
         <button
           className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
@@ -64,7 +66,7 @@ export function LeadDeleteModal({
           onClick={onClose}
           type="button"
         >
-          Cancel
+          {t("common.cancel")}
         </button>
       </div>
     </LeadModalFrame>

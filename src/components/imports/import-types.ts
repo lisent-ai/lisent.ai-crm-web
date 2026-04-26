@@ -17,6 +17,7 @@ export type ImportProgress = {
 export type AvailableField = {
   name: string;
   description: string;
+  descriptionKey?: string;
 };
 
 export type StepMeta = {
@@ -25,4 +26,7 @@ export type StepMeta = {
   label: string;
   title: string;
   summary: string;
+  labelKey: string;
+  titleKey: string;
+  summaryKey: string;
 };

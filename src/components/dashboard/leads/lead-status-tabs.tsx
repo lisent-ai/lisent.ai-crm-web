@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import type { LeadStatus } from "@/lib/crm/client";
 
 import { leadStatuses } from "./lead-types";
@@ -17,16 +19,6 @@ type LeadStatusTabsProps = {
   assignedToMeDisabled?: boolean;
 };
 
-const LABELS: Record<string, string> = {
-  all: "All",
-  assigned_to_me: "Assigned to me",
-  new: "New",
-  contacted: "Contacted",
-  qualified: "Qualified",
-  lost: "Lost",
-  converted: "Converted",
-};
-
 export function LeadStatusTabs({
   value,
   onChange,
@@ -35,23 +27,24 @@ export function LeadStatusTabs({
   assignedToMeCount,
   assignedToMeDisabled = false,
 }: Readonly<LeadStatusTabsProps>) {
+  const t = useTranslations();
   const options: StatusTabOption[] = [
-    { value: "all", label: LABELS.all ?? "All", count: totalCount },
+    { value: "all", label: t("leads.statusTab.all"), count: totalCount },
     {
       value: "assigned_to_me",
-      label: LABELS.assigned_to_me ?? "Assigned to me",
+      label: t("leads.statusTab.assignedToMe"),
       count: assignedToMeCount,
     },
     ...leadStatuses.map((status) => ({
       value: status,
-      label: LABELS[status] ?? status,
+      label: t(`leads.status.${status}`),
       count: counts.find((c) => c.status === status)?.count ?? 0,
     })),
   ];
 
   return (
     <div
-      aria-label="Filter leads by status"
+      aria-label={t("leads.statusTab.filterAria")}
       className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto"
       role="tablist"
     >

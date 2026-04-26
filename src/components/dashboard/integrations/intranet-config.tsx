@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import {
@@ -47,6 +48,7 @@ const DEFAULT_FIELD_MAPPING = JSON.stringify(
  * issues without pulling server logs.
  */
 export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
+  const t = useTranslations();
   const [config, setConfig] = useState<IntranetConfig | null>(null);
   const [deliveries, setDeliveries] = useState<IntranetDelivery[]>([]);
   const [loading, setLoading] = useState(true);
@@ -84,12 +86,12 @@ export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
         setAuthMode(next.authMode);
       }
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Could not load config");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.intranet.loadFailed"));
     } finally {
       setLoading(false);
     }
     await refreshDeliveries();
-  }, [companyId, refreshDeliveries]);
+  }, [companyId, refreshDeliveries, t]);
 
   useEffect(() => {
     void load();
@@ -102,10 +104,10 @@ export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
         setMappingError(null);
         return parsed as Record<string, unknown>;
       }
-      setMappingError("field_mapping must be a JSON object");
+      setMappingError(t("integrations.intranet.mappingMustBeObject"));
       return null;
     } catch (err) {
-      setMappingError(err instanceof Error ? err.message : "invalid JSON");
+      setMappingError(err instanceof Error ? err.message : t("integrations.intranet.invalidJson"));
       return null;
     }
   }
@@ -125,7 +127,7 @@ export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
           authMode,
         });
         setConfig(next);
-        setSuccessMessage("Saved.");
+        setSuccessMessage(t("integrations.intranet.saved"));
       } else {
         const result = await upsertIntranetIntegration(companyId, {
           fieldMapping: mapping,
@@ -135,19 +137,17 @@ export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
         setConfig(result.integration);
         if (result.hmacSecretPlain) setRevealedSecret(result.hmacSecretPlain);
         if (result.bearerTokenPlain) setRevealedBearer(result.bearerTokenPlain);
-        setSuccessMessage(
-          "Integration created. Copy the HMAC secret and bearer token now — they won't be shown again.",
-        );
+        setSuccessMessage(t("integrations.intranet.createdMessage"));
       }
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Save failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.saveFailed"));
     } finally {
       setSaving(false);
     }
   }
 
   async function handleRotateToken() {
-    if (!confirm("Rotate inbound token?")) return;
+    if (!confirm(t("integrations.intranet.rotateTokenConfirm"))) return;
     setRotating(true);
     setErrorMessage(null);
     try {
@@ -164,26 +164,26 @@ export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
       );
       setSuccessMessage(r.rotationNotice);
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Rotate failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.rotateFailed"));
     } finally {
       setRotating(false);
     }
   }
 
   async function handleRevokeToken() {
-    if (!confirm("Revoke secondary token?")) return;
+    if (!confirm(t("integrations.intranet.revokeSecondaryTokenConfirm"))) return;
     setErrorMessage(null);
     try {
       await revokeIntranetSecondaryToken(companyId);
       setConfig((prev) => (prev ? { ...prev, tokenSecondary: null } : prev));
-      setSuccessMessage("Secondary token revoked.");
+      setSuccessMessage(t("integrations.intranet.secondaryTokenRevoked"));
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Revoke failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.revokeFailed"));
     }
   }
 
   async function handleRotateSecret() {
-    if (!confirm("Rotate HMAC secret? A new one will be revealed once and the old one becomes secondary.")) return;
+    if (!confirm(t("integrations.intranet.rotateSecretConfirm"))) return;
     setRotating(true);
     setErrorMessage(null);
     try {
@@ -200,26 +200,26 @@ export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
       );
       setSuccessMessage(r.rotationNotice);
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Rotate failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.rotateFailed"));
     } finally {
       setRotating(false);
     }
   }
 
   async function handleRevokeSecret() {
-    if (!confirm("Revoke secondary HMAC secret?")) return;
+    if (!confirm(t("integrations.intranet.revokeSecretConfirm"))) return;
     setErrorMessage(null);
     try {
       await revokeIntranetSecondarySecret(companyId);
       setConfig((prev) => (prev ? { ...prev, hmacSecretSecondaryMasked: null } : prev));
-      setSuccessMessage("Secondary HMAC secret revoked.");
+      setSuccessMessage(t("integrations.intranet.secondarySecretRevoked"));
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Revoke failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.revokeFailed"));
     }
   }
 
   async function handleRotateBearer() {
-    if (!confirm("Rotate bearer token? A new one will be revealed once and the old one becomes secondary.")) return;
+    if (!confirm(t("integrations.intranet.rotateBearerConfirm"))) return;
     setRotating(true);
     setErrorMessage(null);
     try {
@@ -236,34 +236,34 @@ export function IntranetConfigPanel({ companyId }: Readonly<Props>) {
       );
       setSuccessMessage(r.rotationNotice);
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Rotate failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.rotateFailed"));
     } finally {
       setRotating(false);
     }
   }
 
   async function handleRevokeBearer() {
-    if (!confirm("Revoke secondary bearer token?")) return;
+    if (!confirm(t("integrations.intranet.revokeBearerConfirm"))) return;
     setErrorMessage(null);
     try {
       await revokeIntranetSecondaryBearer(companyId);
       setConfig((prev) => (prev ? { ...prev, bearerTokenSecondaryMasked: null } : prev));
-      setSuccessMessage("Secondary bearer token revoked.");
+      setSuccessMessage(t("integrations.intranet.secondaryBearerRevoked"));
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Revoke failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.revokeFailed"));
     }
   }
 
   async function handleDisconnect() {
-    if (!confirm("Disconnect the Intranet integration? All tokens will stop working.")) return;
+    if (!confirm(t("integrations.intranet.disconnectConfirm"))) return;
     setErrorMessage(null);
     try {
       await disconnectIntranetIntegration(companyId);
       setConfig(null);
-      setSuccessMessage("Disconnected.");
+      setSuccessMessage(t("integrations.disconnected"));
       setRevealedSecret(null);
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Disconnect failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.disconnectFailed"));
     }
   }
 
@@ -298,7 +298,7 @@ curl -X POST "${config.inboundUrl}" \\
   if (loading) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
-        Loading intranet config…
+        {t("integrations.intranet.loading")}
       </section>
     );
   }
@@ -311,10 +311,10 @@ curl -X POST "${config.inboundUrl}" \\
           <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--accent-strong)]">
-                Inbound URL
+                {t("integrations.intranet.inboundUrl")}
               </p>
               <h2 className="mt-1 text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
-                Send your intranet payloads here
+                {t("integrations.intranet.sendPayloads")}
               </h2>
             </div>
             <span
@@ -324,7 +324,7 @@ curl -X POST "${config.inboundUrl}" \\
                   : "border-[var(--border-subtle)] bg-[var(--surface)] text-[var(--text-tertiary)]"
               }`}
             >
-              {config.isActive ? "Active" : "Inactive"}
+              {config.isActive ? t("integrations.intranet.active") : t("integrations.intranet.inactive")}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -336,22 +336,25 @@ curl -X POST "${config.inboundUrl}" \\
               className="shrink-0 rounded-full border border-[color-mix(in_srgb,_var(--accent)_30%,_transparent)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-strong)] transition hover:bg-[var(--accent-soft)]"
               onClick={() => {
                 void navigator.clipboard.writeText(config.inboundUrl);
-                setSuccessMessage("URL copied");
+                setSuccessMessage(t("integrations.intranet.urlCopied"));
               }}
             >
-              Copy URL
+              {t("integrations.intranet.copyUrl")}
             </button>
           </div>
           <p className="mt-3 text-xs text-[var(--text-secondary)]">
-            HMAC-signed or Bearer-token; dual-active rotation. 1 MiB body cap.
-            Idempotency via{" "}
-            <code className="rounded bg-[var(--surface)] px-1 font-mono text-[var(--text-primary)]">X-Idempotency-Key</code>.
+            {t.rich("integrations.intranet.inboundDescription", {
+              code: (chunks) => (
+                <code className="rounded bg-[var(--surface)] px-1 font-mono text-[var(--text-primary)]">
+                  {chunks}
+                </code>
+              ),
+            })}
           </p>
         </article>
       ) : (
         <article className="rounded-3xl border border-dashed border-[var(--border-default)] bg-[var(--surface)] p-5 text-sm text-[var(--text-secondary)] sm:p-6">
-          No integration yet. Configure the field mapping below and save to
-          create the webhook.
+          {t("integrations.intranet.noIntegration")}
         </article>
       )}
 
@@ -360,21 +363,25 @@ curl -X POST "${config.inboundUrl}" \\
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
           <header className="mb-4">
             <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
-              Configuration
+              {t("integrations.intranet.configurationTitle")}
             </h2>
           </header>
           <dl className="grid gap-3 sm:grid-cols-2">
-            <KV label="Auth mode" value={authModeLabel(config.authMode)} />
-            <KV label="Target" value={config.targetEntity} />
+            <KV label={t("integrations.intranet.authMode")} value={authModeLabel(t, config.authMode)} />
+            <KV label={t("integrations.intranet.target")} value={config.targetEntity} />
             <KV
-              label="Deliveries"
-              value={`${config.deliveryCountSuccess} ok · ${config.deliveryCountFailed} fail · ${config.deliveryCountTotal} total`}
+              label={t("integrations.intranet.deliveries")}
+              value={t("integrations.intranet.deliveriesValue", {
+                ok: config.deliveryCountSuccess,
+                fail: config.deliveryCountFailed,
+                total: config.deliveryCountTotal,
+              })}
             />
             <KV
-              label="Last delivery"
+              label={t("integrations.intranet.lastDelivery")}
               value={
                 config.lastDeliveryAt
-                  ? `${config.lastDeliveryStatus ?? "unknown"} · ${new Date(config.lastDeliveryAt).toLocaleString()}`
+                  ? `${config.lastDeliveryStatus ?? t("integrations.intranet.unknown")} · ${new Date(config.lastDeliveryAt).toLocaleString()}`
                   : "—"
               }
             />
@@ -387,43 +394,55 @@ curl -X POST "${config.inboundUrl}" \\
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
           <header className="mb-4">
             <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
-              Credentials
+              {t("integrations.intranet.credentialsTitle")}
             </h2>
             <p className="mt-1 text-sm text-[var(--text-secondary)]">
-              Each credential type can be rotated independently. Old values
-              stay valid as <em>secondary</em> until you revoke them — gives
-              your sender a grace window to redeploy.
+              {t.rich("integrations.intranet.credentialsDescription", {
+                em: (chunks) => <em>{chunks}</em>,
+              })}
             </p>
           </header>
           <div className="grid gap-3">
             <CredentialBlock
-              label="Inbound token"
-              hint="Path-bound token, included in the URL above."
+              label={t("integrations.intranet.inboundToken")}
+              hint={t("integrations.intranet.inboundTokenHint")}
               primary={config.tokenPrimary}
               secondary={config.tokenSecondary}
-              rotateLabel={config.tokenPrimary ? "Rotate token" : "Generate token"}
+              rotateLabel={
+                config.tokenPrimary
+                  ? t("integrations.intranet.rotateToken")
+                  : t("integrations.intranet.generateToken")
+              }
               onRotate={handleRotateToken}
               onRevoke={handleRevokeToken}
               rotating={rotating}
               mono
             />
             <CredentialBlock
-              label="HMAC secret"
-              hint="Sign request bodies with sha256(secret, body) and pass it as X-Intranet-Signature."
+              label={t("integrations.intranet.hmacSecret")}
+              hint={t("integrations.intranet.hmacSecretHint")}
               primary={config.hmacSecretPrimaryMasked}
               secondary={config.hmacSecretSecondaryMasked}
-              rotateLabel={config.hmacSecretPrimaryMasked ? "Rotate HMAC secret" : "Generate HMAC secret"}
+              rotateLabel={
+                config.hmacSecretPrimaryMasked
+                  ? t("integrations.intranet.rotateHmac")
+                  : t("integrations.intranet.generateHmac")
+              }
               onRotate={handleRotateSecret}
               onRevoke={handleRevokeSecret}
               rotating={rotating}
               mono
             />
             <CredentialBlock
-              label="Bearer token"
-              hint="Static token sent as Authorization: Bearer …"
+              label={t("integrations.intranet.bearerToken")}
+              hint={t("integrations.intranet.bearerTokenHint")}
               primary={config.bearerTokenPrimaryMasked}
               secondary={config.bearerTokenSecondaryMasked}
-              rotateLabel={config.bearerTokenPrimaryMasked ? "Rotate bearer token" : "Mint bearer token"}
+              rotateLabel={
+                config.bearerTokenPrimaryMasked
+                  ? t("integrations.intranet.rotateBearer")
+                  : t("integrations.intranet.mintBearer")
+              }
               onRotate={handleRotateBearer}
               onRevoke={handleRevokeBearer}
               rotating={rotating}
@@ -435,17 +454,23 @@ curl -X POST "${config.inboundUrl}" \\
 
       {revealedSecret ? (
         <RevealPanel
-          label="New HMAC secret (shown only once)"
+          label={t("integrations.intranet.revealedHmacLabel")}
           value={revealedSecret}
-          onCopyMessage={() => setSuccessMessage("HMAC secret copied")}
+          copyLabel={t("integrations.copy")}
+          dismissLabel={t("integrations.intranet.dismiss")}
+          description={t("integrations.intranet.revealDescription")}
+          onCopyMessage={() => setSuccessMessage(t("integrations.intranet.hmacCopied"))}
           onDismiss={() => setRevealedSecret(null)}
         />
       ) : null}
       {revealedBearer ? (
         <RevealPanel
-          label="New bearer token (shown only once)"
+          label={t("integrations.intranet.revealedBearerLabel")}
           value={revealedBearer}
-          onCopyMessage={() => setSuccessMessage("Bearer token copied")}
+          copyLabel={t("integrations.copy")}
+          dismissLabel={t("integrations.intranet.dismiss")}
+          description={t("integrations.intranet.revealDescription")}
+          onCopyMessage={() => setSuccessMessage(t("integrations.intranet.bearerCopied"))}
           onDismiss={() => setRevealedBearer(null)}
         />
       ) : null}
@@ -454,23 +479,23 @@ curl -X POST "${config.inboundUrl}" \\
       <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
           <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
-            Field mapping
+            {t("integrations.intranet.fieldMappingTitle")}
           </h2>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            JMESPath expressions evaluated against{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">{`{event, payload}`}</code>.
-            Nested{" "}
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">extra_data</code>{" "}
-            is supported. Leave the editor empty (
-            <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">{"{}"}</code>) to
-            let the Groq LLM auto-suggest a mapping from the first incoming payload.
+            {t.rich("integrations.intranet.fieldMappingDescription", {
+              code: (chunks) => (
+                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
+                  {chunks}
+                </code>
+              ),
+            })}
           </p>
         </header>
 
         <form onSubmit={handleSave} className="grid gap-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="grid gap-1 text-sm">
-              <span className="font-semibold text-[var(--text-secondary)]">Target entity</span>
+              <span className="font-semibold text-[var(--text-secondary)]">{t("integrations.intranet.targetEntity")}</span>
               <select
                 value={targetEntity}
                 onChange={(e) => setTargetEntity(e.target.value as "lead" | "customer")}
@@ -481,29 +506,31 @@ curl -X POST "${config.inboundUrl}" \\
               </select>
             </label>
             <label className="grid gap-1 text-sm">
-              <span className="font-semibold text-[var(--text-secondary)]">Auth mode</span>
+              <span className="font-semibold text-[var(--text-secondary)]">{t("integrations.intranet.authMode")}</span>
               <select
                 value={authMode}
                 onChange={(e) => setAuthMode(e.target.value as IntranetAuthMode)}
                 className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
               >
-                <option value="hmac_or_bearer">HMAC or Bearer (both accepted)</option>
-                <option value="bearer">Bearer only (static header)</option>
-                <option value="hmac">HMAC only (body signature)</option>
+                <option value="hmac_or_bearer">{t("integrations.intranet.authHmacOrBearer")}</option>
+                <option value="bearer">{t("integrations.intranet.authBearer")}</option>
+                <option value="hmac">{t("integrations.intranet.authHmac")}</option>
               </select>
               <span className="text-xs text-[var(--text-tertiary)]">
-                Bearer = paste a static{" "}
-                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">Authorization: Bearer …</code>{" "}
-                header. HMAC = compute{" "}
-                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">sha256(secret, body)</code>{" "}
-                per request.
+                {t.rich("integrations.intranet.authModeHint", {
+                  code: (chunks) => (
+                    <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
+                      {chunks}
+                    </code>
+                  ),
+                })}
               </span>
             </label>
           </div>
 
           <label className="grid gap-1 text-sm">
             <span className="font-semibold text-[var(--text-secondary)]">
-              field_mapping (JSON)
+              {t("integrations.intranet.fieldMappingLabel")}
             </span>
             <textarea
               value={mappingText}
@@ -523,7 +550,11 @@ curl -X POST "${config.inboundUrl}" \\
               disabled={saving}
               className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
             >
-              {saving ? "Saving…" : config ? "Save mapping" : "Create integration"}
+              {saving
+                ? t("common.saving")
+                : config
+                  ? t("integrations.intranet.saveMapping")
+                  : t("integrations.intranet.createIntegration")}
             </button>
           </div>
         </form>
@@ -534,13 +565,13 @@ curl -X POST "${config.inboundUrl}" \\
         <article className="grid gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
           <header>
             <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
-              Request examples
+              {t("integrations.intranet.requestExamples")}
             </h2>
           </header>
           {showBearerSnippet ? (
             <div className="grid gap-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
-                Bearer (simplest — paste-and-go)
+                {t("integrations.intranet.bearerExampleTitle")}
               </span>
               <pre className="max-h-80 overflow-auto rounded-2xl bg-[var(--text-primary)] p-4 font-mono text-xs leading-relaxed text-[var(--surface)]">
                 {bearerSnippet}
@@ -550,7 +581,7 @@ curl -X POST "${config.inboundUrl}" \\
           {showHmacSnippet ? (
             <div className="grid gap-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
-                HMAC (body-signed — tamper-proof)
+                {t("integrations.intranet.hmacExampleTitle")}
               </span>
               <pre className="max-h-80 overflow-auto rounded-2xl bg-[var(--text-primary)] p-4 font-mono text-xs leading-relaxed text-[var(--surface)]">
                 {hmacSnippet}
@@ -565,18 +596,18 @@ curl -X POST "${config.inboundUrl}" \\
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
           <header className="mb-4 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
-              Recent deliveries
+              {t("integrations.intranet.recentDeliveries")}
             </h2>
             <button
               type="button"
               className="shrink-0 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
               onClick={() => void refreshDeliveries()}
             >
-              Refresh
+              {t("integrations.refresh")}
             </button>
           </header>
           {deliveries.length === 0 ? (
-            <p className="text-sm text-[var(--text-tertiary)]">No deliveries yet.</p>
+            <p className="text-sm text-[var(--text-tertiary)]">{t("integrations.intranet.noDeliveries")}</p>
           ) : (
             <ul className="grid gap-2">
               {deliveries.map((d) => (
@@ -593,16 +624,16 @@ curl -X POST "${config.inboundUrl}" \\
                     </span>
                   </span>
                   {d.eventType ? (
-                    <span className="text-[var(--text-secondary)]">event: {d.eventType}</span>
+                    <span className="text-[var(--text-secondary)]">{t("integrations.intranet.eventLabel")}: {d.eventType}</span>
                   ) : null}
                   {d.mappedEntityId ? (
                     <span className="break-all font-mono text-[var(--text-secondary)]">
-                      entity: {d.mappedEntityId}
+                      {t("integrations.intranet.entityLabel")}: {d.mappedEntityId}
                     </span>
                   ) : null}
                   {d.errorMessage ? (
                     <span className="break-words text-[var(--signal-red)]">
-                      error: {d.errorMessage}
+                      {t("integrations.intranet.errorLabel")}: {d.errorMessage}
                     </span>
                   ) : null}
                 </li>
@@ -618,11 +649,10 @@ curl -X POST "${config.inboundUrl}" \\
           <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <div className="min-w-0">
               <h2 className="text-base font-semibold tracking-tight text-[var(--signal-red)] sm:text-lg">
-                Disconnect
+                {t("integrations.disconnect")}
               </h2>
               <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                Removes all tokens and stops accepting inbound payloads. Field
-                mapping is kept so reconnecting later restores it.
+                {t("integrations.intranet.disconnectDescription")}
               </p>
             </div>
             <button
@@ -630,7 +660,7 @@ curl -X POST "${config.inboundUrl}" \\
               onClick={handleDisconnect}
               className="shrink-0 rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))]"
             >
-              Disconnect integration
+              {t("integrations.intranet.disconnectIntegration")}
             </button>
           </div>
         </article>
@@ -688,6 +718,7 @@ function CredentialBlock({
   rotating: boolean;
   mono?: boolean;
 }>) {
+  const t = useTranslations();
   const valueClass = `mt-1 break-all text-[var(--text-primary)] ${mono ? "font-mono text-xs" : "text-sm"}`;
   return (
     <section className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4">
@@ -703,7 +734,7 @@ function CredentialBlock({
             disabled={rotating}
             className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
           >
-            {rotating ? "Working…" : rotateLabel}
+            {rotating ? t("integrations.working") : rotateLabel}
           </button>
           {secondary ? (
             <button
@@ -711,7 +742,7 @@ function CredentialBlock({
               onClick={onRevoke}
               className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-3 py-1.5 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
             >
-              Revoke secondary
+              {t("integrations.revokeSecondary")}
             </button>
           ) : null}
         </div>
@@ -719,13 +750,13 @@ function CredentialBlock({
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <div className="min-w-0">
           <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
-            Primary
+            {t("integrations.primary")}
           </span>
           <div className={valueClass}>{primary || "—"}</div>
         </div>
         <div className="min-w-0">
           <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--text-tertiary)]">
-            Secondary <span className="font-normal text-[var(--text-muted)]">(rotation window)</span>
+            {t("integrations.secondary")} <span className="font-normal text-[var(--text-muted)]">{t("integrations.rotationWindow")}</span>
           </span>
           <div className={valueClass}>{secondary || "—"}</div>
         </div>
@@ -734,35 +765,38 @@ function CredentialBlock({
   );
 }
 
-function authModeLabel(mode: IntranetAuthMode): string {
+function authModeLabel(t: ReturnType<typeof useTranslations>, mode: IntranetAuthMode): string {
   switch (mode) {
     case "hmac":
-      return "HMAC only";
+      return t("integrations.intranet.authHmacShort" as never);
     case "bearer":
-      return "Bearer only";
+      return t("integrations.intranet.authBearerShort" as never);
     case "hmac_or_bearer":
-      return "HMAC or Bearer";
+      return t("integrations.intranet.authBothShort" as never);
   }
 }
 
 function RevealPanel({
   label,
   value,
+  copyLabel,
+  dismissLabel,
+  description,
   onCopyMessage,
   onDismiss,
 }: {
   label: string;
   value: string;
+  copyLabel: string;
+  dismissLabel: string;
+  description: string;
   onCopyMessage: () => void;
   onDismiss: () => void;
 }) {
   return (
     <article className="rounded-3xl border border-[color-mix(in_srgb,_var(--signal-amber)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] p-5 sm:p-6">
       <h3 className="text-sm font-semibold tracking-tight text-[var(--signal-amber)]">{label}</h3>
-      <p className="mt-1 text-xs text-[var(--text-secondary)]">
-        Copy it now. The Integrations Hub only stores the hash — you can regenerate but
-        not re-reveal.
-      </p>
+      <p className="mt-1 text-xs text-[var(--text-secondary)]">{description}</p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
         <code className="flex-1 overflow-x-auto whitespace-nowrap rounded-xl bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]">
           {value}
@@ -776,14 +810,14 @@ function RevealPanel({
             }}
             className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--signal-amber)] transition hover:bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))]"
           >
-            Copy
+            {copyLabel}
           </button>
           <button
             type="button"
             onClick={onDismiss}
             className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--signal-amber)] transition hover:bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))]"
           >
-            Dismiss
+            {dismissLabel}
           </button>
         </div>
       </div>

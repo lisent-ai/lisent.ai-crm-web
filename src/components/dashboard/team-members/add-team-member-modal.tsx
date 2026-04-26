@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 import { X } from "lucide-react";
 
 import { getCompanyRoleLabel, type CompanyRole } from "@/lib/auth/roles";
@@ -23,6 +24,7 @@ export function AddTeamMemberModal({
   onSubmit,
   onClose,
 }: Readonly<AddTeamMemberModalProps>) {
+  const t = useTranslations();
   const [email, setEmail] = useState("");
   const [role, setRole] = useState<CompanyRole>(
     assignableRoles.find((r) => r !== "owner") ?? assignableRoles[0] ?? "member",
@@ -67,14 +69,16 @@ export function AddTeamMemberModal({
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="text-lg font-semibold text-[var(--text-primary)]">
-              Add team member
+              {t("teamMembers.addModal.title")}
             </h2>
             <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-              Invite someone to {companyName || "this workspace"} by email.
+              {t("teamMembers.addModal.description", {
+                company: companyName || t("teamMembers.thisWorkspace"),
+              })}
             </p>
           </div>
           <button
-            aria-label="Close"
+            aria-label={t("common.close")}
             className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
             onClick={onClose}
             type="button"
@@ -86,13 +90,13 @@ export function AddTeamMemberModal({
         <form className="mt-5 grid gap-4" onSubmit={handleSubmit}>
           <label className="grid gap-1.5">
             <span className="text-xs font-medium uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
-              Email address
+              {t("teamMembers.fields.email")}
             </span>
             <input
               autoFocus
               className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--text-primary)] outline-none transition placeholder:text-[var(--text-muted)] focus:border-[var(--border-strong)]"
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="teammate@company.com"
+              placeholder={t("teamMembers.placeholders.email")}
               required
               type="email"
               value={email}
@@ -101,7 +105,7 @@ export function AddTeamMemberModal({
 
           <label className="grid gap-1.5">
             <span className="text-xs font-medium uppercase tracking-[0.14em] text-[var(--text-tertiary)]">
-              Role
+              {t("teamMembers.fields.role")}
             </span>
             <select
               className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2.5 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--border-strong)]"
@@ -128,14 +132,14 @@ export function AddTeamMemberModal({
               onClick={onClose}
               type="button"
             >
-              Cancel
+              {t("common.cancel")}
             </button>
             <button
               className="inline-flex h-10 items-center justify-center rounded-full bg-[var(--text-primary)] px-5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-50"
               disabled={saving || !email.trim() || assignableRoles.length === 0}
               type="submit"
             >
-              {saving ? "Sending…" : "Add member"}
+              {saving ? t("teamMembers.addModal.sending") : t("teamMembers.addModal.submit")}
             </button>
           </div>
         </form>

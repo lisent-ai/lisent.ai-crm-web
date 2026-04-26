@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import {
@@ -25,6 +26,7 @@ type Props = {
  * plaintext token — status shows a masked view only.
  */
 export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
+  const t = useTranslations();
   const [integration, setIntegration] = useState<GreenAPIIntegration | null>(null);
   const [loading, setLoading] = useState(true);
   const [idInstance, setIdInstance] = useState("");
@@ -48,12 +50,12 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
       }
     } catch (err) {
       setErrorMessage(
-        err instanceof CRMClientError ? err.message : "Could not load GreenAPI config",
+        err instanceof CRMClientError ? err.message : t("integrations.greenapi.loadFailed"),
       );
     } finally {
       setLoading(false);
     }
-  }, [companyId]);
+  }, [companyId, t]);
 
   useEffect(() => {
     void load();
@@ -72,10 +74,10 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
       });
       setIntegration(next);
       setApiToken("");
-      setSuccessMessage("Credentials saved. Token stored encrypted.");
+      setSuccessMessage(t("integrations.greenapi.credentialsSaved"));
     } catch (err) {
       setErrorMessage(
-        err instanceof CRMClientError ? err.message : "Save failed",
+        err instanceof CRMClientError ? err.message : t("integrations.errors.saveFailed"),
       );
     } finally {
       setSaving(false);
@@ -91,7 +93,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
       setTestResult(result);
     } catch (err) {
       setErrorMessage(
-        err instanceof CRMClientError ? err.message : "Test connection failed",
+        err instanceof CRMClientError ? err.message : t("integrations.greenapi.testFailed"),
       );
     } finally {
       setTesting(false);
@@ -99,7 +101,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
   }
 
   async function handleRotateWebhookToken() {
-    if (!confirm("Webhook token'ını rotate et? Green API konsolundaki URL'yi güncellemen gerekecek; yoksa gelen WhatsApp mesajları 'unauthorized' olarak işaretlenir.")) {
+    if (!confirm(t("integrations.greenapi.rotateConfirm"))) {
       return;
     }
     setRotating(true);
@@ -108,9 +110,9 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
     try {
       const next = await rotateGreenAPIWebhookToken(companyId);
       setIntegration(next);
-      setSuccessMessage("Webhook token yenilendi. Yeni URL'yi Green API konsoluna yapıştır.");
+      setSuccessMessage(t("integrations.greenapi.tokenRotated"));
     } catch (err) {
-      setErrorMessage(err instanceof CRMClientError ? err.message : "Rotate failed");
+      setErrorMessage(err instanceof CRMClientError ? err.message : t("integrations.errors.rotateFailed"));
     } finally {
       setRotating(false);
     }
@@ -120,14 +122,14 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
     if (!integration?.webhookUrl) return;
     try {
       await navigator.clipboard.writeText(integration.webhookUrl);
-      setSuccessMessage("Webhook URL kopyalandı.");
+      setSuccessMessage(t("integrations.greenapi.urlCopied"));
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : "Copy failed");
+      setErrorMessage(err instanceof Error ? err.message : t("integrations.errors.copyFailed"));
     }
   }
 
   async function handleDisconnect() {
-    if (!confirm("Disconnect GreenAPI for this company? Incoming WhatsApp messages will stop routing until reconnected.")) {
+    if (!confirm(t("integrations.greenapi.disconnectConfirm"))) {
       return;
     }
     setDeleting(true);
@@ -137,11 +139,11 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
       setIntegration(null);
       setIdInstance("");
       setApiToken("");
-      setSuccessMessage("Disconnected.");
+      setSuccessMessage(t("integrations.disconnected"));
       setTestResult(null);
     } catch (err) {
       setErrorMessage(
-        err instanceof CRMClientError ? err.message : "Disconnect failed",
+        err instanceof CRMClientError ? err.message : t("integrations.errors.disconnectFailed"),
       );
     } finally {
       setDeleting(false);
@@ -151,7 +153,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
   if (loading) {
     return (
       <section className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-tertiary)]">
-        Loading GreenAPI config…
+        {t("integrations.greenapi.loading")}
       </section>
     );
   }
@@ -166,24 +168,23 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
           <header className="mb-3 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-start">
             <div className="min-w-0">
               <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
-                Green API&apos;ye yapıştırman gereken Webhook URL
+                {t("integrations.greenapi.webhookSectionTitle")}
               </h2>
               <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                Green API konsolu →{" "}
-                <span className="font-semibold text-[var(--text-primary)]">Settings → Notifications</span>
-                {" "}bölümündeki{" "}
-                <span className="font-semibold text-[var(--text-primary)]">Webhooks URL</span>{" "}
-                alanına aşağıdaki URL&apos;yi yapıştır.{" "}
-                <span className="font-semibold text-[var(--text-primary)]">Incoming messages</span>,{" "}
-                <span className="font-semibold text-[var(--text-primary)]">Incoming message statuses</span>{" "}
-                bildirimlerini aç (notification 1 ve 2). Token URL&apos;nin{" "}
-                <code className="rounded bg-[var(--surface)] px-1 font-mono text-[var(--text-primary)]">?token=</code>{" "}
-                parametresinde yerleşik; Green API özel header gönderemediği için URL-bağlı shared
-                secret kullanıyoruz.
+                {t.rich("integrations.greenapi.webhookSectionDescription", {
+                  strong: (chunks) => (
+                    <span className="font-semibold text-[var(--text-primary)]">{chunks}</span>
+                  ),
+                  code: (chunks) => (
+                    <code className="rounded bg-[var(--surface)] px-1 font-mono text-[var(--text-primary)]">
+                      {chunks}
+                    </code>
+                  ),
+                })}
               </p>
             </div>
             <span className="shrink-0 rounded-full border border-[color-mix(in_srgb,_var(--accent)_30%,_transparent)] bg-[var(--surface)] px-3 py-1 text-xs font-semibold text-[var(--accent-strong)]">
-              Inbound
+              {t("integrations.greenapi.inbound")}
             </span>
           </header>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -196,7 +197,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
                 onClick={handleCopyWebhookUrl}
                 className="rounded-full border border-[color-mix(in_srgb,_var(--accent)_30%,_transparent)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-strong)] transition hover:bg-[var(--accent-soft)]"
               >
-                Kopyala
+                {t("integrations.copy")}
               </button>
               <button
                 type="button"
@@ -204,25 +205,29 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
                 disabled={rotating}
                 className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
               >
-                {rotating ? "Rotating…" : "Rotate token"}
+                {rotating ? t("integrations.rotating") : t("integrations.rotateToken")}
               </button>
             </div>
           </div>
           {integration.webhookUrlToken ? (
             <p className="mt-3 font-mono text-xs text-[var(--text-secondary)]">
-              token prefix: {integration.webhookUrlToken.slice(0, 12)}…
+              {t("integrations.greenapi.tokenPrefix")}: {integration.webhookUrlToken.slice(0, 12)}…
             </p>
           ) : null}
           <ul className="mt-4 space-y-1 text-xs leading-6 text-[var(--text-secondary)]">
             <li>
-              ✓ URL&apos;yi yapıştırmadan{" "}
-              <span className="font-semibold text-[var(--text-primary)]">mesaj gönderebilirsin</span>{" "}
-              (CRM → müşteri), ama
+              {t.rich("integrations.greenapi.bulletOutbound", {
+                strong: (chunks) => (
+                  <span className="font-semibold text-[var(--text-primary)]">{chunks}</span>
+                ),
+              })}
             </li>
             <li>
-              ✗ URL&apos;yi yapıştırmadan{" "}
-              <span className="font-semibold text-[var(--text-primary)]">gelen mesajlar sistemine ulaşmaz</span>:
-              AI chat başlamaz, CHAMP ekstraksi olmaz, WhatsApp&apos;tan lead yakalanmaz.
+              {t.rich("integrations.greenapi.bulletInbound", {
+                strong: (chunks) => (
+                  <span className="font-semibold text-[var(--text-primary)]">{chunks}</span>
+                ),
+              })}
             </li>
           </ul>
         </article>
@@ -231,29 +236,31 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
       <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
           <h2 className="text-lg font-semibold tracking-tight text-[var(--text-primary)]">
-            Instance credentials
+            {t("integrations.greenapi.credentialsTitle")}
           </h2>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            Stored encrypted (AES-GCM). Only a masked view is ever returned.
+            {t("integrations.greenapi.credentialsDescription")}
           </p>
         </header>
 
         {integration ? (
           <div className="mb-4 grid gap-3 rounded-2xl bg-[var(--surface-muted)] p-4 text-sm">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="text-[var(--text-tertiary)]">Instance ID</span>
+              <span className="text-[var(--text-tertiary)]">{t("integrations.greenapi.instanceId")}</span>
               <span className="break-all text-right font-mono text-[var(--text-primary)]">{integration.idInstance}</span>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="text-[var(--text-tertiary)]">Token</span>
+              <span className="text-[var(--text-tertiary)]">{t("integrations.greenapi.tokenLabel")}</span>
               <span className="break-all text-right font-mono text-[var(--text-primary)]">{integration.apiTokenMasked}</span>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="text-[var(--text-tertiary)]">Active</span>
-              <span className="font-mono text-[var(--text-primary)]">{integration.isActive ? "yes" : "no"}</span>
+              <span className="text-[var(--text-tertiary)]">{t("integrations.greenapi.activeLabel")}</span>
+              <span className="font-mono text-[var(--text-primary)]">
+                {integration.isActive ? t("common.yes") : t("common.no")}
+              </span>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="text-[var(--text-tertiary)]">Updated</span>
+              <span className="text-[var(--text-tertiary)]">{t("integrations.greenapi.updatedLabel")}</span>
               <span className="break-all text-right font-mono text-[var(--text-primary)]">{new Date(integration.updatedAt).toLocaleString()}</span>
             </div>
           </div>
@@ -261,18 +268,20 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
 
         <form onSubmit={handleSave} className="grid gap-3">
           <label className="grid gap-1 text-sm">
-            <span className="font-semibold text-[var(--text-secondary)]">Instance ID</span>
+            <span className="font-semibold text-[var(--text-secondary)]">{t("integrations.greenapi.instanceId")}</span>
             <input
               required
               value={idInstance}
               onChange={(e) => setIdInstance(e.target.value)}
-              placeholder="e.g. 1101234567"
+              placeholder={t("integrations.greenapi.instanceIdPlaceholder")}
               className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             />
           </label>
           <label className="grid gap-1 text-sm">
             <span className="font-semibold text-[var(--text-secondary)]">
-              API token {integration ? "(leave blank to keep current)" : ""}
+              {integration
+                ? t("integrations.greenapi.apiTokenLabelKeep")
+                : t("integrations.greenapi.apiTokenLabel")}
             </span>
             <input
               required={!integration}
@@ -280,7 +289,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
               value={apiToken}
               onChange={(e) => setApiToken(e.target.value)}
               autoComplete="off"
-              placeholder="GreenAPI apiTokenInstance"
+              placeholder={t("integrations.greenapi.apiTokenPlaceholder")}
               className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             />
           </label>
@@ -290,7 +299,11 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
               disabled={saving || !idInstance.trim() || (!integration && !apiToken.trim())}
               className="rounded-full bg-[var(--text-primary)] px-5 py-2.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {saving ? "Saving…" : integration ? "Update credentials" : "Connect"}
+              {saving
+                ? t("common.saving")
+                : integration
+                  ? t("integrations.greenapi.updateCredentials")
+                  : t("integrations.connect")}
             </button>
             {integration ? (
               <>
@@ -300,7 +313,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
                   disabled={testing}
                   className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-2.5 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
                 >
-                  {testing ? "Testing…" : "Test connection"}
+                  {testing ? t("integrations.testing") : t("integrations.testConnection")}
                 </button>
                 <button
                   type="button"
@@ -308,7 +321,7 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
                   disabled={deleting}
                   className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-5 py-2.5 text-xs font-semibold text-[var(--signal-red)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
                 >
-                  {deleting ? "Disconnecting…" : "Disconnect"}
+                  {deleting ? t("integrations.disconnecting") : t("integrations.disconnect")}
                 </button>
               </>
             ) : null}
@@ -325,11 +338,13 @@ export function GreenAPIConfigPanel({ companyId }: Readonly<Props>) {
           }`}
         >
           <p className="font-semibold">
-            {testResult.ok ? "Connection OK" : "Connection failed"}
+            {testResult.ok
+              ? t("integrations.greenapi.connectionOk")
+              : t("integrations.greenapi.connectionFailed")}
           </p>
           <p className="mt-1">{testResult.message}</p>
           <p className="mt-2 font-mono text-xs">
-            upstream status: {testResult.upstreamStatus} · latency: {testResult.upstreamLatency}
+            {t("integrations.greenapi.upstreamStatus")}: {testResult.upstreamStatus} · {t("integrations.greenapi.latency")}: {testResult.upstreamLatency}
           </p>
         </article>
       ) : null}

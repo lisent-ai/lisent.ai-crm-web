@@ -1,9 +1,12 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import type { Deal } from "@/lib/crm/client";
 
 import {
-  formatAssigneeLabel,
   formatMoney,
-  formatStageLabel,
+  getStageLabelKey,
   stageBadgeClasses,
 } from "./deal-utils";
 
@@ -24,29 +27,33 @@ export function DealList({
   customerLabelById,
   onSelectDeal,
 }: Readonly<DealListProps>) {
+  const t = useTranslations();
   return (
     <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-          Deal list
+          {t("deals.dealList")}
         </p>
         <p className="mt-2 text-sm text-[var(--text-secondary)]">
-          {dealsLoading ? "Loading deals..." : `${deals.length} deals in view`}
+          {dealsLoading
+            ? t("deals.loadingDeals")
+            : t("deals.dealsInView", { count: deals.length })}
         </p>
       </div>
 
       <div className="mt-5 grid gap-3">
         {companiesLoading || dealsLoading ? (
           <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
-            Deal pipeline is loading...
+            {t("deals.pipelineLoading")}
           </div>
         ) : deals.length === 0 ? (
           <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-8 text-sm leading-7 text-[var(--text-tertiary)]">
-            No deals match the active filters yet.
+            {t("deals.noDealsMatch")}
           </div>
         ) : (
           deals.map((deal) => {
             const active = deal.id === selectedDealId;
+            const assigneeLabel = deal.assigneeUserName || t("deals.unassigned");
 
             return (
               <button
@@ -62,10 +69,10 @@ export function DealList({
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="text-base font-semibold text-[var(--text-primary)]">
-                      {deal.name || "Untitled deal"}
+                      {deal.name || t("deals.untitledDeal")}
                     </p>
                     <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-                      {customerLabelById.get(deal.customerId) || "No related customer"}
+                      {customerLabelById.get(deal.customerId) || t("deals.noRelatedCustomer")}
                     </p>
                   </div>
                   <span
@@ -73,14 +80,14 @@ export function DealList({
                       deal.stage,
                     )}`}
                   >
-                    {formatStageLabel(deal.stage)}
+                    {t(getStageLabelKey(deal.stage) as never)}
                   </span>
                 </div>
 
                 <div className="mt-4 grid gap-2 text-sm text-[var(--text-secondary)]">
-                  <p>Amount: {formatMoney(deal.amount, deal.currency)}</p>
-                  <p>Assignee: {formatAssigneeLabel(deal)}</p>
-                  <p>Close target: {deal.closeDate || "Not set"}</p>
+                  <p>{t("deals.amountValue", { value: formatMoney(deal.amount, deal.currency) })}</p>
+                  <p>{t("deals.assigneeValue", { value: assigneeLabel })}</p>
+                  <p>{t("deals.closeTargetValue", { value: deal.closeDate || t("deals.notSet") })}</p>
                 </div>
               </button>
             );

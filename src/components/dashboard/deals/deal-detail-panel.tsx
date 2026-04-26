@@ -1,16 +1,18 @@
+"use client";
+
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { CRMClientError, getLead, type Deal, type Lead } from "@/lib/crm/client";
 import { CompactMeta, DetailSectionCompact } from "@/components/dashboard/customers/customer-ui";
 
 import { DealCommentsPanel } from "./deal-comments-panel";
 import {
-  formatAssigneeLabel,
   formatDate,
   formatDateTime,
   formatMoney,
   formatStageDuration,
-  formatStageLabel,
+  getStageLabelKey,
   stageBadgeClasses,
 } from "./deal-utils";
 
@@ -45,9 +47,20 @@ export function DealDetailPanel({
   onAddComment,
   aiEnabled,
 }: Readonly<DealDetailPanelProps>) {
+  const t = useTranslations();
   if (!deal) {
     return null;
   }
+
+  const assigneeLabel = deal.assigneeUserName || t("deals.unassigned");
+  const dash = "—";
+
+  const reasonText =
+    deal.stage === "won"
+      ? deal.wonReason || t("deals.noWinReason")
+      : deal.stage === "lost"
+        ? deal.lossReason || t("deals.noLossReason")
+        : t("deals.activeOpportunity");
 
   return (
     <div
@@ -63,17 +76,13 @@ export function DealDetailPanel({
         <div className="flex flex-col gap-4 border-b border-[var(--border-subtle)] px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:px-6 sm:py-5">
           <div className="min-w-0">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
-              Deal detail
+              {t("deals.dealDetail")}
             </p>
             <h3 className="mt-2 text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl">
-              {deal.name || "Untitled deal"}
+              {deal.name || t("deals.untitledDeal")}
             </h3>
             <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">
-              {deal.stage === "won"
-                ? deal.wonReason || "No win reason recorded yet."
-                : deal.stage === "lost"
-                  ? deal.lossReason || "No loss reason recorded yet."
-                  : "Opportunity is still active in the pipeline."}
+              {reasonText}
             </p>
           </div>
 
@@ -83,24 +92,24 @@ export function DealDetailPanel({
                 deal.stage,
               )}`}
             >
-              {formatStageLabel(deal.stage)}
+              {t(getStageLabelKey(deal.stage) as never)}
             </span>
             <button
               className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-default)] hover:text-[var(--text-primary)]"
               onClick={onClose}
               type="button"
             >
-              Close
+              {t("common.close")}
             </button>
           </div>
         </div>
 
         <div className="grid gap-5 overflow-y-auto px-5 py-5 sm:px-6 sm:py-6">
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <CompactMeta label="Amount" value={formatMoney(deal.amount, deal.currency)} />
-            <CompactMeta label="Assignee" value={formatAssigneeLabel(deal)} />
-            <CompactMeta label="Close target" value={formatDate(deal.closeDate)} />
-            <CompactMeta label="Comments" value={String(deal.comments.length)} />
+            <CompactMeta label={t("deals.amount")} value={formatMoney(deal.amount, deal.currency)} />
+            <CompactMeta label={t("deals.assignee")} value={assigneeLabel} />
+            <CompactMeta label={t("deals.closeTarget")} value={formatDate(deal.closeDate)} />
+            <CompactMeta label={t("deals.comments")} value={String(deal.comments.length)} />
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -110,7 +119,7 @@ export function DealDetailPanel({
               onClick={() => onEdit(deal)}
               type="button"
             >
-              Edit deal
+              {t("deals.editDeal")}
             </button>
             <button
               className="rounded-full border border-[color-mix(in_srgb,_var(--accent)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--accent)_10%,_var(--surface))] px-5 py-3 text-sm font-semibold text-[var(--accent-strong)] transition hover:border-[var(--accent)] hover:bg-[color-mix(in_srgb,_var(--accent)_18%,_var(--surface))] disabled:opacity-50"
@@ -118,7 +127,7 @@ export function DealDetailPanel({
               onClick={() => onSchedule(deal)}
               type="button"
             >
-              Schedule activity
+              {t("deals.scheduleActivity")}
             </button>
             <button
               className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-5 py-3 text-sm font-semibold text-[var(--signal-red)] transition hover:border-[color-mix(in_srgb,_var(--signal-red)_55%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
@@ -126,26 +135,26 @@ export function DealDetailPanel({
               onClick={() => onDelete(deal)}
               type="button"
             >
-              Delete
+              {t("deals.delete")}
             </button>
           </div>
 
           <DetailSectionCompact
             rows={[
-              { label: "Company", value: companyLabel || "—" },
-              { label: "Customer", value: customerLabel || "—" },
-              { label: "Source lead", value: sourceLeadLabel || "—" },
-              { label: "Currency", value: deal.currency || "—" },
+              { label: t("deals.fields.company"), value: companyLabel || dash },
+              { label: t("deals.fields.customer"), value: customerLabel || dash },
+              { label: t("deals.fields.sourceLead"), value: sourceLeadLabel || dash },
+              { label: t("deals.fields.currency"), value: deal.currency || dash },
               {
-                label: "Termination",
-                value: deal.terminationDate ? formatDate(deal.terminationDate) : "Open",
+                label: t("deals.fields.termination"),
+                value: deal.terminationDate ? formatDate(deal.terminationDate) : t("deals.terminationOpen"),
               },
-              { label: "Won reason", value: deal.wonReason || "—" },
-              { label: "Loss reason", value: deal.lossReason || "—" },
-              { label: "Created", value: formatDateTime(deal.createdAt) },
-              { label: "Updated", value: formatDateTime(deal.updatedAt) },
+              { label: t("deals.fields.wonReason"), value: deal.wonReason || dash },
+              { label: t("deals.fields.lossReason"), value: deal.lossReason || dash },
+              { label: t("deals.fields.created"), value: formatDateTime(deal.createdAt) },
+              { label: t("deals.fields.updated"), value: formatDateTime(deal.updatedAt) },
             ]}
-            title="Related records"
+            title={t("deals.relatedRecords")}
           />
 
           <DealCommentsPanel
@@ -159,13 +168,13 @@ export function DealDetailPanel({
           <section className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)]">
             <header className="border-b border-[var(--border-subtle)] px-4 py-3">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-                Stage history
+                {t("deals.stageHistory")}
               </p>
             </header>
             <div className="grid gap-3 px-4 py-4">
               {deal.stageHistory.length === 0 ? (
                 <p className="text-sm text-[var(--text-tertiary)]">
-                  No stage history recorded yet.
+                  {t("deals.stageHistoryEmpty")}
                 </p>
               ) : (
                 deal.stageHistory.map((entry) => (
@@ -175,18 +184,22 @@ export function DealDetailPanel({
                   >
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <p className="text-sm font-semibold text-[var(--text-primary)]">
-                        {formatStageLabel(entry.stage)}
+                        {t(getStageLabelKey(entry.stage) as never)}
                       </p>
                       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
                         {formatStageDuration(entry)}
                       </span>
                     </div>
                     <p className="mt-2 text-sm text-[var(--text-secondary)]">
-                      {formatDateTime(entry.enteredAt)} to{" "}
-                      {entry.exitedAt ? formatDateTime(entry.exitedAt) : "Now"}
+                      {t("deals.stageRange", {
+                        start: formatDateTime(entry.enteredAt),
+                        end: entry.exitedAt ? formatDateTime(entry.exitedAt) : t("deals.now"),
+                      })}
                     </p>
                     <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-                      Changed by {entry.changedByUserName || entry.changedByUserId || "System"}
+                      {t("deals.changedBy", {
+                        actor: entry.changedByUserName || entry.changedByUserId || t("deals.system"),
+                      })}
                     </p>
                   </div>
                 ))
@@ -201,7 +214,7 @@ export function DealDetailPanel({
           {Object.keys(deal.extraData).length > 0 ? (
             <section className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-secondary)]">
-                Extra data
+                {t("deals.extraData")}
               </p>
               <pre className="mt-3 overflow-auto rounded-2xl bg-[color-mix(in_srgb,_var(--text-primary)_92%,_transparent)] p-4 text-xs leading-6 text-[var(--surface)]">
                 {JSON.stringify(deal.extraData, null, 2)}
@@ -220,6 +233,7 @@ export function DealDetailPanel({
  * avoids cluttering pre-qualifier deals.
  */
 function SourceLeadAIInsights({ leadId }: { leadId: string }) {
+  const t = useTranslations();
   const [lead, setLead] = useState<Lead | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -256,11 +270,11 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
     <section className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-purple)_8%,_var(--surface))] p-4">
       <header className="flex items-center justify-between gap-3">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--signal-purple)]">
-          AI insights (source lead)
+          {t("deals.aiInsights.title")}
         </p>
         {lead.aiLastScoredAt ? (
           <span className="text-xs text-[var(--signal-purple)]">
-            scored {formatDateTime(lead.aiLastScoredAt)}
+            {t("deals.aiInsights.scoredAt", { date: formatDateTime(lead.aiLastScoredAt) })}
           </span>
         ) : null}
       </header>
@@ -269,7 +283,7 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
         {typeof lead.aiScore === "number" ? (
           <article className="rounded-xl border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[var(--surface)] p-3">
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--signal-purple)]">
-              AI score
+              {t("deals.aiInsights.aiScore")}
             </p>
             <p className="mt-1 text-base font-semibold text-[var(--text-primary)]">
               {Math.round(lead.aiScore)} / 100
@@ -279,7 +293,7 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
         {lead.aiStatus ? (
           <article className="rounded-xl border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[var(--surface)] p-3">
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--signal-purple)]">
-              AI status
+              {t("deals.aiInsights.aiStatus")}
             </p>
             <p className="mt-1 text-base font-semibold text-[var(--text-primary)]">{lead.aiStatus}</p>
           </article>
@@ -287,7 +301,7 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
         {lead.aiPath ? (
           <article className="rounded-xl border border-[color-mix(in_srgb,_var(--signal-purple)_28%,_transparent)] bg-[var(--surface)] p-3">
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--signal-purple)]">
-              Path
+              {t("deals.aiInsights.path")}
             </p>
             <p className="mt-1 text-base font-semibold text-[var(--text-primary)]">{lead.aiPath}</p>
           </article>
@@ -297,7 +311,7 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
       {lead.aiReasoning ? (
         <details className="mt-3" open>
           <summary className="cursor-pointer text-xs font-semibold text-[var(--signal-purple)]">
-            Reasoning report
+            {t("deals.aiInsights.reasoningReport")}
           </summary>
           <pre className="mt-2 overflow-auto rounded-xl bg-[var(--surface)] p-3 text-xs leading-6 text-[var(--text-primary)]">
             {JSON.stringify(lead.aiReasoning, null, 2)}
@@ -308,7 +322,7 @@ function SourceLeadAIInsights({ leadId }: { leadId: string }) {
       {lead.aiChamp ? (
         <details className="mt-3">
           <summary className="cursor-pointer text-xs font-semibold text-[var(--signal-purple)]">
-            CHAMP extraction
+            {t("deals.aiInsights.champExtraction")}
           </summary>
           <pre className="mt-2 overflow-auto rounded-xl bg-[var(--surface)] p-3 text-xs leading-6 text-[var(--text-primary)]">
             {JSON.stringify(lead.aiChamp, null, 2)}

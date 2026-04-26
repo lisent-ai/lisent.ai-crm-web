@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { type Customer } from "@/lib/crm/client";
 
 import { describeCustomerCountry } from "./customer-utils";
@@ -34,43 +38,45 @@ export function CustomerListSection({
   onEditCustomer,
   onDeleteCustomer,
 }: Readonly<CustomerListSectionProps>) {
+  const t = useTranslations();
   const allSelected = customers.length > 0 && customers.every((customer) => selectedIds.has(customer.id));
   const indeterminate = selectedIds.size > 0 && !allSelected;
+  const notSet = t("customers.notSet");
 
   return (
     <section className="w-full min-w-0 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--text-tertiary)]">
-            Customer list
+            {t("customers.list.eyebrow")}
           </p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
-            Related customers
+            {t("customers.list.title")}
           </h2>
         </div>
         <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)]">
-          {customers.length} visible
+          {t("customers.list.visibleCount", { count: customers.length })}
         </span>
       </div>
 
       <div className="mt-5 grid gap-4 md:grid-cols-[1fr_220px]">
         <Field
-          label="Search customers"
+          label={t("customers.search.label")}
           onChange={onSearchQueryChange}
-          placeholder="Search by name, email, phone..."
+          placeholder={t("customers.search.placeholder")}
           value={searchQuery}
         />
         <label className="grid gap-2">
-          <span className="text-sm font-medium text-[var(--text-secondary)]">Status filter</span>
+          <span className="text-sm font-medium text-[var(--text-secondary)]">{t("customers.statusFilter")}</span>
           <select
             className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)]"
             onChange={(event) => onStatusFilterChange(event.target.value)}
             value={statusFilter}
           >
-            <option value="All">All</option>
-            <option value="Active">Active</option>
-            <option value="Prospect">Prospect</option>
-            <option value="Needs review">Needs review</option>
+            <option value="All">{t("customers.status.all")}</option>
+            <option value="Active">{t("customers.status.active")}</option>
+            <option value="Prospect">{t("customers.status.prospect")}</option>
+            <option value="Needs review">{t("customers.status.needsReview")}</option>
           </select>
         </label>
       </div>
@@ -87,12 +93,12 @@ export function CustomerListSection({
                     onChange={onToggleAll}
                   />
                 </th>
-                <th className="px-4 py-3 font-medium">Name</th>
-                <th className="px-4 py-3 font-medium">Phone</th>
-                <th className="px-4 py-3 font-medium">Email</th>
-                <th className="px-4 py-3 font-medium">Country</th>
-                <th className="px-4 py-3 font-medium">Status</th>
-                <th className="px-4 py-3 font-medium">Actions</th>
+                <th className="px-4 py-3 font-medium">{t("customers.fields.name")}</th>
+                <th className="px-4 py-3 font-medium">{t("customers.fields.phone")}</th>
+                <th className="px-4 py-3 font-medium">{t("customers.fields.email")}</th>
+                <th className="px-4 py-3 font-medium">{t("customers.fields.country")}</th>
+                <th className="px-4 py-3 font-medium">{t("customers.fields.status")}</th>
+                <th className="px-4 py-3 font-medium">{t("customers.fields.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -111,7 +117,9 @@ export function CustomerListSection({
                   >
                     <td className="px-4 py-3">
                       <input
-                        aria-label={`Select ${customer.name || "customer"}`}
+                        aria-label={t("customers.list.selectRow", {
+                          name: customer.name || t("customers.fields.customer"),
+                        })}
                         checked={checked}
                         className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent-strong)]"
                         onChange={() => onToggleOne(customer.id)}
@@ -126,6 +134,7 @@ export function CustomerListSection({
                         customer.countryCode,
                         customer.extraData,
                         selectedCompanyCountry,
+                        notSet,
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -140,21 +149,21 @@ export function CustomerListSection({
                           onClick={() => onViewCustomer(customer)}
                           type="button"
                         >
-                          View
+                          {t("customers.actions.view")}
                         </button>
                         <button
                           className="whitespace-nowrap rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-xs font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                           onClick={() => onEditCustomer(customer)}
                           type="button"
                         >
-                          Edit
+                          {t("customers.actions.edit")}
                         </button>
                         <button
                           className="whitespace-nowrap rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-3 py-2 text-xs font-semibold text-[var(--signal-red)] transition hover:border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))]"
                           onClick={() => onDeleteCustomer(customer)}
                           type="button"
                         >
-                          Delete
+                          {t("customers.delete")}
                         </button>
                       </div>
                     </td>
@@ -168,7 +177,7 @@ export function CustomerListSection({
 
       {customers.length === 0 && (
         <div className="mt-4 rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-5 py-4 text-sm text-[var(--text-tertiary)]">
-          No customers matched the current filters.
+          {t("customers.list.empty")}
         </div>
       )}
     </section>
@@ -184,9 +193,10 @@ function HeaderCheckbox({
   indeterminate: boolean;
   onChange: () => void;
 }>) {
+  const t = useTranslations();
   return (
     <input
-      aria-label="Select all customers"
+      aria-label={t("customers.list.selectAll")}
       checked={checked}
       className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent-strong)]"
       onChange={onChange}

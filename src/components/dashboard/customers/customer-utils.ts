@@ -32,6 +32,7 @@ export function describeCustomerCountry(
   countryCode?: string,
   extraData?: Record<string, string>,
   fallbackCountry?: string,
+  notSetLabel: string = "Not set",
 ) {
   const explicitCountry =
     extraData?.country?.trim() || extraData?.country_name?.trim();
@@ -44,7 +45,7 @@ export function describeCustomerCountry(
     return lookupCountryName(normalizedCode);
   }
 
-  return fallbackCountry?.trim() || "Not set";
+  return fallbackCountry?.trim() || notSetLabel;
 }
 
 export function formatLabel(value: string) {

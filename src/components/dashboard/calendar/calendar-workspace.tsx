@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import {
   Calendar as CalendarIcon,
@@ -47,7 +48,7 @@ import {
 
 type CalendarView = "month" | "week" | "agenda";
 
-const weekdayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const WEEKDAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
 
 function startOfDay(value: Date) {
   return new Date(value.getFullYear(), value.getMonth(), value.getDate());
@@ -241,17 +242,17 @@ function buildMemberInitials(name: string): string {
 
 type CalendarTab = {
   key: string;
-  label: string;
+  labelKey: string;
   icon: typeof CalendarIcon;
   /** Which eventType to filter by; empty string means no filter (all). */
   filter: string;
 };
 
 const CALENDAR_TABS: CalendarTab[] = [
-  { key: "all", label: "All Scheduled", icon: ClipboardList, filter: "all" },
-  { key: "events", label: "Events", icon: CalendarDays, filter: "call" },
-  { key: "meetings", label: "Meetings", icon: Users, filter: "meeting" },
-  { key: "tasks", label: "Task Reminders", icon: ListChecks, filter: "follow_up" },
+  { key: "all", labelKey: "calendar.tabs.allScheduled", icon: ClipboardList, filter: "all" },
+  { key: "events", labelKey: "calendar.tabs.events", icon: CalendarDays, filter: "call" },
+  { key: "meetings", labelKey: "calendar.tabs.meetings", icon: Users, filter: "meeting" },
+  { key: "tasks", labelKey: "calendar.tabs.taskReminders", icon: ListChecks, filter: "follow_up" },
 ];
 
 const DAY_START_HOUR = 8;
@@ -307,8 +308,8 @@ function computeEventSlot(event: CalendarEvent): EventSlot {
   };
 }
 
-function formatRangeTime(event: CalendarEvent): string {
-  if (event.allDay) return "All day";
+function formatRangeTime(event: CalendarEvent, allDayLabel: string): string {
+  if (event.allDay) return allDayLabel;
   const start = new Date(event.startAt);
   const startLabel = start.toLocaleTimeString([], {
     hour: "numeric",
@@ -324,6 +325,7 @@ function formatRangeTime(event: CalendarEvent): string {
 }
 
 export function CalendarWorkspace() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName") ?? "";
@@ -369,7 +371,7 @@ export function CalendarWorkspace() {
           setErrorMessage(
             error instanceof CRMClientError
               ? error.message
-              : "Failed to load companies.",
+              : t("calendar.errors.loadCompanies"),
           );
         }
       }
@@ -398,7 +400,7 @@ export function CalendarWorkspace() {
     [activeCompanyId, companies],
   );
 
-  const companyName = selectedCompany?.name ?? searchCompanyName ?? "Selected company";
+  const companyName = selectedCompany?.name ?? searchCompanyName ?? t("calendar.selectedCompanyFallback");
 
   useEffect(() => {
     if (!selectedCompany?.id) {
@@ -508,7 +510,7 @@ export function CalendarWorkspace() {
           setErrorMessage(
             error instanceof CRMClientError
               ? error.message
-              : "Failed to load calendar events.",
+              : t("calendar.errors.loadEvents"),
           );
         }
       } finally {
@@ -590,11 +592,11 @@ export function CalendarWorkspace() {
   function getLinkedLabel(event: CalendarEvent) {
     switch (event.linkedEntityType) {
       case "lead":
-        return leadLabelById.get(event.linkedEntityId) || "Linked lead";
+        return leadLabelById.get(event.linkedEntityId) || t("calendar.linkedFallback.lead");
       case "deal":
-        return dealLabelById.get(event.linkedEntityId) || "Linked deal";
+        return dealLabelById.get(event.linkedEntityId) || t("calendar.linkedFallback.deal");
       case "customer":
-        return customerLabelById.get(event.linkedEntityId) || "Linked customer";
+        return customerLabelById.get(event.linkedEntityId) || t("calendar.linkedFallback.customer");
       case "company":
         return companyName;
       default:
@@ -604,7 +606,7 @@ export function CalendarWorkspace() {
 
   function openCreateModal(date?: Date) {
     if (date && isPastDateForNewEvent(date, true)) {
-      setErrorMessage("New activities cannot be scheduled on past dates.");
+      setErrorMessage(t("calendar.errors.pastDate"));
       setSuccessMessage(null);
       return;
     }
@@ -641,15 +643,15 @@ export function CalendarWorkspace() {
 
     const title = form.title.trim();
     if (!title) {
-      setErrorMessage("Event title is required.");
+      setErrorMessage(t("calendar.errors.titleRequired"));
       return;
     }
     if (!form.startAt.trim()) {
-      setErrorMessage("Start time is required.");
+      setErrorMessage(t("calendar.errors.startRequired"));
       return;
     }
     if (form.linkedEntityType && !form.linkedEntityId.trim()) {
-      setErrorMessage("Please choose the record you want to link.");
+      setErrorMessage(t("calendar.errors.linkRecordMissing"));
       return;
     }
 
@@ -657,7 +659,7 @@ export function CalendarWorkspace() {
       form.allDay ? `${form.startAt}T00:00:00` : form.startAt,
     );
     if (!editingEventId && isPastDateForNewEvent(startCandidate, form.allDay)) {
-      setErrorMessage("New activities cannot be scheduled on past dates.");
+      setErrorMessage(t("calendar.errors.pastDate"));
       return;
     }
 
@@ -711,14 +713,14 @@ export function CalendarWorkspace() {
 
       await reloadEvents(selectedCompany.id);
       setSuccessMessage(
-        editingEventId ? "Calendar event updated." : "Calendar event created.",
+        editingEventId ? t("calendar.success.updated") : t("calendar.success.created"),
       );
       closeModal();
     } catch (error) {
       setErrorMessage(
         error instanceof CRMClientError
           ? error.message
-          : "Failed to save calendar event.",
+          : t("calendar.errors.save"),
       );
     } finally {
       setSaving(false);
@@ -730,7 +732,7 @@ export function CalendarWorkspace() {
       return;
     }
 
-    const confirmed = window.confirm("Delete this calendar event?");
+    const confirmed = window.confirm(t("calendar.confirm.delete"));
     if (!confirmed) {
       return;
     }
@@ -741,13 +743,13 @@ export function CalendarWorkspace() {
       setSuccessMessage(null);
       await deleteCalendarEvent(editingEventId);
       await reloadEvents(selectedCompany.id);
-      setSuccessMessage("Calendar event deleted.");
+      setSuccessMessage(t("calendar.success.deleted"));
       closeModal();
     } catch (error) {
       setErrorMessage(
         error instanceof CRMClientError
           ? error.message
-          : "Failed to delete calendar event.",
+          : t("calendar.errors.delete"),
       );
     } finally {
       setSaving(false);
@@ -808,7 +810,7 @@ export function CalendarWorkspace() {
 
   const activeTabKey =
     CALENDAR_TABS.find((tab) => tab.filter === eventTypeFilter)?.key ?? "all";
-  const viewLabel = view === "agenda" ? "Day" : view === "week" ? "Week" : "Month";
+  const viewLabel = view === "agenda" ? t("calendar.view.day") : view === "week" ? t("calendar.view.week") : t("calendar.view.month");
   const avatars = members.slice(0, 3);
   const extraAvatarCount = Math.max(0, members.length - avatars.length);
 
@@ -817,7 +819,7 @@ export function CalendarWorkspace() {
       <header className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
-            Calendar
+            {t("calendar.title")}
           </h1>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -848,13 +850,13 @@ export function CalendarWorkspace() {
             type="button"
           >
             <UserPlus className="h-4 w-4" aria-hidden="true" />
-            Invite
+            {t("calendar.actions.invite")}
           </button>
         </div>
       </header>
 
       <div className="flex flex-col gap-3 border-b border-[var(--border-subtle)] md:flex-row md:items-center md:justify-between">
-        <nav aria-label="Calendar filters" className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto">
+        <nav aria-label={t("calendar.filtersAriaLabel")} className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto">
           {CALENDAR_TABS.map((tab) => {
             const Icon = tab.icon;
             const active = tab.key === activeTabKey;
@@ -871,7 +873,7 @@ export function CalendarWorkspace() {
                 type="button"
               >
                 <Icon className="h-4 w-4" aria-hidden="true" />
-                {tab.label}
+                {t(tab.labelKey as never)}
                 {active && (
                   <span
                     aria-hidden="true"
@@ -887,10 +889,10 @@ export function CalendarWorkspace() {
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]" aria-hidden="true" />
             <input
-              aria-label="Search calendar"
+              aria-label={t("calendar.searchAriaLabel")}
               className="h-9 w-[180px] rounded-full border border-[var(--border-default)] bg-[var(--surface)] pl-9 pr-3 text-sm text-[var(--text-primary)] transition placeholder:text-[var(--text-tertiary)] focus:border-[var(--border-strong)] focus:outline-none lg:w-[220px]"
               onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Search..."
+              placeholder={t("calendar.searchPlaceholder")}
               type="search"
               value={searchQuery}
             />
@@ -905,7 +907,7 @@ export function CalendarWorkspace() {
               type="button"
             >
               <Filter className="h-4 w-4" aria-hidden="true" />
-              Filter
+              {t("calendar.actions.filter")}
               {assigneeFilter !== "all" && (
                 <span className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[var(--accent-soft)] px-1.5 text-[10px] font-semibold text-[var(--accent-strong)]">
                   1
@@ -918,14 +920,14 @@ export function CalendarWorkspace() {
                 role="menu"
               >
                 <p className="px-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  Assignee
+                  {t("calendar.fields.assignee")}
                 </p>
                 <select
                   className="mt-2 w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--text-primary)] outline-none transition focus:border-[var(--border-strong)]"
                   onChange={(event) => setAssigneeFilter(event.target.value)}
                   value={assigneeFilter}
                 >
-                  <option value="all">All assignees</option>
+                  <option value="all">{t("calendar.allAssignees")}</option>
                   {members
                     .filter((member) => member.role !== "viewer")
                     .sort((a, b) => a.displayName.localeCompare(b.displayName))
@@ -943,14 +945,14 @@ export function CalendarWorkspace() {
                     }}
                     type="button"
                   >
-                    Clear
+                    {t("calendar.actions.clear")}
                   </button>
                   <button
                     className="rounded-full bg-[var(--text-primary)] px-3 py-1.5 text-xs font-medium text-white transition hover:opacity-90"
                     onClick={() => setFilterOpen(false)}
                     type="button"
                   >
-                    Apply
+                    {t("calendar.actions.apply")}
                   </button>
                 </div>
               </div>
@@ -964,7 +966,7 @@ export function CalendarWorkspace() {
             type="button"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
-            New
+            {t("calendar.actions.new")}
           </button>
         </div>
       </div>
@@ -985,7 +987,7 @@ export function CalendarWorkspace() {
           {view !== "week" ? (
             <div className="inline-flex h-8 items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] p-0.5">
               <button
-                aria-label={`Previous ${viewLabel.toLowerCase()}`}
+                aria-label={t("calendar.aria.previous", { view: viewLabel.toLowerCase() })}
                 className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
                 onClick={() => moveRange(-1)}
                 type="button"
@@ -993,7 +995,7 @@ export function CalendarWorkspace() {
                 <ChevronLeft className="h-4 w-4" aria-hidden="true" />
               </button>
               <button
-                aria-label={`Next ${viewLabel.toLowerCase()}`}
+                aria-label={t("calendar.aria.next", { view: viewLabel.toLowerCase() })}
                 className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
                 onClick={() => moveRange(1)}
                 type="button"
@@ -1010,7 +1012,7 @@ export function CalendarWorkspace() {
             onClick={() => setActiveDate(new Date())}
             type="button"
           >
-            Today
+            {t("calendar.today")}
           </button>
         </div>
 
@@ -1018,9 +1020,9 @@ export function CalendarWorkspace() {
           <div className="inline-flex h-8 items-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] p-0.5">
             {(
               [
-                { label: "Day", value: "agenda" },
-                { label: "Week", value: "week" },
-                { label: "Month", value: "month" },
+                { label: t("calendar.view.day"), value: "agenda" },
+                { label: t("calendar.view.week"), value: "week" },
+                { label: t("calendar.view.month"), value: "month" },
               ] as { label: string; value: CalendarView }[]
             ).map((option) => {
               const active = option.value === view;
@@ -1050,7 +1052,7 @@ export function CalendarWorkspace() {
       <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-2 shadow-[var(--shadow-card)] md:p-3">
         {loading ? (
           <div className="flex min-h-[400px] items-center justify-center px-4 text-sm text-[var(--text-tertiary)]">
-            Loading calendar…
+            {t("calendar.loading")}
           </div>
         ) : view === "week" ? (
           <WeekGrid
@@ -1125,6 +1127,7 @@ function WeekGrid({
   getLinkedLabel,
   viewLabel,
 }: Readonly<WeekGridProps>) {
+  const t = useTranslations();
   const todayKey = buildDateInputValue(new Date().toISOString());
   const activeKey = buildDateInputValue(activeDate.toISOString());
 
@@ -1133,7 +1136,7 @@ function WeekGrid({
       <div className="grid grid-cols-[72px_repeat(7,minmax(0,1fr))] border-b border-[var(--border-subtle)] bg-[var(--surface)]">
         <div className="flex items-center justify-center gap-1 px-2 py-3">
           <button
-            aria-label={`Previous ${viewLabel.toLowerCase()}`}
+            aria-label={t("calendar.aria.previous", { view: viewLabel.toLowerCase() })}
             className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
             onClick={onPrev}
             type="button"
@@ -1141,7 +1144,7 @@ function WeekGrid({
             <ChevronLeft className="h-4 w-4" aria-hidden="true" />
           </button>
           <button
-            aria-label={`Next ${viewLabel.toLowerCase()}`}
+            aria-label={t("calendar.aria.next", { view: viewLabel.toLowerCase() })}
             className="flex h-7 w-7 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
             onClick={onNext}
             type="button"
@@ -1204,7 +1207,7 @@ function WeekGrid({
             const dayEvents = eventsByDay.get(key) ?? [];
             return (
               <button
-                aria-label={`Create event on ${day.toLocaleDateString()}`}
+                aria-label={t("calendar.aria.createOn", { date: day.toLocaleDateString() })}
                 className="relative cursor-pointer border-l border-[var(--border-subtle)] text-left"
                 key={key}
                 onClick={(event) => {
@@ -1239,10 +1242,10 @@ function WeekGrid({
                       type="button"
                     >
                       <span className="text-[10px] font-semibold uppercase tracking-[0.12em] opacity-80">
-                        {formatRangeTime(event)}
+                        {formatRangeTime(event, t("calendar.allDay"))}
                       </span>
                       <span className="line-clamp-2 text-[12px] font-semibold leading-tight">
-                        {event.title || "Untitled"}
+                        {event.title || t("calendar.untitled")}
                       </span>
                       {linked && slot.height > 60 ? (
                         <span className="truncate text-[10px] opacity-70">{linked}</span>
@@ -1274,17 +1277,18 @@ function MonthGrid({
   onCreate,
   onEdit,
 }: Readonly<MonthGridProps>) {
+  const t = useTranslations();
   const todayKey = buildDateInputValue(new Date().toISOString());
 
   return (
     <div className="overflow-hidden rounded-[var(--radius-card)]">
       <div className="grid grid-cols-7 border-b border-[var(--border-subtle)]">
-        {weekdayLabels.map((label) => (
+        {WEEKDAY_KEYS.map((dayKey) => (
           <div
             className="px-3 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]"
-            key={label}
+            key={dayKey}
           >
-            {label}
+            {t(`calendar.weekday.${dayKey}`)}
           </div>
         ))}
       </div>
@@ -1316,7 +1320,7 @@ function MonthGrid({
                   {day.getDate()}
                 </span>
                 <button
-                  aria-label={`Add event on ${day.toLocaleDateString()}`}
+                  aria-label={t("calendar.aria.addOn", { date: day.toLocaleDateString() })}
                   className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-tertiary)] opacity-0 transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)] group-hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-[var(--text-tertiary)]"
                   disabled={isPastDay}
                   onClick={() => onCreate(day)}
@@ -1335,12 +1339,12 @@ function MonthGrid({
                     onClick={() => onEdit(event)}
                     type="button"
                   >
-                    {event.title || "Untitled"}
+                    {event.title || t("calendar.untitled")}
                   </button>
                 ))}
                 {dayEvents.length > 3 && (
                   <span className="text-[10px] text-[var(--text-tertiary)]">
-                    +{dayEvents.length - 3} more
+                    {t("calendar.moreCount", { count: dayEvents.length - 3 })}
                   </span>
                 )}
               </div>
@@ -1365,10 +1369,11 @@ function AgendaList({
   getLinkedLabel,
   onEdit,
 }: Readonly<AgendaListProps>) {
+  const t = useTranslations();
   if (events.length === 0) {
     return (
       <div className="flex min-h-[200px] items-center justify-center rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-subtle)] px-4 text-center text-sm text-[var(--text-tertiary)]">
-        No upcoming activity in this range.
+        {t("calendar.empty.upcoming")}
       </div>
     );
   }
@@ -1396,17 +1401,17 @@ function AgendaList({
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-[var(--text-primary)]">
-                  {event.title || "Untitled"}
+                  {event.title || t("calendar.untitled")}
                 </p>
                 <p className="text-xs text-[var(--text-tertiary)]">
-                  {formatDayTitle(new Date(event.startAt))} · {formatRangeTime(event)}
+                  {formatDayTitle(new Date(event.startAt))} · {formatRangeTime(event, t("calendar.allDay"))}
                   {linked ? ` · ${linked}` : ""}
                 </p>
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--text-secondary)]">
-                {event.status}
+                {t(`calendar.eventStatus.${event.status}`)}
               </span>
               {assignee && (
                 <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--text-secondary)]">

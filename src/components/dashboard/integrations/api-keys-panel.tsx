@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import {
@@ -16,16 +17,32 @@ type Props = {
   companyName: string;
 };
 
-const AVAILABLE_SCOPES = [
-  { value: "lead:read", label: "Read leads" },
-  { value: "lead:write", label: "Create / update leads" },
-  { value: "lead:score", label: "Re-score leads" },
-  { value: "kb:read", label: "Knowledge base read" },
-  { value: "config:read", label: "Read tenant config" },
-  { value: "config:write", label: "Update tenant config" },
+const SCOPE_VALUES = [
+  "lead:read",
+  "lead:write",
+  "lead:score",
+  "kb:read",
+  "config:read",
+  "config:write",
 ] as const;
 
+function scopeLabel(t: ReturnType<typeof useTranslations>, value: string): string {
+  // Map scope value (lead:read) → camelCase i18n key (leadRead)
+  const keyMap: Record<string, string> = {
+    "lead:read": "leadRead",
+    "lead:write": "leadWrite",
+    "lead:score": "leadScore",
+    "kb:read": "kbRead",
+    "config:read": "configRead",
+    "config:write": "configWrite",
+  };
+  const key = keyMap[value];
+  if (!key) return value;
+  return t(`integrations.apiKeys.scopes.${key}` as never);
+}
+
 export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
+  const t = useTranslations();
   const [keys, setKeys] = useState<APIKeyPublic[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,24 +60,24 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
       const items = await listAPIKeys(companyId, { includeRevoked });
       setKeys(items);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load keys");
+      setError(err instanceof Error ? err.message : t("integrations.apiKeys.loadFailed"));
     } finally {
       setLoading(false);
     }
-  }, [companyId, includeRevoked]);
+  }, [companyId, includeRevoked, t]);
 
   useEffect(() => {
     void refresh();
   }, [refresh]);
 
   const handleRevoke = async (id: string) => {
-    if (!confirm("Revoke this API key? This cannot be undone.")) return;
+    if (!confirm(t("integrations.apiKeys.revokeConfirm"))) return;
     setRevokingId(id);
     try {
       await revokeAPIKey(companyId, id);
       await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Revoke failed");
+      setError(err instanceof Error ? err.message : t("integrations.apiKeys.revokeFailed"));
     } finally {
       setRevokingId(null);
     }
@@ -70,12 +87,16 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
     <section className="space-y-6">
       <header className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center sm:gap-4">
         <div className="min-w-0">
-          <h2 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">API Keys</h2>
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] sm:text-xl">
+            {t("integrations.apiKeys.title")}
+          </h2>
           <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-            Server-to-server authentication for{" "}
-            <strong className="text-[var(--text-secondary)]">{companyName}</strong>. Keys are shown
-            once — store them in your secrets manager. Raw keys are never retrievable after
-            creation.
+            {t.rich("integrations.apiKeys.description", {
+              name: companyName,
+              strong: (chunks) => (
+                <strong className="text-[var(--text-secondary)]">{chunks}</strong>
+              ),
+            })}
           </p>
         </div>
         <button
@@ -83,7 +104,7 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
           onClick={() => setCreateModalOpen(true)}
           className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[var(--text-primary)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
         >
-          + Create API Key
+          {t("integrations.apiKeys.createButton")}
         </button>
       </header>
 
@@ -94,7 +115,7 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
           onChange={(e) => setIncludeRevoked(e.target.checked)}
           className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
         />
-        Show revoked keys
+        {t("integrations.apiKeys.showRevoked")}
       </label>
 
       {error ? (
@@ -105,23 +126,24 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
 
       <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[var(--shadow-card)]">
         {loading ? (
-          <div className="p-8 text-center text-sm text-[var(--text-tertiary)]">Loading…</div>
+          <div className="p-8 text-center text-sm text-[var(--text-tertiary)]">
+            {t("integrations.apiKeys.loading")}
+          </div>
         ) : keys.length === 0 ? (
           <div className="p-8 text-center text-sm text-[var(--text-tertiary)]">
-            No API keys yet. Create one to authenticate requests from your
-            backend to Lisent.
+            {t("integrations.apiKeys.empty")}
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-[var(--surface-muted)] text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
                 <tr>
-                  <th className="p-3 text-left font-semibold">Name</th>
-                  <th className="p-3 text-left font-semibold">Key</th>
-                  <th className="p-3 text-left font-semibold">Scopes</th>
-                  <th className="p-3 text-left font-semibold">Last used</th>
-                  <th className="p-3 text-left font-semibold">Created</th>
-                  <th className="p-3 text-right font-semibold">Actions</th>
+                  <th className="p-3 text-left font-semibold">{t("integrations.apiKeys.cols.name")}</th>
+                  <th className="p-3 text-left font-semibold">{t("integrations.apiKeys.cols.key")}</th>
+                  <th className="p-3 text-left font-semibold">{t("integrations.apiKeys.cols.scopes")}</th>
+                  <th className="p-3 text-left font-semibold">{t("integrations.apiKeys.cols.lastUsed")}</th>
+                  <th className="p-3 text-left font-semibold">{t("integrations.apiKeys.cols.created")}</th>
+                  <th className="p-3 text-right font-semibold">{t("integrations.apiKeys.cols.actions")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -138,7 +160,7 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
                         {k.name}
                         {revoked ? (
                           <span className="ml-2 rounded-full bg-[var(--surface-inset)] px-2 py-0.5 text-xs text-[var(--text-tertiary)]">
-                            revoked
+                            {t("integrations.apiKeys.revokedBadge")}
                           </span>
                         ) : null}
                       </td>
@@ -151,7 +173,7 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
                       <td className="p-3 text-xs text-[var(--text-tertiary)]">
                         {k.last_used_at
                           ? new Date(k.last_used_at).toLocaleString()
-                          : "never"}
+                          : t("integrations.apiKeys.never")}
                       </td>
                       <td className="p-3 text-xs text-[var(--text-tertiary)]">
                         {new Date(k.created_at).toLocaleDateString()}
@@ -164,7 +186,9 @@ export function APIKeysPanel({ companyId, companyName }: Readonly<Props>) {
                             disabled={revokingId === k.id}
                             className="text-xs font-semibold text-[var(--signal-red)] transition hover:opacity-80 disabled:opacity-50"
                           >
-                            {revokingId === k.id ? "Revoking…" : "Revoke"}
+                            {revokingId === k.id
+                              ? t("integrations.apiKeys.revoking")
+                              : t("integrations.apiKeys.revoke")}
                           </button>
                         ) : null}
                       </td>
@@ -209,6 +233,7 @@ function CreateKeyModal({
   onClose: () => void;
   onCreated: (key: APIKeyCreateResponse) => void;
 }>) {
+  const t = useTranslations();
   const [name, setName] = useState("");
   const [env, setEnv] = useState<"live" | "test">("live");
   const [scopes, setScopes] = useState<string[]>(["lead:read", "lead:write"]);
@@ -224,7 +249,7 @@ function CreateKeyModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
-      setError("Name is required");
+      setError(t("integrations.apiKeys.nameRequired"));
       return;
     }
     setSubmitting(true);
@@ -242,7 +267,7 @@ function CreateKeyModal({
           ? `${err.status}: ${err.message}`
           : err instanceof Error
             ? err.message
-            : "Unknown error",
+            : t("integrations.errors.unknown"),
       );
     } finally {
       setSubmitting(false);
@@ -254,22 +279,22 @@ function CreateKeyModal({
       <form onSubmit={handleSubmit} className="space-y-5">
         <header>
           <h3 className="text-lg font-semibold text-[var(--text-primary)]">
-            Create API Key
+            {t("integrations.apiKeys.createTitle")}
           </h3>
           <p className="mt-1 text-xs text-[var(--text-tertiary)]">
-            The raw key will be shown only once.
+            {t("integrations.apiKeys.createNote")}
           </p>
         </header>
 
         <label className="block">
           <span className="mb-1 block text-xs font-semibold text-[var(--text-secondary)]">
-            Name
+            {t("integrations.apiKeys.cols.name")}
           </span>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. HubSpot Integration"
+            placeholder={t("integrations.apiKeys.namePlaceholder")}
             className="w-full rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] transition focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
             required
           />
@@ -277,7 +302,7 @@ function CreateKeyModal({
 
         <fieldset>
           <legend className="mb-1 text-xs font-semibold text-[var(--text-secondary)]">
-            Environment
+            {t("integrations.apiKeys.environment")}
           </legend>
           <div className="flex flex-wrap gap-4 text-sm text-[var(--text-secondary)]">
             <label className="inline-flex items-center gap-2">
@@ -288,7 +313,7 @@ function CreateKeyModal({
                 onChange={() => setEnv("live")}
                 className="accent-[var(--accent)]"
               />
-              Live (sk_live_…)
+              {t("integrations.apiKeys.envLive")}
             </label>
             <label className="inline-flex items-center gap-2">
               <input
@@ -298,30 +323,32 @@ function CreateKeyModal({
                 onChange={() => setEnv("test")}
                 className="accent-[var(--accent)]"
               />
-              Test (sk_test_…)
+              {t("integrations.apiKeys.envTest")}
             </label>
           </div>
         </fieldset>
 
         <fieldset>
           <legend className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">
-            Scopes
+            {t("integrations.apiKeys.scopesTitle")}
           </legend>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {AVAILABLE_SCOPES.map((s) => (
+            {SCOPE_VALUES.map((value) => (
               <label
-                key={s.value}
+                key={value}
                 className="inline-flex items-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-xs"
               >
                 <input
                   type="checkbox"
-                  checked={scopes.includes(s.value)}
-                  onChange={() => toggleScope(s.value)}
+                  checked={scopes.includes(value)}
+                  onChange={() => toggleScope(value)}
                   className="h-3.5 w-3.5 rounded border-[var(--border-default)] accent-[var(--accent)]"
                 />
-                <span className="font-medium text-[var(--text-secondary)]">{s.label}</span>
+                <span className="font-medium text-[var(--text-secondary)]">
+                  {scopeLabel(t, value)}
+                </span>
                 <code className="ml-auto text-[10px] text-[var(--text-tertiary)]">
-                  {s.value}
+                  {value}
                 </code>
               </label>
             ))}
@@ -340,14 +367,16 @@ function CreateKeyModal({
             onClick={onClose}
             className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             type="submit"
             disabled={submitting || !name.trim() || scopes.length === 0}
             className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
           >
-            {submitting ? "Creating…" : "Create key"}
+            {submitting
+              ? t("integrations.apiKeys.creating")
+              : t("integrations.apiKeys.createKey")}
           </button>
         </div>
       </form>
@@ -363,6 +392,7 @@ function RawKeyModal({
   keyData,
   onClose,
 }: Readonly<{ keyData: APIKeyCreateResponse; onClose: () => void }>) {
+  const t = useTranslations();
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
@@ -380,11 +410,10 @@ function RawKeyModal({
       <div className="space-y-4">
         <header>
           <h3 className="text-lg font-semibold text-[var(--text-primary)]">
-            {keyData.name} created ✓
+            {t("integrations.apiKeys.createdHeading", { name: keyData.name })}
           </h3>
           <p className="mt-1 rounded-xl border border-[color-mix(in_srgb,_var(--signal-amber)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] px-3 py-2 text-xs text-[var(--signal-amber)]">
-            ⚠️ Copy this key now — Lisent will not show it again. If you lose
-            it, you must create a new key.
+            {t("integrations.apiKeys.copyWarning")}
           </p>
         </header>
 
@@ -400,14 +429,16 @@ function RawKeyModal({
             onClick={copy}
             className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 py-2 text-sm text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
           >
-            {copied ? "Copied ✓" : "Copy key"}
+            {copied
+              ? t("integrations.apiKeys.copied")
+              : t("integrations.apiKeys.copyKey")}
           </button>
           <button
             type="button"
             onClick={onClose}
             className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
           >
-            I saved it — close
+            {t("integrations.apiKeys.savedClose")}
           </button>
         </div>
       </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Building2,
@@ -9,6 +11,7 @@ import {
 } from "lucide-react";
 import type { ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { requestCreateWorkspace } from "@/components/dashboard/shared/create-workspace-modal";
 
@@ -29,6 +32,7 @@ type ActionRow = {
 };
 
 export function QuickActionsPanel({ companyId, companyName }: Readonly<QuickActionsPanelProps>) {
+  const t = useTranslations();
   const companyQs = companyId
     ? `?company=${encodeURIComponent(companyId)}${
         companyName ? `&companyName=${encodeURIComponent(companyName)}` : ""
@@ -38,48 +42,48 @@ export function QuickActionsPanel({ companyId, companyName }: Readonly<QuickActi
   const rows: ActionRow[] = [
     {
       icon: LayoutGrid,
-      title: "Home views",
-      description: "Your workspace overview",
-      ctaLabel: "Customized",
+      title: t("home.quickActions.homeViews.title"),
+      description: t("home.quickActions.homeViews.description"),
+      ctaLabel: t("home.quickActions.homeViews.cta"),
       tone: "ghost",
     },
     {
       icon: Building2,
-      title: "New workspace",
-      description: "Spin up a fresh environment",
-      ctaLabel: "Create",
+      title: t("home.quickActions.newWorkspace.title"),
+      description: t("home.quickActions.newWorkspace.description"),
+      ctaLabel: t("home.quickActions.newWorkspace.cta"),
       onClick: requestCreateWorkspace,
       tone: "primary",
     },
     {
       icon: Upload,
-      title: "Customer import",
-      description: "Bulk CSV import flow",
-      ctaLabel: "Import",
+      title: t("home.quickActions.customerImport.title"),
+      description: t("home.quickActions.customerImport.description"),
+      ctaLabel: t("home.quickActions.customerImport.cta"),
       href: `/dashboard/imports${companyQs}`,
       tone: "primary",
     },
     {
       icon: Sparkles,
-      title: "AI Qualifier",
-      description: "Auto-score incoming leads",
-      ctaLabel: "Configure",
+      title: t("home.quickActions.aiQualifier.title"),
+      description: t("home.quickActions.aiQualifier.description"),
+      ctaLabel: t("home.quickActions.aiQualifier.cta"),
       href: "/dashboard/integrations",
       tone: "primary",
     },
     {
       icon: UserPlus,
-      title: "Invite members",
-      description: "Add teammates to this workspace",
-      ctaLabel: "Invite",
+      title: t("home.quickActions.inviteMembers.title"),
+      description: t("home.quickActions.inviteMembers.description"),
+      ctaLabel: t("home.quickActions.inviteMembers.cta"),
       href: `/dashboard/access${companyQs}`,
       tone: "primary",
     },
     {
       icon: Calendar,
-      title: "Schedule meeting",
-      description: "Start planning now",
-      ctaLabel: "Schedule",
+      title: t("home.quickActions.scheduleMeeting.title"),
+      description: t("home.quickActions.scheduleMeeting.description"),
+      ctaLabel: t("home.quickActions.scheduleMeeting.cta"),
       href: `/dashboard/calendar${companyQs}`,
       tone: "primary",
     },
@@ -90,10 +94,10 @@ export function QuickActionsPanel({ companyId, companyName }: Readonly<QuickActi
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-[var(--text-primary)]">
-            Start here
+            {t("home.quickActions.title")}
           </p>
           <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">
-            Set up your workspace in a few clicks
+            {t("home.quickActions.subtitle")}
           </p>
         </div>
         <button
@@ -101,7 +105,7 @@ export function QuickActionsPanel({ companyId, companyName }: Readonly<QuickActi
           type="button"
         >
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-          1-click setup
+          {t("home.quickActions.oneClickSetup")}
         </button>
       </div>
 

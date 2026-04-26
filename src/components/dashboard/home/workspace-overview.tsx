@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Building2, CheckCheck, User } from "lucide-react";
 
 import { OverviewHeader } from "@/components/dashboard/home/overview-header";
@@ -17,6 +18,7 @@ import {
 } from "@/lib/crm/client";
 
 export function WorkspaceOverview() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const activeCompanyId = searchParams.get("company")?.trim() ?? "";
   const activeCompanyName = searchParams.get("companyName")?.trim() ?? "";
@@ -45,7 +47,7 @@ export function WorkspaceOverview() {
         const message =
           error instanceof CRMClientError
             ? error.message
-            : "Failed to load workspaces.";
+            : t("home.errors.loadWorkspaces");
         setErrorMessage(message);
       } finally {
         if (!cancelled) setLoading(false);
@@ -56,13 +58,13 @@ export function WorkspaceOverview() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [t]);
 
-  const activeLabel = activeCompanyName || "None selected";
+  const activeLabel = activeCompanyName || t("home.workspaceOverview.noneSelected");
 
   return (
     <div className="grid gap-5">
-      <OverviewHeader subtitle="Your workspaces at a glance" />
+      <OverviewHeader subtitle={t("home.workspaceOverview.subtitle")} />
 
       {errorMessage && (
         <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
@@ -73,27 +75,31 @@ export function WorkspaceOverview() {
       <section className="grid gap-4 sm:grid-cols-3">
         <StatCard
           icon={Building2}
-          label="Workspaces"
+          label={t("home.workspaceOverview.workspaces")}
           loading={loading}
           value={String(companies.length)}
-          hint={companies.length === 1 ? "Single workspace" : "Across account"}
+          hint={
+            companies.length === 1
+              ? t("home.workspaceOverview.singleWorkspace")
+              : t("home.workspaceOverview.acrossAccount")
+          }
         />
         <StatCard
           icon={User}
-          label="Customers"
+          label={t("home.workspaceOverview.customers")}
           loading={loading}
           value={String(customers.length)}
-          hint="All workspaces combined"
+          hint={t("home.workspaceOverview.allCombined")}
         />
         <StatCard
           icon={CheckCheck}
-          label="Active workspace"
+          label={t("home.workspaceOverview.activeWorkspace")}
           loading={loading}
           value={activeLabel}
           hint={
             activeCompanyId
-              ? "Selected for scoped views"
-              : "Pick a workspace to activate"
+              ? t("home.workspaceOverview.scopedViews")
+              : t("home.workspaceOverview.pickToActivate")
           }
         />
       </section>

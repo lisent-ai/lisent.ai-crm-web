@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import type {
   CalendarEventStatus,
   CalendarEventType,
@@ -62,27 +64,27 @@ function buildMinDateTimeValue() {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-const eventTypeOptions: Array<{ value: CalendarEventType; label: string }> = [
-  { value: "follow_up", label: "Follow-up" },
-  { value: "call", label: "Call" },
-  { value: "meeting", label: "Meeting" },
-  { value: "demo", label: "Demo" },
-  { value: "deadline", label: "Deadline" },
+const eventTypeValues: CalendarEventType[] = [
+  "follow_up",
+  "call",
+  "meeting",
+  "demo",
+  "deadline",
 ];
 
-const eventStatusOptions: Array<{ value: CalendarEventStatus; label: string }> = [
-  { value: "scheduled", label: "Scheduled" },
-  { value: "completed", label: "Completed" },
-  { value: "canceled", label: "Canceled" },
-  { value: "missed", label: "Missed" },
+const eventStatusValues: CalendarEventStatus[] = [
+  "scheduled",
+  "completed",
+  "canceled",
+  "missed",
 ];
 
-const linkedTypeOptions: Array<{ value: CalendarLinkedEntityType; label: string }> = [
-  { value: "", label: "No linked record" },
-  { value: "lead", label: "Lead" },
-  { value: "deal", label: "Deal" },
-  { value: "customer", label: "Customer" },
-  { value: "company", label: "Company" },
+const linkedTypeValues: CalendarLinkedEntityType[] = [
+  "",
+  "lead",
+  "deal",
+  "customer",
+  "company",
 ];
 
 export function CalendarEventModal({
@@ -99,6 +101,7 @@ export function CalendarEventModal({
   onFormChange,
   onSave,
 }: Readonly<CalendarEventModalProps>) {
+  const t = useTranslations();
   function updateField<K extends keyof CalendarEventFormState>(
     field: K,
     value: CalendarEventFormState[K],
@@ -148,14 +151,13 @@ export function CalendarEventModal({
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-700/80">
-              {editing ? "Edit event" : "New event"}
+              {editing ? t("calendar.modal.editEyebrow") : t("calendar.modal.newEyebrow")}
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">
-              {editing ? "Update calendar event" : "Schedule a CRM activity"}
+              {editing ? t("calendar.modal.editTitle") : t("calendar.modal.newTitle")}
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-              Keep the calendar tied to real CRM work: follow-ups, meetings, demos, and
-              deadlines linked to company records.
+              {t("calendar.modal.subtitle")}
             </p>
           </div>
 
@@ -164,23 +166,23 @@ export function CalendarEventModal({
             onClick={onClose}
             type="button"
           >
-            Close
+            {t("common.close")}
           </button>
         </div>
 
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Title
+            {t("calendar.fields.title")}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) => updateField("title", event.target.value)}
-              placeholder="Discovery call with Nova Health"
+              placeholder={t("calendar.placeholders.title")}
               value={form.title}
             />
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Event type
+            {t("calendar.fields.eventType")}
             <select
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) =>
@@ -188,26 +190,26 @@ export function CalendarEventModal({
               }
               value={form.eventType}
             >
-              {eventTypeOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+              {eventTypeValues.map((value) => (
+                <option key={value} value={value}>
+                  {t(`calendar.eventType.${value}`)}
                 </option>
               ))}
             </select>
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700 lg:col-span-2">
-            Description
+            {t("calendar.fields.description")}
             <textarea
               className="min-h-28 rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) => updateField("description", event.target.value)}
-              placeholder="Call to confirm scope, timeline, and next step."
+              placeholder={t("calendar.placeholders.description")}
               value={form.description}
             />
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Status
+            {t("calendar.fields.status")}
             <select
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) =>
@@ -215,22 +217,22 @@ export function CalendarEventModal({
               }
               value={form.status}
             >
-              {eventStatusOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+              {eventStatusValues.map((value) => (
+                <option key={value} value={value}>
+                  {t(`calendar.eventStatus.${value}`)}
                 </option>
               ))}
             </select>
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Assignee
+            {t("calendar.fields.assignee")}
             <select
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) => updateField("assigneeUserId", event.target.value)}
               value={form.assigneeUserId}
             >
-              <option value="">Unassigned</option>
+              <option value="">{t("calendar.unassigned")}</option>
               {assignableMembers.map((member) => (
                 <option key={member.userId} value={member.userId}>
                   {member.displayName}
@@ -246,11 +248,11 @@ export function CalendarEventModal({
               onChange={(event) => updateField("allDay", event.target.checked)}
               type="checkbox"
             />
-            All-day event
+            {t("calendar.fields.allDayEvent")}
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            {form.allDay ? "Start date" : "Start"}
+            {form.allDay ? t("calendar.fields.startDate") : t("calendar.fields.start")}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               min={!editing ? minimumStartValue : undefined}
@@ -261,7 +263,7 @@ export function CalendarEventModal({
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            {form.allDay ? "End date" : "End"}
+            {form.allDay ? t("calendar.fields.endDate") : t("calendar.fields.end")}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               min={minimumEndValue}
@@ -272,7 +274,7 @@ export function CalendarEventModal({
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Link to
+            {t("calendar.fields.linkTo")}
             <select
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) => {
@@ -286,9 +288,9 @@ export function CalendarEventModal({
               }}
               value={form.linkedEntityType}
             >
-              {linkedTypeOptions.map((option) => (
-                <option key={option.value || "none"} value={option.value}>
-                  {option.label}
+              {linkedTypeValues.map((value) => (
+                <option key={value || "none"} value={value}>
+                  {t(`calendar.linkedType.${value || "none"}`)}
                 </option>
               ))}
             </select>
@@ -296,7 +298,7 @@ export function CalendarEventModal({
 
           {form.linkedEntityType === "company" ? (
             <label className="grid gap-2 text-sm font-semibold text-slate-700">
-              Company record
+              {t("calendar.fields.companyRecord")}
               <input
                 className="rounded-[1.1rem] border border-slate-200 bg-slate-50 px-4 py-3 text-base font-medium text-slate-950"
                 readOnly
@@ -305,13 +307,13 @@ export function CalendarEventModal({
             </label>
           ) : form.linkedEntityType ? (
             <label className="grid gap-2 text-sm font-semibold text-slate-700">
-              Linked record
+              {t("calendar.fields.linkedRecord")}
               <select
                 className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
                 onChange={(event) => updateField("linkedEntityId", event.target.value)}
                 value={form.linkedEntityId}
               >
-                <option value="">Select a record</option>
+                <option value="">{t("calendar.placeholders.selectRecord")}</option>
                 {linkedOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -321,13 +323,13 @@ export function CalendarEventModal({
             </label>
           ) : (
             <label className="grid gap-2 text-sm font-semibold text-slate-700">
-              Customer link
+              {t("calendar.fields.customerLink")}
               <select
                 className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
                 onChange={(event) => updateField("customerId", event.target.value)}
                 value={form.customerId}
               >
-                <option value="">Optional customer</option>
+                <option value="">{t("calendar.placeholders.optionalCustomer")}</option>
                 {customers.map((customer) => (
                   <option key={customer.id} value={customer.id}>
                     {customer.name || customer.email || customer.id}
@@ -338,13 +340,13 @@ export function CalendarEventModal({
           )}
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Customer link
+            {t("calendar.fields.customerLink")}
             <select
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) => updateField("customerId", event.target.value)}
               value={form.customerId}
             >
-              <option value="">No linked customer</option>
+              <option value="">{t("calendar.placeholders.noLinkedCustomer")}</option>
               {customers.map((customer) => (
                 <option key={customer.id} value={customer.id}>
                   {customer.name || customer.email || customer.id}
@@ -354,17 +356,17 @@ export function CalendarEventModal({
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Location
+            {t("calendar.fields.location")}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) => updateField("location", event.target.value)}
-              placeholder="Berlin office / Zoom / Phone"
+              placeholder={t("calendar.placeholders.location")}
               value={form.location}
             />
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Meeting URL
+            {t("calendar.fields.meetingUrl")}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               onChange={(event) => updateField("meetingUrl", event.target.value)}
@@ -374,7 +376,7 @@ export function CalendarEventModal({
           </label>
 
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
-            Reminder (minutes before)
+            {t("calendar.fields.reminder")}
             <input
               className="rounded-[1.1rem] border border-slate-200 px-4 py-3 text-base font-medium text-slate-950 outline-none transition focus:border-cyan-400"
               min="0"
@@ -396,7 +398,7 @@ export function CalendarEventModal({
                 onClick={onDelete}
                 type="button"
               >
-                Delete event
+                {t("calendar.actions.deleteEvent")}
               </button>
             ) : null}
           </div>
@@ -407,7 +409,7 @@ export function CalendarEventModal({
               onClick={onClose}
               type="button"
             >
-              Cancel
+              {t("common.cancel")}
             </button>
             <button
               className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#164e63)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110 disabled:opacity-50"
@@ -415,7 +417,7 @@ export function CalendarEventModal({
               onClick={onSave}
               type="button"
             >
-              {saving ? "Saving..." : editing ? "Save changes" : "Create event"}
+              {saving ? t("common.saving") : editing ? t("calendar.actions.saveChanges") : t("calendar.actions.createEvent")}
             </button>
           </div>
         </div>

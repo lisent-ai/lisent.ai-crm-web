@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { customerStatusOptions, type CustomerFormState } from "./customer-types";
 import { Field } from "./customer-ui";
 
@@ -20,8 +24,9 @@ export function CustomerFormModal({
   onClose,
   onSubmit,
 }: Readonly<CustomerFormModalProps>) {
-  const actionLabel = mode === "edit" ? "Save changes" : "Create customer";
-  const eyebrow = mode === "edit" ? "Edit Customer" : "Create Customer";
+  const t = useTranslations();
+  const actionLabel = mode === "edit" ? t("customers.form.saveChanges") : t("customers.form.createCustomer");
+  const eyebrow = mode === "edit" ? t("customers.form.editEyebrow") : t("customers.form.createEyebrow");
 
   return (
     <div
@@ -49,31 +54,31 @@ export function CustomerFormModal({
             onClick={onClose}
             type="button"
           >
-            Close
+            {t("common.close")}
           </button>
         </div>
 
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <Field
-            label="Name"
+            label={t("customers.fields.name")}
             onChange={(value) => onFormChange({ ...form, name: value })}
-            placeholder="Customer name"
+            placeholder={t("customers.placeholders.name")}
             value={form.name}
           />
           <Field
-            label="Email"
+            label={t("customers.fields.email")}
             onChange={(value) => onFormChange({ ...form, email: value })}
-            placeholder="customer@company.com"
+            placeholder={t("customers.placeholders.email")}
             value={form.email}
           />
           <Field
-            label="Phone"
+            label={t("customers.fields.phone")}
             onChange={(value) => onFormChange({ ...form, phone: value })}
-            placeholder="+49 555 123 45"
+            placeholder={t("customers.placeholders.phone")}
             value={form.phone}
           />
           <label className="grid gap-2">
-            <span className="text-sm font-medium text-[var(--text-secondary)]">Status</span>
+            <span className="text-sm font-medium text-[var(--text-secondary)]">{t("customers.fields.status")}</span>
             <select
               className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)]"
               onChange={(event) =>
@@ -81,9 +86,9 @@ export function CustomerFormModal({
               }
               value={form.status}
             >
-              {customerStatusOptions.map((status) => (
-                <option key={status} value={status}>
-                  {status}
+              {customerStatusOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {t(option.labelKey as never)}
                 </option>
               ))}
             </select>
@@ -103,7 +108,7 @@ export function CustomerFormModal({
             onClick={onClose}
             type="button"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
         </div>
       </div>

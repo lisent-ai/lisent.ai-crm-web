@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Building2, MoreHorizontal, Plus, Trash2, UserPlus } from "lucide-react";
 
@@ -71,6 +72,7 @@ type PendingRoleChange = { member: CompanyMember; nextRole: CompanyRole };
 type PendingRemoval = { member: CompanyMember };
 
 export function TeamMembersWorkspace() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const companyId = searchParams.get("company")?.trim() ?? "";
   const companyName = searchParams.get("companyName")?.trim() ?? "";
@@ -106,12 +108,12 @@ export function TeamMembersWorkspace() {
       setErrorMessage(
         error instanceof CompanyMembershipClientError
           ? error.message
-          : "Failed to load team members.",
+          : t("teamMembers.errors.load"),
       );
     } finally {
       setLoading(false);
     }
-  }, [companyId]);
+  }, [companyId, t]);
 
   useEffect(() => {
     void reload();
@@ -162,7 +164,7 @@ export function TeamMembersWorkspace() {
       setInviteError(
         error instanceof CompanyMembershipClientError
           ? error.message
-          : "Failed to add team member.",
+          : t("teamMembers.errors.add"),
       );
     } finally {
       setSavingInvite(false);
@@ -181,7 +183,7 @@ export function TeamMembersWorkspace() {
       setErrorMessage(
         error instanceof CompanyMembershipClientError
           ? error.message
-          : "Failed to update member role.",
+          : t("teamMembers.errors.updateRole"),
       );
     } finally {
       setUpdatingUserId(null);
@@ -200,7 +202,7 @@ export function TeamMembersWorkspace() {
       setErrorMessage(
         error instanceof CompanyMembershipClientError
           ? error.message
-          : "Failed to remove team member.",
+          : t("teamMembers.errors.remove"),
       );
     } finally {
       setRemovingUserId(null);
@@ -216,7 +218,7 @@ export function TeamMembersWorkspace() {
       <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="min-w-0">
           <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
-            Team members
+            {t("teamMembers.title")}
             {companyName ? (
               <span className="ml-2 text-base font-medium text-[var(--text-tertiary)]">
                 · {companyName}
@@ -231,7 +233,7 @@ export function TeamMembersWorkspace() {
             type="button"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
-            Add team member
+            {t("teamMembers.addMember")}
           </button>
         )}
       </header>
@@ -244,8 +246,7 @@ export function TeamMembersWorkspace() {
 
       {!canReadMembers && !loading ? (
         <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] px-4 py-4 text-sm text-[var(--text-secondary)]">
-          Your current role does not allow you to inspect memberships for this
-          workspace.
+          {t("teamMembers.noPermission")}
         </div>
       ) : null}
 
@@ -255,7 +256,8 @@ export function TeamMembersWorkspace() {
         canManageMembers={canManageMembers}
         companyId={companyId}
         count={admins.length}
-        description="Admins can add and remove users and manage organization-level settings."
+        description={t("teamMembers.section.adminsDescription")}
+        emptyLabel={t("teamMembers.section.emptyAdmins")}
         loading={loading}
         members={admins}
         onRemove={(member) => setPendingRemoval({ member })}
@@ -263,7 +265,7 @@ export function TeamMembersWorkspace() {
           setPendingRoleChange({ member, nextRole })
         }
         removingUserId={removingUserId}
-        title="Admin users"
+        title={t("teamMembers.section.admins")}
         updatingUserId={updatingUserId}
       />
 
@@ -273,7 +275,8 @@ export function TeamMembersWorkspace() {
         canManageMembers={canManageMembers}
         companyId={companyId}
         count={accountUsers.length}
-        description="Account users can access leads, deals and customers for this workspace without touching organization-level settings."
+        description={t("teamMembers.section.usersDescription")}
+        emptyLabel={t("teamMembers.section.emptyUsers")}
         loading={loading}
         members={accountUsers}
         onRemove={(member) => setPendingRemoval({ member })}
@@ -281,7 +284,7 @@ export function TeamMembersWorkspace() {
           setPendingRoleChange({ member, nextRole })
         }
         removingUserId={removingUserId}
-        title="Account users"
+        title={t("teamMembers.section.users")}
         updatingUserId={updatingUserId}
       />
 
@@ -328,6 +331,7 @@ export function TeamMembersWorkspace() {
 type SectionProps = {
   title: string;
   description: string;
+  emptyLabel: string;
   count: number;
   members: CompanyMember[];
   loading: boolean;
@@ -344,6 +348,7 @@ type SectionProps = {
 function Section({
   title,
   description,
+  emptyLabel,
   count,
   members,
   loading,
@@ -356,6 +361,7 @@ function Section({
   onRoleChange,
   onRemove,
 }: Readonly<SectionProps>) {
+  const t = useTranslations();
   return (
     <section className="grid gap-5 border-t border-[var(--border-subtle)] pt-6 lg:grid-cols-[280px_minmax(0,1fr)]">
       <div>
@@ -379,7 +385,7 @@ function Section({
           <MemberSkeleton />
         ) : members.length === 0 ? (
           <div className="px-6 py-10 text-center text-sm text-[var(--text-tertiary)]">
-            No {title.toLowerCase()} yet.
+            {emptyLabel}
           </div>
         ) : (
           <>
@@ -387,11 +393,11 @@ function Section({
               <table className="w-full table-fixed">
                 <thead>
                   <tr className="border-b border-[var(--border-subtle)] text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">
-                    <th className="w-[44%] px-5 py-3">Name</th>
-                    <th className="w-[18%] px-5 py-3">Date added</th>
-                    <th className="w-[18%] px-5 py-3">Last active</th>
-                    <th className="w-[14%] px-5 py-3">Role</th>
-                    <th className="w-[6%] px-5 py-3 text-right" aria-label="Actions" />
+                    <th className="w-[44%] px-5 py-3">{t("teamMembers.columns.name")}</th>
+                    <th className="w-[18%] px-5 py-3">{t("teamMembers.columns.dateAdded")}</th>
+                    <th className="w-[18%] px-5 py-3">{t("teamMembers.columns.lastActive")}</th>
+                    <th className="w-[14%] px-5 py-3">{t("teamMembers.columns.role")}</th>
+                    <th className="w-[6%] px-5 py-3 text-right" aria-label={t("teamMembers.columns.actions")} />
                   </tr>
                 </thead>
                 <tbody>
@@ -459,6 +465,7 @@ function MemberRow({
   onRoleChange,
   onRemove,
 }: Readonly<MemberRowCommonProps>) {
+  const t = useTranslations();
   const canManageThis =
     canManageMembers &&
     access !== null &&
@@ -474,10 +481,10 @@ function MemberRow({
           <Avatar name={member.displayName || member.email} />
           <div className="min-w-0">
             <p className="flex items-center gap-2 truncate text-sm font-medium text-[var(--text-primary)]">
-              <span className="truncate">{member.displayName || "Unnamed"}</span>
+              <span className="truncate">{member.displayName || t("teamMembers.unnamed")}</span>
               {member.isCurrentUser && (
                 <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--text-tertiary)]">
-                  You
+                  {t("teamMembers.you")}
                 </span>
               )}
             </p>
@@ -505,11 +512,11 @@ function MemberRow({
       <td className="px-5 py-3.5">
         <div className="flex justify-end">
           <button
-            aria-label={`Remove ${member.displayName || member.email}`}
+            aria-label={t("teamMembers.aria.removeName", { name: member.displayName || member.email })}
             className="flex h-8 w-8 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))] hover:text-[var(--signal-red)] disabled:pointer-events-none disabled:opacity-30"
             disabled={!canManageThis || isRemoving}
             onClick={() => onRemove(member)}
-            title={canManageThis ? "Remove member" : "You can't remove this member"}
+            title={canManageThis ? t("teamMembers.removeMember") : t("teamMembers.cantRemove")}
             type="button"
           >
             <Trash2 className="h-4 w-4" aria-hidden="true" />
@@ -577,6 +584,7 @@ function MemberCard({
   onRoleChange,
   onRemove,
 }: Readonly<MemberRowCommonProps>) {
+  const t = useTranslations();
   const canManageThis =
     canManageMembers &&
     access !== null &&
@@ -591,10 +599,10 @@ function MemberCard({
         <Avatar name={member.displayName || member.email} />
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-2 truncate text-sm font-medium text-[var(--text-primary)]">
-            <span className="truncate">{member.displayName || "Unnamed"}</span>
+            <span className="truncate">{member.displayName || t("teamMembers.unnamed")}</span>
             {member.isCurrentUser && (
               <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[var(--text-tertiary)]">
-                You
+                {t("teamMembers.you")}
               </span>
             )}
           </p>
@@ -603,7 +611,7 @@ function MemberCard({
           </p>
         </div>
         <button
-          aria-label="Remove member"
+          aria-label={t("teamMembers.removeMember")}
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--text-tertiary)] transition hover:bg-[color-mix(in_srgb,_var(--signal-red)_10%,_var(--surface))] hover:text-[var(--signal-red)] disabled:opacity-40"
           disabled={!canManageThis || isRemoving}
           onClick={() => onRemove(member)}
@@ -616,7 +624,7 @@ function MemberCard({
       <div className="grid grid-cols-2 gap-3 text-xs text-[var(--text-tertiary)]">
         <div>
           <p className="text-[10px] font-medium uppercase tracking-wide">
-            Date added
+            {t("teamMembers.columns.dateAdded")}
           </p>
           <p className="mt-0.5 text-[var(--text-secondary)]">
             {formatDate(member.createdAt)}
@@ -624,7 +632,7 @@ function MemberCard({
         </div>
         <div>
           <p className="text-[10px] font-medium uppercase tracking-wide">
-            Last active
+            {t("teamMembers.columns.lastActive")}
           </p>
           <p className="mt-0.5 text-[var(--text-secondary)]">
             {formatDate(member.updatedAt)}
@@ -692,14 +700,15 @@ function formatDate(iso: string): string {
 }
 
 function EmptyWorkspace() {
+  const t = useTranslations();
   return (
     <div className="flex flex-col gap-5">
       <header>
         <h1 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-3xl">
-          Team members
+          {t("teamMembers.title")}
         </h1>
         <p className="mt-1 text-sm text-[var(--text-tertiary)]">
-          Manage your team members and their account permissions here.
+          {t("teamMembers.empty.subtitle")}
         </p>
       </header>
       <div className="flex flex-col items-center gap-4 rounded-[var(--radius-card-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface)] px-6 py-12 text-center shadow-[var(--shadow-card)]">
@@ -711,11 +720,10 @@ function EmptyWorkspace() {
         </span>
         <div>
           <p className="text-base font-semibold text-[var(--text-primary)]">
-            No workspace selected
+            {t("teamMembers.empty.heading")}
           </p>
           <p className="mx-auto mt-1 max-w-md text-sm text-[var(--text-tertiary)]">
-            Pick a workspace from the switcher in the top bar to manage its team
-            members here.
+            {t("teamMembers.empty.description")}
           </p>
         </div>
         <button
@@ -724,7 +732,7 @@ function EmptyWorkspace() {
           type="button"
         >
           <Building2 className="h-4 w-4" aria-hidden="true" />
-          Create workspace
+          {t("teamMembers.empty.createWorkspace")}
         </button>
       </div>
     </div>
