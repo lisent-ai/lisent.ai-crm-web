@@ -63,24 +63,24 @@ function formatDate(value: string) {
 function responseBadgeClasses(status: TaskResponseStatus) {
   switch (status) {
     case "accepted":
-      return "border-emerald-200 bg-emerald-50 text-emerald-700";
+      return "border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] text-[var(--signal-green)]";
     case "rejected":
-      return "border-rose-200 bg-rose-50 text-rose-700";
+      return "border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] text-[var(--signal-red)]";
     default:
-      return "border-amber-200 bg-amber-50 text-amber-700";
+      return "border-[color-mix(in_srgb,_var(--signal-amber)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] text-[#92400e]";
   }
 }
 
 function taskStatusBadgeClasses(status: TaskStatus) {
   switch (status) {
     case "done":
-      return "border-emerald-200 bg-emerald-50 text-emerald-700";
+      return "border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] text-[var(--signal-green)]";
     case "in_progress":
-      return "border-sky-200 bg-sky-50 text-sky-700";
+      return "border-[color-mix(in_srgb,_var(--accent)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--accent)_10%,_var(--surface))] text-[var(--accent-strong)]";
     case "canceled":
-      return "border-rose-200 bg-rose-50 text-rose-700";
+      return "border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] text-[var(--signal-red)]";
     default:
-      return "border-slate-200 bg-slate-50 text-slate-700";
+      return "border-[var(--border-subtle)] bg-[var(--surface-muted)] text-[var(--text-secondary)]";
   }
 }
 
@@ -494,23 +494,23 @@ export function TaskWorkspace() {
 
   return (
     <div className="grid min-w-0 gap-6">
-      <section className="rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+      <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-card)]">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-700/80">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent-strong)]">
               Tasks
             </p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
               Tickets and my queue
             </h1>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--text-secondary)]">
               Publish lightweight tasks to a teammate or to the whole company. Each
               person can accept or reject their own copy, then move work forward.
             </p>
           </div>
 
           <button
-            className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#164e63)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110 disabled:opacity-50"
+            className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-md)] transition hover:opacity-90 disabled:opacity-50"
             disabled={!selectedCompany || saving}
             onClick={() => setShowCreateModal(true)}
             type="button"
@@ -520,29 +520,29 @@ export function TaskWorkspace() {
         </div>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+          <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
               Company
             </p>
-            <p className="mt-2 text-lg font-semibold text-slate-950">{companyName}</p>
+            <p className="mt-2 text-lg font-semibold text-[var(--text-primary)]">{companyName}</p>
           </div>
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+          <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
               Open tickets
             </p>
-            <p className="mt-2 text-2xl font-semibold text-slate-950">{summary.openTickets}</p>
+            <p className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">{summary.openTickets}</p>
           </div>
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+          <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
               My pending
             </p>
-            <p className="mt-2 text-2xl font-semibold text-slate-950">{summary.myPending}</p>
+            <p className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">{summary.myPending}</p>
           </div>
-          <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+          <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
               In progress / done
             </p>
-            <p className="mt-2 text-2xl font-semibold text-slate-950">
+            <p className="mt-2 text-2xl font-semibold text-[var(--text-primary)]">
               {summary.inProgress} / {summary.done}
             </p>
           </div>
@@ -550,92 +550,92 @@ export function TaskWorkspace() {
       </section>
 
       {errorMessage ? (
-        <div className="rounded-[1.3rem] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+        <div className="rounded-[var(--radius-card-lg)] border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </div>
       ) : null}
 
       {successMessage ? (
-        <div className="rounded-[1.3rem] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+        <div className="rounded-[var(--radius-card-lg)] border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-green)]">
           {successMessage}
         </div>
       ) : null}
 
       <div className="grid gap-6 xl:grid-cols-2 xl:items-start">
-        <section className="rounded-[1.8rem] border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+        <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
                 Open tickets
               </p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
                 Published work relevant to you
               </h2>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-500">
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--text-tertiary)]">
                 Tasks still waiting for an answer from you or from recipients you assigned.
               </p>
             </div>
-            <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            <div className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
               {summary.openTickets} active
             </div>
           </div>
 
           <div className="mt-4 grid gap-3">
             {loading ? (
-              <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-6 text-sm text-slate-500">
+              <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
                 Loading tasks...
               </div>
             ) : openTicketGroups.length === 0 ? (
-              <div className="rounded-[1.2rem] border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-sm text-slate-500">
+              <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
                 No published tickets yet. Create the first one for this company.
               </div>
             ) : (
               openTicketGroups.map((group) => (
                 <article
-                  className="rounded-[1.35rem] border border-slate-200 bg-[linear-gradient(145deg,_#ffffff,_#f8fafc)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.05)]"
+                  className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-4 shadow-[var(--shadow-sm)]"
                   key={group.id}
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-lg font-semibold text-slate-950">
+                      <p className="truncate text-lg font-semibold text-[var(--text-primary)]">
                         {group.title}
                       </p>
-                      <p className="mt-1 line-clamp-2 text-sm leading-6 text-slate-600">
+                      <p className="mt-1 line-clamp-2 text-sm leading-6 text-[var(--text-secondary)]">
                         {group.note || "No extra notes added."}
                       </p>
                     </div>
-                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
+                    <span className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]">
                       {group.assignmentScope === "broadcast" ? "Everyone" : "Individual"}
                     </span>
                   </div>
 
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                    <div className="rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-2.5">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
                         Assigned to
                       </p>
-                      <p className="mt-1 text-sm font-semibold text-slate-950">
+                      <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
                         {group.assigneeLabel}
                       </p>
                     </div>
-                    <div className="rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-2.5">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
                         Due
                       </p>
-                      <p className="mt-1 text-sm font-semibold text-slate-950">
+                      <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
                         {formatDate(group.dueDate)}
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
-                    <span className="rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-amber-700">
+                    <span className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] px-2.5 py-1 text-[#92400e]">
                       Pending {group.pendingCount}
                     </span>
-                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-emerald-700">
+                    <span className="rounded-full border border-[color-mix(in_srgb,_var(--signal-green)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_8%,_var(--surface))] px-2.5 py-1 text-[var(--signal-green)]">
                       Accepted {group.acceptedCount}
                     </span>
-                    <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-rose-700">
+                    <span className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-2.5 py-1 text-[var(--signal-red)]">
                       Rejected {group.rejectedCount}
                     </span>
                   </div>
@@ -653,9 +653,9 @@ export function TaskWorkspace() {
                       }
 
                       return (
-                        <div className="mt-4 flex flex-wrap gap-2 border-t border-slate-200 pt-3">
+                        <div className="mt-4 flex flex-wrap gap-2 border-t border-[var(--border-subtle)] pt-3">
                           <button
-                            className="rounded-full bg-slate-900 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-50"
+                            className="rounded-full bg-[var(--text-primary)] px-3 py-1.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
                             disabled={saving}
                             onClick={() =>
                               void handleTaskAction(pendingTaskForUser.id, {
@@ -667,7 +667,7 @@ export function TaskWorkspace() {
                             Accept
                           </button>
                           <button
-                            className="rounded-full border border-rose-300 bg-rose-50 px-3 py-1.5 text-sm font-semibold text-rose-700 transition hover:border-rose-400 hover:bg-rose-100 disabled:opacity-50"
+                            className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-3 py-1.5 text-sm font-semibold text-[var(--signal-red)] transition hover:border-[color-mix(in_srgb,_var(--signal-red)_55%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:opacity-50"
                             disabled={saving}
                             onClick={() =>
                               void handleTaskAction(pendingTaskForUser.id, {
@@ -683,15 +683,15 @@ export function TaskWorkspace() {
                     })()
                   ) : null}
 
-                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-3">
-                    <p className="text-xs text-slate-500">
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border-subtle)] pt-3">
+                    <p className="text-xs text-[var(--text-tertiary)]">
                       Published by {group.createdByUserName || group.createdByUserId || "System"} on{" "}
                       {formatDate(group.createdAt)}
                     </p>
 
                     {account && group.createdByUserId === account.userId ? (
                       <button
-                        className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1.5 text-sm font-semibold text-rose-700 transition hover:border-rose-300 hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="rounded-full border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-3 py-1.5 text-sm font-semibold text-[var(--signal-red)] transition hover:border-[color-mix(in_srgb,_var(--signal-red)_40%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] disabled:cursor-not-allowed disabled:opacity-60"
                         disabled={saving}
                         onClick={() => void handleDeleteGroup(group)}
                         type="button"
@@ -706,16 +706,16 @@ export function TaskWorkspace() {
           </div>
         </section>
 
-        <section className="rounded-[1.8rem] border border-slate-200 bg-white p-5 shadow-[0_14px_44px_rgba(15,23,42,0.06)]">
+        <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
                 My tasks
               </p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
                 Accepted work in your queue
               </h2>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-500">
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--text-tertiary)]">
                 Tasks appear here only after you accept them.
               </p>
             </div>
@@ -730,8 +730,8 @@ export function TaskWorkspace() {
                 <button
                   className={`rounded-full px-3 py-1.5 text-sm font-semibold transition ${
                     myTaskFilter === value
-                      ? "bg-slate-900 text-white"
-                      : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-950"
+                      ? "bg-[var(--text-primary)] text-white"
+                      : "border border-[var(--border-subtle)] bg-[var(--surface)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
                   }`}
                   key={value}
                   onClick={() =>
@@ -749,25 +749,25 @@ export function TaskWorkspace() {
 
           <div className="mt-4 grid gap-3">
             {loading ? (
-              <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-4 py-6 text-sm text-slate-500">
+              <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
                 Loading your tasks...
               </div>
             ) : filteredMyTasks.length === 0 ? (
-              <div className="rounded-[1.2rem] border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-sm text-slate-500">
+              <div className="rounded-[var(--radius-card)] border border-dashed border-[var(--border-default)] bg-[var(--surface-muted)] px-4 py-6 text-sm text-[var(--text-tertiary)]">
                 No tasks matched this filter.
               </div>
             ) : (
               filteredMyTasks.map((task) => (
                 <article
-                  className="rounded-[1.35rem] border border-slate-200 bg-[linear-gradient(145deg,_#ffffff,_#f8fafc)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.05)]"
+                  className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-4 shadow-[var(--shadow-sm)]"
                   key={task.id}
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-lg font-semibold text-slate-950">
+                      <p className="truncate text-lg font-semibold text-[var(--text-primary)]">
                         {task.title}
                       </p>
-                      <p className="mt-1 line-clamp-2 text-sm leading-6 text-slate-600">
+                      <p className="mt-1 line-clamp-2 text-sm leading-6 text-[var(--text-secondary)]">
                         {task.note || "No extra notes added."}
                       </p>
                     </div>
@@ -790,28 +790,28 @@ export function TaskWorkspace() {
                   </div>
 
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                    <div className="rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-2.5">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
                         Published by
                       </p>
-                      <p className="mt-1 text-sm font-semibold text-slate-950">
+                      <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
                         {task.createdByUserName || task.createdByUserId || "System"}
                       </p>
                     </div>
-                    <div className="rounded-[1rem] border border-slate-200 bg-slate-50 px-3 py-2.5">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-2.5">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
                         Due
                       </p>
-                      <p className="mt-1 text-sm font-semibold text-slate-950">
+                      <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">
                         {formatDate(task.dueDate)}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-2 border-t border-slate-200 pt-3">
+                  <div className="mt-4 flex flex-wrap gap-2 border-t border-[var(--border-subtle)] pt-3">
                     {task.responseStatus === "accepted" && task.status === "open" ? (
                       <button
-                        className="rounded-full border border-sky-300 bg-sky-50 px-3 py-1.5 text-sm font-semibold text-sky-700 transition hover:border-sky-400 hover:bg-sky-100 disabled:opacity-50"
+                        className="rounded-full border border-[color-mix(in_srgb,_var(--accent)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--accent)_10%,_var(--surface))] px-3 py-1.5 text-sm font-semibold text-[var(--accent-strong)] transition hover:border-[var(--accent)] hover:bg-[color-mix(in_srgb,_var(--accent)_18%,_var(--surface))] disabled:opacity-50"
                         disabled={saving}
                         onClick={() =>
                           void handleTaskAction(task.id, { status: "in_progress" })
@@ -825,7 +825,7 @@ export function TaskWorkspace() {
                     {task.responseStatus === "accepted" &&
                     (task.status === "open" || task.status === "in_progress") ? (
                       <button
-                        className="rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-sm font-semibold text-emerald-700 transition hover:border-emerald-400 hover:bg-emerald-100 disabled:opacity-50"
+                        className="rounded-full border border-[color-mix(in_srgb,_var(--signal-green)_40%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-green)_10%,_var(--surface))] px-3 py-1.5 text-sm font-semibold text-[var(--signal-green)] transition hover:border-[color-mix(in_srgb,_var(--signal-green)_55%,_transparent)] hover:bg-[color-mix(in_srgb,_var(--signal-green)_18%,_var(--surface))] disabled:opacity-50"
                         disabled={saving}
                         onClick={() => void handleTaskAction(task.id, { status: "done" })}
                         type="button"
