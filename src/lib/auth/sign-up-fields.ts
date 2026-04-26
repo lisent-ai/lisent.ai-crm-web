@@ -1,6 +1,24 @@
+import {
+  isSupportedLocale,
+  type SupportedLocale,
+} from "@/lib/i18n/config";
+
+export type ValidationKey =
+  | "validation.firstNameRequired"
+  | "validation.firstNameTooShort"
+  | "validation.lastNameRequired"
+  | "validation.lastNameTooShort"
+  | "validation.phoneRequired"
+  | "validation.phoneInvalid"
+  | "validation.genderRequired"
+  | "validation.genderInvalid"
+  | "validation.languageInvalid";
+
+export type ValidationError = { key: ValidationKey };
+
 export const genderOptions = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
+  { value: "male", labelKey: "account.gender.male" },
+  { value: "female", labelKey: "account.gender.female" },
 ] as const;
 
 export type GenderValue = (typeof genderOptions)[number]["value"];
@@ -10,6 +28,7 @@ export type SignUpProfileFields = {
   lastName: string;
   phoneNumber: string;
   gender: GenderValue | "";
+  language: SupportedLocale | "";
 };
 
 export const emptySignUpProfileFields: SignUpProfileFields = {
@@ -17,50 +36,68 @@ export const emptySignUpProfileFields: SignUpProfileFields = {
   lastName: "",
   phoneNumber: "",
   gender: "",
+  language: "",
 };
 
-function validateRequiredText(value: unknown, label: string) {
+function validateRequiredText(
+  value: unknown,
+  requiredKey: ValidationKey,
+  tooShortKey: ValidationKey,
+): ValidationError | undefined {
   if (typeof value !== "string" || value.trim() === "") {
-    return `${label} is required.`;
+    return { key: requiredKey };
   }
-
   if (value.trim().length < 2) {
-    return `${label} must be at least 2 characters.`;
+    return { key: tooShortKey };
   }
-
   return undefined;
 }
 
-export function validateFirstName(value: unknown) {
-  return validateRequiredText(value, "Name");
+export function validateFirstName(value: unknown): ValidationError | undefined {
+  return validateRequiredText(
+    value,
+    "validation.firstNameRequired",
+    "validation.firstNameTooShort",
+  );
 }
 
-export function validateLastName(value: unknown) {
-  return validateRequiredText(value, "Surname");
+export function validateLastName(value: unknown): ValidationError | undefined {
+  return validateRequiredText(
+    value,
+    "validation.lastNameRequired",
+    "validation.lastNameTooShort",
+  );
 }
 
-export function validatePhoneNumber(value: unknown) {
+export function validatePhoneNumber(
+  value: unknown,
+): ValidationError | undefined {
   if (typeof value !== "string" || value.trim() === "") {
-    return "Phone number is required.";
+    return { key: "validation.phoneRequired" };
   }
-
-  const normalized = value.replace(/[^\d+]/g, "");
-  const digitsOnly = normalized.replace(/\D/g, "");
+  const digitsOnly = value.replace(/\D/g, "");
   if (digitsOnly.length < 7 || digitsOnly.length > 15) {
-    return "Enter a valid phone number.";
+    return { key: "validation.phoneInvalid" };
   }
-
   return undefined;
 }
 
-export function validateGender(value: unknown) {
+export function validateGender(value: unknown): ValidationError | undefined {
   if (typeof value !== "string" || value.trim() === "") {
-    return "Gender is required.";
+    return { key: "validation.genderRequired" };
   }
-
   if (!genderOptions.some((option) => option.value === value)) {
-    return "Select a valid gender option.";
+    return { key: "validation.genderInvalid" };
   }
+  return undefined;
+}
 
+export function validateLanguage(value: unknown): ValidationError | undefined {
+  if (typeof value !== "string" || value.trim() === "") {
+    return { key: "validation.languageInvalid" };
+  }
+  if (!isSupportedLocale(value)) {
+    return { key: "validation.languageInvalid" };
+  }
   return undefined;
 }

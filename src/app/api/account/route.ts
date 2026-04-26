@@ -6,6 +6,7 @@ import {
   validateAccountProfileInput,
 } from "@/lib/auth/account-profile";
 import { loadAccountProfile } from "@/lib/auth/account-server";
+import { buildLocaleCookieHeader } from "@/lib/i18n/locale-server";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
 export async function GET(request: NextRequest) {
@@ -67,6 +68,13 @@ export async function PATCH(request: NextRequest) {
       return Response.json({ error: "user not found" }, { status: 404 });
     }
 
-    return Response.json(account);
+    const response = Response.json(account);
+    if (data.language) {
+      response.headers.append(
+        "set-cookie",
+        buildLocaleCookieHeader(data.language),
+      );
+    }
+    return response;
   });
 }

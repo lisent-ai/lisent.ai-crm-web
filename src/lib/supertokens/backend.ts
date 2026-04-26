@@ -45,19 +45,19 @@ export function ensureBackendSuperTokensInit(request?: Request) {
           formFields: [
             {
               id: "first_name",
-              validate: async (value) => validateFirstName(value),
+              validate: async (value) => validateFirstName(value)?.key,
             },
             {
               id: "last_name",
-              validate: async (value) => validateLastName(value),
+              validate: async (value) => validateLastName(value)?.key,
             },
             {
               id: "phone_number",
-              validate: async (value) => validatePhoneNumber(value),
+              validate: async (value) => validatePhoneNumber(value)?.key,
             },
             {
               id: "gender",
-              validate: async (value) => validateGender(value),
+              validate: async (value) => validateGender(value)?.key,
             },
           ],
         },
@@ -83,6 +83,7 @@ export function ensureBackendSuperTokensInit(request?: Request) {
                   lastName: fieldValue("last_name"),
                   phoneNumber: fieldValue("phone_number"),
                   gender: fieldValue("gender"),
+                  language: fieldValue("language"),
                 },
               });
 

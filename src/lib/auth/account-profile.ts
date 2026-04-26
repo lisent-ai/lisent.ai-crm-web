@@ -1,12 +1,15 @@
 import {
   emptySignUpProfileFields,
   type SignUpProfileFields,
+  type ValidationError,
   validateFirstName,
   validateGender,
+  validateLanguage,
   validateLastName,
   validatePhoneNumber,
 } from "@/lib/auth/sign-up-fields";
 import type { CompanyRole, PlatformRole } from "@/lib/auth/roles";
+import { isSupportedLocale, type SupportedLocale } from "@/lib/i18n/config";
 
 export type AccountCompanyMembershipSummary = {
   companyId: string;
@@ -29,7 +32,7 @@ export type AccountProfile = SignUpProfileFields & {
 };
 
 export type AccountProfileFieldErrors = Partial<
-  Record<keyof SignUpProfileFields, string>
+  Record<keyof SignUpProfileFields, ValidationError>
 >;
 
 export function normalizeAccountProfile(raw: unknown): SignUpProfileFields {
@@ -38,6 +41,11 @@ export function normalizeAccountProfile(raw: unknown): SignUpProfileFields {
   }
 
   const profile = raw as Partial<Record<keyof SignUpProfileFields, unknown>>;
+
+  const language: SupportedLocale | "" =
+    typeof profile.language === "string" && isSupportedLocale(profile.language)
+      ? profile.language
+      : "";
 
   return {
     firstName:
@@ -50,6 +58,7 @@ export function normalizeAccountProfile(raw: unknown): SignUpProfileFields {
       profile.gender === "male" || profile.gender === "female"
         ? profile.gender
         : "",
+    language,
   };
 }
 
@@ -96,6 +105,11 @@ export function validateAccountProfileInput(raw: unknown): {
   const genderError = validateGender(data.gender);
   if (genderError) {
     fieldErrors.gender = genderError;
+  }
+
+  const languageError = validateLanguage(data.language);
+  if (languageError) {
+    fieldErrors.language = languageError;
   }
 
   return { data, fieldErrors };
