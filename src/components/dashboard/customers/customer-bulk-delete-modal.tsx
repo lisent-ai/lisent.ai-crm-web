@@ -44,9 +44,9 @@ export function CustomerBulkDeleteModal({
           This will permanently remove the selected customer records from the CRM.
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <button
-            className="rounded-full bg-[var(--signal-red)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-md)] transition hover:opacity-90 disabled:opacity-50"
+            className="w-full rounded-full bg-[var(--signal-red)] px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-md)] transition hover:opacity-90 disabled:opacity-50 sm:w-auto"
             disabled={saving}
             onClick={onConfirmDelete}
             type="button"
@@ -54,7 +54,7 @@ export function CustomerBulkDeleteModal({
             {saving ? "Deleting..." : `Confirm delete ${count}`}
           </button>
           <button
-            className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50"
+            className="w-full rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] disabled:opacity-50 sm:w-auto"
             disabled={saving}
             onClick={onClose}
             type="button"

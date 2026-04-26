@@ -130,9 +130,9 @@ export function TaskCreateModal({
         </label>
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-3">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <button
-          className="rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
+          className="w-full rounded-full bg-[var(--text-primary)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50 sm:w-auto"
           disabled={saving}
           onClick={onCreate}
           type="button"
@@ -140,7 +140,7 @@ export function TaskCreateModal({
           {saving ? "Publishing..." : "Publish task"}
         </button>
         <button
-          className="rounded-full border border-[var(--border-subtle)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+          className="w-full rounded-full border border-[var(--border-subtle)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] sm:w-auto"
           onClick={onClose}
           type="button"
         >

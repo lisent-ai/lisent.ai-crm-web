@@ -29,9 +29,9 @@ export function DealDeleteModal({
           customer and lead records will stay untouched.
         </p>
 
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <button
-            className="rounded-full bg-[var(--signal-red)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
+            className="w-full rounded-full bg-[var(--signal-red)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50 sm:w-auto"
             disabled={saving}
             onClick={onConfirm}
             type="button"
@@ -39,7 +39,7 @@ export function DealDeleteModal({
             {saving ? "Deleting..." : "Delete deal"}
           </button>
           <button
-            className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+            className="w-full rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] sm:w-auto"
             onClick={onClose}
             type="button"
           >
