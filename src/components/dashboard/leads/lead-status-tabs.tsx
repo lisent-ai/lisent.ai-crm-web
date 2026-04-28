@@ -17,6 +17,7 @@ type LeadStatusTabsProps = {
   totalCount: number;
   assignedToMeCount: number;
   assignedToMeDisabled?: boolean;
+  hideAssignedToMe?: boolean;
 };
 
 export function LeadStatusTabs({
@@ -26,15 +27,20 @@ export function LeadStatusTabs({
   totalCount,
   assignedToMeCount,
   assignedToMeDisabled = false,
+  hideAssignedToMe = false,
 }: Readonly<LeadStatusTabsProps>) {
   const t = useTranslations();
   const options: StatusTabOption[] = [
     { value: "all", label: t("leads.statusTab.all"), count: totalCount },
-    {
-      value: "assigned_to_me",
-      label: t("leads.statusTab.assignedToMe"),
-      count: assignedToMeCount,
-    },
+    ...(hideAssignedToMe
+      ? []
+      : [
+          {
+            value: "assigned_to_me",
+            label: t("leads.statusTab.assignedToMe"),
+            count: assignedToMeCount,
+          },
+        ]),
     ...leadStatuses.map((status) => ({
       value: status,
       label: t(`leads.status.${status}`),

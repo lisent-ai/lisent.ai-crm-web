@@ -22,6 +22,7 @@ type LeadToolbarProps = {
   onShowUnassignedChange: (value: boolean) => void;
   onAdd: () => void;
   canAdd: boolean;
+  restrictedToSelf?: boolean;
 };
 
 export function LeadToolbar({
@@ -37,6 +38,7 @@ export function LeadToolbar({
   onShowUnassignedChange,
   onAdd,
   canAdd,
+  restrictedToSelf = false,
 }: Readonly<LeadToolbarProps>) {
   const t = useTranslations();
   const [filterOpen, setFilterOpen] = useState(false);
@@ -62,8 +64,8 @@ export function LeadToolbar({
 
   const activeFilterCount =
     (sourceFilter !== "all" ? 1 : 0) +
-    (assigneeFilter !== "all" ? 1 : 0) +
-    (showOnlyUnassigned ? 1 : 0);
+    (!restrictedToSelf && assigneeFilter !== "all" ? 1 : 0) +
+    (!restrictedToSelf && showOnlyUnassigned ? 1 : 0);
 
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -121,30 +123,36 @@ export function LeadToolbar({
                 options={sourceOptions}
                 value={sourceFilter}
               />
-              <div className="mt-3">
-                <FilterSelect
-                  label={t("leads.toolbar.assignee")}
-                  onChange={onAssigneeChange}
-                  options={assigneeOptions}
-                  value={assigneeFilter}
-                />
-              </div>
-              <label className="mt-3 flex items-center gap-2 rounded-xl bg-[var(--surface-subtle)] px-3 py-2 text-sm text-[var(--text-secondary)]">
-                <input
-                  checked={showOnlyUnassigned}
-                  className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
-                  onChange={(event) => onShowUnassignedChange(event.target.checked)}
-                  type="checkbox"
-                />
-                {t("leads.toolbar.showOnlyUnassigned")}
-              </label>
+              {!restrictedToSelf && (
+                <>
+                  <div className="mt-3">
+                    <FilterSelect
+                      label={t("leads.toolbar.assignee")}
+                      onChange={onAssigneeChange}
+                      options={assigneeOptions}
+                      value={assigneeFilter}
+                    />
+                  </div>
+                  <label className="mt-3 flex items-center gap-2 rounded-xl bg-[var(--surface-subtle)] px-3 py-2 text-sm text-[var(--text-secondary)]">
+                    <input
+                      checked={showOnlyUnassigned}
+                      className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
+                      onChange={(event) => onShowUnassignedChange(event.target.checked)}
+                      type="checkbox"
+                    />
+                    {t("leads.toolbar.showOnlyUnassigned")}
+                  </label>
+                </>
+              )}
               <div className="mt-3 flex justify-end gap-2">
                 <button
                   className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)]"
                   onClick={() => {
                     onSourceChange("all");
-                    onAssigneeChange("all");
-                    onShowUnassignedChange(false);
+                    if (!restrictedToSelf) {
+                      onAssigneeChange("all");
+                      onShowUnassignedChange(false);
+                    }
                   }}
                   type="button"
                 >

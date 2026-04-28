@@ -7,6 +7,7 @@ import {
 } from "@/lib/auth/company-memberships";
 import {
   canAccessCompanyInAccess,
+  getCompanyRoleForAccess,
   hasCompanyPermissionInAccess,
 } from "@/lib/auth/access-control";
 import { loadAccountProfile } from "@/lib/auth/account-server";
@@ -35,6 +36,7 @@ type CRMCustomerRecord = {
 type CRMLeadRecord = {
   id: string;
   company_id?: string | null;
+  assignee_user_id?: string | null;
 };
 
 type CRMDealRecord = {
@@ -422,6 +424,18 @@ async function authorizeLeadById(
     if (!hasCompanyPermissionInAccess(account.access, lead.company_id, permission)) {
       return Response.json({ error: "forbidden" }, { status: 403 });
     }
+
+    // Member role is scoped to leads assigned to themselves: deny direct
+    // access (read or write) to any lead assigned to someone else, even if
+    // they share the company. The list endpoint filters at SQL level; this
+    // closes the same loophole on detail/PATCH/DELETE/PUT.
+    const role = getCompanyRoleForAccess(account.access, lead.company_id);
+    if (role === "member") {
+      const assigneeUserId = lead.assignee_user_id?.trim() ?? "";
+      if (assigneeUserId !== account.userId) {
+        return Response.json({ error: "forbidden" }, { status: 403 });
+      }
+    }
   } catch (error) {
     if (error instanceof Response) {
       return relayUpstreamResponse(error);
@@ -490,6 +504,31 @@ async function listAuthorizedLeads(
       return Response.json({ error: "forbidden" }, { status: 403 });
     }
 
+    // Member role: force assignee filter to self regardless of any
+    // client-supplied assignee_user_id / unassigned hints. This is the
+    // security boundary — members must only see leads assigned to them.
+    const role = getCompanyRoleForAccess(account.access, requestedCompanyId);
+    if (role === "member") {
+      const overridden = new URLSearchParams(searchParams);
+      overridden.set("assignee_user_id", account.userId);
+      overridden.delete("unassigned");
+      const upstreamResponse = await fetch(
+        buildUpstreamURL(config.baseURL, ["leads"], `?${overridden.toString()}`),
+        {
+          method: "GET",
+          headers: buildForwardHeaders(
+            request,
+            config.apiKey,
+            account.userId,
+            account.displayName,
+            resolveRequestID(request),
+          ),
+          cache: "no-store",
+        },
+      );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+
     const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"]);
     return relayUpstreamResponse(upstreamResponse);
   }
@@ -513,8 +552,17 @@ async function listAuthorizedLeads(
   extraParams.delete("limit");
   extraParams.delete("offset");
   extraParams.delete("company_id");
-  const extraQuery = extraParams.toString();
   for (const companyId of allowedCompanyIds) {
+    const perCompanyParams = new URLSearchParams(extraParams);
+    // Per-company member scoping: fan-out across multiple companies, each
+    // potentially with a different role for this user. Force own-leads
+    // filter on companies where the user is a member.
+    const role = getCompanyRoleForAccess(account.access, companyId);
+    if (role === "member") {
+      perCompanyParams.set("assignee_user_id", account.userId);
+      perCompanyParams.delete("unassigned");
+    }
+    const extraQuery = perCompanyParams.toString();
     const payload = await fetchCRMJSON<CRMListResponse<CRMLeadRecord>>(
       request,
       config,

@@ -7,6 +7,7 @@ import { Calendar, CheckCircle2, PencilLine, Trash2 } from "lucide-react";
 
 import { getAccountProfile } from "@/lib/account/client";
 import type { AccountProfile } from "@/lib/auth/account-profile";
+import { getCompanyRoleForAccess } from "@/lib/auth/access-control";
 import {
   CRMClientError,
   convertLead,
@@ -231,6 +232,15 @@ export function LeadDirectory() {
     [activeCompanyId, companies],
   );
   const accountUserId = account?.userId?.trim() ?? "";
+  // Member role is scoped to leads assigned to themselves. Backend BFF
+  // forces the assignee filter regardless, but we mirror it in the UI so
+  // members don't see assignee/unassigned filters or bulk-assign for rows
+  // they couldn't act on anyway. super_admin and other roles are unaffected.
+  const companyRole = useMemo(() => {
+    if (!account || !selectedCompany) return null;
+    return getCompanyRoleForAccess(account.access, selectedCompany.id);
+  }, [account, selectedCompany]);
+  const isMemberRole = companyRole === "member" && !account?.access.isSuperAdmin;
   const leadFilters = useMemo(
     () =>
       buildLeadFilters({
@@ -1103,6 +1113,7 @@ export function LeadDirectory() {
               assignedToMeCount={assignedToMeCount}
               assignedToMeDisabled={!accountUserId}
               counts={pipelineCounts}
+              hideAssignedToMe={isMemberRole}
               onChange={handleStatusTabChange}
               totalCount={leads.length}
               value={statusFilter}
@@ -1119,6 +1130,7 @@ export function LeadDirectory() {
               onSearchChange={setSearchQuery}
               onShowUnassignedChange={handleShowOnlyUnassignedChange}
               onSourceChange={setSourceFilter}
+              restrictedToSelf={isMemberRole}
               searchQuery={searchQuery}
               showOnlyUnassigned={showOnlyUnassigned}
               sourceFilter={sourceFilter}
@@ -1204,7 +1216,7 @@ export function LeadDirectory() {
       <LeadDetailDrawer
         account={account}
         aiEnabled={aiEnabled}
-        assignableMembersCount={assignableMembers.length}
+        assignableMembersCount={isMemberRole ? 0 : assignableMembers.length}
         commentDraft={leadCommentDraft}
         comments={leadComments}
         commentsLoading={leadCommentsLoading}
@@ -1234,7 +1246,7 @@ export function LeadDirectory() {
       />
 
       <LeadBulkActionBar
-        canAssign={assignableMembers.length > 0}
+        canAssign={!isMemberRole && assignableMembers.length > 0}
         count={selectedIds.size}
         onAssign={() => setShowBulkAssignModal(true)}
         onClear={() => setSelectedIds(new Set())}
