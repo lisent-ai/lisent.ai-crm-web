@@ -30,7 +30,8 @@ export const featureFlags = {
   /** Enables the Meta Lead Ads integration card + config UI inside the Integrations Hub. */
   metaIntegration: isTrue(process.env.NEXT_PUBLIC_META_INTEGRATION_ENABLED),
   /** Phase 2: enables "Connect with Facebook" OAuth flow. When false the
-   *  modal shows the legacy mock-only credentials form instead. */
+   *  modal shows the legacy mock-only credentials form instead.
+   *  Phase 2.1: this flag now ALSO gates the Nango-powered Connect path. */
   metaOAuth: isTrue(process.env.NEXT_PUBLIC_META_OAUTH_ENABLED),
 } as const;
 

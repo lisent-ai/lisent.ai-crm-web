@@ -80,6 +80,8 @@ services:
         NEXT_PUBLIC_MARKETING_MODULE_ENABLED: "true"
         NEXT_PUBLIC_META_INTEGRATION_ENABLED: "true"
         NEXT_PUBLIC_META_OAUTH_ENABLED: "${NEXT_PUBLIC_META_OAUTH_ENABLED:-false}"
+        NEXT_PUBLIC_NANGO_HOST: "${NEXT_PUBLIC_NANGO_HOST:-https://oauth.lisent.ai}"
+        NEXT_PUBLIC_NANGO_PUBLIC_KEY: "${NEXT_PUBLIC_NANGO_PUBLIC_KEY:-}"
     container_name: lisent-dev-crm-web
     restart: unless-stopped
     environment:

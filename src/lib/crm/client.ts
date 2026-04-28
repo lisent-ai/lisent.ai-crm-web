@@ -2504,51 +2504,54 @@ export async function rotateMetaSecret(
   };
 }
 
-// ─── Meta OAuth (Phase 2) ───────────────────────────────────────────────────
+// ─── Meta OAuth via Nango (Phase 2.1) ──────────────────────────────────────
 
-/** MetaOAuthNotConfigured signals the backend's 501 — the central Lisent
- *  Meta App credentials aren't set yet. UI uses this to render the
- *  "OAuth not enabled, use mock mode" hint. */
+/** NangoUnavailable signals the backend's 503 — Nango self-hosted env
+ *  vars (NANGO_HOST / NANGO_SECRET_KEY) aren't set on the CRM service.
+ *  UI uses this to render "ask the admin to wire up Nango, or use
+ *  mock mode" hint. */
 export class MetaOAuthNotConfiguredError extends Error {
   constructor() {
-    super("Meta OAuth is not yet configured.");
+    super("Meta OAuth (Nango) is not yet configured.");
     this.name = "MetaOAuthNotConfiguredError";
   }
 }
 
-/** Distinguishes 501 from real network failures. */
-function isOAuthNotConfigured(err: unknown): boolean {
-  return err instanceof CRMClientError && err.status === 501;
+function isNangoUnavailable(err: unknown): boolean {
+  return err instanceof CRMClientError && err.status === 503;
 }
 
-export async function startMetaOAuth(
-  companyId: string,
-): Promise<{ authUrl: string; state: string }> {
-  try {
-    const r = await requestCRM<{ auth_url: string; state: string }>(
-      `/companies/${companyId}/meta-oauth-start`,
-    );
-    return { authUrl: r.auth_url, state: r.state };
-  } catch (err) {
-    if (isOAuthNotConfigured(err)) throw new MetaOAuthNotConfiguredError();
-    throw err;
-  }
-}
-
+/** completeMetaOAuth — frontend already has the Nango popup outcome
+ *  (connectionId from `connectMetaViaNango` in src/lib/nango/client.ts),
+ *  this BFF round-trip persists it on the CRM side and returns the FB
+ *  Pages list so the page-picker UI can render. Body shape mirrors the
+ *  backend's NangoConnectRequest. */
 export async function completeMetaOAuth(
   companyId: string,
-  payload: { code: string; state: string },
+  payload: { connectionId: string; providerConfigKey: string },
 ): Promise<{ oauthUserId: string; oauthUserName: string; pages: MetaPage[] }> {
-  const r = await requestCRM<{
-    oauth_user_id: string;
-    oauth_user_name: string;
-    pages: MetaPage[];
-  }>(`/companies/${companyId}/meta-oauth-callback`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  return { oauthUserId: r.oauth_user_id, oauthUserName: r.oauth_user_name, pages: r.pages };
+  try {
+    const r = await requestCRM<{
+      oauth_user_id: string;
+      oauth_user_name: string;
+      pages: MetaPage[];
+    }>(`/companies/${companyId}/meta-connect-nango`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        connection_id: payload.connectionId,
+        provider_config_key: payload.providerConfigKey,
+      }),
+    });
+    return {
+      oauthUserId: r.oauth_user_id,
+      oauthUserName: r.oauth_user_name,
+      pages: r.pages,
+    };
+  } catch (err) {
+    if (isNangoUnavailable(err)) throw new MetaOAuthNotConfiguredError();
+    throw err;
+  }
 }
 
 export async function listMetaPages(companyId: string): Promise<MetaPage[]> {

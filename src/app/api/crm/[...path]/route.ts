@@ -971,11 +971,10 @@ async function forwardRequest(
         pathSegments[2] === "meta-deliveries" ||
         pathSegments[2] === "meta-rotate-token" ||
         pathSegments[2] === "meta-rotate-secret" ||
-        // Phase 2 OAuth endpoints. All return secrets (auth_url with
-        // state, decrypted page tokens during finalize) or mutate
-        // config — manage permission throughout.
-        pathSegments[2] === "meta-oauth-start" ||
-        pathSegments[2] === "meta-oauth-callback" ||
+        // Phase 2.1 — Nango-driven OAuth. meta-connect-nango persists
+        // the workspace's Nango connectionId; the rest are token-using
+        // page/form lookups + final subscription.
+        pathSegments[2] === "meta-connect-nango" ||
         pathSegments[2] === "meta-pages" ||
         pathSegments[2] === "meta-forms" ||
         pathSegments[2] === "meta-finalize"

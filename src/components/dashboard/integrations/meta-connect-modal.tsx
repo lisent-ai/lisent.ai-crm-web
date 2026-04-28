@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import {
@@ -11,12 +11,16 @@ import {
   listMetaForms,
   listMetaPages,
   MetaOAuthNotConfiguredError,
-  startMetaOAuth,
   type MetaConfig,
   type MetaConnectInput,
   type MetaForm,
   type MetaPage,
 } from "@/lib/crm/client";
+import {
+  connectMetaViaNango,
+  isNangoConfigured,
+  NangoNotConfiguredError,
+} from "@/lib/nango/client";
 import { featureFlags } from "@/config/feature-flags";
 
 import { MetaFormPicker } from "./meta-form-picker";
@@ -33,13 +37,6 @@ type MetaConnectModalProps = {
 };
 
 type Mode = "choice" | "oauth-pages" | "oauth-forms" | "mock";
-type OAuthMessage = {
-  type: "meta-oauth-callback";
-  code: string;
-  state: string;
-  error: string;
-  errorDescription: string;
-};
 
 // MetaConnectModal — Phase 2 OAuth-first wizard.
 //
@@ -71,7 +68,6 @@ export function MetaConnectModal({
   const [selectedFormIds, setSelectedFormIds] = useState<Set<string>>(
     new Set(initial?.metaFormIds ?? []),
   );
-  const popupRef = useRef<Window | null>(null);
 
   // Mock state.
   const [appId, setAppId] = useState<string>("");
@@ -83,59 +79,39 @@ export function MetaConnectModal({
     (initial?.metaFormIds ?? []).join(", "),
   );
 
-  // ─── OAuth flow ──────────────────────────────────────────────────────────
+  // ─── OAuth flow (Nango) ──────────────────────────────────────────────────
+  //
+  // Phase 2.1: Nango self-hosted handles the Facebook OAuth dance. We just
+  // open Nango's Connect UI popup, await the result, then ping the CRM
+  // backend to persist the connectionId + fetch the FB Pages list.
+  // No window.open / postMessage choreography — Nango's SDK manages the
+  // popup lifecycle and resolves a Promise.
 
   const startOAuth = useCallback(async () => {
     setError(null);
     setBusy(true);
     try {
-      const { authUrl } = await startMetaOAuth(companyId);
-      const popup = window.open(authUrl, "_blank", "width=600,height=720");
-      if (!popup || popup.closed) {
-        throw new Error(t("integrations.meta.popupBlocked"));
+      if (!isNangoConfigured()) {
+        throw new NangoNotConfiguredError("Nango not configured");
       }
-      popupRef.current = popup;
-    } catch (err) {
-      setBusy(false);
-      if (err instanceof MetaOAuthNotConfiguredError) {
-        setError(t("integrations.meta.oauthNotConfigured"));
-        setMode("mock");
-        return;
-      }
-      setError(
-        err instanceof CRMClientError ? err.message : (err as Error).message,
-      );
-    }
-  }, [companyId, t]);
-
-  // Listen for the popup's postMessage. We trust window.location.origin —
-  // the callback page is same-origin so we don't allow cross-origin events.
-  useEffect(() => {
-    function handler(event: MessageEvent) {
-      if (event.origin !== window.location.origin) return;
-      const data = event.data as OAuthMessage | null;
-      if (!data || data.type !== "meta-oauth-callback") return;
-      void completeOAuth(data);
-    }
-    window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [companyId]);
-
-  async function completeOAuth(msg: OAuthMessage) {
-    setBusy(true);
-    setError(null);
-    try {
-      if (msg.error) {
-        throw new Error(msg.errorDescription || msg.error);
-      }
+      // Nango popup opens, user authorizes Facebook, popup closes.
+      const { connectionId, providerConfigKey } = await connectMetaViaNango(companyId);
+      // Backend persists the link + returns the user's FB Pages.
       const result = await completeMetaOAuth(companyId, {
-        code: msg.code,
-        state: msg.state,
+        connectionId,
+        providerConfigKey,
       });
       setPages(result.pages);
       setMode("oauth-pages");
     } catch (err) {
+      if (
+        err instanceof NangoNotConfiguredError ||
+        err instanceof MetaOAuthNotConfiguredError
+      ) {
+        setError(t("integrations.meta.oauthNotConfigured"));
+        setMode("mock");
+        return;
+      }
       setError(
         err instanceof CRMClientError
           ? err.message
@@ -146,7 +122,7 @@ export function MetaConnectModal({
     } finally {
       setBusy(false);
     }
-  }
+  }, [companyId, t]);
 
   async function refreshPages() {
     setBusy(true);
