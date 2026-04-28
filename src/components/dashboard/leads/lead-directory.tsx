@@ -86,6 +86,13 @@ export function LeadDirectory() {
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName");
+  // Marketing → Campaigns deep-links land on this page with
+  // ?source=meta_test&campaign=<id|name>. We hydrate the source filter
+  // from the URL on first render and apply the campaign as a client-side
+  // post-filter (campaign isn't a backend filter — leads.extra_data
+  // holds the campaign_id/name we group by).
+  const searchSource = searchParams.get("source")?.trim() ?? "";
+  const searchCampaign = searchParams.get("campaign")?.trim() ?? "";
 
   const [account, setAccount] = useState<AccountProfile | null>(null);
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -100,7 +107,8 @@ export function LeadDirectory() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [sourceFilter, setSourceFilter] = useState("all");
+  const [sourceFilter, setSourceFilter] = useState(searchSource || "all");
+  const [campaignFilter, setCampaignFilter] = useState(searchCampaign);
   const [assigneeFilter, setAssigneeFilter] = useState("all");
   const [showOnlyUnassigned, setShowOnlyUnassigned] = useState(false);
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
@@ -131,6 +139,16 @@ export function LeadDirectory() {
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
   }, [searchCompanyId]);
+
+  // Keep source + campaign filters in sync with URL so deep-links from
+  // Marketing → Campaigns work even when navigating between campaigns
+  // without a full page reload.
+  useEffect(() => {
+    setSourceFilter(searchSource || "all");
+  }, [searchSource]);
+  useEffect(() => {
+    setCampaignFilter(searchCampaign);
+  }, [searchCampaign]);
 
   useEffect(() => {
     let cancelled = false;
@@ -223,6 +241,22 @@ export function LeadDirectory() {
       statusFilter,
     ],
   );
+
+  // displayLeads applies the campaign post-filter on the server-filtered
+  // leads. Backend filters by status/source/assignee/q at SQL level
+  // (cheap), but campaign lives in extra_data JSONB so we filter in JS.
+  // Match by campaign_id first (Meta-attributed leads), fall back to
+  // campaign_name for older payloads.
+  const displayLeads = useMemo(() => {
+    if (!campaignFilter) return leads;
+    return leads.filter((lead) => {
+      const extra = (lead.extraData ?? {}) as Record<string, unknown>;
+      return (
+        extra.campaign_id === campaignFilter ||
+        extra.campaign_name === campaignFilter
+      );
+    });
+  }, [leads, campaignFilter]);
 
   const [aiEnabled, setAIEnabled] = useState(false);
 
@@ -1011,7 +1045,7 @@ export function LeadDirectory() {
     <div className="flex min-w-0 flex-col gap-5">
       <LeadHeader companyName={companyName} leadCount={leads.length} />
 
-      <LeadKpiStrip leads={leads} loading={companiesLoading || leadsLoading} />
+      <LeadKpiStrip leads={displayLeads} loading={companiesLoading || leadsLoading} />
 
       {errorMessage ? (
         <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
@@ -1058,10 +1092,31 @@ export function LeadDirectory() {
             />
           </div>
 
+          {campaignFilter && (
+            <div className="flex flex-wrap items-center gap-3 border-b border-[var(--border-subtle)] bg-[var(--accent-soft)] px-4 py-2 text-sm sm:px-5">
+              <span className="text-[var(--accent-strong)]">
+                {t("leads.filters.byCampaign", { name: campaignFilter })}
+              </span>
+              <span className="text-xs text-[var(--text-tertiary)]">
+                {t("leads.filters.byCampaignCount", {
+                  shown: displayLeads.length,
+                  total: leads.length,
+                })}
+              </span>
+              <button
+                className="ml-auto rounded-full border border-[var(--accent-strong)] px-3 py-1 text-xs font-medium text-[var(--accent-strong)] hover:bg-[var(--accent)] hover:text-white"
+                onClick={() => setCampaignFilter("")}
+                type="button"
+              >
+                {t("leads.filters.clearCampaign")}
+              </button>
+            </div>
+          )}
+
           <LeadTable
             activeLeadId={drawerOpen ? selectedLeadId : null}
             aiEnabled={aiEnabled}
-            leads={leads}
+            leads={displayLeads}
             loading={companiesLoading || leadsLoading}
             onAIScoreClick={handleAIClick}
             onOpenRowMenu={openRowMenu}

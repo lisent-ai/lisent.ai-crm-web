@@ -1350,7 +1350,10 @@
     },
     "filters": {
       "allAssignees": "All assignees",
-      "allSources": "All sources"
+      "allSources": "All sources",
+      "byCampaign": "Filtered by campaign: {name}",
+      "byCampaignCount": "{shown} of {total} leads",
+      "clearCampaign": "Clear filter"
     },
     "formModal": {
       "assignee": "Assignee",
