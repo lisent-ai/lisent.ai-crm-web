@@ -1093,6 +1093,7 @@ export function CalendarWorkspace() {
           form={form}
           leads={leads}
           members={members}
+          errorMessage={errorMessage}
           onClose={closeModal}
           onDelete={editingEventId ? () => void handleDelete() : null}
           onFormChange={setForm}

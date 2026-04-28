@@ -39,6 +39,7 @@ type CalendarEventModalProps = {
   form: CalendarEventFormState;
   saving: boolean;
   editing: boolean;
+  errorMessage?: string | null;
   onClose: () => void;
   onDelete: (() => void) | null;
   onFormChange: (next: CalendarEventFormState) => void;
@@ -96,6 +97,7 @@ export function CalendarEventModal({
   form,
   saving,
   editing,
+  errorMessage,
   onClose,
   onDelete,
   onFormChange,
@@ -139,30 +141,31 @@ export function CalendarEventModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 px-4 py-8"
+      className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-slate-950/40 sm:items-center sm:px-4 sm:py-8"
       onClick={onClose}
       role="presentation"
     >
       <section
-        className="max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-[1.8rem] border border-slate-200 bg-white p-6 shadow-[0_28px_80px_rgba(15,23,42,0.22)]"
+        className="flex max-h-[100dvh] w-full max-w-5xl flex-col overflow-hidden rounded-t-[1.4rem] border border-slate-200 bg-white shadow-[0_28px_80px_rgba(15,23,42,0.22)] sm:max-h-[92vh] sm:rounded-[1.8rem]"
         onClick={(event) => event.stopPropagation()}
         role="presentation"
       >
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-700/80">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 px-4 py-4 sm:gap-4 sm:px-6 sm:py-6">
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-700/80 sm:text-sm">
               {editing ? t("calendar.modal.editEyebrow") : t("calendar.modal.newEyebrow")}
             </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">
+            <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-slate-950 sm:mt-2 sm:text-3xl">
               {editing ? t("calendar.modal.editTitle") : t("calendar.modal.newTitle")}
             </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 sm:mt-3 sm:leading-7">
               {t("calendar.modal.subtitle")}
             </p>
           </div>
 
           <button
-            className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+            aria-label={t("common.close")}
+            className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950 sm:px-5 sm:py-3"
             onClick={onClose}
             type="button"
           >
@@ -170,7 +173,13 @@ export function CalendarEventModal({
           </button>
         </div>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-6">
+          {errorMessage ? (
+            <div className="mb-4 rounded-[1.1rem] border border-rose-300 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+              {errorMessage}
+            </div>
+          ) : null}
+          <div className="grid gap-4 lg:grid-cols-2">
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
             {t("calendar.fields.title")}
             <input
@@ -387,13 +396,14 @@ export function CalendarEventModal({
               value={form.reminderMinutesBefore}
             />
           </label>
+          </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-          <div>
+        <div className="flex flex-col-reverse gap-3 border-t border-slate-100 bg-white px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-6 sm:py-4">
+          <div className="flex w-full sm:w-auto">
             {editing && onDelete ? (
               <button
-                className="rounded-full border border-rose-300 bg-rose-50 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:border-rose-400 hover:bg-rose-100 disabled:opacity-50"
+                className="w-full rounded-full border border-rose-300 bg-rose-50 px-5 py-3 text-sm font-semibold text-rose-700 transition hover:border-rose-400 hover:bg-rose-100 disabled:opacity-50 sm:w-auto"
                 disabled={saving}
                 onClick={onDelete}
                 type="button"
@@ -403,16 +413,16 @@ export function CalendarEventModal({
             ) : null}
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
             <button
-              className="rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+              className="w-full rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950 sm:w-auto"
               onClick={onClose}
               type="button"
             >
               {t("common.cancel")}
             </button>
             <button
-              className="rounded-full bg-[linear-gradient(90deg,_#0f172a,_#164e63)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110 disabled:opacity-50"
+              className="w-full rounded-full bg-[linear-gradient(90deg,_#0f172a,_#164e63)] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(15,23,42,0.14)] transition hover:brightness-110 disabled:opacity-50 sm:w-auto"
               disabled={saving}
               onClick={onSave}
               type="button"
