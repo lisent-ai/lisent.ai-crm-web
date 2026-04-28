@@ -5,11 +5,10 @@
   "format": "JSON_ICU",
   "push": {
     "files": [
-      { "path": "messages/en.json", "language": "en" },
-      { "path": "messages/tr.json", "language": "tr" }
+      { "path": "messages/en.json", "language": "en" }
     ],
-    "forceMode": "OVERRIDE",
-    "languages": ["en", "tr"]
+    "forceMode": "KEEP",
+    "languages": ["en"]
   },
   "pull": {
     "path": "messages/{languageTag}.json",
