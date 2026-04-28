@@ -39,7 +39,10 @@ export async function connectMetaViaNango(
     host: getNangoHost(),
     connectSessionToken: session.sessionToken,
   });
-  await nango.auth(session.providerConfigKey, session.connectionId);
+  // With a session token, connection_id is forbidden as a second arg —
+  // Nango derives it from the session's end_user.id (which we set to
+  // companyId backend-side). Passing it triggers invalid_query_params.
+  await nango.auth(session.providerConfigKey);
   return {
     connectionId: session.connectionId,
     providerConfigKey: session.providerConfigKey,
