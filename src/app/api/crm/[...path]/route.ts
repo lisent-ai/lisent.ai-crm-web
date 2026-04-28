@@ -167,7 +167,12 @@ function buildForwardHeaders(
   headers.set("x-api-key", apiKey);
   headers.set("x-user-id", userID);
   if (userName?.trim()) {
-    headers.set("x-user-name", userName.trim());
+    // Headers.set() rejects byte values > 255 (Latin-1 only). Turkish
+    // and other non-Latin-1 names (Yaşar, Şükrü, Çağla, …) crash here
+    // unless we percent-encode the value. Pure-ASCII names pass through
+    // encodeURIComponent unchanged except for spaces ("%20"); the Go
+    // service decodes via httputil.ActorUserName.
+    headers.set("x-user-name", encodeURIComponent(userName.trim()));
   }
   headers.set(REQUEST_ID_HEADER, requestID);
   return headers;
