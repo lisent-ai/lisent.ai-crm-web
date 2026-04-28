@@ -25,6 +25,7 @@ import { featureFlags } from "@/config/feature-flags";
 
 import { MetaFormPicker } from "./meta-form-picker";
 import { MetaPagePicker } from "./meta-page-picker";
+import { MetaPickerSkeleton } from "./meta-picker-skeleton";
 
 type MetaConnectModalProps = {
   companyId: string;
@@ -160,6 +161,14 @@ export function MetaConnectModal({
     });
   }
 
+  function handleSelectAllForms(ids: string[]) {
+    setSelectedFormIds(new Set(ids));
+  }
+
+  function handleSelectNoForms() {
+    setSelectedFormIds(new Set());
+  }
+
   async function finalize() {
     setBusy(true);
     setError(null);
@@ -245,11 +254,15 @@ export function MetaConnectModal({
                   {t("integrations.meta.pagePickerTitle")}
                 </h3>
               </div>
-              <MetaPagePicker
-                onSelect={pickPage}
-                pages={pages}
-                selected={selectedPageId}
-              />
+              {busy && pages.length === 0 ? (
+                <MetaPickerSkeleton count={3} variant="page" />
+              ) : (
+                <MetaPagePicker
+                  onSelect={pickPage}
+                  pages={pages}
+                  selected={selectedPageId}
+                />
+              )}
               <button
                 className="self-start text-sm font-medium text-[var(--accent-strong)] hover:underline disabled:opacity-50"
                 disabled={busy}
@@ -270,11 +283,17 @@ export function MetaConnectModal({
                   {t("integrations.meta.formPickerHint")}
                 </p>
               </div>
-              <MetaFormPicker
-                forms={forms}
-                onToggle={toggleForm}
-                selected={selectedFormIds}
-              />
+              {busy && forms.length === 0 ? (
+                <MetaPickerSkeleton count={4} variant="form" />
+              ) : (
+                <MetaFormPicker
+                  forms={forms}
+                  onSelectAll={handleSelectAllForms}
+                  onSelectNone={handleSelectNoForms}
+                  onToggle={toggleForm}
+                  selected={selectedFormIds}
+                />
+              )}
             </div>
           )}
           {mode === "mock" && (

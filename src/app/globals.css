@@ -96,3 +96,14 @@ body {
   background: var(--border-strong);
   border-radius: 9999px;
 }
+
+/* Loading-skeleton shimmer used by Meta picker placeholders. Slow,
+   subtle gradient sweep so it doesn't compete with real UI motion. */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}

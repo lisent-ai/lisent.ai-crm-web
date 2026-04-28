@@ -2220,6 +2220,11 @@ export type MetaPage = {
   id: string;
   name: string;
   category?: string;
+  picture_url?: string;
+  followers_count?: number;
+  last_lead_at?: string | null;
+  last_7d_leads: number;
+  is_connected: boolean;
 };
 
 export type MetaForm = {
@@ -2227,6 +2232,8 @@ export type MetaForm = {
   name: string;
   status?: string;
   leads_count?: number;
+  last_7d_leads: number;
+  is_subscribed: boolean;
 };
 
 export type MetaDelivery = {
