@@ -2528,6 +2528,36 @@ function isNangoUnavailable(err: unknown): boolean {
   return err instanceof CRMClientError && err.status === 503;
 }
 
+/** getMetaConnectSession — Nango v0.40+ requires a short-lived session
+ *  token (issued backend-side using the secret key) before the frontend
+ *  SDK can open the Connect popup. The legacy publicKey flow is gone.
+ *  We pass the workspace UUID as both end_user.id and the eventual
+ *  connection_id. */
+export async function getMetaConnectSession(
+  companyId: string,
+  providerConfigKey = "facebook",
+): Promise<{ sessionToken: string; connectionId: string; providerConfigKey: string }> {
+  try {
+    const r = await requestCRM<{
+      session_token: string;
+      connection_id: string;
+      provider_config_key: string;
+    }>(`/companies/${companyId}/meta-connect-session`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ provider_config_key: providerConfigKey }),
+    });
+    return {
+      sessionToken: r.session_token,
+      connectionId: r.connection_id,
+      providerConfigKey: r.provider_config_key,
+    };
+  } catch (err) {
+    if (isNangoUnavailable(err)) throw new MetaOAuthNotConfiguredError();
+    throw err;
+  }
+}
+
 /** completeMetaOAuth — frontend already has the Nango popup outcome
  *  (connectionId from `connectMetaViaNango` in src/lib/nango/client.ts),
  *  this BFF round-trip persists it on the CRM side and returns the FB

@@ -1024,9 +1024,12 @@ async function forwardRequest(
         pathSegments[2] === "meta-deliveries" ||
         pathSegments[2] === "meta-rotate-token" ||
         pathSegments[2] === "meta-rotate-secret" ||
-        // Phase 2.1 — Nango-driven OAuth. meta-connect-nango persists
-        // the workspace's Nango connectionId; the rest are token-using
+        // Phase 2.1 — Nango-driven OAuth. meta-connect-session issues
+        // the short-lived Connect Session token the frontend SDK needs
+        // (Nango v0.40+ replaced publicKey auth). meta-connect-nango
+        // persists the resulting connectionId; the rest are token-using
         // page/form lookups + final subscription.
+        pathSegments[2] === "meta-connect-session" ||
         pathSegments[2] === "meta-connect-nango" ||
         pathSegments[2] === "meta-pages" ||
         pathSegments[2] === "meta-forms" ||
