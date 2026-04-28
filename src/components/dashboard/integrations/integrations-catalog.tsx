@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { getAccountProfile } from "@/lib/account/client";
 import { hasCompanyPermissionInAccess } from "@/lib/auth/access-control";
 import type { AccountProfile } from "@/lib/auth/account-profile";
+import { featureFlags } from "@/config/feature-flags";
 import {
   CRMClientError,
   fetchIntegrationCatalog,
@@ -232,7 +233,15 @@ export function IntegrationsCatalog() {
         </div>
       ) : catalog ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {catalog.available.map((integration) => (
+          {catalog.available
+            // Hide Meta card client-side when the feature flag is off,
+            // even if the backend still returns it. Lets us decouple
+            // backend rollout from frontend enablement.
+            .filter(
+              (integration) =>
+                integration.slug !== "meta-lead-ads" || featureFlags.metaIntegration,
+            )
+            .map((integration) => (
             <IntegrationCard
               key={integration.slug}
               integration={integration}

@@ -11,6 +11,13 @@ services:
         NEXT_PUBLIC_WEBSITE_BASE_PATH: ${NEXT_PUBLIC_WEBSITE_BASE_PATH}
         NEXT_PUBLIC_INTEGRATIONS_HUB_ENABLED: ${NEXT_PUBLIC_INTEGRATIONS_HUB_ENABLED:-false}
         NEXT_PUBLIC_INTRANET_INTEGRATION_ENABLED: ${NEXT_PUBLIC_INTRANET_INTEGRATION_ENABLED:-false}
+        # Phase 1+2 — Marketing module + Meta Lead Ads + (optional) OAuth flow.
+        # OAuth flag stays false until Lisent Meta App is created and
+        # META_APP_ID is set on the CRM service side; otherwise the
+        # "Connect with Facebook" button would receive 501 from the API.
+        NEXT_PUBLIC_MARKETING_MODULE_ENABLED: ${NEXT_PUBLIC_MARKETING_MODULE_ENABLED:-false}
+        NEXT_PUBLIC_META_INTEGRATION_ENABLED: ${NEXT_PUBLIC_META_INTEGRATION_ENABLED:-false}
+        NEXT_PUBLIC_META_OAUTH_ENABLED: ${NEXT_PUBLIC_META_OAUTH_ENABLED:-false}
     restart: unless-stopped
     environment:
       APP_PUBLIC_ORIGIN: ${APP_PUBLIC_ORIGIN}

@@ -74,6 +74,12 @@ services:
         # wouldn't take effect on client bundles).
         NEXT_PUBLIC_INTEGRATIONS_HUB_ENABLED: "true"
         NEXT_PUBLIC_INTRANET_INTEGRATION_ENABLED: "true"
+        # Phase 1+2 — Marketing module + Meta Lead Ads + (optional) OAuth.
+        # OAuth flag stays false until META_APP_ID is set on the CRM side,
+        # otherwise the wizard's "Connect with Facebook" button would 501.
+        NEXT_PUBLIC_MARKETING_MODULE_ENABLED: "true"
+        NEXT_PUBLIC_META_INTEGRATION_ENABLED: "true"
+        NEXT_PUBLIC_META_OAUTH_ENABLED: "${NEXT_PUBLIC_META_OAUTH_ENABLED:-false}"
     container_name: lisent-dev-crm-web
     restart: unless-stopped
     environment:

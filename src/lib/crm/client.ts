@@ -2181,6 +2181,410 @@ export async function listIntranetDeliveries(
   }));
 }
 
+// ─── Meta Lead Ads integration ──────────────────────────────────────────────
+
+export type MetaConfig = {
+  id: string;
+  companyId: string;
+  inboundUrl: string;
+  n8nWebhookUrl: string;
+  tokenPrimary: string;
+  tokenSecondary: string | null;
+  appIdMasked: string | null;
+  appSecretMasked: string | null;
+  pageAccessTokenMasked: string | null;
+  hmacSecretPrimaryMasked: string;
+  hmacSecretSecondaryMasked: string | null;
+  webhookVerifyToken: string;
+  metaPageId: string | null;
+  metaPageName: string | null;
+  metaFormIds: string[];
+  fieldMapping: Record<string, string>;
+  mockMode: boolean;
+  isActive: boolean;
+  lastSyncAt: string | null;
+  lastDeliveryAt: string | null;
+  lastDeliveryStatus: string | null;
+  deliveryCountTotal: number;
+  deliveryCountSuccess: number;
+  deliveryCountFailed: number;
+  oauthUserId: string | null;
+  oauthUserName: string | null;
+  subscribedAt: string | null;
+  subscribedFields: string[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type MetaPage = {
+  id: string;
+  name: string;
+  category?: string;
+};
+
+export type MetaForm = {
+  id: string;
+  name: string;
+  status?: string;
+  leads_count?: number;
+};
+
+export type MetaDelivery = {
+  id: string;
+  eventType: string | null;
+  leadgenId: string | null;
+  pageId: string | null;
+  formId: string | null;
+  campaignId: string | null;
+  campaignName: string | null;
+  adId: string | null;
+  adName: string | null;
+  status: "accepted" | "rejected" | "failed";
+  errorMessage: string | null;
+  mappedEntityId: string | null;
+  idempotencyKey: string | null;
+  latencyMs: number | null;
+  createdAt: string;
+};
+
+type CRMMetaStatus = {
+  id: string;
+  company_id: string;
+  inbound_url: string;
+  n8n_webhook_url: string;
+  token_primary: string;
+  token_secondary: string | null;
+  app_id_masked: string | null;
+  app_secret_masked: string | null;
+  page_access_token_masked: string | null;
+  hmac_secret_primary_masked: string;
+  hmac_secret_secondary_masked: string | null;
+  webhook_verify_token: string;
+  meta_page_id: string | null;
+  meta_page_name: string | null;
+  meta_form_ids: string[];
+  field_mapping: Record<string, string>;
+  mock_mode: boolean;
+  is_active: boolean;
+  last_sync_at: string | null;
+  last_delivery_at: string | null;
+  last_delivery_status: string | null;
+  delivery_count_total: number;
+  delivery_count_success: number;
+  delivery_count_failed: number;
+  oauth_user_id: string | null;
+  oauth_user_name: string | null;
+  subscribed_at: string | null;
+  subscribed_fields: string[];
+  created_at: string;
+  updated_at: string;
+};
+
+function mapMetaStatus(r: CRMMetaStatus): MetaConfig {
+  return {
+    id: r.id,
+    companyId: r.company_id,
+    inboundUrl: r.inbound_url,
+    n8nWebhookUrl: r.n8n_webhook_url,
+    tokenPrimary: r.token_primary,
+    tokenSecondary: r.token_secondary,
+    appIdMasked: r.app_id_masked,
+    appSecretMasked: r.app_secret_masked,
+    pageAccessTokenMasked: r.page_access_token_masked,
+    hmacSecretPrimaryMasked: r.hmac_secret_primary_masked,
+    hmacSecretSecondaryMasked: r.hmac_secret_secondary_masked,
+    webhookVerifyToken: r.webhook_verify_token,
+    metaPageId: r.meta_page_id,
+    metaPageName: r.meta_page_name,
+    metaFormIds: r.meta_form_ids ?? [],
+    fieldMapping: r.field_mapping ?? {},
+    mockMode: r.mock_mode,
+    isActive: r.is_active,
+    lastSyncAt: r.last_sync_at,
+    lastDeliveryAt: r.last_delivery_at,
+    lastDeliveryStatus: r.last_delivery_status,
+    deliveryCountTotal: r.delivery_count_total,
+    deliveryCountSuccess: r.delivery_count_success,
+    deliveryCountFailed: r.delivery_count_failed,
+    oauthUserId: r.oauth_user_id,
+    oauthUserName: r.oauth_user_name,
+    subscribedAt: r.subscribed_at,
+    subscribedFields: r.subscribed_fields ?? [],
+    createdAt: r.created_at,
+    updatedAt: r.updated_at,
+  };
+}
+
+export async function getMetaConfig(companyId: string): Promise<MetaConfig | null> {
+  try {
+    const r = await requestCRM<CRMMetaStatus>(`/companies/${companyId}/meta-config`);
+    return mapMetaStatus(r);
+  } catch (err) {
+    if (err instanceof CRMClientError && err.status === 404) return null;
+    throw err;
+  }
+}
+
+export type MetaConnectInput = {
+  appId?: string;
+  appSecret?: string;
+  pageAccessToken?: string;
+  pageId?: string;
+  pageName?: string;
+  formIds?: string[];
+  fieldMapping?: Record<string, string>;
+  mockMode: boolean;
+};
+
+/** First-time connect mints + reveals the plain HMAC secret and verify token.
+ * Subsequent connects (record already exists) return only the verify token —
+ * rotate explicitly to surface a new HMAC secret. */
+export async function connectMetaIntegration(
+  companyId: string,
+  input: MetaConnectInput,
+): Promise<{
+  integration: MetaConfig;
+  hmacSecretPlain?: string;
+  webhookVerifyToken: string;
+}> {
+  const body: Record<string, unknown> = {
+    mock_mode: input.mockMode,
+  };
+  if (input.appId !== undefined) body.app_id = input.appId;
+  if (input.appSecret !== undefined) body.app_secret = input.appSecret;
+  if (input.pageAccessToken !== undefined) body.page_access_token = input.pageAccessToken;
+  if (input.pageId !== undefined) body.page_id = input.pageId;
+  if (input.pageName !== undefined) body.page_name = input.pageName;
+  if (input.formIds !== undefined) body.form_ids = input.formIds;
+  if (input.fieldMapping !== undefined) body.field_mapping = input.fieldMapping;
+
+  const response = await requestCRM<{
+    integration: CRMMetaStatus;
+    hmac_secret_plain?: string;
+    webhook_verify_token: string;
+  }>(`/companies/${companyId}/meta-connect`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return {
+    integration: mapMetaStatus(response.integration),
+    hmacSecretPlain: response.hmac_secret_plain,
+    webhookVerifyToken: response.webhook_verify_token,
+  };
+}
+
+export async function disconnectMetaIntegration(companyId: string): Promise<void> {
+  await requestCRM<void>(`/companies/${companyId}/meta-disconnect`, { method: "POST" });
+}
+
+export type MetaUpdateInput = {
+  formIds?: string[];
+  fieldMapping?: Record<string, string>;
+  mockMode?: boolean;
+  isActive?: boolean;
+  pageId?: string;
+  pageName?: string;
+  appId?: string;
+  appSecret?: string;
+  pageAccessToken?: string;
+};
+
+export async function updateMetaConfig(
+  companyId: string,
+  input: MetaUpdateInput,
+): Promise<MetaConfig> {
+  const body: Record<string, unknown> = {};
+  if (input.formIds !== undefined) body.form_ids = input.formIds;
+  if (input.fieldMapping !== undefined) body.field_mapping = input.fieldMapping;
+  if (input.mockMode !== undefined) body.mock_mode = input.mockMode;
+  if (input.isActive !== undefined) body.is_active = input.isActive;
+  if (input.pageId !== undefined) body.page_id = input.pageId;
+  if (input.pageName !== undefined) body.page_name = input.pageName;
+  if (input.appId !== undefined) body.app_id = input.appId;
+  if (input.appSecret !== undefined) body.app_secret = input.appSecret;
+  if (input.pageAccessToken !== undefined) body.page_access_token = input.pageAccessToken;
+
+  const r = await requestCRM<CRMMetaStatus>(`/companies/${companyId}/meta-config`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return mapMetaStatus(r);
+}
+
+export async function sendMetaTestLead(
+  companyId: string,
+  input: { name?: string; email?: string; phone?: string; formId?: string } = {},
+): Promise<{ leadId: string; leadgenId: string }> {
+  const body: Record<string, unknown> = {};
+  if (input.name !== undefined) body.name = input.name;
+  if (input.email !== undefined) body.email = input.email;
+  if (input.phone !== undefined) body.phone = input.phone;
+  if (input.formId !== undefined) body.form_id = input.formId;
+  const r = await requestCRM<{ lead_id: string; leadgen_id: string }>(
+    `/companies/${companyId}/meta-test-lead`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    },
+  );
+  return { leadId: r.lead_id, leadgenId: r.leadgen_id };
+}
+
+export async function listMetaDeliveries(companyId: string): Promise<MetaDelivery[]> {
+  const rows = await requestCRM<
+    {
+      id: string;
+      event_type: string | null;
+      leadgen_id: string | null;
+      page_id: string | null;
+      form_id: string | null;
+      campaign_id: string | null;
+      campaign_name: string | null;
+      ad_id: string | null;
+      ad_name: string | null;
+      status: "accepted" | "rejected" | "failed";
+      error_message: string | null;
+      mapped_entity_id: string | null;
+      idempotency_key: string | null;
+      latency_ms: number | null;
+      created_at: string;
+    }[]
+  >(`/companies/${companyId}/meta-deliveries`);
+  return rows.map((r) => ({
+    id: r.id,
+    eventType: r.event_type,
+    leadgenId: r.leadgen_id,
+    pageId: r.page_id,
+    formId: r.form_id,
+    campaignId: r.campaign_id,
+    campaignName: r.campaign_name,
+    adId: r.ad_id,
+    adName: r.ad_name,
+    status: r.status,
+    errorMessage: r.error_message,
+    mappedEntityId: r.mapped_entity_id,
+    idempotencyKey: r.idempotency_key,
+    latencyMs: r.latency_ms,
+    createdAt: r.created_at,
+  }));
+}
+
+export async function rotateMetaToken(
+  companyId: string,
+): Promise<{ inboundUrl: string; tokenPrimary: string; tokenSecondary: string | null; rotationNotice: string }> {
+  const r = await requestCRM<{
+    inbound_url: string;
+    token_primary: string;
+    token_secondary: string | null;
+    rotation_notice: string;
+  }>(`/companies/${companyId}/meta-rotate-token`, { method: "POST" });
+  return {
+    inboundUrl: r.inbound_url,
+    tokenPrimary: r.token_primary,
+    tokenSecondary: r.token_secondary,
+    rotationNotice: r.rotation_notice,
+  };
+}
+
+export async function rotateMetaSecret(
+  companyId: string,
+): Promise<{ hmacSecretPrimary: string; rotationNotice: string; secondaryMasked: string }> {
+  const r = await requestCRM<{
+    hmac_secret_primary: string;
+    rotation_notice: string;
+    secondary_masked: string;
+  }>(`/companies/${companyId}/meta-rotate-secret`, { method: "POST" });
+  return {
+    hmacSecretPrimary: r.hmac_secret_primary,
+    rotationNotice: r.rotation_notice,
+    secondaryMasked: r.secondary_masked,
+  };
+}
+
+// ─── Meta OAuth (Phase 2) ───────────────────────────────────────────────────
+
+/** MetaOAuthNotConfigured signals the backend's 501 — the central Lisent
+ *  Meta App credentials aren't set yet. UI uses this to render the
+ *  "OAuth not enabled, use mock mode" hint. */
+export class MetaOAuthNotConfiguredError extends Error {
+  constructor() {
+    super("Meta OAuth is not yet configured.");
+    this.name = "MetaOAuthNotConfiguredError";
+  }
+}
+
+/** Distinguishes 501 from real network failures. */
+function isOAuthNotConfigured(err: unknown): boolean {
+  return err instanceof CRMClientError && err.status === 501;
+}
+
+export async function startMetaOAuth(
+  companyId: string,
+): Promise<{ authUrl: string; state: string }> {
+  try {
+    const r = await requestCRM<{ auth_url: string; state: string }>(
+      `/companies/${companyId}/meta-oauth-start`,
+    );
+    return { authUrl: r.auth_url, state: r.state };
+  } catch (err) {
+    if (isOAuthNotConfigured(err)) throw new MetaOAuthNotConfiguredError();
+    throw err;
+  }
+}
+
+export async function completeMetaOAuth(
+  companyId: string,
+  payload: { code: string; state: string },
+): Promise<{ oauthUserId: string; oauthUserName: string; pages: MetaPage[] }> {
+  const r = await requestCRM<{
+    oauth_user_id: string;
+    oauth_user_name: string;
+    pages: MetaPage[];
+  }>(`/companies/${companyId}/meta-oauth-callback`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  return { oauthUserId: r.oauth_user_id, oauthUserName: r.oauth_user_name, pages: r.pages };
+}
+
+export async function listMetaPages(companyId: string): Promise<MetaPage[]> {
+  const r = await requestCRM<{ pages: MetaPage[] }>(
+    `/companies/${companyId}/meta-pages`,
+  );
+  return r.pages ?? [];
+}
+
+export async function listMetaForms(
+  companyId: string,
+  pageId: string,
+): Promise<MetaForm[]> {
+  const q = new URLSearchParams({ page_id: pageId });
+  const r = await requestCRM<{ forms: MetaForm[] }>(
+    `/companies/${companyId}/meta-forms?${q.toString()}`,
+  );
+  return r.forms ?? [];
+}
+
+export async function finalizeMetaConfig(
+  companyId: string,
+  input: { pageId: string; formIds: string[]; fieldMapping?: Record<string, string> },
+): Promise<MetaConfig> {
+  const r = await requestCRM<CRMMetaStatus>(`/companies/${companyId}/meta-finalize`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      page_id: input.pageId,
+      form_ids: input.formIds,
+      field_mapping: input.fieldMapping,
+    }),
+  });
+  return mapMetaStatus(r);
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function createCustomerFromImportPayload(
@@ -2205,6 +2609,7 @@ export type IntegrationSlug =
   | "ai-lead-qualifier"
   | "greenapi"
   | "intranet"
+  | "meta-lead-ads"
   // Legacy deep-link slugs — the detail page resolves these to the
   // unified ai-lead-qualifier panel with the matching tab pre-selected.
   | "qualifier-lead-webhook"

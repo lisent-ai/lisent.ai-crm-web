@@ -12,6 +12,7 @@ import type { AccountProfile } from "@/lib/auth/account-profile";
 import { AIQualifierPanel } from "./ai-qualifier-panel";
 import { GreenAPIConfigPanel } from "./greenapi-config";
 import { IntranetConfigPanel } from "./intranet-config";
+import { MetaConfigPanel } from "./meta-config";
 
 type Props = {
   slug: string;
@@ -115,6 +116,7 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
     "ai-lead-qualifier": "integrations.detail.slugTitles.aiLeadQualifier",
     greenapi: "integrations.detail.slugTitles.greenapi",
     intranet: "integrations.detail.slugTitles.intranet",
+    "meta-lead-ads": "integrations.detail.slugTitles.metaLeadAds",
   };
   const slugTitle = SLUG_KEY_MAP[slug] ? t(SLUG_KEY_MAP[slug] as never) : slug;
 
@@ -166,6 +168,8 @@ function SlugBody({ slug, companyId, companyName }: { slug: string; companyId: s
       return <GreenAPIConfigPanel companyId={companyId} />;
     case "intranet":
       return <IntranetConfigPanel companyId={companyId} />;
+    case "meta-lead-ads":
+      return <MetaConfigPanel companyId={companyId} />;
     default:
       return (
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">

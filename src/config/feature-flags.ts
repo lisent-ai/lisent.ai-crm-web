@@ -25,6 +25,13 @@ export const featureFlags = {
   integrationsHub: isTrue(process.env.NEXT_PUBLIC_INTEGRATIONS_HUB_ENABLED),
   /** Enables the Intranet integration card + config UI inside the Integrations Hub. */
   intranetIntegration: isTrue(process.env.NEXT_PUBLIC_INTRANET_INTEGRATION_ENABLED),
+  /** Enables the top-level "Marketing" nav module + /dashboard/marketing/* routes. */
+  marketingModule: isTrue(process.env.NEXT_PUBLIC_MARKETING_MODULE_ENABLED),
+  /** Enables the Meta Lead Ads integration card + config UI inside the Integrations Hub. */
+  metaIntegration: isTrue(process.env.NEXT_PUBLIC_META_INTEGRATION_ENABLED),
+  /** Phase 2: enables "Connect with Facebook" OAuth flow. When false the
+   *  modal shows the legacy mock-only credentials form instead. */
+  metaOAuth: isTrue(process.env.NEXT_PUBLIC_META_OAUTH_ENABLED),
 } as const;
 
 export type FeatureFlag = keyof typeof featureFlags;

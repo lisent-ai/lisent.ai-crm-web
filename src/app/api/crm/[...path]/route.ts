@@ -956,6 +956,35 @@ async function forwardRequest(
           resourceId,
           "integrations.manage",
         );
+      } else if (
+        // Meta Lead Ads — owner-only management surface. These all
+        // either return secrets (connect, rotate-*) or mutate config
+        // (disconnect, test-lead, config), so manage is the right gate.
+        // The GET /meta-config and GET /meta-deliveries endpoints could
+        // arguably be integrations.read; we keep them under manage
+        // because the response includes the verify_token which is part
+        // of the shared secret with Meta + n8n.
+        pathSegments[2] === "meta-connect" ||
+        pathSegments[2] === "meta-disconnect" ||
+        pathSegments[2] === "meta-config" ||
+        pathSegments[2] === "meta-test-lead" ||
+        pathSegments[2] === "meta-deliveries" ||
+        pathSegments[2] === "meta-rotate-token" ||
+        pathSegments[2] === "meta-rotate-secret" ||
+        // Phase 2 OAuth endpoints. All return secrets (auth_url with
+        // state, decrypted page tokens during finalize) or mutate
+        // config — manage permission throughout.
+        pathSegments[2] === "meta-oauth-start" ||
+        pathSegments[2] === "meta-oauth-callback" ||
+        pathSegments[2] === "meta-pages" ||
+        pathSegments[2] === "meta-forms" ||
+        pathSegments[2] === "meta-finalize"
+      ) {
+        allowed = hasCompanyPermissionInAccess(
+          account.access,
+          resourceId,
+          "integrations.manage",
+        );
       } else {
         allowed =
           method === "GET"

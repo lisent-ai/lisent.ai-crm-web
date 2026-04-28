@@ -6,6 +6,7 @@ import {
   CheckSquare,
   Gauge,
   LayoutDashboard,
+  Megaphone,
   Plug,
   Target,
   Upload,
@@ -27,6 +28,7 @@ export type NavLabelKey =
   | "nav.deals"
   | "nav.customers"
   | "nav.tasks"
+  | "nav.marketing"
   | "nav.calendar"
   | "nav.teamMembers"
   | "nav.customerImport"
@@ -48,6 +50,14 @@ export const navItems: NavItem[] = [
   { href: "/dashboard/deals", labelKey: "nav.deals", icon: Briefcase, placement: "top", carriesCompany: true, visible: true },
   { href: "/dashboard/customers", labelKey: "nav.customers", icon: User, placement: "top", carriesCompany: true, visible: true },
   { href: "/dashboard/tasks", labelKey: "nav.tasks", icon: CheckSquare, placement: "top", carriesCompany: true, visible: true },
+  {
+    href: "/dashboard/marketing",
+    labelKey: "nav.marketing",
+    icon: Megaphone,
+    placement: "top",
+    carriesCompany: true,
+    visible: featureFlags.marketingModule,
+  },
   { href: "/dashboard/calendar", labelKey: "nav.calendar", icon: Calendar, placement: "side", carriesCompany: true, visible: true },
   { href: "/dashboard/access", labelKey: "nav.teamMembers", icon: Users, placement: "side", carriesCompany: true, visible: true },
   { href: "/dashboard/imports", labelKey: "nav.customerImport", icon: Upload, placement: "side", carriesCompany: true, visible: true },
