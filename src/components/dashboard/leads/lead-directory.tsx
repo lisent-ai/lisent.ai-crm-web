@@ -150,6 +150,15 @@ export function LeadDirectory() {
     setCampaignFilter(searchCampaign);
   }, [searchCampaign]);
 
+  // Clear selection whenever the visible set narrows (filter change) so
+  // a stale "all" selection from a wider view can't be carried into a
+  // bulk action against a different scope. handleBulkDelete /
+  // handleBulkAssign also defend with a visible-only filter, but
+  // resetting here keeps the selection counter visually honest too.
+  useEffect(() => {
+    setSelectedIds(new Set());
+  }, [campaignFilter, sourceFilter, statusFilter]);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -693,7 +702,11 @@ export function LeadDirectory() {
     setSaving(true);
     setErrorMessage(null);
     setSuccessMessage(null);
-    const ids = Array.from(selectedIds);
+    // Defense in depth: even if a stale selection survived a filter
+    // change, only delete leads currently visible in the table.
+    // Belt-and-braces with the visible-aware toggleAll above.
+    const visibleIds = new Set(displayLeads.map((l) => l.id));
+    const ids = Array.from(selectedIds).filter((id) => visibleIds.has(id));
     const succeeded: string[] = [];
     const failed: string[] = [];
     for (const id of ids) {
@@ -735,7 +748,10 @@ export function LeadDirectory() {
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    const rows = leads.filter((lead) => selectedIds.has(lead.id));
+    // Same visible-only safety as handleBulkDelete: only act on rows the
+    // user can currently see in the table. Stale selection (e.g. from
+    // before a filter change) is silently dropped.
+    const rows = displayLeads.filter((lead) => selectedIds.has(lead.id));
     const succeeded: string[] = [];
     const failed: string[] = [];
 
@@ -1014,9 +1030,27 @@ export function LeadDirectory() {
   }
 
   function toggleAll() {
+    // CRITICAL: select-all must reflect what the user SEES (displayLeads
+    // after the campaign filter), not the underlying server-filtered set.
+    // Otherwise a campaign-scoped view's "select all" silently picks up
+    // hidden rows and bulk delete wipes out leads the user can't see.
+    // Lost real data once because of this — keep this comment as a
+    // tripwire if anyone replaces displayLeads with leads here.
     setSelectedIds((current) => {
-      if (current.size === leads.length) return new Set();
-      return new Set(leads.map((l) => l.id));
+      const visibleIds = displayLeads.map((l) => l.id);
+      const allVisibleSelected =
+        visibleIds.length > 0 &&
+        visibleIds.every((id) => current.has(id));
+      if (allVisibleSelected) {
+        // Toggle off only the visible ones (preserve any selection
+        // the user had on rows hidden by a previous filter).
+        const next = new Set(current);
+        for (const id of visibleIds) next.delete(id);
+        return next;
+      }
+      const next = new Set(current);
+      for (const id of visibleIds) next.add(id);
+      return next;
     });
   }
 
