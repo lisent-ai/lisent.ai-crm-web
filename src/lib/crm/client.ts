@@ -2650,6 +2650,7 @@ export type IntegrationSlug =
   | "greenapi"
   | "intranet"
   | "meta-lead-ads"
+  | "google-sheets"
   // Legacy deep-link slugs — the detail page resolves these to the
   // unified ai-lead-qualifier panel with the matching tab pre-selected.
   | "qualifier-lead-webhook"
@@ -2717,4 +2718,272 @@ export async function fetchIntegrationCatalog(
   return requestCRM<IntegrationCatalog>(
     `/companies/${companyId}/integrations`,
   );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Google Sheets integration (G1: OAuth + manual sync, read-only).
+// Mirrors the Meta surface — Nango-mediated OAuth, plus per-sheet config rows
+// and a manual "Sync now" trigger.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export class SheetsOAuthNotConfiguredError extends Error {
+  constructor() {
+    super("Google Sheets OAuth (Nango) is not yet configured.");
+    this.name = "SheetsOAuthNotConfiguredError";
+  }
+}
+
+export type GoogleIntegration = {
+  id: string;
+  company_id: string;
+  nango_connection_id: string;
+  nango_provider_config_key: string;
+  oauth_user_email?: string;
+  oauth_user_name?: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SheetImport = {
+  id: string;
+  company_id: string;
+  google_integration_id: string;
+  spreadsheet_id: string;
+  spreadsheet_name: string;
+  sheet_name: string;
+  sheet_gid?: number | null;
+  campaign_label: string;
+  header_row_number: number;
+  data_start_row: number;
+  field_mapping: Record<string, string>;
+  default_source: string;
+  is_active: boolean;
+  last_synced_at?: string | null;
+  last_sync_status?: string | null;
+  last_sync_error?: string | null;
+  last_sync_added: number;
+  last_sync_updated: number;
+  total_synced: number;
+  consecutive_failures: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SheetsStatus = {
+  integration?: GoogleIntegration;
+  sheet_imports: SheetImport[];
+  nango_ready: boolean;
+};
+
+export type SpreadsheetInfo = {
+  id: string;
+  name: string;
+  modified_time?: string;
+  web_view_link?: string;
+};
+
+export type SheetTabInfo = {
+  title: string;
+  gid: number;
+  row_count: number;
+  column_count: number;
+  is_hidden?: boolean;
+};
+
+export type SheetPreview = {
+  headers: string[];
+  sample_rows: Array<Record<string, string>>;
+};
+
+export type SheetSyncResult = {
+  import_id: string;
+  status: "ok" | "error";
+  added: number;
+  updated: number;
+  total_rows: number;
+  error_message?: string;
+  started_at: string;
+  completed_at: string;
+};
+
+/** getSheetsConnectSession — backend mints the Nango Connect Session token
+ *  needed to open the OAuth popup (Nango v0.40+ requires it). */
+export async function getSheetsConnectSession(
+  companyId: string,
+  providerConfigKey = "google-sheets",
+): Promise<{ sessionToken: string; connectionId: string; providerConfigKey: string }> {
+  try {
+    const r = await requestCRM<{
+      session_token: string;
+      connection_id: string;
+      provider_config_key: string;
+    }>(`/companies/${companyId}/sheets-connect-session`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ provider_config_key: providerConfigKey }),
+    });
+    return {
+      sessionToken: r.session_token,
+      connectionId: r.connection_id,
+      providerConfigKey: r.provider_config_key,
+    };
+  } catch (err) {
+    if (isNangoUnavailable(err)) throw new SheetsOAuthNotConfiguredError();
+    throw err;
+  }
+}
+
+/** completeSheetsOAuth — persists the Nango popup outcome on the CRM side
+ *  and returns the connected Google account's user info for the badge. */
+export async function completeSheetsOAuth(
+  companyId: string,
+  payload: { connectionId: string; providerConfigKey: string },
+): Promise<{ oauthUserEmail: string; oauthUserName: string; isActive: boolean }> {
+  try {
+    const r = await requestCRM<{
+      oauth_user_email: string;
+      oauth_user_name: string;
+      is_active: boolean;
+    }>(`/companies/${companyId}/sheets-connect-nango`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        connection_id: payload.connectionId,
+        provider_config_key: payload.providerConfigKey,
+      }),
+    });
+    return {
+      oauthUserEmail: r.oauth_user_email,
+      oauthUserName: r.oauth_user_name,
+      isActive: r.is_active,
+    };
+  } catch (err) {
+    if (isNangoUnavailable(err)) throw new SheetsOAuthNotConfiguredError();
+    throw err;
+  }
+}
+
+export async function fetchSheetsStatus(companyId: string): Promise<SheetsStatus> {
+  return requestCRM<SheetsStatus>(`/companies/${companyId}/sheets-status`);
+}
+
+export async function listSpreadsheets(companyId: string): Promise<SpreadsheetInfo[]> {
+  const r = await requestCRM<{ spreadsheets: SpreadsheetInfo[] }>(
+    `/companies/${companyId}/sheets-spreadsheets`,
+  );
+  return r.spreadsheets ?? [];
+}
+
+export async function listSheetTabs(
+  companyId: string,
+  spreadsheetId: string,
+): Promise<SheetTabInfo[]> {
+  const r = await requestCRM<{ tabs: SheetTabInfo[] }>(
+    `/companies/${companyId}/sheets-spreadsheets/${encodeURIComponent(spreadsheetId)}/tabs`,
+  );
+  return r.tabs ?? [];
+}
+
+export async function previewSheet(
+  companyId: string,
+  payload: {
+    spreadsheetId: string;
+    sheetName: string;
+    headerRowNumber?: number;
+    sampleRowCount?: number;
+  },
+): Promise<SheetPreview> {
+  return requestCRM<SheetPreview>(`/companies/${companyId}/sheets-preview`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      spreadsheet_id: payload.spreadsheetId,
+      sheet_name: payload.sheetName,
+      header_row_number: payload.headerRowNumber ?? 1,
+      sample_row_count: payload.sampleRowCount ?? 5,
+    }),
+  });
+}
+
+export async function createSheetImport(
+  companyId: string,
+  payload: {
+    spreadsheetId: string;
+    spreadsheetName: string;
+    sheetName: string;
+    sheetGid?: number;
+    campaignLabel: string;
+    headerRowNumber: number;
+    dataStartRow: number;
+    fieldMapping: Record<string, string>;
+  },
+): Promise<SheetImport> {
+  return requestCRM<SheetImport>(`/companies/${companyId}/sheet-imports`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      spreadsheet_id: payload.spreadsheetId,
+      spreadsheet_name: payload.spreadsheetName,
+      sheet_name: payload.sheetName,
+      sheet_gid: payload.sheetGid,
+      campaign_label: payload.campaignLabel,
+      header_row_number: payload.headerRowNumber,
+      data_start_row: payload.dataStartRow,
+      field_mapping: payload.fieldMapping,
+    }),
+  });
+}
+
+export async function updateSheetImport(
+  companyId: string,
+  importId: string,
+  payload: {
+    campaignLabel?: string;
+    headerRowNumber?: number;
+    dataStartRow?: number;
+    fieldMapping?: Record<string, string>;
+    isActive?: boolean;
+  },
+): Promise<SheetImport> {
+  return requestCRM<SheetImport>(
+    `/companies/${companyId}/sheet-imports/${encodeURIComponent(importId)}`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        campaign_label: payload.campaignLabel,
+        header_row_number: payload.headerRowNumber,
+        data_start_row: payload.dataStartRow,
+        field_mapping: payload.fieldMapping,
+        is_active: payload.isActive,
+      }),
+    },
+  );
+}
+
+export async function deleteSheetImport(
+  companyId: string,
+  importId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    `/companies/${companyId}/sheet-imports/${encodeURIComponent(importId)}`,
+    { method: "DELETE" },
+  );
+}
+
+export async function syncSheetImportNow(
+  companyId: string,
+  importId: string,
+): Promise<SheetSyncResult> {
+  return requestCRM<SheetSyncResult>(
+    `/companies/${companyId}/sheet-imports/${encodeURIComponent(importId)}/sync`,
+    { method: "POST" },
+  );
+}
+
+export async function disconnectSheets(companyId: string): Promise<void> {
+  await requestCRM<unknown>(`/companies/${companyId}/sheets-disconnect`, {
+    method: "POST",
+  });
 }

@@ -2,7 +2,10 @@
 
 import Nango from "@nangohq/frontend";
 
-import { getMetaConnectSession } from "@/lib/crm/client";
+import {
+  getMetaConnectSession,
+  getSheetsConnectSession,
+} from "@/lib/crm/client";
 
 // Phase 2.1: Nango self-hosted as OAuth gateway. The frontend SDK opens
 // the popup, Nango does the Facebook OAuth dance + token storage, and
@@ -42,6 +45,30 @@ export async function connectMetaViaNango(
   // With a session token, connection_id is forbidden as a second arg —
   // Nango derives it from the session's end_user.id (which we set to
   // companyId backend-side). Passing it triggers invalid_query_params.
+  await nango.auth(session.providerConfigKey);
+  return {
+    connectionId: session.connectionId,
+    providerConfigKey: session.providerConfigKey,
+  };
+}
+
+/**
+ * Triggers Nango's OAuth Connect popup for the Google Sheets provider.
+ * Same flow as connectMetaViaNango: backend mints session token (uses the
+ * secret key), frontend opens Nango popup, returns the connectionId.
+ *
+ * connectionId convention mirrors Meta — we use the company UUID, so one
+ * Google connection per workspace, replaceable on re-auth.
+ */
+export async function connectGoogleSheetsViaNango(
+  companyId: string,
+  providerConfigKey = "google-sheets",
+): Promise<{ connectionId: string; providerConfigKey: string }> {
+  const session = await getSheetsConnectSession(companyId, providerConfigKey);
+  const nango = new Nango({
+    host: getNangoHost(),
+    connectSessionToken: session.sessionToken,
+  });
   await nango.auth(session.providerConfigKey);
   return {
     connectionId: session.connectionId,

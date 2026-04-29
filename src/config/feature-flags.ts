@@ -33,6 +33,9 @@ export const featureFlags = {
    *  modal shows the legacy mock-only credentials form instead.
    *  Phase 2.1: this flag now ALSO gates the Nango-powered Connect path. */
   metaOAuth: isTrue(process.env.NEXT_PUBLIC_META_OAUTH_ENABLED),
+  /** G1: enables the Google Sheets integration card + wizard inside the
+   *  Integrations Hub. Manual "Sync now" only at G1; G2 will add cron. */
+  googleSheetsIntegration: isTrue(process.env.NEXT_PUBLIC_GOOGLE_SHEETS_INTEGRATION_ENABLED),
 } as const;
 
 export type FeatureFlag = keyof typeof featureFlags;

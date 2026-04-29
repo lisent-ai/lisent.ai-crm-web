@@ -234,13 +234,20 @@ export function IntegrationsCatalog() {
       ) : catalog ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {catalog.available
-            // Hide Meta card client-side when the feature flag is off,
-            // even if the backend still returns it. Lets us decouple
-            // backend rollout from frontend enablement.
-            .filter(
-              (integration) =>
-                integration.slug !== "meta-lead-ads" || featureFlags.metaIntegration,
-            )
+            // Hide flag-gated cards client-side when the corresponding
+            // feature flag is off, even if the backend still returns
+            // them. Lets us decouple backend rollout from frontend
+            // enablement (e.g. backend can ship Google Sheets endpoints
+            // before the card is visible to all tenants).
+            .filter((integration) => {
+              if (integration.slug === "meta-lead-ads") {
+                return featureFlags.metaIntegration;
+              }
+              if (integration.slug === "google-sheets") {
+                return featureFlags.googleSheetsIntegration;
+              }
+              return true;
+            })
             .map((integration) => (
             <IntegrationCard
               key={integration.slug}
