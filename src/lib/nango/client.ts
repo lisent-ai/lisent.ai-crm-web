@@ -62,7 +62,7 @@ export async function connectMetaViaNango(
  */
 export async function connectGoogleSheetsViaNango(
   companyId: string,
-  providerConfigKey = "google-sheets",
+  providerConfigKey = "google-sheet",
 ): Promise<{ connectionId: string; providerConfigKey: string }> {
   const session = await getSheetsConnectSession(companyId, providerConfigKey);
   const nango = new Nango({

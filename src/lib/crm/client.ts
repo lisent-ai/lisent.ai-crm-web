@@ -2811,7 +2811,7 @@ export type SheetSyncResult = {
  *  needed to open the OAuth popup (Nango v0.40+ requires it). */
 export async function getSheetsConnectSession(
   companyId: string,
-  providerConfigKey = "google-sheets",
+  providerConfigKey = "google-sheet",
 ): Promise<{ sessionToken: string; connectionId: string; providerConfigKey: string }> {
   try {
     const r = await requestCRM<{
