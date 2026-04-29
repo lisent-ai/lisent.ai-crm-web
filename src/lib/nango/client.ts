@@ -54,11 +54,13 @@ export async function connectMetaViaNango(
 
 /**
  * Triggers Nango's OAuth Connect popup for the Google Sheets provider.
- * Same flow as connectMetaViaNango: backend mints session token (uses the
- * secret key), frontend opens Nango popup, returns the connectionId.
  *
- * connectionId convention mirrors Meta — we use the company UUID, so one
- * Google connection per workspace, replaceable on re-auth.
+ * Important: Nango v0.40+ session-token flow assigns its OWN random UUID
+ * as the connection_id — the `end_user.id` we set backend-side ends up on
+ * Nango's `end_user` record, not on `connection_id`. We must therefore
+ * use the connectionId surfaced by `nango.auth()` (not the optimistic
+ * pre-popup value the backend echoed back). Otherwise the post-popup
+ * GetConnection call hits a 404.
  */
 export async function connectGoogleSheetsViaNango(
   companyId: string,
@@ -69,10 +71,12 @@ export async function connectGoogleSheetsViaNango(
     host: getNangoHost(),
     connectSessionToken: session.sessionToken,
   });
-  await nango.auth(session.providerConfigKey);
+  const result = (await nango.auth(session.providerConfigKey)) as
+    | { connectionId?: string; providerConfigKey?: string }
+    | undefined;
   return {
-    connectionId: session.connectionId,
-    providerConfigKey: session.providerConfigKey,
+    connectionId: result?.connectionId ?? session.connectionId,
+    providerConfigKey: result?.providerConfigKey ?? session.providerConfigKey,
   };
 }
 
