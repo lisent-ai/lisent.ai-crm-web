@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { Download, Trash2, UserPlus, X } from "lucide-react";
+import { Download, FileText, Trash2, UserPlus, X } from "lucide-react";
 
 type LeadBulkActionBarProps = {
   canAssign: boolean;
@@ -12,6 +12,7 @@ type LeadBulkActionBarProps = {
   onClear: () => void;
   onDelete: () => void;
   onExport: () => void;
+  onExportPdf: () => void;
   saving: boolean;
 };
 
@@ -22,6 +23,7 @@ export function LeadBulkActionBar({
   onClear,
   onDelete,
   onExport,
+  onExportPdf,
   saving,
 }: Readonly<LeadBulkActionBarProps>) {
   const t = useTranslations();
@@ -63,6 +65,16 @@ export function LeadBulkActionBar({
           <Download aria-hidden="true" className="h-3.5 w-3.5" />
           <span className="hidden sm:inline">{t("leads.bulkBar.exportCsv")}</span>
           <span className="sm:hidden">CSV</span>
+        </button>
+        <button
+          className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-white/90 transition hover:bg-white/10 disabled:opacity-50"
+          disabled={saving}
+          onClick={onExportPdf}
+          type="button"
+        >
+          <FileText aria-hidden="true" className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">{t("leads.bulkBar.exportPdf")}</span>
+          <span className="sm:hidden">PDF</span>
         </button>
         <button
           className="inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-[#fecaca] transition hover:bg-white/10 disabled:opacity-50"

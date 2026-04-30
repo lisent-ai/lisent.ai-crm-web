@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Calendar, CheckCircle2, PencilLine, Trash2 } from "lucide-react";
 
 import { getAccountProfile } from "@/lib/account/client";
@@ -84,6 +84,7 @@ function buildLeadFilters(input: {
 
 export function LeadDirectory() {
   const t = useTranslations();
+  const locale = useLocale() as import("@/lib/i18n/config").SupportedLocale;
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName");
@@ -897,6 +898,21 @@ export function LeadDirectory() {
     setSuccessMessage(t("leads.success.exported", { count: rows.length }));
   }
 
+  async function handleBulkExportPdf() {
+    const rows = leads.filter((lead) => selectedIds.has(lead.id));
+    if (rows.length === 0) return;
+    try {
+      const { downloadLeadPdf } = await import("@/lib/leads/pdf-export");
+      const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+      downloadLeadPdf(rows, `leads-${stamp}.pdf`, t as never, locale);
+      setSuccessMessage(t("leads.success.exported", { count: rows.length }));
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : t("leads.errors.exportPdf"),
+      );
+    }
+  }
+
   function scheduleLead(lead: Lead) {
     if (!selectedCompany) {
       return;
@@ -1252,6 +1268,7 @@ export function LeadDirectory() {
         onClear={() => setSelectedIds(new Set())}
         onDelete={() => setPendingBulkDelete(true)}
         onExport={handleBulkExport}
+        onExportPdf={handleBulkExportPdf}
         saving={saving}
       />
 
