@@ -97,9 +97,18 @@ export async function patchWebhookConfig(
   });
 }
 
+export type WebhookTestInput = {
+  score?: number;
+  lead_id?: string;
+  event_type?: string;
+  external_id?: string;
+  from_stage?: string;
+  to_stage?: string;
+};
+
 export async function testWebhook(
   companyId: string,
-  body?: { score?: number; lead_id?: string },
+  body?: WebhookTestInput,
 ): Promise<WebhookTestResult> {
   return bffRequest<WebhookTestResult>(companyId, "/config/webhook/test", {
     method: "POST",

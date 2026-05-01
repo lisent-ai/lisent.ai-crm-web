@@ -158,7 +158,13 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
     setLastTestResult(null);
     setError(null);
     try {
-      const result = await testWebhook(companyId, { score: 77 });
+      const result = await testWebhook(companyId, {
+        event_type: "lead.stage_changed",
+        score: 77,
+        external_id: `test-${Date.now()}`,
+        from_stage: "contacted",
+        to_stage: "converted",
+      });
       setLastTestResult(
         result.enqueued
           ? t("integrations.webhooks.testEnqueued", { eventId: result.event_id })
