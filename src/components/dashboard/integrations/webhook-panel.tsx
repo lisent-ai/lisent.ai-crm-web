@@ -159,11 +159,11 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
     setError(null);
     try {
       const result = await testWebhook(companyId, {
-        event_type: "lead.stage_changed",
+        event_type: "lead.qualified",
         score: 77,
         external_id: `test-${Date.now()}`,
         from_stage: "contacted",
-        to_stage: "converted",
+        to_stage: "qualified",
       });
       setLastTestResult(
         result.enqueued

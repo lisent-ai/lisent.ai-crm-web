@@ -104,6 +104,8 @@ export type WebhookTestInput = {
   external_id?: string;
   from_stage?: string;
   to_stage?: string;
+  origin_system?: string;
+  source?: string;
 };
 
 export async function testWebhook(
