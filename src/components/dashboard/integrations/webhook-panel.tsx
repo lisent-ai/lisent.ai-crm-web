@@ -51,6 +51,7 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
   const [notice, setNotice] = useState<string | null>(null);
   const [justRotatedSecret, setJustRotatedSecret] = useState<string | null>(null);
   const [lastTestResult, setLastTestResult] = useState<string | null>(null);
+  const [testEventType, setTestEventType] = useState<string>("lead.qualified");
 
   const [selectedEvents, setSelectedEvents] = useState<Set<string>>(new Set());
   const [customPatterns, setCustomPatterns] = useState<string>("");
@@ -157,13 +158,22 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
   const runTest = async () => {
     setLastTestResult(null);
     setError(null);
+    // Map the chosen test event to a realistic stage transition.
+    const stageByEvent: Record<string, { from: string; to: string }> = {
+      "lead.qualified": { from: "contacted", to: "qualified" },
+      "lead.won": { from: "qualified", to: "converted" },
+      "lead.lost": { from: "contacted", to: "lost" },
+      "lead.stage_changed": { from: "new", to: "contacted" },
+      "lead.disqualified": { from: "contacted", to: "lost" },
+    };
+    const stages = stageByEvent[testEventType] ?? { from: "new", to: "contacted" };
     try {
       const result = await testWebhook(companyId, {
-        event_type: "lead.qualified",
+        event_type: testEventType,
         score: 77,
         external_id: `test-${Date.now()}`,
-        from_stage: "contacted",
-        to_stage: "qualified",
+        from_stage: stages.from,
+        to_stage: stages.to,
       });
       setLastTestResult(
         result.enqueued
@@ -284,6 +294,18 @@ export function WebhookPanel({ companyId, companyName }: Readonly<Props>) {
             >
               {t("integrations.webhooks.rotateSecret")}
             </button>
+            <select
+              value={testEventType}
+              onChange={(e) => setTestEventType(e.target.value)}
+              disabled={!config?.url || !config?.has_secret}
+              className="rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] disabled:opacity-50"
+            >
+              <option value="lead.qualified">lead.qualified</option>
+              <option value="lead.won">lead.won (converted)</option>
+              <option value="lead.lost">lead.lost</option>
+              <option value="lead.stage_changed">lead.stage_changed</option>
+              <option value="lead.disqualified">lead.disqualified</option>
+            </select>
             <button
               type="button"
               disabled={!config?.url || !config?.has_secret}
