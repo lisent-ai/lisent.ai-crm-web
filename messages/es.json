@@ -1145,9 +1145,13 @@
     "rotationWindow": "Ventana de rotación",
     "secondary": "Secundario",
     "status": {
+      "active": "Activo",
       "aria": "Estado de la integración",
       "comingSoon": "Próximamente",
-      "connected": "Conectado"
+      "connected": "Conectado",
+      "error": "Error",
+      "notConfigured": "No configurado",
+      "paused": "En pausa"
     },
     "subComponent": {
       "configured": "Configurado",

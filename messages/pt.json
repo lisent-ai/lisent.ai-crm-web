@@ -1145,9 +1145,13 @@
     "rotationWindow": "Janela de rotação",
     "secondary": "Secundário",
     "status": {
+      "active": "Ativo",
       "aria": "Status da integração",
       "comingSoon": "Em breve",
-      "connected": "Conectado"
+      "connected": "Conectado",
+      "error": "Erro",
+      "notConfigured": "Não configurado",
+      "paused": "Pausado"
     },
     "subComponent": {
       "configured": "Configurado",

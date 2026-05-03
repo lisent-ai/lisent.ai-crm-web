@@ -1145,9 +1145,13 @@
     "rotationWindow": "Rotationsvindue",
     "secondary": "Sekundær",
     "status": {
+      "active": "Aktiv",
       "aria": "Integrationsstatus",
       "comingSoon": "Kommer snart",
-      "connected": "Forbundet"
+      "connected": "Forbundet",
+      "error": "Fejl",
+      "notConfigured": "Ikke konfigureret",
+      "paused": "Sat på pause"
     },
     "subComponent": {
       "configured": "Konfigureret",

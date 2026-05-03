@@ -1145,9 +1145,13 @@
     "rotationWindow": "Rotatietijdvenster",
     "secondary": "Secundair",
     "status": {
+      "active": "Actief",
       "aria": "Integratiestatus",
       "comingSoon": "Binnenkort beschikbaar",
-      "connected": "Verbonden"
+      "connected": "Verbonden",
+      "error": "Fout",
+      "notConfigured": "Niet geconfigureerd",
+      "paused": "Gepauzeerd"
     },
     "subComponent": {
       "configured": "Geconfigureerd",

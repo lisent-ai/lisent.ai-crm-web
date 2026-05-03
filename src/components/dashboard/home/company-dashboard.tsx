@@ -127,7 +127,7 @@ export function CompanyDashboard() {
         />
         <StatCard
           icon={User}
-          label={t("home.kpi.customersInWorkspace")}
+          label={t("home.kpi.customersInWorkspace", { name: companyName })}
           loading={loading}
           value={String(customers.length)}
           hint={t("home.kpi.customersHint")}

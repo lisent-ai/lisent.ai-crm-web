@@ -1145,9 +1145,13 @@
     "rotationWindow": "نافذة التدوير",
     "secondary": "ثانوي",
     "status": {
+      "active": "نشط",
       "aria": "حالة التكامل",
       "comingSoon": "قريبًا",
-      "connected": "متصل"
+      "connected": "متصل",
+      "error": "خطأ",
+      "notConfigured": "غير مُهيأ",
+      "paused": "متوقف مؤقتًا"
     },
     "subComponent": {
       "configured": "مُكوَّن",

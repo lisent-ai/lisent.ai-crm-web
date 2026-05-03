@@ -1145,9 +1145,13 @@
     "rotationWindow": "Период ротации",
     "secondary": "Вторичный",
     "status": {
+      "active": "Активно",
       "aria": "Состояние интеграции",
       "comingSoon": "Скоро",
-      "connected": "Подключено"
+      "connected": "Подключено",
+      "error": "Ошибка",
+      "notConfigured": "Не настроено",
+      "paused": "Приостановлено"
     },
     "subComponent": {
       "configured": "Настроено",

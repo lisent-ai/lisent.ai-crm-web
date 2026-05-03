@@ -1135,9 +1135,13 @@
     "rotationWindow": "Finestra di rotazione",
     "secondary": "Secondario",
     "status": {
+      "active": "Attivo",
       "aria": "Stato integrazione",
       "comingSoon": "Prossimamente",
-      "connected": "Connesso"
+      "connected": "Connesso",
+      "error": "Errore",
+      "notConfigured": "Non configurato",
+      "paused": "In pausa"
     },
     "subComponent": {
       "configured": "Configurato",

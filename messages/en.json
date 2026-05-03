@@ -1145,9 +1145,13 @@
     "rotationWindow": "Rotation window",
     "secondary": "Secondary",
     "status": {
+      "active": "Active",
       "aria": "Integration status",
       "comingSoon": "Coming soon",
-      "connected": "Connected"
+      "connected": "Connected",
+      "error": "Error",
+      "notConfigured": "Not configured",
+      "paused": "Paused"
     },
     "subComponent": {
       "configured": "Configured",

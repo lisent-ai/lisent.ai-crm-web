@@ -1139,9 +1139,13 @@
     "rotationWindow": "Uudistamisen aikaväli",
     "secondary": "Toissijainen",
     "status": {
+      "active": "Aktiivinen",
       "aria": "Integraation tila",
       "comingSoon": "Tulossa pian",
-      "connected": "Yhdistetty"
+      "connected": "Yhdistetty",
+      "error": "Virhe",
+      "notConfigured": "Ei määritetty",
+      "paused": "Keskeytetty"
     },
     "subComponent": {
       "configured": "Määritetty",

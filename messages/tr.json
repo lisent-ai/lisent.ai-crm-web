@@ -1134,9 +1134,13 @@
     "rotationWindow": "Döndürme penceresi",
     "secondary": "İkincil",
     "status": {
+      "active": "Aktif",
       "aria": "Entegrasyon durumu",
       "comingSoon": "Yakında",
-      "connected": "Bağlandı"
+      "connected": "Bağlandı",
+      "error": "Hata",
+      "notConfigured": "Yapılandırılmamış",
+      "paused": "Duraklatıldı"
     },
     "subComponent": {
       "configured": "Yapılandırıldı",
