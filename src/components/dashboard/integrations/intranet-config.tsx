@@ -7,10 +7,15 @@ import {
   CRMClientError,
   disconnectIntranetIntegration,
   getIntranetConfig,
+  getIntranetOutboundConfig,
   type IntranetAuthMode,
   type IntranetConfig,
   type IntranetDelivery,
+  type IntranetOutboundConfig,
+  type IntranetOutboundDelivery,
+  type IntranetOutboundStatus,
   listIntranetDeliveries,
+  listIntranetOutboundDeliveries,
   patchIntranetIntegration,
   revokeIntranetSecondaryBearer,
   revokeIntranetSecondarySecret,
@@ -18,6 +23,8 @@ import {
   rotateIntranetBearer,
   rotateIntranetSecret,
   rotateIntranetToken,
+  testIntranetOutboundWebhook,
+  updateIntranetOutboundConfig,
   upsertIntranetIntegration,
 } from "@/lib/crm/client";
 
@@ -475,6 +482,18 @@ curl -X POST "${config.inboundUrl}" \\
         />
       ) : null}
 
+      {/* Outbound webhook (CRM → customer status push). Mirrors the inbound
+          credentials surface so operators see both directions of the
+          two-way sync in one place. Hidden until the inbound integration
+          itself exists, since outbound is gated on the same row. */}
+      {config ? (
+        <OutboundWebhookSection
+          companyId={companyId}
+          onError={(msg) => setErrorMessage(msg)}
+          onSuccess={(msg) => setSuccessMessage(msg)}
+        />
+      ) : null}
+
       {/* Field mapping editor */}
       <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
         <header className="mb-4">
@@ -821,6 +840,480 @@ function RevealPanel({
           </button>
         </div>
       </div>
+    </article>
+  );
+}
+
+/**
+ * Outbound (CRM → customer) status webhook surface. The CRM signs
+ * each status transition with HMAC-SHA256 and POSTs it to the URL the
+ * operator configures here. Status filter selects which transitions
+ * fire (or '*' for all).
+ */
+const ALL_STATUSES: IntranetOutboundStatus[] = [
+  "new",
+  "contacted",
+  "qualified",
+  "lost",
+  "converted",
+];
+
+function OutboundWebhookSection({
+  companyId,
+  onError,
+  onSuccess,
+}: Readonly<{
+  companyId: string;
+  onError: (msg: string) => void;
+  onSuccess: (msg: string) => void;
+}>) {
+  const t = useTranslations();
+  const [config, setConfig] = useState<IntranetOutboundConfig | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [rotating, setRotating] = useState(false);
+  const [testing, setTesting] = useState(false);
+
+  const [urlInput, setUrlInput] = useState("");
+  const [paused, setPaused] = useState(false);
+  const [allStatuses, setAllStatuses] = useState(true);
+  const [selectedStatuses, setSelectedStatuses] = useState<Set<IntranetOutboundStatus>>(
+    new Set(ALL_STATUSES),
+  );
+  const [revealedSecret, setRevealedSecret] = useState<string | null>(null);
+  const [testToStatus, setTestToStatus] = useState<IntranetOutboundStatus>("qualified");
+  const [deliveries, setDeliveries] = useState<IntranetOutboundDelivery[]>([]);
+  const [lastTestEventId, setLastTestEventId] = useState<string | null>(null);
+
+  const refreshDeliveries = useCallback(async () => {
+    try {
+      const rows = await listIntranetOutboundDeliveries(companyId, 20);
+      setDeliveries(rows);
+    } catch {
+      /* deliveries are best-effort — leave the list empty rather than nag */
+    }
+  }, [companyId]);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const cfg = await getIntranetOutboundConfig(companyId);
+      setConfig(cfg);
+      setUrlInput(cfg.url ?? "");
+      setPaused(cfg.paused);
+      const wildcard = cfg.enabledStatuses.includes("*");
+      setAllStatuses(wildcard);
+      if (!wildcard) {
+        setSelectedStatuses(new Set(cfg.enabledStatuses as IntranetOutboundStatus[]));
+      } else {
+        setSelectedStatuses(new Set(ALL_STATUSES));
+      }
+    } catch (err) {
+      onError(
+        err instanceof CRMClientError
+          ? err.message
+          : t("integrations.intranet.outbound.loadFailed"),
+      );
+    } finally {
+      setLoading(false);
+    }
+    await refreshDeliveries();
+  }, [companyId, onError, refreshDeliveries, t]);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  function toggleStatus(s: IntranetOutboundStatus) {
+    setSelectedStatuses((prev) => {
+      const next = new Set(prev);
+      if (next.has(s)) next.delete(s);
+      else next.add(s);
+      return next;
+    });
+  }
+
+  async function handleSave() {
+    setSaving(true);
+    try {
+      const enabled: IntranetOutboundStatus[] = allStatuses
+        ? ["*"]
+        : Array.from(selectedStatuses);
+      if (enabled.length === 0) {
+        onError(t("integrations.intranet.outbound.selectAtLeastOne"));
+        setSaving(false);
+        return;
+      }
+      const trimmed = urlInput.trim();
+      const result = await updateIntranetOutboundConfig(companyId, {
+        url: trimmed || null,
+        enabledStatuses: enabled,
+        paused,
+      });
+      setConfig(result.config);
+      onSuccess(t("integrations.intranet.outbound.savedNotice"));
+    } catch (err) {
+      onError(
+        err instanceof CRMClientError
+          ? err.message
+          : t("integrations.intranet.outbound.saveFailed"),
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleRotateSecret() {
+    if (!confirm(t("integrations.intranet.outbound.rotateSecretConfirm"))) return;
+    setRotating(true);
+    try {
+      const result = await updateIntranetOutboundConfig(companyId, {
+        rotateSecret: true,
+      });
+      setConfig(result.config);
+      if (result.secretPlaintext) {
+        setRevealedSecret(result.secretPlaintext);
+      }
+      onSuccess(t("integrations.intranet.outbound.secretRotatedNotice"));
+    } catch (err) {
+      onError(
+        err instanceof CRMClientError
+          ? err.message
+          : t("integrations.intranet.outbound.saveFailed"),
+      );
+    } finally {
+      setRotating(false);
+    }
+  }
+
+  async function handleTest() {
+    setTesting(true);
+    setLastTestEventId(null);
+    try {
+      const result = await testIntranetOutboundWebhook(companyId, testToStatus);
+      setLastTestEventId(result.eventId);
+      onSuccess(
+        t("integrations.intranet.outbound.testEnqueued", { eventId: result.eventId }),
+      );
+      window.setTimeout(() => void refreshDeliveries(), 1500);
+    } catch (err) {
+      onError(
+        err instanceof CRMClientError
+          ? err.message
+          : t("integrations.intranet.outbound.testFailed"),
+      );
+    } finally {
+      setTesting(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 text-sm text-[var(--text-tertiary)] sm:p-6">
+        {t("integrations.intranet.outbound.loading")}
+      </article>
+    );
+  }
+
+  return (
+    <article className="space-y-5 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5 sm:p-6">
+      <header>
+        <h2 className="text-base font-semibold tracking-tight text-[var(--text-primary)] sm:text-lg">
+          {t("integrations.intranet.outbound.title")}
+        </h2>
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
+          {t("integrations.intranet.outbound.description")}
+        </p>
+      </header>
+
+      <div className="grid gap-3">
+        <label className="grid gap-1 text-sm">
+          <span className="font-semibold text-[var(--text-secondary)]">
+            {t("integrations.intranet.outbound.urlLabel")}
+          </span>
+          <input
+            type="url"
+            value={urlInput}
+            onChange={(e) => setUrlInput(e.target.value)}
+            placeholder={t("integrations.intranet.outbound.urlPlaceholder")}
+            className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 font-mono text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
+          />
+          <span className="text-xs text-[var(--text-tertiary)]">
+            {t("integrations.intranet.outbound.urlHint")}
+          </span>
+        </label>
+
+        <label className="flex items-start gap-3 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-3 text-sm">
+          <input
+            type="checkbox"
+            checked={paused}
+            onChange={(e) => setPaused(e.target.checked)}
+            className="mt-0.5 h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
+          />
+          <span className="grid gap-0.5">
+            <span className="font-semibold text-[var(--text-secondary)]">
+              {t("integrations.intranet.outbound.pauseLabel")}
+            </span>
+            <span className="text-xs text-[var(--text-tertiary)]">
+              {t("integrations.intranet.outbound.pauseHint")}
+            </span>
+          </span>
+        </label>
+      </div>
+
+      {/* Status filter */}
+      <fieldset className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4">
+        <legend className="px-1 text-sm font-semibold text-[var(--text-secondary)]">
+          {t("integrations.intranet.outbound.statusFilterTitle")}
+        </legend>
+        <p className="mb-3 text-xs text-[var(--text-tertiary)]">
+          {t("integrations.intranet.outbound.statusFilterHint")}
+        </p>
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={allStatuses}
+            onChange={(e) => setAllStatuses(e.target.checked)}
+            className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
+          />
+          <span className="font-semibold text-[var(--text-primary)]">
+            {t("integrations.intranet.outbound.allStatusesLabel")}
+          </span>
+        </label>
+        {!allStatuses ? (
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+            {ALL_STATUSES.map((s) => (
+              <li key={s}>
+                <label className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+                  <input
+                    type="checkbox"
+                    checked={selectedStatuses.has(s)}
+                    onChange={() => toggleStatus(s)}
+                    className="h-4 w-4 rounded border-[var(--border-default)] accent-[var(--accent)]"
+                  />
+                  <code className="font-mono text-xs text-[var(--text-primary)]">{s}</code>
+                  <span className="text-xs text-[var(--text-tertiary)]">
+                    {t(`integrations.intranet.outbound.statusLabels.${s}` as never)}
+                  </span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </fieldset>
+
+      {/* Secret + save button row */}
+      <div className="flex flex-col gap-3 border-t border-[var(--border-subtle)] pt-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="text-xs text-[var(--text-secondary)]">
+          <span className="font-semibold text-[var(--text-primary)]">
+            {t("integrations.intranet.outbound.signingSecretLabel")}:
+          </span>{" "}
+          {config?.hasSecret ? (
+            <>
+              <span className="text-[var(--signal-green)]">
+                {t("integrations.intranet.outbound.secretConfigured")}
+              </span>
+              {config.secretRotatedAt ? (
+                <span className="text-[var(--text-tertiary)]">
+                  {" "}
+                  {t("integrations.intranet.outbound.secretRotatedAt", {
+                    time: new Date(config.secretRotatedAt).toLocaleString(),
+                  })}
+                </span>
+              ) : null}
+            </>
+          ) : (
+            <span className="text-[var(--text-tertiary)]">
+              {t("integrations.intranet.outbound.secretNotSet")}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => void handleSave()}
+            disabled={saving}
+            className="rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
+          >
+            {saving ? t("common.saving") : t("integrations.intranet.outbound.saveButton")}
+          </button>
+          <button
+            type="button"
+            onClick={() => void handleRotateSecret()}
+            disabled={rotating || !config?.url}
+            title={!config?.url ? t("integrations.intranet.outbound.urlRequiredFirst") : ""}
+            className="rounded-full border border-[color-mix(in_srgb,_var(--signal-amber)_40%,_transparent)] bg-[var(--surface)] px-4 py-2 text-xs font-semibold text-[var(--signal-amber)] transition hover:bg-[color-mix(in_srgb,_var(--signal-amber)_10%,_var(--surface))] disabled:opacity-50"
+          >
+            {rotating
+              ? t("integrations.intranet.outbound.rotatingSecret")
+              : config?.hasSecret
+                ? t("integrations.intranet.outbound.rotateSecretButton")
+                : t("integrations.intranet.outbound.generateSecretButton")}
+          </button>
+        </div>
+      </div>
+
+      {revealedSecret ? (
+        <RevealPanel
+          label={t("integrations.intranet.outbound.newSecretReveal")}
+          value={revealedSecret}
+          copyLabel={t("integrations.copy")}
+          dismissLabel={t("integrations.intranet.dismiss")}
+          description={t("integrations.intranet.outbound.newSecretHint")}
+          onCopyMessage={() => onSuccess(t("integrations.intranet.hmacCopied"))}
+          onDismiss={() => setRevealedSecret(null)}
+        />
+      ) : null}
+
+      {/* Test event */}
+      <div className="grid gap-3 border-t border-[var(--border-subtle)] pt-4">
+        <div>
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
+            {t("integrations.intranet.outbound.testTitle")}
+          </h3>
+          <p className="mt-1 text-xs text-[var(--text-tertiary)]">
+            {t("integrations.intranet.outbound.testHint")}
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="grid gap-1 text-xs sm:flex-1">
+            <span className="font-semibold text-[var(--text-secondary)]">
+              {t("integrations.intranet.outbound.testToStatusLabel")}
+            </span>
+            <select
+              value={testToStatus}
+              onChange={(e) => setTestToStatus(e.target.value as IntranetOutboundStatus)}
+              className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
+            >
+              {ALL_STATUSES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            type="button"
+            onClick={() => void handleTest()}
+            disabled={testing || !config?.url || !config?.hasSecret}
+            className="self-end rounded-full bg-[var(--text-primary)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-50 sm:self-end"
+          >
+            {testing ? t("common.saving") : t("integrations.intranet.outbound.testButton")}
+          </button>
+        </div>
+        {lastTestEventId ? (
+          <p className="rounded-xl border border-[color-mix(in_srgb,_var(--accent)_24%,_transparent)] bg-[var(--accent-soft)] px-3 py-2 text-xs text-[var(--accent-strong)]">
+            {t("integrations.intranet.outbound.testEnqueued", { eventId: lastTestEventId })}
+          </p>
+        ) : null}
+      </div>
+
+      {/* Deliveries */}
+      <div className="grid gap-3 border-t border-[var(--border-subtle)] pt-4">
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
+            {t("integrations.intranet.outbound.deliveriesTitle")}
+          </h3>
+          <button
+            type="button"
+            onClick={() => void refreshDeliveries()}
+            className="text-xs font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+          >
+            {t("integrations.refresh")}
+          </button>
+        </div>
+        {deliveries.length === 0 ? (
+          <p className="text-xs text-[var(--text-tertiary)]">
+            {t("integrations.intranet.outbound.deliveriesEmpty")}
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-[var(--border-subtle)] text-left text-[var(--text-tertiary)]">
+                  <th className="py-2 pr-4 font-medium">
+                    {t("integrations.intranet.outbound.deliveryCols.status")}
+                  </th>
+                  <th className="py-2 pr-4 font-medium">
+                    {t("integrations.intranet.outbound.deliveryCols.toStatus")}
+                  </th>
+                  <th className="py-2 pr-4 font-medium">
+                    {t("integrations.intranet.outbound.deliveryCols.attempts")}
+                  </th>
+                  <th className="py-2 pr-4 font-medium">
+                    {t("integrations.intranet.outbound.deliveryCols.eventId")}
+                  </th>
+                  <th className="py-2 pr-4 font-medium">
+                    {t("integrations.intranet.outbound.deliveryCols.error")}
+                  </th>
+                  <th className="py-2 pr-4 font-medium">
+                    {t("integrations.intranet.outbound.deliveryCols.createdAt")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {deliveries.map((d) => (
+                  <tr
+                    key={d.id}
+                    className="border-b border-[var(--border-subtle)] font-mono"
+                  >
+                    <td className="py-1.5 pr-4">
+                      <span
+                        className={
+                          d.status === "success"
+                            ? "text-[var(--signal-green)]"
+                            : d.status === "dead"
+                              ? "text-[var(--signal-red)]"
+                              : d.status === "pending"
+                                ? "text-[var(--signal-amber)]"
+                                : "text-[var(--text-secondary)]"
+                        }
+                      >
+                        {d.status}
+                      </span>
+                    </td>
+                    <td className="py-1.5 pr-4 text-[var(--text-primary)]">{d.toStatus}</td>
+                    <td className="py-1.5 pr-4 text-[var(--text-secondary)]">
+                      {d.attemptCount}
+                    </td>
+                    <td className="py-1.5 pr-4 text-[var(--text-tertiary)]">
+                      {d.eventId.slice(0, 12)}…
+                    </td>
+                    <td className="py-1.5 pr-4 text-[var(--signal-red)]">
+                      {d.lastError ?? "—"}
+                    </td>
+                    <td className="py-1.5 pr-4 text-[var(--text-tertiary)]">
+                      {new Date(d.createdAt).toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Verification — collapsible because it's reference, not action. */}
+      <details className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-4 text-xs text-[var(--text-secondary)]">
+        <summary className="cursor-pointer font-medium text-[var(--text-primary)]">
+          {t("integrations.intranet.outbound.verificationTitle")}
+        </summary>
+        <div className="mt-3 space-y-3">
+          <p>{t("integrations.intranet.outbound.verificationIntro")}</p>
+          <pre className="overflow-x-auto rounded-xl bg-[var(--text-primary)] p-3 font-mono text-xs text-[var(--surface)]">{`X-Lisent-Signature: sha256=<hex>
+X-Lisent-Timestamp:  <unix-ms>
+X-Lisent-Event-Id:   <unique id, dedupe on this>
+X-Lisent-Event-Type: lead.status_changed
+X-Lisent-Delivery-Id:<uuid, retry-unique>
+X-Lisent-External-Id:<your external_id>
+Content-Type:        application/json`}</pre>
+          <p>{t("integrations.intranet.outbound.verifyByComputing")}</p>
+          <pre className="overflow-x-auto rounded-xl bg-[var(--text-primary)] p-3 font-mono text-xs text-[var(--surface)]">{`expected = "sha256=" + hex(HMAC_SHA256(secret, \`\${timestamp}.\${rawBody}\`))
+if not constant_time_equals(expected, received):  reject
+if abs(now_ms - timestamp_ms) > 300_000:           reject (replay)`}</pre>
+          <p>{t("integrations.intranet.outbound.verificationNote")}</p>
+        </div>
+      </details>
     </article>
   );
 }

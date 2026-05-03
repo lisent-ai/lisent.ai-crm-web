@@ -5,8 +5,8 @@
     "emailNotEditable": "Alterações de e‑mail não são tratadas nesta tela.",
     "fields": {
       "companyAccess": "Acesso à empresa",
-      "companyMemberships": "Associações a empresas",
-      "email": "E‑mail",
+      "companyMemberships": "Associações à empresa",
+      "email": "Email",
       "firstName": "Nome",
       "gender": "Gênero",
       "language": "Idioma",
@@ -15,13 +15,13 @@
       "platformRole": "Função na plataforma",
       "userId": "ID do usuário"
     },
-    "fixHighlighted": "Por favor, corrija os campos da conta destacados.",
+    "fixHighlighted": "Corrija os campos da conta destacados.",
     "gender": {
       "female": "Feminino",
       "male": "Masculino"
     },
     "loadFailed": "Falha ao carregar as configurações da conta.",
-    "noMemberships": "Ainda não há associações a empresas.",
+    "noMemberships": "Ainda não há associações à empresa.",
     "placeholders": {
       "firstName": "Seu nome",
       "language": "Selecione o idioma",
@@ -30,7 +30,7 @@
     },
     "platformRole": {
       "superAdmin": "Super admin",
-      "workspaceUser": "Usuário do workspace"
+      "workspaceUser": "Usuário do Workspace"
     },
     "profileSummary": "Resumo do perfil",
     "saveButton": "Salvar configurações",
@@ -45,8 +45,8 @@
     "authFailed": "Falha na autenticação.",
     "createAnAccount": "Criar uma conta",
     "creatingAccount": "Criando conta...",
-    "emailLabel": "E-mail",
-    "emailPlaceholder": "name@company.com",
+    "emailLabel": "E‑mail",
+    "emailPlaceholder": "nome@empresa.com",
     "newWorkspaceUser": "Novo usuário de workspace?",
     "passwordLabel": "Senha",
     "passwordPlaceholderSignIn": "Digite sua senha",
@@ -91,10 +91,10 @@
       "upcoming": "Nenhum evento futuro."
     },
     "errors": {
-      "delete": "Falha ao excluir o evento.",
+      "delete": "Falha ao excluir evento.",
       "linkRecordMissing": "É necessário um registro vinculado quando um tipo de link é selecionado.",
-      "loadCompanies": "Falha ao carregar as empresas.",
-      "loadEvents": "Falha ao carregar os eventos.",
+      "loadCompanies": "Falha ao carregar empresas.",
+      "loadEvents": "Falha ao carregar eventos.",
       "pastDate": "O evento não pode iniciar no passado.",
       "save": "Falha ao salvar o evento.",
       "startRequired": "Data e hora de início são obrigatórias.",
@@ -109,7 +109,7 @@
     "eventType": {
       "call": "Ligação",
       "deadline": "Prazo",
-      "demo": "Demonstração",
+      "demo": "Demo",
       "follow_up": "Acompanhamento",
       "meeting": "Reunião"
     },
@@ -120,9 +120,9 @@
       "customerLink": "Link do cliente",
       "description": "Descrição",
       "end": "Fim",
-      "endDate": "Data de fim",
+      "endDate": "Data de término",
       "eventType": "Tipo de evento",
-      "linkTo": "Vincular a",
+      "linkTo": "Link para",
       "linkedRecord": "Registro vinculado",
       "location": "Local",
       "meetingUrl": "URL da reunião",
@@ -135,17 +135,17 @@
     "filtersAriaLabel": "Filtros do calendário",
     "linkedFallback": {
       "customer": "Cliente vinculado",
-      "deal": "Deal vinculado",
+      "deal": "Negócio vinculado",
       "lead": "Lead vinculado"
     },
     "linkedType": {
       "company": "Empresa",
       "customer": "Cliente",
-      "deal": "Deal",
+      "deal": "Negócio",
       "lead": "Lead",
       "none": "Nenhum"
     },
-    "loading": "Carregando calendário...",
+    "loading": "Carregando calendário…",
     "modal": {
       "editEyebrow": "Editar evento",
       "editTitle": "Atualizar evento do calendário",
@@ -171,7 +171,7 @@
       "updated": "Evento atualizado."
     },
     "tabs": {
-      "allScheduled": "Tudo agendado",
+      "allScheduled": "Todos agendados",
       "events": "Eventos",
       "meetings": "Reuniões",
       "taskReminders": "Lembretes de tarefa"
@@ -225,10 +225,10 @@
       "regionLabel": "Ações em massa",
       "selectedCount": "{count} selecionado(s)"
     },
-    "closeAddPopup": "Fechar diálogo de adicionar cliente",
+    "closeAddPopup": "Fechar janela de adicionar cliente",
     "confirmDelete": "Excluir",
     "delete": "Excluir",
-    "deleteConfirmDescription": "Isso removerá permanentemente este registro de cliente. Esta ação não pode ser desfeita.",
+    "deleteConfirmDescription": "Esta ação removerá permanentemente o registro deste cliente. Esta ação não pode ser desfeita.",
     "deleteConfirmTitle": "Excluir cliente?",
     "deleteCustomer": "Excluir cliente",
     "deleting": "Excluindo...",
@@ -236,16 +236,16 @@
       "closeDrawer": "Fechar detalhes do cliente",
       "contact": "Contato",
       "coreProfile": "Perfil principal",
-      "extraData": "Dados extras",
+      "extraData": "Dados adicionais",
       "eyebrow": "Perfil do cliente",
       "identity": "Identidade"
     },
     "errors": {
       "bulkDeleteFailed": "Falha ao excluir alguns clientes.",
-      "deleteCustomer": "Falha ao excluir o cliente.",
-      "loadCompanies": "Falha ao carregar as empresas.",
-      "loadCustomers": "Falha ao carregar os clientes.",
-      "saveCustomer": "Falha ao salvar o cliente."
+      "deleteCustomer": "Falha ao excluir cliente.",
+      "loadCompanies": "Falha ao carregar empresas.",
+      "loadCustomers": "Falha ao carregar clientes.",
+      "saveCustomer": "Falha ao salvar cliente."
     },
     "fields": {
       "actions": "Ações",
@@ -312,43 +312,43 @@
   "deals": {
     "activeOpportunity": "Oportunidade ativa",
     "addComment": "Adicionar comentário",
-    "addDeal": "Adicionar negócio",
+    "addDeal": "Adicionar deal",
     "aiInsights": {
-      "aiScore": "Pontuação de IA",
-      "aiStatus": "Status de IA",
+      "aiScore": "Pontuação AI",
+      "aiStatus": "Status AI",
       "champExtraction": "Extração CHAMP",
       "path": "Caminho",
       "reasoningReport": "Relatório de raciocínio",
       "scoredAt": "Pontuado em {date}",
-      "title": "Insights de IA"
+      "title": "Insights AI"
     },
     "amount": "Valor",
     "amountValue": "{amount}",
     "assignee": "Responsável",
     "assigneeValue": "{name}",
-    "boardHint": "Arraste os deals entre os estágios para atualizar o pipeline.",
+    "boardHint": "Arraste os deals entre estágios para atualizar o pipeline.",
     "changedBy": "Alterado por {name}",
     "close": "Fechar",
     "closeTarget": "Meta de fechamento",
     "closeTargetValue": "{date}",
     "columnTotal": "Total da coluna: {value}",
-    "commentPlaceholder": "Escreva um comentário...",
+    "commentPlaceholder": "Escreva um comentário…",
     "comments": "Comentários",
     "commentsCount": "{count} comentários",
     "commentsEmpty": "Ainda não há comentários.",
     "deal": "Deal",
-    "dealDetail": "Detalhes do deal",
-    "dealList": "Lista de deals",
-    "dealValue": "Valor do deal",
+    "dealDetail": "Detalhes do Deal",
+    "dealList": "Lista de Deals",
+    "dealValue": "Valor do Deal",
     "dealsInPipeline": "{count} deals no pipeline",
     "dealsInView": "{count} deals na visualização",
     "delete": "Excluir",
-    "deleteConfirmDescription": "Isso removerá permanentemente este deal. Esta ação não pode ser desfeita.",
+    "deleteConfirmDescription": "Isso removerá este deal permanentemente. Esta ação não pode ser desfeita.",
     "deleteConfirmTitle": "Excluir deal?",
     "deleteDeal": "Excluir deal",
-    "deleting": "Excluindo...",
+    "deleting": "Excluindo…",
     "editDeal": "Editar deal",
-    "emptyColumn": "Nenhum deal nesta fase.",
+    "emptyColumn": "Nenhum deal nesta stage.",
     "errors": {
       "addComment": "Falha ao adicionar comentário.",
       "deleteDeal": "Falha ao excluir deal.",
@@ -369,21 +369,21 @@
       "industry": "Setor",
       "lossReason": "Motivo da perda",
       "records": "Registros",
-      "sourceLead": "Lead de origem",
+      "sourceLead": "Source lead",
       "termination": "Encerramento",
       "updated": "Atualizado",
       "wonReason": "Motivo da vitória"
     },
     "filters": {
       "allAssignees": "Todos os responsáveis",
-      "allStages": "Todos os estágios",
+      "allStages": "Todos os Stage",
       "assigneeLabel": "Responsável",
       "searchLabel": "Pesquisar",
-      "searchPlaceholder": "Pesquisar negócios...",
-      "stageLabel": "Estágio"
+      "searchPlaceholder": "Pesquisar deals...",
+      "stageLabel": "Stage"
     },
     "form": {
-      "assigneeHint": "Selecione um colega para ser responsável por este negócio.",
+      "assigneeHint": "Escolha um colega para ser responsável por este deal.",
       "createDeal": "Criar deal",
       "editEyebrow": "Editar deal",
       "editTitle": "Atualizar deal",
@@ -395,13 +395,13 @@
         "dealName": "Nome do deal",
         "expectedCloseDate": "Data prevista de fechamento",
         "lossReason": "Motivo da perda",
-        "pipelineStage": "Estágio do pipeline",
+        "pipelineStage": "Pipeline stage",
         "sourceLead": "Lead de origem",
         "terminationDate": "Data de término",
         "wonReason": "Motivo da vitória"
       },
-      "newEyebrow": "Novo deal",
-      "newTitle": "Criar um deal",
+      "newEyebrow": "Novo Deal",
+      "newTitle": "Criar um Deal",
       "options": {
         "noLinkedCustomer": "Nenhum cliente vinculado",
         "noSourceLead": "Nenhum lead de origem"
@@ -409,18 +409,18 @@
       "placeholders": {
         "amount": "0.00",
         "dealName": "Acme — Q3 expansion",
-        "lossReason": "Porque é que este negócio foi perdido?",
-        "wonReason": "Porque é que este negócio foi ganho?"
+        "lossReason": "Por que este Deal foi perdido?",
+        "wonReason": "Por que este Deal foi ganho?"
       },
-      "saveChanges": "Guardar alterações"
+      "saveChanges": "Salvar alterações"
     },
     "kanbanBoard": "Quadro Kanban",
-    "loadingBoard": "Carregando o quadro...",
-    "loadingDeals": "Carregando ofertas...",
+    "loadingBoard": "Carregando quadro...",
+    "loadingDeals": "Carregando Deals...",
     "meetingTitle": "Reunião",
     "noDate": "Sem data",
-    "noDealsMatch": "Nenhuma oferta corresponde aos filtros actuais.",
-    "noLossReason": "Não foi registado qualquer motivo de perda.",
+    "noDealsMatch": "Nenhum Deal corresponde aos filtros atuais.",
+    "noLossReason": "Nenhum motivo de perda registrado.",
     "noRelatedCustomer": "Nenhum cliente relacionado.",
     "noWinReason": "Nenhum motivo de vitória registrado.",
     "notSet": "Não definido",
@@ -432,7 +432,7 @@
     "selectedCompany": "Workspace ativo: {name}",
     "stage": {
       "lost": "Perdido",
-      "lostDescription": "Negócios perdidos para análise.",
+      "lostDescription": "Negócios perdidos para aprendizado",
       "negotiation": "Negociação",
       "negotiationDescription": "Alinhando preços, termos e cronogramas.",
       "new": "Novo",
@@ -442,20 +442,20 @@
       "qualified": "Qualificado",
       "qualifiedDescription": "Adequação do cliente e orçamento validados.",
       "won": "Ganho",
-      "wonDescription": "Negócios ganhos registrados como receita."
+      "wonDescription": "Deals fechados como ganhos registrados como receita."
     },
     "stageHistory": "Histórico de estágios",
-    "stageHistoryEmpty": "Nenhuma mudança de estágio registrada ainda.",
+    "stageHistoryEmpty": "Nenhuma alteração de estágio registrada ainda",
     "stageRange": "{from} → {to}",
     "success": {
-      "commentAdded": "Comentário adicionado.",
-      "created": "Negócio criado.",
-      "deleted": "Negócio excluído.",
-      "updated": "Negócio atualizado."
+      "commentAdded": "Comentário adicionado",
+      "created": "Deal criado",
+      "deleted": "Deal excluído",
+      "updated": "Deal atualizado"
     },
     "system": "Sistema",
     "terminationOpen": "Aberto",
-    "thisDeal": "Este Deal",
+    "thisDeal": "Este deal",
     "unassigned": "Não atribuído",
     "unknownAuthor": "Desconhecido",
     "untitledDeal": "Deal sem título"
@@ -471,35 +471,35 @@
     "activity": {
       "chartAriaLabel": "Gráfico de atividade da última semana",
       "empty": "Ainda não há atividade registrada para {name}.",
-      "emptyDefault": "Ainda não há atividade registrada.",
+      "emptyDefault": "Nenhuma atividade registrada ainda",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
-      "subtitle": "Leads criados e Deals fechados na última semana.",
+      "subtitle": "Leads criados e deals fechados na última semana",
       "title": "Atividade"
     },
     "company": {
       "createWorkspace": "Criar workspace",
-      "goToOverview": "Ir para a visão geral do workspace",
+      "goToOverview": "Ir para visão geral do workspace",
       "noWorkspaceHelp": "Selecione um workspace no alternador para ver dados em tempo real.",
       "noWorkspaceSelected": "Nenhum workspace selecionado",
-      "pickWorkspace": "Selecione um workspace",
+      "pickWorkspace": "Selecionar workspace",
       "subtitleSelected": "Métricas do workspace para {name}.",
       "subtitleWithName": "Bem‑vindo de volta, {name}."
     },
     "errors": {
-      "loadDashboard": "Falha ao carregar os dados do dashboard.",
-      "loadSnapshot": "Falha ao carregar o snapshot do workspace.",
+      "loadDashboard": "Falha ao carregar dados do dashboard.",
+      "loadSnapshot": "Falha ao carregar instantâneo do workspace.",
       "loadWorkspaces": "Falha ao carregar workspaces."
     },
     "kpi": {
       "customers": "Clientes",
       "customersHint": "Total de contas neste workspace.",
       "customersInWorkspace": "Clientes em {name}",
-      "deals": "Deals",
-      "dealsAmountEmpty": "Ainda não há valor de deal.",
+      "deals": "Negócios",
+      "dealsAmountEmpty": "Nenhum valor de negócio ainda.",
       "leads": "Leads",
       "leadsHint": "Leads ativos no pipeline.",
-      "openPipelineHint": "Valor do pipeline aberto em todas as stages.",
+      "openPipelineHint": "Valor do pipeline aberto em todas as etapas.",
       "openPipelineValue": "{value}"
     },
     "overview": {
@@ -510,7 +510,7 @@
     "pipeline": {
       "empty": "Ainda não há dados de pipeline para {name}.",
       "emptyDefault": "Ainda não há dados de pipeline.",
-      "subtitle": "Distribuição de deals por stage.",
+      "subtitle": "Distribuição de deals por estágio.",
       "title": "Pipeline",
       "totalBadge": "{value} total"
     },
@@ -518,17 +518,17 @@
       "aiQualifier": {
         "cta": "Abrir qualificador de IA",
         "description": "Pontue e qualifique leads automaticamente.",
-        "title": "Qualificador de AI"
+        "title": "Qualificador de IA"
       },
       "customerImport": {
         "cta": "Iniciar importação",
-        "description": "Importe os dados de clientes para o seu workspace.",
+        "description": "Importe dados de clientes para o seu workspace.",
         "title": "Importar clientes"
       },
       "homeViews": {
         "cta": "Personalizar visualizações",
         "description": "Escolha quais widgets aparecem no dashboard.",
-        "title": "Visualizações da Home"
+        "title": "Visualizações da página inicial"
       },
       "inviteMembers": {
         "cta": "Convidar membros",
@@ -552,7 +552,7 @@
     "recentLeads": {
       "empty": "Nenhum lead recente em {name}.",
       "emptyDefault": "Ainda não há leads recentes.",
-      "subtitle": "Leads mais recentes adicionados ao seu workspace.",
+      "subtitle": "Últimos leads adicionados ao seu workspace.",
       "title": "Leads recentes",
       "unnamed": "Lead sem nome",
       "viewAll": "Ver todos os leads"
@@ -575,7 +575,7 @@
       "customers": "Clientes",
       "noneSelected": "Nenhum selecionado",
       "pickToActivate": "Escolha um workspace para ativar as métricas.",
-      "scopedViews": "Visões restritas",
+      "scopedViews": "Visualizações restritas",
       "singleWorkspace": "Workspace único",
       "subtitle": "Resumo em nível de conta dos seus workspaces.",
       "workspaces": "Workspaces"
@@ -595,7 +595,7 @@
     "mapping": {
       "approvalDescription": "Confirme o mapeamento e execute a importação. Clientes serão criados ou atualizados no workspace ativo.",
       "approvalOutcome": "Após a aprovação, as linhas são inseridas como clientes em {name}.",
-      "approveAndImport": "Aprovar e importar",
+      "approveAndImport": "Aprovar & importar",
       "backToPreview": "Voltar à pré-visualização",
       "confidence": "Confiança",
       "enableFallback": "Habilitar fallback de linha",
@@ -644,7 +644,7 @@
     },
     "utils": {
       "mappedAutomatically": "Mapeado automaticamente",
-      "noStrongSuggestion": "Nenhuma sugestão forte",
+      "noStrongSuggestion": "Sem sugestão forte",
       "rowFallback": "Linha alternativa"
     },
     "workspace": {
@@ -681,7 +681,7 @@
       "envTest": "Teste",
       "environment": "Ambiente",
       "loadFailed": "Falha ao carregar as chaves de API.",
-      "loading": "Carregando chaves de API...",
+      "loading": "Carregando chaves API...",
       "namePlaceholder": "ex.: webhook de Produção",
       "nameRequired": "Nome é obrigatório.",
       "never": "Nunca",
@@ -752,7 +752,7 @@
       "connectFailed": "Falha ao conectar a integração.",
       "copyFailed": "Falha ao copiar para a área de transferência.",
       "disconnectFailed": "Falha ao desconectar a integração.",
-      "revokeFailed": "Falha ao revogar o token.",
+      "revokeFailed": "Falha ao revogar token.",
       "rotateFailed": "Falha ao renovar o token.",
       "saveFailed": "Falha ao salvar as alterações.",
       "unknown": "Erro desconhecido."
@@ -841,6 +841,63 @@
       "mintBearer": "Emitir token bearer",
       "noDeliveries": "Ainda não há entregas.",
       "noIntegration": "Nenhuma integração de intranet configurada.",
+      "outbound": {
+        "allStatusesLabel": "Todas as alterações de status (recomendado)",
+        "deliveriesEmpty": "Ainda não há entregas. Envie um evento de teste para confirmar a conexão.",
+        "deliveriesTitle": "Entregas recentes",
+        "deliveryCols": {
+          "attempts": "Tentativas",
+          "createdAt": "Enviado",
+          "error": "Último erro",
+          "eventId": "ID do evento",
+          "status": "Status",
+          "toStatus": "→ Status"
+        },
+        "description": "Quando o status de um lead muda neste CRM, assine o evento e faça um POST para o seu endpoint. Tentamos novamente em caso de falha (6 tentativas ao longo de ~7 h) e, após isso, enviamos para a fila de dead‑letter.",
+        "generateSecretButton": "Gerar segredo de assinatura",
+        "loadFailed": "Falha ao carregar a configuração de outbound webhook.",
+        "loading": "Carregando outbound webhook…",
+        "newSecretHint": "Copie este segredo agora — nós o hash após o fechamento desta caixa de diálogo e, a partir de agora, exibiremos apenas uma versão mascarada.",
+        "newSecretReveal": "Novo segredo de assinatura",
+        "pauseHint": "Interrompe novas entregas sem perder sua URL. As tentativas pendentes existentes continuam.",
+        "pauseLabel": "Pausar webhooks outbound",
+        "rotateSecretButton": "Rotacionar segredo de assinatura",
+        "rotateSecretConfirm": "Rotacionar o segredo de assinatura? Será necessário atualizar seu código de verificação com o novo valor.",
+        "rotatingSecret": "Rotacionando…",
+        "saveButton": "Salvar configuração outbound",
+        "saveFailed": "Falha ao salvar a configuração outbound.",
+        "savedNotice": "Webhook outbound salvo.",
+        "secretConfigured": "Configurado",
+        "secretNotSet": "Não definido — gere um antes de enviar eventos.",
+        "secretRotatedAt": "(rotacionado {time})",
+        "secretRotatedNotice": "Segredo de assinatura rotacionado. O texto simples exibe isso apenas uma vez.",
+        "selectAtLeastOne": "Selecione ao menos um status ou marque 'Todas as alterações de status'.",
+        "signingSecretLabel": "Segredo de assinatura (HMAC-SHA256)",
+        "statusFilterHint": "Escolha quais transições acionam um webhook. Use '*' para receber todas as alterações de status.",
+        "statusFilterTitle": "Filtro de status",
+        "statusLabels": {
+          "contacted": "Lead foi contatado",
+          "converted": "Lead convertido em cliente",
+          "lost": "Lead marcado como perdido",
+          "new": "Lead recém-criado",
+          "qualified": "Lead qualificado por IA / vendas"
+        },
+        "testButton": "Enviar evento de teste",
+        "testEnqueued": "Evento de teste enfileirado: {eventId}",
+        "testFailed": "Falha no evento de teste.",
+        "testHint": "Envia um evento sintético lead.status_changed para sua URL usando os mesmos cabeçalhos e assinatura dos eventos reais.",
+        "testTitle": "Enviar um evento de teste",
+        "testToStatusLabel": "to_status (qual transição simular)",
+        "title": "Webhook de saída (atualizações de status)",
+        "urlHint": "Enviamos eventos de mudança de status para esta URL via POST com assinatura HMAC‑SHA256. Deve ser HTTPS em produção.",
+        "urlLabel": "URL do endpoint",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Salve uma URL antes de gerar um segredo.",
+        "verificationIntro": "Cada solicitação inclui estes cabeçalhos:",
+        "verificationNote": "Se receber uma entrega com um carimbo de data/hora com mais de 5 minutos, rejeite-a como repetição.",
+        "verificationTitle": "Como verificar do seu lado",
+        "verifyByComputing": "Verifique recomputando o HMAC sobre '<timestamp>.<rawBody>' e comparando em tempo constante:"
+      },
       "recentDeliveries": "Entregas recentes",
       "requestExamples": "Solicitar exemplos",
       "revealDescription": "Os tokens são exibidos apenas uma vez.",
@@ -848,7 +905,7 @@
       "revealedHmacLabel": "Novo segredo HMAC",
       "revokeBearerConfirm": "Revogar este token bearer? As chamadas que o utilizarem falharão.",
       "revokeSecondaryTokenConfirm": "Revogar o token de entrada secundário?",
-      "revokeSecretConfirm": "Revogar este segredo HMAC? As chamadas assinadas com ele falharão.",
+      "revokeSecretConfirm": "Revogar este segredo    ?   ",
       "rotateBearer": "Rotacionar token bearer",
       "rotateBearerConfirm": "Rotacionar o token bearer? O token antigo permanecerá válido durante a janela de rotação.",
       "rotateHmac": "Rotacionar segredo HMAC",
@@ -1042,20 +1099,20 @@
       "qualificationThreshold": "Limiar de qualificação",
       "revokeSecondaryConfirm": "Revogar o segredo do webhook secundário?",
       "rotateWebhookConfirm": "Rodar o segredo do webhook? O segredo antigo mantém-se válido durante a janela de rotação.",
-      "saveAiConfig": "Guardar a configuração da IA",
-      "secondaryRevoked": "Segredo do webhook secundário revogado.",
+      "saveAiConfig": "Salvar configuração de IA",
+      "secondaryRevoked": "Segredo secundário de webhook revogado.",
       "sectorLabel": "Setor",
-      "thresholdHint": "Os leads com pontuação igual ou superior a este limiar são considerados qualificados.",
+      "thresholdHint": "Leads que pontuam neste ou acima deste limiar são marcados como qualificados.",
       "webhookUrlLabel": "URL do webhook"
     },
     "rag": {
-      "chunkLabel": "Pedaço",
+      "chunkLabel": "Chunk",
       "chunksColumn": "Fragmentos",
       "description": "Base de conhecimento para <strong>{name}</strong>. Carregue documentos que a IA pode referenciar.",
       "ingestedDescription": "Documentos atualmente na base de conhecimento para <strong>{name}</strong>.",
       "ingestedDocuments": "Documentos ingeridos",
-      "ingestionExampleDescription": "POST para <code>{url}</code> com um corpo JSON contendo <code>title</code>, <code>content</code> e <code>metadata</code> opcional.",
-      "ingestionExampleTitle": "Exemplo de ingestão",
+      "ingestionExampleDescription": "POST to <code>{url}</code> com um corpo JSON contendo <code>title </code>, <code>content </code> e opcional <code>metadata </code>.",
+      "ingestionExampleTitle": "Exemplo         … … … … … …… … …",
       "loadConfigFailed": "Falha ao carregar a configuração do RAG.",
       "loadContentFailed": "Falha ao carregar o conteúdo do documento.",
       "loadDocsFailed": "Falha ao carregar documentos.",
@@ -1116,7 +1173,7 @@
         "kbDocuments": "Documentos KB",
         "leadsIngested": "Leads ingeridos",
         "leadsQualified": "Leads qualificados",
-        "llmTokens": "Tokens LLM",
+        "llmTokens": "LLM tokens",
         "sseSessions": "Sessões SSE",
         "webhookDeliveries": "Entregas de webhook",
         "widgetLoads": "Carregamentos de widget"
@@ -1261,7 +1318,7 @@
       "clearSelection": "Limpar seleção",
       "delete": "Excluir",
       "exportCsv": "Exportar CSV",
-      "exportPdf": "Export PDF",
+      "exportPdf": "Exportar PDF",
       "selected": "{count} selecionados"
     },
     "bulkDelete": {
@@ -1369,7 +1426,7 @@
       "customerNameRequired": "Nome do cliente é obrigatório.",
       "deleteLead": "Falha ao excluir o lead.",
       "deleteNote": "Falha ao excluir a nota.",
-      "exportPdf": "Failed to generate PDF.",
+      "exportPdf": "Falha ao gerar PDF.",
       "loadCompanies": "Falha ao carregar as empresas.",
       "loadLeads": "Falha ao carregar os leads.",
       "loadNotes": "Falha ao carregar as notas.",
@@ -1438,10 +1495,10 @@
       "unknownAuthor": "Desconhecido"
     },
     "pdf": {
-      "createdAt": "Created",
-      "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
+      "createdAt": "Criado",
+      "email": "E‑mail",
+      "exportedAt": "{count} leads · Exportado em {date}",
+      "pageOf": "Página {current} de {total}",
       "title": "Leads"
     },
     "rowMenu": {
@@ -1509,10 +1566,10 @@
     }
   },
   "marketing": {
-    "authBody": "Entrar, registrar e validar sessão via <code>/api/auth</code>",
-    "authTitle": "Auth",
+    "authBody": "Login, cadastro e validação de sessão via <code>/api/auth</code>",
+    "authTitle": "Autenticação",
     "bffBody": "As chamadas do navegador devem parar neste app. Rotas de servidor confiáveis conversarão com o serviço interno de CRM.",
-    "bffTitle": "BFF CRM",
+    "bffTitle": "CRM BFF",
     "brand": "Lisent.ai",
     "campaigns": {
       "cardForm": "Formulário: {form}",
@@ -1555,14 +1612,14 @@
     "ctaCreateWorkspace": "Criar acesso ao workspace",
     "ctaOpenShell": "Abrir shell protegido",
     "currentStack": "Stack atual",
-    "heroEyebrow": "Plataforma CRM nativa por voz",
-    "heroLead": "O Lisent CRM combina autenticação, fluxos de trabalho sensíveis a locatário, onboarding com importação de perfil e um shell de aplicação protegido para operadores da empresa. O aplicativo web controla os fluxos voltados ao usuário. O serviço Go CRM permanece atrás de uma fronteira de backend confiável.",
+    "heroEyebrow": "Plataforma CRM nativa de voz",
+    "heroLead": "Lisent CRM combina autenticação, fluxos de trabalho sensíveis a tenant, onboarding de importação de perfil e um shell de aplicação protegido para operadores da empresa. O app web possui fluxos voltados ao usuário. O serviço Go CRM permanece atrás de um limite confiável de backend.",
     "heroTitle": "Entendendo a intenção, não apenas palavras.",
     "navSignIn": "Entrar",
     "navStartNow": "Começar agora",
     "stackItems": {
       "auth": "SuperTokens Email/Password + Session",
-      "crm": "Serviço Go CRM atrás de uma fronteira BFF",
+      "crm": "Go CRM service behind a BFF boundary",
       "next": "Next.js 16 App Router",
       "ts": "TypeScript + Tailwind CSS 4"
     },
@@ -1572,8 +1629,8 @@
       "email": "Email",
       "forms": "Formulários"
     },
-    "tenantBody": "A próxima camada resolverá <code>user_id</code>, <code>company_id</code> e função por sessão.",
-    "tenantTitle": "Contexto do tenant",
+    "tenantBody": "A próxima camada resolverá <code>user_id</code>, <code>company_id</code> e a função por sessão.",
+    "tenantTitle": "Contexto de tenant",
     "whatThisAppOwns": "O que este app possui"
   },
   "nav": {
@@ -1663,40 +1720,40 @@
       "title": "Tarefas"
     },
     "workspace": {
-      "description": "Definições e membros do espaço de trabalho.",
-      "title": "Espaço de trabalho"
+      "description": "Configurações do workspace e membros.",
+      "title": "Workspace"
     }
   },
   "qualifier": {
-    "companyOrBuyerProfile": "Perfil da empresa / comprador",
+    "companyOrBuyerProfile": "Empresa / perfil do comprador",
     "fallbackExplanation": "A avaliação LLM não foi executada — a pontuação foi calculada a partir da qualidade dos dados do formulário.",
     "fallbackMode": "Modo de fallback",
     "formulaAudit": "Auditoria de fórmula",
-    "keyQuestions": "Perguntas chave para a chamada",
-    "leadAssessment": "Avaliação de lead",
+    "keyQuestions": "Principais perguntas para a chamada",
+    "leadAssessment": "Lead assessment",
     "llmMedian": "Mediana LLM",
     "noScoreYet": "Ainda sem pontuação.",
-    "rawAnalysis": "Saída de análise bruta",
+    "rawAnalysis": "Resultado da análise bruta",
     "recommendedOpening": "Abertura recomendada",
     "risksToWatch": "Riscos a observar",
     "salesContext": "Contexto de vendas",
-    "scoredAt": "Avaliado em {date}",
+    "scoredAt": "Pontuado em {date}",
     "scoring": "Pontuando...",
     "whoTheyAre": "Quem são"
   },
   "search": {
-    "aria": "Pesquisar o espaço de trabalho",
-    "placeholder": "Procurar..."
+    "aria": "Pesquisar o workspace",
+    "placeholder": "Pesquisar..."
   },
   "tasks": {
     "actions": {
       "accept": "Aceitar",
-      "delete": "Eliminar",
-      "markDone": "Marcação efectuada",
+      "delete": "Excluir",
+      "markDone": "Marcar concluído",
       "publish": "Publicar",
-      "publishing": "Publicação...",
+      "publishing": "Publicando...",
       "reject": "Rejeitar",
-      "startWork": "Iniciar o trabalho"
+      "startWork": "Iniciar trabalho"
     },
     "activeCount": "{count} ativo",
     "assignmentMode": {
@@ -1810,7 +1867,7 @@
     "cantRemove": "Você não pode remover a si mesmo.",
     "columns": {
       "actions": "Ações",
-      "dateAdded": "Data de adição",
+      "dateAdded": "Data de inclusão",
       "lastActive": "Última atividade",
       "name": "Nome",
       "role": "Função"
@@ -1869,10 +1926,10 @@
   "userMenu": {
     "accountSettings": "Configurações da conta",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Usuário demo",
+    "demoUser": "Usuário de demonstração",
     "openMenu": "Abrir menu da conta",
     "signOut": "Sair",
-    "workspaceUser": "Usuário do workspace"
+    "workspaceUser": "Usuário do Workspace"
   },
   "validation": {
     "firstNameRequired": "Nome é obrigatório.",

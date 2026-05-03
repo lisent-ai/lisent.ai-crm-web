@@ -2,18 +2,18 @@
   "account": {
     "changeNote": "Изменения обновляют профиль вошедшего пользователя, используемый в Dashboard.",
     "editProfile": "Редактировать профиль",
-    "emailNotEditable": "Изменение Email не поддерживается на этом экране.",
+    "emailNotEditable": "Изменения email не обрабатываются на этом экране.",
     "fields": {
-      "companyAccess": "Доступ к компании",
-      "companyMemberships": "Членства в компании",
+      "companyAccess": "Company access",
+      "companyMemberships": "Company memberships",
       "email": "Email",
       "firstName": "Имя",
       "gender": "Пол",
       "language": "Язык",
       "lastName": "Фамилия",
       "phoneNumber": "Номер телефона",
-      "platformRole": "Роль платформы",
-      "userId": "ID пользователя"
+      "platformRole": "Platform role",
+      "userId": "User id"
     },
     "fixHighlighted": "Пожалуйста, исправьте выделенные поля аккаунта.",
     "gender": {
@@ -29,22 +29,22 @@
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
-      "superAdmin": "Супер администратор",
-      "workspaceUser": "Пользователь рабочего пространства"
+      "superAdmin": "Суперадминистратор",
+      "workspaceUser": "Пользователь Workspace"
     },
     "profileSummary": "Сводка профиля",
     "saveButton": "Сохранить настройки",
     "saveFailed": "Не удалось сохранить настройки аккаунта.",
     "saved": "Настройки аккаунта сохранены.",
     "saving": "Сохранение…",
-    "subtitle": "Управляйте профилем, настройками и доступом.",
+    "subtitle": "Управляйте своим профилем, настройками и доступом.",
     "title": "Настройки аккаунта"
   },
   "auth": {
     "alreadyHaveAccess": "Уже есть доступ?",
     "authFailed": "Ошибка аутентификации.",
     "createAnAccount": "Создать аккаунт",
-    "creatingAccount": "Создание аккаунта...",
+    "creatingAccount": "Создание аккаунта…",
     "emailLabel": "Электронная почта",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "Новый пользователь рабочего пространства?",
@@ -56,12 +56,12 @@
     "signInButton": "Войти",
     "signInInstead": "Войти вместо этого",
     "signInSubtitle": "Используйте учетные данные компании, выданные вашей команде.",
-    "signInTitle": "Доступ к вашему Workspace",
-    "signUp": "Регистрация",
+    "signInTitle": "Получите доступ к рабочему пространству",
+    "signUp": "Зарегистрироваться",
     "signUpButton": "Создать аккаунт",
     "signUpSubtitle": "Начните с электронной почты и пароля. Затем будет назначение арендатора.",
-    "signUpTitle": "Создайте доступ к вашему Workspace",
-    "signingIn": "Вход...",
+    "signUpTitle": "Создайте доступ к рабочему пространству",
+    "signingIn": "Вход…",
     "workspaceAuth": "Авторизация рабочего пространства",
     "wrongCredentials": "Неверный email или пароль."
   },
@@ -73,7 +73,7 @@
       "deleteEvent": "Удалить событие",
       "filter": "Фильтровать",
       "invite": "Пригласить",
-      "new": "Создать",
+      "new": "Новое",
       "saveChanges": "Сохранить изменения"
     },
     "allAssignees": "Все исполнители",
@@ -142,29 +142,29 @@
       "company": "Компания",
       "customer": "Клиент",
       "deal": "Deal",
-      "lead": "Lead",
+      "lead": "Лид",
       "none": "Нет"
     },
     "loading": "Загрузка календаря…",
     "modal": {
       "editEyebrow": "Редактировать событие",
-      "editTitle": "Обновить событие в календаре",
+      "editTitle": "Обновить событие календаря",
       "newEyebrow": "Новое событие",
-      "newTitle": "Запланировать событие в календаре",
+      "newTitle": "Запланировать событие календаря",
       "subtitle": "Планируйте звонки, встречи и последующие действия, связанные с вашими записями CRM."
     },
     "moreCount": "+{count} ещё",
     "placeholders": {
-      "description": "Добавьте краткое описание…",
-      "location": "Офис, Zoom, адрес…",
+      "description": "Введите краткое описание...",
+      "location": "Офис, Zoom, адрес...",
       "noLinkedCustomer": "Нет связанного клиента",
       "optionalCustomer": "Выберите клиента (необязательно)",
       "selectRecord": "Выберите запись",
-      "title": "Звонок‑разведка с…"
+      "title": "Первичный звонок с..."
     },
     "searchAriaLabel": "Поиск событий",
-    "searchPlaceholder": "Поиск событий…",
-    "selectedCompanyFallback": "ваша Workspace",
+    "searchPlaceholder": "Поиск событий...",
+    "selectedCompanyFallback": "Ваша рабочая область",
     "success": {
       "created": "Событие создано.",
       "deleted": "Событие удалено.",
@@ -207,7 +207,7 @@
     "openMenu": "Открыть меню",
     "save": "Сохранить",
     "saving": "Сохранение…",
-    "tryAgain": "Попробовать снова",
+    "tryAgain": "Повторить",
     "yes": "Да"
   },
   "customers": {
@@ -223,15 +223,15 @@
       "deleteEyebrow": "Массовое удаление",
       "deleteTitle": "Удалить выбранных клиентов?",
       "regionLabel": "Массовые действия",
-      "selectedCount": "{count} выбранных"
+      "selectedCount": "{count} выбрано"
     },
     "closeAddPopup": "Закрыть окно добавления клиента",
     "confirmDelete": "Удалить",
     "delete": "Удалить",
-    "deleteConfirmDescription": "Это навсегда удалит эту запись клиента. Это действие нельзя отменить.",
+    "deleteConfirmDescription": "Это навсегда удалит запись клиента. Это действие нельзя отменить.",
     "deleteConfirmTitle": "Удалить клиента?",
     "deleteCustomer": "Удалить клиента",
-    "deleting": "Удаление…",
+    "deleting": "Удаляется...",
     "detail": {
       "closeDrawer": "Закрыть детали клиента",
       "contact": "Контакт",
@@ -260,9 +260,9 @@
       "id": "ID",
       "industry": "Отрасль",
       "lastName": "Фамилия",
-      "name": "Имя",
+      "name": "Название",
       "phone": "Телефон",
-      "preferredLanguage": "Предпочитаемый язык",
+      "preferredLanguage": "Предпочтительный язык",
       "records": "Записи",
       "status": "Статус"
     },
@@ -282,7 +282,7 @@
       "visibleCount": "Показано {visible} из {total}"
     },
     "loading": "Загрузка клиентов...",
-    "noEmail": "Электронная почта отсутствует",
+    "noEmail": "Электронная почта не указана",
     "notSet": "Не указано",
     "placeholders": {
       "email": "name@company.com",
@@ -293,7 +293,7 @@
       "label": "Поиск",
       "placeholder": "Поиск клиентов..."
     },
-    "selectedCompany": "Активный Workspace: {name}",
+    "selectedCompany": "Активный workspace: {name}",
     "status": {
       "active": "Активен",
       "all": "Все",
@@ -302,8 +302,8 @@
     },
     "statusFilter": "Фильтр статуса",
     "success": {
-      "bulkDeleted": "{count} клиентов удалено.",
-      "bulkDeletedPartial": "{deleted} из {total} клиентов удалено.",
+      "bulkDeleted": "Удалено {count} клиентов.",
+      "bulkDeletedPartial": "Удалено {deleted} из {total} клиентов.",
       "created": "Клиент создан.",
       "deleted": "Клиент удалён.",
       "updated": "Клиент обновлён."
@@ -318,7 +318,7 @@
       "aiStatus": "AI‑статус",
       "champExtraction": "Извлечение CHAMP",
       "path": "Путь",
-      "reasoningReport": "Отчёт о рассуждениях",
+      "reasoningReport": "Отчёт о выводах",
       "scoredAt": "Оценено {date}",
       "title": "AI‑инсайты"
     },
@@ -326,36 +326,36 @@
     "amountValue": "{amount}",
     "assignee": "Ответственный",
     "assigneeValue": "{name}",
-    "boardHint": "Перетаскивайте сделки между этапами, чтобы обновить pipeline.",
-    "changedBy": "Изменено {name}",
+    "boardHint": "Перетаскивайте сделки между стадиями, чтобы обновить pipeline.",
+    "changedBy": "Изменено пользователем {name}",
     "close": "Закрыть",
     "closeTarget": "Цель закрытия",
     "closeTargetValue": "{date}",
     "columnTotal": "Итого по колонке: {value}",
     "commentPlaceholder": "Напишите комментарий…",
     "comments": "Комментарии",
-    "commentsCount": "{count} комментариев",
+    "commentsCount": "{count} комментарии",
     "commentsEmpty": "Комментариев пока нет.",
     "deal": "Сделка",
-    "dealDetail": "Deal детали",
-    "dealList": "Deal список",
-    "dealValue": "Deal значение",
-    "dealsInPipeline": "{count} deals в pipeline",
-    "dealsInView": "{count} deals в view",
+    "dealDetail": "Подробности сделки",
+    "dealList": "Список сделок",
+    "dealValue": "Сумма сделки",
+    "dealsInPipeline": "{count} сделок в процессе подготовки",
+    "dealsInView": "{count} сделки на виду",
     "delete": "Удалить",
     "deleteConfirmDescription": "Это навсегда удалит эту сделку. Это действие нельзя отменить.",
-    "deleteConfirmTitle": "Удалить deal?",
-    "deleteDeal": "Удалить deal",
-    "deleting": "Удаляется…",
-    "editDeal": "Редактировать deal",
-    "emptyColumn": "Нет deals в этом этапе.",
+    "deleteConfirmTitle": "Удалить сделку?",
+    "deleteDeal": "Удалить сделку",
+    "deleting": "Удаляется...",
+    "editDeal": "Редактировать сделку",
+    "emptyColumn": "Нет сделок на этом этапе.",
     "errors": {
       "addComment": "Не удалось добавить комментарий.",
-      "deleteDeal": "Не удалось удалить deal.",
+      "deleteDeal": "Не удалось удалить сделку.",
       "loadCompanies": "Не удалось загрузить компании.",
-      "loadDeals": "Не удалось загрузить deals.",
-      "nameRequired": "Требуется название Deal.",
-      "saveDeal": "Не удалось сохранить deal.",
+      "loadDeals": "Не удалось загрузить сделки.",
+      "nameRequired": "Требуется указать название сделки.",
+      "saveDeal": "Не удалось сохранить сделку.",
       "unsupportedCurrency": "Неподдерживаемая валюта."
     },
     "extraData": "Дополнительные данные",
@@ -369,7 +369,7 @@
       "industry": "Отрасль",
       "lossReason": "Причина потери",
       "records": "Записи",
-      "sourceLead": "Исходный Lead",
+      "sourceLead": "Source lead",
       "termination": "Прекращение",
       "updated": "Обновлено",
       "wonReason": "Причина выигрыша"
@@ -379,24 +379,24 @@
       "allStages": "Все стадии",
       "assigneeLabel": "Ответственный",
       "searchLabel": "Поиск",
-      "searchPlaceholder": "Поиск сделок...",
+      "searchPlaceholder": "Поиск сделок…",
       "stageLabel": "Стадия"
     },
     "form": {
-      "assigneeHint": "Выберите коллегу, который будет отвечать за эту сделку.",
-      "createDeal": "Создать сделку",
-      "editEyebrow": "Редактировать сделку",
-      "editTitle": "Обновить сделку",
+      "assigneeHint": "Выберите коллегу, который будет отвечать за эту Deal.",
+      "createDeal": "Создать Deal",
+      "editEyebrow": "Редактировать Deal",
+      "editTitle": "Обновить Deal",
       "fields": {
         "amount": "Сумма",
         "assignee": "Ответственный",
         "currency": "Валюта",
         "customer": "Клиент",
-        "dealName": "Название сделки",
+        "dealName": "Название Deal",
         "expectedCloseDate": "Ожидаемая дата закрытия",
         "lossReason": "Причина потери",
-        "pipelineStage": "Этап воронки",
-        "sourceLead": "Исходный лид",
+        "pipelineStage": "Этап Pipeline",
+        "sourceLead": "Исходный Lead",
         "terminationDate": "Дата завершения",
         "wonReason": "Причина выигрыша"
       },
@@ -404,44 +404,44 @@
       "newTitle": "Создать сделку",
       "options": {
         "noLinkedCustomer": "Нет связанного клиента",
-        "noSourceLead": "Нет исходного лида"
+        "noSourceLead": "Нет исходного Lead"
       },
       "placeholders": {
         "amount": "0.00",
         "dealName": "Acme — Q3 expansion",
-        "lossReason": "Почему эта сделка была сорвана?",
+        "lossReason": "Почему эта сделка была потеряна?",
         "wonReason": "Почему эта сделка была выиграна?"
       },
       "saveChanges": "Сохранить изменения"
     },
-    "kanbanBoard": "Канбан-доска",
-    "loadingBoard": "Загрузочная доска...",
-    "loadingDeals": "Loading deals...",
+    "kanbanBoard": "Kanban‑доска",
+    "loadingBoard": "Загрузка доски...",
+    "loadingDeals": "Загрузка сделок...",
     "meetingTitle": "Встреча",
     "noDate": "Нет даты",
-    "noDealsMatch": "Ни одна сделка не соответствует текущим фильтрам.",
-    "noLossReason": "Причина потери не зафиксирована.",
+    "noDealsMatch": "Нет сделок, соответствующих текущим фильтрам.",
+    "noLossReason": "Причина потери не указана.",
     "noRelatedCustomer": "Нет связанного клиента.",
     "noWinReason": "Причина выигрыша не указана.",
-    "notSet": "Не задано",
+    "notSet": "Не указано",
     "now": "сейчас",
-    "pipelineLoading": "Загрузка воронки…",
-    "posting": "Отправка…",
+    "pipelineLoading": "Загрузка pipeline...",
+    "posting": "Отправка...",
     "relatedRecords": "Связанные записи",
-    "scheduleActivity": "Запланировать активность",
-    "selectedCompany": "Активный Workspace: {name}",
+    "scheduleActivity": "Запланировать действие",
+    "selectedCompany": "Активный workspace: {name}",
     "stage": {
-      "lost": "Потеряно",
+      "lost": "Потерян",
       "lostDescription": "Сделки, закрытые как потерянные, для анализа.",
       "negotiation": "Переговоры",
       "negotiationDescription": "Согласование цены, условий и сроков.",
-      "new": "Новое",
-      "newDescription": "Недавно созданные возможности, ещё не квалифицированы.",
+      "new": "Новая",
+      "newDescription": "Недавно созданные возможности, ещё не квалифицированные.",
       "proposal": "Предложение",
-      "proposalDescription": "Официальное предложение отправлено и находится на рассмотрении.",
-      "qualified": "Квалифицировано",
+      "proposalDescription": "Отправлено официальное предложение, находится на рассмотрении.",
+      "qualified": "Квалифицированные",
       "qualifiedDescription": "Соответствие клиента и бюджет подтверждены.",
-      "won": "Выиграно",
+      "won": "Выигранные",
       "wonDescription": "Сделки, закрытые как выигранные, учтены как доход."
     },
     "stageHistory": "История этапов",
@@ -455,14 +455,14 @@
     },
     "system": "Система",
     "terminationOpen": "Открыто",
-    "thisDeal": "Эта сделка",
+    "thisDeal": "эта сделка",
     "unassigned": "Не назначено",
     "unknownAuthor": "Неизвестно",
     "untitledDeal": "Сделка без названия"
   },
   "errors": {
     "forbidden": "У вас нет прав.",
-    "generic": "Что-то пошло не так.",
+    "generic": "Что‑то пошло не так.",
     "networkError": "Ошибка сети. Попробуйте ещё раз.",
     "sessionRequired": "Требуется аутентификация.",
     "userNotFound": "Пользователь не найден."
@@ -471,10 +471,10 @@
     "activity": {
       "chartAriaLabel": "Диаграмма активности за прошлую неделю",
       "empty": "Пока нет активности для {name}.",
-      "emptyDefault": "Пока нет активности.",
+      "emptyDefault": "Активность пока не зафиксирована.",
       "legendDeals": "Сделки",
       "legendLeads": "Лиды",
-      "subtitle": "Созданные лиды и закрытые сделки за прошлую неделю.",
+      "subtitle": "Созданные за прошлую неделю лиды и закрытые сделки.",
       "title": "Активность"
     },
     "company": {
@@ -487,7 +487,7 @@
       "subtitleWithName": "С возвращением, {name}."
     },
     "errors": {
-      "loadDashboard": "Не удалось загрузить данные Dashboard.",
+      "loadDashboard": "Не удалось загрузить данные дашборда.",
       "loadSnapshot": "Не удалось загрузить снимок рабочего пространства.",
       "loadWorkspaces": "Не удалось загрузить рабочие пространства."
     },
@@ -497,9 +497,9 @@
       "customersInWorkspace": "Клиенты в {name}",
       "deals": "Сделки",
       "dealsAmountEmpty": "Пока нет стоимости сделок.",
-      "leads": "Leads",
-      "leadsHint": "Активные leads в pipeline.",
-      "openPipelineHint": "Открытая стоимость pipeline во всех stages.",
+      "leads": "Лиды",
+      "leadsHint": "Активные лиды в pipeline.",
+      "openPipelineHint": "Стоимость открытого pipeline во всех стадиях.",
       "openPipelineValue": "{value}"
     },
     "overview": {
@@ -508,27 +508,27 @@
       "title": "Обзор"
     },
     "pipeline": {
-      "empty": "Пока нет данных pipeline для {name}.",
-      "emptyDefault": "Пока нет данных pipeline.",
-      "subtitle": "Распределение сделок по stage.",
+      "empty": "Пока нет данных Pipeline для {name}.",
+      "emptyDefault": "Пока нет данных Pipeline.",
+      "subtitle": "Распределение Deal‑ов по Stage.",
       "title": "Pipeline",
       "totalBadge": "{value} всего"
     },
     "quickActions": {
       "aiQualifier": {
-        "cta": "Открыть AI квалификатор",
-        "description": "Оценивать и квалифицировать leads автоматически.",
-        "title": "AI квалификатор"
+        "cta": "Открыть AI‑квалификатор",
+        "description": "Автоматически оценивать и квалифицировать Lead.",
+        "title": "AI‑квалификатор"
       },
       "customerImport": {
         "cta": "Начать импорт",
-        "description": "Перенесите данные клиентов в ваш Workspace.",
+        "description": "Перенести данные клиентов в ваш Workspace.",
         "title": "Импортировать клиентов"
       },
       "homeViews": {
-        "cta": "Настроить виды",
+        "cta": "Настроить представления",
         "description": "Выберите, какие виджеты отображаются на Dashboard.",
-        "title": "Виды домашней страницы"
+        "title": "Домашние представления"
       },
       "inviteMembers": {
         "cta": "Пригласить участников",
@@ -537,8 +537,8 @@
       },
       "newWorkspace": {
         "cta": "Создать Workspace",
-        "description": "Создайте новый tenant для другого бизнес‑подразделения.",
-        "title": "Новый Workspace"
+        "description": "Создайте нового арендатора для другого бизнес‑подразделения.",
+        "title": "Новое рабочее пространство"
       },
       "oneClickSetup": "Настройка в один клик",
       "scheduleMeeting": {
@@ -546,49 +546,49 @@
         "description": "Запланировать вводный звонок или последующее общение.",
         "title": "Запланировать встречу"
       },
-      "subtitle": "Выполняйте обычные задачи в один клик.",
+      "subtitle": "Выполните типовые задачи одним кликом.",
       "title": "Быстрые действия"
     },
     "recentLeads": {
-      "empty": "Нет недавних Lead в {name}.",
-      "emptyDefault": "Пока нет недавних Lead.",
-      "subtitle": "Последние Lead, добавленные в ваш Workspace.",
-      "title": "Недавние Lead",
-      "unnamed": "Безымянный Lead",
+      "empty": "Нет недавних лидов в {name}.",
+      "emptyDefault": "Пока нет недавних лидов.",
+      "subtitle": "Последние лиды, добавленные в ваше рабочее пространство.",
+      "title": "Недавние лиды",
+      "unnamed": "Лид без названия",
       "viewAll": "Показать все Lead"
     },
     "snapshot": {
-      "activeWorkspace": "Активный Workspace",
-      "eyebrow": "Снимок Workspace",
+      "activeWorkspace": "Активное рабочее пространство",
+      "eyebrow": "Снимок рабочего пространства",
       "inWorkspace": "в {name}",
       "newCount": "{count} новых",
-      "noWorkspaceHelp": "Выберите Workspace, чтобы увидеть текущие показатели.",
-      "noWorkspaceSelected": "Workspace не выбран",
+      "noWorkspaceHelp": "Выберите рабочее пространство, чтобы увидеть текущие показатели.",
+      "noWorkspaceSelected": "Рабочее пространство не выбрано",
       "openCount": "{count} открытых",
-      "openFullDashboard": "Открыть полный Dashboard",
-      "openPipeline": "Открыть Pipeline"
+      "openFullDashboard": "Открыть полную Dashboard",
+      "openPipeline": "Открыть pipeline"
     },
     "workspaceOverview": {
       "acrossAccount": "По всей вашей учётной записи",
-      "activeWorkspace": "Активный Workspace",
+      "activeWorkspace": "Активный workspace",
       "allCombined": "Все вместе",
       "customers": "Клиенты",
       "noneSelected": "Не выбрано",
-      "pickToActivate": "Выберите Workspace, чтобы активировать метрики.",
+      "pickToActivate": "Выберите workspace, чтобы активировать метрики.",
       "scopedViews": "Ограниченные представления",
-      "singleWorkspace": "Одно рабочее пространство",
-      "subtitle": "Сводка ваших рабочих пространств на уровне аккаунта.",
-      "workspaces": "Рабочие пространства"
+      "singleWorkspace": "Одно рабочее место",
+      "subtitle": "Свертка рабочих пространств на уровне учетной записи.",
+      "workspaces": "Рабочие места"
     }
   },
   "imports": {
     "errors": {
-      "approveFailed": "Не удалось одобрить и импортировать.",
-      "chooseFile": "Выберите CSV‑файл для загрузки.",
-      "enterUrl": "Введите URL CSV‑файла.",
-      "fetchUrlFailed": "Не удалось получить CSV‑URL.",
-      "mapAtLeastOne": "Сопоставьте хотя бы один столбец источника с полем назначения.",
-      "noRows": "Файл или URL не содержат строк.",
+      "approveFailed": "Не удалось утвердить и импортировать.",
+      "chooseFile": "Выберите файл CSV для загрузки.",
+      "enterUrl": "Введите URL-адрес CSV.",
+      "fetchUrlFailed": "Не удалось получить URL-адрес CSV.",
+      "mapAtLeastOne": "Сопоставьте по крайней мере один исходный столбец с целевым полем.",
+      "noRows": "Файл или URL-адрес не содержит ни одной строки.",
       "openFromCompany": "Откройте эту страницу из рабочего пространства компании.",
       "parseFailed": "Не удалось разобрать CSV‑файл."
     },
@@ -599,12 +599,12 @@
       "backToPreview": "Назад к предпросмотру",
       "confidence": "Уверенность",
       "enableFallback": "Включить резервный вариант строки",
-      "importing": "Импорт...",
+      "importing": "Импорт…",
       "leaveUnmapped": "Оставить без сопоставления",
       "sample": "Пример",
       "sourceHeader": "Заголовок источника",
       "suggestionNote": "Мы выбрали наиболее подходящее целевое поле для каждого заголовка. При необходимости скорректируйте.",
-      "targetField": "Целевое поле"
+      "targetField": "Поле назначения"
     },
     "preview": {
       "backToSource": "Вернуться к источнику",
@@ -648,11 +648,11 @@
       "rowFallback": "Запасная строка"
     },
     "workspace": {
-      "backToOverview": "Назад к обзору",
+      "backToOverview": "Вернуться к обзору",
       "companyIdLabel": "ID компании: {id}",
       "description": "Импортируйте данные клиентов в {name} из CSV‑файла или по URL.",
       "eyebrow": "Импорт рабочего пространства",
-      "selectedCompany": "Активное рабочее пространство: {name}",
+      "selectedCompany": "Активный Workspace: {name}",
       "stepLabel": "Шаг {step} из {total}"
     }
   },
@@ -663,7 +663,7 @@
         "created": "Создано",
         "key": "Ключ",
         "lastUsed": "Последнее использование",
-        "name": "Имя",
+        "name": "Название",
         "scopes": "Области"
       },
       "copied": "API‑ключ скопирован в буфер обмена.",
@@ -688,7 +688,7 @@
       "revoke": "Отозвать",
       "revokeConfirm": "Отозвать этот API‑ключ? Это действие нельзя отменить.",
       "revokeFailed": "Не удалось отозвать API‑ключ.",
-      "revokedBadge": "Отозвано",
+      "revokedBadge": "Отозван",
       "revoking": "Отзывается…",
       "savedClose": "Ключ сохранён — закрыть",
       "scopes": {
@@ -734,7 +734,7 @@
       "backLink": "Назад к интеграциям",
       "backToCatalog": "Назад к каталогу",
       "configuringCompany": "Настройка <strong>{integration}</strong> для <strong>{company}</strong>.",
-      "noCompany": "Выберите рабочее пространство для настройки <strong>{integration}</strong>.",
+      "noCompany": "Выберите рабочее пространство, чтобы настроить <strong>{integration}</strong>.",
       "restrictedDescription": "У вас нет прав для просмотра этой интеграции.",
       "restrictedTitle": "Ограничено",
       "slugTitles": {
@@ -779,8 +779,8 @@
       "loading": "Загрузка конфигурации Green API...",
       "rotateConfirm": "Повернуть токен входящего webhook? Существующие webhook‑ы потребуется обновить.",
       "testFailed": "Тест соединения не удался.",
-      "tokenLabel": "Токен",
-      "tokenPrefix": "Токен начинается с",
+      "tokenLabel": "Token",
+      "tokenPrefix": "Token начинается с",
       "tokenRotated": "Токен webhook повернут.",
       "updateCredentials": "Обновить учётные данные",
       "updatedLabel": "Обновлено",
@@ -841,7 +841,64 @@
       "mintBearer": "Создать bearer‑токен",
       "noDeliveries": "Поставок пока нет.",
       "noIntegration": "Интеграция с интранетом не настроена.",
-      "recentDeliveries": "Последние поставки",
+      "outbound": {
+        "allStatusesLabel": "Все изменения статуса (рекомендовано)",
+        "deliveriesEmpty": "Пока нет доставок. Отправьте тестовое событие, чтобы подтвердить соединение.",
+        "deliveriesTitle": "Последние доставки",
+        "deliveryCols": {
+          "attempts": "Попытки",
+          "createdAt": "Отправлено",
+          "error": "Последняя ошибка",
+          "eventId": "ID события",
+          "status": "Статус",
+          "toStatus": "→ Статус"
+        },
+        "description": "Когда статус lead меняется в этой CRM, подпишите событие и выполните POST на вашу конечную точку. При ошибке мы повторяем попытку (6 попыток в течение ~7 ч) и после этого отправляем в dead-letter.",
+        "generateSecretButton": "Сгенерировать секрет подписи",
+        "loadFailed": "Не удалось загрузить конфигурацию исходящего webhook.",
+        "loading": "Загрузка исходящего webhook…",
+        "newSecretHint": "Скопируйте этот секрет сейчас — после закрытия диалога мы хешируем его и впредь показываем только маскированную версию.",
+        "newSecretReveal": "Новый секрет подписи",
+        "pauseHint": "Останавливает новые доставки без потери URL. Оставшиеся ожидающие повторные попытки продолжаются.",
+        "pauseLabel": "Приостановить исходящие webhook",
+        "rotateSecretButton": "Сменить секрет подписи",
+        "rotateSecretConfirm": "Сменить секрет подписи? Вам потребуется обновить код проверки новым значением.",
+        "rotatingSecret": "Смена…",
+        "saveButton": "Сохранить конфигурацию исходящего webhook",
+        "saveFailed": "Не удалось сохранить исходящую конфигурацию.",
+        "savedNotice": "Исходящий webhook сохранён.",
+        "secretConfigured": "Настроено",
+        "secretNotSet": "Не задано — сгенерируйте его перед отправкой событий.",
+        "secretRotatedAt": "(повернут {time})",
+        "secretRotatedNotice": "Секрет подписи обновлён. Открытый текст отображается только один раз.",
+        "selectAtLeastOne": "Выберите хотя бы один статус, или отметьте 'All status changes'.",
+        "signingSecretLabel": "Секрет подписи (HMAC-SHA256)",
+        "statusFilterHint": "Выберите, какие переходы вызывают webhook. Используйте '*', чтобы получать все изменения статуса.",
+        "statusFilterTitle": "Фильтр статуса",
+        "statusLabels": {
+          "contacted": "Lead был контактуем",
+          "converted": "Lead преобразован в клиента",
+          "lost": "Lead помечен как потерянный",
+          "new": "Lead только что создан",
+          "qualified": "Lead квалифицирован AI / продажами"
+        },
+        "testButton": "Отправить тестовое событие",
+        "testEnqueued": "Тестовое событие поставлено в очередь: {eventId}",
+        "testFailed": "Тестовое событие завершилось с ошибкой.",
+        "testHint": "Отправляет синтетическое событие lead.status_changed на ваш URL с теми же заголовками и подписью, что и реальные события.",
+        "testTitle": "Отправить тестовое событие",
+        "testToStatusLabel": "to_status (какой переход имитировать)",
+        "title": "Исходящий webhook (обновления статуса)",
+        "urlHint": "Мы отправляем POST‑запросы с событиями изменения статуса на этот URL, подписывая их HMAC‑SHA256. В продакшене URL должен быть HTTPS.",
+        "urlLabel": "URL конечной точки",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Сохраните URL перед генерацией секрета.",
+        "verificationIntro": "Каждый запрос содержит следующие заголовки:",
+        "verificationNote": "Если вы получаете запрос с меткой времени старше 5 минут, отклоните его как повтор.",
+        "verificationTitle": "Как выполнить проверку на вашей стороне",
+        "verifyByComputing": "Проверьте, пересчитав HMAC над «<timestamp>.<rawBody>» и сравнив за константное время:"
+      },
+      "recentDeliveries": "Недавние доставки",
       "requestExamples": "Запросить примеры",
       "revealDescription": "Токены отображаются только один раз.",
       "revealedBearerLabel": "Новый bearer token",
@@ -1011,7 +1068,7 @@
       "forbiddenTopics": "Запрещённые темы",
       "handoffAggressiveness": "Степень агрессивности передачи",
       "icpPlaceholder": "Опишите профиль вашего идеального клиента…",
-      "idealCustomerProfile": "Профиль идеального клиента",
+      "idealCustomerProfile": "Идеальный профиль клиента",
       "languageLabel": "Язык общения",
       "leadWebhookDescription": "Lisent отправляет квалифицированные лиды обратно в вашу CRM по этому URL webhook.",
       "leadWebhookTitle": "Lead webhook",
@@ -1019,7 +1076,7 @@
       "liveLine": "В реальном времени · оценка лидов",
       "loadFailed": "Не удалось загрузить конфигурацию квалификатора.",
       "loading": "Загрузка конфигурации квалификатора…",
-      "manualQualifyHint": "Используйте <strong>Start qualify</strong> на лиде, чтобы оценить его вручную.",
+      "manualQualifyHint": "Используйте <strong>Start qualify</strong> на lead, чтобы оценить его вручную.",
       "manualQualifyTitle": "Ручная квалификация",
       "navAria": "Разделы квалификатора",
       "overview": {
@@ -1036,20 +1093,20 @@
         "title": "Обзор",
         "tuningAiConfig": "<strong>AI configuration:</strong> Порог, фреймворк, переопределения подсказок.",
         "tuningCallback": "<strong>Callback:</strong> Куда отправляются квалифицированные лиды.",
-        "tuningRag": "<strong>База знаний (RAG):</strong> Документы, на которые ассистент может ссылаться.",
-        "tuningTitle": "Тюнинг"
+        "tuningRag": "<strong>Knowledge base (RAG):</strong> Документы, к которым может обращаться помощник.",
+        "tuningTitle": "Настройка"
       },
-      "qualificationThreshold": "Квалификационный порог",
-      "revokeSecondaryConfirm": "Отменить секрет вторичного вебхука?",
-      "rotateWebhookConfirm": "Ротировать секрет вебхука? Старый секрет остается действительным в течение окна ротации.",
-      "saveAiConfig": "Сохранить конфигурацию искусственного интеллекта",
-      "secondaryRevoked": "Секрет вторичного вебхука отозван.",
+      "qualificationThreshold": "Порог квалификации",
+      "revokeSecondaryConfirm": "Отозвать вторичный секрет webhook?",
+      "rotateWebhookConfirm": "Обновить секрет webhook? Старый секрет остаётся действительным в течение окна обновления.",
+      "saveAiConfig": "Сохранить конфигурацию AI",
+      "secondaryRevoked": "Вторичный секрет webhook отозван.",
       "sectorLabel": "Сектор",
-      "thresholdHint": "Лиды, набравшие больше или меньше этого порога, считаются квалифицированными.",
-      "webhookUrlLabel": "URL-адрес вебхука"
+      "thresholdHint": "Leads, набравшие балл выше или равный этому порогу, помечаются как квалифицированные.",
+      "webhookUrlLabel": "Webhook URL"
     },
     "rag": {
-      "chunkLabel": "Чанк",
+      "chunkLabel": "Фрагмент",
       "chunksColumn": "Фрагменты",
       "description": "База знаний для <strong>{name}</strong>. Загрузите документы, к которым может обращаться ИИ.",
       "ingestedDescription": "Документы, находящиеся в базе знаний для <strong>{name}</strong>.",
@@ -1081,14 +1138,14 @@
       "anyRole": "Любая роль",
       "ownerOnly": "Только владельцы",
       "viewOnly": "Только просмотр",
-      "viewOnlyTitle": "Доступ только для просмотра"
+      "viewOnlyTitle": "Только просмотр"
     },
     "rotateToken": "Сменить токен",
     "rotating": "Смена…",
     "rotationWindow": "Период ротации",
     "secondary": "Вторичный",
     "status": {
-      "aria": "Статус интеграции",
+      "aria": "Состояние интеграции",
       "comingSoon": "Скоро",
       "connected": "Подключено"
     },
@@ -1142,7 +1199,7 @@
         },
         "balanced": {
           "desc": "По умолчанию. Баланс между уверенностью и скоростью передачи.",
-          "label": "Сбалансированный"
+          "label": "Сбалансировано"
         },
         "conservative": {
           "desc": "Ожидать высокой уверенности перед передачей представителю.",
@@ -1219,7 +1276,7 @@
       "title": "Webhooks",
       "urlSaved": "URL назначения сохранён.",
       "verificationIntro": "Lisent подписывает каждый запрос. Проверьте заголовок <code>X-Lisent-Signature</code> перед тем как доверять полезной нагрузке.",
-      "verificationNote": "Проверяйте заголовок <code>X-Lisent-Signature</code> в каждом запросе.",
+      "verificationNote": "Проверьте заголовок <code>X-Lisent-Signature</code> в каждом запросе.",
       "verificationTitle": "Проверка",
       "verifyByComputing": "Вычислите <code>HMAC-SHA256(secret, body)</code> и сравните с заголовком подписи."
     },
@@ -1261,7 +1318,7 @@
       "clearSelection": "Снять выделение",
       "delete": "Удалить",
       "exportCsv": "Экспорт CSV",
-      "exportPdf": "Export PDF",
+      "exportPdf": "Экспортировать PDF",
       "selected": "{count} выбрано"
     },
     "bulkDelete": {
@@ -1293,7 +1350,7 @@
       "title": "Конвертировать lead в клиента"
     },
     "dealStage": {
-      "lost": "Потерянный",
+      "lost": "Потерян",
       "negotiation": "Переговоры",
       "new": "Новый",
       "proposal": "Предложение",
@@ -1304,7 +1361,7 @@
       "confirm": "Удалить lead",
       "description": "Это навсегда удалит этот lead. Это действие нельзя отменить.",
       "eyebrow": "Удалить lead",
-      "removing": "Удаление...",
+      "removing": "Удаление…",
       "title": "Удалить lead?"
     },
     "drawer": {
@@ -1369,7 +1426,7 @@
       "customerNameRequired": "Требуется указать имя клиента.",
       "deleteLead": "Не удалось удалить Lead.",
       "deleteNote": "Не удалось удалить заметку.",
-      "exportPdf": "Failed to generate PDF.",
+      "exportPdf": "Не удалось создать PDF.",
       "loadCompanies": "Не удалось загрузить компании.",
       "loadLeads": "Не удалось загрузить Lead.",
       "loadNotes": "Не удалось загрузить заметки.",
@@ -1432,16 +1489,16 @@
       "editNote": "Редактировать заметку",
       "empty": "Заметок пока нет.",
       "leadContext": "Контекст lead",
-      "loading": "Загрузка заметок...",
+      "loading": "Загрузка заметок…",
       "posting": "Отправка...",
       "teamNotes": "Заметки команды",
       "unknownAuthor": "Неизвестно"
     },
     "pdf": {
-      "createdAt": "Created",
-      "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
+      "createdAt": "Создано",
+      "email": "Эл. почта",
+      "exportedAt": "{count} leads · Экспортировано {date}",
+      "pageOf": "Страница {current} из {total}",
       "title": "Leads"
     },
     "rowMenu": {
@@ -1511,7 +1568,7 @@
   "marketing": {
     "authBody": "Вход, регистрация и проверка сессии через <code>/api/auth</code>",
     "authTitle": "Аутентификация",
-    "bffBody": "Вызовы из браузера должны завершаться в этом приложении. Доверенные серверные маршруты будут обращаться к внутреннему сервису CRM.",
+    "bffBody": "Вызовы из браузера должны останавливаться на этом приложении. Надёжные серверные маршруты будут обращаться к внутреннему сервису CRM.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
     "campaigns": {
@@ -1552,17 +1609,17 @@
         "title": "Формы захвата Lead"
       }
     },
-    "ctaCreateWorkspace": "Создать доступ к рабочему пространству",
+    "ctaCreateWorkspace": "Создать доступ к workspace",
     "ctaOpenShell": "Открыть защищённую оболочку",
     "currentStack": "Текущий стек",
     "heroEyebrow": "CRM‑платформа с голосовым интерфейсом",
-    "heroLead": "Lisent CRM объединяет аутентификацию, многопользовательские рабочие процессы, импорт профилей при onboarding и защищённую оболочку приложения для операторов компании. Веб‑приложение управляет пользовательскими потоками. Сервис Go CRM находится за надёжной границей бэкенда.",
+    "heroLead": "Lisent CRM объединяет аутентификацию, tenant‑aware workflows, импорт‑профиля при onboarding и защищённую оболочку приложения для операторов компании. Веб‑приложение управляет пользовательскими потоками. Сервис Go CRM находится за надёжной границей backend.",
     "heroTitle": "Понимание намерений, а не только слов.",
     "navSignIn": "Войти",
     "navStartNow": "Начать сейчас",
     "stackItems": {
       "auth": "SuperTokens Email/Password + Session",
-      "crm": "Go CRM service behind a BFF boundary",
+      "crm": "Сервис Go CRM за границей BFF",
       "next": "Next.js 16 App Router",
       "ts": "TypeScript + Tailwind CSS 4"
     },
@@ -1573,7 +1630,7 @@
       "forms": "Формы"
     },
     "tenantBody": "Следующий слой определит <code>user_id</code>, <code>company_id</code> и роль для каждой сессии.",
-    "tenantTitle": "Контекст арендатора",
+    "tenantTitle": "Контекст tenant",
     "whatThisAppOwns": "Что принадлежит этому приложению"
   },
   "nav": {
@@ -1582,22 +1639,22 @@
     "closeNavigation": "Закрыть навигацию",
     "customerImport": "Импорт клиентов",
     "customers": "Клиенты",
-    "dashboard": "Панель",
-    "deals": "Сделки",
+    "dashboard": "Dashboard",
+    "deals": "Deals",
     "help": "Помощь и ресурсы",
     "import": "Импорт",
     "integrations": "Интеграции",
-    "leads": "Лиды",
+    "leads": "Leads",
     "lisentHome": "Главная Lisent CRM",
-    "lisentWorkspace": "Workspace Lisent",
+    "lisentWorkspace": "Рабочее пространство Lisent",
     "marketing": "Маркетинг",
     "navigation": "Навигация",
     "openNavigation": "Открыть навигацию",
     "overview": "Обзор",
-    "primary": "Основной",
+    "primary": "Основное",
     "quickCreate": "Быстрое создание",
     "sectionTools": "Инструменты",
-    "sectionWorkspace": "Workspace",
+    "sectionWorkspace": "Рабочее пространство",
     "tasks": "Задачи",
     "teamMembers": "Участники команды"
   },
@@ -1623,11 +1680,11 @@
       "title": "Аккаунт"
     },
     "calendar": {
-      "description": "Планируйте звонки, встречи и последующие действия.",
+      "description": "Планировать звонки, встречи и последующие действия.",
       "title": "Календарь"
     },
     "customers": {
-      "description": "Все записи о клиентах в одном месте.",
+      "description": "Все записи ваших клиентов в одном месте.",
       "title": "Клиенты"
     },
     "dashboard": {
@@ -1663,7 +1720,7 @@
       "title": "Задачи"
     },
     "workspace": {
-      "description": "Настройки и члены рабочей области.",
+      "description": "Настройки рабочего пространства и участники.",
       "title": "Рабочее пространство"
     }
   },
@@ -1674,29 +1731,29 @@
     "formulaAudit": "Аудит формулы",
     "keyQuestions": "Ключевые вопросы для звонка",
     "leadAssessment": "Оценка лида",
-    "llmMedian": "LLM медиана",
+    "llmMedian": "Медиана LLM",
     "noScoreYet": "Оценка пока отсутствует.",
     "rawAnalysis": "Исходные данные анализа",
     "recommendedOpening": "Рекомендуемое открытие",
     "risksToWatch": "Риски, за которыми следует следить",
     "salesContext": "Контекст продаж",
-    "scoredAt": "Оценка от {date}",
-    "scoring": "Оценка...",
+    "scoredAt": "оценено {date}",
+    "scoring": "Оценка…",
     "whoTheyAre": "Кто они"
   },
   "search": {
-    "aria": "Поиск в рабочем пространстве",
+    "aria": "Поиск по рабочему пространству",
     "placeholder": "Поиск..."
   },
   "tasks": {
     "actions": {
       "accept": "Принять",
       "delete": "Удалить",
-      "markDone": "Отметка сделана",
+      "markDone": "Отметить выполненным",
       "publish": "Опубликовать",
-      "publishing": "Издательство...",
+      "publishing": "Публикуется…",
       "reject": "Отклонить",
-      "startWork": "Начало работы"
+      "startWork": "Начать работу"
     },
     "activeCount": "{count} активных",
     "assignmentMode": {
@@ -1729,7 +1786,7 @@
       "dueDate": "Дата срока",
       "notes": "Заметки",
       "publishedBy": "Опубликовал",
-      "title": "Название"
+      "title": "Заголовок"
     },
     "filter": {
       "all": "Все",
@@ -1789,7 +1846,7 @@
       "company": "Компания",
       "inProgressDone": "{inProgress} в процессе · {done} выполнено",
       "myPending": "{count} в ожидании",
-      "openTickets": "{count} открыто"
+      "openTickets": "{count} открытых"
     },
     "systemUser": "Система",
     "teammatesCount": "{count} коллег",
@@ -1850,7 +1907,7 @@
       "description": "Обновить роль {name} в этом рабочем пространстве.",
       "eyebrow": "Изменить роль",
       "title": "Изменить роль",
-      "to": "на",
+      "to": "На",
       "updating": "Обновляется…"
     },
     "section": {
@@ -1861,7 +1918,7 @@
       "users": "Пользователи",
       "usersDescription": "Стандартные участники с ежедневным доступом."
     },
-    "thisWorkspace": "это рабочее пространство",
+    "thisWorkspace": "Этот workspace",
     "title": "Участники команды",
     "unnamed": "Без названия",
     "you": "Вы"
@@ -1872,7 +1929,7 @@
     "demoUser": "Демо‑пользователь",
     "openMenu": "Открыть меню аккаунта",
     "signOut": "Выйти",
-    "workspaceUser": "Пользователь рабочего пространства"
+    "workspaceUser": "Пользователь Workspace"
   },
   "validation": {
     "firstNameRequired": "Имя обязательно.",
@@ -1888,14 +1945,14 @@
   "workspace": {
     "create": "Создать рабочее пространство",
     "deleteName": "Удалить {name}",
-    "label": "Рабочее пространство",
-    "loadFailed": "Не удалось загрузить рабочие пространства.",
+    "label": "Workspace",
+    "loadFailed": "Не удалось загрузить workspaces.",
     "loading": "Загрузка рабочих пространств…",
     "retry": "Повторить",
     "select": "Выбрать рабочее пространство",
     "switch": "Переключить рабочее пространство",
-    "untitled": "Рабочее пространство без названия",
-    "workspaceWord": "рабочее пространство",
+    "untitled": "Без названия workspace",
+    "workspaceWord": "workspace",
     "workspaces": "Рабочие пространства"
   }
 }

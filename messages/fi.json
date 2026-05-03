@@ -1,8 +1,8 @@
 {
   "account": {
-    "changeNote": "Muutokset päivittävät kirjautuneen käyttäjän profiilia, jota hallintapaneeli käyttää.",
+    "changeNote": "Muutokset päivittävät kirjautuneen käyttäjän profiilia, jota dashboard käyttää.",
     "editProfile": "Muokkaa profiilia",
-    "emailNotEditable": "Sähköpostimuutoksia ei käsitellä tällä näytöllä.",
+    "emailNotEditable": "Sähköpostin muutoksia ei voida käsitellä tällä näytöllä.",
     "fields": {
       "companyAccess": "Yrityksen käyttöoikeus",
       "companyMemberships": "Yrityksen jäsenyydet",
@@ -15,7 +15,7 @@
       "platformRole": "Alustan rooli",
       "userId": "Käyttäjän ID"
     },
-    "fixHighlighted": "Korjaa korostetut tilikentät.",
+    "fixHighlighted": "Korjaa korostetut tilin kentät.",
     "gender": {
       "female": "Nainen",
       "male": "Mies"
@@ -29,19 +29,19 @@
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
-      "superAdmin": "Super admin",
-      "workspaceUser": "Workspace user"
+      "superAdmin": "Superadmin",
+      "workspaceUser": "Työtilan käyttäjä"
     },
     "profileSummary": "Profiilin yhteenveto",
     "saveButton": "Tallenna asetukset",
     "saveFailed": "Tilin asetusten tallentaminen epäonnistui.",
     "saved": "Tilin asetukset tallennettu.",
-    "saving": "Tallentaa...",
-    "subtitle": "Hallinnoi profiiliasi, asetuksiasi ja käyttöoikeuksia.",
+    "saving": "Tallennetaan…",
+    "subtitle": "Hallinnoi profiilia, asetuksia ja käyttöoikeuksia.",
     "title": "Tilin asetukset"
   },
   "auth": {
-    "alreadyHaveAccess": "Onko sinulla jo pääsy?",
+    "alreadyHaveAccess": "Onko teillä jo pääsy?",
     "authFailed": "Todennus epäonnistui.",
     "createAnAccount": "Luo tili",
     "creatingAccount": "Luodaan tiliä...",
@@ -55,12 +55,12 @@
     "signIn": "Kirjaudu sisään",
     "signInButton": "Kirjaudu sisään",
     "signInInstead": "Kirjaudu sisään sen sijaan",
-    "signInSubtitle": "Käytä tiimillenne myönnettyjä yritystilin tietoja.",
+    "signInSubtitle": "Käytä tiimillesi myönnettyjä yritystilin tietoja.",
     "signInTitle": "Pääse työtilaasi",
     "signUp": "Rekisteröidy",
     "signUpButton": "Luo tili",
-    "signUpSubtitle": "Aloita sähköpostilla ja salasanalla. Tenant-määritys seuraa.",
-    "signUpTitle": "Luo työtilan käyttöoikeus",
+    "signUpSubtitle": "Aloita sähköpostilla ja salasanalla. Vuokraajan määrittäminen seuraa.",
+    "signUpTitle": "Luo pääsy työtilaasi",
     "signingIn": "Kirjaudutaan sisään...",
     "workspaceAuth": "Työtilan todennus",
     "wrongCredentials": "Sähköposti tai salasana on virheellinen."
@@ -79,8 +79,8 @@
     "allAssignees": "Kaikki vastuuhenkilöt",
     "allDay": "Koko päivä",
     "aria": {
-      "addOn": "Lisää tapahtuma päivälle {date}",
-      "createOn": "Luo tapahtuma päivälle {date}",
+      "addOn": "Lisää tapahtuma {date}",
+      "createOn": "Luo tapahtuma {date}",
       "next": "Seuraava jakso",
       "previous": "Edellinen jakso"
     },
@@ -92,7 +92,7 @@
     },
     "errors": {
       "delete": "Tapahtuman poistaminen epäonnistui.",
-      "linkRecordMissing": "Linkitetty tietue on pakollinen, kun linkkityyppi on valittuna.",
+      "linkRecordMissing": "Linkitetty tietue on pakollinen, kun linkkityyppi on valittu.",
       "loadCompanies": "Yritysten lataaminen epäonnistui.",
       "loadEvents": "Tapahtumien lataaminen epäonnistui.",
       "pastDate": "Tapahtuma ei voi alkaa menneisyydessä.",
@@ -110,7 +110,7 @@
       "call": "Puhelu",
       "deadline": "Määräaika",
       "demo": "Demo",
-      "follow_up": "Jatko",
+      "follow_up": "Jälkiseuranta",
       "meeting": "Kokous"
     },
     "fields": {
@@ -121,14 +121,14 @@
       "description": "Kuvaus",
       "end": "Loppu",
       "endDate": "Päättymispäivä",
-      "eventType": "Tapahtuman tyyppi",
+      "eventType": "Tapahtumatyyppi",
       "linkTo": "Linkki kohteeseen",
       "linkedRecord": "Linkitetty tietue",
       "location": "Sijainti",
       "meetingUrl": "Kokouksen URL",
       "reminder": "Muistutus",
       "start": "Alku",
-      "startDate": "Alkamispäivä",
+      "startDate": "Aloituspäivä",
       "status": "Tila",
       "title": "Otsikko"
     },
@@ -136,14 +136,14 @@
     "linkedFallback": {
       "customer": "Linkitetty asiakas",
       "deal": "Linkitetty kauppa",
-      "lead": "Linkitetty liidi"
+      "lead": "Linkitetty lead"
     },
     "linkedType": {
       "company": "Yritys",
       "customer": "Asiakas",
       "deal": "Deal",
       "lead": "Lead",
-      "none": "Ei"
+      "none": "Ei mitään"
     },
     "loading": "Ladataan kalenteria...",
     "modal": {
@@ -151,7 +151,7 @@
       "editTitle": "Päivitä kalenteritapahtuma",
       "newEyebrow": "Uusi tapahtuma",
       "newTitle": "Aikatauluta kalenteritapahtuma",
-      "subtitle": "Suunnittele puheluita, kokouksia ja jatkotoimia, jotka on linkitetty CRM-tietoihisi."
+      "subtitle": "Suunnittele puheluita, kokouksia ja jatkotoimia, jotka on linkitetty CRM-tietueisiisi."
     },
     "moreCount": "+{count} lisää",
     "placeholders": {
@@ -160,7 +160,7 @@
       "noLinkedCustomer": "Ei linkitettyä asiakasta",
       "optionalCustomer": "Valitse asiakas (valinnainen)",
       "selectRecord": "Valitse tietue",
-      "title": "Alkukutsu..."
+      "title": "Tutustumiskutsu..."
     },
     "searchAriaLabel": "Etsi tapahtumia",
     "searchPlaceholder": "Etsi tapahtumia...",
@@ -200,13 +200,13 @@
     "cancel": "Peruuta",
     "close": "Sulje",
     "closeMenu": "Sulje valikko",
-    "loading": "Ladataan...",
+    "loading": "Ladataan…",
     "next": "Seuraava",
     "no": "Ei",
     "notSet": "Ei asetettu",
     "openMenu": "Avaa valikko",
     "save": "Tallenna",
-    "saving": "Tallentaa...",
+    "saving": "Tallennetaan…",
     "tryAgain": "Yritä uudelleen",
     "yes": "Kyllä"
   },
@@ -223,9 +223,9 @@
       "deleteEyebrow": "Massapoisto",
       "deleteTitle": "Poistetaanko valitut asiakkaat?",
       "regionLabel": "Massatoiminnot",
-      "selectedCount": "{count} valittu"
+      "selectedCount": "{count} valittua"
     },
-    "closeAddPopup": "Sulje asiakkaan lisääminen -ikkuna",
+    "closeAddPopup": "Sulje asiakkaan lisäämisdialogi",
     "confirmDelete": "Poista",
     "delete": "Poista",
     "deleteConfirmDescription": "Tämä poistaa pysyvästi tämän asiakastietueen. Toimintoa ei voi peruuttaa.",
@@ -241,11 +241,11 @@
       "identity": "Identiteetti"
     },
     "errors": {
-      "bulkDeleteFailed": "Joitakin asiakkaita ei voitu poistaa.",
-      "deleteCustomer": "Asiakasta ei voitu poistaa.",
-      "loadCompanies": "Yrityksiä ei voitu ladata.",
-      "loadCustomers": "Asiakkaita ei voitu ladata.",
-      "saveCustomer": "Asiakasta ei voitu tallentaa."
+      "bulkDeleteFailed": "Joidenkin asiakkaiden poistaminen epäonnistui.",
+      "deleteCustomer": "Asiakkaan poistaminen epäonnistui.",
+      "loadCompanies": "Yritysten lataaminen epäonnistui.",
+      "loadCustomers": "Asiakkaiden lataaminen epäonnistui.",
+      "saveCustomer": "Asiakkaan tallentaminen epäonnistui."
     },
     "fields": {
       "actions": "Toiminnot",
@@ -269,17 +269,17 @@
     "form": {
       "createCustomer": "Luo asiakas",
       "createEyebrow": "Uusi asiakas",
-      "createSubtitle": "Tallenna perusyhteystiedot. Voit täyttää loput myöhemmin.",
+      "createSubtitle": "Tallenna tärkeimmät yhteystiedot. Voit täyttää loput myöhemmin.",
       "editEyebrow": "Muokkaa asiakasta",
       "saveChanges": "Tallenna muutokset"
     },
     "list": {
-      "empty": "Yhtään asiakasta ei löydy nykyisillä suodattimilla.",
+      "empty": "Ei asiakkaita, jotka täsmäävät nykyisiin suodattimiin.",
       "eyebrow": "Asiakasrekisteri",
       "selectAll": "Valitse kaikki asiakkaat",
       "selectRow": "Valitse asiakas {name}",
       "title": "Asiakkaat",
-      "visibleCount": "Näytetään {visible}/{total}"
+      "visibleCount": "Näytetään {visible} / {total}"
     },
     "loading": "Ladataan asiakkaita...",
     "noEmail": "Sähköpostiosoitetta ei ole tallennettu",
@@ -291,7 +291,7 @@
     },
     "search": {
       "label": "Hae",
-      "placeholder": "Etsi asiakkaita..."
+      "placeholder": "Hae asiakkaita..."
     },
     "selectedCompany": "Aktiivinen Workspace: {name}",
     "status": {
@@ -303,7 +303,7 @@
     "statusFilter": "Tilan suodatin",
     "success": {
       "bulkDeleted": "{count} asiakasta poistettu.",
-      "bulkDeletedPartial": "{deleted}/{total} asiakasta poistettu.",
+      "bulkDeletedPartial": "{deleted} / {total} asiakasta poistettu.",
       "created": "Asiakas luotu.",
       "deleted": "Asiakas poistettu.",
       "updated": "Asiakas päivitetty."
@@ -316,60 +316,60 @@
     "aiInsights": {
       "aiScore": "AI-piste",
       "aiStatus": "AI-tila",
-      "champExtraction": "CHAMP‑poiminta",
+      "champExtraction": "CHAMP-otto",
       "path": "Polku",
       "reasoningReport": "Päätelmäraportti",
       "scoredAt": "Arvioitu {date}",
-      "title": "AI‑näkemykset"
+      "title": "AI-näkemykset"
     },
     "amount": "Määrä",
     "amountValue": "{amount}",
     "assignee": "Vastuuhenkilö",
     "assigneeValue": "{name}",
-    "boardHint": "Vedä Dealit vaiheiden välillä päivittääksesi pipeline.",
-    "changedBy": "Muutti {name}",
+    "boardHint": "Vedä kauppoja vaiheiden välillä päivittää putken.",
+    "changedBy": "Muutettu {name}",
     "close": "Sulje",
-    "closeTarget": "Sulkemistavoite",
+    "closeTarget": "Sulje kohde",
     "closeTargetValue": "{date}",
     "columnTotal": "Sarakkeen summa: {value}",
     "commentPlaceholder": "Kirjoita kommentti...",
     "comments": "Kommentit",
     "commentsCount": "{count} kommenttia",
     "commentsEmpty": "Ei vielä kommentteja.",
-    "deal": "Deal",
-    "dealDetail": "Deal-tiedot",
-    "dealList": "Deal-lista",
-    "dealValue": "Deal-arvo",
-    "dealsInPipeline": "{count} Dealia pipelineissa",
-    "dealsInView": "{count} Dealia näkymässä",
+    "deal": "Kauppa",
+    "dealDetail": "Kaupan tiedot",
+    "dealList": "Kauppalista",
+    "dealValue": "Kaupan arvo",
+    "dealsInPipeline": "{count} kauppoja putkessa",
+    "dealsInView": "{count} kauppoja näkymässä",
     "delete": "Poista",
-    "deleteConfirmDescription": "Tämä poistaa Dealin pysyvästi. Toimintoa ei voi peruuttaa.",
-    "deleteConfirmTitle": "Poista Deal?",
-    "deleteDeal": "Poista Deal",
+    "deleteConfirmDescription": "Tämä poistaa kaupan pysyvästi. Tätä toimintoa ei voi peruuttaa.",
+    "deleteConfirmTitle": "Poistaako kauppa?",
+    "deleteDeal": "Poista kauppa",
     "deleting": "Poistetaan…",
-    "editDeal": "Muokkaa Deal",
-    "emptyColumn": "Ei Dealia tässä vaiheessa.",
+    "editDeal": "Muokkaa kauppaa",
+    "emptyColumn": "Ei kauppoja tässä vaiheessa.",
     "errors": {
-      "addComment": "Kommentin lisääminen epäonnistui.",
-      "deleteDeal": "Dealin poistaminen epäonnistui.",
-      "loadCompanies": "Yritysten lataaminen epäonnistui.",
-      "loadDeals": "Dealien lataaminen epäonnistui.",
-      "nameRequired": "Dealin nimi on pakollinen.",
-      "saveDeal": "Dealin tallentaminen epäonnistui.",
-      "unsupportedCurrency": "Ei tuettu valuutta."
+      "addComment": "Kommentin lisääminen epäonnistui",
+      "deleteDeal": "Kaupan poistaminen epäonnistui",
+      "loadCompanies": "Yritysten lataaminen epäonnistui",
+      "loadDeals": "Kauppojen lataaminen epäonnistui",
+      "nameRequired": "Kaupan nimi on pakollinen",
+      "saveDeal": "Kaupan tallentaminen epäonnistui",
+      "unsupportedCurrency": "Ei-tuettu valuutta"
     },
-    "extraData": "Lisätiedot",
+    "extraData": "Lisädata",
     "fields": {
       "company": "Yritys",
-      "companyId": "Yrityksen id",
+      "companyId": "Yrityksen ID",
       "country": "Maa",
       "created": "Luotu",
       "currency": "Valuutta",
       "customer": "Asiakas",
       "industry": "Toimiala",
-      "lossReason": "Häviön syy",
+      "lossReason": "Häviämisen syy",
       "records": "Tietueet",
-      "sourceLead": "Lähdelead",
+      "sourceLead": "Lähde lead",
       "termination": "Päättyminen",
       "updated": "Päivitetty",
       "wonReason": "Voiton syy"
@@ -379,7 +379,7 @@
       "allStages": "Kaikki vaiheet",
       "assigneeLabel": "Vastuuhenkilö",
       "searchLabel": "Haku",
-      "searchPlaceholder": "Etsi deals...",
+      "searchPlaceholder": "Etsi deal...",
       "stageLabel": "Vaihe"
     },
     "form": {
@@ -392,40 +392,40 @@
         "assignee": "Vastuuhenkilö",
         "currency": "Valuutta",
         "customer": "Asiakas",
-        "dealName": "Dealin nimi",
+        "dealName": "Kaupan nimi",
         "expectedCloseDate": "Odotettu sulkemispäivä",
-        "lossReason": "Häviämisen syy",
+        "lossReason": "Häviön syy",
         "pipelineStage": "Pipeline-vaihe",
-        "sourceLead": "Source lead",
+        "sourceLead": "Lähdelead",
         "terminationDate": "Päättymispäivä",
         "wonReason": "Voiton syy"
       },
-      "newEyebrow": "Uusi deal",
-      "newTitle": "Luo deal",
+      "newEyebrow": "Uusi kauppa",
+      "newTitle": "Luo kauppa",
       "options": {
         "noLinkedCustomer": "Ei linkitettyä asiakasta",
-        "noSourceLead": "Ei source lead"
+        "noSourceLead": "Ei lähdeleadia"
       },
       "placeholders": {
         "amount": "0.00",
         "dealName": "Acme — Q3 expansion",
-        "lossReason": "Miksi tämä sopimus menetettiin?",
-        "wonReason": "Miksi tämä sopimus tehtiin?"
+        "lossReason": "Miksi tämä kauppa hävisi?",
+        "wonReason": "Miksi tämä kauppa voitettiin?"
       },
       "saveChanges": "Tallenna muutokset"
     },
     "kanbanBoard": "Kanban-taulu",
-    "loadingBoard": "Laudan lataaminen...",
+    "loadingBoard": "Ladataan taulua...",
     "loadingDeals": "Ladataan tarjouksia...",
     "meetingTitle": "Kokous",
     "noDate": "Ei päivämäärää",
     "noDealsMatch": "Mikään tarjous ei vastaa nykyisiä suodattimia.",
     "noLossReason": "Ei kirjattua tappion syytä.",
     "noRelatedCustomer": "Ei liittyvää asiakasta.",
-    "noWinReason": "Voittosyytä ei ole tallennettu.",
+    "noWinReason": "Voiton syytä ei ole kirjattu.",
     "notSet": "Ei asetettu",
-    "now": "Nyt",
-    "pipelineLoading": "Ladataan pipelinea...",
+    "now": "nyt",
+    "pipelineLoading": "Putken lataaminen...",
     "posting": "Lähetetään...",
     "relatedRecords": "Liittyvät tietueet",
     "scheduleActivity": "Aikatauluta aktiviteetti",
@@ -440,7 +440,7 @@
       "proposal": "Ehdotus",
       "proposalDescription": "Virallinen ehdotus lähetetty ja tarkastelussa.",
       "qualified": "Kvalifioitu",
-      "qualifiedDescription": "Asiakkaan sopivuus ja budjetti on vahvistettu.",
+      "qualifiedDescription": "Asiakkaan soveltuvuus ja budjetti on vahvistettu.",
       "won": "Voitettu",
       "wonDescription": "Voitetut kaupat kirjattuina tulona."
     },
@@ -461,74 +461,74 @@
     "untitledDeal": "Nimetön Deal"
   },
   "errors": {
-    "forbidden": "Teillä ei ole oikeutta.",
+    "forbidden": "Sinulla ei ole oikeutta.",
     "generic": "Jotain meni vikaan.",
     "networkError": "Verkkovirhe. Yritä uudelleen.",
-    "sessionRequired": "Todennus vaaditaan.",
-    "userNotFound": "Käyttäjää ei löydy."
+    "sessionRequired": "Tunnistautuminen vaaditaan.",
+    "userNotFound": "Käyttäjää ei löytynyt."
   },
   "home": {
     "activity": {
-      "chartAriaLabel": "Viime viikon toimintakaavio",
+      "chartAriaLabel": "Viikon aktiviteettikaavio",
       "empty": "Käyttäjälle {name} ei ole vielä kirjattu toimintaa.",
-      "emptyDefault": "Ei vielä kirjattu toimintaa.",
-      "legendDeals": "Dealit",
-      "legendLeads": "Leadit",
-      "subtitle": "Viime viikon aikana luodut Leadit ja suljetut Dealit.",
+      "emptyDefault": "Ei vielä kirjattua toimintaa.",
+      "legendDeals": "Deals",
+      "legendLeads": "Leads",
+      "subtitle": "Viimeisen viikon aikana luodut Leads ja suljetut Deals.",
       "title": "Toiminta"
     },
     "company": {
-      "createWorkspace": "Luo Workspace",
-      "goToOverview": "Siirry Workspace‑yhteenvetoon",
-      "noWorkspaceHelp": "Valitse Workspace vaihtajasta nähdäksesi reaaliaikaiset tiedot.",
+      "createWorkspace": "Luo workspace",
+      "goToOverview": "Siirry workspace‑yhteenvetoon",
+      "noWorkspaceHelp": "Valitse workspace vaihtajasta nähdäksesi reaaliaikaiset tiedot.",
       "noWorkspaceSelected": "Workspacea ei valittu",
-      "pickWorkspace": "Valitse Workspace",
-      "subtitleSelected": "Workspace‑mittarit käyttäjälle {name}.",
+      "pickWorkspace": "Valitse workspace",
+      "subtitleSelected": "Workspace‑mittarit kohteelle {name}.",
       "subtitleWithName": "Tervetuloa takaisin, {name}."
     },
     "errors": {
-      "loadDashboard": "Dashboard‑tietojen lataus epäonnistui.",
-      "loadSnapshot": "Workspace‑tilannevedoksen lataus epäonnistui.",
-      "loadWorkspaces": "Työtilojen lataaminen epäonnistui."
+      "loadDashboard": "Dashboard‑tietojen lataaminen epäonnistui.",
+      "loadSnapshot": "Workspace‑tilannevedoksen lataaminen epäonnistui.",
+      "loadWorkspaces": "Workspacejen lataaminen epäonnistui."
     },
     "kpi": {
       "customers": "Asiakkaat",
-      "customersHint": "Tämän työtilan kokonaisasiakkaat.",
-      "customersInWorkspace": "Asiakkaat {name}",
+      "customersHint": "Workspace‑tilien kokonaismäärä.",
+      "customersInWorkspace": "Asiakkaat {name}ssa",
       "deals": "Deals",
-      "dealsAmountEmpty": "Ei vielä deal-arvoa.",
-      "leads": "Leads",
-      "leadsHint": "Aktiiviset leads pipelineissa.",
-      "openPipelineHint": "Avoimen pipeline-arvon summa kaikissa stageissa.",
+      "dealsAmountEmpty": "Dealin arvoa ei vielä ole.",
+      "leads": "Leadit",
+      "leadsHint": "Aktiiviset leadit putkessa.",
+      "openPipelineHint": "Avaa putken arvo kaikilla vaiheilla.",
       "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Mukauta",
       "thisWeek": "Tällä viikolla",
-      "title": "Yhteenveto"
+      "title": "Yleiskatsaus"
     },
     "pipeline": {
-      "empty": "Ei vielä pipeline-dataa {name}.",
-      "emptyDefault": "Ei vielä pipeline-dataa.",
-      "subtitle": "Dealien jakautuminen stageittain.",
-      "title": "Pipeline",
+      "empty": "Ei vielä putken dataa {name} varten.",
+      "emptyDefault": "Ei vielä putken dataa.",
+      "subtitle": "Kauppojen jakautuminen vaiheittain.",
+      "title": "Putki",
       "totalBadge": "{value} yhteensä"
     },
     "quickActions": {
       "aiQualifier": {
-        "cta": "Avaa AI qualifier",
-        "description": "Arvioi ja kvalifioi leadsit automaattisesti.",
+        "cta": "Avaa AI-qualifioija",
+        "description": "Arvioi ja pisteytä leadit automaattisesti.",
         "title": "AI-qualifioija"
       },
       "customerImport": {
         "cta": "Aloita tuonti",
-        "description": "Tuo asiakastiedot työtilaan.",
+        "description": "Tuo asiakastiedot työtilaan",
         "title": "Tuo asiakkaat"
       },
       "homeViews": {
-        "cta": "Mukauta näkymiä",
-        "description": "Valitse, mitkä widgetit näkyvät kojelaudalla.",
-        "title": "Kotinäkymät"
+        "cta": "Mukauta näkymät",
+        "description": "Valitse, mitkä widgetit näkyvät kojela.",
+        "title": "Koti-näkymät"
       },
       "inviteMembers": {
         "cta": "Kutsu jäseniä",
@@ -537,13 +537,13 @@
       },
       "newWorkspace": {
         "cta": "Luo työtila",
-        "description": "Aloita uusi tenant toiselle liiketoimintayksikölle.",
+        "description": "Aloita uusi vuokraaja toiselle liiketoimintayksikölle.",
         "title": "Uusi työtila"
       },
-      "oneClickSetup": "Yhden napsautuksen asennus",
+      "oneClickSetup": "Yhden klikkauksen käyttöönotto",
       "scheduleMeeting": {
         "cta": "Avaa kalenteri",
-        "description": "Aikatauluta esittelypuhelu tai jatkokeskustelu.",
+        "description": "Aikatauluta esittelypuhelu tai jatkotoimenpide.",
         "title": "Aikatauluta kokous"
       },
       "subtitle": "Suorita yleiset tehtävät yhdellä napsautuksella.",
@@ -551,7 +551,7 @@
     },
     "recentLeads": {
       "empty": "Ei viimeaikaisia liidejä kohteessa {name}.",
-      "emptyDefault": "Ei vielä viimeaikaisia liidejä",
+      "emptyDefault": "Ei vielä viimeaikaisia liidejä.",
       "subtitle": "Viimeisimmät liidit, jotka on lisätty työtilaan",
       "title": "Viimeaikaiset liidit",
       "unnamed": "Nimetön liidi",
@@ -559,37 +559,37 @@
     },
     "snapshot": {
       "activeWorkspace": "Aktiivinen työtila",
-      "eyebrow": "Työtilan yhteenveto",
-      "inWorkspace": "työtilassa {name}",
+      "eyebrow": "Työtilan tilannekuva",
+      "inWorkspace": "Kohdassa {name}",
       "newCount": "{count} uutta",
-      "noWorkspaceHelp": "Valitse työtila nähdäksesi reaaliaikaiset määrät",
-      "noWorkspaceSelected": "Työtilaa ei valittu",
-      "openCount": "{count} avointa",
-      "openFullDashboard": "Avaa koko dashboard",
-      "openPipeline": "Avaa pipeline"
+      "noWorkspaceHelp": "Valitse työtila, jonka avulla näet elävät laskut.",
+      "noWorkspaceSelected": "Ei valittu",
+      "openCount": "{count} avattu",
+      "openFullDashboard": "Avaa koko kojelauta",
+      "openPipeline": "Avaa putki"
     },
     "workspaceOverview": {
-      "acrossAccount": "Koko tilisi",
+      "acrossAccount": "Tilin yli",
       "activeWorkspace": "Aktiivinen työtila",
-      "allCombined": "Kaikki yhteensä",
+      "allCombined": "Kaikki yhdistetty",
       "customers": "Asiakkaat",
-      "noneSelected": "Ei valittu",
-      "pickToActivate": "Valitse työtila aktivoidaksesi mittarit.",
-      "scopedViews": "Rajoitetut näkymät",
+      "noneSelected": "Ei valittua",
+      "pickToActivate": "Valitse työtila, jossa voit aktivoida mittarit.",
+      "scopedViews": "Laajennetut näkymät",
       "singleWorkspace": "Yksi työtila",
-      "subtitle": "Tilitasolla yhteenvedot työtiloistasi.",
+      "subtitle": "Työtilojen tilitason yhdistely.",
       "workspaces": "Työtilat"
     }
   },
   "imports": {
     "errors": {
       "approveFailed": "Hyväksyminen ja tuonti epäonnistui.",
-      "chooseFile": "Valitse ladattava CSV‑tiedosto.",
-      "enterUrl": "Syötä CSV‑URL-osoite.",
-      "fetchUrlFailed": "CSV‑URL-osoitteen noutaminen epäonnistui.",
+      "chooseFile": "Valitse ladattava CSV-tiedosto.",
+      "enterUrl": "Syötä CSV URL-osoite.",
+      "fetchUrlFailed": "CSV‑osoitteen noutaminen epäonnistui.",
       "mapAtLeastOne": "Määritä vähintään yksi lähdesarake kohdekenttään.",
-      "noRows": "Tiedosto tai URL-osoite ei sisältänyt rivejä.",
-      "openFromCompany": "Avaa tämä sivu yritystyötilasta.",
+      "noRows": "Tiedosto tai URL ei sisältänyt rivejä.",
+      "openFromCompany": "Avaa tämä sivu yrityksen Workspace‑sta.",
       "parseFailed": "CSV‑tiedoston jäsentäminen epäonnistui."
     },
     "mapping": {
@@ -678,26 +678,26 @@
       "description": "Hallinnoi API-avaimia kohteelle <strong>{name}</strong>.",
       "empty": "API-avaimia ei ole vielä.",
       "envLive": "Live",
-      "envTest": "Testi",
+      "envTest": "Testaa",
       "environment": "Ympäristö",
-      "loadFailed": "API-avainten lataaminen epäonnistui.",
+      "loadFailed": "API-avaimia ei voitu ladata.",
       "loading": "Ladataan API-avaimia...",
       "namePlaceholder": "esim. Production webhook",
       "nameRequired": "Nimi on pakollinen.",
       "never": "Ei koskaan",
       "revoke": "Peru",
       "revokeConfirm": "Perutaanko tämä API-avain? Toimenpidettä ei voi perua.",
-      "revokeFailed": "API-avaimen peruuttaminen epäonnistui.",
+      "revokeFailed": "API-avaimen peruutus epäonnistui.",
       "revokedBadge": "Peruutettu",
       "revoking": "Peruutetaan...",
       "savedClose": "Olen tallentanut avaimen — sulje",
       "scopes": {
-        "configRead": "config:read",
-        "configWrite": "config:write",
+        "configRead": "config:luku",
+        "configWrite": "config:kirjoitus",
         "kbRead": "kb:read",
         "leadRead": "lead:read",
-        "leadScore": "lead:score",
-        "leadWrite": "lead:write"
+        "leadScore": "lead:arvio",
+        "leadWrite": "lead:kirjoitus"
       },
       "scopesTitle": "Oikeudet",
       "showRevoked": "Näytä peruutetut",
@@ -767,7 +767,7 @@
       "bulletOutbound": "<strong>Lähtevä:</strong> Lisent → Green API vastauksien lähettämiseen.",
       "connectionFailed": "Yhteystesti epäonnistui.",
       "connectionOk": "Yhteys onnistui.",
-      "credentialsDescription": "Yhdistä Green API -tilisi WhatsApp-viestien lähettämiseen ja vastaanottamiseen.",
+      "credentialsDescription": "Yhdistä Green API -tilisi lähettääksesi ja vastaanottaaksesi WhatsApp-viestejä.",
       "credentialsSaved": "Tunnistetiedot tallennettu.",
       "credentialsTitle": "Green API -tunnistetiedot",
       "disconnectConfirm": "Katkaistaanko Green API -integraatio? Aktiiviset keskustelut eivät vaikuta.",
@@ -822,11 +822,11 @@
       "fieldMappingDescription": "Määritä sisääntulevat kentät CRM-ominaisuuksiin. Lähetä JSON esimerkiksi <code>{example}</code>.",
       "fieldMappingLabel": "Kenttien kartoitus",
       "fieldMappingTitle": "Kenttien kartoitus",
-      "generateHmac": "Luo HMAC-salaisuus",
+      "generateHmac": "Luo HMAC secret",
       "generateToken": "Luo token",
-      "hmacCopied": "HMAC-salaisuus kopioitu.",
+      "hmacCopied": "HMAC secret kopioitu.",
       "hmacExampleTitle": "HMAC-esimerkki",
-      "hmacSecret": "HMAC-salaisuus",
+      "hmacSecret": "HMAC secret",
       "hmacSecretHint": "Käytä tätä salaisuutta laskeaksesi <code>X-Lisent-Signature</code> lähtevissä pyynnöissä.",
       "inactive": "Ei aktiivinen",
       "inboundDescription": "Lähetä payloadit osoitteeseen <code>{url}</code> kerätäksesi liidit intranetistäsi.",
@@ -840,12 +840,63 @@
       "mappingMustBeObject": "Kenttien kartoituksen on oltava JSON-objekti.",
       "mintBearer": "Luo bearer-token",
       "noDeliveries": "Toimituksia ei ole vielä.",
-      "noIntegration": "Intranet-integraatiota ei ole määritetty.",
+      "noIntegration": "Intranetin integraatiota ei ole määritetty.",
+      "outbound": {
+        "deliveryCols": {
+          "eventId": "Tapahtuma ID",
+          "status": "Tila",
+          "toStatus": "→ Tila"
+        },
+        "description": "Kun leadin tila muuttuu tässä CRM:ssä, allekirjoita tapahtuma ja lähetä se POST‑pyynnöllä endpointiisi. Yritämme uudelleen epäonnistumisen sattuessa (6 yritystä noin 7 h aikana) ja sen jälkeen lähetämme dead‑letter‑viestin.",
+        "generateSecretButton": "Luo allekirjoitussalaisuus",
+        "loadFailed": "Outbound‑webhook‑asetusten lataus epäonnistui.",
+        "loading": "Ladataan outbound‑webhookia…",
+        "newSecretHint": "Kopioi tämä salaisuus nyt — hash‑tamme sen, kun tämä dialogi sulkeutuu, ja näytämme jatkossa vain maskatun version.",
+        "newSecretReveal": "Uusi allekirjoitussalaisuus",
+        "pauseHint": "Pysäyttää uudet toimitukset menettämättä URL-osoitettasi. Olemassa olevat odottavat uudelleenyrittämiset jatkavat.",
+        "pauseLabel": "Pysäytä outbound‑webhookit",
+        "rotateSecretButton": "Uudista allekirjoitussalaisuus",
+        "rotateSecretConfirm": "Uudistetaanko allekirjoitussalaisuus? Teidän on päivitettävä vahvistuskoodinne uuteen arvoon.",
+        "rotatingSecret": "Uudistetaan…",
+        "saveButton": "Tallenna ulospäin suuntautuva asetukset",
+        "saveFailed": "Ulospäin suuntautuvan asetuksen tallennus epäonnistui.",
+        "savedNotice": "Ulospäin suuntautuva webhook tallennettu.",
+        "secretConfigured": "Määritetty",
+        "secretNotSet": "Ei asetettu — luo se ennen tapahtumien lähettämistä.",
+        "secretRotatedAt": "(uudistettu {time})",
+        "secretRotatedNotice": "Allekirjoitussalaisuus uudistettu. Selväkielinen arvo näytetään vain kerran.",
+        "selectAtLeastOne": "Valitse vähintään yksi tila tai merkitse 'Kaikki tilamuutokset'.",
+        "signingSecretLabel": "Allekirjoitussalaisuus (HMAC-SHA256)",
+        "statusFilterHint": "Valitse, mitkä siirtymät käynnistävät webhookin. Käytä '*' saadaksesi kaikki tilamuutokset.",
+        "statusFilterTitle": "Tilan suodatin",
+        "statusLabels": {
+          "contacted": "Leadia on otettu yhteyttä",
+          "converted": "Lead muutettu asiakkaaksi",
+          "lost": "Lead merkitty menetykseksi",
+          "new": "Lead juuri luotu",
+          "qualified": "Lead kvalifioitu AI:n / myynnin toimesta"
+        },
+        "testButton": "Lähetä testitapahtuma",
+        "testEnqueued": "Testitapahtuma asetettu jonoon: {eventId}",
+        "testFailed": "Testitapahtuma epäonnistui.",
+        "testHint": "Lähettää synteettisen lead.status_changed -tapahtuman URL-osoitteeseesi käyttäen samoja otsikoita ja allekirjoitusta kuin todelliset tapahtumat.",
+        "testTitle": "Lähetä testitapahtuma",
+        "testToStatusLabel": "to_status (mikä siirtymä simuloidaan)",
+        "title": "Lähtevä webhook (tilapäivitykset)",
+        "urlHint": "Lähetämme POST-pyynnön tilamuutostapahtumia tähän URL-osoitteeseen HMAC-SHA256-allekirjoituksella. Tuotannossa on oltava HTTPS.",
+        "urlLabel": "Päätepisteen URL",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Tallenna URL-osoite ennen salaisuuden luomista.",
+        "verificationIntro": "Jokainen pyyntö sisältää seuraavat otsikot:",
+        "verificationNote": "Jos vastaanotat toimituksen, jonka aikaleima on yli 5 minuuttia vanha, hylkää se toistona.",
+        "verificationTitle": "Kuinka tarkistaa omalla puolellasi",
+        "verifyByComputing": "Vahvista laskemalla HMAC uudelleen '<timestamp>.<rawBody>' -yli ja vertaamalla vakioaikaisesti:"
+      },
       "recentDeliveries": "Viimeisimmät toimitukset",
       "requestExamples": "Pyydä esimerkkejä",
       "revealDescription": "Tokenit näytetään vain kerran.",
       "revealedBearerLabel": "Uusi bearer-token",
-      "revealedHmacLabel": "Uusi HMAC-salaisuus",
+      "revealedHmacLabel": "Uusi HMAC secret",
       "revokeBearerConfirm": "Peruutetaanko tämä bearer-token? Sen avulla tehdyt kutsut epäonnistuvat.",
       "revokeSecondaryTokenConfirm": "Peruutetaanko toissijainen sisääntuleva token?",
       "revokeSecretConfirm": "Peruutetaanko tämä HMAC-salaisuus? Sillä allekirjoitetut kutsut epäonnistuvat.",
@@ -1033,23 +1084,23 @@
         "outputsLeadList": "<strong>Lead list:</strong> Kvalifioidut leadit kirjoitetaan takaisin CRM:siin.",
         "outputsTitle": "Tulokset",
         "tip": "Aloita <strong>Fallback</strong>- ja <strong>Lead webhook</strong>-asetuksilla, sitten ota käyttöön yksittäiset kanavat.",
-        "title": "Yleiskatsaus",
+        "title": "Yhteenveto",
         "tuningAiConfig": "<strong>AI configuration:</strong> Kynnysarvo, kehys, promptin ohitukset.",
         "tuningCallback": "<strong>Callback:</strong> Paikka, johon kvalifioidut leadit lähetetään.",
-        "tuningRag": "<strong>Tietopohja (RAG):</strong> Asiakirjat, joihin avustaja voi viitata.",
+        "tuningRag": "<strong>Tietopohja (RAG):</strong> Dokumentit, joihin avustaja voi viitata.",
         "tuningTitle": "Viritys"
       },
-      "qualificationThreshold": "Kelpoisuusraja",
-      "revokeSecondaryConfirm": "Peruuttaa toissijaisen verkkokoukun salaisuus?",
-      "rotateWebhookConfirm": "Kierrä webhookin salaisuus? Vanha salaisuus pysyy voimassa kiertoikkunan ajan.",
-      "saveAiConfig": "Tallenna tekoälykonfiguraatio",
-      "secondaryRevoked": "Toissijaisen verkkokoukun salaisuus peruutettu.",
-      "sectorLabel": "Ala",
-      "thresholdHint": "Tämän kynnysarvon saavuttaneet tai sen ylittävät liidit merkitään päteviksi.",
-      "webhookUrlLabel": "Webhookin URL-osoite"
+      "qualificationThreshold": "Kvalifiointikynnys",
+      "revokeSecondaryConfirm": "Perutaanko toissijainen webhook‑salaisuus?",
+      "rotateWebhookConfirm": "Uudistetaanko webhook‑salaisuutta? Vanha salaisuus pysyy voimassa kierrätysikkunan ajan.",
+      "saveAiConfig": "Tallenna AI‑asetukset",
+      "secondaryRevoked": "Toissijainen webhook‑salaisuus peruttu.",
+      "sectorLabel": "Toimiala",
+      "thresholdHint": "Leadit, jotka saavat pisteitä tämän kynnyksen tasolla tai korkeammalla, merkitään kvalifioiduiksi.",
+      "webhookUrlLabel": "Webhook‑URL"
     },
     "rag": {
-      "chunkLabel": "Chunk",
+      "chunkLabel": "Osio",
       "chunksColumn": "Osat",
       "description": "Tietopohja kohteelle <strong>{name}</strong>. Lataa asiakirjoja, joita AI voi käyttää viitteinä.",
       "ingestedDescription": "Asiakirjat, jotka ovat tällä hetkellä tietopohjassa kohteelle <strong>{name}</strong>.",
@@ -1057,7 +1108,7 @@
       "ingestionExampleDescription": "Lähetä POST-pyyntö osoitteeseen <code>{url}</code> JSON‑runko, joka sisältää <code>title</code>, <code>content</code> ja valinnaisen <code>metadata</code>.",
       "ingestionExampleTitle": "Syötteen esimerkki",
       "loadConfigFailed": "RAG‑asetusten lataaminen epäonnistui.",
-      "loadContentFailed": "Asiakirjan sisällön lataaminen epäonnistui.",
+      "loadContentFailed": "Dokumentin sisällön lataaminen epäonnistui.",
       "loadDocsFailed": "Asiakirjojen lataaminen epäonnistui.",
       "loading": "Ladataan RAG…",
       "loadingContent": "Ladataan sisältöä…",
@@ -1068,7 +1119,7 @@
       "revokeConfirm": "Peruutetaanko toissijainen syöttötunnus?",
       "rotateConfirm": "Kierrätetäänkö syöttötunnus? Vanha tunnus pysyy voimassa kierräysikkunan ajan.",
       "sourceLink": "Lähde",
-      "title": "Tietopohja (RAG)",
+      "title": "Tietopankki (RAG)",
       "titleColumn": "Otsikko",
       "updatedColumn": "Päivitetty"
     },
@@ -1079,7 +1130,7 @@
     "revoking": "Perutaan...",
     "role": {
       "anyRole": "Kaikki roolit",
-      "ownerOnly": "Vain omistajat",
+      "ownerOnly": "Vain omistajille",
       "viewOnly": "Vain luku",
       "viewOnlyTitle": "Vain luku -pääsy"
     },
@@ -1183,12 +1234,12 @@
       "destinationUrl": "Kohde-URL",
       "dlqCols": {
         "attempts": "Yritykset",
-        "eventId": "Tapahtuman id",
+        "eventId": "Tapahtuman ID",
         "movedToDlq": "Siirretty DLQ:hen",
         "reason": "Syy",
         "type": "Tyyppi"
       },
-      "dlqEmpty": "Kuolleiden kirjeiden jono on tyhjä.",
+      "dlqEmpty": "Kuolleen kirjeen jono on tyhjä.",
       "dlqTitle": "Kuolleiden kirjeiden jono",
       "eventSelectionDescription": "Valitse, mitkä tapahtumatyypit Lisent toimittaa. Käytä <code>*</code> tilataksesi kaikki.",
       "eventSelectionSaved": "Tapahtumavalinta tallennettu.",
@@ -1261,7 +1312,7 @@
       "clearSelection": "Tyhjennä valinta",
       "delete": "Poista",
       "exportCsv": "Vie CSV",
-      "exportPdf": "Export PDF",
+      "exportPdf": "Vie PDF",
       "selected": "{count} valittua"
     },
     "bulkDelete": {
@@ -1369,7 +1420,7 @@
       "customerNameRequired": "Asiakkaan nimi on pakollinen.",
       "deleteLead": "Leadia ei voitu poistaa.",
       "deleteNote": "Muistiinpanoa ei voitu poistaa.",
-      "exportPdf": "Failed to generate PDF.",
+      "exportPdf": "PDF:n luominen epäonnistui.",
       "loadCompanies": "Yritysten lataaminen epäonnistui.",
       "loadLeads": "Leadien lataaminen epäonnistui.",
       "loadNotes": "Muistiinpanojen lataaminen epäonnistui.",
@@ -1393,7 +1444,7 @@
     },
     "formModal": {
       "assignee": "Vastuuhenkilö",
-      "assignmentMode": "Määritystila",
+      "assignmentMode": "Asetustila",
       "createLead": "Luo lead",
       "editEyebrow": "Muokkaa leadia",
       "editTitle": "Päivitä lead",
@@ -1438,11 +1489,7 @@
       "unknownAuthor": "Tuntematon"
     },
     "pdf": {
-      "createdAt": "Created",
-      "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Leads"
+      "createdAt": "Luotu"
     },
     "rowMenu": {
       "convert": "Muunna",
@@ -1509,8 +1556,8 @@
     }
   },
   "marketing": {
-    "authBody": "Kirjautuminen, rekisteröityminen ja istunnon vahvistus <code>/api/auth</code>-rajapinnan kautta",
-    "authTitle": "Auth",
+    "authBody": "Sisäänkirjautuminen, rekisteröityminen ja istunnon vahvistus via <code>/api/auth</code>",
+    "authTitle": "Tunnistus",
     "bffBody": "Selainkutsujen tulisi pysähtyä tähän sovellukseen. Luotettavat palvelinreitit kommunikoivat sisäisen CRM-palvelun kanssa.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
@@ -1555,14 +1602,14 @@
     "ctaCreateWorkspace": "Luo työtilan käyttöoikeus",
     "ctaOpenShell": "Avaa suojattu kuori",
     "currentStack": "Nykyinen stack",
-    "heroEyebrow": "Ääni-natiivinen CRM-alusta",
-    "heroLead": "Lisent CRM yhdistää todennuksen, vuokraajakohtaiset työnkulut, profiilin tuonti‑onboardingin ja suojatun sovelluskuoren yritysoperaattoreille. Web‑sovellus hallitsee käyttäjälle näkyviä prosesseja. Go CRM -palvelu pysyy luotettavan taustajärjestelmän rajan takana.",
-    "heroTitle": "Ymmärrä aikomus, ei pelkkiä sanoja.",
+    "heroEyebrow": "Ääniä tukeva CRM-alusta",
+    "heroLead": "Lisent CRM yhdistää todennuksen, vuokraajakohtaiset työnkulut, tuontiprofiilin käyttöönoton ja suojatun sovelluskuoren yrityskäyttäjille. Web-sovellus hallitsee käyttäjälle näkyviä prosesseja. Go CRM -palvelu pysyy luotettavan taustajärjestelmän takana.",
+    "heroTitle": "Ymmärrämme tarkoituksen, ei pelkästään sanoja.",
     "navSignIn": "Kirjaudu sisään",
     "navStartNow": "Aloita nyt",
     "stackItems": {
       "auth": "SuperTokens Email/Password + Session",
-      "crm": "Go CRM -palvelu BFF‑rajapinnan takana",
+      "crm": "Go CRM -palvelu BFF-rajapinnan takana",
       "next": "Next.js 16 App Router",
       "ts": "TypeScript + Tailwind CSS 4"
     },
@@ -1572,9 +1619,9 @@
       "email": "Sähköposti",
       "forms": "Lomakkeet"
     },
-    "tenantBody": "Seuraava taso ratkaisee <code>user_id</code>-, <code>company_id</code>- ja roolin jokaisessa istunnossa.",
-    "tenantTitle": "Vuokralaisen konteksti",
-    "whatThisAppOwns": "Mitä tämä sovellus omistaa"
+    "tenantBody": "Seuraava taso ratkaisee <code>user_id</code>-, <code>company_id</code>- ja roolit istunnon mukaan.",
+    "tenantTitle": "Vuokraajakonteksti",
+    "whatThisAppOwns": "Mitä tämä sovellus hallinnoi"
   },
   "nav": {
     "brandName": "Lisent CRM",
@@ -1632,7 +1679,7 @@
     },
     "dashboard": {
       "description": "Työtilan yleiskatsaus ja pikatoiminnot.",
-      "title": "Kojelauta"
+      "title": "Dashboard"
     },
     "deals": {
       "description": "Seuraa avoimia kauppoja ja putken arvoa.",
@@ -1668,14 +1715,14 @@
     }
   },
   "qualifier": {
-    "companyOrBuyerProfile": "Yrityksen / ostajan profiili",
+    "companyOrBuyerProfile": "Yritys / ostajaprofiili",
     "fallbackExplanation": "LLM‑arviointia ei suoritettu — pisteytys laskettiin lomaketietojen laadun perusteella.",
     "fallbackMode": "Varmuustila",
     "formulaAudit": "Kaavan tarkastus",
-    "keyQuestions": "Keskeiset kysymykset puheluun",
-    "leadAssessment": "Lead arviointi",
-    "llmMedian": "LLM mediaani",
-    "noScoreYet": "Arvosanaa ei ole vielä.",
+    "keyQuestions": "Keskeiset kysymykset puhelua varten",
+    "leadAssessment": "Lead assessment",
+    "llmMedian": "LLM‑mediaani",
+    "noScoreYet": "Arviota ei vielä ole.",
     "rawAnalysis": "Raaka-analyysin tulos",
     "recommendedOpening": "Suositeltu aloitus",
     "risksToWatch": "Seurattavat riskit",
@@ -1692,11 +1739,11 @@
     "actions": {
       "accept": "Hyväksy",
       "delete": "Poista",
-      "markDone": "Mark done",
+      "markDone": "Merkitse valmiiksi",
       "publish": "Julkaise",
-      "publishing": "Kustannustoiminta...",
+      "publishing": "Julkaistaan...",
       "reject": "Hylkää",
-      "startWork": "Töiden aloittaminen"
+      "startWork": "Aloita työ"
     },
     "activeCount": "{count} aktiivista",
     "assignmentMode": {
@@ -1782,7 +1829,7 @@
     "success": {
       "assigned": "Tehtävä määritetty.",
       "deleted": "Tehtävä poistettu.",
-      "deletedBroadcast": "Lähetystehtävä poistettu.",
+      "deletedBroadcast": "Lähetys poistettu.",
       "publishedTeam": "Tehtävä julkaistu tiimille."
     },
     "summary": {
@@ -1807,7 +1854,7 @@
     "aria": {
       "removeName": "Poista {name}"
     },
-    "cantRemove": "Et voi poistaa itseäsi.",
+    "cantRemove": "Etä etäsiä itseäsi ei voi.",
     "columns": {
       "actions": "Toiminnot",
       "dateAdded": "Lisäyspäivä",
@@ -1843,7 +1890,7 @@
       "description": "{name} menettää pääsyn tähän workspaceen heti.",
       "eyebrow": "Poista tiimin jäsen",
       "removing": "Poistetaan…",
-      "title": "Poistetaanko tiimin jäsen?"
+      "title": "Poista tiimin jäsen?"
     },
     "roleModal": {
       "confirm": "Vaihda rooli",
@@ -1872,7 +1919,7 @@
     "demoUser": "Demo‑käyttäjä",
     "openMenu": "Avaa tilivalikko",
     "signOut": "Kirjaudu ulos",
-    "workspaceUser": "Workspace user"
+    "workspaceUser": "Työtilan käyttäjä"
   },
   "validation": {
     "firstNameRequired": "Nimi on pakollinen.",

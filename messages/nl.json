@@ -2,9 +2,9 @@
   "account": {
     "changeNote": "Wijzigingen werken het ingelogde gebruikersprofiel bij dat door het dashboard wordt gebruikt.",
     "editProfile": "Profiel bewerken",
-    "emailNotEditable": "E‑mailwijzigingen worden op dit scherm niet verwerkt.",
+    "emailNotEditable": "E-mailwijzigingen worden op dit scherm niet verwerkt.",
     "fields": {
-      "companyAccess": "Toegang tot bedrijf",
+      "companyAccess": "Bedrijfs‑toegang",
       "companyMemberships": "Bedrijfslidmaatschappen",
       "email": "E‑mail",
       "firstName": "Voornaam",
@@ -13,7 +13,7 @@
       "lastName": "Achternaam",
       "phoneNumber": "Telefoonnummer",
       "platformRole": "Platformrol",
-      "userId": "User id"
+      "userId": "Gebruikers‑ID"
     },
     "fixHighlighted": "Corrigeer de gemarkeerde accountvelden.",
     "gender": {
@@ -34,20 +34,20 @@
     },
     "profileSummary": "Profieloverzicht",
     "saveButton": "Instellingen opslaan",
-    "saveFailed": "Kan accountinstellingen niet opslaan.",
+    "saveFailed": "Opslaan van accountinstellingen mislukt.",
     "saved": "Accountinstellingen opgeslagen.",
     "saving": "Opslaan…",
     "subtitle": "Beheer uw profiel, voorkeuren en toegang.",
     "title": "Accountinstellingen"
   },
   "auth": {
-    "alreadyHaveAccess": "Hebt u al toegang?",
+    "alreadyHaveAccess": "Heeft u al toegang?",
     "authFailed": "Authenticatie mislukt.",
     "createAnAccount": "Account aanmaken",
-    "creatingAccount": "Account wordt aangemaakt…",
+    "creatingAccount": "Account aanmaken…",
     "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
-    "newWorkspaceUser": "Nieuwe workspace‑gebruiker?",
+    "newWorkspaceUser": "Nieuwe workspace-gebruiker?",
     "passwordLabel": "Wachtwoord",
     "passwordPlaceholderSignIn": "Voer uw wachtwoord in",
     "passwordPlaceholderSignUp": "Maak een sterk wachtwoord",
@@ -56,11 +56,11 @@
     "signInButton": "Inloggen",
     "signInInstead": "Inloggen in plaats daarvan",
     "signInSubtitle": "Gebruik de bedrijfsaccountgegevens die aan uw team zijn verstrekt.",
-    "signInTitle": "Toegang tot uw werkruimte",
+    "signInTitle": "Toegang tot uw workspace",
     "signUp": "Registreren",
     "signUpButton": "Account aanmaken",
     "signUpSubtitle": "Begin met e‑mail en wachtwoord. Toewijzing van tenant volgt daarna.",
-    "signUpTitle": "Maak toegang tot uw werkruimte aan",
+    "signUpTitle": "Maak toegang tot uw workspace aan",
     "signingIn": "Bezig met inloggen…",
     "workspaceAuth": "Workspace-authenticatie",
     "wrongCredentials": "E‑mail of wachtwoord is onjuist."
@@ -71,7 +71,7 @@
       "clear": "Wissen",
       "createEvent": "Evenement maken",
       "deleteEvent": "Evenement verwijderen",
-      "filter": "Filter",
+      "filter": "Filteren",
       "invite": "Uitnodigen",
       "new": "Nieuw",
       "saveChanges": "Wijzigingen opslaan"
@@ -91,12 +91,12 @@
       "upcoming": "Geen aankomende evenementen."
     },
     "errors": {
-      "delete": "Kan evenement niet verwijderen.",
-      "linkRecordMissing": "Gekoppeld record is vereist wanneer een koppelingstype is geselecteerd.",
-      "loadCompanies": "Kan bedrijven niet laden.",
-      "loadEvents": "Kan evenementen niet laden.",
+      "delete": "Verwijderen van evenement mislukt.",
+      "linkRecordMissing": "Gekoppeld record is vereist wanneer een linktype is geselecteerd.",
+      "loadCompanies": "Bedrijven laden mislukt.",
+      "loadEvents": "Evenementen laden mislukt.",
       "pastDate": "Evenement kan niet in het verleden beginnen.",
-      "save": "Kan evenement niet opslaan.",
+      "save": "Kan gebeurtenis niet opslaan.",
       "startRequired": "Startdatum en -tijd zijn vereist.",
       "titleRequired": "Titel is vereist."
     },
@@ -110,22 +110,22 @@
       "call": "Oproep",
       "deadline": "Deadline",
       "demo": "Demo",
-      "follow_up": "Follow-up",
+      "follow_up": "Follow‑up",
       "meeting": "Vergadering"
     },
     "fields": {
-      "allDayEvent": "Hele dag",
-      "assignee": "Toegewezen aan",
+      "allDayEvent": "Hele‑dag‑evenement",
+      "assignee": "Toegewezen persoon",
       "companyRecord": "Bedrijfsrecord",
       "customerLink": "Klantlink",
       "description": "Beschrijving",
       "end": "Einde",
       "endDate": "Einddatum",
-      "eventType": "Evenementtype",
+      "eventType": "Gebeurtenistype",
       "linkTo": "Koppelen aan",
       "linkedRecord": "Gekoppeld record",
       "location": "Locatie",
-      "meetingUrl": "Meeting‑URL",
+      "meetingUrl": "Meeting URL",
       "reminder": "Herinnering",
       "start": "Start",
       "startDate": "Startdatum",
@@ -145,13 +145,13 @@
       "lead": "Lead",
       "none": "Geen"
     },
-    "loading": "Agenda laden...",
+    "loading": "Kalender laden…",
     "modal": {
       "editEyebrow": "Evenement bewerken",
       "editTitle": "Kalendergebeurtenis bijwerken",
       "newEyebrow": "Nieuw evenement",
       "newTitle": "Kalendergebeurtenis plannen",
-      "subtitle": "Plan gesprekken, vergaderingen en follow‑ups gekoppeld aan uw CRM‑records."
+      "subtitle": "Plan oproepen, vergaderingen en follow‑ups gekoppeld aan uw CRM‑records."
     },
     "moreCount": "+{count} meer",
     "placeholders": {
@@ -163,7 +163,7 @@
       "title": "Ontdekkingsgesprek met..."
     },
     "searchAriaLabel": "Evenementen zoeken",
-    "searchPlaceholder": "Evenementen zoeken...",
+    "searchPlaceholder": "Zoek evenementen...",
     "selectedCompanyFallback": "Uw workspace",
     "success": {
       "created": "Evenement aangemaakt.",
@@ -171,7 +171,7 @@
       "updated": "Evenement bijgewerkt."
     },
     "tabs": {
-      "allScheduled": "Alle gepland",
+      "allScheduled": "Alle ingepland",
       "events": "Evenementen",
       "meetings": "Vergaderingen",
       "taskReminders": "Taakherinneringen"
@@ -179,7 +179,7 @@
     "title": "Agenda",
     "today": "Vandaag",
     "unassigned": "Niet toegewezen",
-    "untitled": "Naamloos evenement",
+    "untitled": "Evenement zonder titel",
     "view": {
       "day": "Dag",
       "month": "Maand",
@@ -220,18 +220,18 @@
       "clearSelection": "Selectie wissen",
       "confirmDelete": "Geselecteerde verwijderen",
       "deleteDescription": "Dit zal {count} klantrecords permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
-      "deleteEyebrow": "Bulk verwijderen",
+      "deleteEyebrow": "Bulkverwijdering",
       "deleteTitle": "Geselecteerde klanten verwijderen?",
       "regionLabel": "Bulkacties",
       "selectedCount": "{count} geselecteerd"
     },
-    "closeAddPopup": "Dialoog klant toevoegen sluiten",
+    "closeAddPopup": "Dialoogvenster klant toevoegen sluiten",
     "confirmDelete": "Verwijderen",
     "delete": "Verwijderen",
-    "deleteConfirmDescription": "Dit zal dit klantrecord permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
+    "deleteConfirmDescription": "Dit verwijdert dit klantrecord permanent. Deze actie kan niet ongedaan worden gemaakt.",
     "deleteConfirmTitle": "Klant verwijderen?",
     "deleteCustomer": "Klant verwijderen",
-    "deleting": "Verwijderen...",
+    "deleting": "Verwijderen…",
     "detail": {
       "closeDrawer": "Klantdetails sluiten",
       "contact": "Contact",
@@ -245,19 +245,19 @@
       "deleteCustomer": "Klant kon niet worden verwijderd.",
       "loadCompanies": "Bedrijven konden niet worden geladen.",
       "loadCustomers": "Klanten konden niet worden geladen.",
-      "saveCustomer": "Klant kon niet worden opgeslagen."
+      "saveCustomer": "Opslaan van klant mislukt."
     },
     "fields": {
       "actions": "Acties",
       "company": "Bedrijf",
-      "companyId": "Bedrijfs-ID",
+      "companyId": "Bedrijf-id",
       "country": "Land",
       "countryCode": "Landcode",
       "customer": "Klant",
-      "customerId": "Klant-ID",
+      "customerId": "Klant-id",
       "email": "E‑mail",
       "firstName": "Voornaam",
-      "id": "ID",
+      "id": "Id",
       "industry": "Industrie",
       "lastName": "Achternaam",
       "name": "Naam",
@@ -269,12 +269,12 @@
     "form": {
       "createCustomer": "Klant aanmaken",
       "createEyebrow": "Nieuwe klant",
-      "createSubtitle": "Vastleggen van kerncontactgegevens. U kunt later de rest invullen.",
+      "createSubtitle": "Leg de belangrijkste contactgegevens vast. U kunt later de rest invullen.",
       "editEyebrow": "Klant bewerken",
       "saveChanges": "Wijzigingen opslaan"
     },
     "list": {
-      "empty": "Geen klanten die overeenkomen met de huidige filters.",
+      "empty": "Er zijn geen klanten die overeenkomen met de huidige filters.",
       "eyebrow": "Klantendirectory",
       "selectAll": "Alle klanten selecteren",
       "selectRow": "Klant {name} selecteren",
@@ -291,9 +291,9 @@
     },
     "search": {
       "label": "Zoeken",
-      "placeholder": "Zoek klanten..."
+      "placeholder": "Zoek klanten…"
     },
-    "selectedCompany": "Actieve werkruimte: {name}",
+    "selectedCompany": "Actieve workspace: {name}",
     "status": {
       "active": "Actief",
       "all": "Alle",
@@ -311,22 +311,22 @@
   },
   "deals": {
     "activeOpportunity": "Actieve kans",
-    "addComment": "Reactie toevoegen",
+    "addComment": "Opmerking toevoegen",
     "addDeal": "Deal toevoegen",
     "aiInsights": {
       "aiScore": "AI-score",
       "aiStatus": "AI-status",
-      "champExtraction": "CHAMP‑extractie",
+      "champExtraction": "CHAMP-extractie",
       "path": "Pad",
       "reasoningReport": "Redeneringsrapport",
-      "scoredAt": "Beoordeeld op {date}",
-      "title": "AI‑inzichten"
+      "scoredAt": "Gescoord op {date}",
+      "title": "AI-inzichten"
     },
     "amount": "Bedrag",
     "amountValue": "{amount}",
-    "assignee": "Toegewezen",
+    "assignee": "Toegewezen aan",
     "assigneeValue": "{name}",
-    "boardHint": "Sleep deals tussen stages om de pipeline bij te werken.",
+    "boardHint": "Sleep deals tussen fases om de pipeline bij te werken.",
     "changedBy": "Gewijzigd door {name}",
     "close": "Sluiten",
     "closeTarget": "Sluitdoel",
@@ -338,7 +338,7 @@
     "commentsEmpty": "Nog geen reacties.",
     "deal": "Deal",
     "dealDetail": "Dealdetails",
-    "dealList": "Deallijst",
+    "dealList": "Dealoverzicht",
     "dealValue": "Dealwaarde",
     "dealsInPipeline": "{count} deals in pipeline",
     "dealsInView": "{count} deals in view",
@@ -346,22 +346,22 @@
     "deleteConfirmDescription": "Dit verwijdert deze deal permanent. Deze actie kan niet ongedaan worden gemaakt.",
     "deleteConfirmTitle": "Deal verwijderen?",
     "deleteDeal": "Deal verwijderen",
-    "deleting": "Verwijderen...",
+    "deleting": "Verwijderen…",
     "editDeal": "Deal bewerken",
-    "emptyColumn": "Geen deals in deze fase.",
+    "emptyColumn": "Geen deals in deze stage.",
     "errors": {
-      "addComment": "Commentaar toevoegen mislukt.",
-      "deleteDeal": "Deal verwijderen mislukt.",
-      "loadCompanies": "Bedrijven laden mislukt.",
-      "loadDeals": "Deals laden mislukt.",
+      "addComment": "Kan opmerking niet toevoegen.",
+      "deleteDeal": "Kan deal niet verwijderen.",
+      "loadCompanies": "Kan bedrijven niet laden.",
+      "loadDeals": "Kan deals niet laden.",
       "nameRequired": "Dealnaam is verplicht.",
-      "saveDeal": "Deal opslaan mislukt.",
-      "unsupportedCurrency": "Niet-ondersteunde valuta."
+      "saveDeal": "Kan deal niet opslaan.",
+      "unsupportedCurrency": "Niet‑ondersteunde valuta."
     },
     "extraData": "Extra gegevens",
     "fields": {
       "company": "Bedrijf",
-      "companyId": "Bedrijfs-id",
+      "companyId": "Bedrijf-id",
       "country": "Land",
       "created": "Aangemaakt",
       "currency": "Valuta",
@@ -369,18 +369,18 @@
       "industry": "Industrie",
       "lossReason": "Reden van verlies",
       "records": "Records",
-      "sourceLead": "Bronlead",
+      "sourceLead": "Bron lead",
       "termination": "Beëindiging",
       "updated": "Bijgewerkt",
-      "wonReason": "Reden van gewonnen"
+      "wonReason": "Reden van winst"
     },
     "filters": {
       "allAssignees": "Alle toegewezen personen",
-      "allStages": "Alle fases",
+      "allStages": "Alle stages",
       "assigneeLabel": "Toegewezen persoon",
       "searchLabel": "Zoeken",
       "searchPlaceholder": "Zoek deals...",
-      "stageLabel": "Fase"
+      "stageLabel": "Stage"
     },
     "form": {
       "assigneeHint": "Kies een teamgenoot om deze deal toe te wijzen.",
@@ -389,13 +389,13 @@
       "editTitle": "Deal bijwerken",
       "fields": {
         "amount": "Bedrag",
-        "assignee": "Toegewezen aan",
+        "assignee": "Toegewezen persoon",
         "currency": "Valuta",
         "customer": "Klant",
         "dealName": "Dealnaam",
         "expectedCloseDate": "Verwachte sluitingsdatum",
         "lossReason": "Reden van verlies",
-        "pipelineStage": "Pipeline‑fase",
+        "pipelineStage": "Pipeline stage",
         "sourceLead": "Bron‑lead",
         "terminationDate": "Beëindigingsdatum",
         "wonReason": "Reden van winst"
@@ -408,13 +408,13 @@
       },
       "placeholders": {
         "amount": "0.00",
-        "dealName": "Acme — Q3‑uitbreiding",
-        "lossReason": "Waarom is deze deal verloren?",
+        "dealName": "Acme — Q3 expansion",
+        "lossReason": "Waarom is deze deal verloren gegaan?",
         "wonReason": "Waarom is deze deal gewonnen?"
       },
       "saveChanges": "Wijzigingen opslaan"
     },
-    "kanbanBoard": "Kanban-bord",
+    "kanbanBoard": "Kanban‑bord",
     "loadingBoard": "Bord laden…",
     "loadingDeals": "Deals laden…",
     "meetingTitle": "Vergadering",
@@ -422,33 +422,33 @@
     "noDealsMatch": "Geen deals komen overeen met de huidige filters.",
     "noLossReason": "Geen verliesreden geregistreerd.",
     "noRelatedCustomer": "Geen gerelateerde klant.",
-    "noWinReason": "Geen winstreden geregistreerd.",
+    "noWinReason": "Geen winreden geregistreerd.",
     "notSet": "Niet ingesteld",
-    "now": "Nu",
-    "pipelineLoading": "Pipeline laden…",
-    "posting": "Publiceren…",
+    "now": "nu",
+    "pipelineLoading": "Pipeline laden...",
+    "posting": "Plaatsen...",
     "relatedRecords": "Gerelateerde records",
     "scheduleActivity": "Activiteit plannen",
     "selectedCompany": "Actieve workspace: {name}",
     "stage": {
       "lost": "Verloren",
-      "lostDescription": "Gesloten deals om van te leren.",
+      "lostDescription": "Gesloten verloren deals om van te leren.",
       "negotiation": "Onderhandeling",
       "negotiationDescription": "Afstemming over prijzen, voorwaarden en tijdlijnen.",
       "new": "Nieuw",
-      "newDescription": "Recent gecreëerde kansen die nog niet gekwalificeerd zijn.",
+      "newDescription": "Recent aangemaakte kansen die nog niet gekwalificeerd zijn.",
       "proposal": "Voorstel",
-      "proposalDescription": "Formeel voorstel verzonden en in behandeling.",
+      "proposalDescription": "Formeel voorstel verzonden en in beoordeling.",
       "qualified": "Gekwalificeerd",
-      "qualifiedDescription": "De geschiktheid voor de klant en het budget zijn gevalideerd.",
-      "won": "Won",
-      "wonDescription": "Afgesloten deals geboekt als omzet."
+      "qualifiedDescription": "Klantfit en budget zijn gevalideerd.",
+      "won": "Gewonnen",
+      "wonDescription": "Gesloten gewonnen deals geboekt als omzet."
     },
-    "stageHistory": "Fasengeschiedenis",
-    "stageHistoryEmpty": "Nog geen fasewijzigingen geregistreerd.",
+    "stageHistory": "Stagegeschiedenis",
+    "stageHistoryEmpty": "Nog geen stagewijzigingen geregistreerd.",
     "stageRange": "{from} → {to}",
     "success": {
-      "commentAdded": "Opmerking toegevoegd.",
+      "commentAdded": "Reactie toegevoegd.",
       "created": "Deal aangemaakt.",
       "deleted": "Deal verwijderd.",
       "updated": "Deal bijgewerkt."
@@ -458,7 +458,7 @@
     "thisDeal": "Deze deal",
     "unassigned": "Niet toegewezen",
     "unknownAuthor": "Onbekend",
-    "untitledDeal": "Deal zonder titel"
+    "untitledDeal": "Naamloze deal"
   },
   "errors": {
     "forbidden": "U heeft geen toestemming.",
@@ -469,7 +469,7 @@
   },
   "home": {
     "activity": {
-      "chartAriaLabel": "Activiteitgrafiek van de afgelopen week",
+      "chartAriaLabel": "Activiteitsgrafiek van de afgelopen week",
       "empty": "Nog geen activiteit geregistreerd voor {name}.",
       "emptyDefault": "Nog geen activiteit geregistreerd.",
       "legendDeals": "Deals",
@@ -478,28 +478,28 @@
       "title": "Activiteit"
     },
     "company": {
-      "createWorkspace": "Werkruimte maken",
-      "goToOverview": "Ga naar overzicht van werkruimte",
-      "noWorkspaceHelp": "Selecteer een werkruimte in de switcher om live gegevens te bekijken.",
-      "noWorkspaceSelected": "Geen werkruimte geselecteerd",
-      "pickWorkspace": "Selecteer een werkruimte",
-      "subtitleSelected": "Werkruimte‑statistieken voor {name}.",
+      "createWorkspace": "Workspace maken",
+      "goToOverview": "Ga naar workspace‑overzicht",
+      "noWorkspaceHelp": "Selecteer een workspace in de switcher om live gegevens te bekijken.",
+      "noWorkspaceSelected": "Geen workspace geselecteerd",
+      "pickWorkspace": "Selecteer een workspace",
+      "subtitleSelected": "Workspace‑statistieken voor {name}.",
       "subtitleWithName": "Welkom terug, {name}."
     },
     "errors": {
       "loadDashboard": "Kan dashboardgegevens niet laden.",
-      "loadSnapshot": "Kan werkruimsnapshot niet laden.",
-      "loadWorkspaces": "Kan werkruimtes niet laden."
+      "loadSnapshot": "Kan workspace‑snapshot niet laden.",
+      "loadWorkspaces": "Kan workspaces niet laden."
     },
     "kpi": {
       "customers": "Klanten",
-      "customersHint": "Totaal aantal accounts in deze werkruimte.",
+      "customersHint": "Totaal aantal accounts in deze workspace.",
       "customersInWorkspace": "Klanten in {name}",
       "deals": "Deals",
       "dealsAmountEmpty": "Nog geen dealwaarde.",
       "leads": "Leads",
       "leadsHint": "Actieve leads in de pipeline.",
-      "openPipelineHint": "Open pipelinewaarde over alle fases.",
+      "openPipelineHint": "Open pipeline-waarde over alle fasen.",
       "openPipelineValue": "{value}"
     },
     "overview": {
@@ -508,8 +508,8 @@
       "title": "Overzicht"
     },
     "pipeline": {
-      "empty": "Nog geen pipelinegegevens voor {name}.",
-      "emptyDefault": "Nog geen pipelinegegevens.",
+      "empty": "Nog geen pipeline-gegevens voor {name}.",
+      "emptyDefault": "Nog geen pipeline-gegevens.",
       "subtitle": "Verdeling van deals per fase.",
       "title": "Pipeline",
       "totalBadge": "{value} totaal"
@@ -518,11 +518,11 @@
       "aiQualifier": {
         "cta": "Open AI-kwalificator",
         "description": "Score en kwalificeer leads automatisch.",
-        "title": "AI-kwalificatie"
+        "title": "AI-kwalificator"
       },
       "customerImport": {
         "cta": "Import starten",
-        "description": "Importeer klantgegevens in uw workspace.",
+        "description": "Breng klantgegevens naar uw workspace.",
         "title": "Klanten importeren"
       },
       "homeViews": {
@@ -536,7 +536,7 @@
         "title": "Team uitnodigen"
       },
       "newWorkspace": {
-        "cta": "Workspace maken",
+        "cta": "Workspace aanmaken",
         "description": "Start een nieuwe tenant voor een andere business unit.",
         "title": "Nieuwe workspace"
       },
@@ -552,21 +552,21 @@
     "recentLeads": {
       "empty": "Geen recente leads in {name}.",
       "emptyDefault": "Nog geen recente leads.",
-      "subtitle": "Laatste leads toegevoegd aan uw workspace.",
+      "subtitle": "Recent toegevoegde leads in uw workspace.",
       "title": "Recente leads",
       "unnamed": "Naamloze lead",
       "viewAll": "Bekijk alle leads"
     },
     "snapshot": {
       "activeWorkspace": "Actieve workspace",
-      "eyebrow": "Workspace‑overzicht",
+      "eyebrow": "Workspace‑snapshot",
       "inWorkspace": "in {name}",
       "newCount": "{count} nieuw",
       "noWorkspaceHelp": "Selecteer een workspace om live aantallen te zien.",
       "noWorkspaceSelected": "Geen workspace geselecteerd",
       "openCount": "{count} open",
-      "openFullDashboard": "Open volledig dashboard",
-      "openPipeline": "Open pipeline"
+      "openFullDashboard": "Volledig dashboard openen",
+      "openPipeline": "Pipeline openen"
     },
     "workspaceOverview": {
       "acrossAccount": "Over uw account",
@@ -575,7 +575,7 @@
       "customers": "Klanten",
       "noneSelected": "Geen geselecteerd",
       "pickToActivate": "Selecteer een workspace om metrics te activeren.",
-      "scopedViews": "Gescope weergaven",
+      "scopedViews": "Gescopeerde weergaven",
       "singleWorkspace": "Enkele workspace",
       "subtitle": "Samenvatting op accountniveau van uw workspaces.",
       "workspaces": "Workspaces"
@@ -590,7 +590,7 @@
       "mapAtLeastOne": "Koppel minimaal één bronkolom aan een doelveld.",
       "noRows": "Het bestand of de URL bevatte geen rijen.",
       "openFromCompany": "Open deze pagina vanuit een bedrijfs‑workspace.",
-      "parseFailed": "Parsen van het CSV‑bestand mislukt."
+      "parseFailed": "Kan het CSV‑bestand niet parseren."
     },
     "mapping": {
       "approvalDescription": "Bevestig de mapping en start de import. Klanten worden aangemaakt of bijgewerkt voor de actieve workspace.",
@@ -609,7 +609,7 @@
     "preview": {
       "backToSource": "Terug naar bron",
       "continueToMapping": "Doorgaan naar mapping",
-      "headers": "{count} headers",
+      "headers": "{count} koppen",
       "rowsLoaded": "{count} rijen geladen",
       "rowsShown": "Eerste {count} rijen tonen",
       "unmapped": "Niet toegewezen"
@@ -619,7 +619,7 @@
       "currentRow": "Rij {row}",
       "description": "Rijen importeren in {name}. U kunt deze pagina verlaten; de import wordt op de achtergrond voortgezet.",
       "eyebrow": "Import bezig",
-      "preparing": "Import voorbereiden...",
+      "preparing": "Import voorbereiden…",
       "title": "Klanten importeren"
     },
     "sidebar": {
@@ -632,7 +632,7 @@
     },
     "source": {
       "continueToPreview": "Doorgaan naar voorbeeld",
-      "csvUpload": "CSV-bestand uploaden",
+      "csvUpload": "CSV‑bestand uploaden",
       "csvUploadHelp": "Sleep en zet neer of blader naar een .csv‑bestand op uw computer.",
       "csvUrl": "CSV‑URL",
       "csvUrlHelp": "Geef een publiek toegankelijke URL op die naar een CSV‑bestand verwijst.",
@@ -670,8 +670,8 @@
       "copyKey": "Kopieer sleutel",
       "copyWarning": "Dit is de enige keer dat u de volledige sleutel kunt zien. Bewaar deze veilig.",
       "createButton": "API-sleutel maken",
-      "createKey": "Sleutel maken",
-      "createNote": "Geef een naam op en selecteer scopes voor deze sleutel.",
+      "createKey": "Sleutel aanmaken",
+      "createNote": "Voer een naam in en selecteer scopes voor deze sleutel.",
       "createTitle": "Nieuwe API-sleutel maken",
       "createdHeading": "API-sleutel aangemaakt",
       "creating": "Aanmaken…",
@@ -724,7 +724,7 @@
       "loading": "Workspaces laden…",
       "title": "Kies een workspace"
     },
-    "configure": "Configureer",
+    "configure": "Configureren",
     "configureAria": "Configureer {name}",
     "connect": "Verbinden",
     "connectAria": "Verbinden {name}",
@@ -760,7 +760,7 @@
     "generateToken": "Token genereren",
     "greenapi": {
       "activeLabel": "Actief",
-      "apiTokenLabel": "API-token",
+      "apiTokenLabel": "API token",
       "apiTokenLabelKeep": "API-token (leeg laten om huidige te behouden)",
       "apiTokenPlaceholder": "Voer Green API-token in",
       "bulletInbound": "<strong>Inkomend:</strong> Green API → Lisent webhook‑URL.",
@@ -814,7 +814,7 @@
       "deliveriesValue": "{count}",
       "disconnectConfirm": "Deze intranet-integratie loskoppelen? Inkomende oproepen zullen falen.",
       "disconnectDescription": "Dit zal alle tokens intrekken en stoppen met het accepteren van inkomende verzoeken.",
-      "disconnectIntegration": "Integratie loskoppelen",
+      "disconnectIntegration": "Integratie verbreken",
       "dismiss": "Sluiten",
       "entityLabel": "Entiteit",
       "errorLabel": "Fout",
@@ -841,13 +841,70 @@
       "mintBearer": "Maak bearer-token aan",
       "noDeliveries": "Nog geen leveringen.",
       "noIntegration": "Geen intranetintegratie geconfigureerd.",
+      "outbound": {
+        "allStatusesLabel": "Alle statuswijzigingen (aanbevolen)",
+        "deliveriesEmpty": "Nog geen leveringen. Verstuur een test‑event om de verbinding te bevestigen.",
+        "deliveriesTitle": "Recente leveringen",
+        "deliveryCols": {
+          "attempts": "Pogingen",
+          "createdAt": "Verzonden",
+          "error": "Laatste fout",
+          "eventId": "Event‑ID",
+          "status": "Status",
+          "toStatus": "→ Status"
+        },
+        "description": "Wanneer de status van een lead verandert in dit CRM, ondertekent u het event en POST u het naar uw endpoint. Bij een fout proberen we opnieuw (6 pogingen over ~7 uur) en sturen we daarna een dead‑letter.",
+        "generateSecretButton": "Genereer ondertekeningsgeheim",
+        "loadFailed": "Laden van outbound webhook‑configuratie mislukt.",
+        "loading": "Outbound webhook wordt geladen…",
+        "newSecretHint": "Kopieer dit geheim nu — we hashen het nadat dit dialoogvenster sluit en tonen voortaan alleen een gemaskeerde versie.",
+        "newSecretReveal": "Nieuw ondertekeningsgeheim",
+        "pauseHint": "Stopt nieuwe leveringen zonder uw URL te verliezen. Bestaande wachtende pogingen worden voortgezet.",
+        "pauseLabel": "Pauzeer uitgaande webhooks",
+        "rotateSecretButton": "Vernieuw ondertekeningssecret",
+        "rotateSecretConfirm": "Ondertekeningssecret vernieuwen? U moet uw verificatiecode bijwerken met de nieuwe waarde.",
+        "rotatingSecret": "Vernieuwen…",
+        "saveButton": "Opslaan uitgaande configuratie",
+        "saveFailed": "Opslaan uitgaande configuratie mislukt.",
+        "savedNotice": "Uitgaande webhook opgeslagen.",
+        "secretConfigured": "Geconfigureerd",
+        "secretNotSet": "Niet ingesteld — genereer er één voordat u events verzendt.",
+        "secretRotatedAt": "(vernieuwd {time})",
+        "secretRotatedNotice": "Ondertekeningssecret vernieuwd. De platte tekst wordt slechts één keer getoond.",
+        "selectAtLeastOne": "Selecteer minimaal één status, of vink 'Alle statuswijzigingen' aan.",
+        "signingSecretLabel": "Ondertekeningssecret (HMAC-SHA256)",
+        "statusFilterHint": "Kies welke overgangen een webhook activeren. Gebruik '*' om elke statuswijziging te ontvangen.",
+        "statusFilterTitle": "Statusfilter",
+        "statusLabels": {
+          "contacted": "Lead is gecontacteerd",
+          "converted": "Lead omgezet naar klant",
+          "lost": "Lead gemarkeerd als verloren",
+          "new": "Lead zojuist aangemaakt",
+          "qualified": "Lead gekwalificeerd door AI / sales"
+        },
+        "testButton": "Test‑event verzenden",
+        "testEnqueued": "Test‑event in wachtrij geplaatst: {eventId}",
+        "testFailed": "Test‑event mislukt.",
+        "testHint": "Stuurt een synthetisch lead.status_changed‑event naar uw URL met dezelfde headers en ondertekening als echte events.",
+        "testTitle": "Test‑event verzenden",
+        "testToStatusLabel": "to_status (welke overgang te simuleren)",
+        "title": "Uitgaande webhook (statusupdates)",
+        "urlHint": "We POST status‑change‑events naar deze URL met HMAC‑SHA256‑ondertekening. Moet HTTPS zijn in productie.",
+        "urlLabel": "Endpoint‑URL",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Sla een URL op voordat u een geheim genereert.",
+        "verificationIntro": "Elke aanvraag bevat deze headers:",
+        "verificationNote": "Ontvangt u een levering met een tijdstempel ouder dan 5 minuten, wijs deze dan af als replay.",
+        "verificationTitle": "Hoe u aan uw kant kunt verifiëren",
+        "verifyByComputing": "Verifieer door de HMAC opnieuw te berekenen over '<timestamp>.<rawBody>' en constant‑time te vergelijken:"
+      },
       "recentDeliveries": "Recente leveringen",
-      "requestExamples": "Voorbeelden aanvragen",
+      "requestExamples": "Voorbeeldverzoeken",
       "revealDescription": "Tokens worden slechts één keer getoond.",
       "revealedBearerLabel": "Nieuwe bearer-token",
       "revealedHmacLabel": "Nieuwe HMAC-secret",
       "revokeBearerConfirm": "Deze bearer-token intrekken? Oproepen die het gebruiken zullen mislukken.",
-      "revokeSecondaryTokenConfirm": "Het secundaire inkomende token intrekken?",
+      "revokeSecondaryTokenConfirm": "Secundaire inkomende token intrekken?",
       "revokeSecretConfirm": "Dit HMAC-secret intrekken? Gesigneerde oproepen zullen mislukken.",
       "rotateBearer": "Bearer-token roteren",
       "rotateBearerConfirm": "De bearer-token roteren? Het oude token blijft geldig gedurende de rotatietijd.",
@@ -996,7 +1053,7 @@
       "channels": {
         "intranetDescription": "Ontvang lead‑signalen van interne portals via de intranet‑webhook.",
         "intranetTitle": "Intranet‑webhook",
-        "whatsappDescription": "Leg gesprekken van WhatsApp vast via Green API.",
+        "whatsappDescription": "Gesprekken van WhatsApp vastleggen via Green API.",
         "whatsappTitle": "WhatsApp (Green API)"
       },
       "customPromptPlaceholder": "Voeg extra instructies toe voor de qualifier…",
@@ -1004,7 +1061,7 @@
       "disconnectConfirm": "AI‑qualifier loskoppelen? Bestaande scores blijven behouden.",
       "fallbackDescription": "Wordt gebruikt wanneer de LLM niet kan draaien. De score wordt berekend op basis van de kwaliteit van formuliergegevens.",
       "fallbackPlaceholder": "Beschrijf het fallback‑gedrag…",
-      "fallbackSaved": "Fallback-configuratie opgeslagen.",
+      "fallbackSaved": "Fallback‑configuratie opgeslagen.",
       "fallbackTitle": "Fallback-modus",
       "forbiddenHint": "Onderwerpen die de assistent moet vermijden (één per regel).",
       "forbiddenPlaceholder": "bijv. Prijzen van nog niet uitgebrachte functies",
@@ -1036,20 +1093,20 @@
         "title": "Overzicht",
         "tuningAiConfig": "<strong>AI‑configuratie:</strong> Drempel, framework, prompt‑overschrijvingen.",
         "tuningCallback": "<strong>Callback:</strong> Waar gekwalificeerde leads worden gepusht.",
-        "tuningRag": "<strong>Kennisbank (RAG):</strong> Documenten waar de assistent naar kan verwijzen.",
-        "tuningTitle": "Afstemmen"
+        "tuningRag": "<strong>Kennisbank (RAG):</strong> Documenten die de assistent kan raadplegen.",
+        "tuningTitle": "Afstemming"
       },
       "qualificationThreshold": "Kwalificatiedrempel",
-      "revokeSecondaryConfirm": "Het secundaire webhookgeheim intrekken?",
-      "rotateWebhookConfirm": "Het webhookgeheim roteren? Het oude geheim blijft geldig voor het rotatievenster.",
+      "revokeSecondaryConfirm": "Secundair webhook‑secret intrekken?",
+      "rotateWebhookConfirm": "Webhook‑secret roteren? Het oude secret blijft geldig tijdens het rotatiewindow.",
       "saveAiConfig": "AI-configuratie opslaan",
-      "secondaryRevoked": "Secundair webhook geheim ingetrokken.",
+      "secondaryRevoked": "Secundair webhook‑secret ingetrokken.",
       "sectorLabel": "Sector",
       "thresholdHint": "Leads die op of boven deze drempel scoren, worden gemarkeerd als gekwalificeerd.",
       "webhookUrlLabel": "Webhook URL"
     },
     "rag": {
-      "chunkLabel": "Brok",
+      "chunkLabel": "Fragment",
       "chunksColumn": "Fragmenten",
       "description": "Kennisbank voor <strong>{name}</strong>. Upload documenten die de AI kan raadplegen.",
       "ingestedDescription": "Documenten momenteel in de kennisbank voor <strong>{name}</strong>.",
@@ -1228,7 +1285,7 @@
   "leads": {
     "ai": {
       "aiQualifier": "AI‑kwalificator",
-      "champReady": "CHAMP klaar",
+      "champReady": "CHAMP gereed",
       "leadNotScoredYet": "Lead nog niet gescoord",
       "leadQualification": "Lead‑kwalificatie",
       "notConnected": "AI‑kwalificator is niet verbonden voor deze workspace.",
@@ -1238,7 +1295,7 @@
       "openQualifier": "Open kwalificator",
       "pathLabel": "Pad: {path}",
       "scoreOf": "Score: {score}",
-      "startQualify": "Start kwalificeren",
+      "startQualify": "Start kwalificatie",
       "statusLabel": "Status: {status}"
     },
     "assignment": {
@@ -1261,11 +1318,11 @@
       "clearSelection": "Selectie wissen",
       "delete": "Verwijderen",
       "exportCsv": "CSV exporteren",
-      "exportPdf": "Export PDF",
+      "exportPdf": "PDF exporteren",
       "selected": "{count} geselecteerd"
     },
     "bulkDelete": {
-      "confirm": "Geselecteerde verwijderen",
+      "confirm": "Verwijder geselecteerde",
       "deleting": "Verwijderen…",
       "description": "Dit zal {count} leads permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
       "title": "Geselecteerde leads verwijderen?"
@@ -1369,7 +1426,7 @@
       "customerNameRequired": "Klantnaam is verplicht.",
       "deleteLead": "Kan lead niet verwijderen.",
       "deleteNote": "Kan notitie niet verwijderen.",
-      "exportPdf": "Failed to generate PDF.",
+      "exportPdf": "PDF genereren mislukt.",
       "loadCompanies": "Kan bedrijven niet laden.",
       "loadLeads": "Kan leads niet laden.",
       "loadNotes": "Kan notities niet laden.",
@@ -1438,10 +1495,10 @@
       "unknownAuthor": "Onbekend"
     },
     "pdf": {
-      "createdAt": "Created",
-      "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
+      "createdAt": "Aangemaakt",
+      "email": "E‑mail",
+      "exportedAt": "{count} leads · Geëxporteerd op {date}",
+      "pageOf": "Pagina {current} van {total}",
       "title": "Leads"
     },
     "rowMenu": {
@@ -1502,7 +1559,7 @@
       "clear": "Wissen",
       "clearSearch": "Zoekopdracht wissen",
       "filter": "Filteren",
-      "searchAria": "Leads zoeken",
+      "searchAria": "Zoek leads",
       "searchPlaceholder": "Leads zoeken...",
       "showOnlyUnassigned": "Alleen niet-toegewezen weergeven",
       "source": "Bron"
@@ -1511,7 +1568,7 @@
   "marketing": {
     "authBody": "Inloggen, registreren en sessievalidatie via <code>/api/auth</code>",
     "authTitle": "Auth",
-    "bffBody": "Browser‑aanroepen moeten bij deze app stoppen. Vertrouwde serverroutes communiceren met de interne CRM‑service.",
+    "bffBody": "Browser‑aanroepen moeten bij deze app stoppen. Vertrouwde server‑routes communiceren met de interne CRM-service.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
     "campaigns": {
@@ -1552,12 +1609,12 @@
         "title": "Lead-captureformulieren"
       }
     },
-    "ctaCreateWorkspace": "Toegang tot werkruimte maken",
+    "ctaCreateWorkspace": "Workspace-toegang aanmaken",
     "ctaOpenShell": "Beschermde shell openen",
     "currentStack": "Huidige stack",
     "heroEyebrow": "Voice-native CRM-platform",
-    "heroLead": "Lisent CRM combineert authenticatie, tenant‑bewuste workflows, import‑profiel onboarding, en een beschermde applicatieshell voor bedrijfsoperators. De webapp bezit gebruikersgerichte flows. De Go CRM‑service blijft achter een vertrouwde backend‑grens.",
-    "heroTitle": "Intent begrijpen, niet alleen woorden.",
+    "heroLead": "Lisent CRM combineert authenticatie, tenant‑bewuste workflows, import‑profiel onboarding en een beschermde applicatieshell voor bedrijfsoperators. De webapp beheert de gebruikersgerichte processen. De Go CRM‑service blijft achter een vertrouwde backend‑grens.",
+    "heroTitle": "Begrijpen van intentie, niet alleen woorden.",
     "navSignIn": "Inloggen",
     "navStartNow": "Nu starten",
     "stackItems": {
@@ -1573,7 +1630,7 @@
       "forms": "Formulieren"
     },
     "tenantBody": "De volgende laag lost <code>user_id</code>, <code>company_id</code> en rol per sessie op.",
-    "tenantTitle": "Tenant-context",
+    "tenantTitle": "Tenant‑context",
     "whatThisAppOwns": "Wat deze app bezit"
   },
   "nav": {
@@ -1589,15 +1646,15 @@
     "integrations": "Integraties",
     "leads": "Leads",
     "lisentHome": "Lisent CRM startpagina",
-    "lisentWorkspace": "Lisent werkruimte",
+    "lisentWorkspace": "Lisent workspace",
     "marketing": "Marketing",
     "navigation": "Navigatie",
     "openNavigation": "Navigatie openen",
     "overview": "Overzicht",
     "primary": "Primair",
-    "quickCreate": "Snelle aanmaak",
+    "quickCreate": "Snel aanmaken",
     "sectionTools": "Tools",
-    "sectionWorkspace": "Werkruimte",
+    "sectionWorkspace": "Workspace",
     "tasks": "Taken",
     "teamMembers": "Teamleden"
   },
@@ -1631,7 +1688,7 @@
       "title": "Klanten"
     },
     "dashboard": {
-      "description": "Overzicht van de werkruimte en snelle acties.",
+      "description": "Workspace-overzicht en snelle acties.",
       "title": "Dashboard"
     },
     "deals": {
@@ -1663,40 +1720,40 @@
       "title": "Taken"
     },
     "workspace": {
-      "description": "Werkruimte-instellingen en -leden.",
-      "title": "Werkruimte"
+      "description": "Workspace-instellingen en leden.",
+      "title": "Workspace"
     }
   },
   "qualifier": {
-    "companyOrBuyerProfile": "Bedrijfs‑/kopersprofiel",
-    "fallbackExplanation": "LLM-evaluatie werd niet uitgevoerd — score werd berekend op basis van de kwaliteit van de formuliergegevens.",
+    "companyOrBuyerProfile": "Bedrijf / koperprofiel",
+    "fallbackExplanation": "LLM-evaluatie is niet uitgevoerd — score is berekend op basis van de kwaliteit van formuliergegevens.",
     "fallbackMode": "Fallback-modus",
     "formulaAudit": "Formule-audit",
     "keyQuestions": "Belangrijke vragen voor het gesprek",
     "leadAssessment": "Lead assessment",
     "llmMedian": "LLM-median",
     "noScoreYet": "Nog geen score.",
-    "rawAnalysis": "Ruwe analyse‑uitvoer",
+    "rawAnalysis": "Ruwe analyse-output",
     "recommendedOpening": "Aanbevolen opening",
     "risksToWatch": "Risico's om in de gaten te houden",
     "salesContext": "Verkoopcontext",
-    "scoredAt": "Beoordeeld op {date}",
+    "scoredAt": "gescoord op {date}",
     "scoring": "Scoren…",
     "whoTheyAre": "Wie ze zijn"
   },
   "search": {
-    "aria": "Zoeken in de werkruimte",
+    "aria": "Zoek in de workspace",
     "placeholder": "Zoeken..."
   },
   "tasks": {
     "actions": {
-      "accept": "Accepteer",
-      "delete": "Verwijder",
-      "markDone": "Mark gedaan",
-      "publish": "Publiceer",
-      "publishing": "Publiceren...",
-      "reject": "Weiger",
-      "startWork": "Begin met werken"
+      "accept": "Accepteren",
+      "delete": "Verwijderen",
+      "markDone": "Markeer als voltooid",
+      "publish": "Publiceren",
+      "publishing": "Publiceren…",
+      "reject": "Afwijzen",
+      "startWork": "Start werk"
     },
     "activeCount": "{count} actief",
     "assignmentMode": {
@@ -1782,7 +1839,7 @@
     "success": {
       "assigned": "Taak toegewezen.",
       "deleted": "Taak verwijderd.",
-      "deletedBroadcast": "Uitzendingstaak verwijderd.",
+      "deletedBroadcast": "Broadcasttaak verwijderd.",
       "publishedTeam": "Taak gepubliceerd voor het team."
     },
     "summary": {
@@ -1792,7 +1849,7 @@
       "openTickets": "{count} open"
     },
     "systemUser": "Systeem",
-    "teammatesCount": "{count} teamgenoten",
+    "teammatesCount": "{count} teamleden",
     "title": "Taken",
     "unassigned": "Niet toegewezen"
   },

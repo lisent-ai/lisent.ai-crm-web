@@ -1,6 +1,6 @@
 {
   "account": {
-    "changeNote": "Ändringar uppdaterar den inloggade användarprofilen som används i instrumentpanelen.",
+    "changeNote": "Ändringarna uppdaterar den inloggade användarens profil som används i instrumentpanelen.",
     "editProfile": "Redigera profil",
     "emailNotEditable": "E‑poständringar hanteras inte på den här skärmen.",
     "fields": {
@@ -13,19 +13,19 @@
       "lastName": "Efternamn",
       "phoneNumber": "Telefonnummer",
       "platformRole": "Plattformroll",
-      "userId": "Användar‑id"
+      "userId": "Användar‑ID"
     },
     "fixHighlighted": "Vänligen korrigera de markerade kontofälten.",
     "gender": {
       "female": "Kvinna",
       "male": "Man"
     },
-    "loadFailed": "Kunde inte läsa kontoinställningarna.",
+    "loadFailed": "Det gick inte att läsa kontoinställningarna.",
     "noMemberships": "Inga företagsmedlemskap ännu.",
     "placeholders": {
-      "firstName": "Ert förnamn",
+      "firstName": "Er förnamn",
       "language": "Välj språk",
-      "lastName": "Ert efternamn",
+      "lastName": "Er efternamn",
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
@@ -34,14 +34,14 @@
     },
     "profileSummary": "Profilsammanfattning",
     "saveButton": "Spara inställningar",
-    "saveFailed": "Kunde inte spara kontoinställningarna.",
+    "saveFailed": "Det gick inte att spara kontoinställningarna.",
     "saved": "Kontoinställningarna har sparats.",
     "saving": "Sparar…",
     "subtitle": "Hantera din profil, dina preferenser och åtkomst.",
     "title": "Kontoinställningar"
   },
   "auth": {
-    "alreadyHaveAccess": "Har ni redan åtkomst?",
+    "alreadyHaveAccess": "Har du redan åtkomst?",
     "authFailed": "Autentisering misslyckades.",
     "createAnAccount": "Skapa ett konto",
     "creatingAccount": "Skapar konto…",
@@ -51,18 +51,18 @@
     "passwordLabel": "Lösenord",
     "passwordPlaceholderSignIn": "Ange ert lösenord",
     "passwordPlaceholderSignUp": "Skapa ett starkt lösenord",
-    "selectGenderPlaceholder": "Välj ert kön",
+    "selectGenderPlaceholder": "Välj ditt kön",
     "signIn": "Logga in",
     "signInButton": "Logga in",
     "signInInstead": "Logga in istället",
-    "signInSubtitle": "Använd företagets kontouppgifter som utfärdats till ditt team.",
+    "signInSubtitle": "Använd företagets kontouppgifter som har delats med ditt team.",
     "signInTitle": "Få åtkomst till din arbetsyta",
     "signUp": "Registrera dig",
     "signUpButton": "Skapa konto",
-    "signUpSubtitle": "Börja med e‑post och lösenord. Hyresgästtilldelning kommer härnäst.",
+    "signUpSubtitle": "Börja med e‑post och lösenord. Tilldelning av hyresgäst sker därefter.",
     "signUpTitle": "Skapa åtkomst till din arbetsyta",
     "signingIn": "Loggar in…",
-    "workspaceAuth": "Workspace auth",
+    "workspaceAuth": "Workspace‑autentisering",
     "wrongCredentials": "E‑post eller lösenord är felaktigt."
   },
   "calendar": {
@@ -96,15 +96,15 @@
       "loadCompanies": "Det gick inte att läsa in företag.",
       "loadEvents": "Det gick inte att läsa in händelser.",
       "pastDate": "Händelsen kan inte starta i det förflutna.",
-      "save": "Det gick inte att spara händelsen.",
-      "startRequired": "Startdatum och -tid krävs.",
+      "save": "Det gick inte att spara händelse.",
+      "startRequired": "Startdatum och tid krävs.",
       "titleRequired": "Titel krävs."
     },
     "eventStatus": {
       "canceled": "Avbruten",
       "completed": "Slutförd",
       "missed": "Missad",
-      "scheduled": "Schemalagd"
+      "scheduled": "Planerad"
     },
     "eventType": {
       "call": "Samtal",
@@ -115,7 +115,7 @@
     },
     "fields": {
       "allDayEvent": "Heldagsevent",
-      "assignee": "Ansvarig",
+      "assignee": "Tilldelad",
       "companyRecord": "Företagspost",
       "customerLink": "Kundlänk",
       "description": "Beskrivning",
@@ -125,7 +125,7 @@
       "linkTo": "Länka till",
       "linkedRecord": "Länkat post",
       "location": "Plats",
-      "meetingUrl": "Mötes-URL",
+      "meetingUrl": "Mötes‑URL",
       "reminder": "Påminnelse",
       "start": "Start",
       "startDate": "Startdatum",
@@ -135,7 +135,7 @@
     "filtersAriaLabel": "Kalenderfilter",
     "linkedFallback": {
       "customer": "Länkat kund",
-      "deal": "Länkat affär",
+      "deal": "Länkat deal",
       "lead": "Länkat lead"
     },
     "linkedType": {
@@ -164,22 +164,22 @@
     },
     "searchAriaLabel": "Sök händelser",
     "searchPlaceholder": "Sök händelser…",
-    "selectedCompanyFallback": "Din workspace",
+    "selectedCompanyFallback": "Din arbetsyta",
     "success": {
       "created": "Händelse skapad.",
-      "deleted": "Evenemang raderat.",
-      "updated": "Evenemang uppdaterat."
+      "deleted": "Händelse raderad.",
+      "updated": "Händelse uppdaterad."
     },
     "tabs": {
       "allScheduled": "Alla schemalagda",
-      "events": "Evenemang",
+      "events": "Händelser",
       "meetings": "Möten",
       "taskReminders": "Uppgiftspåminnelser"
     },
     "title": "Kalender",
     "today": "Idag",
     "unassigned": "Ej tilldelad",
-    "untitled": "Namnlöst evenemang",
+    "untitled": "Namnlös händelse",
     "view": {
       "day": "Dag",
       "month": "Månad",
@@ -217,21 +217,21 @@
     },
     "addCustomer": "Lägg till kund",
     "bulk": {
-      "clearSelection": "Rensa markering",
+      "clearSelection": "Rensa urval",
       "confirmDelete": "Ta bort markerade",
-      "deleteDescription": "Detta kommer att permanent radera {count} kundposter. Åtgärden kan inte ångras.",
+      "deleteDescription": "Det här kommer att permanent radera {count} kundposter. Åtgärden kan inte ångras.",
       "deleteEyebrow": "Massradering",
-      "deleteTitle": "Ta bort markerade kunder?",
+      "deleteTitle": "Radera valda kunder?",
       "regionLabel": "Massåtgärder",
-      "selectedCount": "{count} markerade"
+      "selectedCount": "{count} valda"
     },
-    "closeAddPopup": "Stäng lägg till kund-dialogen",
-    "confirmDelete": "Ta bort",
-    "delete": "Ta bort",
-    "deleteConfirmDescription": "Detta kommer att permanent ta bort denna kundpost. Åtgärden kan inte ångras.",
-    "deleteConfirmTitle": "Ta bort kund?",
-    "deleteCustomer": "Ta bort kund",
-    "deleting": "Tar bort...",
+    "closeAddPopup": "Stäng lägg till kund‑dialogen",
+    "confirmDelete": "Radera",
+    "delete": "Radera",
+    "deleteConfirmDescription": "Det här kommer att permanent ta bort den här kundposten. Åtgärden kan inte ångras.",
+    "deleteConfirmTitle": "Radera kund?",
+    "deleteCustomer": "Radera kund",
+    "deleting": "Raderar…",
     "detail": {
       "closeDrawer": "Stäng kunddetaljer",
       "contact": "Kontakt",
@@ -241,23 +241,23 @@
       "identity": "Identitet"
     },
     "errors": {
-      "bulkDeleteFailed": "Det gick inte att ta bort några kunder.",
-      "deleteCustomer": "Det gick inte att ta bort kunden.",
+      "bulkDeleteFailed": "Det gick inte att radera vissa kunder.",
+      "deleteCustomer": "Det gick inte att radera kunden.",
       "loadCompanies": "Det gick inte att läsa in företag.",
       "loadCustomers": "Det gick inte att läsa in kunder.",
-      "saveCustomer": "Det gick inte att spara kunden."
+      "saveCustomer": "Det gick inte att spara kund."
     },
     "fields": {
       "actions": "Åtgärder",
       "company": "Företag",
-      "companyId": "Företag id",
+      "companyId": "Företags‑ID",
       "country": "Land",
       "countryCode": "Landskod",
       "customer": "Kund",
-      "customerId": "Kund id",
+      "customerId": "Kund‑ID",
       "email": "E‑post",
       "firstName": "Förnamn",
-      "id": "Id",
+      "id": "ID",
       "industry": "Bransch",
       "lastName": "Efternamn",
       "name": "Namn",
@@ -269,7 +269,7 @@
     "form": {
       "createCustomer": "Skapa kund",
       "createEyebrow": "Ny kund",
-      "createSubtitle": "Fånga grundläggande kontaktuppgifter. Ni kan fylla i resten senare.",
+      "createSubtitle": "Fånga grundläggande kontaktuppgifter. Du kan fylla i resten senare.",
       "editEyebrow": "Redigera kund",
       "saveChanges": "Spara ändringar"
     },
@@ -281,19 +281,19 @@
       "title": "Kunder",
       "visibleCount": "Visar {visible} av {total}"
     },
-    "loading": "Laddar kunder...",
-    "noEmail": "Ingen e‑post sparad",
+    "loading": "Laddar in kunder...",
+    "noEmail": "Ingen e‑postadress på filen",
     "notSet": "Ej angivet",
     "placeholders": {
-      "email": "name@company.com",
+      "email": "namn@exempel.com",
       "name": "Kundnamn",
       "phone": "+49 555 123 4567"
     },
     "search": {
       "label": "Sök",
-      "placeholder": "Sök kunder…"
+      "placeholder": "Sök kunder..."
     },
-    "selectedCompany": "Aktivt arbetsområde: {name}",
+    "selectedCompany": "Aktiv arbetsplats: {name}",
     "status": {
       "active": "Aktiv",
       "all": "Alla",
@@ -312,9 +312,9 @@
   "deals": {
     "activeOpportunity": "Aktiv möjlighet",
     "addComment": "Lägg till kommentar",
-    "addDeal": "Lägg till deal",
+    "addDeal": "Lägg till Deal",
     "aiInsights": {
-      "aiScore": "AI‑poäng",
+      "aiScore": "AI‑score",
       "aiStatus": "AI‑status",
       "champExtraction": "CHAMP‑extraktion",
       "path": "Sökväg",
@@ -326,32 +326,32 @@
     "amountValue": "{amount}",
     "assignee": "Ansvarig",
     "assigneeValue": "{name}",
-    "boardHint": "Dra deals mellan steg för att uppdatera pipeline.",
+    "boardHint": "Dra affärer mellan steg för att uppdatera pipeline.",
     "changedBy": "Ändrad av {name}",
     "close": "Stäng",
-    "closeTarget": "Stängningsmål",
+    "closeTarget": "Stäng mål",
     "closeTargetValue": "{date}",
-    "columnTotal": "Kolumnsumma: {value}",
-    "commentPlaceholder": "Skriv en kommentar…",
+    "columnTotal": "Kolumntotal: {value}",
+    "commentPlaceholder": "Skriv en kommentar...",
     "comments": "Kommentarer",
     "commentsCount": "{count} kommentarer",
     "commentsEmpty": "Inga kommentarer ännu.",
-    "deal": "Deal",
-    "dealDetail": "Deal-detaljer",
-    "dealList": "Deal-lista",
-    "dealValue": "Dealvärde",
-    "dealsInPipeline": "{count} deals i pipeline",
-    "dealsInView": "{count} deals i vy",
-    "delete": "Ta bort",
-    "deleteConfirmDescription": "Detta kommer att permanent ta bort denna deal. Åtgärden kan inte ångras.",
-    "deleteConfirmTitle": "Ta bort deal?",
-    "deleteDeal": "Ta bort deal",
-    "deleting": "Tar bort…",
+    "deal": "Affär",
+    "dealDetail": "Affärsdetaljer",
+    "dealList": "Affärslista",
+    "dealValue": "Affärsvärde",
+    "dealsInPipeline": "{count} affärer i pipeline",
+    "dealsInView": "{count} affärer i vy",
+    "delete": "Radera",
+    "deleteConfirmDescription": "Detta kommer permanent att ta bort denna deal. Åtgärden kan inte ångras.",
+    "deleteConfirmTitle": "Radera deal?",
+    "deleteDeal": "Radera deal",
+    "deleting": "Raderar...",
     "editDeal": "Redigera deal",
     "emptyColumn": "Inga deals i detta steg.",
     "errors": {
       "addComment": "Kunde inte lägga till kommentar.",
-      "deleteDeal": "Kunde inte ta bort deal.",
+      "deleteDeal": "Kunde inte radera deal.",
       "loadCompanies": "Kunde inte läsa in företag.",
       "loadDeals": "Kunde inte läsa in deals.",
       "nameRequired": "Dealnamn krävs.",
@@ -369,21 +369,21 @@
       "industry": "Bransch",
       "lossReason": "Förlustorsak",
       "records": "Poster",
-      "sourceLead": "Käll‑lead",
+      "sourceLead": "Source lead",
       "termination": "Uppsägning",
       "updated": "Uppdaterad",
       "wonReason": "Vinstorsak"
     },
     "filters": {
       "allAssignees": "Alla tilldelade",
-      "allStages": "Alla steg",
+      "allStages": "Alla Stage",
       "assigneeLabel": "Tilldelad",
       "searchLabel": "Sök",
-      "searchPlaceholder": "Sök affärer…",
-      "stageLabel": "Steg"
+      "searchPlaceholder": "Sök deals...",
+      "stageLabel": "Stage"
     },
     "form": {
-      "assigneeHint": "Välj en kollega som ska äga denna affär.",
+      "assigneeHint": "Välj en kollega som ska äga detta Deal.",
       "createDeal": "Skapa deal",
       "editEyebrow": "Redigera deal",
       "editTitle": "Uppdatera deal",
@@ -394,58 +394,58 @@
         "customer": "Kund",
         "dealName": "Dealnamn",
         "expectedCloseDate": "Förväntat avslutsdatum",
-        "lossReason": "Anledning till förlust",
-        "pipelineStage": "Pipeline stage",
-        "sourceLead": "Source lead",
+        "lossReason": "Orsak till förlust",
+        "pipelineStage": "Pipeline‑steg",
+        "sourceLead": "Källa Lead",
         "terminationDate": "Uppsägning datum",
-        "wonReason": "Anledning till vinst"
+        "wonReason": "Orsak till vinst"
       },
-      "newEyebrow": "Ny deal",
-      "newTitle": "Skapa en deal",
+      "newEyebrow": "Ny Deal",
+      "newTitle": "Skapa en Deal",
       "options": {
         "noLinkedCustomer": "Ingen länkad kund",
-        "noSourceLead": "Ingen source lead"
+        "noSourceLead": "Ingen källa Lead"
       },
       "placeholders": {
         "amount": "0.00",
         "dealName": "Acme — Q3 expansion",
-        "lossReason": "Varför förlorades denna deal?",
-        "wonReason": "Varför vann denna deal?"
+        "lossReason": "Varför förlorades denna Deal?",
+        "wonReason": "Varför vann denna Deal?"
       },
       "saveChanges": "Spara ändringar"
     },
-    "kanbanBoard": "Kanban-tavla",
-    "loadingBoard": "Laddar tavla…",
-    "loadingDeals": "Laddar deals…",
+    "kanbanBoard": "Kanban‑tavla",
+    "loadingBoard": "Laddar tavlan...",
+    "loadingDeals": "Laddar erbjudanden...",
     "meetingTitle": "Möte",
     "noDate": "Inget datum",
-    "noDealsMatch": "Inga deals matchar de aktuella filtren.",
-    "noLossReason": "Ingen förlustorsak har registrerats.",
+    "noDealsMatch": "Inga erbjudanden matchar de aktuella filtren.",
+    "noLossReason": "Ingen förlustorsak registrerad.",
     "noRelatedCustomer": "Ingen relaterad kund.",
-    "noWinReason": "Ingen vinstorsak har registrerats.",
-    "notSet": "Ej angivet",
-    "now": "Nu",
-    "pipelineLoading": "Laddar pipeline…",
-    "posting": "Publicerar…",
+    "noWinReason": "Ingen anledning till vinst registrerad.",
+    "notSet": "Inte inställd",
+    "now": "nu",
+    "pipelineLoading": "Laddar pipeline...",
+    "posting": "Publicerar...",
     "relatedRecords": "Relaterade poster",
     "scheduleActivity": "Schemalägg aktivitet",
-    "selectedCompany": "Aktivt arbetsområde: {name}",
+    "selectedCompany": "Aktivt workspace: {name}",
     "stage": {
       "lost": "Förlorad",
-      "lostDescription": "Avslutade och förlorade affärer att lära av.",
-      "negotiation": "Förhandling",
-      "negotiationDescription": "Samsyn kring prissättning, villkor och tidsramar.",
-      "new": "Nya",
-      "newDescription": "Nyligen skapade möjligheter som ännu inte är kvalificerade.",
-      "proposal": "Förslag",
+      "lostDescription": "Stängda förlorade deals att lära av.",
+      "negotiation": "Negotiation",
+      "negotiationDescription": "Justering av prissättning, villkor och tidslinjer.",
+      "new": "New",
+      "newDescription": "Nyligen skapade möjligheter som ännu inte kvalificerats.",
+      "proposal": "Proposal",
       "proposalDescription": "Formellt förslag skickat och under granskning.",
       "qualified": "Kvalificerad",
-      "qualifiedDescription": "Kundanpassning och budget har validerats.",
-      "won": "Vann",
-      "wonDescription": "Avslutade affärer bokförs som intäkter."
+      "qualifiedDescription": "Kundpassning och budget har validerats.",
+      "won": "Vunnen",
+      "wonDescription": "Stängda vunna deals bokförda som intäkt."
     },
-    "stageHistory": "Stegshistorik",
-    "stageHistoryEmpty": "Inga stegändringar har registrerats ännu.",
+    "stageHistory": "Stage-historik",
+    "stageHistoryEmpty": "Inga stage-ändringar har registrerats ännu.",
     "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Kommentar tillagd.",
@@ -455,7 +455,7 @@
     },
     "system": "System",
     "terminationOpen": "Öppen",
-    "thisDeal": "Detta deal",
+    "thisDeal": "Denna deal",
     "unassigned": "Ej tilldelad",
     "unknownAuthor": "Okänd",
     "untitledDeal": "Namnlös deal"
@@ -465,7 +465,7 @@
     "generic": "Något gick fel.",
     "networkError": "Nätverksfel. Försök igen.",
     "sessionRequired": "Autentisering krävs.",
-    "userNotFound": "Användare hittades inte."
+    "userNotFound": "Användaren hittades inte."
   },
   "home": {
     "activity": {
@@ -474,32 +474,32 @@
       "emptyDefault": "Ingen aktivitet har registrerats ännu.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
-      "subtitle": "Leads skapade och deals stängda under den senaste veckan.",
+      "subtitle": "Leads skapade och deals avslutade under den senaste veckan.",
       "title": "Aktivitet"
     },
     "company": {
       "createWorkspace": "Skapa workspace",
       "goToOverview": "Gå till workspace‑översikt",
-      "noWorkspaceHelp": "Välj ett workspace i växlaren för att se live‑data.",
+      "noWorkspaceHelp": "Välj ett workspace i växlaren för att se live‑data",
       "noWorkspaceSelected": "Inget workspace valt",
       "pickWorkspace": "Välj ett workspace",
-      "subtitleSelected": "Workspace‑metriker för {name}.",
-      "subtitleWithName": "Välkommen tillbaka, {name}."
+      "subtitleSelected": "Workspace‑statistik för {name}",
+      "subtitleWithName": "Välkommen tillbaka, {name}"
     },
     "errors": {
-      "loadDashboard": "Det gick inte att läsa in dashboard‑data.",
-      "loadSnapshot": "Det gick inte att läsa in workspace‑snapshot.",
-      "loadWorkspaces": "Det gick inte att läsa in workspaces."
+      "loadDashboard": "Det gick inte att läsa in dashboard‑data",
+      "loadSnapshot": "Det gick inte att läsa in workspace‑snapshot",
+      "loadWorkspaces": "Det gick inte att läsa in workspaces"
     },
     "kpi": {
       "customers": "Kunder",
-      "customersHint": "Totalt antal konton i detta workspace.",
+      "customersHint": "Totalt antal konton i detta workspace",
       "customersInWorkspace": "Kunder i {name}",
       "deals": "Deals",
-      "dealsAmountEmpty": "Inget deal‑värde ännu.",
+      "dealsAmountEmpty": "Inget deal‑värde ännu",
       "leads": "Leads",
       "leadsHint": "Aktiva leads i pipeline.",
-      "openPipelineHint": "Öppet pipeline‑värde i alla steg.",
+      "openPipelineHint": "Öppet pipelinevärde över alla steg.",
       "openPipelineValue": "{value}"
     },
     "overview": {
@@ -508,43 +508,43 @@
       "title": "Översikt"
     },
     "pipeline": {
-      "empty": "Ingen pipeline‑data ännu för {name}.",
-      "emptyDefault": "Ingen pipeline‑data ännu.",
-      "subtitle": "Fördelning av deals per stage.",
+      "empty": "Ingen pipeline-data ännu för {name}.",
+      "emptyDefault": "Ingen pipeline-data ännu.",
+      "subtitle": "Fördelning av deals per steg.",
       "title": "Pipeline",
       "totalBadge": "{value} totalt"
     },
     "quickActions": {
       "aiQualifier": {
-        "cta": "Öppna AI‑kvalificerare",
-        "description": "Betygsätt och kvalificera leads automatiskt.",
-        "title": "AI‑kvalificering"
+        "cta": "Öppna AI-qualifier",
+        "description": "Poängsätt och kvalificera leads automatiskt.",
+        "title": "AI-qualifier"
       },
       "customerImport": {
         "cta": "Starta import",
-        "description": "Importera kunddata till er arbetsyta.",
+        "description": "Importera kunddata till ert arbetsområde.",
         "title": "Importera kunder"
       },
       "homeViews": {
         "cta": "Anpassa vyer",
-        "description": "Välj vilka widgetar som visas på instrumentpanelen.",
+        "description": "Välj vilka widgetar som visas på dashboarden.",
         "title": "Hemvyer"
       },
       "inviteMembers": {
         "cta": "Bjud in medlemmar",
-        "description": "Lägg till teammedlemmar i er arbetsyta.",
-        "title": "Bjud in team"
+        "description": "Lägg till teammedlemmar i ert arbetsområde.",
+        "title": "Bjud in teamet"
       },
       "newWorkspace": {
-        "cta": "Skapa arbetsyta",
+        "cta": "Skapa arbetsområde",
         "description": "Starta en ny tenant för en annan affärsenhet.",
-        "title": "Ny arbetsyta"
+        "title": "Nytt arbetsområde"
       },
-      "oneClickSetup": "En‑klicks‑installation",
+      "oneClickSetup": "Inställning med ett klick",
       "scheduleMeeting": {
-        "cta": "Öppna kalender",
-        "description": "Schemalägg ett upptäcktsmöte eller en uppföljning.",
-        "title": "Schemalägg möte"
+        "cta": "Öppna kalendern",
+        "description": "Boka ett upptäcktsmöte eller en uppföljning.",
+        "title": "Boka möte"
       },
       "subtitle": "Utför vanliga uppgifter med ett klick.",
       "title": "Snabbåtgärder"
@@ -552,17 +552,17 @@
     "recentLeads": {
       "empty": "Inga senaste leads i {name}.",
       "emptyDefault": "Inga senaste leads ännu.",
-      "subtitle": "Senaste leads som lagts till i er workspace.",
+      "subtitle": "Senaste leads som lagts till i ert arbetsområde.",
       "title": "Senaste leads",
       "unnamed": "Namnlös lead",
       "viewAll": "Visa alla leads"
     },
     "snapshot": {
-      "activeWorkspace": "Aktiv workspace",
-      "eyebrow": "Workspace snapshot",
+      "activeWorkspace": "Aktivt arbetsområde",
+      "eyebrow": "Översikt av arbetsområde",
       "inWorkspace": "i {name}",
       "newCount": "{count} nya",
-      "noWorkspaceHelp": "Välj en workspace för att se live‑räkningar.",
+      "noWorkspaceHelp": "Välj en workspace för att se live‑antal.",
       "noWorkspaceSelected": "Ingen workspace vald",
       "openCount": "{count} öppna",
       "openFullDashboard": "Öppna fullständig dashboard",
@@ -576,8 +576,8 @@
       "noneSelected": "Ingen vald",
       "pickToActivate": "Välj en workspace för att aktivera mätvärden.",
       "scopedViews": "Avgränsade vyer",
-      "singleWorkspace": "Enskild workspace",
-      "subtitle": "Sammanställning på kontonivå av dina workspaces.",
+      "singleWorkspace": "Enkel workspace",
+      "subtitle": "Sammanställning på kontonivå av era workspaces.",
       "workspaces": "Workspaces"
     }
   },
@@ -587,9 +587,9 @@
       "chooseFile": "Välj en CSV‑fil att ladda upp.",
       "enterUrl": "Ange en CSV‑URL.",
       "fetchUrlFailed": "Det gick inte att hämta CSV‑URL:en.",
-      "mapAtLeastOne": "Mappa minst en källkolumn till ett mål‑fält.",
+      "mapAtLeastOne": "Mappa minst en källkolumn till ett målfält.",
       "noRows": "Filen eller URL:en innehöll inga rader.",
-      "openFromCompany": "Öppna den här sidan från en företags‑workspace.",
+      "openFromCompany": "Öppna den här sidan från ett företags‑workspace.",
       "parseFailed": "Det gick inte att tolka CSV‑filen."
     },
     "mapping": {
@@ -597,7 +597,7 @@
       "approvalOutcome": "Efter godkännande infogas rader som kunder i {name}.",
       "approveAndImport": "Godkänn och importera",
       "backToPreview": "Tillbaka till förhandsgranskning",
-      "confidence": "Förtroende",
+      "confidence": "Säkerhet",
       "enableFallback": "Aktivera reservrad",
       "importing": "Importerar…",
       "leaveUnmapped": "Lämna omappad",
@@ -607,7 +607,7 @@
       "targetField": "Målfält"
     },
     "preview": {
-      "backToSource": "Tillbaka till källan",
+      "backToSource": "Tillbaka till källa",
       "continueToMapping": "Fortsätt till mappning",
       "headers": "{count} rubriker",
       "rowsLoaded": "{count} rader laddade",
@@ -632,11 +632,11 @@
     },
     "source": {
       "continueToPreview": "Fortsätt till förhandsgranskning",
-      "csvUpload": "Ladda upp CSV-fil",
+      "csvUpload": "Ladda upp CSV‑fil",
       "csvUploadHelp": "Dra och släpp eller bläddra efter en .csv-fil från din dator.",
       "csvUrl": "CSV-URL",
       "csvUrlHelp": "Ange en offentligt åtkomlig URL som pekar på en CSV-fil.",
-      "noFileSelected": "Ingen fil vald",
+      "noFileSelected": "Ingen fil har valts",
       "processing": "Bearbetar…",
       "selectedFile": "Vald: {name}",
       "uploadCsv": "Ladda upp CSV",
@@ -666,17 +666,17 @@
         "name": "Namn",
         "scopes": "Behörigheter"
       },
-      "copied": "API-nyckel kopierad till urklipp.",
+      "copied": "API‑nyckel kopierad till urklipp.",
       "copyKey": "Kopiera nyckel",
       "copyWarning": "Det här är enda gången du kan se hela nyckeln. Spara den säkert.",
-      "createButton": "Skapa API-nyckel",
+      "createButton": "Skapa API‑nyckel",
       "createKey": "Skapa nyckel",
       "createNote": "Ange ett namn och välj behörigheter för den här nyckeln.",
-      "createTitle": "Skapa ny API-nyckel",
-      "createdHeading": "API-nyckel skapad",
+      "createTitle": "Skapa ny API‑nyckel",
+      "createdHeading": "API‑nyckel skapad",
       "creating": "Skapar...",
-      "description": "Hantera API-nycklar för <strong>{name}</strong>.",
-      "empty": "Inga API-nycklar ännu.",
+      "description": "Hantera API‑nycklar för <strong>{name}</strong>.",
+      "empty": "Inga API‑nycklar ännu.",
       "envLive": "Live",
       "envTest": "Test",
       "environment": "Miljö",
@@ -728,11 +728,11 @@
     "configureAria": "Konfigurera {name}",
     "connect": "Anslut",
     "connectAria": "Anslut {name}",
-    "connecting": "Ansluter...",
+    "connecting": "Ansluter…",
     "copy": "Kopiera",
     "detail": {
       "backLink": "Tillbaka till integrationer",
-      "backToCatalog": "Tillbaka till katalogen",
+      "backToCatalog": "Tillbaka till katalog",
       "configuringCompany": "Konfigurerar <strong>{integration}</strong> för <strong>{company}</strong>.",
       "noCompany": "Välj en arbetsyta för att konfigurera <strong>{integration}</strong>.",
       "restrictedDescription": "Ni har inte behörighet att visa denna integration.",
@@ -807,14 +807,14 @@
       "configurationTitle": "Konfiguration",
       "copyUrl": "Kopiera URL",
       "createIntegration": "Skapa integration",
-      "createdMessage": "Intranätintegration skapad.",
+      "createdMessage": "Intranettintegration skapad.",
       "credentialsDescription": "Använd dessa referenser för att autentisera anrop till <code>{url}</code>.",
       "credentialsTitle": "Referenser",
       "deliveries": "Leveranser",
       "deliveriesValue": "{count}",
       "disconnectConfirm": "Koppla bort denna intranätintegration? Inkommande anrop kommer att börja misslyckas.",
       "disconnectDescription": "Detta återkallar alla token och stoppar mottagandet av inkommande förfrågningar.",
-      "disconnectIntegration": "Koppla bort integration",
+      "disconnectIntegration": "Koppla från integration",
       "dismiss": "Avvisa",
       "entityLabel": "Entitet",
       "errorLabel": "Fel",
@@ -822,15 +822,15 @@
       "fieldMappingDescription": "Koppla inkommande fält till CRM-egenskaper. Skicka JSON som <code>{example}</code>.",
       "fieldMappingLabel": "Fältmappning",
       "fieldMappingTitle": "Fältmappning",
-      "generateHmac": "Generera HMAC-hemlighet",
+      "generateHmac": "Generera HMAC‑hemlighet",
       "generateToken": "Generera token",
-      "hmacCopied": "HMAC-hemlighet kopierad.",
+      "hmacCopied": "HMAC‑hemligheten kopierad.",
       "hmacExampleTitle": "HMAC-exempel",
-      "hmacSecret": "HMAC-hemlighet",
-      "hmacSecretHint": "Använd denna hemlighet för att beräkna <code>X-Lisent-Signature</code> på utgående förfrågningar.",
+      "hmacSecret": "HMAC‑hemlighet",
+      "hmacSecretHint": "Använd denna hemlighet för att beräkna <code>X-Lisent-Signature</code> i utgående förfrågningar.",
       "inactive": "Inaktiv",
       "inboundDescription": "Skicka nyttolast till <code>{url}</code> för att importera leads från ert intranet.",
-      "inboundToken": "Token för inkommande URL",
+      "inboundToken": "Inkommande URL‑token",
       "inboundTokenHint": "Denna token är en del av den inkommande URL:en — håll den hemlig.",
       "inboundUrl": "Inkommande URL",
       "invalidJson": "Ogiltig JSON.",
@@ -841,8 +841,65 @@
       "mintBearer": "Skapa bearer-token",
       "noDeliveries": "Inga leveranser ännu.",
       "noIntegration": "Ingen intranet‑integration konfigurerad.",
+      "outbound": {
+        "allStatusesLabel": "Alla statusändringar (rekommenderat)",
+        "deliveriesEmpty": "Inga leveranser ännu. Skicka ett test‑event för att bekräfta anslutningen.",
+        "deliveriesTitle": "Senaste leveranserna",
+        "deliveryCols": {
+          "attempts": "Försök",
+          "createdAt": "Skickat",
+          "error": "Senaste fel",
+          "eventId": "Händelse-ID",
+          "status": "Status",
+          "toStatus": "→ Status"
+        },
+        "description": "När en leads status ändras i detta CRM signerar du händelsen och POSTar den till din endpoint. Vi försöker igen vid fel (6 försök över ~7 h) och skickar till dead‑letter därefter.",
+        "generateSecretButton": "Generera signeringshemlighet",
+        "loadFailed": "Det gick inte att läsa in konfiguration för utgående webhook.",
+        "loading": "Läser in utgående webhook…",
+        "newSecretHint": "Kopiera den här hemligheten nu — vi hashar den efter att dialogrutan stängs och visar bara en maskerad version framöver.",
+        "newSecretReveal": "Ny signeringshemlighet",
+        "pauseHint": "Stoppar nya leveranser utan att förlora din URL. Pågående återförsök fortsätter.",
+        "pauseLabel": "Pausa utgående webhooks",
+        "rotateSecretButton": "Rotera signeringshemlighet",
+        "rotateSecretConfirm": "Rotera signeringshemligheten? Du måste uppdatera din verifieringskod med det nya värdet.",
+        "rotatingSecret": "Roterar…",
+        "saveButton": "Spara utgående konfiguration",
+        "saveFailed": "Det gick inte att spara utgående konfiguration.",
+        "savedNotice": "Utgående webhook sparad.",
+        "secretConfigured": "Konfigurerad",
+        "secretNotSet": "Inte angivet — skapa en innan ni skickar händelser.",
+        "secretRotatedAt": "(roterad {time})",
+        "secretRotatedNotice": "Signeringshemlighet roterad. Klartext visas bara en gång.",
+        "selectAtLeastOne": "Välj minst en status, eller markera 'Alla statusändringar'.",
+        "signingSecretLabel": "Signeringshemlighet (HMAC-SHA256)",
+        "statusFilterHint": "Välj vilka övergångar som ska trigga en webhook. Använd '*' för att få alla statusändringar.",
+        "statusFilterTitle": "Statusfilter",
+        "statusLabels": {
+          "contacted": "Lead har kontaktats",
+          "converted": "Lead konverterad till kund",
+          "lost": "Lead markerad som förlorad",
+          "new": "Lead har skapats",
+          "qualified": "Lead kvalificerad av AI / försäljning"
+        },
+        "testButton": "Skicka testhändelse",
+        "testEnqueued": "Testhändelse köad: {eventId}",
+        "testFailed": "Testhändelse misslyckades.",
+        "testHint": "Skickar en syntetisk lead.status_changed‑händelse till din URL med samma rubriker och signering som riktiga händelser.",
+        "testTitle": "Skicka en testhändelse",
+        "testToStatusLabel": "to_status (vilken övergång som ska simuleras)",
+        "title": "Utgående webhook (statusuppdateringar)",
+        "urlHint": "Vi POSTar statusändrings‑händelser till den här URL:en med HMAC‑SHA256‑signering. Måste vara HTTPS i produktion.",
+        "urlLabel": "Endpoint‑URL",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Spara en URL innan Ni genererar en hemlighet.",
+        "verificationIntro": "Varje begäran innehåller dessa rubriker:",
+        "verificationNote": "Om Ni får en leverans med en tidsstämpel äldre än 5 minuter, avvisa den som en återuppspelning.",
+        "verificationTitle": "Hur Ni verifierar på er sida",
+        "verifyByComputing": "Verifiera genom att beräkna HMAC igen över '<timestamp>.<rawBody>' och jämföra i konstant tid:"
+      },
       "recentDeliveries": "Senaste leveranser",
-      "requestExamples": "Begär exempel",
+      "requestExamples": "Exempel på förfrågningar",
       "revealDescription": "Token visas endast en gång.",
       "revealedBearerLabel": "Ny bearer‑token",
       "revealedHmacLabel": "Ny HMAC‑secret",
@@ -1011,7 +1068,7 @@
       "forbiddenTopics": "Förbjudna ämnen",
       "handoffAggressiveness": "Överlämningsaggressivitet",
       "icpPlaceholder": "Beskriv din ideala kundprofil…",
-      "idealCustomerProfile": "Idealisk kundprofil",
+      "idealCustomerProfile": "Ideal kundprofil",
       "languageLabel": "Konversationsspråk",
       "leadWebhookDescription": "Lisent skickar kvalificerade leads tillbaka till ditt CRM via den här webhook‑URL:en.",
       "leadWebhookTitle": "Lead‑webhook",
@@ -1037,15 +1094,15 @@
         "tuningAiConfig": "<strong>AI configuration:</strong> Tröskel, ramverk, prompt‑överskrivningar.",
         "tuningCallback": "<strong>Callback:</strong> Där kvalificerade leads pushas.",
         "tuningRag": "<strong>Kunskapsbas (RAG):</strong> Dokument som assistenten kan referera till.",
-        "tuningTitle": "Tuning"
+        "tuningTitle": "Finjustering"
       },
       "qualificationThreshold": "Kvalificeringströskel",
       "revokeSecondaryConfirm": "Återkalla den sekundära webhook-hemligheten?",
-      "rotateWebhookConfirm": "Rotera hemligheten för webhook? Den gamla hemligheten förblir giltig under rotationsfönstret.",
+      "rotateWebhookConfirm": "Rotera webhook-hemligheten? Den gamla hemligheten förblir giltig under rotationsfönstret.",
       "saveAiConfig": "Spara AI-konfiguration",
-      "secondaryRevoked": "Sekretessen för sekundär webhook återkallad.",
+      "secondaryRevoked": "Sekundär webhook-hemlighet återkallad.",
       "sectorLabel": "Sektor",
-      "thresholdHint": "Ledtrådar som får poäng på eller över denna tröskel markeras som kvalificerade.",
+      "thresholdHint": "Leads som får poäng på eller över denna tröskel markeras som kvalificerade.",
       "webhookUrlLabel": "Webhook URL"
     },
     "rag": {
@@ -1080,7 +1137,7 @@
     "role": {
       "anyRole": "Alla roller",
       "ownerOnly": "Endast ägare",
-      "viewOnly": "Endast visning",
+      "viewOnly": "Endast läsning",
       "viewOnlyTitle": "Endast visningsåtkomst"
     },
     "rotateToken": "Rotera token",
@@ -1099,7 +1156,7 @@
       "notSetAria": "{name} är inte angivet"
     },
     "testConnection": "Testa anslutning",
-    "testing": "Testar...",
+    "testing": "Testar…",
     "title": "Integrationer",
     "urlCopied": "URL kopierad till urklipp.",
     "usage": {
@@ -1178,7 +1235,7 @@
       "currentLabel": "Aktuell",
       "customPatternsLabel": "Anpassade mönster (en per rad)",
       "description": "Konfigurera webhook-leverans för <strong>{name}</strong>.",
-      "destinationHint": "Lisent skickar händelser till denna URL med en signerad payload.",
+      "destinationHint": "Lisent skickar händelser till den här URL:en med en signerad payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Destination URL",
       "dlqCols": {
@@ -1208,18 +1265,18 @@
       "rotatedAt": "Roterat {time}",
       "saveEventSelection": "Spara händelseval",
       "saveUrl": "Spara URL",
-      "secretRotated": "Signeringshemligheten roterad.",
+      "secretRotated": "Signing secret roterad.",
       "selectAll": "Markera alla i den här kategorin",
       "selectAtLeastOne": "Markera minst en händelse.",
       "sendTestEvent": "Skicka testhändelse",
-      "signingSecret": "Signeringshemlighet",
+      "signingSecret": "Signing secret",
       "testEnqueued": "Testhändelse köad.",
       "testFailed": "Det gick inte att köa testhändelsen.",
       "testNotEnqueued": "Testhändelsen köades inte.",
       "title": "Webhooks",
       "urlSaved": "Destination URL sparad.",
       "verificationIntro": "Lisent signerar varje begäran. Verifiera <code>X-Lisent-Signature</code>-huvudet innan Ni litar på nyttolasten.",
-      "verificationNote": "Verifiera <code>X-Lisent-Signature</code>-huvudet på varje begäran.",
+      "verificationNote": "Verifiera <code>X-Lisent-Signature</code>-huvudet i varje begäran.",
       "verificationTitle": "Verifiering",
       "verifyByComputing": "Beräkna <code>HMAC-SHA256(secret, body)</code> och jämför med signaturhuvudet."
     },
@@ -1261,7 +1318,7 @@
       "clearSelection": "Rensa urval",
       "delete": "Ta bort",
       "exportCsv": "Exportera CSV",
-      "exportPdf": "Export PDF",
+      "exportPdf": "Exportera PDF",
       "selected": "{count} valda"
     },
     "bulkDelete": {
@@ -1277,7 +1334,7 @@
       "closeDate": "Förväntat avslutsdatum",
       "closeDatePlaceholder": "YYYY-MM-DD",
       "confirmConvert": "Konvertera lead",
-      "converting": "Konverterar...",
+      "converting": "Konverterar…",
       "countryCode": "Landskod",
       "countryCodePlaceholder": "DE",
       "customerName": "Kundnamn",
@@ -1340,7 +1397,7 @@
       "noDealYet": "Ingen Deal ännu",
       "noneYet": "Ingen ännu",
       "qualify": "Kvalificera",
-      "quickFacts": "Snabba fakta",
+      "quickFacts": "Snabbfakta",
       "roundRobin": "Round robin",
       "scheduleCall": "Schemalägg samtal",
       "source": "Source",
@@ -1369,7 +1426,7 @@
       "customerNameRequired": "Kundnamn är obligatoriskt.",
       "deleteLead": "Det gick inte att ta bort lead.",
       "deleteNote": "Det gick inte att ta bort anteckning.",
-      "exportPdf": "Failed to generate PDF.",
+      "exportPdf": "Det gick inte att skapa PDF.",
       "loadCompanies": "Det gick inte att läsa in företag.",
       "loadLeads": "Det gick inte att läsa in leads.",
       "loadNotes": "Det gick inte att läsa in anteckningar.",
@@ -1415,7 +1472,7 @@
       "saveChanges": "Spara ändringar"
     },
     "kpi": {
-      "allPipelines": "Över alla pipelines",
+      "allPipelines": "I alla pipelines",
       "conversionRate": "Konverteringsgrad",
       "convertedOfTotal": "{converted} av {total} konverterade",
       "currentlyActive": "För närvarande aktiv",
@@ -1438,10 +1495,10 @@
       "unknownAuthor": "Okänd"
     },
     "pdf": {
-      "createdAt": "Created",
-      "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
+      "createdAt": "Skapad",
+      "email": "E‑post",
+      "exportedAt": "{count} leads · Exporterat {date}",
+      "pageOf": "Sida {current} av {total}",
       "title": "Leads"
     },
     "rowMenu": {
@@ -1460,7 +1517,7 @@
     },
     "statusTab": {
       "all": "Alla",
-      "assignedToMe": "Tilldelad till mig",
+      "assignedToMe": "Tilldelad mig",
       "filterAria": "Filtrera leads efter status"
     },
     "success": {
@@ -1487,8 +1544,8 @@
       "openAIScore": "Open AI‑poäng för {name}",
       "phone": "Telefon",
       "rowActions": "Radåtgärder",
-      "selectAll": "Välj alla leads",
-      "selectRow": "Välj lead {name}",
+      "selectAll": "Markera alla leads",
+      "selectRow": "Markera lead {name}",
       "source": "Källa",
       "status": "Status",
       "value": "Värde",
@@ -1510,8 +1567,8 @@
   },
   "marketing": {
     "authBody": "Inloggning, registrering och sessionsvalidering via <code>/api/auth</code>",
-    "authTitle": "Auth",
-    "bffBody": "Webbläsar‑anrop bör stoppas i den här appen. Betrodda server‑rutter kommunicerar med den interna CRM‑tjänsten.",
+    "authTitle": "Autentisering",
+    "bffBody": "Webbläsar-anrop bör stoppas i den här appen. Betrodda serverrutter kommer att kommunicera med den interna CRM-tjänsten.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
     "campaigns": {
@@ -1552,17 +1609,17 @@
         "title": "Lead-capture-formulär"
       }
     },
-    "ctaCreateWorkspace": "Skapa åtkomst till workspace",
-    "ctaOpenShell": "Öppna skyddat shell",
+    "ctaCreateWorkspace": "Skapa åtkomst till arbetsyta",
+    "ctaOpenShell": "Öppna skyddat skal",
     "currentStack": "Aktuell stack",
-    "heroEyebrow": "Röst‑native CRM‑plattform",
-    "heroLead": "Lisent CRM kombinerar autentisering, tenant‑aware arbetsflöden, import‑profile onboarding och ett skyddat application shell för företagsoperatörer. Webbappen äger användar‑inriktade flöden. Go CRM service ligger bakom en betrodd backend‑gräns.",
-    "heroTitle": "Förstå avsikt, inte bara ord.",
+    "heroEyebrow": "Röst‑native CRM-plattform",
+    "heroLead": "Lisent CRM kombinerar autentisering, hyresgäst‑medvetna arbetsflöden, import‑profil onboarding och ett skyddat applikationsskal för företagsoperatörer. Webbappen äger användargränssnittets flöden. Go CRM‑tjänsten ligger bakom en pålitlig backend‑gräns.",
+    "heroTitle": "Förståelse för avsikt, inte bara ord.",
     "navSignIn": "Logga in",
     "navStartNow": "Starta nu",
     "stackItems": {
       "auth": "SuperTokens Email/Password + Session",
-      "crm": "Go CRM service bakom en BFF‑gräns",
+      "crm": "Go CRM‑tjänst bakom en BFF‑gräns",
       "next": "Next.js 16 App Router",
       "ts": "TypeScript + Tailwind CSS 4"
     },
@@ -1572,8 +1629,8 @@
       "email": "E‑post",
       "forms": "Formulär"
     },
-    "tenantBody": "Nästa lager löser upp <code>user_id</code>, <code>company_id</code> och roll per session.",
-    "tenantTitle": "Tenant‑kontext",
+    "tenantBody": "Nästa lager kommer att lösa <code>user_id</code>, <code>company_id</code> och roll per session.",
+    "tenantTitle": "Hyresgästkontext",
     "whatThisAppOwns": "Vad den här appen äger"
   },
   "nav": {
@@ -1584,8 +1641,8 @@
     "customers": "Kunder",
     "dashboard": "Dashboard",
     "deals": "Deals",
-    "help": "Hjälp & resurser",
-    "import": "Importera",
+    "help": "Hjälp och resurser",
+    "import": "Import",
     "integrations": "Integrationer",
     "leads": "Leads",
     "lisentHome": "Lisent CRM hem",
@@ -1627,19 +1684,19 @@
       "title": "Kalender"
     },
     "customers": {
-      "description": "Alla dina kundregister på ett och samma ställe.",
+      "description": "Alla dina kundregister på ett ställe.",
       "title": "Kunder"
     },
     "dashboard": {
-      "description": "Översikt över arbetsytan och snabbåtgärder.",
-      "title": "Instrumentpanel"
+      "description": "Översikt över arbetsyta och snabba åtgärder.",
+      "title": "Dashboard"
     },
     "deals": {
-      "description": "Följ upp öppna affärer och värdet av pipeline.",
-      "title": "Erbjudanden"
+      "description": "Följ öppna affärer och pipeline‑värde.",
+      "title": "Affärer"
     },
     "imports": {
-      "description": "Ta med kunddata till din arbetsyta.",
+      "description": "Importera kunddata till din arbetsyta.",
       "title": "Import"
     },
     "integrationDetail": {
@@ -1647,7 +1704,7 @@
       "title": "Integration"
     },
     "integrations": {
-      "description": "Anslut Lisent till dina verktyg och datakällor.",
+      "description": "Koppla Lisent till dina verktyg och datakällor.",
       "title": "Integrationer"
     },
     "leads": {
@@ -1673,14 +1730,14 @@
     "fallbackMode": "Fallback‑läge",
     "formulaAudit": "Formelgranskning",
     "keyQuestions": "Viktiga frågor för samtalet",
-    "leadAssessment": "Lead assessment",
-    "llmMedian": "LLM median",
+    "leadAssessment": "Lead‑bedömning",
+    "llmMedian": "LLM‑median",
     "noScoreYet": "Ingen poäng ännu.",
     "rawAnalysis": "Rå analysresultat",
     "recommendedOpening": "Rekommenderad öppning",
     "risksToWatch": "Risker att bevaka",
-    "salesContext": "Säljsammanhang",
-    "scoredAt": "Betygsatt {date}",
+    "salesContext": "Försäljningskontext",
+    "scoredAt": "poängsatt {date}",
     "scoring": "Poängsättning…",
     "whoTheyAre": "Vem de är"
   },
@@ -1857,7 +1914,7 @@
       "admins": "Administratörer",
       "adminsDescription": "Medlemmar med full åtkomst till detta arbetsområde.",
       "emptyAdmins": "Inga administratörer har tilldelats.",
-      "emptyUsers": "Inga standardmedlemmar ännu.",
+      "emptyUsers": "Inga vanliga medlemmar ännu.",
       "users": "Användare",
       "usersDescription": "Standardmedlemmar med daglig åtkomst."
     },

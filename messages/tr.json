@@ -1,7 +1,7 @@
 {
   "account": {
     "changeNote": "Değişiklikler, panoda kullanılan oturum açmış kullanıcı profilini günceller.",
-    "editProfile": "Profili düzenleyin",
+    "editProfile": "Profili düzenle",
     "emailNotEditable": "E-posta değişiklikleri bu ekranda işlenmez.",
     "fields": {
       "companyAccess": "Şirket erişimi",
@@ -21,7 +21,7 @@
       "male": "Erkek"
     },
     "loadFailed": "Hesap ayarları yüklenemedi.",
-    "noMemberships": "Henüz şirket üyeliğiniz yok.",
+    "noMemberships": "Henüz şirket üyeliği yok.",
     "placeholders": {
       "firstName": "Adınız",
       "language": "Dil seçin",
@@ -33,7 +33,7 @@
       "workspaceUser": "Çalışma alanı kullanıcısı"
     },
     "profileSummary": "Profil özeti",
-    "saveButton": "Ayarları kaydedin",
+    "saveButton": "Ayarları kaydet",
     "saveFailed": "Hesap ayarları kaydedilemedi.",
     "saved": "Hesap ayarları kaydedildi.",
     "saving": "Kaydediliyor...",
@@ -42,12 +42,12 @@
   },
   "auth": {
     "alreadyHaveAccess": "Zaten erişiminiz var mı?",
-    "authFailed": "Kimlik doğrulama başarısız oldu.",
-    "createAnAccount": "Bir hesap oluşturun",
+    "authFailed": "Kimlik doğrulama başarısız.",
+    "createAnAccount": "Hesap oluştur",
     "creatingAccount": "Hesap oluşturuluyor...",
     "emailLabel": "E-posta",
     "emailPlaceholder": "name@company.com",
-    "newWorkspaceUser": "Yeni çalışma alanı kullanıcısı mı?",
+    "newWorkspaceUser": "Yeni çalışma alanı kullanıcısı?",
     "passwordLabel": "Parola",
     "passwordPlaceholderSignIn": "Parolanızı girin",
     "passwordPlaceholderSignUp": "Güçlü bir parola oluşturun",
@@ -59,7 +59,7 @@
     "signInTitle": "Çalışma alanınıza erişin",
     "signUp": "Kayıt ol",
     "signUpButton": "Hesap oluştur",
-    "signUpSubtitle": "E-posta ve parola ile başlayın. Kiracı ataması ardından gelir.",
+    "signUpSubtitle": "E-posta ve parolayla başlayın. Kiracı ataması ardından gelir.",
     "signUpTitle": "Çalışma alanı erişiminizi oluşturun",
     "signingIn": "Giriş yapılıyor...",
     "workspaceAuth": "Çalışma alanı kimlik doğrulama",
@@ -70,7 +70,7 @@
       "apply": "Uygula",
       "clear": "Temizle",
       "createEvent": "Etkinlik oluştur",
-      "deleteEvent": "Etkinliği sil",
+      "deleteEvent": "Etkinlik sil",
       "filter": "Filtrele",
       "invite": "Davet et",
       "new": "Yeni",
@@ -79,8 +79,8 @@
     "allAssignees": "Tüm atananlar",
     "allDay": "Tüm gün",
     "aria": {
-      "addOn": "{date} tarihinde etkinlik ekle",
-      "createOn": "{date} tarihinde etkinlik oluştur",
+      "addOn": "Etkinlik ekle {date}",
+      "createOn": "Etkinlik oluştur {date}",
       "next": "Sonraki dönem",
       "previous": "Önceki dönem"
     },
@@ -91,12 +91,12 @@
       "upcoming": "Yaklaşan etkinlik yok."
     },
     "errors": {
-      "delete": "Etkinliği silme işlemi başarısız oldu.",
-      "linkRecordMissing": "Bağlantı türü seçildiğinde bağlantılı kayıt gereklidir.",
-      "loadCompanies": "Şirketleri yükleme işlemi başarısız oldu.",
-      "loadEvents": "Etkinlikleri yükleme işlemi başarısız oldu.",
+      "delete": "Etkinlik silinemedi.",
+      "linkRecordMissing": "Bağlantı türü seçildiğinde bağlı kayıt gereklidir.",
+      "loadCompanies": "Şirketler yüklenemedi.",
+      "loadEvents": "Etkinlikler yüklenemedi.",
       "pastDate": "Etkinlik geçmişte başlayamaz.",
-      "save": "Etkinliği kaydetme işlemi başarısız oldu.",
+      "save": "Etkinlik kaydedilemedi.",
       "startRequired": "Başlangıç tarihi ve saati gereklidir.",
       "titleRequired": "Başlık gereklidir."
     },
@@ -142,18 +142,18 @@
       "company": "Şirket",
       "customer": "Müşteri",
       "deal": "Anlaşma",
-      "lead": "Müşteri Adayı",
+      "lead": "Müşteri adayı",
       "none": "Yok"
     },
     "loading": "Takvim yükleniyor...",
     "modal": {
-      "editEyebrow": "Etkinliği düzenle",
-      "editTitle": "Takvim etkinliğini güncelle",
+      "editEyebrow": "Etkinliği düzenleyin",
+      "editTitle": "Takvim etkinliğini güncelleyin",
       "newEyebrow": "Yeni etkinlik",
       "newTitle": "Takvim etkinliği planlayın",
       "subtitle": "CRM kayıtlarınıza bağlı aramaları, toplantıları ve takipleri planlayın."
     },
-    "moreCount": "+{count} daha fazla",
+    "moreCount": "+{count} daha",
     "placeholders": {
       "description": "Kısa bir açıklama ekleyin...",
       "location": "Ofis, Zoom, adres...",
@@ -186,25 +186,25 @@
       "week": "Hafta"
     },
     "weekday": {
-      "fri": "Cum",
-      "mon": "Pzt",
-      "sat": "Cmt",
-      "sun": "Paz",
-      "thu": "Per",
-      "tue": "Sal",
-      "wed": "Çar"
+      "fri": "Cuma",
+      "mon": "Pazartesi",
+      "sat": "Cumartesi",
+      "sun": "Pazar",
+      "thu": "Perşembe",
+      "tue": "Salı",
+      "wed": "Çarşamba"
     }
   },
   "common": {
     "back": "Geri",
     "cancel": "İptal",
     "close": "Kapat",
-    "closeMenu": "Menüyü kapatın",
+    "closeMenu": "Menüyü kapat",
     "loading": "Yükleniyor...",
     "next": "İleri",
     "no": "Hayır",
     "notSet": "Ayarlanmamış",
-    "openMenu": "Menüyü açın",
+    "openMenu": "Menüyü aç",
     "save": "Kaydet",
     "saving": "Kaydediliyor...",
     "tryAgain": "Tekrar deneyin",
@@ -221,9 +221,9 @@
       "confirmDelete": "Seçilenleri sil",
       "deleteDescription": "Bu, {count} müşteri kaydını kalıcı olarak silecektir. Bu işlem geri alınamaz.",
       "deleteEyebrow": "Toplu sil",
-      "deleteTitle": "Seçilen müşterileri sil?",
+      "deleteTitle": "Seçili müşterileri sil?",
       "regionLabel": "Toplu işlemler",
-      "selectedCount": "{count} seçilen"
+      "selectedCount": "{count} seçili"
     },
     "closeAddPopup": "Müşteri ekleme iletişim kutusunu kapat",
     "confirmDelete": "Sil",
@@ -241,14 +241,14 @@
       "identity": "Kimlik"
     },
     "errors": {
-      "bulkDeleteFailed": "Bazı müşterileri silme başarısız oldu.",
-      "deleteCustomer": "Müşteriyi silme başarısız oldu.",
-      "loadCompanies": "Şirketleri yükleme başarısız oldu.",
-      "loadCustomers": "Müşterileri yükleme başarısız oldu.",
-      "saveCustomer": "Müşteriyi kaydetme başarısız oldu."
+      "bulkDeleteFailed": "Bazı müşteriler silinemedi.",
+      "deleteCustomer": "Müşteriyi silme işlemi başarısız oldu.",
+      "loadCompanies": "Şirketleri yükleme işlemi başarısız oldu.",
+      "loadCustomers": "Müşterileri yükleme işlemi başarısız oldu.",
+      "saveCustomer": "Müşteriyi kaydetme işlemi başarısız oldu."
     },
     "fields": {
-      "actions": "Eylemler",
+      "actions": "İşlemler",
       "company": "Şirket",
       "companyId": "Şirket kimliği",
       "country": "Ülke",
@@ -270,7 +270,7 @@
       "createCustomer": "Müşteri oluştur",
       "createEyebrow": "Yeni müşteri",
       "createSubtitle": "Temel iletişim bilgilerini girin. Geri kalanını daha sonra doldurabilirsiniz.",
-      "editEyebrow": "Müşteri düzenle",
+      "editEyebrow": "Müşteriyi düzenle",
       "saveChanges": "Değişiklikleri kaydet"
     },
     "list": {
@@ -282,7 +282,7 @@
       "visibleCount": "Gösterilen {visible} / {total}"
     },
     "loading": "Müşteriler yükleniyor...",
-    "noEmail": "Kayıtlı e-posta yok",
+    "noEmail": "Dosyada e-posta yok",
     "notSet": "Ayarlanmamış",
     "placeholders": {
       "email": "name@company.com",
@@ -303,7 +303,7 @@
     "statusFilter": "Durum filtresi",
     "success": {
       "bulkDeleted": "{count} müşteri silindi.",
-      "bulkDeletedPartial": "Toplam {total} müşteriden {deleted} silindi.",
+      "bulkDeletedPartial": "{deleted} / {total} müşteri silindi.",
       "created": "Müşteri oluşturuldu.",
       "deleted": "Müşteri silindi.",
       "updated": "Müşteri güncellendi."
@@ -319,12 +319,12 @@
       "champExtraction": "CHAMP çıkarımı",
       "path": "Yol",
       "reasoningReport": "Akıl yürütme raporu",
-      "scoredAt": "Puanlandı {date} tarihinde",
-      "title": "AI içgörüler"
+      "scoredAt": "{date} tarihinde puanlandı",
+      "title": "AI içgörüleri"
     },
     "amount": "Tutar",
     "amountValue": "{amount}",
-    "assignee": "Atanan kişi",
+    "assignee": "Atanan",
     "assigneeValue": "{name}",
     "boardHint": "Anlaşmaları aşamalar arasında sürükleyerek süreci güncelleyin.",
     "changedBy": "Değiştiren {name}",
@@ -343,7 +343,7 @@
     "dealsInPipeline": "{count} anlaşma süreçte",
     "dealsInView": "{count} anlaşma görünümde",
     "delete": "Sil",
-    "deleteConfirmDescription": "Bu işlem, bu anlaşmayı kalıcı olarak kaldırır. Bu işlem geri alınamaz.",
+    "deleteConfirmDescription": "Bu işlem, anlaşmayı kalıcı olarak kaldırır. Bu işlem geri alınamaz.",
     "deleteConfirmTitle": "Anlaşmayı sil?",
     "deleteDeal": "Anlaşmayı sil",
     "deleting": "Siliniyor...",
@@ -371,7 +371,7 @@
       "records": "Kayıtlar",
       "sourceLead": "Kaynak müşteri adayı",
       "termination": "Fesih",
-      "updated": "Güncellenme",
+      "updated": "Güncellendi",
       "wonReason": "Kazanma nedeni"
     },
     "filters": {
@@ -383,28 +383,28 @@
       "stageLabel": "Aşama"
     },
     "form": {
-      "assigneeHint": "Bu anlaşmayı sahiplenmesi için bir ekip üyesi seçin.",
-      "createDeal": "Anlaşma oluşturun",
+      "assigneeHint": "Bu anlaşmayı sahiplenmek için bir ekip üyesi seçin.",
+      "createDeal": "Anlaşma oluştur",
       "editEyebrow": "Anlaşma düzenle",
-      "editTitle": "Güncelleme anlaşması",
+      "editTitle": "Anlaşma güncelle",
       "fields": {
-        "amount": "Miktar",
-        "assignee": "Devralan",
-        "currency": "Para Birimi",
+        "amount": "Tutar",
+        "assignee": "Atanan kişi",
+        "currency": "Para birimi",
         "customer": "Müşteri",
         "dealName": "Anlaşma adı",
-        "expectedCloseDate": "Beklenen kapanış tarihi",
+        "expectedCloseDate": "Tahmini kapanış tarihi",
         "lossReason": "Kayıp nedeni",
-        "pipelineStage": "Boru hattı aşaması",
-        "sourceLead": "Kaynak müşteri adayı",
+        "pipelineStage": "Süreç aşaması",
+        "sourceLead": "Kaynak aday",
         "terminationDate": "Fesih tarihi",
         "wonReason": "Kazanma nedeni"
       },
       "newEyebrow": "Yeni anlaşma",
       "newTitle": "Anlaşma oluştur",
       "options": {
-        "noLinkedCustomer": "Bağlı müşteri yok",
-        "noSourceLead": "Kaynak müşteri adayı yok"
+        "noLinkedCustomer": "Bağlantılı müşteri yok",
+        "noSourceLead": "Kaynak aday yok"
       },
       "placeholders": {
         "amount": "0.00",
@@ -412,31 +412,31 @@
         "lossReason": "Bu anlaşma neden kaybedildi?",
         "wonReason": "Bu anlaşma neden kazanıldı?"
       },
-      "saveChanges": "Değişiklikleri kaydedin"
+      "saveChanges": "Değişiklikleri kaydet"
     },
     "kanbanBoard": "Kanban panosu",
-    "loadingBoard": "Pano yükleniyor...",
-    "loadingDeals": "Anlaşmalar yükleniyor...",
+    "loadingBoard": "Yükleme panosu...",
+    "loadingDeals": "Fırsatlar yükleniyor...",
     "meetingTitle": "Toplantı",
     "noDate": "Tarih yok",
     "noDealsMatch": "Mevcut filtrelerle eşleşen anlaşma yok.",
-    "noLossReason": "Kayıp nedeni kaydedilmedi.",
+    "noLossReason": "Kayıp nedeni kaydedilmemiştir.",
     "noRelatedCustomer": "İlgili müşteri yok.",
     "noWinReason": "Kazanma nedeni kaydedilmedi.",
     "notSet": "Ayarlanmamış",
-    "now": "şimdi",
+    "now": "Şimdi",
     "pipelineLoading": "Süreç yükleniyor...",
     "posting": "Gönderiliyor...",
     "relatedRecords": "İlgili kayıtlar",
     "scheduleActivity": "Aktivite planlayın",
-    "selectedCompany": "Etkin çalışma alanı: {name}",
+    "selectedCompany": "Aktif çalışma alanı: {name}",
     "stage": {
       "lost": "Kaybedildi",
-      "lostDescription": "Kaybedilen anlaşmalardan öğrenilecek.",
+      "lostDescription": "Kaybedilen anlaşmalardan öğrenilir.",
       "negotiation": "Müzakere",
       "negotiationDescription": "Fiyatlandırma, şartlar ve zaman çizelgeleri üzerinde uzlaşılıyor.",
       "new": "Yeni",
-      "newDescription": "Henüz nitelendirilmemiş, yeni oluşturulmuş fırsatlar.",
+      "newDescription": "Henüz nitelendirilmemiş yeni oluşturulmuş fırsatlar.",
       "proposal": "Teklif",
       "proposalDescription": "Resmi teklif gönderildi ve inceleniyor.",
       "qualified": "Nitelikli",
@@ -455,49 +455,49 @@
     },
     "system": "Sistem",
     "terminationOpen": "Açık",
-    "thisDeal": "bu anlaşma",
+    "thisDeal": "Bu anlaşma",
     "unassigned": "Atanmamış",
     "unknownAuthor": "Bilinmeyen",
-    "untitledDeal": "Adsız anlaşma"
+    "untitledDeal": "Başlıksız anlaşma"
   },
   "errors": {
     "forbidden": "İzniniz yok.",
     "generic": "Bir şeyler ters gitti.",
     "networkError": "Ağ hatası. Tekrar deneyin.",
-    "sessionRequired": "Kimlik doğrulama gerekli.",
+    "sessionRequired": "Kimlik doğrulama zorunludur.",
     "userNotFound": "Kullanıcı bulunamadı."
   },
   "home": {
     "activity": {
       "chartAriaLabel": "Geçtiğimiz haftanın aktivite grafiği",
       "empty": "Henüz {name} için aktivite kaydedilmedi.",
-      "emptyDefault": "Henüz aktivite kaydedilmedi.",
+      "emptyDefault": "Henüz kayıtlı etkinlik yok.",
       "legendDeals": "Anlaşmalar",
-      "legendLeads": "Müşteri Adayları",
+      "legendLeads": "Müşteri adayları",
       "subtitle": "Geçtiğimiz hafta boyunca oluşturulan müşteri adayları ve kapanan anlaşmalar.",
-      "title": "Aktivite"
+      "title": "Etkinlik"
     },
     "company": {
-      "createWorkspace": "Çalışma alanı oluşturun",
-      "goToOverview": "Çalışma alanı özetine gidin",
-      "noWorkspaceHelp": "Canlı verileri görmek için değiştiriciden bir çalışma alanı seçin",
-      "noWorkspaceSelected": "Çalışma alanı seçilmedi",
+      "createWorkspace": "Çalışma alanı oluştur",
+      "goToOverview": "Çalışma alanı genel bakışına gidin",
+      "noWorkspaceHelp": "Canlı verileri görmek için değiştiricide bir çalışma alanı seçin",
+      "noWorkspaceSelected": "Seçili çalışma alanı yok",
       "pickWorkspace": "Bir çalışma alanı seçin",
-      "subtitleSelected": "{name} için çalışma alanı ölçümleri.",
-      "subtitleWithName": "Tekrar hoş geldiniz, {name}."
+      "subtitleSelected": "{name} için çalışma alanı ölçümleri",
+      "subtitleWithName": "Tekrar hoş geldiniz, {name}"
     },
     "errors": {
-      "loadDashboard": "Pano verileri yüklenemedi.",
-      "loadSnapshot": "Çalışma alanı anlık görüntüsü yüklenemedi.",
-      "loadWorkspaces": "Çalışma alanları yüklenemedi."
+      "loadDashboard": "Pano verileri yüklenemedi",
+      "loadSnapshot": "Çalışma alanı anlık görüntüsü yüklenemedi",
+      "loadWorkspaces": "Çalışma alanları yüklenemedi"
     },
     "kpi": {
       "customers": "Müşteriler",
-      "customersHint": "Bu çalışma alanındaki toplam hesaplar.",
+      "customersHint": "Bu çalışma alanındaki toplam hesaplar",
       "customersInWorkspace": "{name} içindeki müşteriler",
       "deals": "Anlaşmalar",
-      "dealsAmountEmpty": "Henüz anlaşma değeri yok.",
-      "leads": "Müşteri adayları",
+      "dealsAmountEmpty": "Henüz anlaşma değeri yok",
+      "leads": "Müşteri Adayları",
       "leadsHint": "Süreçteki aktif müşteri adayları.",
       "openPipelineHint": "Tüm aşamalardaki açık süreç değeri.",
       "openPipelineValue": "{value}"
@@ -510,7 +510,7 @@
     "pipeline": {
       "empty": "{name} için henüz süreç verisi yok.",
       "emptyDefault": "Henüz süreç verisi yok.",
-      "subtitle": "Aşamalara göre anlaşma dağılımı.",
+      "subtitle": "Aşamaya göre anlaşma dağılımı.",
       "title": "Süreç",
       "totalBadge": "{value} toplam"
     },
@@ -521,12 +521,12 @@
         "title": "AI nitelendirici"
       },
       "customerImport": {
-        "cta": "İçe aktarmaya başlayın",
+        "cta": "İçe aktarmayı başlat",
         "description": "Müşteri verilerini çalışma alanınıza getirin.",
         "title": "Müşterileri içe aktar"
       },
       "homeViews": {
-        "cta": "Görünümleri özelleştirin",
+        "cta": "Görünümleri özelleştir",
         "description": "Pano üzerinde hangi widget'ların görüneceğini seçin.",
         "title": "Ana sayfa görünümleri"
       },
@@ -540,25 +540,25 @@
         "description": "Başka bir iş birimi için yeni bir kiracı başlatın.",
         "title": "Yeni çalışma alanı"
       },
-      "oneClickSetup": "Tek tıklamalı kurulum",
+      "oneClickSetup": "Tek tıkla kurulum",
       "scheduleMeeting": {
         "cta": "Takvimi açın",
-        "description": "Keşif görüşmesi ya da takip görüşmesi planlayın.",
-        "title": "Görüşme planlayın"
+        "description": "Keşif görüşmesi veya takip toplantısı planlayın.",
+        "title": "Toplantı planlayın"
       },
       "subtitle": "Ortak görevleri tek tıkla tamamlayın.",
       "title": "Hızlı eylemler"
     },
     "recentLeads": {
-      "empty": "{name} içinde son müşteri adayı yok.",
+      "empty": "{name} içinde son müşteri adayları yok.",
       "emptyDefault": "Henüz son müşteri adayları yok.",
       "subtitle": "Çalışma alanınıza eklenen son müşteri adayları.",
       "title": "Son müşteri adayları",
-      "unnamed": "Adsız müşteri adayı",
+      "unnamed": "İsimsiz müşteri adayı",
       "viewAll": "Tüm müşteri adaylarını görüntüle"
     },
     "snapshot": {
-      "activeWorkspace": "Aktif çalışma alanı",
+      "activeWorkspace": "Etkin çalışma alanı",
       "eyebrow": "Çalışma alanı anlık görüntüsü",
       "inWorkspace": "{name} içinde",
       "newCount": "{count} yeni",
@@ -566,18 +566,18 @@
       "noWorkspaceSelected": "Çalışma alanı seçilmedi",
       "openCount": "{count} açık",
       "openFullDashboard": "Tam panoyu aç",
-      "openPipeline": "Süreç'i aç"
+      "openPipeline": "Süreç aç"
     },
     "workspaceOverview": {
       "acrossAccount": "Hesabınız genelinde",
-      "activeWorkspace": "Aktif çalışma alanı",
+      "activeWorkspace": "Etkin çalışma alanı",
       "allCombined": "Hepsi bir arada",
       "customers": "Müşteriler",
       "noneSelected": "Hiçbiri seçilmedi",
       "pickToActivate": "Metrikleri etkinleştirmek için bir çalışma alanı seçin.",
       "scopedViews": "Kapsamlı görünümler",
       "singleWorkspace": "Tek çalışma alanı",
-      "subtitle": "Çalışma alanlarınızın hesap düzeyinde özet görünümü.",
+      "subtitle": "Çalışma alanlarınızın hesap düzeyinde özetlenmesi.",
       "workspaces": "Çalışma alanları"
     }
   },
@@ -587,8 +587,8 @@
       "chooseFile": "Yüklemek için bir CSV dosyası seçin.",
       "enterUrl": "Bir CSV URL'si girin.",
       "fetchUrlFailed": "CSV URL'si alınamadı.",
-      "mapAtLeastOne": "En az bir kaynak sütununu hedef alana eşleyin.",
-      "noRows": "Dosya veya URL hiçbir satır içermiyordu.",
+      "mapAtLeastOne": "En az bir kaynak sütunu hedef alana eşleyin.",
+      "noRows": "Dosya veya URL hiçbir satır içermedi.",
       "openFromCompany": "Bu sayfayı bir şirket çalışma alanından açın.",
       "parseFailed": "CSV dosyası ayrıştırılamadı."
     },
@@ -610,7 +610,7 @@
       "backToSource": "Kaynağa geri dön",
       "continueToMapping": "Eşlemeye devam edin",
       "headers": "{count} başlık",
-      "rowsLoaded": "{count} satır yüklendi",
+      "rowsLoaded": "{count} Satır yüklendi",
       "rowsShown": "İlk {count} satırı gösteriyor",
       "unmapped": "Eşlenmemiş"
     },
@@ -759,7 +759,7 @@
     },
     "generateToken": "Token oluştur",
     "greenapi": {
-      "activeLabel": "Aktif",
+      "activeLabel": "Etkin",
       "apiTokenLabel": "API token",
       "apiTokenLabelKeep": "API token (boş bırakın, mevcut olanı koruyun)",
       "apiTokenPlaceholder": "Green API token girin",
@@ -841,6 +841,52 @@
       "mintBearer": "Bearer token oluştur",
       "noDeliveries": "Henüz teslimat yok.",
       "noIntegration": "Henüz intranet entegrasyonu yapılandırılmadı.",
+      "outbound": {
+        "description": "Bu CRM'de bir Müşteri Adayı'nın durumu değiştiğinde, olayı imzalayın ve POST ile uç noktanıza gönderin. Başarısızlıkta (yaklaşık 7 saat içinde 6 deneme) yeniden deniyoruz ve ardından dead‑letter gönderiyoruz.",
+        "generateSecretButton": "İmzalama gizli anahtarını oluştur",
+        "loadFailed": "Giden webhook yapılandırması yüklenemedi.",
+        "loading": "Giden webhook yükleniyor…",
+        "newSecretHint": "Bu gizli anahtarı şimdi kopyalayın — bu iletişim kutusu kapandıktan sonra hash'liyoruz ve bundan sonra yalnızca maskelenmiş bir sürümünü gösteriyoruz.",
+        "newSecretReveal": "Yeni imzalama gizli anahtarı",
+        "pauseHint": "URL'nizi kaybetmeden yeni teslimatları durdurur. Mevcut bekleyen yeniden denemeler devam eder.",
+        "pauseLabel": "Giden webhook'ları duraklat",
+        "rotateSecretButton": "İmzalama gizli anahtarını yenile",
+        "rotateSecretConfirm": "İmzalama gizli anahtarını yenilemek ister misiniz? Doğrulama kodunuzu yeni değerle güncellemeniz gerekir.",
+        "rotatingSecret": "Yenileniyor…",
+        "saveButton": "Giden yapılandırmayı kaydet",
+        "saveFailed": "Giden yapılandırma kaydedilemedi.",
+        "savedNotice": "Giden webhook kaydedildi.",
+        "secretConfigured": "Yapılandırıldı",
+        "secretNotSet": "Ayarlanmamış — olay göndermeden önce bir tane oluşturun.",
+        "secretRotatedAt": "(döndürüldü {time})",
+        "secretRotatedNotice": "İmzalama gizli anahtarı döndürüldü. Düz metin sadece bir kez gösterilir.",
+        "selectAtLeastOne": "En az bir durum seçin veya 'Tüm durum değişiklikleri' seçeneğini işaretleyin.",
+        "signingSecretLabel": "İmzalama gizli anahtarı (HMAC-SHA256)",
+        "statusFilterHint": "Webhook'u tetikleyen geçişleri seçin. Her durum değişikliğini almak için '*' kullanın.",
+        "statusFilterTitle": "Durum filtresi",
+        "statusLabels": {
+          "contacted": "Müşteri Adayı iletişime alındı",
+          "converted": "Müşteri Adayı müşteriye dönüştürüldü",
+          "lost": "Müşteri Adayı kayıp olarak işaretlendi",
+          "new": "Müşteri Adayı yeni oluşturuldu",
+          "qualified": "Müşteri Adayı AI / satış tarafından nitelendirildi"
+        },
+        "testButton": "Test etkinliği gönder",
+        "testEnqueued": "Test etkinliği kuyruğa alındı: {eventId}",
+        "testFailed": "Test etkinliği başarısız oldu.",
+        "testHint": "Gerçek etkinliklerdeki aynı başlıkları ve imzalamayı kullanarak URL'nize sentetik lead.status_changed etkinliği gönderir.",
+        "testTitle": "Test etkinliği gönder",
+        "testToStatusLabel": "to_status (simüle edilecek geçiş)",
+        "title": "Giden webhook (durum güncellemeleri)",
+        "urlHint": "Bu URL'ye HMAC-SHA256 imzası ile status-change etkinliklerini POST ederiz. Üretimde HTTPS olmalıdır.",
+        "urlLabel": "Uç nokta URL",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Gizli anahtar oluşturulmadan önce bir URL kaydedin.",
+        "verificationIntro": "Her istek şu başlıkları içerir:",
+        "verificationNote": "5 dakikadan daha eski bir zaman damgası içeren bir teslimat alırsanız, bunu tekrar olarak reddedin.",
+        "verificationTitle": "Tarafınızda nasıl doğrulanır",
+        "verifyByComputing": "HMAC'yi '<timestamp>.<rawBody>' üzerinde yeniden hesaplayarak ve sabit zaman karşılaştırması yaparak doğrulayın:"
+      },
       "recentDeliveries": "Son teslimatlar",
       "requestExamples": "Örnekleri isteyin",
       "revealDescription": "Tokenlar yalnızca bir kez gösterilir.",
@@ -1062,7 +1108,7 @@
       "loading": "RAG yükleniyor...",
       "loadingContent": "İçerik yükleniyor...",
       "loadingDocs": "Belgeler yükleniyor...",
-      "metadata": "Metadata",
+      "metadata": "Meta veri",
       "noDocuments": "Henüz alınan belge yok.",
       "noToken": "Alım token'ı yapılandırılmadı.",
       "revokeConfirm": "İkincil alım token'ını iptal etmek istiyor musunuz?",
@@ -1237,7 +1283,7 @@
       "openHint": "Bu müşteri adayını puanlamak için nitelendiriciyi açın.",
       "openQualifier": "Nitelendiriciyi aç",
       "pathLabel": "Yol: {path}",
-      "scoreOf": "Puan: {score}",
+      "scoreOf": "Skor: {score}",
       "startQualify": "Nitelendirmeye başlayın",
       "statusLabel": "Durum: {status}"
     },
@@ -1261,7 +1307,7 @@
       "clearSelection": "Seçimi temizle",
       "delete": "Sil",
       "exportCsv": "CSV dışa aktar",
-      "exportPdf": "PDF olarak dışa aktar",
+      "exportPdf": "PDF dışa aktar",
       "selected": "{count} seçildi"
     },
     "bulkDelete": {
@@ -1438,11 +1484,10 @@
       "unknownAuthor": "Bilinmeyen"
     },
     "pdf": {
-      "createdAt": "Oluşturulma",
+      "createdAt": "Oluşturuldu",
       "email": "E-posta",
-      "exportedAt": "{count} aday · {date} tarihinde dışa aktarıldı",
-      "pageOf": "Sayfa {current} / {total}",
-      "title": "Adaylar"
+      "exportedAt": "{count} müşteri adayı · {date} tarihinde dışa aktarıldı",
+      "pageOf": "Sayfa {current} / {total}"
     },
     "rowMenu": {
       "convert": "Dönüştür",
@@ -1509,9 +1554,9 @@
     }
   },
   "marketing": {
-    "authBody": "Giriş yapma, kayıt olma ve oturum doğrulama <code>/api/auth</code> üzerinden",
+    "authBody": "Giriş, kayıt ve oturum doğrulama <code>/api/auth</code> üzerinden",
     "authTitle": "Kimlik doğrulama",
-    "bffBody": "Tarayıcı çağrıları bu uygulamada durmalı. Güvenilir sunucu yolları dahili CRM servisiyle iletişim kuracak.",
+    "bffBody": "Tarayıcı çağrıları bu uygulamada durmalı. Güvenilir sunucu yolları dahili CRM hizmetiyle iletişim kurar.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
     "campaigns": {
@@ -1552,17 +1597,17 @@
         "title": "Müşteri adayı yakalama formları"
       }
     },
-    "ctaCreateWorkspace": "Çalışma alanı erişimini oluşturun",
+    "ctaCreateWorkspace": "Çalışma Alanı erişimini oluşturun",
     "ctaOpenShell": "Korumalı kabuğu açın",
     "currentStack": "Mevcut yığın",
     "heroEyebrow": "Ses‑yerel CRM platformu",
-    "heroLead": "Lisent CRM, kimlik doğrulama, kiracı‑bilinçli iş akışları, profil‑içe aktarım onboarding'i ve şirket operatörleri için korumalı bir uygulama kabuğu birleştirir. Web uygulaması kullanıcı odaklı akışları yönetir. Go CRM servisi güvenilir bir backend sınırının arkasında kalır.",
+    "heroLead": "Lisent CRM, kimlik doğrulama, kiracı‑bilinçli iş akışları, profil‑içe aktarım onboarding'i ve şirket operatörleri için korumalı bir uygulama kabuğunu birleştirir. Web uygulaması kullanıcı odaklı akışları yönetir. Go CRM hizmeti güvenilir bir backend sınırının arkasında kalır.",
     "heroTitle": "Niyeti anlamak, sadece kelimeleri değil.",
     "navSignIn": "Giriş yap",
     "navStartNow": "Şimdi başlayın",
     "stackItems": {
       "auth": "SuperTokens Email/Password + Session",
-      "crm": "Go CRM servisi BFF sınırının arkasında",
+      "crm": "Go CRM hizmeti BFF sınırının arkasında",
       "next": "Next.js 16 App Router",
       "ts": "TypeScript + Tailwind CSS 4"
     },
@@ -1579,7 +1624,7 @@
   "nav": {
     "brandName": "Lisent CRM",
     "calendar": "Takvim",
-    "closeNavigation": "Gezinmeyi kapat",
+    "closeNavigation": "Navigasyonu kapat",
     "customerImport": "Müşteri içe aktarımı",
     "customers": "Müşteriler",
     "dashboard": "Pano",
@@ -1591,13 +1636,13 @@
     "lisentHome": "Lisent CRM ana sayfa",
     "lisentWorkspace": "Lisent çalışma alanı",
     "marketing": "Pazarlama",
-    "navigation": "Gezinme",
-    "openNavigation": "Gezinmeyi aç",
+    "navigation": "Navigasyon",
+    "openNavigation": "Navigasyonu aç",
     "overview": "Genel bakış",
     "primary": "Birincil",
     "quickCreate": "Hızlı oluştur",
     "sectionTools": "Araçlar",
-    "sectionWorkspace": "Çalışma alanı",
+    "sectionWorkspace": "Çalışma Alanı",
     "tasks": "Görevler",
     "teamMembers": "Ekip üyeleri"
   },
@@ -1696,7 +1741,7 @@
       "publish": "Yayınla",
       "publishing": "Yayıncılık...",
       "reject": "Reddet",
-      "startWork": "Çalışmaya başlayın"
+      "startWork": "Çalışmaya başla"
     },
     "activeCount": "{count} aktif",
     "assignmentMode": {
@@ -1877,11 +1922,11 @@
   "validation": {
     "firstNameRequired": "İsim zorunludur.",
     "firstNameTooShort": "İsim en az 2 karakter olmalıdır.",
-    "genderInvalid": "Geçerli bir cinsiyet seçeneği seçin.",
+    "genderInvalid": "Geçerli bir cinsiyet seçin.",
     "genderRequired": "Cinsiyet zorunludur.",
     "languageInvalid": "Geçerli bir dil seçin.",
-    "lastNameRequired": "Soyad zorunludur.",
-    "lastNameTooShort": "Soyad en az 2 karakter olmalıdır.",
+    "lastNameRequired": "Soyisim zorunludur.",
+    "lastNameTooShort": "Soyisim en az 2 karakter olmalıdır.",
     "phoneInvalid": "Geçerli bir telefon numarası girin.",
     "phoneRequired": "Telefon numarası zorunludur."
   },

@@ -8,12 +8,12 @@
       "companyMemberships": "عضويات الشركة",
       "email": "البريد الإلكتروني",
       "firstName": "الاسم",
-      "gender": "الجنس",
+      "gender": "النوع",
       "language": "اللغة",
       "lastName": "اللقب",
       "phoneNumber": "رقم الهاتف",
       "platformRole": "دور المنصة",
-      "userId": "User id"
+      "userId": "معرّف المستخدم"
     },
     "fixHighlighted": "يرجى تصحيح الحقول المميزة في الحساب.",
     "gender": {
@@ -29,14 +29,14 @@
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
-      "superAdmin": "مشرف فائق",
+      "superAdmin": "مشرف عام",
       "workspaceUser": "مستخدم مساحة العمل"
     },
     "profileSummary": "ملخص الملف",
     "saveButton": "حفظ الإعدادات",
-    "saveFailed": "فشل في حفظ إعدادات الحساب.",
+    "saveFailed": "فشل حفظ إعدادات الحساب.",
     "saved": "تم حفظ إعدادات الحساب.",
-    "saving": "جارٍ الحفظ…",
+    "saving": "جارٍ الحفظ...",
     "subtitle": "إدارة ملفك الشخصي وتفضيلاتك والوصول.",
     "title": "إعدادات الحساب"
   },
@@ -44,10 +44,10 @@
     "alreadyHaveAccess": "هل لديك وصول بالفعل؟",
     "authFailed": "فشل المصادقة.",
     "createAnAccount": "إنشاء حساب",
-    "creatingAccount": "جاري إنشاء حساب...",
+    "creatingAccount": "جارٍ إنشاء الحساب...",
     "emailLabel": "البريد الإلكتروني",
     "emailPlaceholder": "name@company.com",
-    "newWorkspaceUser": "مستخدم Workspace جديد؟",
+    "newWorkspaceUser": "مستخدم جديد في مساحة العمل؟",
     "passwordLabel": "كلمة المرور",
     "passwordPlaceholderSignIn": "أدخل كلمة المرور",
     "passwordPlaceholderSignUp": "أنشئ كلمة مرور قوية",
@@ -55,14 +55,14 @@
     "signIn": "تسجيل الدخول",
     "signInButton": "تسجيل الدخول",
     "signInInstead": "سجّل الدخول بدلاً من ذلك",
-    "signInSubtitle": "استخدم تفاصيل حساب الشركة الصادرة لفريقك.",
-    "signInTitle": "الوصول إلى مساحة العمل الخاصة بك",
+    "signInSubtitle": "استخدم تفاصيل حساب الشركة الممنوحة لفريقك.",
+    "signInTitle": "الوصول إلى مساحة عملك",
     "signUp": "إنشاء حساب",
     "signUpButton": "إنشاء حساب",
-    "signUpSubtitle": "ابدأ بالبريد الإلكتروني وكلمة المرور. يتم تعيين المستأجر لاحقًا.",
-    "signUpTitle": "إنشاء وصول إلى مساحة العمل",
-    "signingIn": "جاري تسجيل الدخول...",
-    "workspaceAuth": "مصادقة Workspace",
+    "signUpSubtitle": "ابدأ بالبريد الإلكتروني وكلمة المرور. ثم يتم تعيين المستأجر.",
+    "signUpTitle": "إنشاء وصول إلى مساحة عملك",
+    "signingIn": "جارٍ تسجيل الدخول...",
+    "workspaceAuth": "مصادقة مساحة العمل",
     "wrongCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة."
   },
   "calendar": {
@@ -95,7 +95,7 @@
       "linkRecordMissing": "السجل المرتبط مطلوب عند اختيار نوع الارتباط.",
       "loadCompanies": "فشل في تحميل الشركات.",
       "loadEvents": "فشل في تحميل الأحداث.",
-      "pastDate": "لا يمكن أن يبدأ الحدث في الماضي.",
+      "pastDate": "لا يمكن للحدث أن يبدأ في الماضي.",
       "save": "فشل في حفظ الحدث.",
       "startRequired": "تاريخ ووقت البدء مطلوبان.",
       "titleRequired": "العنوان مطلوب."
@@ -122,7 +122,7 @@
       "end": "النهاية",
       "endDate": "تاريخ النهاية",
       "eventType": "نوع الحدث",
-      "linkTo": "رابط إلى",
+      "linkTo": "ربط بـ",
       "linkedRecord": "السجل المرتبط",
       "location": "الموقع",
       "meetingUrl": "رابط الاجتماع",
@@ -141,16 +141,16 @@
     "linkedType": {
       "company": "الشركة",
       "customer": "العميل",
-      "deal": "Deal",
+      "deal": "الصفقة",
       "lead": "Lead",
-      "none": "لا شيء"
+      "none": "بدون"
     },
     "loading": "جارٍ تحميل التقويم...",
     "modal": {
       "editEyebrow": "تحرير الحدث",
       "editTitle": "تحديث حدث التقويم",
       "newEyebrow": "حدث جديد",
-      "newTitle": "جدولة حدث تقويم",
+      "newTitle": "جدولة حدث في التقويم",
       "subtitle": "خطط للمكالمات والاجتماعات والمتابعات المرتبطة بسجلات CRM الخاصة بك."
     },
     "moreCount": "+{count} أخرى",
@@ -159,7 +159,7 @@
       "location": "المكتب، Zoom، العنوان...",
       "noLinkedCustomer": "لا عميل مرتبط",
       "optionalCustomer": "اختر عميلًا (اختياري)",
-      "selectRecord": "اختر سجلًا",
+      "selectRecord": "اختر سجلاً",
       "title": "مكالمة اكتشاف مع..."
     },
     "searchAriaLabel": "بحث عن الأحداث",
@@ -171,7 +171,7 @@
       "updated": "تم تحديث الحدث."
     },
     "tabs": {
-      "allScheduled": "الكل المجدول",
+      "allScheduled": "كل المجدولة",
       "events": "الأحداث",
       "meetings": "الاجتماعات",
       "taskReminders": "تذكيرات المهام"
@@ -186,40 +186,40 @@
       "week": "أسبوع"
     },
     "weekday": {
-      "fri": "الجمعة",
-      "mon": "الإثنين",
+      "fri": "الجم",
+      "mon": "الإثن",
       "sat": "السبت",
       "sun": "الأحد",
       "thu": "الخميس",
-      "tue": "الثلاثاء",
-      "wed": "الأربعاء"
+      "tue": "الثلاث",
+      "wed": "الأربع"
     }
   },
   "common": {
-    "back": "عودة",
+    "back": "رجوع",
     "cancel": "إلغاء",
     "close": "إغلاق",
     "closeMenu": "إغلاق القائمة",
-    "loading": "جارٍ التحميل…",
+    "loading": "جارٍ التحميل...",
     "next": "التالي",
     "no": "لا",
     "notSet": "غير محدد",
     "openMenu": "فتح القائمة",
     "save": "حفظ",
-    "saving": "جارٍ الحفظ…",
+    "saving": "جارٍ الحفظ...",
     "tryAgain": "حاول مرة أخرى",
     "yes": "نعم"
   },
   "customers": {
     "actions": {
-      "edit": "تعديل",
+      "edit": "تحرير",
       "view": "عرض"
     },
     "addCustomer": "إضافة عميل",
     "bulk": {
       "clearSelection": "مسح الاختيار",
       "confirmDelete": "حذف المحدد",
-      "deleteDescription": "سيؤدي هذا إلى حذف {count} سجلات العملاء بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
+      "deleteDescription": "سيؤدي هذا إلى حذف {count} سجل عميل بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
       "deleteEyebrow": "حذف جماعي",
       "deleteTitle": "حذف العملاء المحددين؟",
       "regionLabel": "إجراءات جماعية",
@@ -228,9 +228,9 @@
     "closeAddPopup": "إغلاق نافذة إضافة عميل",
     "confirmDelete": "حذف",
     "delete": "حذف",
-    "deleteConfirmDescription": "سيؤدي هذا إلى إزالة سجل هذا العميل بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
+    "deleteConfirmDescription": "سيؤدي هذا إلى حذف سجل العميل نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
     "deleteConfirmTitle": "حذف العميل؟",
-    "deleteCustomer": "حذف عميل",
+    "deleteCustomer": "حذف العميل",
     "deleting": "جارٍ الحذف…",
     "detail": {
       "closeDrawer": "إغلاق تفاصيل العميل",
@@ -244,20 +244,20 @@
       "bulkDeleteFailed": "فشل حذف بعض العملاء.",
       "deleteCustomer": "فشل حذف العميل.",
       "loadCompanies": "فشل تحميل الشركات.",
-      "loadCustomers": "فشل تحميل العملاء.",
-      "saveCustomer": "فشل حفظ العميل."
+      "loadCustomers": "فشل في تحميل العملاء.",
+      "saveCustomer": "فشل في حفظ العميل."
     },
     "fields": {
       "actions": "الإجراءات",
       "company": "الشركة",
-      "companyId": "معرّف الشركة",
+      "companyId": "معرف الشركة",
       "country": "الدولة",
       "countryCode": "رمز الدولة",
       "customer": "العميل",
-      "customerId": "معرّف العميل",
+      "customerId": "معرف العميل",
       "email": "البريد الإلكتروني",
       "firstName": "الاسم الأول",
-      "id": "المعرّف",
+      "id": "ID",
       "industry": "الصناعة",
       "lastName": "اسم العائلة",
       "name": "الاسم",
@@ -269,12 +269,12 @@
     "form": {
       "createCustomer": "إنشاء عميل",
       "createEyebrow": "عميل جديد",
-      "createSubtitle": "تسجيل تفاصيل الاتصال الأساسية. يمكنك ملء البقية لاحقًا.",
+      "createSubtitle": "تسجيل تفاصيل الاتصال الأساسية. يمكنك إكمال البقية لاحقًا.",
       "editEyebrow": "تحرير العميل",
       "saveChanges": "حفظ التغييرات"
     },
     "list": {
-      "empty": "لا توجد عملاء تطابق الفلاتر الحالية.",
+      "empty": "لا توجد عملاء يطابقون الفلاتر الحالية.",
       "eyebrow": "دليل العملاء",
       "selectAll": "تحديد جميع العملاء",
       "selectRow": "تحديد العميل {name}",
@@ -291,19 +291,19 @@
     },
     "search": {
       "label": "بحث",
-      "placeholder": "ابحث عن العملاء..."
+      "placeholder": "بحث عن العملاء..."
     },
-    "selectedCompany": "Workspace النشطة: {name}",
+    "selectedCompany": "مساحة العمل النشطة: {name}",
     "status": {
       "active": "نشط",
       "all": "الكل",
-      "needsReview": "يحتاج مراجعة",
+      "needsReview": "يحتاج إلى مراجعة",
       "prospect": "محتمل"
     },
-    "statusFilter": "تصفية الحالة",
+    "statusFilter": "مرشح الحالة",
     "success": {
-      "bulkDeleted": "{count} عميل تم حذفهم.",
-      "bulkDeletedPartial": "{deleted} من {total} عميل تم حذفهم.",
+      "bulkDeleted": "تم حذف {count} عميل.",
+      "bulkDeletedPartial": "تم حذف {deleted} من أصل {total} عميل.",
       "created": "تم إنشاء العميل.",
       "deleted": "تم حذف العميل.",
       "updated": "تم تحديث العميل."
@@ -311,23 +311,23 @@
   },
   "deals": {
     "activeOpportunity": "فرصة نشطة",
-    "addComment": "إضافة تعليق",
-    "addDeal": "إضافة Deal",
+    "addComment": "أضف تعليق",
+    "addDeal": "أضف صفقة",
     "aiInsights": {
-      "aiScore": "AI score",
-      "aiStatus": "AI status",
+      "aiScore": "درجة AI",
+      "aiStatus": "حالة AI",
       "champExtraction": "استخراج CHAMP",
       "path": "المسار",
       "reasoningReport": "تقرير التحليل",
       "scoredAt": "تم التقييم في {date}",
-      "title": "تحليلات AI"
+      "title": "رؤى AI"
     },
     "amount": "المبلغ",
     "amountValue": "{amount}",
     "assignee": "المكلف",
     "assigneeValue": "{name}",
     "boardHint": "اسحب الصفقات بين المراحل لتحديث الـ Pipeline.",
-    "changedBy": "تم التغيير بواسطة {name}",
+    "changedBy": "تم التعديل بواسطة {name}",
     "close": "إغلاق",
     "closeTarget": "هدف الإغلاق",
     "closeTargetValue": "{date}",
@@ -336,31 +336,31 @@
     "comments": "التعليقات",
     "commentsCount": "{count} تعليقات",
     "commentsEmpty": "لا توجد تعليقات بعد.",
-    "deal": "Deal",
-    "dealDetail": "تفاصيل Deal",
-    "dealList": "قائمة Deal",
-    "dealValue": "قيمة Deal",
-    "dealsInPipeline": "{count} Deals في pipeline",
-    "dealsInView": "{count} Deals في view",
+    "deal": "صفقة",
+    "dealDetail": "تفاصيل الصفقة",
+    "dealList": "قائمة الصفقات",
+    "dealValue": "قيمة الصفقة",
+    "dealsInPipeline": "{count} صفقات في الـ Pipeline",
+    "dealsInView": "{count} صفقات في العرض",
     "delete": "حذف",
     "deleteConfirmDescription": "سيتم حذف هذا Deal نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
     "deleteConfirmTitle": "حذف Deal؟",
     "deleteDeal": "حذف Deal",
     "deleting": "جارٍ الحذف…",
     "editDeal": "تحرير Deal",
-    "emptyColumn": "لا توجد Deals في هذه المرحلة.",
+    "emptyColumn": "لا توجد Deal في هذه المرحلة.",
     "errors": {
       "addComment": "فشل في إضافة التعليق.",
       "deleteDeal": "فشل في حذف Deal.",
       "loadCompanies": "فشل في تحميل الشركات.",
-      "loadDeals": "فشل في تحميل Deals.",
+      "loadDeals": "فشل في تحميل Deal.",
       "nameRequired": "اسم Deal مطلوب.",
       "saveDeal": "فشل في حفظ Deal.",
       "unsupportedCurrency": "عملة غير مدعومة."
     },
     "extraData": "بيانات إضافية",
     "fields": {
-      "company": "الشركة",
+      "company": "شركة",
       "companyId": "معرّف الشركة",
       "country": "الدولة",
       "created": "تم الإنشاء",
@@ -369,9 +369,9 @@
       "industry": "الصناعة",
       "lossReason": "سبب الخسارة",
       "records": "السجلات",
-      "sourceLead": "العميل المحتمل المصدر",
+      "sourceLead": "مصدر العميل المحتمل",
       "termination": "الإنهاء",
-      "updated": "تم التحديث",
+      "updated": "مُحدَّث",
       "wonReason": "سبب الفوز"
     },
     "filters": {
@@ -379,73 +379,73 @@
       "allStages": "جميع المراحل",
       "assigneeLabel": "المُسند",
       "searchLabel": "بحث",
-      "searchPlaceholder": "بحث عن الصفقات...",
+      "searchPlaceholder": "ابحث عن الصفقات...",
       "stageLabel": "المرحلة"
     },
     "form": {
       "assigneeHint": "اختر زميلًا ليتولى هذه الصفقة.",
       "createDeal": "إنشاء صفقة",
-      "editEyebrow": "تحرير صفقة",
+      "editEyebrow": "تحرير الصفقة",
       "editTitle": "تحديث الصفقة",
       "fields": {
         "amount": "المبلغ",
-        "assignee": "المُكلف",
+        "assignee": "المُسند",
         "currency": "العملة",
         "customer": "العميل",
-        "dealName": "اسم الصفقة",
+        "dealName": "اسم Deal",
         "expectedCloseDate": "تاريخ الإغلاق المتوقع",
         "lossReason": "سبب الخسارة",
-        "pipelineStage": "مرحلة خط الأنابيب",
-        "sourceLead": "العميل المحتمل المصدر",
+        "pipelineStage": "مرحلة Pipeline",
+        "sourceLead": "Lead المصدر",
         "terminationDate": "تاريخ الإنهاء",
         "wonReason": "سبب الفوز"
       },
-      "newEyebrow": "صفقة جديدة",
-      "newTitle": "إنشاء صفقة",
+      "newEyebrow": "Deal جديد",
+      "newTitle": "إنشاء Deal",
       "options": {
         "noLinkedCustomer": "لا عميل مرتبط",
-        "noSourceLead": "لا عميل محتمل مصدر"
+        "noSourceLead": "لا Lead مصدر"
       },
       "placeholders": {
         "amount": "0.00",
         "dealName": "Acme — Q3 expansion",
-        "lossReason": "لماذا ضاعت هذه الصفقة؟",
-        "wonReason": "لماذا تم الفوز بهذه الصفقة؟"
+        "lossReason": "لماذا خسر هذا Deal؟",
+        "wonReason": "لماذا فاز هذا Deal؟"
       },
       "saveChanges": "حفظ التغييرات"
     },
-    "kanbanBoard": "لوحة كانبان",
-    "loadingBoard": "تحميل اللوحة...",
-    "loadingDeals": "تحميل الصفقات...",
+    "kanbanBoard": "لوحة Kanban",
+    "loadingBoard": "جارٍ تحميل اللوحة...",
+    "loadingDeals": "جارٍ تحميل Deals...",
     "meetingTitle": "الاجتماع",
     "noDate": "لا يوجد تاريخ",
     "noDealsMatch": "لا توجد صفقات تتطابق مع الفلاتر الحالية.",
     "noLossReason": "لم يتم تسجيل أي سبب خسارة مسجل.",
     "noRelatedCustomer": "لا يوجد عميل ذو صلة.",
-    "noWinReason": "لم يتم تسجيل سبب الفوز.",
+    "noWinReason": "لم يتم تسجيل أي سبب فوز.",
     "notSet": "غير محدد",
     "now": "الآن",
-    "pipelineLoading": "جارٍ تحميل الـPipeline...",
-    "posting": "جارٍ الإرسال...",
+    "pipelineLoading": "تحميل خط الأنابيب...",
+    "posting": "النشر...",
     "relatedRecords": "السجلات المرتبطة",
     "scheduleActivity": "جدولة النشاط",
-    "selectedCompany": "مساحة العمل النشطة: {name}",
+    "selectedCompany": "Workspace النشط: {name}",
     "stage": {
       "lost": "خسارة",
-      "lostDescription": "الصفقات المكتملة كخسارة للتعلم منها.",
+      "lostDescription": "الصفقات المغلقة كخسارة للتعلم منها.",
       "negotiation": "تفاوض",
       "negotiationDescription": "التوافق على الأسعار والشروط والجداول الزمنية.",
       "new": "جديد",
-      "newDescription": "الفرص التي تم إنشاؤها مؤخرًا ولم يتم تأهيلها بعد.",
-      "proposal": "عرض",
-      "proposalDescription": "تم إرسال عرض رسمي وهو قيد المراجعة.",
+      "newDescription": "الفرص التي تم إنشاؤها حديثًا ولم يتم تأهيلها بعد.",
+      "proposal": "اقتراح",
+      "proposalDescription": "تم إرسال الاقتراح الرسمي وهو قيد المراجعة.",
       "qualified": "مؤهل",
       "qualifiedDescription": "تم التحقق من ملاءمة العميل والميزانية.",
       "won": "فوز",
-      "wonDescription": "الصفقات المكتملة كفوز مسجلة كإيرادات."
+      "wonDescription": "الصفقات المغلقة كفوز تُسجَّل كإيرادات."
     },
     "stageHistory": "سجل المراحل",
-    "stageHistoryEmpty": "لم يتم تسجيل أي تغييرات في المراحل بعد.",
+    "stageHistoryEmpty": "لم يتم تسجيل أي تغيّر في المراحل بعد.",
     "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "تم إضافة التعليق.",
@@ -455,16 +455,16 @@
     },
     "system": "النظام",
     "terminationOpen": "مفتوح",
-    "thisDeal": "هذا Deal",
+    "thisDeal": "هذه الصفقة",
     "unassigned": "غير مُعيَّن",
     "unknownAuthor": "غير معروف",
-    "untitledDeal": "Deal غير مسمى"
+    "untitledDeal": "صفقة بدون عنوان"
   },
   "errors": {
     "forbidden": "ليس لديك الصلاحية.",
-    "generic": "حدث خطأ ما.",
-    "networkError": "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
-    "sessionRequired": "مطلوب المصادقة.",
+    "generic": "حدث خطأ.",
+    "networkError": "خطأ في الشبكة. حاول مرة أخرى.",
+    "sessionRequired": "المصادقة مطلوبة.",
     "userNotFound": "المستخدم غير موجود."
   },
   "home": {
@@ -472,34 +472,34 @@
       "chartAriaLabel": "مخطط النشاط للأسبوع الماضي",
       "empty": "لم يتم تسجيل أي نشاط بعد لـ {name}.",
       "emptyDefault": "لم يتم تسجيل أي نشاط بعد.",
-      "legendDeals": "Deals",
+      "legendDeals": "الصفقات",
       "legendLeads": "Leads",
-      "subtitle": "تم إنشاء Leads وإغلاق Deals خلال الأسبوع الماضي.",
+      "subtitle": "Leads التي تم إنشاؤها وDeals التي أُغلقت خلال الأسبوع الماضي.",
       "title": "النشاط"
     },
     "company": {
-      "createWorkspace": "إنشاء workspace",
-      "goToOverview": "الانتقال إلى نظرة عامة على workspace",
-      "noWorkspaceHelp": "اختر workspace من المُبدِّل لعرض البيانات الحية.",
-      "noWorkspaceSelected": "لم يتم اختيار workspace",
-      "pickWorkspace": "اختر workspace",
-      "subtitleSelected": "مقاييس workspace لـ {name}.",
+      "createWorkspace": "إنشاء Workspace",
+      "goToOverview": "الانتقال إلى نظرة عامة على Workspace",
+      "noWorkspaceHelp": "اختر Workspace من المُبدّل لعرض البيانات الحية.",
+      "noWorkspaceSelected": "لم يتم اختيار Workspace",
+      "pickWorkspace": "اختر Workspace",
+      "subtitleSelected": "مقاييس Workspace لـ {name}.",
       "subtitleWithName": "مرحبًا بعودتك، {name}."
     },
     "errors": {
-      "loadDashboard": "فشل تحميل بيانات dashboard.",
-      "loadSnapshot": "فشل تحميل لقطة workspace.",
-      "loadWorkspaces": "فشل تحميل workspaces."
+      "loadDashboard": "فشل في تحميل بيانات Dashboard.",
+      "loadSnapshot": "فشل في تحميل لقطة Workspace.",
+      "loadWorkspaces": "فشل في تحميل Workspaces."
     },
     "kpi": {
       "customers": "العملاء",
-      "customersHint": "إجمالي الحسابات في هذا workspace.",
+      "customersHint": "إجمالي الحسابات في هذا Workspace.",
       "customersInWorkspace": "العملاء في {name}",
       "deals": "Deals",
-      "dealsAmountEmpty": "لا توجد قيمة للصفقة بعد.",
+      "dealsAmountEmpty": "لا قيمة للـ Deal حتى الآن.",
       "leads": "Leads",
-      "leadsHint": "الـ Leads النشطة في الـ pipeline.",
-      "openPipelineHint": "قيمة الـ pipeline المفتوحة عبر جميع المراحل.",
+      "leadsHint": "Leads النشطة في الـ Pipeline.",
+      "openPipelineHint": "قيمة Open pipeline عبر جميع المراحل.",
       "openPipelineValue": "{value}"
     },
     "overview": {
@@ -510,35 +510,35 @@
     "pipeline": {
       "empty": "لا توجد بيانات pipeline بعد لـ {name}.",
       "emptyDefault": "لا توجد بيانات pipeline بعد.",
-      "subtitle": "توزيع الصفقات حسب المرحلة.",
+      "subtitle": "توزيع الـ Deal حسب المرحلة.",
       "title": "Pipeline",
       "totalBadge": "{value} إجمالي"
     },
     "quickActions": {
       "aiQualifier": {
         "cta": "فتح مؤهل AI",
-        "description": "تقييم وتأهيل الـ Leads تلقائيًا.",
+        "description": "تقييم وتأهيل الـ Lead تلقائيًا.",
         "title": "مؤهل AI"
       },
       "customerImport": {
-        "cta": "ابدأ الاستيراد",
-        "description": "استورد بيانات العملاء إلى مساحة عملك.",
+        "cta": "بدء الاستيراد",
+        "description": "إحضار بيانات العملاء إلى Workspace الخاص بك.",
         "title": "استيراد العملاء"
       },
       "homeViews": {
         "cta": "تخصيص العروض",
-        "description": "اختر الويدجتات التي تظهر على لوحة التحكم.",
-        "title": "العروض الرئيسية"
+        "description": "اختر الويدجتات التي تظهر على الـ Dashboard.",
+        "title": "عروض الصفحة الرئيسية"
       },
       "inviteMembers": {
         "cta": "دعوة الأعضاء",
-        "description": "أضف زملاء العمل إلى مساحة عملك.",
+        "description": "أضف زملاءً إلى workspace الخاص بك.",
         "title": "دعوة الفريق"
       },
       "newWorkspace": {
-        "cta": "إنشاء مساحة عمل",
+        "cta": "إنشاء workspace",
         "description": "ابدأ مستأجرًا جديدًا لوحدة أعمال أخرى.",
-        "title": "مساحة عمل جديدة"
+        "title": "Workspace جديد"
       },
       "oneClickSetup": "إعداد بنقرة واحدة",
       "scheduleMeeting": {
@@ -551,7 +551,7 @@
     },
     "recentLeads": {
       "empty": "لا توجد أي Leads حديثة في {name}.",
-      "emptyDefault": "لا توجد أي Leads حديثة بعد.",
+      "emptyDefault": "لا توجد Leads حديثة بعد.",
       "subtitle": "أحدث Leads المضافة إلى workspace الخاص بك.",
       "title": "Leads الحديثة",
       "unnamed": "Lead غير مسمى",
@@ -559,43 +559,43 @@
     },
     "snapshot": {
       "activeWorkspace": "workspace النشط",
-      "eyebrow": "ملخص workspace",
+      "eyebrow": "لقطة workspace",
       "inWorkspace": "في {name}",
       "newCount": "{count} جديد",
-      "noWorkspaceHelp": "اختر workspace لعرض العدّ الحي.",
-      "noWorkspaceSelected": "لم يتم اختيار أي workspace",
+      "noWorkspaceHelp": "اختر مساحة عمل لرؤية الأعداد الحية.",
+      "noWorkspaceSelected": "لم يتم اختيار مساحة عمل",
       "openCount": "{count} مفتوح",
-      "openFullDashboard": "فتح dashboard الكامل",
-      "openPipeline": "فتح pipeline"
+      "openFullDashboard": "فتح لوحة التحكم الكاملة",
+      "openPipeline": "فتح Pipeline"
     },
     "workspaceOverview": {
       "acrossAccount": "عبر حسابك",
-      "activeWorkspace": "workspace النشط",
+      "activeWorkspace": "مساحة العمل النشطة",
       "allCombined": "الكل مجمّع",
       "customers": "العملاء",
       "noneSelected": "لم يتم اختيار أي شيء",
-      "pickToActivate": "اختر workspace لتفعيل المقاييس.",
-      "scopedViews": "طرق عرض مقيدة",
+      "pickToActivate": "اختر مساحة عمل لتفعيل المقاييس.",
+      "scopedViews": "عروض محدودة",
       "singleWorkspace": "مساحة عمل واحدة",
       "subtitle": "ملخص على مستوى الحساب لمساحات عملك.",
-      "workspaces": "مساحات عمل"
+      "workspaces": "مساحات العمل"
     }
   },
   "imports": {
     "errors": {
       "approveFailed": "فشل في الموافقة والاستيراد.",
-      "chooseFile": "اختر ملف CSV للتحميل.",
+      "chooseFile": "اختر ملف CSV للرفع.",
       "enterUrl": "أدخل عنوان URL لملف CSV.",
       "fetchUrlFailed": "فشل في جلب عنوان URL لملف CSV.",
-      "mapAtLeastOne": "قم بربط عمود مصدر واحد على الأقل بحقل الهدف.",
-      "noRows": "الملف أو عنوان URL لا يحتوي على أي صفوف.",
+      "mapAtLeastOne": "يرجى ربط عمود مصدر واحد على الأقل بحقل الهدف.",
+      "noRows": "الملف أو الرابط لا يحتوي على أي صفوف.",
       "openFromCompany": "افتح هذه الصفحة من مساحة عمل الشركة.",
       "parseFailed": "فشل في تحليل ملف CSV."
     },
     "mapping": {
-      "approvalDescription": "أكد الربط وشغّل الاستيراد. سيتم إنشاء العملاء أو تحديثهم لمساحة العمل النشطة.",
+      "approvalDescription": "أكد الربط وشغّل الاستيراد. سيتم إنشاء العملاء أو تحديثهم في مساحة العمل النشطة.",
       "approvalOutcome": "بعد الموافقة، تُدرج الصفوف كعملاء في {name}.",
-      "approveAndImport": "الموافقة والاستيراد",
+      "approveAndImport": "اعتماد & استيراد",
       "backToPreview": "العودة إلى المعاينة",
       "confidence": "الثقة",
       "enableFallback": "تمكين fallback للصفوف",
@@ -623,8 +623,8 @@
       "title": "جاري استيراد العملاء"
     },
     "sidebar": {
-      "headers": "الرؤوس",
-      "mappedFields": "الحقول المعينة",
+      "headers": "العناوين",
+      "mappedFields": "الحقول المرتبطة",
       "progress": "التقدم",
       "rowsLoaded": "الصفوف المحملة",
       "stepNumber": "الخطوة {step}",
@@ -750,7 +750,7 @@
     "disconnecting": "جاري قطع الاتصال...",
     "errors": {
       "connectFailed": "فشل ربط التكامل.",
-      "copyFailed": "فشل النسخ إلى الحافظة.",
+      "copyFailed": "فشل في النسخ إلى الحافظة.",
       "disconnectFailed": "فشل قطع الاتصال بالتكامل.",
       "revokeFailed": "فشل إلغاء صلاحية token.",
       "rotateFailed": "فشل تدوير token.",
@@ -841,11 +841,68 @@
       "mintBearer": "إنشاء bearer token",
       "noDeliveries": "لا توجد عمليات تسليم بعد.",
       "noIntegration": "لم يتم تكوين أي تكامل intranet.",
+      "outbound": {
+        "allStatusesLabel": "جميع تغييرات الحالة (مُوصى به)",
+        "deliveriesEmpty": "لا توجد عمليات تسليم بعد. أرسل حدث اختبار لتأكيد الاتصال.",
+        "deliveriesTitle": "عمليات التسليم الأخيرة",
+        "deliveryCols": {
+          "attempts": "محاولات",
+          "createdAt": "تم الإرسال",
+          "error": "آخر خطأ",
+          "eventId": "معرّف الحدث",
+          "status": "الحالة",
+          "toStatus": "→ الحالة"
+        },
+        "description": "عند تغيير حالة Lead في هذا CRM، قم بتوقيع الحدث وإرساله عبر POST إلى نقطة النهاية الخاصة بك. نعيد المحاولة عند الفشل (6 محاولات على مدار ~7 ساعات) ثم نرسل إلى dead-letter.",
+        "generateSecretButton": "إنشاء سر التوقيع",
+        "loadFailed": "فشل تحميل تكوين webhook الصادر.",
+        "loading": "جارٍ تحميل webhook الصادر…",
+        "newSecretHint": "انسخ هذا السر الآن — نقوم بتجزئته بعد إغلاق هذا الحوار ونظهر نسخة مُقنّعة لاحقًا.",
+        "newSecretReveal": "سر التوقيع الجديد",
+        "pauseHint": "يوقف عمليات التسليم الجديدة دون فقدان عنوان URL الخاص بك. تستمر عمليات إعادة المحاولة المعلقة الحالية.",
+        "pauseLabel": "إيقاف webhook الصادر",
+        "rotateSecretButton": "تدوير سر التوقيع",
+        "rotateSecretConfirm": "هل تريد تدوير سر التوقيع؟ سيتعين عليك تحديث رمز التحقق بالقيمة الجديدة.",
+        "rotatingSecret": "جارٍ التدوير…",
+        "saveButton": "حفظ إعداد الإرسال",
+        "saveFailed": "فشل في حفظ إعداد الإرسال.",
+        "savedNotice": "تم حفظ webhook الصادر.",
+        "secretConfigured": "مُكوَّن",
+        "secretNotSet": "غير مُعيّن — أنشئ واحدًا قبل إرسال الأحداث.",
+        "secretRotatedAt": "(تم تدويره {time})",
+        "secretRotatedNotice": "تم تدوير سر التوقيع. النص الصريح يُظهر هذا مرة واحدة فقط.",
+        "selectAtLeastOne": "اختر حالة واحدة على الأقل، أو حدّد 'جميع تغييرات الحالة'.",
+        "signingSecretLabel": "سر التوقيع (HMAC-SHA256)",
+        "statusFilterHint": "اختر أي الانتقالات تُطلق webhook. استخدم '*' لتلقي كل تغيير حالة.",
+        "statusFilterTitle": "مرشح الحالة",
+        "statusLabels": {
+          "contacted": "تم التواصل مع Lead",
+          "converted": "تم تحويل Lead إلى عميل",
+          "lost": "تم وضع علامة فقدان على Lead",
+          "new": "تم إنشاء Lead حديثًا",
+          "qualified": "تم تأهيل Lead بواسطة AI / المبيعات"
+        },
+        "testButton": "إرسال حدث اختبار",
+        "testEnqueued": "تم إدراج حدث الاختبار في الطابور: {eventId}",
+        "testFailed": "فشل حدث الاختبار.",
+        "testHint": "يرسل حدث lead.status_changed اصطناعي إلى URL الخاص بك باستخدام نفس الرؤوس والتوقيع كما في الأحداث الحقيقية.",
+        "testTitle": "إرسال حدث اختبار",
+        "testToStatusLabel": "to_status (الانتقال الذي تريد محاكاته)",
+        "title": "Webhook الصادر (تحديثات الحالة)",
+        "urlHint": "نقوم بإرسال طلبات POST لأحداث تغيير الحالة إلى هذا العنوان URL مع توقيع HMAC‑SHA256. يجب أن يكون HTTPS في بيئة الإنتاج.",
+        "urlLabel": "عنوان URL للنقطة النهاية",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "احفظ عنوان URL قبل إنشاء السر.",
+        "verificationIntro": "كل طلب يتضمن هذه الرؤوس:",
+        "verificationNote": "إذا تلقيت طلبًا يحتوي على طابع زمني أقدم من 5 دقائق، فقم برفضه باعتباره إعادة إرسال.",
+        "verificationTitle": "كيفية التحقق من جانبك",
+        "verifyByComputing": "تحقق بإعادة حساب HMAC على '<timestamp>.<rawBody>' ومقارنة ثابتة الزمن:"
+      },
       "recentDeliveries": "عمليات التسليم الأخيرة",
-      "requestExamples": "طلب أمثلة",
+      "requestExamples": "أمثلة الطلب",
       "revealDescription": "يتم عرض Tokens مرة واحدة فقط.",
       "revealedBearerLabel": "Bearer token جديد",
-      "revealedHmacLabel": "سر HMAC الجديد",
+      "revealedHmacLabel": "سر HMAC جديد",
       "revokeBearerConfirm": "إلغاء هذا Bearer token؟ ستفشل المكالمات التي تستخدمه.",
       "revokeSecondaryTokenConfirm": "إلغاء رمز inbound الثانوي؟",
       "revokeSecretConfirm": "إلغاء سر HMAC هذا؟ ستفشل المكالمات الموقعة به.",
@@ -1008,7 +1065,7 @@
       "fallbackTitle": "وضع الفشل الاحتياطي",
       "forbiddenHint": "المواضيع التي يجب على المساعد تجنبها (سطر واحد لكل موضوع).",
       "forbiddenPlaceholder": "مثال: تسعير الميزات غير المصدرة",
-      "forbiddenTopics": "المواضيع المحظورة",
+      "forbiddenTopics": "مواضيع محظورة",
       "handoffAggressiveness": "شدة التحويل",
       "icpPlaceholder": "صف ملف العميل المثالي الخاص بك...",
       "idealCustomerProfile": "ملف العميل المثالي",
@@ -1036,20 +1093,20 @@
         "title": "نظرة عامة",
         "tuningAiConfig": "<strong>AI configuration:</strong> الحدّ، الإطار، تجاوزات الموجه.",
         "tuningCallback": "<strong>Callback:</strong> المكان الذي تُدفع إليه الـ Lead المؤهّلة.",
-        "tuningRag": "</strong> قاعدة المعارف (RAG): </strong> الوثائق التي يمكن للمساعد الرجوع إليها.",
+        "tuningRag": "<strong>قاعدة المعرفة (RAG):</strong> المستندات التي يمكن للمساعد الرجوع إليها.",
         "tuningTitle": "الضبط"
       },
-      "qualificationThreshold": "عتبة التأهيل",
-      "revokeSecondaryConfirm": "إبطال سر خطاف الويب الثانوي؟",
-      "rotateWebhookConfirm": "تدوير سر خطاف الويب؟ يبقى السر القديم صالحًا لنافذة التدوير.",
-      "saveAiConfig": "حفظ تكوين الذكاء الاصطناعي",
-      "secondaryRevoked": "تم إبطال سر خطاف الويب الثانوي",
+      "qualificationThreshold": "حد التأهيل",
+      "revokeSecondaryConfirm": "هل تريد إلغاء سر الـ webhook الثانوي؟",
+      "rotateWebhookConfirm": "هل تريد تدوير سر الـ webhook؟ يظل السر القديم صالحًا خلال نافذة التدوير.",
+      "saveAiConfig": "حفظ إعدادات AI",
+      "secondaryRevoked": "تم إلغاء سر الـ webhook الثانوي.",
       "sectorLabel": "القطاع",
-      "thresholdHint": "يتم وضع علامة \"مؤهل\" على العملاء المحتملين الذين حصلوا على هذا الحد أو أعلى منه.",
-      "webhookUrlLabel": "عنوان URL خطاف الويب"
+      "thresholdHint": "يُصنّف الـ Leads التي تحصل على نتيجة مساوية أو أعلى من هذا الحدّ على أنها مؤهلة.",
+      "webhookUrlLabel": "URL الـ webhook"
     },
     "rag": {
-      "chunkLabel": "تشانك",
+      "chunkLabel": "الجزء",
       "chunksColumn": "أجزاء",
       "description": "قاعدة معرفة لـ <strong>{name}</strong>. قم بتحميل المستندات التي يمكن للذكاء الاصطناعي الرجوع إليها.",
       "ingestedDescription": "المستندات الحالية في قاعدة المعرفة لـ <strong>{name}</strong>.",
@@ -1113,7 +1170,7 @@
         "apiCalls": "استدعاءات API",
         "askLisentQueries": "استفسارات Ask Lisent",
         "champExtractions": "استخراجات CHAMP",
-        "kbDocuments": "مستندات KB",
+        "kbDocuments": "مستندات قاعدة المعرفة",
         "leadsIngested": "Leads المستوردة",
         "leadsQualified": "Leads المؤهلة",
         "llmTokens": "رموز LLM",
@@ -1238,13 +1295,13 @@
       "openQualifier": "فتح المُصنِّف",
       "pathLabel": "المسار: {path}",
       "scoreOf": "النتيجة: {score}",
-      "startQualify": "ابدأ التأهيل",
+      "startQualify": "بدء التأهيل",
       "statusLabel": "الحالة: {status}"
     },
     "assignment": {
       "manual": "يدوي",
       "roundRobin": "دوري",
-      "unassigned": "غير مخصص"
+      "unassigned": "غير مُعيَّن"
     },
     "bulkAssign": {
       "assignCta": "تعيين",
@@ -1261,7 +1318,7 @@
       "clearSelection": "مسح الاختيار",
       "delete": "حذف",
       "exportCsv": "تصدير CSV",
-      "exportPdf": "Export PDF",
+      "exportPdf": "تصدير PDF",
       "selected": "{count} مختار"
     },
     "bulkDelete": {
@@ -1290,7 +1347,7 @@
       "phonePlaceholder": "+49 555 123 4567",
       "preferredLanguage": "اللغة المفضلة",
       "preferredLanguagePlaceholder": "en",
-      "title": "تحويل العميل المحتمل إلى عميل"
+      "title": "تحويل Lead إلى عميل"
     },
     "dealStage": {
       "lost": "خسارة",
@@ -1325,9 +1382,9 @@
       "convertedDeal": "صفقة محوّلة",
       "created": "تم الإنشاء",
       "currentStatus": "الحالة الحالية",
-      "customerId": "معرّف العميل",
+      "customerId": "معرف العميل",
       "dealLinkedHint": "هذا الـlead مرتبط بصفقة.",
-      "dealRelationship": "علاقة الصفقة",
+      "dealRelationship": "علاقة Deal",
       "dealUnlinkedHint": "لم يتم ربط أي صفقة بعد.",
       "delete": "حذف",
       "detailSections": "أقسام التفاصيل",
@@ -1335,20 +1392,20 @@
       "emptyDetails": "لم يتم التقاط أي تفاصيل بعد.",
       "leadProfile": "ملف lead",
       "linkedCustomer": "عميل مرتبط",
-      "linkedDealId": "معرّف الصفقة المرتبطة",
+      "linkedDealId": "معرف Deal المرتبط",
       "nextStep": "الخطوة التالية",
       "noDealYet": "لا توجد صفقة بعد",
       "noneYet": "لا شيء بعد",
       "qualify": "تأهيل",
-      "quickFacts": "حقائق سريعة",
+      "quickFacts": "ملخص سريع",
       "roundRobin": "توزيع دوري",
       "scheduleCall": "جدولة مكالمة",
-      "source": "المصدر",
+      "source": "Source",
       "starting": "جارٍ البدء…",
       "status": "الحالة",
       "tabs": {
         "activity": "النشاط",
-        "deals": "الصفقات",
+        "deals": "Deals",
         "notes": "الملاحظات",
         "overview": "نظرة عامة"
       },
@@ -1358,7 +1415,7 @@
       "viewAIQualification": "عرض تأهيل AI"
     },
     "emptyState": {
-      "pickWorkspace": "اختر مساحة عمل لعرض العملاء المحتملين."
+      "pickWorkspace": "اختر مساحة عمل لعرض Leads."
     },
     "errors": {
       "addNote": "فشل في إضافة الملاحظة.",
@@ -1369,7 +1426,7 @@
       "customerNameRequired": "اسم العميل مطلوب.",
       "deleteLead": "فشل في حذف الـ Lead.",
       "deleteNote": "فشل في حذف الملاحظة.",
-      "exportPdf": "Failed to generate PDF.",
+      "exportPdf": "فشل في إنشاء PDF.",
       "loadCompanies": "فشل في تحميل الشركات.",
       "loadLeads": "فشل في تحميل الـ Leads.",
       "loadNotes": "فشل في تحميل الملاحظات.",
@@ -1385,15 +1442,15 @@
       "unnamedLead": "Lead غير مسمى"
     },
     "filters": {
-      "allAssignees": "جميع المعينين",
-      "allSources": "جميع المصادر",
+      "allAssignees": "جميع المُعينين",
+      "allSources": "جميع Sources",
       "byCampaign": "تمت التصفية حسب الحملة: {name}",
       "byCampaignCount": "{shown} من {total} leads",
       "clearCampaign": "مسح الفلتر"
     },
     "formModal": {
       "assignee": "المُعين",
-      "assignmentMode": "وضع التعيين",
+      "assignmentMode": "وضع الإسناد",
       "createLead": "إنشاء عميل محتمل",
       "editEyebrow": "تحرير العميل المحتمل",
       "editTitle": "تحديث العميل المحتمل",
@@ -1401,7 +1458,7 @@
       "emailPlaceholder": "name@company.com",
       "leadName": "اسم العميل المحتمل",
       "leadNamePlaceholder": "الاسم الكامل للعميل المحتمل",
-      "leadSource": "المصدر",
+      "leadSource": "Source",
       "leadSourcePlaceholder": "مثال: وارد، إحالة",
       "leadValue": "القيمة المتوقعة",
       "leadValuePlaceholder": "0",
@@ -1411,7 +1468,7 @@
       "notesPlaceholder": "أضف سياقًا حول هذا العميل...",
       "phone": "الهاتف",
       "phonePlaceholder": "+49 555 123 4567",
-      "pipelineStage": "مرحلة خط الأنابيب",
+      "pipelineStage": "مرحلة المسار",
       "saveChanges": "حفظ التغييرات"
     },
     "kpi": {
@@ -1426,7 +1483,7 @@
     },
     "notes": {
       "addNote": "إضافة ملاحظة",
-      "cancelEditing": "إلغاء التحرير",
+      "cancelEditing": "إلغاء التعديل",
       "deleteNote": "حذف الملاحظة",
       "draftPlaceholder": "اكتب ملاحظة...",
       "editNote": "تحرير الملاحظة",
@@ -1438,10 +1495,10 @@
       "unknownAuthor": "غير معروف"
     },
     "pdf": {
-      "createdAt": "Created",
-      "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
+      "createdAt": "تم الإنشاء",
+      "email": "البريد الإلكتروني",
+      "exportedAt": "{count} Leads · تم التصدير في {date}",
+      "pageOf": "الصفحة {current} من {total}",
       "title": "Leads"
     },
     "rowMenu": {
@@ -1453,7 +1510,7 @@
     "scheduleTitle": "جدولة مكالمة مع {name}",
     "status": {
       "contacted": "تم التواصل",
-      "converted": "تم التحويل",
+      "converted": "محول",
       "lost": "مفقود",
       "new": "جديد",
       "qualified": "مؤهل"
@@ -1509,9 +1566,9 @@
     }
   },
   "marketing": {
-    "authBody": "تسجيل الدخول، إنشاء حساب، والتحقق من الجلسة عبر <code>/api/auth</code>",
+    "authBody": "تسجيل الدخول، التسجيل، والتحقق من الجلسة عبر <code>/api/auth</code>",
     "authTitle": "المصادقة",
-    "bffBody": "يجب أن تتوقف طلبات المتصفح عند هذا التطبيق. ستتواصل مسارات الخادم الموثوقة مع خدمة CRM الداخلية.",
+    "bffBody": "يجب أن تتوقف مكالمات المتصفح عند هذا التطبيق. ستتواصل مسارات الخادم الموثوقة مع خدمة CRM الداخلية.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
     "campaigns": {
@@ -1553,11 +1610,11 @@
       }
     },
     "ctaCreateWorkspace": "إنشاء وصول إلى مساحة العمل",
-    "ctaOpenShell": "فتح الواجهة المحمية",
-    "currentStack": "الحزمة الحالية",
+    "ctaOpenShell": "فتح القشرة المحمية",
+    "currentStack": "المجموعة الحالية",
     "heroEyebrow": "منصة CRM صوتية الأصل",
-    "heroLead": "يجمع Lisent CRM بين المصادقة، وسير العمل المتوافق مع المستأجرين، وإعداد الملف الشخصي عند الاستيراد، وواجهة تطبيق محمية لمشغلي الشركة. يمتلك تطبيق الويب تدفقات الواجهة الأمامية للمستخدم. يبقى خدمة Go CRM خلف حدود خلفية موثوقة.",
-    "heroTitle": "فهم النية، ليس مجرد كلمات.",
+    "heroLead": "يجمع Lisent CRM بين المصادقة، وسير العمل المتوافق مع المستأجر، وإعداد الملف الشخصي المستورد، وواجهة تطبيق محمية لمشغلي الشركة. يمتلك تطبيق الويب تدفقات موجهة للمستخدم. تبقى خدمة Go CRM خلف حدود backend موثوقة.",
+    "heroTitle": "فهم النية، وليس مجرد الكلمات.",
     "navSignIn": "تسجيل الدخول",
     "navStartNow": "ابدأ الآن",
     "stackItems": {
@@ -1572,7 +1629,7 @@
       "email": "البريد الإلكتروني",
       "forms": "النماذج"
     },
-    "tenantBody": "الطبقة التالية ستحل <code>user_id</code>، <code>company_id</code>، والدور لكل جلسة.",
+    "tenantBody": "ستقوم الطبقة التالية بحل <code>user_id</code> و<code>company_id</code> والدور لكل جلسة.",
     "tenantTitle": "سياق المستأجر",
     "whatThisAppOwns": "ما يملك هذا التطبيق"
   },
@@ -1623,23 +1680,23 @@
       "title": "الحساب"
     },
     "calendar": {
-      "description": "خطط للمكالمات والاجتماعات والمتابعة.",
+      "description": "تخطيط المكالمات والاجتماعات والمتابعات.",
       "title": "التقويم"
     },
     "customers": {
       "description": "جميع سجلات عملائك في مكان واحد.",
-      "title": "الزبائن"
+      "title": "العملاء"
     },
     "dashboard": {
-      "description": "نظرة عامة على مساحة العمل والإجراءات السريعة.",
+      "description": "نظرة عامة على مساحة العمل وإجراءات سريعة.",
       "title": "لوحة التحكم"
     },
     "deals": {
-      "description": "تتبّع الصفقات المفتوحة وقيمة الصفقات قيد التنفيذ.",
+      "description": "تتبع الصفقات المفتوحة وقيمة مسار المبيعات.",
       "title": "الصفقات"
     },
     "imports": {
-      "description": "أحضر بيانات العملاء إلى مساحة عملك.",
+      "description": "استيراد بيانات العملاء إلى مساحة العمل الخاصة بك.",
       "title": "الاستيراد"
     },
     "integrationDetail": {
@@ -1669,11 +1726,11 @@
   },
   "qualifier": {
     "companyOrBuyerProfile": "ملف الشركة / المشتري",
-    "fallbackExplanation": "لم يتم تشغيل تقييم LLM — تم حساب النتيجة من جودة بيانات النموذج.",
+    "fallbackExplanation": "لم يتم تشغيل تقييم LLM — تم حساب النتيجة بناءً على جودة بيانات النموذج.",
     "fallbackMode": "وضع الاحتياطي",
     "formulaAudit": "تدقيق الصيغة",
     "keyQuestions": "الأسئلة الرئيسية للمكالمة",
-    "leadAssessment": "تقييم Lead",
+    "leadAssessment": "تقييم العميل المحتمل",
     "llmMedian": "متوسط LLM",
     "noScoreYet": "لا توجد نتيجة بعد.",
     "rawAnalysis": "نتيجة التحليل الخام",
@@ -1681,7 +1738,7 @@
     "risksToWatch": "المخاطر التي يجب مراقبتها",
     "salesContext": "سياق المبيعات",
     "scoredAt": "تم التقييم في {date}",
-    "scoring": "جاري التقييم…",
+    "scoring": "جاري التقييم...",
     "whoTheyAre": "من هم"
   },
   "search": {
@@ -1704,8 +1761,8 @@
       "individual": "فردي"
     },
     "confirm": {
-      "delete": "حذف هذه المهمة؟",
-      "deleteBroadcast": "حذف مهمة البث هذه للجميع؟"
+      "delete": "هل تريد حذف هذه المهمة؟",
+      "deleteBroadcast": "هل تريد حذف مهمة البث هذه للجميع؟"
     },
     "empty": {
       "filtered": "لا توجد مهام تطابق الفلتر الحالي.",
@@ -1801,7 +1858,7 @@
     "addModal": {
       "description": "ادعُ زميلًا عبر البريد الإلكتروني. سيتلقى بريدًا للانضمام.",
       "sending": "جارٍ الإرسال…",
-      "submit": "إرسال الدعوة",
+      "submit": "إرسال دعوة",
       "title": "إضافة عضو إلى الفريق"
     },
     "aria": {
@@ -1877,11 +1934,11 @@
   "validation": {
     "firstNameRequired": "الاسم مطلوب.",
     "firstNameTooShort": "يجب أن يكون الاسم على الأقل حرفين.",
-    "genderInvalid": "اختر خيار نوع صالح.",
-    "genderRequired": "النوع مطلوب.",
+    "genderInvalid": "اختر خيار جنس صالح.",
+    "genderRequired": "الجنس مطلوب.",
     "languageInvalid": "اختر لغة صالحة.",
-    "lastNameRequired": "اسم العائلة مطلوب.",
-    "lastNameTooShort": "يجب أن يكون اسم العائلة على الأقل حرفين.",
+    "lastNameRequired": "اللقب مطلوب.",
+    "lastNameTooShort": "يجب أن يكون اللقب على الأقل حرفين.",
     "phoneInvalid": "أدخل رقم هاتف صالح.",
     "phoneRequired": "رقم الهاتف مطلوب."
   },

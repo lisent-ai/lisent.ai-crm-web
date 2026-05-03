@@ -2181,6 +2181,149 @@ export async function listIntranetDeliveries(
   }));
 }
 
+// ─── Intranet outbound webhook (CRM → customer status push) ─────────────────
+
+export type IntranetOutboundStatus =
+  | "*"
+  | "new"
+  | "contacted"
+  | "qualified"
+  | "lost"
+  | "converted";
+
+export type IntranetOutboundConfig = {
+  url: string | null;
+  hasSecret: boolean;
+  secretRotatedAt: string | null;
+  enabledStatuses: IntranetOutboundStatus[];
+  paused: boolean;
+};
+
+export type IntranetOutboundDelivery = {
+  id: string;
+  eventId: string;
+  eventType: string;
+  toStatus: string;
+  fromStatus: string | null;
+  externalId: string | null;
+  status: "pending" | "success" | "failed" | "dead";
+  attemptCount: number;
+  lastError: string | null;
+  lastResponseStatus: number | null;
+  nextRetryAt: string | null;
+  occurredAt: string;
+  createdAt: string;
+};
+
+type CRMOutboundConfigRaw = {
+  url: string | null;
+  has_secret: boolean;
+  secret_rotated_at?: string | null;
+  enabled_statuses: IntranetOutboundStatus[];
+  paused: boolean;
+};
+
+function mapOutboundConfig(r: CRMOutboundConfigRaw): IntranetOutboundConfig {
+  return {
+    url: r.url,
+    hasSecret: r.has_secret,
+    secretRotatedAt: r.secret_rotated_at ?? null,
+    enabledStatuses: r.enabled_statuses,
+    paused: r.paused,
+  };
+}
+
+export async function getIntranetOutboundConfig(
+  companyId: string,
+): Promise<IntranetOutboundConfig> {
+  const r = await requestCRM<CRMOutboundConfigRaw>(
+    `/companies/${companyId}/integrations/intranet/outbound`,
+  );
+  return mapOutboundConfig(r);
+}
+
+export async function updateIntranetOutboundConfig(
+  companyId: string,
+  patch: {
+    url?: string | null;
+    enabledStatuses?: IntranetOutboundStatus[];
+    paused?: boolean;
+    rotateSecret?: boolean;
+  },
+): Promise<{ config: IntranetOutboundConfig; secretPlaintext?: string }> {
+  const body: Record<string, unknown> = {};
+  if (patch.url !== undefined) body.url = patch.url ?? "";
+  if (patch.enabledStatuses !== undefined) body.enabled_statuses = patch.enabledStatuses;
+  if (patch.paused !== undefined) body.paused = patch.paused;
+  if (patch.rotateSecret) body.rotate_secret = true;
+
+  const response = await requestCRM<{
+    config: CRMOutboundConfigRaw;
+    secret_plaintext?: string;
+  }>(`/companies/${companyId}/integrations/intranet/outbound`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return {
+    config: mapOutboundConfig(response.config),
+    secretPlaintext: response.secret_plaintext,
+  };
+}
+
+export async function testIntranetOutboundWebhook(
+  companyId: string,
+  toStatus: IntranetOutboundStatus,
+): Promise<{ enqueued: boolean; eventId: string }> {
+  const r = await requestCRM<{ enqueued: boolean; event_id: string }>(
+    `/companies/${companyId}/integrations/intranet/outbound/test`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ to_status: toStatus }),
+    },
+  );
+  return { enqueued: r.enqueued, eventId: r.event_id };
+}
+
+export async function listIntranetOutboundDeliveries(
+  companyId: string,
+  limit: number = 20,
+): Promise<IntranetOutboundDelivery[]> {
+  const rows = await requestCRM<
+    {
+      id: string;
+      event_id: string;
+      event_type: string;
+      to_status: string;
+      from_status?: string;
+      external_id?: string;
+      status: "pending" | "success" | "failed" | "dead";
+      attempt_count: number;
+      last_error?: string;
+      last_response_status?: number;
+      next_retry_at?: string;
+      occurred_at: string;
+      created_at: string;
+    }[]
+  >(`/companies/${companyId}/integrations/intranet/outbound/deliveries?limit=${limit}`);
+  return rows.map((r) => ({
+    id: r.id,
+    eventId: r.event_id,
+    eventType: r.event_type,
+    toStatus: r.to_status,
+    fromStatus: r.from_status ?? null,
+    externalId: r.external_id ?? null,
+    status: r.status,
+    attemptCount: r.attempt_count,
+    lastError: r.last_error ?? null,
+    lastResponseStatus: r.last_response_status ?? null,
+    nextRetryAt: r.next_retry_at ?? null,
+    occurredAt: r.occurred_at,
+    createdAt: r.created_at,
+  }));
+}
+
 // ─── Meta Lead Ads integration ──────────────────────────────────────────────
 
 export type MetaConfig = {

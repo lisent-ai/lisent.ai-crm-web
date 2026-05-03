@@ -1,6 +1,6 @@
 {
   "account": {
-    "changeNote": "Ændringer opdaterer den indloggede brugerprofil, som dashboardet bruger.",
+    "changeNote": "Ændringer opdaterer den indloggede brugers profil, som dashboardet bruger.",
     "editProfile": "Rediger profil",
     "emailNotEditable": "Ændring af e‑mail håndteres ikke på denne skærm.",
     "fields": {
@@ -30,36 +30,36 @@
     },
     "platformRole": {
       "superAdmin": "Superadmin",
-      "workspaceUser": "Workspace‑bruger"
+      "workspaceUser": "Workspace-bruger"
     },
     "profileSummary": "Profiloversigt",
     "saveButton": "Gem indstillinger",
     "saveFailed": "Kunne ikke gemme kontoindstillinger.",
     "saved": "Kontoindstillinger gemt.",
-    "saving": "Gemmer...",
-    "subtitle": "Administrer din profil, præferencer og adgang.",
+    "saving": "Gemmer…",
+    "subtitle": "Administrer Deres profil, præferencer og adgang.",
     "title": "Kontoindstillinger"
   },
   "auth": {
-    "alreadyHaveAccess": "Har du allerede adgang?",
+    "alreadyHaveAccess": "Har De allerede adgang?",
     "authFailed": "Godkendelse mislykkedes.",
     "createAnAccount": "Opret en konto",
     "creatingAccount": "Opretter konto…",
-    "emailLabel": "Email",
+    "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
-    "newWorkspaceUser": "Ny workspace‑bruger?",
+    "newWorkspaceUser": "Ny workspace-bruger?",
     "passwordLabel": "Password",
-    "passwordPlaceholderSignIn": "Indtast din adgangskode",
-    "passwordPlaceholderSignUp": "Opret en stærk adgangskode",
-    "selectGenderPlaceholder": "Vælg dit køn",
+    "passwordPlaceholderSignIn": "Indtast Deres password",
+    "passwordPlaceholderSignUp": "Opret et stærkt password",
+    "selectGenderPlaceholder": "Vælg Deres køn",
     "signIn": "Log ind",
     "signInButton": "Log ind",
     "signInInstead": "Log ind i stedet",
-    "signInSubtitle": "Brug de kontooplysninger, som er udstedt til Deres team.",
+    "signInSubtitle": "Brug de virksomhedsoplysninger, der er udstedt til Deres team.",
     "signInTitle": "Få adgang til Deres arbejdsområde",
-    "signUp": "Tilmeld",
+    "signUp": "Opret konto",
     "signUpButton": "Opret konto",
-    "signUpSubtitle": "Start med e‑mail og adgangskode. Tildeling af lejer følger derefter.",
+    "signUpSubtitle": "Start med e‑mail og adgangskode. Tildeling af lejer følger herefter.",
     "signUpTitle": "Opret adgang til Deres arbejdsområde",
     "signingIn": "Logger ind…",
     "workspaceAuth": "Workspace-godkendelse",
@@ -101,9 +101,9 @@
       "titleRequired": "Titel er påkrævet."
     },
     "eventStatus": {
-      "canceled": "Annulleret",
+      "canceled": "Aflyst",
       "completed": "Afsluttet",
-      "missed": "Mistet",
+      "missed": "Udeblivet",
       "scheduled": "Planlagt"
     },
     "eventType": {
@@ -116,16 +116,16 @@
     "fields": {
       "allDayEvent": "Heldagsbegivenhed",
       "assignee": "Ansvarlig",
-      "companyRecord": "Virksomhedsoptegnelse",
-      "customerLink": "Kunde link",
+      "companyRecord": "Virksomhedspost",
+      "customerLink": "Kundelink",
       "description": "Beskrivelse",
       "end": "Slut",
       "endDate": "Slutdato",
       "eventType": "Begivenhedstype",
       "linkTo": "Link til",
       "linkedRecord": "Linket post",
-      "location": "Sted",
-      "meetingUrl": "Møde-URL",
+      "location": "Placering",
+      "meetingUrl": "Møde‑URL",
       "reminder": "Påmindelse",
       "start": "Start",
       "startDate": "Startdato",
@@ -135,17 +135,17 @@
     "filtersAriaLabel": "Kalenderfiltre",
     "linkedFallback": {
       "customer": "Linket kunde",
-      "deal": "Linket deal",
+      "deal": "Linket aftale",
       "lead": "Linket lead"
     },
     "linkedType": {
       "company": "Virksomhed",
       "customer": "Kunde",
-      "deal": "Deal",
+      "deal": "Aftale",
       "lead": "Lead",
       "none": "Ingen"
     },
-    "loading": "Indlæser kalender…",
+    "loading": "Indlæser kalender...",
     "modal": {
       "editEyebrow": "Rediger begivenhed",
       "editTitle": "Opdater kalenderbegivenhed",
@@ -155,16 +155,16 @@
     },
     "moreCount": "+{count} mere",
     "placeholders": {
-      "description": "Tilføj en kort beskrivelse…",
-      "location": "Kontor, Zoom, adresse…",
+      "description": "Tilføj en kort beskrivelse...",
+      "location": "Kontor, Zoom, adresse...",
       "noLinkedCustomer": "Ingen tilknyttet kunde",
       "optionalCustomer": "Vælg en kunde (valgfri)",
       "selectRecord": "Vælg en post",
-      "title": "Opdagelsessamtale med…"
+      "title": "Opdagelsessamtale med..."
     },
     "searchAriaLabel": "Søg i begivenheder",
-    "searchPlaceholder": "Søg i begivenheder…",
-    "selectedCompanyFallback": "Din workspace",
+    "searchPlaceholder": "Søg i begivenheder...",
+    "selectedCompanyFallback": "din arbejdsområde",
     "success": {
       "created": "Begivenhed oprettet.",
       "deleted": "Begivenhed slettet.",
@@ -178,7 +178,7 @@
     },
     "title": "Kalender",
     "today": "I dag",
-    "unassigned": "Ikke tildelt",
+    "unassigned": "Ufordelt",
     "untitled": "Unavngivet begivenhed",
     "view": {
       "day": "Dag",
@@ -200,13 +200,13 @@
     "cancel": "Annuller",
     "close": "Luk",
     "closeMenu": "Luk menu",
-    "loading": "Indlæser...",
+    "loading": "Indlæser…",
     "next": "Næste",
     "no": "Nej",
     "notSet": "Ikke angivet",
     "openMenu": "Åbn menu",
     "save": "Gem",
-    "saving": "Gemmer...",
+    "saving": "Gemmer…",
     "tryAgain": "Prøv igen",
     "yes": "Ja"
   },
@@ -250,12 +250,12 @@
     "fields": {
       "actions": "Handlinger",
       "company": "Virksomhed",
-      "companyId": "Virksomheds‑id",
+      "companyId": "Virksomheds-id",
       "country": "Land",
-      "countryCode": "Lande‑kode",
+      "countryCode": "Landekode",
       "customer": "Kunde",
-      "customerId": "Kunde‑id",
-      "email": "E‑mail",
+      "customerId": "Kunde-id",
+      "email": "Email",
       "firstName": "Fornavn",
       "id": "Id",
       "industry": "Branche",
@@ -275,7 +275,7 @@
     },
     "list": {
       "empty": "Ingen kunder matcher de aktuelle filtre.",
-      "eyebrow": "Kundedirectory",
+      "eyebrow": "Kunderegister",
       "selectAll": "Vælg alle kunder",
       "selectRow": "Vælg kunde {name}",
       "title": "Kunder",
@@ -293,12 +293,12 @@
       "label": "Søg",
       "placeholder": "Søg efter kunder..."
     },
-    "selectedCompany": "Aktivt arbejdsområde: {name}",
+    "selectedCompany": "Aktivt workspace: {name}",
     "status": {
       "active": "Aktiv",
       "all": "Alle",
-      "needsReview": "Kræver gennemgang",
-      "prospect": "Prospekt"
+      "needsReview": "Behøver gennemgang",
+      "prospect": "Prospect"
     },
     "statusFilter": "Statusfilter",
     "success": {
@@ -314,11 +314,11 @@
     "addComment": "Tilføj kommentar",
     "addDeal": "Tilføj deal",
     "aiInsights": {
-      "aiScore": "AI-score",
-      "aiStatus": "AI-status",
-      "champExtraction": "CHAMP-udtræk",
+      "aiScore": "AI score",
+      "aiStatus": "AI status",
+      "champExtraction": "CHAMP extraction",
       "path": "Sti",
-      "reasoningReport": "Begrundelsesrapport",
+      "reasoningReport": "Resoneringsrapport",
       "scoredAt": "Scoret den {date}",
       "title": "AI-indsigter"
     },
@@ -326,7 +326,7 @@
     "amountValue": "{amount}",
     "assignee": "Tildelt",
     "assigneeValue": "{name}",
-    "boardHint": "Træk deals mellem stadier for at opdatere pipeline.",
+    "boardHint": "Træk deals mellem stages for at opdatere pipeline.",
     "changedBy": "Ændret af {name}",
     "close": "Luk",
     "closeTarget": "Luk mål",
@@ -337,18 +337,18 @@
     "commentsCount": "{count} kommentarer",
     "commentsEmpty": "Ingen kommentarer endnu.",
     "deal": "Deal",
-    "dealDetail": "Deal-detaljer",
-    "dealList": "Deal-liste",
-    "dealValue": "Deal-værdi",
+    "dealDetail": "Deal detaljer",
+    "dealList": "Deal liste",
+    "dealValue": "Dealværdi",
     "dealsInPipeline": "{count} deals i pipeline",
     "dealsInView": "{count} deals i visning",
     "delete": "Slet",
-    "deleteConfirmDescription": "Dette vil permanent fjerne denne deal. Handlingen kan ikke fortrydes.",
+    "deleteConfirmDescription": "Dette vil permanent fjerne denne deal. Denne handling kan ikke fortrydes.",
     "deleteConfirmTitle": "Slet deal?",
     "deleteDeal": "Slet deal",
     "deleting": "Sletter...",
     "editDeal": "Rediger deal",
-    "emptyColumn": "Ingen deals i denne Stage.",
+    "emptyColumn": "Ingen deals i denne stage.",
     "errors": {
       "addComment": "Kunne ikke tilføje kommentar.",
       "deleteDeal": "Kunne ikke slette deal.",
@@ -356,12 +356,12 @@
       "loadDeals": "Kunne ikke indlæse deals.",
       "nameRequired": "Deal-navn er påkrævet.",
       "saveDeal": "Kunne ikke gemme deal.",
-      "unsupportedCurrency": "Uunderstøttet valuta."
+      "unsupportedCurrency": "Valuta understøttes ikke."
     },
     "extraData": "Ekstra data",
     "fields": {
       "company": "Virksomhed",
-      "companyId": "Virksomheds-id",
+      "companyId": "Virksomheds-ID",
       "country": "Land",
       "created": "Oprettet",
       "currency": "Valuta",
@@ -369,7 +369,7 @@
       "industry": "Branche",
       "lossReason": "Tabårsag",
       "records": "Poster",
-      "sourceLead": "Kilde-lead",
+      "sourceLead": "Kildelead",
       "termination": "Opsigelse",
       "updated": "Opdateret",
       "wonReason": "Vinderårsag"
@@ -379,11 +379,11 @@
       "allStages": "Alle faser",
       "assigneeLabel": "Tildelt",
       "searchLabel": "Søg",
-      "searchPlaceholder": "Søg deals...",
+      "searchPlaceholder": "Søg efter deals...",
       "stageLabel": "Fase"
     },
     "form": {
-      "assigneeHint": "Vælg en kollega, som skal eje denne deal.",
+      "assigneeHint": "Vælg en kollega, der skal eje denne deal.",
       "createDeal": "Opret deal",
       "editEyebrow": "Rediger deal",
       "editTitle": "Opdater deal",
@@ -393,10 +393,10 @@
         "currency": "Valuta",
         "customer": "Kunde",
         "dealName": "Deal-navn",
-        "expectedCloseDate": "Forventet lukkedato",
+        "expectedCloseDate": "Forventet lukningsdato",
         "lossReason": "Årsag til tab",
-        "pipelineStage": "Pipeline-stage",
-        "sourceLead": "Kilde-lead",
+        "pipelineStage": "Pipeline-trin",
+        "sourceLead": "Kilde lead",
         "terminationDate": "Opsigelsesdato",
         "wonReason": "Årsag til vundet"
       },
@@ -404,45 +404,45 @@
       "newTitle": "Opret en deal",
       "options": {
         "noLinkedCustomer": "Ingen tilknyttet kunde",
-        "noSourceLead": "Ingen kilde-lead"
+        "noSourceLead": "Ingen kilde lead"
       },
       "placeholders": {
         "amount": "0.00",
-        "dealName": "Acme — Q3-udvidelse",
-        "lossReason": "Hvorfor blev denne deal tabt?",
-        "wonReason": "Hvorfor vandt denne deal?"
+        "dealName": "Acme — Q3 expansion",
+        "lossReason": "Hvorfor gik dette deal tabt?",
+        "wonReason": "Hvorfor vandt dette deal?"
       },
       "saveChanges": "Gem ændringer"
     },
     "kanbanBoard": "Kanban-tavle",
-    "loadingBoard": "Indlæser tavle...",
-    "loadingDeals": "Indlæser deals...",
+    "loadingBoard": "Indlæsning af tavle...",
+    "loadingDeals": "Indlæser tilbud...",
     "meetingTitle": "Møde",
     "noDate": "Ingen dato",
-    "noDealsMatch": "Ingen deals matcher de aktuelle filtre.",
-    "noLossReason": "Ingen tabårsag registreret.",
+    "noDealsMatch": "Ingen tilbud matcher de aktuelle filtre.",
+    "noLossReason": "Der er ikke registreret nogen tabsårsag.",
     "noRelatedCustomer": "Ingen relateret kunde.",
-    "noWinReason": "Ingen vindårsag registreret.",
-    "notSet": "Ikke angivet",
-    "now": "nu",
-    "pipelineLoading": "Indlæser pipeline...",
-    "posting": "Udgiver...",
+    "noWinReason": "Ingen vinderårsag registreret.",
+    "notSet": "Ikke indstillet",
+    "now": "Nu",
+    "pipelineLoading": "Indlæser pipeline…",
+    "posting": "Sender…",
     "relatedRecords": "Relaterede poster",
     "scheduleActivity": "Planlæg aktivitet",
     "selectedCompany": "Aktivt workspace: {name}",
     "stage": {
-      "lost": "Fortabt",
-      "lostDescription": "Lukkede, tabte aftaler at lære af.",
+      "lost": "Tabt",
+      "lostDescription": "Afsluttede tabte deals til læring.",
       "negotiation": "Forhandling",
-      "negotiationDescription": "Afstemning om priser, vilkår og tidslinjer.",
+      "negotiationDescription": "Afstemning af priser, vilkår og tidsplaner.",
       "new": "Ny",
-      "newDescription": "Nyligt skabte muligheder, der endnu ikke er kvalificerede.",
+      "newDescription": "Nyligt oprettede muligheder, der endnu ikke er kvalificerede.",
       "proposal": "Forslag",
       "proposalDescription": "Formelt forslag sendt og under gennemgang.",
       "qualified": "Kvalificeret",
-      "qualifiedDescription": "Kundepasning og budget er blevet valideret.",
+      "qualifiedDescription": "Kundens egnethed og budget er blevet bekræftet.",
       "won": "Vundet",
-      "wonDescription": "Afsluttede aftaler bogføres som omsætning."
+      "wonDescription": "Afsluttede vundne deals registreret som indtægt."
     },
     "stageHistory": "Stage-historik",
     "stageHistoryEmpty": "Ingen stage-ændringer er registreret endnu.",
@@ -455,14 +455,14 @@
     },
     "system": "System",
     "terminationOpen": "Åben",
-    "thisDeal": "Denne Deal",
-    "unassigned": "Ikke tildelt",
+    "thisDeal": "Denne deal",
+    "unassigned": "Ufordelt",
     "unknownAuthor": "Ukendt",
-    "untitledDeal": "Uden titel Deal"
+    "untitledDeal": "Uden titel deal"
   },
   "errors": {
     "forbidden": "De har ikke tilladelse.",
-    "generic": "Noget gik galt.",
+    "generic": "Der opstod en fejl.",
     "networkError": "Netværksfejl. Prøv igen.",
     "sessionRequired": "Godkendelse påkrævet.",
     "userNotFound": "Bruger ikke fundet."
@@ -474,13 +474,13 @@
       "emptyDefault": "Der er endnu ingen aktivitet registreret.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
-      "subtitle": "Leads oprettet og Deals lukket i løbet af den seneste uge.",
+      "subtitle": "Leads oprettet og deals lukket i den seneste uge.",
       "title": "Aktivitet"
     },
     "company": {
       "createWorkspace": "Opret workspace",
       "goToOverview": "Gå til workspace‑oversigt",
-      "noWorkspaceHelp": "Vælg et workspace i switcheren for at se live‑data.",
+      "noWorkspaceHelp": "Vælg et workspace fra switcheren for at se live‑data.",
       "noWorkspaceSelected": "Intet workspace valgt",
       "pickWorkspace": "Vælg et workspace",
       "subtitleSelected": "Workspace‑metrik for {name}.",
@@ -489,16 +489,16 @@
     "errors": {
       "loadDashboard": "Kunne ikke indlæse dashboard‑data.",
       "loadSnapshot": "Kunne ikke indlæse workspace‑snapshot.",
-      "loadWorkspaces": "Kunne ikke indlæse arbejdsområder."
+      "loadWorkspaces": "Kunne ikke indlæse workspaces."
     },
     "kpi": {
       "customers": "Kunder",
-      "customersHint": "Totalt antal konti i dette arbejdsområde.",
+      "customersHint": "Totalt antal kunder i dette workspace.",
       "customersInWorkspace": "Kunder i {name}",
       "deals": "Deals",
       "dealsAmountEmpty": "Ingen dealværdi endnu.",
       "leads": "Leads",
-      "leadsHint": "Aktive leads i pipelinen.",
+      "leadsHint": "Aktive leads i pipeline.",
       "openPipelineHint": "Åben pipelineværdi på tværs af alle stadier.",
       "openPipelineValue": "{value}"
     },
@@ -516,13 +516,13 @@
     },
     "quickActions": {
       "aiQualifier": {
-        "cta": "Åbn AI‑kvalifikator",
+        "cta": "Åbn AI qualifier",
         "description": "Score og kvalificer leads automatisk.",
-        "title": "AI‑kvalificering"
+        "title": "AI qualifier"
       },
       "customerImport": {
         "cta": "Start import",
-        "description": "Importér kundedata til Deres arbejdsområde.",
+        "description": "Importér kundedata til Deres workspace.",
         "title": "Importér kunder"
       },
       "homeViews": {
@@ -532,13 +532,13 @@
       },
       "inviteMembers": {
         "cta": "Inviter medlemmer",
-        "description": "Tilføj teammedlemmer til Deres arbejdsområde.",
+        "description": "Tilføj teammedlemmer til Deres workspace.",
         "title": "Inviter team"
       },
       "newWorkspace": {
-        "cta": "Opret arbejdsområde",
+        "cta": "Opret workspace",
         "description": "Start en ny tenant for en anden forretningsenhed.",
-        "title": "Nyt arbejdsområde"
+        "title": "Ny workspace"
       },
       "oneClickSetup": "Opsætning med ét klik",
       "scheduleMeeting": {
@@ -552,14 +552,14 @@
     "recentLeads": {
       "empty": "Ingen nylige leads i {name}.",
       "emptyDefault": "Ingen nylige leads endnu.",
-      "subtitle": "Seneste leads tilføjet til dit workspace.",
+      "subtitle": "Seneste leads tilføjet til Deres workspace.",
       "title": "Nylige leads",
       "unnamed": "Unavngivet lead",
       "viewAll": "Vis alle leads"
     },
     "snapshot": {
       "activeWorkspace": "Aktivt workspace",
-      "eyebrow": "Workspace snapshot",
+      "eyebrow": "Workspace‑snapshot",
       "inWorkspace": "I {name}",
       "newCount": "{count} nye",
       "noWorkspaceHelp": "Vælg et workspace for at se live‑tællinger.",
@@ -569,31 +569,31 @@
       "openPipeline": "Åbn pipeline"
     },
     "workspaceOverview": {
-      "acrossAccount": "På tværs af din konto",
+      "acrossAccount": "På tværs af Deres konto",
       "activeWorkspace": "Aktivt workspace",
-      "allCombined": "Alt samlet",
+      "allCombined": "Alle samlet",
       "customers": "Kunder",
       "noneSelected": "Ingen valgt",
       "pickToActivate": "Vælg et workspace for at aktivere metrics.",
       "scopedViews": "Afgrænsede visninger",
-      "singleWorkspace": "Enkelt arbejdsområde",
-      "subtitle": "Opsummering på kontoniveau af dine arbejdsområder.",
-      "workspaces": "Arbejdsområder"
+      "singleWorkspace": "Enkelt workspace",
+      "subtitle": "Konto‑niveau opsummering af Deres workspaces.",
+      "workspaces": "Workspaces"
     }
   },
   "imports": {
     "errors": {
-      "approveFailed": "Godkendelse og import mislykkedes.",
+      "approveFailed": "Kunne ikke godkende og importere.",
       "chooseFile": "Vælg en CSV-fil til upload.",
       "enterUrl": "Indtast en CSV-URL.",
       "fetchUrlFailed": "Kunne ikke hente CSV-URL'en.",
-      "mapAtLeastOne": "Kortlæg mindst én kildekolonne til et mål-felt.",
+      "mapAtLeastOne": "Kortlæg mindst én kildekolonne til et målfelt.",
       "noRows": "Filen eller URL'en indeholdt ingen rækker.",
-      "openFromCompany": "Åbn denne side fra et virksomheds‑arbejdsområde.",
+      "openFromCompany": "Åbn denne side fra et virksomheds‑workspace.",
       "parseFailed": "Kunne ikke parse CSV-filen."
     },
     "mapping": {
-      "approvalDescription": "Bekræft kortlægningen og kør importen. Kunder vil blive oprettet eller opdateret i det aktive arbejdsområde.",
+      "approvalDescription": "Bekræft kortlægningen og kør importen. Kunder vil blive oprettet eller opdateret i det aktive workspace.",
       "approvalOutcome": "Efter godkendelse indsættes rækker som kunder i {name}.",
       "approveAndImport": "Godkend & importér",
       "backToPreview": "Tilbage til forhåndsvisning",
@@ -726,7 +726,7 @@
     },
     "configure": "Konfigurer",
     "configureAria": "Konfigurer {name}",
-    "connect": "Opret forbindelse",
+    "connect": "Forbind",
     "connectAria": "Opret forbindelse {name}",
     "connecting": "Opretter forbindelse…",
     "copy": "Kopier",
@@ -750,14 +750,14 @@
     "disconnecting": "Afbryder…",
     "errors": {
       "connectFailed": "Kunne ikke oprette forbindelse til integrationen.",
-      "copyFailed": "Kunne ikke kopiere til udklipsholderen.",
+      "copyFailed": "Kunne ikke kopiere til udklipsholder.",
       "disconnectFailed": "Kunne ikke afbryde integrationen.",
       "revokeFailed": "Kunne ikke tilbagekalde token.",
       "rotateFailed": "Kunne ikke rotere token.",
       "saveFailed": "Kunne ikke gemme ændringer.",
       "unknown": "Ukendt fejl."
     },
-    "generateToken": "Generer token",
+    "generateToken": "Generér token",
     "greenapi": {
       "activeLabel": "Aktiv",
       "apiTokenLabel": "API token",
@@ -765,10 +765,10 @@
       "apiTokenPlaceholder": "Indtast Green API token",
       "bulletInbound": "<strong>Indgående:</strong> Green API → Lisent webhook URL.",
       "bulletOutbound": "<strong>Udgående:</strong> Lisent → Green API for at sende svar.",
-      "connectionFailed": "Forbindelsestest mislykkedes.",
-      "connectionOk": "Forbindelse vellykket.",
+      "connectionFailed": "Forbindelsestest mislykkede",
+      "connectionOk": "Forbindelse",
       "credentialsDescription": "Forbind din Green API-konto for at sende og modtage WhatsApp‑beskeder.",
-      "credentialsSaved": "Legitimationsoplysninger gemt.",
+      "credentialsSaved": "Legitimationsoplysninger",
       "credentialsTitle": "Green API-legitimationsoplysninger",
       "disconnectConfirm": "Afbryd Green API-integration? Aktive samtaler påvirkes ikke.",
       "inbound": "Indgående URL",
@@ -786,7 +786,7 @@
       "updatedLabel": "Opdateret",
       "upstreamStatus": "Upstream status: {status}",
       "urlCopied": "URL kopieret til udklipsholder.",
-      "webhookSectionDescription": "Konfigurer din Green API-instans til at levere indgående beskeder til <code>{url}</code>.",
+      "webhookSectionDescription": "Konfigurér din Green API‑instans til at levere indgående beskeder til <code>{url}</code>.",
       "webhookSectionTitle": "Indgående webhook"
     },
     "hide": "Skjul",
@@ -795,7 +795,7 @@
       "authBearer": "Bearer-token",
       "authBearerShort": "Bearer",
       "authBothShort": "HMAC + Bearer",
-      "authHmac": "HMAC-signatur",
+      "authHmac": "HMAC‑signatur",
       "authHmacOrBearer": "HMAC eller Bearer",
       "authHmacShort": "HMAC",
       "authMode": "Godkendelsestilstand",
@@ -803,7 +803,7 @@
       "bearerCopied": "Bearer-token kopieret.",
       "bearerExampleTitle": "Bearer-eksempel",
       "bearerToken": "Bearer-token",
-      "bearerTokenHint": "Send dette token i Authorization-headeren som <code>Bearer ...</code>.",
+      "bearerTokenHint": "Send denne token i Authorization‑headeren som <code>Bearer ...</code>.",
       "configurationTitle": "Konfiguration",
       "copyUrl": "Kopier URL",
       "createIntegration": "Opret integration",
@@ -827,7 +827,7 @@
       "hmacCopied": "HMAC‑hemmelighed kopieret.",
       "hmacExampleTitle": "HMAC‑eksempel",
       "hmacSecret": "HMAC‑hemmelighed",
-      "hmacSecretHint": "Brug denne hemmelighed til at beregne <code>X-Lisent-Signature</code> på udgående anmodninger.",
+      "hmacSecretHint": "Brug denne secret til at beregne <code>X-Lisent-Signature</code> på udgående anmodninger.",
       "inactive": "Inaktiv",
       "inboundDescription": "Send payloads til <code>{url}</code> for at indsamle leads fra Deres intranet.",
       "inboundToken": "Indgående URL‑token",
@@ -841,8 +841,65 @@
       "mintBearer": "Udsted bearer‑token",
       "noDeliveries": "Ingen leveringer endnu.",
       "noIntegration": "Ingen intranet-integration konfigureret.",
+      "outbound": {
+        "allStatusesLabel": "Alle statusændringer (anbefalet)",
+        "deliveriesEmpty": "Ingen leveringer endnu. Send en testbegivenhed for at bekræfte forbindelsen.",
+        "deliveriesTitle": "Seneste leveringer",
+        "deliveryCols": {
+          "attempts": "Forsøg",
+          "createdAt": "Sendt",
+          "error": "Seneste fejl",
+          "eventId": "Event‑ID",
+          "status": "Status",
+          "toStatus": "→ Status"
+        },
+        "description": "Når en leads status ændres i dette CRM, underskriv begivenheden og POST den til din endpoint. Vi forsøger igen ved fejl (6 forsøg over ca. 7 t) og sender til dead‑letter derefter.",
+        "generateSecretButton": "Generér signeringshemmelighed",
+        "loadFailed": "Kunne ikke indlæse udgående webhook‑konfiguration.",
+        "loading": "Indlæser udgående webhook…",
+        "newSecretHint": "Kopiér denne hemmelighed nu — vi hash’er den, når dialogen lukkes, og viser kun en maskeret version fremover.",
+        "newSecretReveal": "Ny signeringshemmelighed",
+        "pauseHint": "Stopper nye leveringer uden at miste din URL. Eksisterende ventende genforsøg fortsætter.",
+        "pauseLabel": "Pause udgående webhooks",
+        "rotateSecretButton": "Rotér signeringshemmelighed",
+        "rotateSecretConfirm": "Rotér signeringshemmeligheden? Du skal opdatere din verifikationskode med den nye værdi.",
+        "rotatingSecret": "Roterer…",
+        "saveButton": "Gem udgående konfiguration",
+        "saveFailed": "Kunne ikke gemme udgående konfiguration.",
+        "savedNotice": "Outbound webhook gemt.",
+        "secretConfigured": "Konfigureret",
+        "secretNotSet": "Ikke indstillet — generér en, før De sender hændelser.",
+        "secretRotatedAt": "(roteret {time})",
+        "secretRotatedNotice": "Signing secret roteret. Klartekst vises kun denne ene gang.",
+        "selectAtLeastOne": "Vælg mindst én status, eller marker 'Alle statusændringer'.",
+        "signingSecretLabel": "Signing secret (HMAC-SHA256)",
+        "statusFilterHint": "Vælg hvilke overgange, der udløser en webhook. Brug '*' for at modtage hver statusændring.",
+        "statusFilterTitle": "Statusfilter",
+        "statusLabels": {
+          "contacted": "Lead er blevet kontaktet",
+          "converted": "Lead konverteret til kunde",
+          "lost": "Lead markeret som tabt",
+          "new": "Lead netop oprettet",
+          "qualified": "Lead kvalificeret af AI / salg"
+        },
+        "testButton": "Send test‑hændelse",
+        "testEnqueued": "Test‑hændelse sat i kø: {eventId}",
+        "testFailed": "Test‑hændelse mislykkedes.",
+        "testHint": "Sender en syntetisk lead.status_changed‑hændelse til Deres URL ved brug af de samme headers og signering som rigtige hændelser.",
+        "testTitle": "Send en test‑hændelse",
+        "testToStatusLabel": "to_status (hvilken overgang der skal simuleres)",
+        "title": "Udgående webhook (statusopdateringer)",
+        "urlHint": "Vi POST'er statusændrings‑begivenheder til denne URL med HMAC‑SHA256‑signering. Skal være HTTPS i produktion.",
+        "urlLabel": "Endpoint‑URL",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Gem en URL, før De genererer en hemmelighed.",
+        "verificationIntro": "Hver anmodning inkluderer disse headers:",
+        "verificationNote": "Hvis De modtager en leverance med et tidsstempel ældre end 5 minutter, afvis den som en replay.",
+        "verificationTitle": "Sådan verificerer De på Deres side",
+        "verifyByComputing": "Verificer ved at genberegne HMAC over '<timestamp>.<rawBody>' og sammenligne i konstant tid:"
+      },
       "recentDeliveries": "Seneste leveringer",
-      "requestExamples": "Anmod om eksempler",
+      "requestExamples": "Eksempler på anmodninger",
       "revealDescription": "Tokens vises kun én gang.",
       "revealedBearerLabel": "Ny bearer token",
       "revealedHmacLabel": "Ny HMAC secret",
@@ -996,7 +1053,7 @@
       "channels": {
         "intranetDescription": "Modtag lead‑signaler fra interne portaler via intranet‑webhook.",
         "intranetTitle": "Intranet‑webhook",
-        "whatsappDescription": "Optag samtaler fra WhatsApp via Green API.",
+        "whatsappDescription": "Fang samtaler fra WhatsApp via Green API.",
         "whatsappTitle": "WhatsApp (Green API)"
       },
       "customPromptPlaceholder": "Tilføj yderligere instruktioner til kvalificeringen…",
@@ -1036,20 +1093,20 @@
         "title": "Oversigt",
         "tuningAiConfig": "<strong>AI configuration:</strong> Tærskel, framework, prompt‑overrides.",
         "tuningCallback": "<strong>Callback:</strong> Hvor kvalificerede leads sendes.",
-        "tuningRag": "<strong>Videnbase (RAG):</strong> Dokumenter, som assistenten kan henvise til.",
-        "tuningTitle": "Indstilling"
+        "tuningRag": "<strong>Videnbase (RAG):</strong> Dokumenter assistenten kan referere til.",
+        "tuningTitle": "Finjustering"
       },
       "qualificationThreshold": "Kvalifikationsgrænse",
-      "revokeSecondaryConfirm": "Tilbagekalde den sekundære webhook-hemmelighed?",
-      "rotateWebhookConfirm": "Rotere webhook-hemmeligheden? Den gamle hemmelighed forbliver gyldig i rotationsvinduet.",
-      "saveAiConfig": "Gem AI-konfiguration",
-      "secondaryRevoked": "Sekundær webhook-hemmelighed tilbagekaldt.",
+      "revokeSecondaryConfirm": "Tilbagekald den sekundære webhook‑hemmelighed?",
+      "rotateWebhookConfirm": "Roter webhook‑hemmeligheden? Den gamle hemmelighed forbliver gyldig i rotationsvinduet.",
+      "saveAiConfig": "Gem AI‑konfiguration",
+      "secondaryRevoked": "Sekundær webhook‑hemmelighed tilbagekaldt.",
       "sectorLabel": "Sektor",
-      "thresholdHint": "Leads, der scorer på eller over denne tærskel, markeres som kvalificerede.",
-      "webhookUrlLabel": "Webhook-URL"
+      "thresholdHint": "Leads, der scorer på eller over denne grænse, markeres som kvalificerede.",
+      "webhookUrlLabel": "Webhook‑URL"
     },
     "rag": {
-      "chunkLabel": "Klump",
+      "chunkLabel": "Segment",
       "chunksColumn": "Delområder",
       "description": "Vidensbase for <strong>{name}</strong>. Upload dokumenter, som AI’en kan referere til.",
       "ingestedDescription": "Dokumenter, der i øjeblikket er i vidensbasen for <strong>{name}</strong>.",
@@ -1057,13 +1114,13 @@
       "ingestionExampleDescription": "POST til <code>{url}</code> med en JSON‑krop, der indeholder <code>title</code>, <code>content</code> og valgfri <code>metadata</code>.",
       "ingestionExampleTitle": "Eksempel på indtagning",
       "loadConfigFailed": "Kunne ikke indlæse RAG‑konfiguration.",
-      "loadContentFailed": "Kunne ikke indlæse dokumentindhold.",
-      "loadDocsFailed": "Kunne ikke indlæse dokumenter.",
+      "loadContentFailed": "Kunne ikke indlæse dokumentindhold",
+      "loadDocsFailed": "Kunne ikke indlæse dokumenter",
       "loading": "Indlæser RAG…",
       "loadingContent": "Indlæser indhold…",
       "loadingDocs": "Indlæser dokumenter…",
       "metadata": "Metadata",
-      "noDocuments": "Ingen dokumenter er indlæst endnu.",
+      "noDocuments": "Ingen dokumenter indlæst endnu",
       "noToken": "Ingen indtagningstoken konfigureret.",
       "revokeConfirm": "Tilbagekald den sekundære indtagningstoken?",
       "rotateConfirm": "Roter indtagningstoken? Den gamle token forbliver gyldig i rotationsvinduet.",
@@ -1101,23 +1158,23 @@
     "testConnection": "Test forbindelse",
     "testing": "Tester...",
     "title": "Integrationer",
-    "urlCopied": "URL kopieret til udklipsholder.",
+    "urlCopied": "URL kopieret til udklip",
     "usage": {
       "allMetrics": "Alle målinger",
       "description": "Brug og hastighedsgrænser for <strong>{name}</strong>.",
-      "loadFailed": "Kunne ikke indlæse brug.",
+      "loadFailed": "Kunne ikke indlæse brug",
       "loading": "Indlæser brug...",
       "metricColumn": "Måling",
       "metrics": {
         "activeUsers": "Aktive brugere",
-        "apiCalls": "API-opkald",
+        "apiCalls": "API‑opkald",
         "askLisentQueries": "Ask Lisent-forespørgsler",
         "champExtractions": "CHAMP-ekstraktioner",
-        "kbDocuments": "KB-dokumenter",
+        "kbDocuments": "KB‑dokumenter",
         "leadsIngested": "Leads indlæst",
         "leadsQualified": "Leads kvalificeret",
-        "llmTokens": "LLM-tokens",
-        "sseSessions": "SSE-sessioner",
+        "llmTokens": "LLM‑tokens",
+        "sseSessions": "SSE‑sessioner",
         "webhookDeliveries": "Webhook-leveringer",
         "widgetLoads": "Widget-indlæsninger"
       },
@@ -1158,7 +1215,7 @@
       "frameworkTitle": "Kvalifikationsramme",
       "loadFailed": "Kunne ikke indlæse v1‑konfiguration.",
       "loading": "Indlæser v1‑konfiguration…",
-      "outboundWebhookDescription": "Hvor kvalifikatoren sender kvalificerede leads.",
+      "outboundWebhookDescription": "Hvor kvalifikatoren poster kvalificerede leads.",
       "outboundWebhookPlaceholder": "https://your-crm.example.com/webhook",
       "outboundWebhookTitle": "Udgående webhook",
       "saveChanges": "Gem ændringer",
@@ -1223,7 +1280,7 @@
       "verificationTitle": "Verifikation",
       "verifyByComputing": "Beregn <code>HMAC-SHA256(secret, body)</code> og sammenlign med signatur-headeren."
     },
-    "working": "Arbejder..."
+    "working": "Arbejder…"
   },
   "leads": {
     "ai": {
@@ -1261,7 +1318,7 @@
       "clearSelection": "Ryd valg",
       "delete": "Slet",
       "exportCsv": "Eksporter CSV",
-      "exportPdf": "Export PDF",
+      "exportPdf": "Eksporter PDF",
       "selected": "{count} valgt"
     },
     "bulkDelete": {
@@ -1334,7 +1391,7 @@
       "editLead": "Rediger lead",
       "emptyDetails": "Ingen detaljer er indsamlet endnu.",
       "leadProfile": "Lead-profil",
-      "linkedCustomer": "Tilknyttet kunde",
+      "linkedCustomer": "Linket kunde",
       "linkedDealId": "Tilknyttet deal-id",
       "nextStep": "Næste trin",
       "noDealYet": "Ingen deal endnu",
@@ -1369,7 +1426,7 @@
       "customerNameRequired": "Kundenavn er påkrævet.",
       "deleteLead": "Kunne ikke slette lead.",
       "deleteNote": "Kunne ikke slette note.",
-      "exportPdf": "Failed to generate PDF.",
+      "exportPdf": "Kunne ikke generere PDF.",
       "loadCompanies": "Kunne ikke indlæse virksomheder.",
       "loadLeads": "Kunne ikke indlæse leads.",
       "loadNotes": "Kunne ikke indlæse noter.",
@@ -1422,7 +1479,7 @@
       "inConversation": "I samtale",
       "qualified": "Kvalificeret",
       "readyToProgress": "Klar til at gå videre",
-      "totalLeads": "Leads i alt"
+      "totalLeads": "Totale leads"
     },
     "notes": {
       "addNote": "Tilføj note",
@@ -1430,18 +1487,18 @@
       "deleteNote": "Slet note",
       "draftPlaceholder": "Skriv en note...",
       "editNote": "Rediger note",
-      "empty": "Ingen noter endnu.",
+      "empty": "Ingen noter endnu",
       "leadContext": "Lead‑kontekst",
-      "loading": "Indlæser noter...",
+      "loading": "Indlæser noter…",
       "posting": "Udgiver...",
       "teamNotes": "Team‑noter",
       "unknownAuthor": "Ukendt"
     },
     "pdf": {
-      "createdAt": "Created",
-      "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
+      "createdAt": "Oprettet",
+      "email": "E-mail",
+      "exportedAt": "{count} leads · Eksporteret den {date}",
+      "pageOf": "Side {current} af {total}",
       "title": "Leads"
     },
     "rowMenu": {
@@ -1460,7 +1517,7 @@
     },
     "statusTab": {
       "all": "Alle",
-      "assignedToMe": "Tildelt til mig",
+      "assignedToMe": "Tildelt mig",
       "filterAria": "Filtrer leads efter status"
     },
     "success": {
@@ -1509,8 +1566,8 @@
     }
   },
   "marketing": {
-    "authBody": "Log ind, tilmeld og sessionsvalidering via <code>/api/auth</code>",
-    "authTitle": "Auth",
+    "authBody": "Login, registrering og sessionsvalidering via <code>/api/auth</code>",
+    "authTitle": "Godkendelse",
     "bffBody": "Browser‑opkald skal stoppe i denne app. Betroede server‑ruter vil kommunikere med den interne CRM‑service.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
@@ -1553,16 +1610,16 @@
       }
     },
     "ctaCreateWorkspace": "Opret adgang til workspace",
-    "ctaOpenShell": "Åbn beskyttet shell",
+    "ctaOpenShell": "Åbn beskyttet skal",
     "currentStack": "Aktuel stack",
-    "heroEyebrow": "Voice-native CRM-platform",
-    "heroLead": "Lisent CRM kombinerer godkendelse, lejerbevidste arbejdsprocesser, import-profil onboarding og en beskyttet applikationsskal for virksomhedens operatører. Webappen ejer brugerrettede flows. Go CRM-tjenesten forbliver bag en pålidelig backend-grænse.",
-    "heroTitle": "Forståelse af intention, ikke kun ord.",
+    "heroEyebrow": "Stemmenativ CRM-platform",
+    "heroLead": "Lisent CRM kombinerer godkendelse, lejerbevidste arbejdsgange, import‑profil onboarding og en beskyttet applikationsskal for virksomhedens operatører. Web‑appen ejer bruger‑fokuserede flows. Go CRM service forbliver bag en betroet backend‑grænse.",
+    "heroTitle": "Forstå intention, ikke kun ord.",
     "navSignIn": "Log ind",
     "navStartNow": "Start nu",
     "stackItems": {
       "auth": "SuperTokens Email/Password + Session",
-      "crm": "Go CRM-service bag en BFF-grænse",
+      "crm": "Go CRM service behind a BFF boundary",
       "next": "Next.js 16 App Router",
       "ts": "TypeScript + Tailwind CSS 4"
     },
@@ -1584,7 +1641,7 @@
     "customers": "Kunder",
     "dashboard": "Dashboard",
     "deals": "Deals",
-    "help": "Hjælp & ressourcer",
+    "help": "Hjælp og ressourcer",
     "import": "Import",
     "integrations": "Integrationer",
     "leads": "Leads",
@@ -1668,12 +1725,12 @@
     }
   },
   "qualifier": {
-    "companyOrBuyerProfile": "Virksomheds‑/køberprofil",
-    "fallbackExplanation": "LLM‑evalueringen blev ikke kørt — scoren blev beregnet ud fra formularens datakvalitet.",
-    "fallbackMode": "Fallback‑tilstand",
+    "companyOrBuyerProfile": "Virksomheds-/køberprofil",
+    "fallbackExplanation": "LLM-evaluering blev ikke kørt — scoren blev beregnet ud fra formularens datakvalitet.",
+    "fallbackMode": "Fallback-tilstand",
     "formulaAudit": "Formelrevision",
     "keyQuestions": "Vigtige spørgsmål til samtalen",
-    "leadAssessment": "LEAD assessment",
+    "leadAssessment": "Lead assessment",
     "llmMedian": "LLM-median",
     "noScoreYet": "Ingen score endnu.",
     "rawAnalysis": "Rå analyseoutput",
@@ -1681,7 +1738,7 @@
     "risksToWatch": "Risici at holde øje med",
     "salesContext": "Salgskontekst",
     "scoredAt": "scoret den {date}",
-    "scoring": "Scorer…",
+    "scoring": "Scorer...",
     "whoTheyAre": "Hvem de er"
   },
   "search": {
@@ -1698,7 +1755,7 @@
       "reject": "Afvis",
       "startWork": "Start arbejde"
     },
-    "activeCount": "{count} aktiv",
+    "activeCount": "{count} aktive",
     "assignmentMode": {
       "everyone": "Alle",
       "individual": "Individuel"
@@ -1709,14 +1766,14 @@
     },
     "empty": {
       "filtered": "Ingen opgaver matcher det aktuelle filter.",
-      "openTickets": "Ingen åbne billetter."
+      "openTickets": "Ingen åbne sager."
     },
     "errors": {
       "delete": "Kunne ikke slette opgaven.",
       "loadTasks": "Kunne ikke indlæse opgaverne.",
-      "loadWorkspace": "Kunne ikke indlæse arbejdsområdet.",
-      "noEligibleTeammate": "Ingen kvalificeret holdkammerat til rådighed.",
-      "onlyCreatorCanDelete": "Kun den, der har oprettet opgaven, kan slette den.",
+      "loadWorkspace": "Kunne ikke indlæse workspace.",
+      "noEligibleTeammate": "Ingen berettiget teammedlem tilgængeligt.",
+      "onlyCreatorCanDelete": "Kun opgaveopretteren kan slette denne opgave.",
       "publish": "Det lykkedes ikke at udgive opgaven.",
       "titleRequired": "Titel er påkrævet.",
       "update": "Det lykkedes ikke at opdatere opgaven."
@@ -1758,14 +1815,14 @@
       "heading": "Åbne sager"
     },
     "placeholders": {
-      "assignee": "Vælg en holdkammerat",
+      "assignee": "Vælg en kollega",
       "notes": "Tilføj detaljer om denne opgave…",
       "title": "Opgavetitel"
     },
     "publishedBy": "Udgivet af {name}",
     "responseStatus": {
       "accepted": "Accepteret",
-      "pending": "Afventer",
+      "pending": "Afventende",
       "rejected": "Afvist"
     },
     "scope": {
@@ -1810,7 +1867,7 @@
     "cantRemove": "De kan ikke fjerne Dem selv.",
     "columns": {
       "actions": "Handlinger",
-      "dateAdded": "Dato tilføjet",
+      "dateAdded": "Tilføjelsesdato",
       "lastActive": "Sidst aktiv",
       "name": "Navn",
       "role": "Rolle"
@@ -1850,7 +1907,7 @@
       "description": "Opdater {name}s rolle i dette workspace.",
       "eyebrow": "Skift rolle",
       "title": "Skift rolle",
-      "to": "til",
+      "to": "Til",
       "updating": "Opdaterer..."
     },
     "section": {
@@ -1869,10 +1926,10 @@
   "userMenu": {
     "accountSettings": "Kontoindstillinger",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Demo‑bruger",
-    "openMenu": "Åbn kontomenu",
+    "demoUser": "Demo-bruger",
+    "openMenu": "Åbn konto-menu",
     "signOut": "Log ud",
-    "workspaceUser": "Workspace‑bruger"
+    "workspaceUser": "Workspace-bruger"
   },
   "validation": {
     "firstNameRequired": "Navn er påkrævet.",
