@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Снять выделение",
       "confirmDelete": "Удалить выбранные",
-      "deleteDescription": "Это навсегда удалит {count} записей клиентов. Это действие нельзя отменить.",
+      "deleteDescription": "Это навсегда удалит записей клиентов. Это действие нельзя отменить.",
       "deleteEyebrow": "Массовое удаление",
       "deleteTitle": "Удалить выбранных клиентов?",
       "regionLabel": "Массовые действия",
-      "selectedCount": "{count} выбрано"
+      "selectedCount": "выбрано"
     },
     "closeAddPopup": "Закрыть окно добавления клиента",
     "confirmDelete": "Удалить",
@@ -277,9 +277,9 @@
       "empty": "Нет клиентов, соответствующих текущим фильтрам.",
       "eyebrow": "Каталог клиентов",
       "selectAll": "Выбрать всех клиентов",
-      "selectRow": "Выбрать клиента {name}",
+      "selectRow": "Выбрать клиента",
       "title": "Клиенты",
-      "visibleCount": "Показано {visible} из {total}"
+      "visibleCount": "Показано {count}"
     },
     "loading": "Загрузка клиентов...",
     "noEmail": "Электронная почта не указана",
@@ -293,7 +293,7 @@
       "label": "Поиск",
       "placeholder": "Поиск клиентов..."
     },
-    "selectedCompany": "Активный workspace: {name}",
+    "selectedCompany": "Активный workspace:",
     "status": {
       "active": "Активен",
       "all": "Все",
@@ -303,7 +303,7 @@
     "statusFilter": "Фильтр статуса",
     "success": {
       "bulkDeleted": "Удалено {count} клиентов.",
-      "bulkDeletedPartial": "Удалено {deleted} из {total} клиентов.",
+      "bulkDeletedPartial": "Удалено из клиентов.",
       "created": "Клиент создан.",
       "deleted": "Клиент удалён.",
       "updated": "Клиент обновлён."
@@ -323,15 +323,15 @@
       "title": "AI‑инсайты"
     },
     "amount": "Сумма",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Ответственный",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Перетаскивайте сделки между стадиями, чтобы обновить pipeline.",
-    "changedBy": "Изменено пользователем {name}",
+    "changedBy": "Изменено пользователем",
     "close": "Закрыть",
     "closeTarget": "Цель закрытия",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Итого по колонке: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Итого по колонке:",
     "commentPlaceholder": "Напишите комментарий…",
     "comments": "Комментарии",
     "commentsCount": "{count} комментарии",
@@ -429,7 +429,7 @@
     "posting": "Отправка...",
     "relatedRecords": "Связанные записи",
     "scheduleActivity": "Запланировать действие",
-    "selectedCompany": "Активный workspace: {name}",
+    "selectedCompany": "Активный workspace:",
     "stage": {
       "lost": "Потерян",
       "lostDescription": "Сделки, закрытые как потерянные, для анализа.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "История этапов",
     "stageHistoryEmpty": "Изменения этапов пока не зафиксированы.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Комментарий добавлен.",
       "created": "Сделка создана.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Диаграмма активности за прошлую неделю",
-      "empty": "Пока нет активности для {name}.",
+      "empty": "Пока нет активности для.",
       "emptyDefault": "Активность пока не зафиксирована.",
       "legendDeals": "Сделки",
       "legendLeads": "Лиды",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Выберите рабочее пространство в переключателе, чтобы увидеть актуальные данные.",
       "noWorkspaceSelected": "Рабочее пространство не выбрано",
       "pickWorkspace": "Выберите рабочее пространство",
-      "subtitleSelected": "Метрики рабочего пространства для {name}.",
+      "subtitleSelected": "Метрики рабочего пространства для.",
       "subtitleWithName": "С возвращением, {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Лиды",
       "leadsHint": "Активные лиды в pipeline.",
       "openPipelineHint": "Стоимость открытого pipeline во всех стадиях.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Настроить",
@@ -508,7 +508,7 @@
       "title": "Обзор"
     },
     "pipeline": {
-      "empty": "Пока нет данных Pipeline для {name}.",
+      "empty": "Пока нет данных Pipeline для.",
       "emptyDefault": "Пока нет данных Pipeline.",
       "stage": {
         "lost": "Проигран",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Распределение Deal‑ов по Stage.",
       "title": "Pipeline",
-      "totalBadge": "{value} всего"
+      "totalBadge": "{count} всего"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Быстрые действия"
     },
     "recentLeads": {
-      "empty": "Нет недавних лидов в {name}.",
+      "empty": "Нет недавних лидов в.",
       "emptyDefault": "Пока нет недавних лидов.",
       "status": {
         "contacted": "Связались",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Активное рабочее пространство",
       "eyebrow": "Снимок рабочего пространства",
-      "inWorkspace": "в {name}",
+      "inWorkspace": "в",
       "newCount": "{count} новых",
       "noWorkspaceHelp": "Выберите рабочее пространство, чтобы увидеть текущие показатели.",
       "noWorkspaceSelected": "Рабочее пространство не выбрано",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Подтвердите сопоставление и запустите импорт. Клиенты будут созданы или обновлены в активном рабочем пространстве.",
-      "approvalOutcome": "После одобрения строки будут добавлены как клиенты в {name}.",
+      "approvalOutcome": "После одобрения строки будут добавлены как клиенты в.",
       "approveAndImport": "Одобрить и импортировать",
       "backToPreview": "Назад к предпросмотру",
       "confidence": "Уверенность",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Вернуться к источнику",
       "continueToMapping": "Перейти к сопоставлению",
-      "headers": "{count} заголовков",
-      "rowsLoaded": "{count} строк загружено",
-      "rowsShown": "Показаны первые {count} строк",
+      "headers": "заголовков",
+      "rowsLoaded": "строк загружено",
+      "rowsShown": "Показаны первые строк",
       "unmapped": "Не сопоставлено"
     },
     "progress": {
-      "completedRatio": "Выполнено {done} из {total}",
-      "currentRow": "Строка {row}",
-      "description": "Импортируем строки в {name}. Вы можете покинуть эту страницу — импорт продолжится в фоновом режиме.",
+      "completedRatio": "Выполнено из",
+      "currentRow": "Строка",
+      "description": "Импортируем строки в. Вы можете покинуть эту страницу — импорт продолжится в фоновом режиме.",
       "eyebrow": "Импорт в процессе",
       "preparing": "Подготовка импорта...",
       "title": "Импорт клиентов"
@@ -653,7 +653,7 @@
       "mappedFields": "Сопоставленные поля",
       "progress": "Прогресс",
       "rowsLoaded": "Строк загружено",
-      "stepNumber": "Шаг {step}",
+      "stepNumber": "Шаг {number}",
       "title": "Прогресс импорта"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Вернуться к обзору",
-      "companyIdLabel": "ID компании: {id}",
-      "description": "Импортируйте данные клиентов в {name} из CSV‑файла или по URL.",
+      "companyIdLabel": "ID компании:",
+      "description": "Импортируйте данные клиентов в из CSV‑файла или по URL.",
       "eyebrow": "Импорт рабочего пространства",
-      "selectedCompany": "Активный Workspace: {name}",
-      "stepLabel": "Шаг {step} из {total}"
+      "selectedCompany": "Активный Workspace:",
+      "stepLabel": "Шаг {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Создать новый API‑ключ",
       "createdHeading": "API‑ключ создан",
       "creating": "Создание…",
-      "description": "Управляйте API‑ключами для <strong>{name}</strong>.",
+      "description": "Управляйте API‑ключами для <strong> </strong>.",
       "empty": "API‑ключи пока отсутствуют.",
       "envLive": "Рабочая",
       "envTest": "Тест",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Доступ запрещён",
       "accessDeniedDescription": "У вас нет доступа к интеграциям в этом рабочем пространстве.",
-      "configuringCompany": "Настройка интеграций для <strong>{name}</strong>.",
+      "configuringCompany": "Настройка интеграций для <strong> </strong>.",
       "loadFailed": "Не удалось загрузить каталог интеграций.",
       "loading": "Загрузка интеграций…",
       "noAccess": "Нет доступа к рабочему пространству",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Назад к интеграциям",
       "backToCatalog": "Назад к каталогу",
-      "configuringCompany": "Настройка <strong>{integration}</strong> для <strong>{company}</strong>.",
-      "noCompany": "Выберите рабочее пространство, чтобы настроить <strong>{integration}</strong>.",
+      "configuringCompany": "Настройка <strong> </strong> для <strong> </strong>.",
+      "noCompany": "Выберите рабочее пространство, чтобы настроить <strong> </strong>.",
       "restrictedDescription": "У вас нет прав для просмотра этой интеграции.",
       "restrictedTitle": "Ограничено",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Входящий URL",
       "instanceId": "ID экземпляра",
       "instanceIdPlaceholder": "Например, 1101000001",
-      "latency": "Задержка: {ms} мс",
+      "latency": "Задержка: мс",
       "loadFailed": "Не удалось загрузить конфигурацию Green API.",
       "loading": "Загрузка конфигурации Green API...",
       "rotateConfirm": "Повернуть токен входящего webhook? Существующие webhook‑ы потребуется обновить.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Токен webhook повернут.",
       "updateCredentials": "Обновить учётные данные",
       "updatedLabel": "Обновлено",
-      "upstreamStatus": "Статус upstream: {status}",
+      "upstreamStatus": "Статус upstream:",
       "urlCopied": "URL скопирован в буфер обмена.",
-      "webhookSectionDescription": "Настройте ваш Green API для доставки входящих сообщений на <code>{url}</code>.",
+      "webhookSectionDescription": "Настройте ваш Green API для доставки входящих сообщений на <code> </code>.",
       "webhookSectionTitle": "Входящий webhook"
     },
     "hide": "Скрыть",
@@ -851,10 +851,10 @@
       "copyUrl": "Скопировать URL",
       "createIntegration": "Создать интеграцию",
       "createdMessage": "Интеграция интранета создана.",
-      "credentialsDescription": "Используйте эти учётные данные для аутентификации вызовов к <code>{url}</code>.",
+      "credentialsDescription": "Используйте эти учётные данные для аутентификации вызовов к <code> </code>.",
       "credentialsTitle": "Учётные данные",
       "deliveries": "Доставки",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Отключить эту интеграцию интранета? Входящие вызовы начнут давать сбои.",
       "disconnectDescription": "Это отзовет все токены и прекратит приём входящих запросов.",
       "disconnectIntegration": "Отключить интеграцию",
@@ -862,7 +862,7 @@
       "entityLabel": "Сущность",
       "errorLabel": "Ошибка",
       "eventLabel": "Событие",
-      "fieldMappingDescription": "Сопоставьте входящие поля со свойствами CRM. Отправьте JSON, например <code>{example}</code>.",
+      "fieldMappingDescription": "Сопоставьте входящие поля со свойствами CRM. Отправьте JSON, например <code> </code>.",
       "fieldMappingLabel": "Сопоставление полей",
       "fieldMappingTitle": "Сопоставление полей",
       "generateHmac": "Создать секрет HMAC",
@@ -872,7 +872,7 @@
       "hmacSecret": "Секрет HMAC",
       "hmacSecretHint": "Используйте этот секрет для вычисления <code>X-Lisent-Signature</code> в исходящих запросах.",
       "inactive": "Неактивно",
-      "inboundDescription": "Отправляйте полезные нагрузки на <code>{url}</code>, чтобы импортировать лиды из вашей интранет‑системы.",
+      "inboundDescription": "Отправляйте полезные нагрузки на <code> </code>, чтобы импортировать лиды из вашей интранет‑системы.",
       "inboundToken": "Токен входящего URL",
       "inboundTokenHint": "Этот токен является частью входящего URL — храните его в секрете.",
       "inboundUrl": "Входящий URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Исходящий webhook сохранён.",
         "secretConfigured": "Настроено",
         "secretNotSet": "Не задано — сгенерируйте его перед отправкой событий.",
-        "secretRotatedAt": "(повернут {time})",
+        "secretRotatedAt": "(повернут )",
         "secretRotatedNotice": "Секрет подписи обновлён. Открытый текст отображается только один раз.",
         "selectAtLeastOne": "Выберите хотя бы один статус, или отметьте 'All status changes'.",
         "signingSecretLabel": "Секрет подписи (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Сопоставьте поля генерации лидов Meta с колонками лидов CRM. Оставьте пустым, чтобы использовать значения по умолчанию (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Сопоставление полей",
       "finalizeButton": "Завершить настройку",
-      "followersCount": "{count} подписчиков",
+      "followersCount": "подписчиков",
       "formAllSubscribedHint": "Формы не выбраны → все формы на этой странице будут подписаны (по умолчанию Meta).",
       "formIdsHint": "Разделяются запятыми. Пусто = получать все формы на этой странице.",
       "formIdsLabel": "ID форм",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Поиск форм…",
       "formPickerTitle": "Выберите формы лидов",
       "forms": "Формы",
-      "formsShownCount": "{shown} из {total}",
+      "formsShownCount": "из",
       "hmacSecretHint": "Сохраните это сейчас — больше не покажем открытый текст.",
       "hmacSecretLabel": "Секрет HMAC",
       "hmacSecretReveal": "Показать один раз",
       "inboundUrlHint": "n8n отправляет запрос сюда после получения полного лида из Meta. Вам не нужно вставлять это куда-либо.",
       "inboundUrlLabel": "Входящий URL CRM (используется n8n)",
       "last7dCount": "{count} за 7 дн",
-      "lastLeadAgo": "Последний лид {when}",
+      "lastLeadAgo": "Последний лид",
       "leads7d": "{count} лидов за 7 дн",
       "loadFailed": "Не удалось загрузить интеграцию Meta.",
       "metaFieldHeader": "Поле Meta",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Страницы не найдены",
       "pagePickerSearch": "Поиск страниц…",
       "pagePickerTitle": "Выберите страницу Facebook",
-      "pagesShownCount": "{shown} из {total}",
+      "pagesShownCount": "из",
       "paused": "Приостановлено",
       "popupBlocked": "Браузер заблокировал всплывающее окно OAuth. Разрешите всплывающие окна для этого сайта и попробуйте снова.",
       "recentDeliveriesEmpty": "Пока нет доставок.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Черновик",
       "statusPaused": "Приостановлен",
       "statusUnknown": "Неизвестно",
-      "subscribedAt": "Подписано {when}",
+      "subscribedAt": "Подписано",
       "testLeadButton": "Отправить тестовый Lead",
       "testLeadDescription": "Создаёт payload в формате Meta и пропускает его через тот же путь вставки, что и в продакшн. Доступно только при включённом режиме mock.",
       "testLeadFailed": "Не удалось создать тестовый Lead.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Фрагмент",
       "chunksColumn": "Фрагменты",
-      "description": "База знаний для <strong>{name}</strong>. Загрузите документы, к которым может обращаться ИИ.",
-      "ingestedDescription": "Документы, находящиеся в базе знаний для <strong>{name}</strong>.",
+      "description": "База знаний для <strong> </strong>. Загрузите документы, к которым может обращаться ИИ.",
+      "ingestedDescription": "Документы, находящиеся в базе знаний для <strong> </strong>.",
       "ingestedDocuments": "Загруженные документы",
-      "ingestionExampleDescription": "Отправьте POST‑запрос на <code>{url}</code> с JSON‑тело, содержащим <code>title</code>, <code>content</code> и необязательный <code>metadata</code>.",
+      "ingestionExampleDescription": "Отправьте POST‑запрос на <code> </code> с JSON‑тело, содержащим <code>title</code>, <code>content</code> и необязательный <code>metadata</code>.",
       "ingestionExampleTitle": "Пример загрузки",
       "loadConfigFailed": "Не удалось загрузить конфигурацию RAG.",
       "loadContentFailed": "Не удалось загрузить содержимое документа.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Настроено",
-      "configuredAria": "{name} настроен",
+      "configuredAria": "{label} настроен",
       "notSet": "Не задано",
-      "notSetAria": "{name} не задан"
+      "notSetAria": "{label} не задан"
     },
     "testConnection": "Проверить соединение",
     "testing": "Проверка...",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL скопирован в буфер обмена.",
     "usage": {
       "allMetrics": "Все метрики",
-      "description": "Использование и ограничения скорости для <strong>{name}</strong>.",
+      "description": "Использование и ограничения скорости для <strong> </strong>.",
       "loadFailed": "Не удалось загрузить данные об использовании.",
       "loading": "Загрузка данных об использовании...",
       "metricColumn": "Метрика",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Опциональная ссылка Calendly, которую помощник может предлагать для бронирования. Используется в передаче встреч <code>v1</code>.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Ссылка Calendly",
-      "description": "Настройте поведение квалификатора <code>v1</code> для <strong>{name}</strong>.",
+      "description": "Настройте поведение квалификатора <code>v1</code> для <strong> </strong>.",
       "frameworkDescription": "Выберите фреймворк квалификации, который помощник использует для извлечения сигналов.",
       "frameworkTitle": "Фреймворк квалификации",
       "loadFailed": "Не удалось загрузить конфигурацию v1.",
@@ -1292,7 +1292,7 @@
       "configured": "Настроено",
       "currentLabel": "Текущий",
       "customPatternsLabel": "Пользовательские шаблоны (по одному в строке)",
-      "description": "Настройте доставку webhook для <strong>{name}</strong>.",
+      "description": "Настройте доставку webhook для <strong> </strong>.",
       "destinationHint": "Lisent отправляет события на этот URL с подписанным payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "URL назначения",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Минимальная нагрузка",
       "payloadMode": "Режим нагрузки",
       "rotateSecret": "Сменить секрет",
-      "rotatedAt": "Сменено {time}",
+      "rotatedAt": "Сменено",
       "saveEventSelection": "Сохранить выбор событий",
       "saveUrl": "Сохранить URL",
       "secretRotated": "Секрет подписи сменён.",
@@ -1371,18 +1371,18 @@
       "title": "Назначить выбранные лиды"
     },
     "bulkBar": {
-      "ariaSelected": "{count} лидов выбрано",
+      "ariaSelected": "лидов выбрано",
       "assign": "Назначить",
       "clearSelection": "Снять выделение",
       "delete": "Удалить",
       "exportCsv": "Экспорт CSV",
       "exportPdf": "Экспортировать PDF",
-      "selected": "{count} выбрано"
+      "selected": "выбрано"
     },
     "bulkDelete": {
       "confirm": "Удалить выбранные",
       "deleting": "Удаляем…",
-      "description": "Это навсегда удалит {count} лидов. Это действие нельзя отменить.",
+      "description": "Это навсегда удалит лидов. Это действие нельзя отменить.",
       "title": "Удалить выбранные лиды?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Все назначенные",
       "allSources": "Все источники",
       "byCampaign": "Отфильтровано по кампании: {name}",
-      "byCampaignCount": "Показано {shown} из {total} лидов",
+      "byCampaignCount": "Показано из лидов",
       "clearCampaign": "Сбросить фильтр"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Создано",
       "email": "Эл. почта",
-      "exportedAt": "{count} leads · Экспортировано {date}",
+      "exportedAt": "leads · Экспортировано",
       "pageOf": "Страница {current} из {total}",
       "title": "Leads"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI‑квалификация начата.",
-      "bulkAssignPartial": "Назначено {assigned} из {total} лидов.",
-      "bulkAssigned": "{count} лидов назначено.",
-      "bulkPartial": "Удалено {deleted} из {total} лидов.",
+      "bulkAssignPartial": "Назначено из лидов.",
+      "bulkAssigned": "лидов назначено.",
+      "bulkPartial": "Удалено из лидов.",
       "bulkRemoved": "{count} лидов удалено.",
       "converted": "Лид конвертирован.",
       "convertedWithDeal": "Лид конвертирован с сделкой.",
@@ -1599,7 +1599,7 @@
       "assignee": "Ответственный",
       "empty": "Нет лидов, соответствующих текущим фильтрам.",
       "name": "Имя",
-      "openAIScore": "Оценка Open AI для {name}",
+      "openAIScore": "Оценка Open AI для {score}",
       "phone": "Телефон",
       "rowActions": "Действия строки",
       "selectAll": "Выбрать все лиды",
@@ -1877,7 +1877,7 @@
       "notes": "Добавьте детали этой задачи...",
       "title": "Заголовок задачи"
     },
-    "publishedBy": "Опубликовано пользователем {name}",
+    "publishedBy": "Опубликовано пользователем",
     "responseStatus": {
       "accepted": "Принято",
       "pending": "В ожидании",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Компания",
-      "inProgressDone": "{inProgress} в процессе · {done} выполнено",
-      "myPending": "{count} в ожидании",
-      "openTickets": "{count} открытых"
+      "inProgressDone": "в процессе · выполнено",
+      "myPending": "в ожидании",
+      "openTickets": "открытых"
     },
     "systemUser": "Система",
     "teammatesCount": "{count} коллег",
@@ -1955,14 +1955,14 @@
     "removeMember": "Удалить участника",
     "removeModal": {
       "confirm": "Удалить участника",
-      "description": "{name} потеряет доступ к этому рабочему пространству сразу.",
+      "description": "{company} потеряет доступ к этому рабочему пространству сразу.",
       "eyebrow": "Удалить участника команды",
       "removing": "Удаляется…",
       "title": "Удалить участника команды?"
     },
     "roleModal": {
       "confirm": "Изменить роль",
-      "description": "Обновить роль {name} в этом рабочем пространстве.",
+      "description": "Обновить роль в этом рабочем пространстве.",
       "eyebrow": "Изменить роль",
       "title": "Изменить роль",
       "to": "На",

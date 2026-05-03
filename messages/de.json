@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Auswahl löschen",
       "confirmDelete": "Ausgewählte löschen",
-      "deleteDescription": "Dadurch werden {count} Kundendatensätze dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "deleteDescription": "Dadurch werden Kundendatensätze dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
       "deleteEyebrow": "Massenhaftes Löschen",
       "deleteTitle": "Ausgewählte Kunden löschen?",
       "regionLabel": "Massenhafte Aktionen",
-      "selectedCount": "{count} ausgewählt"
+      "selectedCount": "ausgewählt"
     },
     "closeAddPopup": "Dialogfeld \"Kunden hinzufügen\" schließen",
     "confirmDelete": "Löschen",
@@ -277,9 +277,9 @@
       "empty": "Keine Kunden entsprechen den aktuellen Filtern.",
       "eyebrow": "Kundenverzeichnis",
       "selectAll": "Alle Kunden auswählen",
-      "selectRow": "Kunde {name} auswählen",
+      "selectRow": "Kunde auswählen",
       "title": "Kunden",
-      "visibleCount": "Anzeige {visible} von {total}"
+      "visibleCount": "Anzeige {count}"
     },
     "loading": "Kunden werden geladen...",
     "noEmail": "Keine E‑Mail hinterlegt",
@@ -293,7 +293,7 @@
       "label": "Suchen",
       "placeholder": "Kunden suchen..."
     },
-    "selectedCompany": "Aktiver Workspace: {name}",
+    "selectedCompany": "Aktiver Workspace:",
     "status": {
       "active": "Aktiv",
       "all": "Alle",
@@ -303,7 +303,7 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} Kunden gelöscht.",
-      "bulkDeletedPartial": "{deleted} von {total} Kunden gelöscht.",
+      "bulkDeletedPartial": "von Kunden gelöscht.",
       "created": "Kunde erstellt.",
       "deleted": "Kunde gelöscht.",
       "updated": "Kunde aktualisiert."
@@ -323,15 +323,15 @@
       "title": "KI‑Einblicke"
     },
     "amount": "Betrag",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Zuständige Person",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Ziehen Sie Deals zwischen Stufen, um die Pipeline zu aktualisieren.",
-    "changedBy": "Geändert von {name}",
+    "changedBy": "Geändert von",
     "close": "Schließen",
     "closeTarget": "Abschlussziel",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Spaltensumme: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Spaltensumme:",
     "commentPlaceholder": "Kommentar schreiben...",
     "comments": "Kommentare",
     "commentsCount": "{count} Kommentare",
@@ -429,7 +429,7 @@
     "posting": "Poste…",
     "relatedRecords": "Verknüpfte Datensätze",
     "scheduleActivity": "Aktivität planen",
-    "selectedCompany": "Aktiver Workspace: {name}",
+    "selectedCompany": "Aktiver Workspace:",
     "stage": {
       "lost": "Verloren",
       "lostDescription": "Verlorene Abschlüsse zur Analyse.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Phasenverlauf",
     "stageHistoryEmpty": "Bisher wurden keine Phasenänderungen erfasst.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Kommentar hinzugefügt.",
       "created": "Deal erstellt.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Aktivitätsdiagramm für die letzte Woche",
-      "empty": "Noch keine Aktivität für {name} aufgezeichnet.",
+      "empty": "Noch keine Aktivität für aufgezeichnet.",
       "emptyDefault": "Noch keine Aktivität erfasst.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Wählen Sie einen Arbeitsbereich aus dem Schalter, um Live-Daten zu sehen.",
       "noWorkspaceSelected": "Kein Arbeitsbereich ausgewählt",
       "pickWorkspace": "Wählen Sie einen Arbeitsbereich",
-      "subtitleSelected": "Arbeitsbereich-Metriken für {name}.",
+      "subtitleSelected": "Arbeitsbereich-Metriken für.",
       "subtitleWithName": "Willkommen zurück, {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leads",
       "leadsHint": "Aktive Leads in der Pipeline.",
       "openPipelineHint": "Offener Pipeline-Wert über alle Stufen.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Anpassen",
@@ -508,7 +508,7 @@
       "title": "Übersicht"
     },
     "pipeline": {
-      "empty": "Noch keine Pipeline-Daten für {name}.",
+      "empty": "Noch keine Pipeline-Daten für.",
       "emptyDefault": "Noch keine Pipeline-Daten.",
       "stage": {
         "lost": "Verloren",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Verteilung der Deals nach Stage.",
       "title": "Pipeline",
-      "totalBadge": "{value} insgesamt"
+      "totalBadge": "{count} insgesamt"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Schnellaktionen"
     },
     "recentLeads": {
-      "empty": "Keine aktuellen Leads in {name}.",
+      "empty": "Keine aktuellen Leads in.",
       "emptyDefault": "Noch keine aktuellen Leads.",
       "status": {
         "contacted": "Kontaktiert",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Aktiver Arbeitsbereich",
       "eyebrow": "Snapshot des Arbeitsbereichs",
-      "inWorkspace": "in {name}",
+      "inWorkspace": "in",
       "newCount": "{count} neue",
       "noWorkspaceHelp": "Wählen Sie einen Arbeitsbereich, um Live‑Zähler zu sehen.",
       "noWorkspaceSelected": "Kein Arbeitsbereich ausgewählt",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Bestätigen Sie die Zuordnung und starten Sie den Import. Kunden werden für den aktiven Workspace erstellt oder aktualisiert.",
-      "approvalOutcome": "Nach der Genehmigung werden Zeilen als Kunden in {name} eingefügt.",
+      "approvalOutcome": "Nach der Genehmigung werden Zeilen als Kunden in eingefügt.",
       "approveAndImport": "Genehmigen & importieren",
       "backToPreview": "Zurück zur Vorschau",
       "confidence": "Vertrauensgrad",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Zurück zur Quelle",
       "continueToMapping": "Weiter zur Zuordnung",
-      "headers": "{count} Header",
-      "rowsLoaded": "{count} Zeilen geladen",
-      "rowsShown": "Erste {count} Zeilen anzeigen",
+      "headers": "Header",
+      "rowsLoaded": "Zeilen geladen",
+      "rowsShown": "Erste Zeilen anzeigen",
       "unmapped": "Nicht zugeordnet"
     },
     "progress": {
-      "completedRatio": "{done} von {total} erledigt",
-      "currentRow": "Zeile {row}",
-      "description": "Importiere Zeilen in {name}. Sie können die Seite verlassen; der Import läuft im Hintergrund weiter.",
+      "completedRatio": "von erledigt",
+      "currentRow": "Zeile",
+      "description": "Importiere Zeilen in. Sie können die Seite verlassen; der Import läuft im Hintergrund weiter.",
       "eyebrow": "Import läuft",
       "preparing": "Import wird vorbereitet...",
       "title": "Kunden importieren"
@@ -653,7 +653,7 @@
       "mappedFields": "Zugeordnete Felder",
       "progress": "Fortschritt",
       "rowsLoaded": "Geladene Zeilen",
-      "stepNumber": "Schritt {step}",
+      "stepNumber": "Schritt {number}",
       "title": "Importfortschritt"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Zurück zur Übersicht",
-      "companyIdLabel": "Unternehmens-ID: {id}",
-      "description": "Importieren Sie Kundendaten in {name} aus einer CSV-Datei oder URL.",
+      "companyIdLabel": "Unternehmens-ID:",
+      "description": "Importieren Sie Kundendaten in aus einer CSV-Datei oder URL.",
       "eyebrow": "Workspace-Import",
-      "selectedCompany": "Aktiver Workspace: {name}",
-      "stepLabel": "Schritt {step} von {total}"
+      "selectedCompany": "Aktiver Workspace:",
+      "stepLabel": "Schritt {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Neuen API‑Schlüssel erstellen",
       "createdHeading": "API‑Schlüssel erstellt",
       "creating": "Erstelle…",
-      "description": "API‑Schlüssel verwalten für <strong>{name}</strong>.",
+      "description": "API‑Schlüssel verwalten für <strong> </strong>.",
       "empty": "Noch keine API-Schlüssel.",
       "envLive": "Live",
       "envTest": "Test",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Zugriff verweigert",
       "accessDeniedDescription": "Sie haben keinen Zugriff auf Integrationen für diesen Workspace.",
-      "configuringCompany": "Integrationen für <strong>{name}</strong> konfigurieren.",
+      "configuringCompany": "Integrationen für <strong> </strong> konfigurieren.",
       "loadFailed": "Katalog der Integrationen konnte nicht geladen werden.",
       "loading": "Integrationen werden geladen…",
       "noAccess": "Kein Workspace-Zugriff",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Zurück zu Integrationen",
       "backToCatalog": "Zurück zum Katalog",
-      "configuringCompany": "Konfiguration von <strong>{integration}</strong> für <strong>{company}</strong>.",
-      "noCompany": "Wählen Sie einen Workspace, um <strong>{integration}</strong> zu konfigurieren.",
+      "configuringCompany": "Konfiguration von <strong> </strong> für <strong> </strong>.",
+      "noCompany": "Wählen Sie einen Workspace, um <strong> </strong> zu konfigurieren.",
       "restrictedDescription": "Sie haben keine Berechtigung, diese Integration anzuzeigen.",
       "restrictedTitle": "Eingeschränkt",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Eingehende URL",
       "instanceId": "Instanz‑ID",
       "instanceIdPlaceholder": "z. B. 1101000001",
-      "latency": "Latenz: {ms} ms",
+      "latency": "Latenz: ms",
       "loadFailed": "Laden der Green API‑Konfiguration fehlgeschlagen.",
       "loading": "Lade Green API‑Konfiguration…",
       "rotateConfirm": "Eingehendes Webhook-Token rotieren? Bestehende Webhooks müssen aktualisiert werden.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Webhook-Token rotiert.",
       "updateCredentials": "Anmeldedaten aktualisieren",
       "updatedLabel": "Aktualisiert",
-      "upstreamStatus": "Upstream-Status: {status}",
+      "upstreamStatus": "Upstream-Status:",
       "urlCopied": "URL in die Zwischenablage kopiert.",
-      "webhookSectionDescription": "Konfigurieren Sie Ihre Green API-Instanz, um eingehende Nachrichten an <code>{url}</code> zu senden.",
+      "webhookSectionDescription": "Konfigurieren Sie Ihre Green API-Instanz, um eingehende Nachrichten an <code> </code> zu senden.",
       "webhookSectionTitle": "Eingehender webhook"
     },
     "hide": "Ausblenden",
@@ -851,10 +851,10 @@
       "copyUrl": "URL kopieren",
       "createIntegration": "Integration erstellen",
       "createdMessage": "Intranet-Integration erstellt.",
-      "credentialsDescription": "Verwenden Sie diese Anmeldedaten, um Aufrufe an <code>{url}</code> zu authentifizieren.",
+      "credentialsDescription": "Verwenden Sie diese Anmeldedaten, um Aufrufe an <code> </code> zu authentifizieren.",
       "credentialsTitle": "Anmeldedaten",
       "deliveries": "Zustellungen",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Möchten Sie diese Intranet-Integration trennen? Eingehende Aufrufe werden fehlschlagen.",
       "disconnectDescription": "Damit werden alle Tokens widerrufen und eingehende Anfragen nicht mehr akzeptiert.",
       "disconnectIntegration": "Integration trennen",
@@ -862,7 +862,7 @@
       "entityLabel": "Entität",
       "errorLabel": "Fehler",
       "eventLabel": "Ereignis",
-      "fieldMappingDescription": "Ordnen Sie eingehende Felder den CRM‑Eigenschaften zu. Senden Sie JSON wie <code>{example}</code>.",
+      "fieldMappingDescription": "Ordnen Sie eingehende Felder den CRM‑Eigenschaften zu. Senden Sie JSON wie <code> </code>.",
       "fieldMappingLabel": "Feldzuordnung",
       "fieldMappingTitle": "Feldzuordnung",
       "generateHmac": "HMAC‑Geheimnis generieren",
@@ -872,7 +872,7 @@
       "hmacSecret": "HMAC‑Geheimnis",
       "hmacSecretHint": "Verwenden Sie dieses Geheimnis, um <code>X-Lisent-Signature</code> bei ausgehenden Anfragen zu berechnen.",
       "inactive": "Inaktiv",
-      "inboundDescription": "Senden Sie Payloads an <code>{url}</code>, um Leads aus Ihrem Intranet zu übernehmen.",
+      "inboundDescription": "Senden Sie Payloads an <code> </code>, um Leads aus Ihrem Intranet zu übernehmen.",
       "inboundToken": "Inbound‑URL‑Token",
       "inboundTokenHint": "Dieser Token ist Teil der Inbound‑URL — halten Sie ihn geheim.",
       "inboundUrl": "Inbound‑URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Outbound-Webhook gespeichert.",
         "secretConfigured": "Konfiguriert",
         "secretNotSet": "Nicht festgelegt — erzeugen Sie ein Secret, bevor Sie Ereignisse senden.",
-        "secretRotatedAt": "(rotiert {time})",
+        "secretRotatedAt": "(rotiert )",
         "secretRotatedNotice": "Signing-Secret rotiert. Der Klartext wird nur einmal angezeigt.",
         "selectAtLeastOne": "Wählen Sie mindestens einen Status aus oder aktivieren Sie „Alle Statusänderungen“.",
         "signingSecretLabel": "Signing-Secret (HMAC‑SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Ordnen Sie Meta‑Lead‑Gen‑Felder den CRM‑Lead‑Spalten zu. Leer lassen, um die Vorgaben zu verwenden (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Feldzuordnung",
       "finalizeButton": "Einrichtung abschließen",
-      "followersCount": "{count} Follower",
+      "followersCount": "Follower",
       "formAllSubscribedHint": "Keine Formulare ausgewählt → alle Formulare auf dieser Seite werden abonniert (Meta-Standard).",
       "formIdsHint": "Durch Kommas getrennt. Leer = alle Formulare auf dieser Seite empfangen.",
       "formIdsLabel": "Form‑IDs",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Formulare suchen…",
       "formPickerTitle": "Wählen Sie Lead‑Formulare",
       "forms": "Formulare",
-      "formsShownCount": "{shown} von {total}",
+      "formsShownCount": "von",
       "hmacSecretHint": "Speichern Sie dies jetzt – wir zeigen den Klartext nicht erneut an.",
       "hmacSecretLabel": "HMAC‑Secret",
       "hmacSecretReveal": "Einmal anzeigen",
       "inboundUrlHint": "n8n postet hier, nachdem es den vollständigen Lead von Meta abgerufen hat. Sie müssen dies nirgendwo einfügen.",
       "inboundUrlLabel": "CRM‑Inbound‑URL (von n8n verwendet)",
       "last7dCount": "{count} in 7 T",
-      "lastLeadAgo": "Letzter Lead {when}",
+      "lastLeadAgo": "Letzter Lead",
       "leads7d": "{count} Leads in 7 T",
       "loadFailed": "Meta‑Integration konnte nicht geladen werden.",
       "metaFieldHeader": "Meta‑Feld",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Keine Seiten gefunden",
       "pagePickerSearch": "Seiten suchen…",
       "pagePickerTitle": "Wählen Sie eine Facebook‑Seite",
-      "pagesShownCount": "{shown} von {total}",
+      "pagesShownCount": "von",
       "paused": "Pausiert",
       "popupBlocked": "Der Browser hat das OAuth‑Popup blockiert. Erlauben Sie Popups für diese Seite und versuchen Sie es erneut.",
       "recentDeliveriesEmpty": "Noch keine Lieferungen.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Entwurf",
       "statusPaused": "Pausiert",
       "statusUnknown": "Unbekannt",
-      "subscribedAt": "Abonniert {when}",
+      "subscribedAt": "Abonniert",
       "testLeadButton": "Test‑Lead senden",
       "testLeadDescription": "Erzeugt ein Meta‑ähnliches Payload und führt es über denselben Insert‑Pfad wie in der Produktion aus. Nur verfügbar, solange der Mock‑Modus aktiviert ist.",
       "testLeadFailed": "Test‑Lead konnte nicht erstellt werden.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Chunk",
       "chunksColumn": "Chunks",
-      "description": "Wissensdatenbank für <strong>{name}</strong>. Laden Sie Dokumente hoch, auf die die KI zugreifen kann.",
-      "ingestedDescription": "Dokumente, die sich derzeit in der Wissensdatenbank für <strong>{name}</strong> befinden.",
+      "description": "Wissensdatenbank für <strong> </strong>. Laden Sie Dokumente hoch, auf die die KI zugreifen kann.",
+      "ingestedDescription": "Dokumente, die sich derzeit in der Wissensdatenbank für <strong> </strong> befinden.",
       "ingestedDocuments": "Eingespeiste Dokumente",
-      "ingestionExampleDescription": "POST an <code>{url}</code> mit einem JSON-Body, der <code>title</code>, <code>content</code> und optional <code>metadata</code> enthält.",
+      "ingestionExampleDescription": "POST an <code> </code> mit einem JSON-Body, der <code>title</code>, <code>content</code> und optional <code>metadata</code> enthält.",
       "ingestionExampleTitle": "Beispiel für Ingestion",
       "loadConfigFailed": "Laden der RAG-Konfiguration fehlgeschlagen.",
       "loadContentFailed": "Laden des Dokumentinhalts fehlgeschlagen.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Konfiguriert",
-      "configuredAria": "{name} ist konfiguriert",
+      "configuredAria": "{label} ist konfiguriert",
       "notSet": "Nicht festgelegt",
-      "notSetAria": "{name} ist nicht festgelegt"
+      "notSetAria": "{label} ist nicht festgelegt"
     },
     "testConnection": "Verbindung testen",
     "testing": "Teste…",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL in die Zwischenablage kopiert.",
     "usage": {
       "allMetrics": "Alle Kennzahlen",
-      "description": "Nutzung und Rate Limits für <strong>{name}</strong>.",
+      "description": "Nutzung und Rate Limits für <strong> </strong>.",
       "loadFailed": "Laden der Nutzung fehlgeschlagen.",
       "loading": "Lade Nutzung…",
       "metricColumn": "Metrik",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Optionaler Calendly‑Link, den der Assistent für Buchungen anbieten kann. Wird von <code>v1</code> Meeting‑Übergaben verwendet.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly‑Link",
-      "description": "Konfigurieren Sie das Verhalten des Qualifizierers <code>v1</code> für <strong>{name}</strong>.",
+      "description": "Konfigurieren Sie das Verhalten des Qualifizierers <code>v1</code> für <strong> </strong>.",
       "frameworkDescription": "Wählen Sie das Qualifikations‑Framework, das der Assistent zur Extraktion von Signalen verwendet.",
       "frameworkTitle": "Qualifikations‑Framework",
       "loadFailed": "Laden der v1‑Konfiguration fehlgeschlagen.",
@@ -1292,7 +1292,7 @@
       "configured": "Konfiguriert",
       "currentLabel": "Aktuell",
       "customPatternsLabel": "Benutzerdefinierte Muster (ein pro Zeile)",
-      "description": "Webhook-Zustellung für <strong>{name}</strong> konfigurieren.",
+      "description": "Webhook-Zustellung für <strong> </strong> konfigurieren.",
       "destinationHint": "Lisent postet Events an diese URL mit einer signierten Nutzlast.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Ziel‑URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimale Payload",
       "payloadMode": "Payload-Modus",
       "rotateSecret": "Secret rotieren",
-      "rotatedAt": "Rotiert am {time}",
+      "rotatedAt": "Rotiert am",
       "saveEventSelection": "Ereignisauswahl speichern",
       "saveUrl": "URL speichern",
       "secretRotated": "Signing secret rotiert.",
@@ -1371,18 +1371,18 @@
       "title": "Ausgewählte Leads zuweisen"
     },
     "bulkBar": {
-      "ariaSelected": "{count} Leads ausgewählt",
+      "ariaSelected": "Leads ausgewählt",
       "assign": "Zuweisen",
       "clearSelection": "Auswahl löschen",
       "delete": "Löschen",
       "exportCsv": "CSV exportieren",
       "exportPdf": "PDF exportieren",
-      "selected": "{count} ausgewählt"
+      "selected": "ausgewählt"
     },
     "bulkDelete": {
       "confirm": "Ausgewählte löschen",
       "deleting": "Löschen…",
-      "description": "Damit werden {count} Leads dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "description": "Damit werden Leads dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
       "title": "Ausgewählte Leads löschen?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Alle Zuweisungen",
       "allSources": "Alle Quellen",
       "byCampaign": "Gefiltert nach Kampagne: {name}",
-      "byCampaignCount": "{shown} von {total} Leads",
+      "byCampaignCount": "von Leads",
       "clearCampaign": "Filter löschen"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Erstellt",
       "email": "E-Mail",
-      "exportedAt": "{count} Leads · Exportiert am {date}",
+      "exportedAt": "Leads · Exportiert am",
       "pageOf": "Seite {current} von {total}",
       "title": "Leads"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI-Qualifizierung gestartet.",
-      "bulkAssignPartial": "{assigned} von {total} Leads zugewiesen.",
-      "bulkAssigned": "{count} Leads zugewiesen.",
-      "bulkPartial": "{deleted} von {total} Leads entfernt.",
+      "bulkAssignPartial": "von Leads zugewiesen.",
+      "bulkAssigned": "Leads zugewiesen.",
+      "bulkPartial": "von Leads entfernt.",
       "bulkRemoved": "{count} Leads entfernt.",
       "converted": "Lead konvertiert.",
       "convertedWithDeal": "Lead mit Deal konvertiert.",
@@ -1599,7 +1599,7 @@
       "assignee": "Zugewiesene Person",
       "empty": "Keine Leads entsprechen den aktuellen Filtern.",
       "name": "Name",
-      "openAIScore": "Open AI-Score für {name}",
+      "openAIScore": "Open AI-Score für {score}",
       "phone": "Telefon",
       "rowActions": "Zeilenaktionen",
       "selectAll": "Alle Leads auswählen",
@@ -1877,7 +1877,7 @@
       "notes": "Details zu dieser Aufgabe hinzufügen…",
       "title": "Aufgabentitel"
     },
-    "publishedBy": "Veröffentlicht von {name}",
+    "publishedBy": "Veröffentlicht von",
     "responseStatus": {
       "accepted": "Akzeptiert",
       "pending": "Ausstehend",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Unternehmen",
-      "inProgressDone": "{inProgress} in Bearbeitung · {done} erledigt",
-      "myPending": "{count} ausstehend",
-      "openTickets": "{count} offen"
+      "inProgressDone": "in Bearbeitung · erledigt",
+      "myPending": "ausstehend",
+      "openTickets": "offen"
     },
     "systemUser": "System",
     "teammatesCount": "{count} Teammitglieder",
@@ -1955,14 +1955,14 @@
     "removeMember": "Mitglied entfernen",
     "removeModal": {
       "confirm": "Mitglied entfernen",
-      "description": "{name} verliert sofort den Zugriff auf diesen Workspace.",
+      "description": "{company} verliert sofort den Zugriff auf diesen Workspace.",
       "eyebrow": "Teammitglied entfernen",
       "removing": "Entfernen…",
       "title": "Teammitglied entfernen?"
     },
     "roleModal": {
       "confirm": "Rolle ändern",
-      "description": "Aktualisieren Sie die Rolle von {name} in diesem Workspace.",
+      "description": "Aktualisieren Sie die Rolle von in diesem Workspace.",
       "eyebrow": "Rolle ändern",
       "title": "Rolle ändern",
       "to": "zu",

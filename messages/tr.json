@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Seçimi temizle",
       "confirmDelete": "Seçilenleri sil",
-      "deleteDescription": "Bu, {count} müşteri kaydını kalıcı olarak silecektir. Bu işlem geri alınamaz.",
+      "deleteDescription": "Bu, müşteri kaydını kalıcı olarak silecektir. Bu işlem geri alınamaz.",
       "deleteEyebrow": "Toplu sil",
       "deleteTitle": "Seçili müşterileri sil?",
       "regionLabel": "Toplu işlemler",
-      "selectedCount": "{count} seçili"
+      "selectedCount": "seçili"
     },
     "closeAddPopup": "Müşteri ekleme iletişim kutusunu kapat",
     "confirmDelete": "Sil",
@@ -277,9 +277,9 @@
       "empty": "Mevcut filtrelerle eşleşen müşteri yok.",
       "eyebrow": "Müşteri dizini",
       "selectAll": "Tüm müşterileri seç",
-      "selectRow": "Müşteri {name} seç",
+      "selectRow": "Müşteri seç",
       "title": "Müşteriler",
-      "visibleCount": "Gösterilen {visible} / {total}"
+      "visibleCount": "Gösterilen {count}"
     },
     "loading": "Müşteriler yükleniyor...",
     "noEmail": "Dosyada e-posta yok",
@@ -293,7 +293,7 @@
       "label": "Ara",
       "placeholder": "Müşterileri ara..."
     },
-    "selectedCompany": "Aktif çalışma alanı: {name}",
+    "selectedCompany": "Aktif çalışma alanı:",
     "status": {
       "active": "Aktif",
       "all": "Tümü",
@@ -303,7 +303,7 @@
     "statusFilter": "Durum filtresi",
     "success": {
       "bulkDeleted": "{count} müşteri silindi.",
-      "bulkDeletedPartial": "{deleted} / {total} müşteri silindi.",
+      "bulkDeletedPartial": "/ müşteri silindi.",
       "created": "Müşteri oluşturuldu.",
       "deleted": "Müşteri silindi.",
       "updated": "Müşteri güncellendi."
@@ -323,15 +323,15 @@
       "title": "AI içgörüleri"
     },
     "amount": "Tutar",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Atanan",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Anlaşmaları aşamalar arasında sürükleyerek süreci güncelleyin.",
-    "changedBy": "Değiştiren {name}",
+    "changedBy": "Değiştiren",
     "close": "Kapat",
     "closeTarget": "Kapatma hedefi",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Sütun toplamı: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Sütun toplamı:",
     "commentPlaceholder": "Yorum yazın...",
     "comments": "Yorumlar",
     "commentsCount": "{count} yorum",
@@ -429,7 +429,7 @@
     "posting": "Gönderiliyor...",
     "relatedRecords": "İlgili kayıtlar",
     "scheduleActivity": "Aktivite planlayın",
-    "selectedCompany": "Aktif çalışma alanı: {name}",
+    "selectedCompany": "Aktif çalışma alanı:",
     "stage": {
       "lost": "Kaybedildi",
       "lostDescription": "Kaybedilen anlaşmalardan öğrenilir.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Aşama geçmişi",
     "stageHistoryEmpty": "Henüz aşama değişikliği kaydedilmedi.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Yorum eklendi.",
       "created": "Anlaşma oluşturuldu.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Geçtiğimiz haftanın aktivite grafiği",
-      "empty": "Henüz {name} için aktivite kaydedilmedi.",
+      "empty": "Henüz için aktivite kaydedilmedi.",
       "emptyDefault": "Henüz kayıtlı etkinlik yok.",
       "legendDeals": "Anlaşmalar",
       "legendLeads": "Müşteri adayları",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Canlı verileri görmek için değiştiricide bir çalışma alanı seçin",
       "noWorkspaceSelected": "Seçili çalışma alanı yok",
       "pickWorkspace": "Bir çalışma alanı seçin",
-      "subtitleSelected": "{name} için çalışma alanı ölçümleri",
+      "subtitleSelected": "için çalışma alanı ölçümleri",
       "subtitleWithName": "Tekrar hoş geldiniz, {name}"
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Müşteri Adayları",
       "leadsHint": "Süreçteki aktif müşteri adayları.",
       "openPipelineHint": "Tüm aşamalardaki açık süreç değeri.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Özelleştir",
@@ -508,7 +508,7 @@
       "title": "Genel bakış"
     },
     "pipeline": {
-      "empty": "{name} için henüz süreç verisi yok.",
+      "empty": "için henüz süreç verisi yok.",
       "emptyDefault": "Henüz süreç verisi yok.",
       "stage": {
         "lost": "Kaybedildi",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Aşamaya göre anlaşma dağılımı.",
       "title": "Süreç",
-      "totalBadge": "{value} toplam"
+      "totalBadge": "{count} toplam"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Hızlı eylemler"
     },
     "recentLeads": {
-      "empty": "{name} içinde son müşteri adayları yok.",
+      "empty": "içinde son müşteri adayları yok.",
       "emptyDefault": "Henüz son müşteri adayları yok.",
       "status": {
         "contacted": "İletişime geçildi",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Etkin çalışma alanı",
       "eyebrow": "Çalışma alanı anlık görüntüsü",
-      "inWorkspace": "{name} içinde",
+      "inWorkspace": "içinde",
       "newCount": "{count} yeni",
       "noWorkspaceHelp": "Canlı sayıları görmek için bir çalışma alanı seçin.",
       "noWorkspaceSelected": "Çalışma alanı seçilmedi",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Eşlemeyi onaylayın ve içe aktarmayı başlatın. Müşteriler, aktif çalışma alanı için oluşturulacak veya güncellenecek.",
-      "approvalOutcome": "Onaydan sonra, satırlar {name} içinde müşteriler olarak eklenir.",
+      "approvalOutcome": "Onaydan sonra, satırlar içinde müşteriler olarak eklenir.",
       "approveAndImport": "Onaylayın ve içe aktarın",
       "backToPreview": "Ön izlemeye dönün",
       "confidence": "Güven",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Kaynağa geri dön",
       "continueToMapping": "Eşlemeye devam edin",
-      "headers": "{count} başlık",
-      "rowsLoaded": "{count} Satır yüklendi",
-      "rowsShown": "İlk {count} satırı gösteriyor",
+      "headers": "başlık",
+      "rowsLoaded": "Satır yüklendi",
+      "rowsShown": "İlk satırı gösteriyor",
       "unmapped": "Eşlenmemiş"
     },
     "progress": {
-      "completedRatio": "{done}/{total} tamamlandı",
-      "currentRow": "Satır {row}",
-      "description": "Satırları {name} içine içe aktarıyoruz. Bu sayfayı terk edebilirsiniz; içe aktarma arka planda devam eder.",
+      "completedRatio": "/ tamamlandı",
+      "currentRow": "Satır",
+      "description": "Satırları içine içe aktarıyoruz. Bu sayfayı terk edebilirsiniz; içe aktarma arka planda devam eder.",
       "eyebrow": "İçe aktarma devam ediyor",
       "preparing": "İçe aktarma hazırlanıyor...",
       "title": "Müşterileri içe aktarıyor"
@@ -653,7 +653,7 @@
       "mappedFields": "Eşlenen alanlar",
       "progress": "İlerleme",
       "rowsLoaded": "Satırlar yüklendi",
-      "stepNumber": "Adım {step}",
+      "stepNumber": "Adım {number}",
       "title": "İçe aktarma ilerlemesi"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Genel bakışa dön",
-      "companyIdLabel": "Şirket kimliği: {id}",
-      "description": "Müşteri verilerini {name} içine bir CSV dosyası veya URL üzerinden getirin.",
+      "companyIdLabel": "Şirket kimliği:",
+      "description": "Müşteri verilerini içine bir CSV dosyası veya URL üzerinden getirin.",
       "eyebrow": "Çalışma alanı içe aktarımı",
-      "selectedCompany": "Aktif çalışma alanı: {name}",
-      "stepLabel": "Adım {step} / {total}"
+      "selectedCompany": "Aktif çalışma alanı:",
+      "stepLabel": "Adım {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Yeni API anahtarı oluşturun",
       "createdHeading": "API anahtarı oluşturuldu",
       "creating": "Oluşturuluyor...",
-      "description": "<strong>{name}</strong> için API anahtarlarını yönetin.",
+      "description": "<strong> </strong> için API anahtarlarını yönetin.",
       "empty": "Henüz API anahtarı yok.",
       "envLive": "Canlı",
       "envTest": "Test",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Erişim reddedildi",
       "accessDeniedDescription": "Bu çalışma alanı için entegrasyonlara erişiminiz yok.",
-      "configuringCompany": "<strong>{name}</strong> için entegrasyonlar yapılandırılıyor.",
+      "configuringCompany": "<strong> </strong> için entegrasyonlar yapılandırılıyor.",
       "loadFailed": "Entegrasyon kataloğu yüklenemedi.",
       "loading": "Entegrasyonlar yükleniyor...",
       "noAccess": "Çalışma alanı erişimi yok",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Entegrasyonlara geri dön",
       "backToCatalog": "Kataloğa geri dön",
-      "configuringCompany": "<strong>{integration}</strong> entegrasyonu <strong>{company}</strong> için yapılandırılıyor.",
-      "noCompany": "<strong>{integration}</strong> yapılandırmak için bir çalışma alanı seçin.",
+      "configuringCompany": "<strong> </strong> entegrasyonu <strong> </strong> için yapılandırılıyor.",
+      "noCompany": "<strong> </strong> yapılandırmak için bir çalışma alanı seçin.",
       "restrictedDescription": "Bu entegrasyonu görüntüleme izniniz yok.",
       "restrictedTitle": "Kısıtlı",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Gelen URL",
       "instanceId": "Instance ID",
       "instanceIdPlaceholder": "Örn. 1101000001",
-      "latency": "Gecikme: {ms} ms",
+      "latency": "Gecikme: ms",
       "loadFailed": "Green API yapılandırması yüklenemedi.",
       "loading": "Green API yapılandırması yükleniyor...",
       "rotateConfirm": "Gelen webhook tokenını döndürmek ister misiniz? Mevcut webhook'ların güncellenmesi gerekir.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Webhook tokenı döndürüldü.",
       "updateCredentials": "Kimlik bilgilerini güncelleyin",
       "updatedLabel": "Güncellendi",
-      "upstreamStatus": "Yukarı akış durumu: {status}",
+      "upstreamStatus": "Yukarı akış durumu:",
       "urlCopied": "URL panoya kopyalandı.",
-      "webhookSectionDescription": "Green API örneğinizi gelen mesajları <code>{url}</code> adresine gönderecek şekilde yapılandırın.",
+      "webhookSectionDescription": "Green API örneğinizi gelen mesajları <code> </code> adresine gönderecek şekilde yapılandırın.",
       "webhookSectionTitle": "Gelen webhook"
     },
     "hide": "Gizle",
@@ -851,10 +851,10 @@
       "copyUrl": "URL'yi kopyala",
       "createIntegration": "Entegrasyon oluştur",
       "createdMessage": "Intranet entegrasyonu oluşturuldu.",
-      "credentialsDescription": "Bu kimlik bilgilerini <code>{url}</code> adresine yapılan çağrıları kimlik doğrulamak için kullanın.",
+      "credentialsDescription": "Bu kimlik bilgilerini <code> </code> adresine yapılan çağrıları kimlik doğrulamak için kullanın.",
       "credentialsTitle": "Kimlik bilgileri",
       "deliveries": "Teslimatlar",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Bu intranet entegrasyonunun bağlantısını kesin mi? Gelen çağrılar başarısız olmaya başlayacak.",
       "disconnectDescription": "Bu, tüm token'ları iptal eder ve gelen istekleri kabul etmeyi durdurur.",
       "disconnectIntegration": "Entegrasyonun bağlantısını kesin",
@@ -862,7 +862,7 @@
       "entityLabel": "Varlık",
       "errorLabel": "Hata",
       "eventLabel": "Olay",
-      "fieldMappingDescription": "Gelen alanları CRM özelliklerine eşleyin. <code>{example}</code> gibi JSON gönderin.",
+      "fieldMappingDescription": "Gelen alanları CRM özelliklerine eşleyin. <code> </code> gibi JSON gönderin.",
       "fieldMappingLabel": "Alan eşlemesi",
       "fieldMappingTitle": "Alan eşlemesi",
       "generateHmac": "HMAC gizli anahtar oluştur",
@@ -872,7 +872,7 @@
       "hmacSecret": "HMAC gizli anahtar",
       "hmacSecretHint": "Bu gizli anahtarı, dış isteklerde <code>X-Lisent-Signature</code> hesaplamak için kullanın.",
       "inactive": "Aktif değil",
-      "inboundDescription": "İntranetinizden müşteri adaylarını almak için <code>{url}</code> adresine yükleri gönderin.",
+      "inboundDescription": "İntranetinizden müşteri adaylarını almak için <code> </code> adresine yükleri gönderin.",
       "inboundToken": "Gelen URL token",
       "inboundTokenHint": "Bu token, gelen URL'nin bir parçasıdır — gizli tutun.",
       "inboundUrl": "Gelen URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Giden webhook kaydedildi.",
         "secretConfigured": "Yapılandırıldı",
         "secretNotSet": "Ayarlanmamış — olay göndermeden önce bir tane oluşturun.",
-        "secretRotatedAt": "(döndürüldü {time})",
+        "secretRotatedAt": "(döndürüldü )",
         "secretRotatedNotice": "İmzalama gizli anahtarı döndürüldü. Düz metin sadece bir kez gösterilir.",
         "selectAtLeastOne": "En az bir durum seçin veya 'Tüm durum değişiklikleri' seçeneğini işaretleyin.",
         "signingSecretLabel": "İmzalama gizli anahtarı (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Meta Müşteri Adayı oluşturma alanlarını CRM Müşteri Adayı sütunlarıyla eşleyin. Varsayılanı kullanmak için boş bırakın (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Alan eşlemesi",
       "finalizeButton": "Kurulumu tamamlayın",
-      "followersCount": "{count} takipçi",
+      "followersCount": "takipçi",
       "formAllSubscribedHint": "Form seçilmedi → bu sayfadaki tüm formlar abone edilecektir (Meta varsayılanı).",
       "formIdsHint": "Virgülle ayrılmış. Boş = bu sayfadaki tüm formları alır.",
       "formIdsLabel": "Form kimlikleri",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Formları ara…",
       "formPickerTitle": "Lead Ads formlarını seçin",
       "forms": "Formlar",
-      "formsShownCount": "{shown}/{total}",
+      "formsShownCount": "/",
       "hmacSecretHint": "Bunu şimdi kaydedin — bir daha düz metni göstermeyeceğiz.",
       "hmacSecretLabel": "HMAC secret",
       "hmacSecretReveal": "Bir kez göster",
       "inboundUrlHint": "n8n, Meta'dan tam Müşteri Adayı verisini aldıktan sonra buraya gönderir. Bunu herhangi bir yere yapıştırmanız gerekmez.",
       "inboundUrlLabel": "CRM inbound URL (n8n tarafından kullanılır)",
       "last7dCount": "{count} 7 gün içinde",
-      "lastLeadAgo": "Son müşteri adayı {when}",
+      "lastLeadAgo": "Son müşteri adayı",
       "leads7d": "7 gün içinde {count} müşteri adayı",
       "loadFailed": "Meta entegrasyonu yüklenemedi.",
       "metaFieldHeader": "Meta alanı",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Sayfa bulunamadı",
       "pagePickerSearch": "Sayfaları ara…",
       "pagePickerTitle": "Bir Facebook sayfası seçin",
-      "pagesShownCount": "{shown}/{total}",
+      "pagesShownCount": "/",
       "paused": "Duraklatıldı",
       "popupBlocked": "Tarayıcı OAuth açılır penceresini engelledi. Bu site için açılır pencerelere izin verin ve tekrar deneyin.",
       "recentDeliveriesEmpty": "Henüz teslimat yok.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Taslak",
       "statusPaused": "Duraklatıldı",
       "statusUnknown": "Bilinmiyor",
-      "subscribedAt": "Abone olundu {when}",
+      "subscribedAt": "Abone olundu",
       "testLeadButton": "Test müşteri adayı gönder",
       "testLeadDescription": "Meta biçiminde bir yük oluşturur ve üretimle aynı ekleme yolundan geçirir. Yalnızca taklit modu açıkken kullanılabilir.",
       "testLeadFailed": "Test müşteri adayı oluşturulamadı.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Chunk",
       "chunksColumn": "Parçalar",
-      "description": "<strong>{name}</strong> için bilgi tabanı. AI'nin referans alabileceği belgeleri yükleyin.",
-      "ingestedDescription": "<strong>{name}</strong> için bilgi tabanında şu anda bulunan belgeler.",
+      "description": "<strong> </strong> için bilgi tabanı. AI'nin referans alabileceği belgeleri yükleyin.",
+      "ingestedDescription": "<strong> </strong> için bilgi tabanında şu anda bulunan belgeler.",
       "ingestedDocuments": "Alınan belgeler",
-      "ingestionExampleDescription": "POST <code>{url}</code> adresine, <code>title</code>, <code>content</code> ve isteğe bağlı <code>metadata</code> içeren bir JSON gövdesiyle gönderin.",
+      "ingestionExampleDescription": "POST <code> </code> adresine, <code>title</code>, <code>content</code> ve isteğe bağlı <code>metadata</code> içeren bir JSON gövdesiyle gönderin.",
       "ingestionExampleTitle": "Alım örneği",
       "loadConfigFailed": "RAG yapılandırması yüklenemedi.",
       "loadContentFailed": "Belge içeriği yüklenemedi.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Yapılandırıldı",
-      "configuredAria": "{name} yapılandırıldı",
+      "configuredAria": "{label} yapılandırıldı",
       "notSet": "Ayarlanmamış",
-      "notSetAria": "{name} ayarlanmamış"
+      "notSetAria": "{label} ayarlanmamış"
     },
     "testConnection": "Bağlantıyı test edin",
     "testing": "Test ediliyor...",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL panoya kopyalandı.",
     "usage": {
       "allMetrics": "Tüm ölçümler",
-      "description": "<strong>{name}</strong> için kullanım ve oran sınırlamaları.",
+      "description": "<strong> </strong> için kullanım ve oran sınırlamaları.",
       "loadFailed": "Kullanım yüklenemedi.",
       "loading": "Kullanım yükleniyor...",
       "metricColumn": "Ölçüm",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Asistanın randevu için sunabileceği isteğe bağlı Calendly bağlantısı. <code>v1</code> toplantı teslimlerinde kullanılır.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly bağlantısı",
-      "description": "<strong>{name}</strong> için <code>v1</code> nitelendiricisinin davranışını yapılandırın.",
+      "description": "<strong> </strong> için <code>v1</code> nitelendiricisinin davranışını yapılandırın.",
       "frameworkDescription": "Asistanın sinyalleri çıkarmak için kullandığı nitelendirme çerçevesini seçin.",
       "frameworkTitle": "Nitelendirme çerçevesi",
       "loadFailed": "V1 yapılandırması yüklenemedi.",
@@ -1292,7 +1292,7 @@
       "configured": "Yapılandırıldı",
       "currentLabel": "Mevcut",
       "customPatternsLabel": "Özel desenler (satır başına bir)",
-      "description": "<strong>{name}</strong> için webhook teslimini yapılandırın.",
+      "description": "<strong> </strong> için webhook teslimini yapılandırın.",
       "destinationHint": "Lisent, bu URL'ye imzalı bir yük ile olayları gönderir.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Hedef URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimum payload",
       "payloadMode": "Payload modu",
       "rotateSecret": "Gizli anahtarı döndür",
-      "rotatedAt": "{time} tarihinde döndürüldü",
+      "rotatedAt": "tarihinde döndürüldü",
       "saveEventSelection": "Event seçimini kaydedin",
       "saveUrl": "URL'yi kaydedin",
       "secretRotated": "İmzalama gizli anahtarı döndürüldü.",
@@ -1371,18 +1371,18 @@
       "title": "Seçilen müşteri adaylarını atayın"
     },
     "bulkBar": {
-      "ariaSelected": "{count} müşteri adayı seçildi",
+      "ariaSelected": "müşteri adayı seçildi",
       "assign": "Ata",
       "clearSelection": "Seçimi temizle",
       "delete": "Sil",
       "exportCsv": "CSV dışa aktar",
       "exportPdf": "PDF dışa aktar",
-      "selected": "{count} seçildi"
+      "selected": "seçildi"
     },
     "bulkDelete": {
       "confirm": "Seçilenleri sil",
       "deleting": "Siliniyor...",
-      "description": "Bu, {count} müşteri adayını kalıcı olarak siler. Bu işlem geri alınamaz.",
+      "description": "Bu, müşteri adayını kalıcı olarak siler. Bu işlem geri alınamaz.",
       "title": "Seçili müşteri adaylarını sil?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Tüm atananlar",
       "allSources": "Tüm kaynaklar",
       "byCampaign": "Kampanyaya göre filtrelendi: {name}",
-      "byCampaignCount": "{shown}/{total} müşteri adayı",
+      "byCampaignCount": "/ müşteri adayı",
       "clearCampaign": "Filtreyi temizle"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Oluşturuldu",
       "email": "E-posta",
-      "exportedAt": "{count} müşteri adayı · {date} tarihinde dışa aktarıldı",
+      "exportedAt": "müşteri adayı · tarihinde dışa aktarıldı",
       "pageOf": "Sayfa {current} / {total}",
       "title": "Leadler"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI nitelendirme başlatıldı.",
-      "bulkAssignPartial": "{total} müşteri adayından {assigned} tanesi atandı.",
-      "bulkAssigned": "{count} müşteri adayı atandı.",
-      "bulkPartial": "{total} müşteri adayından {deleted} tanesi silindi.",
+      "bulkAssignPartial": "müşteri adayından tanesi atandı.",
+      "bulkAssigned": "müşteri adayı atandı.",
+      "bulkPartial": "müşteri adayından tanesi silindi.",
       "bulkRemoved": "{count} müşteri adayı silindi.",
       "converted": "Müşteri adayı dönüştürüldü.",
       "convertedWithDeal": "Müşteri adayı anlaşma ile dönüştürüldü.",
@@ -1599,7 +1599,7 @@
       "assignee": "Atanan",
       "empty": "Mevcut filtrelerle eşleşen müşteri adayı yok.",
       "name": "Ad",
-      "openAIScore": "Open AI puanı {name} için",
+      "openAIScore": "Open AI puanı {score} için",
       "phone": "Telefon",
       "rowActions": "Satır eylemleri",
       "selectAll": "Tüm müşteri adaylarını seçin",
@@ -1877,7 +1877,7 @@
       "notes": "Bu görevle ilgili detayları ekleyin...",
       "title": "Görev başlığı"
     },
-    "publishedBy": "Yayınlayan {name}",
+    "publishedBy": "Yayınlayan",
     "responseStatus": {
       "accepted": "Kabul edildi",
       "pending": "Bekliyor",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Şirket",
-      "inProgressDone": "{inProgress} devam ediyor · {done} tamamlandı",
-      "myPending": "{count} beklemede",
-      "openTickets": "{count} açık"
+      "inProgressDone": "devam ediyor · tamamlandı",
+      "myPending": "beklemede",
+      "openTickets": "açık"
     },
     "systemUser": "Sistem",
     "teammatesCount": "{count} ekip üyesi",
@@ -1955,14 +1955,14 @@
     "removeMember": "Üyeyi kaldır",
     "removeModal": {
       "confirm": "Üyeyi kaldır",
-      "description": "{name} bu çalışma alanına erişimini hemen kaybedecek.",
+      "description": "{company} bu çalışma alanına erişimini hemen kaybedecek.",
       "eyebrow": "Takım üyesini kaldır",
       "removing": "Kaldırılıyor...",
       "title": "Takım üyesini kaldır?"
     },
     "roleModal": {
       "confirm": "Rolü değiştir",
-      "description": "Bu çalışma alanında {name} kullanıcısının rolünü güncelleyin.",
+      "description": "Bu çalışma alanında kullanıcısının rolünü güncelleyin.",
       "eyebrow": "Rolü değiştir",
       "title": "Rolü değiştir",
       "to": "olarak",

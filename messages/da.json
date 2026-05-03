@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Ryd valg",
       "confirmDelete": "Slet valgte",
-      "deleteDescription": "Dette vil permanent slette {count} kundeposter. Handlingen kan ikke fortrydes.",
+      "deleteDescription": "Dette vil permanent slette kundeposter. Handlingen kan ikke fortrydes.",
       "deleteEyebrow": "Masse sletning",
       "deleteTitle": "Slet valgte kunder?",
       "regionLabel": "Massehandlinger",
-      "selectedCount": "{count} valgt"
+      "selectedCount": "valgt"
     },
     "closeAddPopup": "Luk tilføj kunde-dialog",
     "confirmDelete": "Slet",
@@ -277,9 +277,9 @@
       "empty": "Ingen kunder matcher de aktuelle filtre.",
       "eyebrow": "Kunderegister",
       "selectAll": "Vælg alle kunder",
-      "selectRow": "Vælg kunde {name}",
+      "selectRow": "Vælg kunde",
       "title": "Kunder",
-      "visibleCount": "Viser {visible} af {total}"
+      "visibleCount": "Viser {count}"
     },
     "loading": "Indlæser kunder...",
     "noEmail": "Ingen e‑mail registreret",
@@ -293,7 +293,7 @@
       "label": "Søg",
       "placeholder": "Søg efter kunder..."
     },
-    "selectedCompany": "Aktivt workspace: {name}",
+    "selectedCompany": "Aktivt workspace:",
     "status": {
       "active": "Aktiv",
       "all": "Alle",
@@ -303,7 +303,7 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} kunder slettet.",
-      "bulkDeletedPartial": "{deleted} af {total} kunder slettet.",
+      "bulkDeletedPartial": "af kunder slettet.",
       "created": "Kunde oprettet.",
       "deleted": "Kunde slettet.",
       "updated": "Kunde opdateret."
@@ -323,15 +323,15 @@
       "title": "AI-indsigter"
     },
     "amount": "Beløb",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Tildelt",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Træk deals mellem stages for at opdatere pipeline.",
-    "changedBy": "Ændret af {name}",
+    "changedBy": "Ændret af",
     "close": "Luk",
     "closeTarget": "Luk mål",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Kolonne total: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Kolonne total:",
     "commentPlaceholder": "Skriv en kommentar...",
     "comments": "Kommentarer",
     "commentsCount": "{count} kommentarer",
@@ -429,7 +429,7 @@
     "posting": "Sender…",
     "relatedRecords": "Relaterede poster",
     "scheduleActivity": "Planlæg aktivitet",
-    "selectedCompany": "Aktivt workspace: {name}",
+    "selectedCompany": "Aktivt workspace:",
     "stage": {
       "lost": "Tabt",
       "lostDescription": "Afsluttede tabte deals til læring.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Stage-historik",
     "stageHistoryEmpty": "Ingen stage-ændringer er registreret endnu.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Kommentar tilføjet.",
       "created": "Deal oprettet.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Aktivitetsdiagram for den seneste uge",
-      "empty": "Der er endnu ingen aktivitet registreret for {name}.",
+      "empty": "Der er endnu ingen aktivitet registreret for.",
       "emptyDefault": "Der er endnu ingen aktivitet registreret.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Vælg et workspace fra switcheren for at se live‑data.",
       "noWorkspaceSelected": "Intet workspace valgt",
       "pickWorkspace": "Vælg et workspace",
-      "subtitleSelected": "Workspace‑metrik for {name}.",
+      "subtitleSelected": "Workspace‑metrik for.",
       "subtitleWithName": "Velkommen tilbage, {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leads",
       "leadsHint": "Aktive leads i pipeline.",
       "openPipelineHint": "Åben pipelineværdi på tværs af alle stadier.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Tilpas",
@@ -508,7 +508,7 @@
       "title": "Oversigt"
     },
     "pipeline": {
-      "empty": "Ingen pipeline-data endnu for {name}.",
+      "empty": "Ingen pipeline-data endnu for.",
       "emptyDefault": "Ingen pipeline-data endnu.",
       "stage": {
         "lost": "Tabt",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Fordeling af deals efter stage.",
       "title": "Pipeline",
-      "totalBadge": "{value} i alt"
+      "totalBadge": "{count} i alt"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Hurtige handlinger"
     },
     "recentLeads": {
-      "empty": "Ingen nylige leads i {name}.",
+      "empty": "Ingen nylige leads i.",
       "emptyDefault": "Ingen nylige leads endnu.",
       "status": {
         "contacted": "Kontaktet",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Aktivt workspace",
       "eyebrow": "Workspace‑snapshot",
-      "inWorkspace": "I {name}",
+      "inWorkspace": "I",
       "newCount": "{count} nye",
       "noWorkspaceHelp": "Vælg et workspace for at se live‑tællinger.",
       "noWorkspaceSelected": "Intet workspace valgt",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Bekræft kortlægningen og kør importen. Kunder vil blive oprettet eller opdateret i det aktive workspace.",
-      "approvalOutcome": "Efter godkendelse indsættes rækker som kunder i {name}.",
+      "approvalOutcome": "Efter godkendelse indsættes rækker som kunder i.",
       "approveAndImport": "Godkend & importér",
       "backToPreview": "Tilbage til forhåndsvisning",
       "confidence": "Tillid",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Tilbage til kilde",
       "continueToMapping": "Fortsæt til kortlægning",
-      "headers": "{count} overskrifter",
-      "rowsLoaded": "{count} rækker indlæst",
-      "rowsShown": "Viser de første {count} rækker",
+      "headers": "overskrifter",
+      "rowsLoaded": "rækker indlæst",
+      "rowsShown": "Viser de første rækker",
       "unmapped": "Ukortlagt"
     },
     "progress": {
-      "completedRatio": "{done} af {total} udført",
-      "currentRow": "Række {row}",
-      "description": "Importerer rækker i {name}. De kan forlade siden; importen fortsætter i baggrunden.",
+      "completedRatio": "af udført",
+      "currentRow": "Række",
+      "description": "Importerer rækker i. De kan forlade siden; importen fortsætter i baggrunden.",
       "eyebrow": "Import i gang",
       "preparing": "Forbereder import…",
       "title": "Importerer kunder"
@@ -653,7 +653,7 @@
       "mappedFields": "Kortlagte felter",
       "progress": "Fremskridt",
       "rowsLoaded": "Rækker indlæst",
-      "stepNumber": "Trin {step}",
+      "stepNumber": "Trin {number}",
       "title": "Importstatus"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Tilbage til oversigt",
-      "companyIdLabel": "Firma-id: {id}",
-      "description": "Importér kundedata til {name} fra en CSV-fil eller URL.",
+      "companyIdLabel": "Firma-id:",
+      "description": "Importér kundedata til fra en CSV-fil eller URL.",
       "eyebrow": "Workspace-import",
-      "selectedCompany": "Aktivt workspace: {name}",
-      "stepLabel": "Trin {step} af {total}"
+      "selectedCompany": "Aktivt workspace:",
+      "stepLabel": "Trin {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Opret ny API-nøgle",
       "createdHeading": "API-nøgle oprettet",
       "creating": "Opretter…",
-      "description": "Administrer API-nøgler for <strong>{name}</strong>.",
+      "description": "Administrer API-nøgler for <strong> </strong>.",
       "empty": "Ingen API-nøgler endnu.",
       "envLive": "Live",
       "envTest": "Test",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Adgang nægtet",
       "accessDeniedDescription": "De har ikke adgang til integrationer for dette arbejdsområde.",
-      "configuringCompany": "Konfigurerer integrationer for <strong>{name}</strong>.",
+      "configuringCompany": "Konfigurerer integrationer for <strong> </strong>.",
       "loadFailed": "Kunne ikke indlæse integrationskataloget.",
       "loading": "Indlæser integrationer…",
       "noAccess": "Ingen adgang til arbejdsområde",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Tilbage til integrationer",
       "backToCatalog": "Tilbage til katalog",
-      "configuringCompany": "Konfigurerer <strong>{integration}</strong> for <strong>{company}</strong>.",
-      "noCompany": "Vælg en workspace til at konfigurere <strong>{integration}</strong>.",
+      "configuringCompany": "Konfigurerer <strong> </strong> for <strong> </strong>.",
+      "noCompany": "Vælg en workspace til at konfigurere <strong> </strong>.",
       "restrictedDescription": "Du har ikke tilladelse til at se denne integration.",
       "restrictedTitle": "Begrænset",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Indgående URL",
       "instanceId": "Instans‑ID",
       "instanceIdPlaceholder": "F.eks. 1101000001",
-      "latency": "Forsinkelse: {ms} ms",
+      "latency": "Forsinkelse: ms",
       "loadFailed": "Kunne ikke indlæse Green API‑konfiguration.",
       "loading": "Indlæser Green API‑konfiguration…",
       "rotateConfirm": "Roter den indgående webhook token? Eksisterende webhooks skal opdateres.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Webhook token roteret.",
       "updateCredentials": "Opdater legitimationsoplysninger",
       "updatedLabel": "Opdateret",
-      "upstreamStatus": "Upstream status: {status}",
+      "upstreamStatus": "Upstream status:",
       "urlCopied": "URL kopieret til udklipsholder.",
-      "webhookSectionDescription": "Konfigurér din Green API‑instans til at levere indgående beskeder til <code>{url}</code>.",
+      "webhookSectionDescription": "Konfigurér din Green API‑instans til at levere indgående beskeder til <code> </code>.",
       "webhookSectionTitle": "Indgående webhook"
     },
     "hide": "Skjul",
@@ -851,10 +851,10 @@
       "copyUrl": "Kopier URL",
       "createIntegration": "Opret integration",
       "createdMessage": "Intranet-integration oprettet.",
-      "credentialsDescription": "Brug disse legitimationsoplysninger til at autentificere kald til <code>{url}</code>.",
+      "credentialsDescription": "Brug disse legitimationsoplysninger til at autentificere kald til <code> </code>.",
       "credentialsTitle": "Legitimationsoplysninger",
       "deliveries": "Leveringer",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Afbryd denne intranet-integration? Indgående opkald vil begynde at fejle.",
       "disconnectDescription": "Dette vil tilbagekalde alle tokens og stoppe med at acceptere indgående anmodninger.",
       "disconnectIntegration": "Afbryd integration",
@@ -862,7 +862,7 @@
       "entityLabel": "Entitet",
       "errorLabel": "Fejl",
       "eventLabel": "Hændelse",
-      "fieldMappingDescription": "Kortlæg indgående felter til CRM‑egenskaber. Indsend JSON som <code>{example}</code>.",
+      "fieldMappingDescription": "Kortlæg indgående felter til CRM‑egenskaber. Indsend JSON som <code> </code>.",
       "fieldMappingLabel": "Feltkortlægning",
       "fieldMappingTitle": "Feltkortlægning",
       "generateHmac": "Generér HMAC‑hemmelighed",
@@ -872,7 +872,7 @@
       "hmacSecret": "HMAC‑hemmelighed",
       "hmacSecretHint": "Brug denne secret til at beregne <code>X-Lisent-Signature</code> på udgående anmodninger.",
       "inactive": "Inaktiv",
-      "inboundDescription": "Send payloads til <code>{url}</code> for at indsamle leads fra Deres intranet.",
+      "inboundDescription": "Send payloads til <code> </code> for at indsamle leads fra Deres intranet.",
       "inboundToken": "Indgående URL‑token",
       "inboundTokenHint": "Dette token er en del af den indgående URL — hold det hemmeligt.",
       "inboundUrl": "Indgående URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Outbound webhook gemt.",
         "secretConfigured": "Konfigureret",
         "secretNotSet": "Ikke indstillet — generér en, før De sender hændelser.",
-        "secretRotatedAt": "(roteret {time})",
+        "secretRotatedAt": "(roteret )",
         "secretRotatedNotice": "Signing secret roteret. Klartekst vises kun denne ene gang.",
         "selectAtLeastOne": "Vælg mindst én status, eller marker 'Alle statusændringer'.",
         "signingSecretLabel": "Signing secret (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Kortlæg Meta lead‑genereringsfelter til CRM‑lead‑kolonner. Lad feltet stå tomt for at bruge standardindstillingerne (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Feltkortlægning",
       "finalizeButton": "Afslut opsætning",
-      "followersCount": "{count} følgere",
+      "followersCount": "følgere",
       "formAllSubscribedHint": "Ingen formularer valgt → alle formularer på denne side vil blive abonneret (Meta‑standard).",
       "formIdsHint": "Komma‑adskilt. Tom = modtag alle formularer på denne side.",
       "formIdsLabel": "Formular‑ID'er",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Søg formularer…",
       "formPickerTitle": "Vælg lead‑formularer",
       "forms": "Formularer",
-      "formsShownCount": "{shown} af {total}",
+      "formsShownCount": "af",
       "hmacSecretHint": "Gem dette nu — vi viser ikke klartekst igen.",
       "hmacSecretLabel": "HMAC‑hemmelighed",
       "hmacSecretReveal": "Vis én gang",
       "inboundUrlHint": "n8n poster her efter at have hentet det fulde lead fra Meta. De behøver ikke indsætte dette nogen steder.",
       "inboundUrlLabel": "CRM inbound‑URL (bruges af n8n)",
       "last7dCount": "{count} på 7d",
-      "lastLeadAgo": "Seneste lead {when}",
+      "lastLeadAgo": "Seneste lead",
       "leads7d": "{count} leads på 7d",
       "loadFailed": "Kunne ikke indlæse Meta-integration.",
       "metaFieldHeader": "Meta‑felt",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Ingen sider fundet",
       "pagePickerSearch": "Søg sider…",
       "pagePickerTitle": "Vælg en Facebook‑side",
-      "pagesShownCount": "{shown} af {total}",
+      "pagesShownCount": "af",
       "paused": "Pauset",
       "popupBlocked": "Browseren blokerede OAuth‑pop‑up‑vinduet. Tillad pop‑ups for dette site og prøv igen.",
       "recentDeliveriesEmpty": "Ingen leveringer endnu.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Udkast",
       "statusPaused": "Pauset",
       "statusUnknown": "Ukendt",
-      "subscribedAt": "Abonneret {when}",
+      "subscribedAt": "Abonneret",
       "testLeadButton": "Send testlead",
       "testLeadDescription": "Genererer en Meta‑formet payload og kører den gennem den samme indsættelses‑sti som i produktion. Kun tilgængelig, mens mock‑tilstand er aktiveret.",
       "testLeadFailed": "Kunne ikke oprette testlead.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Segment",
       "chunksColumn": "Delområder",
-      "description": "Vidensbase for <strong>{name}</strong>. Upload dokumenter, som AI’en kan referere til.",
-      "ingestedDescription": "Dokumenter, der i øjeblikket er i vidensbasen for <strong>{name}</strong>.",
+      "description": "Vidensbase for <strong> </strong>. Upload dokumenter, som AI’en kan referere til.",
+      "ingestedDescription": "Dokumenter, der i øjeblikket er i vidensbasen for <strong> </strong>.",
       "ingestedDocuments": "Indlæste dokumenter",
-      "ingestionExampleDescription": "POST til <code>{url}</code> med en JSON‑krop, der indeholder <code>title</code>, <code>content</code> og valgfri <code>metadata</code>.",
+      "ingestionExampleDescription": "POST til <code> </code> med en JSON‑krop, der indeholder <code>title</code>, <code>content</code> og valgfri <code>metadata</code>.",
       "ingestionExampleTitle": "Eksempel på indtagning",
       "loadConfigFailed": "Kunne ikke indlæse RAG‑konfiguration.",
       "loadContentFailed": "Kunne ikke indlæse dokumentindhold",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Konfigureret",
-      "configuredAria": "{name} er konfigureret",
+      "configuredAria": "{label} er konfigureret",
       "notSet": "Ikke angivet",
-      "notSetAria": "{name} er ikke angivet"
+      "notSetAria": "{label} er ikke angivet"
     },
     "testConnection": "Test forbindelse",
     "testing": "Tester...",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL kopieret til udklip",
     "usage": {
       "allMetrics": "Alle målinger",
-      "description": "Brug og hastighedsgrænser for <strong>{name}</strong>.",
+      "description": "Brug og hastighedsgrænser for <strong> </strong>.",
       "loadFailed": "Kunne ikke indlæse brug",
       "loading": "Indlæser brug...",
       "metricColumn": "Måling",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Valgfri Calendly‑link, som assistenten kan tilbyde til booking. Bruges af <code>v1</code> mødeoverdragelser.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly‑link",
-      "description": "Konfigurer kvalifikatorens <code>v1</code> adfærd for <strong>{name}</strong>.",
+      "description": "Konfigurer kvalifikatorens <code>v1</code> adfærd for <strong> </strong>.",
       "frameworkDescription": "Vælg kvalifikationsrammen, som assistenten bruger til at udtrække signaler.",
       "frameworkTitle": "Kvalifikationsramme",
       "loadFailed": "Kunne ikke indlæse v1‑konfiguration.",
@@ -1292,7 +1292,7 @@
       "configured": "Konfigureret",
       "currentLabel": "Aktuel",
       "customPatternsLabel": "Brugerdefinerede mønstre (én per linje)",
-      "description": "Konfigurer webhook-levering for <strong>{name}</strong>.",
+      "description": "Konfigurer webhook-levering for <strong> </strong>.",
       "destinationHint": "Lisent sender begivenheder til denne URL med en signeret payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Destination URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimal payload",
       "payloadMode": "Payload‑tilstand",
       "rotateSecret": "Roter secret",
-      "rotatedAt": "Roteret kl. {time}",
+      "rotatedAt": "Roteret kl.",
       "saveEventSelection": "Gem event‑valg",
       "saveUrl": "Gem URL",
       "secretRotated": "Signing secret roteret.",
@@ -1371,18 +1371,18 @@
       "title": "Tildel valgte leads"
     },
     "bulkBar": {
-      "ariaSelected": "{count} leads valgt",
+      "ariaSelected": "leads valgt",
       "assign": "Tildel",
       "clearSelection": "Ryd valg",
       "delete": "Slet",
       "exportCsv": "Eksporter CSV",
       "exportPdf": "Eksporter PDF",
-      "selected": "{count} valgt"
+      "selected": "valgt"
     },
     "bulkDelete": {
       "confirm": "Slet valgte",
       "deleting": "Sletter...",
-      "description": "Dette vil permanent slette {count} leads. Handlingen kan ikke fortrydes.",
+      "description": "Dette vil permanent slette leads. Handlingen kan ikke fortrydes.",
       "title": "Slet valgte leads?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Alle tildelere",
       "allSources": "Alle kilder",
       "byCampaign": "Filtreret efter kampagne: {name}",
-      "byCampaignCount": "{shown} af {total} leads",
+      "byCampaignCount": "af leads",
       "clearCampaign": "Ryd filter"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Oprettet",
       "email": "E-mail",
-      "exportedAt": "{count} leads · Eksporteret den {date}",
+      "exportedAt": "leads · Eksporteret den",
       "pageOf": "Side {current} af {total}",
       "title": "Leads"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI‑kvalificering startet.",
-      "bulkAssignPartial": "{assigned} af {total} leads tildelt.",
-      "bulkAssigned": "{count} leads tildelt.",
-      "bulkPartial": "{deleted} af {total} leads fjernet.",
+      "bulkAssignPartial": "af leads tildelt.",
+      "bulkAssigned": "leads tildelt.",
+      "bulkPartial": "af leads fjernet.",
       "bulkRemoved": "{count} leads fjernet.",
       "converted": "Lead konverteret.",
       "convertedWithDeal": "Lead konverteret med deal.",
@@ -1599,7 +1599,7 @@
       "assignee": "Assignee",
       "empty": "Ingen leads matcher de aktuelle filtre.",
       "name": "Navn",
-      "openAIScore": "Open AI-score for {name}",
+      "openAIScore": "Open AI-score for {score}",
       "phone": "Telefon",
       "rowActions": "Rækkehandlinger",
       "selectAll": "Vælg alle leads",
@@ -1877,7 +1877,7 @@
       "notes": "Tilføj detaljer om denne opgave…",
       "title": "Opgavetitel"
     },
-    "publishedBy": "Udgivet af {name}",
+    "publishedBy": "Udgivet af",
     "responseStatus": {
       "accepted": "Accepteret",
       "pending": "Afventende",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Virksomhed",
-      "inProgressDone": "{inProgress} i gang · {done} udført",
-      "myPending": "{count} afventende",
-      "openTickets": "{count} åbne"
+      "inProgressDone": "i gang · udført",
+      "myPending": "afventende",
+      "openTickets": "åbne"
     },
     "systemUser": "System",
     "teammatesCount": "{count} medarbejdere",
@@ -1955,14 +1955,14 @@
     "removeMember": "Fjern medlem",
     "removeModal": {
       "confirm": "Fjern medlem",
-      "description": "{name} mister straks adgangen til dette workspace.",
+      "description": "{company} mister straks adgangen til dette workspace.",
       "eyebrow": "Fjern teammedlem",
       "removing": "Fjerner...",
       "title": "Fjern teammedlem?"
     },
     "roleModal": {
       "confirm": "Skift rolle",
-      "description": "Opdater {name}s rolle i dette workspace.",
+      "description": "Opdater s rolle i dette workspace.",
       "eyebrow": "Skift rolle",
       "title": "Skift rolle",
       "to": "Til",

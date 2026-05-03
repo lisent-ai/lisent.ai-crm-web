@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Tyhjennä valinta",
       "confirmDelete": "Poista valitut",
-      "deleteDescription": "Tämä poistaa pysyvästi {count} asiakastietuetta. Toimintoa ei voi peruuttaa.",
+      "deleteDescription": "Tämä poistaa pysyvästi asiakastietuetta. Toimintoa ei voi peruuttaa.",
       "deleteEyebrow": "Massapoisto",
       "deleteTitle": "Poistetaanko valitut asiakkaat?",
       "regionLabel": "Massatoiminnot",
-      "selectedCount": "{count} valittua"
+      "selectedCount": "valittua"
     },
     "closeAddPopup": "Sulje asiakkaan lisäämisdialogi",
     "confirmDelete": "Poista",
@@ -277,9 +277,9 @@
       "empty": "Ei asiakkaita, jotka täsmäävät nykyisiin suodattimiin.",
       "eyebrow": "Asiakasrekisteri",
       "selectAll": "Valitse kaikki asiakkaat",
-      "selectRow": "Valitse asiakas {name}",
+      "selectRow": "Valitse asiakas",
       "title": "Asiakkaat",
-      "visibleCount": "Näytetään {visible} / {total}"
+      "visibleCount": "Näytetään {count}"
     },
     "loading": "Ladataan asiakkaita...",
     "noEmail": "Sähköpostiosoitetta ei ole tallennettu",
@@ -293,7 +293,7 @@
       "label": "Hae",
       "placeholder": "Hae asiakkaita..."
     },
-    "selectedCompany": "Aktiivinen Workspace: {name}",
+    "selectedCompany": "Aktiivinen Workspace:",
     "status": {
       "active": "Aktiivinen",
       "all": "Kaikki",
@@ -303,7 +303,7 @@
     "statusFilter": "Tilan suodatin",
     "success": {
       "bulkDeleted": "{count} asiakasta poistettu.",
-      "bulkDeletedPartial": "{deleted} / {total} asiakasta poistettu.",
+      "bulkDeletedPartial": "/ asiakasta poistettu.",
       "created": "Asiakas luotu.",
       "deleted": "Asiakas poistettu.",
       "updated": "Asiakas päivitetty."
@@ -323,15 +323,15 @@
       "title": "AI-näkemykset"
     },
     "amount": "Määrä",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Vastuuhenkilö",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Vedä kauppoja vaiheiden välillä päivittää putken.",
-    "changedBy": "Muutettu {name}",
+    "changedBy": "Muutettu",
     "close": "Sulje",
     "closeTarget": "Sulje kohde",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Sarakkeen summa: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Sarakkeen summa:",
     "commentPlaceholder": "Kirjoita kommentti...",
     "comments": "Kommentit",
     "commentsCount": "{count} kommenttia",
@@ -429,7 +429,7 @@
     "posting": "Lähetetään...",
     "relatedRecords": "Liittyvät tietueet",
     "scheduleActivity": "Aikatauluta aktiviteetti",
-    "selectedCompany": "Aktiivinen workspace: {name}",
+    "selectedCompany": "Aktiivinen workspace:",
     "stage": {
       "lost": "Hävitty",
       "lostDescription": "Hävittyjä kauppoja, joista opitaan.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Vaiheen historia",
     "stageHistoryEmpty": "Vaiheen muutoksia ei ole vielä tallennettu.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Kommentti lisätty.",
       "created": "Deal luotu.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Viikon aktiviteettikaavio",
-      "empty": "Käyttäjälle {name} ei ole vielä kirjattu toimintaa.",
+      "empty": "Käyttäjälle ei ole vielä kirjattu toimintaa.",
       "emptyDefault": "Ei vielä kirjattua toimintaa.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Valitse workspace vaihtajasta nähdäksesi reaaliaikaiset tiedot.",
       "noWorkspaceSelected": "Workspacea ei valittu",
       "pickWorkspace": "Valitse workspace",
-      "subtitleSelected": "Workspace‑mittarit kohteelle {name}.",
+      "subtitleSelected": "Workspace‑mittarit kohteelle.",
       "subtitleWithName": "Tervetuloa takaisin, {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leadit",
       "leadsHint": "Aktiiviset leadit putkessa.",
       "openPipelineHint": "Avaa putken arvo kaikilla vaiheilla.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Mukauta",
@@ -508,7 +508,7 @@
       "title": "Yleiskatsaus"
     },
     "pipeline": {
-      "empty": "Ei vielä putken dataa {name} varten.",
+      "empty": "Ei vielä putken dataa varten.",
       "emptyDefault": "Ei vielä putken dataa.",
       "stage": {
         "lost": "Hävitty",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Kauppojen jakautuminen vaiheittain.",
       "title": "Putki",
-      "totalBadge": "{value} yhteensä"
+      "totalBadge": "{count} yhteensä"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Pikatoiminnot"
     },
     "recentLeads": {
-      "empty": "Ei viimeaikaisia liidejä kohteessa {name}.",
+      "empty": "Ei viimeaikaisia liidejä kohteessa.",
       "emptyDefault": "Ei vielä viimeaikaisia liidejä.",
       "status": {
         "contacted": "Yhteydessä",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Aktiivinen työtila",
       "eyebrow": "Työtilan tilannekuva",
-      "inWorkspace": "Kohdassa {name}",
+      "inWorkspace": "Kohdassa",
       "newCount": "{count} uutta",
       "noWorkspaceHelp": "Valitse työtila, jonka avulla näet elävät laskut.",
       "noWorkspaceSelected": "Ei valittu",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Vahvista kartoitus ja suorita tuonti. Asiakkaat luodaan tai päivitetään aktiivisessa työtilassa.",
-      "approvalOutcome": "Hyväksynnän jälkeen rivit lisätään asiakkaina kohteessa {name}.",
+      "approvalOutcome": "Hyväksynnän jälkeen rivit lisätään asiakkaina kohteessa.",
       "approveAndImport": "Hyväksy & tuo",
       "backToPreview": "Takaisin esikatseluun",
       "confidence": "Luottamus",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Takaisin lähteeseen",
       "continueToMapping": "Jatka kartoitukseen",
-      "headers": "{count} otsikkoa",
-      "rowsLoaded": "{count} riviä ladattu",
-      "rowsShown": "Näytetään ensimmäiset {count} riviä",
+      "headers": "otsikkoa",
+      "rowsLoaded": "riviä ladattu",
+      "rowsShown": "Näytetään ensimmäiset riviä",
       "unmapped": "Kohdistamaton"
     },
     "progress": {
-      "completedRatio": "{done} / {total} valmis",
-      "currentRow": "Rivi {row}",
-      "description": "Tuodaan rivejä kohteeseen {name}. Voit poistua tältä sivulta; tuonti jatkuu taustalla.",
+      "completedRatio": "/ valmis",
+      "currentRow": "Rivi",
+      "description": "Tuodaan rivejä kohteeseen. Voit poistua tältä sivulta; tuonti jatkuu taustalla.",
       "eyebrow": "Tuonti käynnissä",
       "preparing": "Valmistellaan tuontia...",
       "title": "Tuodaan asiakkaita"
@@ -653,7 +653,7 @@
       "mappedFields": "Kohdistetut kentät",
       "progress": "Edistyminen",
       "rowsLoaded": "Rivejä ladattu",
-      "stepNumber": "Vaihe {step}",
+      "stepNumber": "Vaihe {number}",
       "title": "Tuonnin eteneminen"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Takaisin yleiskatsaukseen",
-      "companyIdLabel": "Yrityksen id: {id}",
-      "description": "Tuo asiakastiedot {name}iin CSV-tiedostosta tai URL-osoitteesta.",
+      "companyIdLabel": "Yrityksen id:",
+      "description": "Tuo asiakastiedot iin CSV-tiedostosta tai URL-osoitteesta.",
       "eyebrow": "Työtilan tuonti",
-      "selectedCompany": "Aktiivinen työtila: {name}",
-      "stepLabel": "Vaihe {step}/{total}"
+      "selectedCompany": "Aktiivinen työtila:",
+      "stepLabel": "Vaihe {step}/"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Luo uusi API-avain",
       "createdHeading": "API-avain luotu",
       "creating": "Luodaan…",
-      "description": "Hallinnoi API-avaimia kohteelle <strong>{name}</strong>.",
+      "description": "Hallinnoi API-avaimia kohteelle <strong> </strong>.",
       "empty": "API-avaimia ei ole vielä.",
       "envLive": "Live",
       "envTest": "Testaa",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Pääsy evätty",
       "accessDeniedDescription": "Teillä ei ole pääsyä integraatioihin tässä työtilassa.",
-      "configuringCompany": "Määritetään integraatioita työtilalle <strong>{name}</strong>.",
+      "configuringCompany": "Määritetään integraatioita työtilalle <strong> </strong>.",
       "loadFailed": "Integraatiokatalogin lataaminen epäonnistui",
       "loading": "Ladataan integraatioita...",
       "noAccess": "Ei työtilan käyttöoikeutta",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Takaisin integraatioihin",
       "backToCatalog": "Takaisin katalogiin",
-      "configuringCompany": "Määritetään <strong>{integration}</strong> kohteelle <strong>{company}</strong>.",
-      "noCompany": "Valitse työtila määrittääksesi <strong>{integration}</strong>.",
+      "configuringCompany": "Määritetään <strong> </strong> kohteelle <strong> </strong>.",
+      "noCompany": "Valitse työtila määrittääksesi <strong> </strong>.",
       "restrictedDescription": "Sinulla ei ole oikeutta tarkastella tätä integraatiota.",
       "restrictedTitle": "Rajoitettu",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Saapuva URL",
       "instanceId": "Instanssi-ID",
       "instanceIdPlaceholder": "Esim. 1101000001",
-      "latency": "Viive: {ms} ms",
+      "latency": "Viive: ms",
       "loadFailed": "Green API -asetusten lataus epäonnistui.",
       "loading": "Ladataan Green API -asetuksia...",
       "rotateConfirm": "Kierrä saapuvan webhook-tokenin? Olemassa olevat webhookit on päivitettävä.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Webhook-token kierrätetty.",
       "updateCredentials": "Päivitä kirjautumistiedot",
       "updatedLabel": "Päivitetty",
-      "upstreamStatus": "Ylävirran tila: {status}",
+      "upstreamStatus": "Ylävirran tila:",
       "urlCopied": "URL kopioitu leikepöydälle.",
-      "webhookSectionDescription": "Määritä Green API -instanssisi toimittamaan saapuvat viestit osoitteeseen <code>{url}</code>.",
+      "webhookSectionDescription": "Määritä Green API -instanssisi toimittamaan saapuvat viestit osoitteeseen <code> </code>.",
       "webhookSectionTitle": "Saapuva webhook"
     },
     "hide": "Piilota",
@@ -851,10 +851,10 @@
       "copyUrl": "Kopioi URL",
       "createIntegration": "Luo integraatio",
       "createdMessage": "Intranet-integraatio luotu.",
-      "credentialsDescription": "Käytä näitä tunnistetietoja autentikoidaksesi kutsut kohteeseen <code>{url}</code>.",
+      "credentialsDescription": "Käytä näitä tunnistetietoja autentikoidaksesi kutsut kohteeseen <code> </code>.",
       "credentialsTitle": "Tunnistetiedot",
       "deliveries": "Toimitukset",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Katkaistaanko tämä intranet-integraatio? Sisääntulevat kutsut alkavat epäonnistua.",
       "disconnectDescription": "Tämä peruuttaa kaikki tokenit eikä enää hyväksy sisääntulevia pyyntöjä.",
       "disconnectIntegration": "Katkaise integraatio",
@@ -862,7 +862,7 @@
       "entityLabel": "Entiteetti",
       "errorLabel": "Virhe",
       "eventLabel": "Tapahtuma",
-      "fieldMappingDescription": "Määritä sisääntulevat kentät CRM-ominaisuuksiin. Lähetä JSON esimerkiksi <code>{example}</code>.",
+      "fieldMappingDescription": "Määritä sisääntulevat kentät CRM-ominaisuuksiin. Lähetä JSON esimerkiksi <code> </code>.",
       "fieldMappingLabel": "Kenttien kartoitus",
       "fieldMappingTitle": "Kenttien kartoitus",
       "generateHmac": "Luo HMAC secret",
@@ -872,7 +872,7 @@
       "hmacSecret": "HMAC secret",
       "hmacSecretHint": "Käytä tätä salaisuutta laskeaksesi <code>X-Lisent-Signature</code> lähtevissä pyynnöissä.",
       "inactive": "Ei aktiivinen",
-      "inboundDescription": "Lähetä payloadit osoitteeseen <code>{url}</code> kerätäksesi liidit intranetistäsi.",
+      "inboundDescription": "Lähetä payloadit osoitteeseen <code> </code> kerätäksesi liidit intranetistäsi.",
       "inboundToken": "Saapuvan URL:n token",
       "inboundTokenHint": "Tämä token on osa saapuvaa URL-osoitetta — pidä se salassa.",
       "inboundUrl": "Saapuva URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Ulospäin suuntautuva webhook tallennettu.",
         "secretConfigured": "Määritetty",
         "secretNotSet": "Ei asetettu — luo se ennen tapahtumien lähettämistä.",
-        "secretRotatedAt": "(uudistettu {time})",
+        "secretRotatedAt": "(uudistettu )",
         "secretRotatedNotice": "Allekirjoitussalaisuus uudistettu. Selväkielinen arvo näytetään vain kerran.",
         "selectAtLeastOne": "Valitse vähintään yksi tila tai merkitse 'Kaikki tilamuutokset'.",
         "signingSecretLabel": "Allekirjoitussalaisuus (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Kartoita Metan liidien luontikentät CRM:n liidisarakkeisiin. Jätä tyhjäksi käyttääksesi oletusta (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Kenttäkartoitus",
       "finalizeButton": "Viimeistele asennus",
-      "followersCount": "{count} seuraajaa",
+      "followersCount": "seuraajaa",
       "formAllSubscribedHint": "Ei valittuja lomakkeita → kaikki tämän sivun lomakkeet tilataan (Meta‑oletus).",
       "formIdsHint": "Pilkuilla erotettu. Tyhjä = vastaanota kaikki lomakkeet tällä sivulla.",
       "formIdsLabel": "Lomake-ID:t",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Etsi lomakkeita…",
       "formPickerTitle": "Valitse lead-lomakkeet",
       "forms": "Lomakkeet",
-      "formsShownCount": "{shown}/{total}",
+      "formsShownCount": "/",
       "hmacSecretHint": "Tallenna tämä nyt — emme näytä selkokieltä uudelleen.",
       "hmacSecretLabel": "HMAC‑salaisuus",
       "hmacSecretReveal": "Paljasta kerran",
       "inboundUrlHint": "n8n lähettää tähän täyden leadin hakemisen jälkeen Metasta. Sinun ei tarvitse liittää tätä mihinkään.",
       "inboundUrlLabel": "CRM inbound‑URL (n8n käyttää)",
       "last7dCount": "{count} 7 pv:ssa",
-      "lastLeadAgo": "Viimeinen liidi {when}",
+      "lastLeadAgo": "Viimeinen liidi",
       "leads7d": "{count} liidiä 7 pv:ssa",
       "loadFailed": "Meta-integraation lataaminen epäonnistui.",
       "metaFieldHeader": "Meta-kenttä",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Sivuja ei löytynyt",
       "pagePickerSearch": "Etsi sivuja…",
       "pagePickerTitle": "Valitse Facebook-sivu",
-      "pagesShownCount": "{shown}/{total}",
+      "pagesShownCount": "/",
       "paused": "Keskeytetty",
       "popupBlocked": "Selain esti OAuth‑ponnahdusikkunan. Salli ponnahdusikkunat tälle sivustolle ja yritä uudelleen.",
       "recentDeliveriesEmpty": "Ei vielä toimituksia.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Luonnos",
       "statusPaused": "Keskeytetty",
       "statusUnknown": "Tuntematon",
-      "subscribedAt": "Tilattu {when}",
+      "subscribedAt": "Tilattu",
       "testLeadButton": "Lähetä test Lead",
       "testLeadDescription": "Luo Meta-muotoisen payloadin ja suorittaa sen saman lisäyspolun kautta kuin tuotannossa. Saatavilla vain, kun mock-tila on päällä.",
       "testLeadFailed": "Test Leadin luominen epäonnistui.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Osio",
       "chunksColumn": "Osat",
-      "description": "Tietopohja kohteelle <strong>{name}</strong>. Lataa asiakirjoja, joita AI voi käyttää viitteinä.",
-      "ingestedDescription": "Asiakirjat, jotka ovat tällä hetkellä tietopohjassa kohteelle <strong>{name}</strong>.",
+      "description": "Tietopohja kohteelle <strong> </strong>. Lataa asiakirjoja, joita AI voi käyttää viitteinä.",
+      "ingestedDescription": "Asiakirjat, jotka ovat tällä hetkellä tietopohjassa kohteelle <strong> </strong>.",
       "ingestedDocuments": "Syötetyt asiakirjat",
-      "ingestionExampleDescription": "Lähetä POST-pyyntö osoitteeseen <code>{url}</code> JSON‑runko, joka sisältää <code>title</code>, <code>content</code> ja valinnaisen <code>metadata</code>.",
+      "ingestionExampleDescription": "Lähetä POST-pyyntö osoitteeseen <code> </code> JSON‑runko, joka sisältää <code>title</code>, <code>content</code> ja valinnaisen <code>metadata</code>.",
       "ingestionExampleTitle": "Syötteen esimerkki",
       "loadConfigFailed": "RAG‑asetusten lataaminen epäonnistui.",
       "loadContentFailed": "Dokumentin sisällön lataaminen epäonnistui.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Määritetty",
-      "configuredAria": "{name} on määritetty",
+      "configuredAria": "{label} on määritetty",
       "notSet": "Ei asetettu",
-      "notSetAria": "{name} ei ole asetettu"
+      "notSetAria": "{label} ei ole asetettu"
     },
     "testConnection": "Testaa yhteys",
     "testing": "Testataan...",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL kopioitu leikepöydälle.",
     "usage": {
       "allMetrics": "Kaikki mittarit",
-      "description": "Käyttö ja nopeusrajoitukset <strong>{name}</strong>.",
+      "description": "Käyttö ja nopeusrajoitukset <strong> </strong>.",
       "loadFailed": "Käytön lataus epäonnistui.",
       "loading": "Ladataan käyttöä...",
       "metricColumn": "Mittari",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Valinnainen Calendly-linkki, jonka avustaja voi tarjota varaukseen. Käytetään <code>v1</code> kokousluovutuksissa.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly-linkki",
-      "description": "Määritä kvalifioijan <code>v1</code> toiminta kohteelle <strong>{name}</strong>.",
+      "description": "Määritä kvalifioijan <code>v1</code> toiminta kohteelle <strong> </strong>.",
       "frameworkDescription": "Valitse kvalifiointikehys, jota avustaja käyttää signaalien poimimiseen.",
       "frameworkTitle": "Kvalifiointikehys",
       "loadFailed": "V1-asetusten lataaminen epäonnistui.",
@@ -1292,7 +1292,7 @@
       "configured": "Määritetty",
       "currentLabel": "Nykyinen",
       "customPatternsLabel": "Mukautetut mallit (yksi riviä kohti)",
-      "description": "Määritä webhook-toimitus kohteelle <strong>{name}</strong>.",
+      "description": "Määritä webhook-toimitus kohteelle <strong> </strong>.",
       "destinationHint": "Lisent lähettää tapahtumat tähän URL-osoitteeseen allekirjoitetulla sisällöllä.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Kohde-URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimaalinen payload",
       "payloadMode": "Payload-tila",
       "rotateSecret": "Uudista secret",
-      "rotatedAt": "Uudistettu klo {time}",
+      "rotatedAt": "Uudistettu klo",
       "saveEventSelection": "Tallenna tapahtumavalinta",
       "saveUrl": "Tallenna URL",
       "secretRotated": "Signing secret uudistettu.",
@@ -1371,18 +1371,18 @@
       "title": "Määritä valitut liidit"
     },
     "bulkBar": {
-      "ariaSelected": "{count} liidiä valittu",
+      "ariaSelected": "liidiä valittu",
       "assign": "Määritä",
       "clearSelection": "Tyhjennä valinta",
       "delete": "Poista",
       "exportCsv": "Vie CSV",
       "exportPdf": "Vie PDF",
-      "selected": "{count} valittua"
+      "selected": "valittua"
     },
     "bulkDelete": {
       "confirm": "Poista valitut",
       "deleting": "Poistetaan...",
-      "description": "Tämä poistaa pysyvästi {count} liidiä. Tätä toimintoa ei voi peruuttaa.",
+      "description": "Tämä poistaa pysyvästi liidiä. Tätä toimintoa ei voi peruuttaa.",
       "title": "Poistetaanko valitut liidit?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Kaikki vastuuhenkilöt",
       "allSources": "Kaikki Sourceja",
       "byCampaign": "Suodatettu kampanjan mukaan: {name}",
-      "byCampaignCount": "Näytetään {shown}/{total} liidiä",
+      "byCampaignCount": "Näytetään / liidiä",
       "clearCampaign": "Tyhjennä suodatin"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Luotu",
       "email": "Sähköposti",
-      "exportedAt": "{count} liidiä · Vienti {date}",
+      "exportedAt": "liidiä · Vienti",
       "pageOf": "Sivu {current} / {total}",
       "title": "Liidit"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI-qualifiointi käynnistetty.",
-      "bulkAssignPartial": "{assigned} / {total} liidiä osoitettu.",
-      "bulkAssigned": "{count} liidiä osoitettu.",
-      "bulkPartial": "{deleted} / {total} liidiä poistettu.",
+      "bulkAssignPartial": "/ liidiä osoitettu.",
+      "bulkAssigned": "liidiä osoitettu.",
+      "bulkPartial": "/ liidiä poistettu.",
       "bulkRemoved": "{count} liidiä poistettu.",
       "converted": "Liidi muunnettu.",
       "convertedWithDeal": "Liidi muunnettu kaupan kanssa.",
@@ -1599,7 +1599,7 @@
       "assignee": "Vastuuhenkilö",
       "empty": "Ei leadia, jotka täsmäävät nykyisiin suodattimiin.",
       "name": "Nimi",
-      "openAIScore": "Open AI -pisteet kohteelle {name}",
+      "openAIScore": "Open AI -pisteet kohteelle {score}",
       "phone": "Puhelin",
       "rowActions": "Rivin toiminnot",
       "selectAll": "Valitse kaikki leadit",
@@ -1877,7 +1877,7 @@
       "notes": "Lisää tietoja tästä tehtävästä...",
       "title": "Tehtävän otsikko"
     },
-    "publishedBy": "Julkaissut {name}",
+    "publishedBy": "Julkaissut",
     "responseStatus": {
       "accepted": "Hyväksytty",
       "pending": "Odottava",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Yritys",
-      "inProgressDone": "{inProgress} käynnissä · {done} valmiina",
-      "myPending": "{count} odottaa",
-      "openTickets": "{count} avointa"
+      "inProgressDone": "käynnissä · valmiina",
+      "myPending": "odottaa",
+      "openTickets": "avointa"
     },
     "systemUser": "Järjestelmä",
     "teammatesCount": "{count} tiimikaveria",
@@ -1955,14 +1955,14 @@
     "removeMember": "Poista jäsen",
     "removeModal": {
       "confirm": "Poista jäsen",
-      "description": "{name} menettää pääsyn tähän workspaceen heti.",
+      "description": "{company} menettää pääsyn tähän workspaceen heti.",
       "eyebrow": "Poista tiimin jäsen",
       "removing": "Poistetaan…",
       "title": "Poista tiimin jäsen?"
     },
     "roleModal": {
       "confirm": "Vaihda rooli",
-      "description": "Päivitä {name}n rooli tässä workspaceessa.",
+      "description": "Päivitä n rooli tässä workspaceessa.",
       "eyebrow": "Vaihda rooli",
       "title": "Vaihda rooli",
       "to": "rooliin",

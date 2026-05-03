@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Selectie wissen",
       "confirmDelete": "Geselecteerde verwijderen",
-      "deleteDescription": "Dit zal {count} klantrecords permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
+      "deleteDescription": "Dit zal klantrecords permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
       "deleteEyebrow": "Bulkverwijdering",
       "deleteTitle": "Geselecteerde klanten verwijderen?",
       "regionLabel": "Bulkacties",
-      "selectedCount": "{count} geselecteerd"
+      "selectedCount": "geselecteerd"
     },
     "closeAddPopup": "Dialoogvenster klant toevoegen sluiten",
     "confirmDelete": "Verwijderen",
@@ -277,9 +277,9 @@
       "empty": "Er zijn geen klanten die overeenkomen met de huidige filters.",
       "eyebrow": "Klantendirectory",
       "selectAll": "Alle klanten selecteren",
-      "selectRow": "Klant {name} selecteren",
+      "selectRow": "Klant selecteren",
       "title": "Klanten",
-      "visibleCount": "Toont {visible} van {total}"
+      "visibleCount": "Toont {count}"
     },
     "loading": "Klanten laden...",
     "noEmail": "Geen e‑mail beschikbaar",
@@ -293,7 +293,7 @@
       "label": "Zoeken",
       "placeholder": "Zoek klanten…"
     },
-    "selectedCompany": "Actieve workspace: {name}",
+    "selectedCompany": "Actieve workspace:",
     "status": {
       "active": "Actief",
       "all": "Alle",
@@ -303,7 +303,7 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} klanten verwijderd.",
-      "bulkDeletedPartial": "{deleted} van {total} klanten verwijderd.",
+      "bulkDeletedPartial": "van klanten verwijderd.",
       "created": "Klant aangemaakt.",
       "deleted": "Klant verwijderd.",
       "updated": "Klant bijgewerkt."
@@ -323,15 +323,15 @@
       "title": "AI-inzichten"
     },
     "amount": "Bedrag",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Toegewezen aan",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Sleep deals tussen fases om de pipeline bij te werken.",
-    "changedBy": "Gewijzigd door {name}",
+    "changedBy": "Gewijzigd door",
     "close": "Sluiten",
     "closeTarget": "Sluitdoel",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Kolomtotaal: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Kolomtotaal:",
     "commentPlaceholder": "Schrijf een reactie...",
     "comments": "Reacties",
     "commentsCount": "{count} reacties",
@@ -429,7 +429,7 @@
     "posting": "Plaatsen...",
     "relatedRecords": "Gerelateerde records",
     "scheduleActivity": "Activiteit plannen",
-    "selectedCompany": "Actieve workspace: {name}",
+    "selectedCompany": "Actieve workspace:",
     "stage": {
       "lost": "Verloren",
       "lostDescription": "Gesloten verloren deals om van te leren.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Stagegeschiedenis",
     "stageHistoryEmpty": "Nog geen stagewijzigingen geregistreerd.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Reactie toegevoegd.",
       "created": "Deal aangemaakt.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Activiteitsgrafiek van de afgelopen week",
-      "empty": "Nog geen activiteit geregistreerd voor {name}.",
+      "empty": "Nog geen activiteit geregistreerd voor.",
       "emptyDefault": "Nog geen activiteit geregistreerd.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Selecteer een workspace in de switcher om live gegevens te bekijken.",
       "noWorkspaceSelected": "Geen workspace geselecteerd",
       "pickWorkspace": "Selecteer een workspace",
-      "subtitleSelected": "Workspace‑statistieken voor {name}.",
+      "subtitleSelected": "Workspace‑statistieken voor.",
       "subtitleWithName": "Welkom terug, {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leads",
       "leadsHint": "Actieve leads in de pipeline.",
       "openPipelineHint": "Open pipeline-waarde over alle fasen.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Aanpassen",
@@ -508,7 +508,7 @@
       "title": "Overzicht"
     },
     "pipeline": {
-      "empty": "Nog geen pipeline-gegevens voor {name}.",
+      "empty": "Nog geen pipeline-gegevens voor.",
       "emptyDefault": "Nog geen pipeline-gegevens.",
       "stage": {
         "lost": "Verloren",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Verdeling van deals per fase.",
       "title": "Pipeline",
-      "totalBadge": "{value} totaal"
+      "totalBadge": "{count} totaal"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Snelle acties"
     },
     "recentLeads": {
-      "empty": "Geen recente leads in {name}.",
+      "empty": "Geen recente leads in.",
       "emptyDefault": "Nog geen recente leads.",
       "status": {
         "contacted": "Gecontacteerd",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Actieve workspace",
       "eyebrow": "Workspace‑snapshot",
-      "inWorkspace": "in {name}",
+      "inWorkspace": "in",
       "newCount": "{count} nieuw",
       "noWorkspaceHelp": "Selecteer een workspace om live aantallen te zien.",
       "noWorkspaceSelected": "Geen workspace geselecteerd",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Bevestig de mapping en start de import. Klanten worden aangemaakt of bijgewerkt voor de actieve workspace.",
-      "approvalOutcome": "Na goedkeuring worden rijen als klanten ingevoegd in {name}.",
+      "approvalOutcome": "Na goedkeuring worden rijen als klanten ingevoegd in.",
       "approveAndImport": "Goedkeuren & importeren",
       "backToPreview": "Terug naar voorbeeld",
       "confidence": "Betrouwbaarheid",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Terug naar bron",
       "continueToMapping": "Doorgaan naar mapping",
-      "headers": "{count} koppen",
-      "rowsLoaded": "{count} rijen geladen",
-      "rowsShown": "Eerste {count} rijen tonen",
+      "headers": "koppen",
+      "rowsLoaded": "rijen geladen",
+      "rowsShown": "Eerste rijen tonen",
       "unmapped": "Niet toegewezen"
     },
     "progress": {
-      "completedRatio": "{done} van {total} voltooid",
-      "currentRow": "Rij {row}",
-      "description": "Rijen importeren in {name}. U kunt deze pagina verlaten; de import wordt op de achtergrond voortgezet.",
+      "completedRatio": "van voltooid",
+      "currentRow": "Rij",
+      "description": "Rijen importeren in. U kunt deze pagina verlaten; de import wordt op de achtergrond voortgezet.",
       "eyebrow": "Import bezig",
       "preparing": "Import voorbereiden…",
       "title": "Klanten importeren"
@@ -653,7 +653,7 @@
       "mappedFields": "Toegewezen velden",
       "progress": "Voortgang",
       "rowsLoaded": "Rijen geladen",
-      "stepNumber": "Stap {step}",
+      "stepNumber": "Stap {number}",
       "title": "Importvoortgang"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Terug naar overzicht",
-      "companyIdLabel": "Bedrijfs‑id: {id}",
-      "description": "Importeer klantgegevens in {name} vanuit een CSV‑bestand of URL.",
+      "companyIdLabel": "Bedrijfs‑id:",
+      "description": "Importeer klantgegevens in vanuit een CSV‑bestand of URL.",
       "eyebrow": "Workspace‑import",
-      "selectedCompany": "Actieve workspace: {name}",
-      "stepLabel": "Stap {step} van {total}"
+      "selectedCompany": "Actieve workspace:",
+      "stepLabel": "Stap {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Nieuwe API-sleutel maken",
       "createdHeading": "API-sleutel aangemaakt",
       "creating": "Aanmaken…",
-      "description": "Beheer API-sleutels voor <strong>{name}</strong>.",
+      "description": "Beheer API-sleutels voor <strong> </strong>.",
       "empty": "Nog geen API-sleutels.",
       "envLive": "Live",
       "envTest": "Test",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Toegang geweigerd",
       "accessDeniedDescription": "U heeft geen toegang tot integraties voor deze workspace.",
-      "configuringCompany": "Integraties configureren voor <strong>{name}</strong>.",
+      "configuringCompany": "Integraties configureren voor <strong> </strong>.",
       "loadFailed": "Kan integratiecatalogus niet laden.",
       "loading": "Integraties laden…",
       "noAccess": "Geen workspace-toegang",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Terug naar integraties",
       "backToCatalog": "Terug naar catalogus",
-      "configuringCompany": "Instellen <strong>{integration}</strong> voor <strong>{company}</strong>.",
-      "noCompany": "Selecteer een workspace om <strong>{integration}</strong> te configureren.",
+      "configuringCompany": "Instellen <strong> </strong> voor <strong> </strong>.",
+      "noCompany": "Selecteer een workspace om <strong> </strong> te configureren.",
       "restrictedDescription": "U heeft geen toestemming om deze integratie te bekijken.",
       "restrictedTitle": "Beperkt",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Inkomende URL",
       "instanceId": "Instance‑ID",
       "instanceIdPlaceholder": "bijv. 1101000001",
-      "latency": "Vertraging: {ms} ms",
+      "latency": "Vertraging: ms",
       "loadFailed": "Laden van Green API-configuratie mislukt.",
       "loading": "Green API-configuratie laden...",
       "rotateConfirm": "Inkomende webhook-token roteren? Bestaande webhooks moeten worden bijgewerkt.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Webhook-token geroteerd.",
       "updateCredentials": "Inloggegevens bijwerken",
       "updatedLabel": "Bijgewerkt",
-      "upstreamStatus": "Upstream-status: {status}",
+      "upstreamStatus": "Upstream-status:",
       "urlCopied": "URL gekopieerd naar klembord.",
-      "webhookSectionDescription": "Configureer uw Green API‑instantie om inkomende berichten te leveren aan <code>{url}</code>.",
+      "webhookSectionDescription": "Configureer uw Green API‑instantie om inkomende berichten te leveren aan <code> </code>.",
       "webhookSectionTitle": "Inkomende webhook"
     },
     "hide": "Verbergen",
@@ -851,10 +851,10 @@
       "copyUrl": "Kopieer URL",
       "createIntegration": "Maak integratie",
       "createdMessage": "Intranet-integratie aangemaakt.",
-      "credentialsDescription": "Gebruik deze inloggegevens om oproepen naar <code>{url}</code> te authenticeren.",
+      "credentialsDescription": "Gebruik deze inloggegevens om oproepen naar <code> </code> te authenticeren.",
       "credentialsTitle": "Inloggegevens",
       "deliveries": "Leveringen",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Deze intranet-integratie loskoppelen? Inkomende oproepen zullen falen.",
       "disconnectDescription": "Dit zal alle tokens intrekken en stoppen met het accepteren van inkomende verzoeken.",
       "disconnectIntegration": "Integratie verbreken",
@@ -862,7 +862,7 @@
       "entityLabel": "Entiteit",
       "errorLabel": "Fout",
       "eventLabel": "Evenement",
-      "fieldMappingDescription": "Koppel inkomende velden aan CRM-eigenschappen. Verstuur JSON zoals <code>{example}</code>.",
+      "fieldMappingDescription": "Koppel inkomende velden aan CRM-eigenschappen. Verstuur JSON zoals <code> </code>.",
       "fieldMappingLabel": "Veldkoppeling",
       "fieldMappingTitle": "Veldkoppeling",
       "generateHmac": "Genereer HMAC-secret",
@@ -872,7 +872,7 @@
       "hmacSecret": "HMAC-secret",
       "hmacSecretHint": "Gebruik dit secret om <code>X-Lisent-Signature</code> te berekenen bij uitgaande verzoeken.",
       "inactive": "Inactief",
-      "inboundDescription": "Stuur payloads naar <code>{url}</code> om leads van uw intranet te importeren.",
+      "inboundDescription": "Stuur payloads naar <code> </code> om leads van uw intranet te importeren.",
       "inboundToken": "Inkomende URL-token",
       "inboundTokenHint": "Dit token maakt deel uit van de inkomende URL — houd het geheim.",
       "inboundUrl": "Inkomende URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Uitgaande webhook opgeslagen.",
         "secretConfigured": "Geconfigureerd",
         "secretNotSet": "Niet ingesteld — genereer er één voordat u events verzendt.",
-        "secretRotatedAt": "(vernieuwd {time})",
+        "secretRotatedAt": "(vernieuwd )",
         "secretRotatedNotice": "Ondertekeningssecret vernieuwd. De platte tekst wordt slechts één keer getoond.",
         "selectAtLeastOne": "Selecteer minimaal één status, of vink 'Alle statuswijzigingen' aan.",
         "signingSecretLabel": "Ondertekeningssecret (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Koppel Meta lead‑gen velden aan CRM lead‑kolommen. Laat leeg om de standaard te gebruiken (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Veldtoewijzing",
       "finalizeButton": "Voltooi configuratie",
-      "followersCount": "{count} volgers",
+      "followersCount": "volgers",
       "formAllSubscribedHint": "Geen formulieren geselecteerd → alle formulieren op deze pagina worden geabonneerd (Meta-standaard).",
       "formIdsHint": "Komma‑gescheiden. Leeg = ontvang alle formulieren op deze pagina.",
       "formIdsLabel": "Formulier‑ID's",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Zoek formulieren…",
       "formPickerTitle": "Kies lead‑formulieren",
       "forms": "Formulieren",
-      "formsShownCount": "{shown} van {total}",
+      "formsShownCount": "van",
       "hmacSecretHint": "Sla dit nu op — we zullen de platte tekst niet opnieuw tonen.",
       "hmacSecretLabel": "HMAC‑secret",
       "hmacSecretReveal": "Eenmalig tonen",
       "inboundUrlHint": "n8n post hier na het ophalen van de volledige lead van Meta. U hoeft dit nergens te plakken.",
       "inboundUrlLabel": "CRM inbound‑URL (gebruikt door n8n)",
       "last7dCount": "{count} in 7d",
-      "lastLeadAgo": "Laatste lead {when}",
+      "lastLeadAgo": "Laatste lead",
       "leads7d": "{count} leads in 7d",
       "loadFailed": "Laden van Meta-integratie mislukt.",
       "metaFieldHeader": "Meta‑veld",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Geen pagina's gevonden",
       "pagePickerSearch": "Zoek pagina's…",
       "pagePickerTitle": "Kies een Facebook-pagina",
-      "pagesShownCount": "{shown} van {total}",
+      "pagesShownCount": "van",
       "paused": "Gepauzeerd",
       "popupBlocked": "Browser blokkeerde de OAuth‑popup. Sta pop-ups toe voor deze site en probeer het opnieuw.",
       "recentDeliveriesEmpty": "Nog geen leveringen.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Concept",
       "statusPaused": "Gepauzeerd",
       "statusUnknown": "Onbekend",
-      "subscribedAt": "Geabonneerd {when}",
+      "subscribedAt": "Geabonneerd",
       "testLeadButton": "Testlead verzenden",
       "testLeadDescription": "Stelt een Meta‑vormige payload samen en voert deze via hetzelfde insert‑pad als productie uit. Alleen beschikbaar wanneer mock‑modus is ingeschakeld.",
       "testLeadFailed": "Aanmaken testlead mislukt.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Fragment",
       "chunksColumn": "Fragmenten",
-      "description": "Kennisbank voor <strong>{name}</strong>. Upload documenten die de AI kan raadplegen.",
-      "ingestedDescription": "Documenten momenteel in de kennisbank voor <strong>{name}</strong>.",
+      "description": "Kennisbank voor <strong> </strong>. Upload documenten die de AI kan raadplegen.",
+      "ingestedDescription": "Documenten momenteel in de kennisbank voor <strong> </strong>.",
       "ingestedDocuments": "Geïmporteerde documenten",
-      "ingestionExampleDescription": "POST naar <code>{url}</code> met een JSON-body met <code>title</code>, <code>content</code> en optionele <code>metadata</code>.",
+      "ingestionExampleDescription": "POST naar <code> </code> met een JSON-body met <code>title</code>, <code>content</code> en optionele <code>metadata</code>.",
       "ingestionExampleTitle": "Voorbeeld van ingestie",
       "loadConfigFailed": "Kan RAG-configuratie niet laden.",
       "loadContentFailed": "Kan documentinhoud niet laden.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Geconfigureerd",
-      "configuredAria": "{name} is geconfigureerd",
+      "configuredAria": "{label} is geconfigureerd",
       "notSet": "Niet ingesteld",
-      "notSetAria": "{name} is niet ingesteld"
+      "notSetAria": "{label} is niet ingesteld"
     },
     "testConnection": "Verbinding testen",
     "testing": "Bezig met testen…",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL gekopieerd naar klembord.",
     "usage": {
       "allMetrics": "Alle statistieken",
-      "description": "Gebruik en limieten voor <strong>{name}</strong>.",
+      "description": "Gebruik en limieten voor <strong> </strong>.",
       "loadFailed": "Kan gebruik niet laden.",
       "loading": "Gebruik wordt geladen…",
       "metricColumn": "Statistiek",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Optionele Calendly-link die de assistent kan aanbieden voor het boeken. Wordt gebruikt door <code>v1</code> meeting‑overdrachten.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly-link",
-      "description": "Configureer het gedrag van qualifier <code>v1</code> voor <strong>{name}</strong>.",
+      "description": "Configureer het gedrag van qualifier <code>v1</code> voor <strong> </strong>.",
       "frameworkDescription": "Kies het kwalificatiekader dat de assistent gebruikt om signalen te extraheren.",
       "frameworkTitle": "Kwalificatiekader",
       "loadFailed": "Kan v1-configuratie niet laden.",
@@ -1292,7 +1292,7 @@
       "configured": "Geconfigureerd",
       "currentLabel": "Huidig",
       "customPatternsLabel": "Aangepaste patronen (één per regel)",
-      "description": "Configureer webhooklevering voor <strong>{name}</strong>.",
+      "description": "Configureer webhooklevering voor <strong> </strong>.",
       "destinationHint": "Lisent plaatst gebeurtenissen op deze URL met een ondertekende payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Doel-URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimale payload",
       "payloadMode": "Payload-modus",
       "rotateSecret": "Secret roteren",
-      "rotatedAt": "Geroteerd op {time}",
+      "rotatedAt": "Geroteerd op",
       "saveEventSelection": "Eventselectie opslaan",
       "saveUrl": "URL opslaan",
       "secretRotated": "Signing secret geroteerd.",
@@ -1371,18 +1371,18 @@
       "title": "Geselecteerde leads toewijzen"
     },
     "bulkBar": {
-      "ariaSelected": "{count} leads geselecteerd",
+      "ariaSelected": "leads geselecteerd",
       "assign": "Toewijzen",
       "clearSelection": "Selectie wissen",
       "delete": "Verwijderen",
       "exportCsv": "CSV exporteren",
       "exportPdf": "PDF exporteren",
-      "selected": "{count} geselecteerd"
+      "selected": "geselecteerd"
     },
     "bulkDelete": {
       "confirm": "Verwijder geselecteerde",
       "deleting": "Verwijderen…",
-      "description": "Dit zal {count} leads permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
+      "description": "Dit zal leads permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
       "title": "Geselecteerde leads verwijderen?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Alle toegewezen personen",
       "allSources": "Alle bronnen",
       "byCampaign": "Gefilterd op campagne: {name}",
-      "byCampaignCount": "{shown} van {total} leads",
+      "byCampaignCount": "van leads",
       "clearCampaign": "Filter wissen"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Aangemaakt",
       "email": "E‑mail",
-      "exportedAt": "{count} leads · Geëxporteerd op {date}",
+      "exportedAt": "leads · Geëxporteerd op",
       "pageOf": "Pagina {current} van {total}",
       "title": "Leads"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI-kwalificatie gestart.",
-      "bulkAssignPartial": "{assigned} van {total} leads toegewezen.",
-      "bulkAssigned": "{count} leads toegewezen.",
-      "bulkPartial": "{deleted} van {total} leads verwijderd.",
+      "bulkAssignPartial": "van leads toegewezen.",
+      "bulkAssigned": "leads toegewezen.",
+      "bulkPartial": "van leads verwijderd.",
       "bulkRemoved": "{count} leads verwijderd.",
       "converted": "Lead geconverteerd.",
       "convertedWithDeal": "Lead geconverteerd met deal.",
@@ -1599,7 +1599,7 @@
       "assignee": "Toegewezene",
       "empty": "Geen leads komen overeen met de huidige filters.",
       "name": "Naam",
-      "openAIScore": "Open AI-score voor {name}",
+      "openAIScore": "Open AI-score voor {score}",
       "phone": "Telefoon",
       "rowActions": "Rijacties",
       "selectAll": "Selecteer alle leads",
@@ -1877,7 +1877,7 @@
       "notes": "Voeg details toe over deze taak...",
       "title": "Taaktitel"
     },
-    "publishedBy": "Gepubliceerd door {name}",
+    "publishedBy": "Gepubliceerd door",
     "responseStatus": {
       "accepted": "Geaccepteerd",
       "pending": "In behandeling",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Bedrijf",
-      "inProgressDone": "{inProgress} bezig · {done} voltooid",
-      "myPending": "{count} in behandeling",
-      "openTickets": "{count} open"
+      "inProgressDone": "bezig · voltooid",
+      "myPending": "in behandeling",
+      "openTickets": "open"
     },
     "systemUser": "Systeem",
     "teammatesCount": "{count} teamleden",
@@ -1955,14 +1955,14 @@
     "removeMember": "Lid verwijderen",
     "removeModal": {
       "confirm": "Lid verwijderen",
-      "description": "{name} verliest onmiddellijk toegang tot deze workspace.",
+      "description": "{company} verliest onmiddellijk toegang tot deze workspace.",
       "eyebrow": "Teamlid verwijderen",
       "removing": "Bezig met verwijderen…",
       "title": "Teamlid verwijderen?"
     },
     "roleModal": {
       "confirm": "Rol wijzigen",
-      "description": "Werk de rol van {name} bij in deze workspace.",
+      "description": "Werk de rol van bij in deze workspace.",
       "eyebrow": "Rol wijzigen",
       "title": "Rol wijzigen",
       "to": "Naar",

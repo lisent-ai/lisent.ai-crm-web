@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Rensa urval",
       "confirmDelete": "Ta bort markerade",
-      "deleteDescription": "Det här kommer att permanent radera {count} kundposter. Åtgärden kan inte ångras.",
+      "deleteDescription": "Det här kommer att permanent radera kundposter. Åtgärden kan inte ångras.",
       "deleteEyebrow": "Massradering",
       "deleteTitle": "Radera valda kunder?",
       "regionLabel": "Massåtgärder",
-      "selectedCount": "{count} valda"
+      "selectedCount": "valda"
     },
     "closeAddPopup": "Stäng lägg till kund‑dialogen",
     "confirmDelete": "Radera",
@@ -277,9 +277,9 @@
       "empty": "Inga kunder matchar de aktuella filtren.",
       "eyebrow": "Kundkatalog",
       "selectAll": "Markera alla kunder",
-      "selectRow": "Markera kund {name}",
+      "selectRow": "Markera kund",
       "title": "Kunder",
-      "visibleCount": "Visar {visible} av {total}"
+      "visibleCount": "Visar {count}"
     },
     "loading": "Laddar in kunder...",
     "noEmail": "Ingen e‑postadress på filen",
@@ -293,7 +293,7 @@
       "label": "Sök",
       "placeholder": "Sök kunder..."
     },
-    "selectedCompany": "Aktiv arbetsplats: {name}",
+    "selectedCompany": "Aktiv arbetsplats:",
     "status": {
       "active": "Aktiv",
       "all": "Alla",
@@ -303,7 +303,7 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} kunder raderade.",
-      "bulkDeletedPartial": "{deleted} av {total} kunder raderade.",
+      "bulkDeletedPartial": "av kunder raderade.",
       "created": "Kund skapad.",
       "deleted": "Kund raderad.",
       "updated": "Kund uppdaterad."
@@ -323,15 +323,15 @@
       "title": "AI‑insikter"
     },
     "amount": "Belopp",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Ansvarig",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Dra affärer mellan steg för att uppdatera pipeline.",
-    "changedBy": "Ändrad av {name}",
+    "changedBy": "Ändrad av",
     "close": "Stäng",
     "closeTarget": "Stäng mål",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Kolumntotal: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Kolumntotal:",
     "commentPlaceholder": "Skriv en kommentar...",
     "comments": "Kommentarer",
     "commentsCount": "{count} kommentarer",
@@ -429,7 +429,7 @@
     "posting": "Publicerar...",
     "relatedRecords": "Relaterade poster",
     "scheduleActivity": "Schemalägg aktivitet",
-    "selectedCompany": "Aktivt workspace: {name}",
+    "selectedCompany": "Aktivt workspace:",
     "stage": {
       "lost": "Förlorad",
       "lostDescription": "Stängda förlorade deals att lära av.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Stage-historik",
     "stageHistoryEmpty": "Inga stage-ändringar har registrerats ännu.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Kommentar tillagd.",
       "created": "Deal skapad.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Aktivitetsdiagram för den senaste veckan",
-      "empty": "Ingen aktivitet har registrerats ännu för {name}.",
+      "empty": "Ingen aktivitet har registrerats ännu för.",
       "emptyDefault": "Ingen aktivitet har registrerats ännu.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Välj ett workspace i växlaren för att se live‑data",
       "noWorkspaceSelected": "Inget workspace valt",
       "pickWorkspace": "Välj ett workspace",
-      "subtitleSelected": "Workspace‑statistik för {name}",
+      "subtitleSelected": "Workspace‑statistik för",
       "subtitleWithName": "Välkommen tillbaka, {name}"
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leads",
       "leadsHint": "Aktiva leads i pipeline.",
       "openPipelineHint": "Öppet pipelinevärde över alla steg.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Anpassa",
@@ -508,7 +508,7 @@
       "title": "Översikt"
     },
     "pipeline": {
-      "empty": "Ingen pipeline-data ännu för {name}.",
+      "empty": "Ingen pipeline-data ännu för.",
       "emptyDefault": "Ingen pipeline-data ännu.",
       "stage": {
         "lost": "Förlorad",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Fördelning av deals per steg.",
       "title": "Pipeline",
-      "totalBadge": "{value} totalt"
+      "totalBadge": "{count} totalt"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Snabbåtgärder"
     },
     "recentLeads": {
-      "empty": "Inga senaste leads i {name}.",
+      "empty": "Inga senaste leads i.",
       "emptyDefault": "Inga senaste leads ännu.",
       "status": {
         "contacted": "Kontaktad",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Aktivt arbetsområde",
       "eyebrow": "Översikt av arbetsområde",
-      "inWorkspace": "i {name}",
+      "inWorkspace": "i",
       "newCount": "{count} nya",
       "noWorkspaceHelp": "Välj en workspace för att se live‑antal.",
       "noWorkspaceSelected": "Ingen workspace vald",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Bekräfta mappningen och kör importen. Kunder kommer att skapas eller uppdateras för den aktiva workspace.",
-      "approvalOutcome": "Efter godkännande infogas rader som kunder i {name}.",
+      "approvalOutcome": "Efter godkännande infogas rader som kunder i.",
       "approveAndImport": "Godkänn och importera",
       "backToPreview": "Tillbaka till förhandsgranskning",
       "confidence": "Säkerhet",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Tillbaka till källa",
       "continueToMapping": "Fortsätt till mappning",
-      "headers": "{count} rubriker",
-      "rowsLoaded": "{count} rader laddade",
-      "rowsShown": "Visar de första {count} raderna",
+      "headers": "rubriker",
+      "rowsLoaded": "rader laddade",
+      "rowsShown": "Visar de första raderna",
       "unmapped": "Ej mappad"
     },
     "progress": {
-      "completedRatio": "{done} av {total} slutförda",
-      "currentRow": "Rad {row}",
-      "description": "Importerar rader till {name}. Ni kan lämna sidan; importen fortsätter i bakgrunden.",
+      "completedRatio": "av slutförda",
+      "currentRow": "Rad",
+      "description": "Importerar rader till. Ni kan lämna sidan; importen fortsätter i bakgrunden.",
       "eyebrow": "Import pågår",
       "preparing": "Förbereder import…",
       "title": "Importerar kunder"
@@ -653,7 +653,7 @@
       "mappedFields": "Mappade fält",
       "progress": "Framsteg",
       "rowsLoaded": "Rader laddade",
-      "stepNumber": "Steg {step}",
+      "stepNumber": "Steg {number}",
       "title": "Importförlopp"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Tillbaka till översikt",
-      "companyIdLabel": "Företags‑id: {id}",
-      "description": "Importera kunddata till {name} från en CSV-fil eller URL.",
+      "companyIdLabel": "Företags‑id:",
+      "description": "Importera kunddata till från en CSV-fil eller URL.",
       "eyebrow": "Workspace‑import",
-      "selectedCompany": "Aktivt workspace: {name}",
-      "stepLabel": "Steg {step} av {total}"
+      "selectedCompany": "Aktivt workspace:",
+      "stepLabel": "Steg {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Skapa ny API‑nyckel",
       "createdHeading": "API‑nyckel skapad",
       "creating": "Skapar...",
-      "description": "Hantera API‑nycklar för <strong>{name}</strong>.",
+      "description": "Hantera API‑nycklar för <strong> </strong>.",
       "empty": "Inga API‑nycklar ännu.",
       "envLive": "Live",
       "envTest": "Test",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Åtkomst nekad",
       "accessDeniedDescription": "Ni har inte åtkomst till integrationer för denna arbetsyta.",
-      "configuringCompany": "Konfigurerar integrationer för <strong>{name}</strong>.",
+      "configuringCompany": "Konfigurerar integrationer för <strong> </strong>.",
       "loadFailed": "Det gick inte att läsa in integrationskatalogen.",
       "loading": "Läser in integrationer…",
       "noAccess": "Ingen åtkomst till arbetsyta",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Tillbaka till integrationer",
       "backToCatalog": "Tillbaka till katalog",
-      "configuringCompany": "Konfigurerar <strong>{integration}</strong> för <strong>{company}</strong>.",
-      "noCompany": "Välj en arbetsyta för att konfigurera <strong>{integration}</strong>.",
+      "configuringCompany": "Konfigurerar <strong> </strong> för <strong> </strong>.",
+      "noCompany": "Välj en arbetsyta för att konfigurera <strong> </strong>.",
       "restrictedDescription": "Ni har inte behörighet att visa denna integration.",
       "restrictedTitle": "Begränsad",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Inkommande URL",
       "instanceId": "Instans‑ID",
       "instanceIdPlaceholder": "e.g. 1101000001",
-      "latency": "Latens: {ms} ms",
+      "latency": "Latens: ms",
       "loadFailed": "Kunde inte läsa in Green API‑konfiguration.",
       "loading": "Läser in Green API‑konfiguration…",
       "rotateConfirm": "Rotera den inkommande webhook‑token? Befintliga webhooks måste uppdateras.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Webhook‑token har roterats.",
       "updateCredentials": "Uppdatera autentiseringsuppgifter",
       "updatedLabel": "Uppdaterad",
-      "upstreamStatus": "Upstream‑status: {status}",
+      "upstreamStatus": "Upstream‑status:",
       "urlCopied": "URL kopierad till urklipp.",
-      "webhookSectionDescription": "Konfigurera ditt Green API‑instans för att leverera inkommande meddelanden till <code>{url}</code>.",
+      "webhookSectionDescription": "Konfigurera ditt Green API‑instans för att leverera inkommande meddelanden till <code> </code>.",
       "webhookSectionTitle": "Inkommande webhook"
     },
     "hide": "Dölj",
@@ -851,10 +851,10 @@
       "copyUrl": "Kopiera URL",
       "createIntegration": "Skapa integration",
       "createdMessage": "Intranettintegration skapad.",
-      "credentialsDescription": "Använd dessa referenser för att autentisera anrop till <code>{url}</code>.",
+      "credentialsDescription": "Använd dessa referenser för att autentisera anrop till <code> </code>.",
       "credentialsTitle": "Referenser",
       "deliveries": "Leveranser",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Koppla bort denna intranätintegration? Inkommande anrop kommer att börja misslyckas.",
       "disconnectDescription": "Detta återkallar alla token och stoppar mottagandet av inkommande förfrågningar.",
       "disconnectIntegration": "Koppla från integration",
@@ -862,7 +862,7 @@
       "entityLabel": "Entitet",
       "errorLabel": "Fel",
       "eventLabel": "Händelse",
-      "fieldMappingDescription": "Koppla inkommande fält till CRM-egenskaper. Skicka JSON som <code>{example}</code>.",
+      "fieldMappingDescription": "Koppla inkommande fält till CRM-egenskaper. Skicka JSON som <code> </code>.",
       "fieldMappingLabel": "Fältmappning",
       "fieldMappingTitle": "Fältmappning",
       "generateHmac": "Generera HMAC‑hemlighet",
@@ -872,7 +872,7 @@
       "hmacSecret": "HMAC‑hemlighet",
       "hmacSecretHint": "Använd denna hemlighet för att beräkna <code>X-Lisent-Signature</code> i utgående förfrågningar.",
       "inactive": "Inaktiv",
-      "inboundDescription": "Skicka nyttolast till <code>{url}</code> för att importera leads från ert intranet.",
+      "inboundDescription": "Skicka nyttolast till <code> </code> för att importera leads från ert intranet.",
       "inboundToken": "Inkommande URL‑token",
       "inboundTokenHint": "Denna token är en del av den inkommande URL:en — håll den hemlig.",
       "inboundUrl": "Inkommande URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Utgående webhook sparad.",
         "secretConfigured": "Konfigurerad",
         "secretNotSet": "Inte angivet — skapa en innan ni skickar händelser.",
-        "secretRotatedAt": "(roterad {time})",
+        "secretRotatedAt": "(roterad )",
         "secretRotatedNotice": "Signeringshemlighet roterad. Klartext visas bara en gång.",
         "selectAtLeastOne": "Välj minst en status, eller markera 'Alla statusändringar'.",
         "signingSecretLabel": "Signeringshemlighet (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Mappa Meta lead‑genereringsfält till CRM‑lead‑kolumner. Lämna tomt för att använda standard (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Fältmappning",
       "finalizeButton": "Slutför konfigurationen",
-      "followersCount": "{count} följare",
+      "followersCount": "följare",
       "formAllSubscribedHint": "Inga formulär valda → alla formulär på den här sidan kommer att prenumereras (Meta‑standard).",
       "formIdsHint": "Kommaseparerade. Tomt = ta emot alla formulär på sidan.",
       "formIdsLabel": "Formulär‑ID",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Sök formulär…",
       "formPickerTitle": "Välj lead‑formulär",
       "forms": "Formulär",
-      "formsShownCount": "{shown} av {total}",
+      "formsShownCount": "av",
       "hmacSecretHint": "Spara detta nu — vi visar inte klartexten igen.",
       "hmacSecretLabel": "HMAC‑secret",
       "hmacSecretReveal": "Visa en gång",
       "inboundUrlHint": "n8n postar hit efter att ha hämtat hela leadet från Meta. Du behöver inte klistra in detta någonstans.",
       "inboundUrlLabel": "CRM inbound‑URL (används av n8n)",
       "last7dCount": "{count} på 7 d",
-      "lastLeadAgo": "Senaste lead {when}",
+      "lastLeadAgo": "Senaste lead",
       "leads7d": "{count} Lead på 7 d",
       "loadFailed": "Det gick inte att läsa in Meta-integration.",
       "metaFieldHeader": "Meta‑fält",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Inga sidor hittades",
       "pagePickerSearch": "Sök sidor…",
       "pagePickerTitle": "Välj en Facebook‑sida",
-      "pagesShownCount": "{shown} av {total}",
+      "pagesShownCount": "av",
       "paused": "Pausad",
       "popupBlocked": "Webbläsaren blockerade OAuth‑popup‑fönstret. Tillåt popup‑fönster för den här webbplatsen och försök igen.",
       "recentDeliveriesEmpty": "Inga leveranser ännu.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Utkast",
       "statusPaused": "Pausad",
       "statusUnknown": "Okänd",
-      "subscribedAt": "Prenumererad {when}",
+      "subscribedAt": "Prenumererad",
       "testLeadButton": "Skicka testlead",
       "testLeadDescription": "Skapar en Meta‑formad payload och kör den genom samma insättningsväg som i produktion. Endast tillgänglig när mock‑läge är på.",
       "testLeadFailed": "Det gick inte att skapa testlead.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Del",
       "chunksColumn": "Delar",
-      "description": "Kunskapsbas för <strong>{name}</strong>. Ladda upp dokument som AI:n kan referera till.",
-      "ingestedDescription": "Dokument som för närvarande finns i kunskapsbasen för <strong>{name}</strong>.",
+      "description": "Kunskapsbas för <strong> </strong>. Ladda upp dokument som AI:n kan referera till.",
+      "ingestedDescription": "Dokument som för närvarande finns i kunskapsbasen för <strong> </strong>.",
       "ingestedDocuments": "Inlagda dokument",
-      "ingestionExampleDescription": "Skicka en POST‑begäran till <code>{url}</code> med en JSON‑kropp som innehåller <code>title</code>, <code>content</code> och valfri <code>metadata</code>.",
+      "ingestionExampleDescription": "Skicka en POST‑begäran till <code> </code> med en JSON‑kropp som innehåller <code>title</code>, <code>content</code> och valfri <code>metadata</code>.",
       "ingestionExampleTitle": "Exempel på inlagring",
       "loadConfigFailed": "Det gick inte att läsa in RAG‑konfigurationen.",
       "loadContentFailed": "Det gick inte att läsa in dokumentinnehållet.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Konfigurerad",
-      "configuredAria": "{name} är konfigurerad",
+      "configuredAria": "{label} är konfigurerad",
       "notSet": "Ej angivet",
-      "notSetAria": "{name} är inte angivet"
+      "notSetAria": "{label} är inte angivet"
     },
     "testConnection": "Testa anslutning",
     "testing": "Testar…",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL kopierad till urklipp.",
     "usage": {
       "allMetrics": "Alla mätvärden",
-      "description": "Användning och hastighetsgränser för <strong>{name}</strong>.",
+      "description": "Användning och hastighetsgränser för <strong> </strong>.",
       "loadFailed": "Det gick inte att läsa in användning.",
       "loading": "Läser in användning...",
       "metricColumn": "Mätvärde",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Valfri Calendly‑länk som assistenten kan erbjuda för bokning. Används av <code>v1</code> mötesöverlämningar.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly‑länk",
-      "description": "Konfigurera kvalificeraren <code>v1</code> beteende för <strong>{name}</strong>.",
+      "description": "Konfigurera kvalificeraren <code>v1</code> beteende för <strong> </strong>.",
       "frameworkDescription": "Välj kvalificeringsramverket som assistenten använder för att extrahera signaler.",
       "frameworkTitle": "Kvalificeringsramverk",
       "loadFailed": "Det gick inte att läsa in v1‑konfigurationen.",
@@ -1292,7 +1292,7 @@
       "configured": "Konfigurerad",
       "currentLabel": "Aktuell",
       "customPatternsLabel": "Anpassade mönster (en per rad)",
-      "description": "Konfigurera webhook-leverans för <strong>{name}</strong>.",
+      "description": "Konfigurera webhook-leverans för <strong> </strong>.",
       "destinationHint": "Lisent skickar händelser till den här URL:en med en signerad payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Destination URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimal payload",
       "payloadMode": "Payload‑läge",
       "rotateSecret": "Rotera hemlighet",
-      "rotatedAt": "Roterat {time}",
+      "rotatedAt": "Roterat",
       "saveEventSelection": "Spara händelseval",
       "saveUrl": "Spara URL",
       "secretRotated": "Signing secret roterad.",
@@ -1371,18 +1371,18 @@
       "title": "Tilldela markerade leads"
     },
     "bulkBar": {
-      "ariaSelected": "{count} leads markerade",
+      "ariaSelected": "leads markerade",
       "assign": "Tilldela",
       "clearSelection": "Rensa urval",
       "delete": "Ta bort",
       "exportCsv": "Exportera CSV",
       "exportPdf": "Exportera PDF",
-      "selected": "{count} valda"
+      "selected": "valda"
     },
     "bulkDelete": {
       "confirm": "Ta bort valda",
       "deleting": "Tar bort...",
-      "description": "Det här kommer att permanent radera {count} leads. Åtgärden kan inte ångras.",
+      "description": "Det här kommer att permanent radera leads. Åtgärden kan inte ångras.",
       "title": "Radera valda leads?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Alla tilldelade",
       "allSources": "Alla källor",
       "byCampaign": "Filtrerat efter kampanj: {name}",
-      "byCampaignCount": "{shown} av {total} leads",
+      "byCampaignCount": "av leads",
       "clearCampaign": "Rensa filter"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Skapad",
       "email": "E‑post",
-      "exportedAt": "{count} leads · Exporterat {date}",
+      "exportedAt": "leads · Exporterat",
       "pageOf": "Sida {current} av {total}",
       "title": "Leads"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI‑kvalificering startad.",
-      "bulkAssignPartial": "{assigned} av {total} leads tilldelade.",
-      "bulkAssigned": "{count} leads tilldelade.",
-      "bulkPartial": "{deleted} av {total} leads borttagna.",
+      "bulkAssignPartial": "av leads tilldelade.",
+      "bulkAssigned": "leads tilldelade.",
+      "bulkPartial": "av leads borttagna.",
       "bulkRemoved": "{count} leads borttagna.",
       "converted": "Lead konverterad.",
       "convertedWithDeal": "Lead konverterad med deal.",
@@ -1599,7 +1599,7 @@
       "assignee": "Tilldelad",
       "empty": "Inga leads matchar de aktuella filtren.",
       "name": "Namn",
-      "openAIScore": "Open AI‑poäng för {name}",
+      "openAIScore": "Open AI‑poäng för {score}",
       "phone": "Telefon",
       "rowActions": "Radåtgärder",
       "selectAll": "Markera alla leads",
@@ -1877,7 +1877,7 @@
       "notes": "Lägg till detaljer om denna uppgift…",
       "title": "Uppgiftstitel"
     },
-    "publishedBy": "Publicerad av {name}",
+    "publishedBy": "Publicerad av",
     "responseStatus": {
       "accepted": "Accepterad",
       "pending": "Väntande",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Företag",
-      "inProgressDone": "{inProgress} pågående · {done} slutförda",
-      "myPending": "{count} väntande",
-      "openTickets": "{count} öppna"
+      "inProgressDone": "pågående · slutförda",
+      "myPending": "väntande",
+      "openTickets": "öppna"
     },
     "systemUser": "System",
     "teammatesCount": "{count} medarbetare",
@@ -1955,14 +1955,14 @@
     "removeMember": "Ta bort medlem",
     "removeModal": {
       "confirm": "Ta bort medlem",
-      "description": "{name} förlorar omedelbart åtkomsten till detta arbetsområde.",
+      "description": "{company} förlorar omedelbart åtkomsten till detta arbetsområde.",
       "eyebrow": "Ta bort teammedlem",
       "removing": "Tar bort…",
       "title": "Ta bort teammedlem?"
     },
     "roleModal": {
       "confirm": "Ändra roll",
-      "description": "Uppdatera {name}s roll i detta arbetsområde.",
+      "description": "Uppdatera s roll i detta arbetsområde.",
       "eyebrow": "Ändra roll",
       "title": "Ändra roll",
       "to": "Till",

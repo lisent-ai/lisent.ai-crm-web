@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "مسح الاختيار",
       "confirmDelete": "حذف المحدد",
-      "deleteDescription": "سيؤدي هذا إلى حذف {count} سجل عميل بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
+      "deleteDescription": "سيؤدي هذا إلى حذف سجل عميل بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
       "deleteEyebrow": "حذف جماعي",
       "deleteTitle": "حذف العملاء المحددين؟",
       "regionLabel": "إجراءات جماعية",
-      "selectedCount": "{count} محدد"
+      "selectedCount": "محدد"
     },
     "closeAddPopup": "إغلاق نافذة إضافة عميل",
     "confirmDelete": "حذف",
@@ -277,9 +277,9 @@
       "empty": "لا توجد عملاء يطابقون الفلاتر الحالية.",
       "eyebrow": "دليل العملاء",
       "selectAll": "تحديد جميع العملاء",
-      "selectRow": "تحديد العميل {name}",
+      "selectRow": "تحديد العميل",
       "title": "العملاء",
-      "visibleCount": "عرض {visible} من {total}"
+      "visibleCount": "عرض {count}"
     },
     "loading": "جارٍ تحميل العملاء...",
     "noEmail": "لا يوجد بريد إلكتروني مسجل",
@@ -293,7 +293,7 @@
       "label": "بحث",
       "placeholder": "بحث عن العملاء..."
     },
-    "selectedCompany": "مساحة العمل النشطة: {name}",
+    "selectedCompany": "مساحة العمل النشطة:",
     "status": {
       "active": "نشط",
       "all": "الكل",
@@ -303,7 +303,7 @@
     "statusFilter": "مرشح الحالة",
     "success": {
       "bulkDeleted": "تم حذف {count} عميل.",
-      "bulkDeletedPartial": "تم حذف {deleted} من أصل {total} عميل.",
+      "bulkDeletedPartial": "تم حذف من أصل عميل.",
       "created": "تم إنشاء العميل.",
       "deleted": "تم حذف العميل.",
       "updated": "تم تحديث العميل."
@@ -323,15 +323,15 @@
       "title": "رؤى AI"
     },
     "amount": "المبلغ",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "المكلف",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "اسحب الصفقات بين المراحل لتحديث الـ Pipeline.",
-    "changedBy": "تم التعديل بواسطة {name}",
+    "changedBy": "تم التعديل بواسطة",
     "close": "إغلاق",
     "closeTarget": "هدف الإغلاق",
-    "closeTargetValue": "{date}",
-    "columnTotal": "إجمالي العمود: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "إجمالي العمود:",
     "commentPlaceholder": "اكتب تعليقًا...",
     "comments": "التعليقات",
     "commentsCount": "{count} تعليقات",
@@ -429,7 +429,7 @@
     "posting": "النشر...",
     "relatedRecords": "السجلات المرتبطة",
     "scheduleActivity": "جدولة النشاط",
-    "selectedCompany": "Workspace النشط: {name}",
+    "selectedCompany": "Workspace النشط:",
     "stage": {
       "lost": "خسارة",
       "lostDescription": "الصفقات المغلقة كخسارة للتعلم منها.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "سجل المراحل",
     "stageHistoryEmpty": "لم يتم تسجيل أي تغيّر في المراحل بعد.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "تم إضافة التعليق.",
       "created": "تم إنشاء الصفقة.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "مخطط النشاط للأسبوع الماضي",
-      "empty": "لم يتم تسجيل أي نشاط بعد لـ {name}.",
+      "empty": "لم يتم تسجيل أي نشاط بعد لـ.",
       "emptyDefault": "لم يتم تسجيل أي نشاط بعد.",
       "legendDeals": "الصفقات",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "اختر Workspace من المُبدّل لعرض البيانات الحية.",
       "noWorkspaceSelected": "لم يتم اختيار Workspace",
       "pickWorkspace": "اختر Workspace",
-      "subtitleSelected": "مقاييس Workspace لـ {name}.",
+      "subtitleSelected": "مقاييس Workspace لـ.",
       "subtitleWithName": "مرحبًا بعودتك، {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leads",
       "leadsHint": "Leads النشطة في الـ Pipeline.",
       "openPipelineHint": "قيمة Open pipeline عبر جميع المراحل.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "تخصيص",
@@ -508,7 +508,7 @@
       "title": "نظرة عامة"
     },
     "pipeline": {
-      "empty": "لا توجد بيانات pipeline بعد لـ {name}.",
+      "empty": "لا توجد بيانات pipeline بعد لـ.",
       "emptyDefault": "لا توجد بيانات pipeline بعد.",
       "stage": {
         "lost": "خاسر",
@@ -520,7 +520,7 @@
       },
       "subtitle": "توزيع الـ Deal حسب المرحلة.",
       "title": "Pipeline",
-      "totalBadge": "{value} إجمالي"
+      "totalBadge": "{count} إجمالي"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "إجراءات سريعة"
     },
     "recentLeads": {
-      "empty": "لا توجد أي Leads حديثة في {name}.",
+      "empty": "لا توجد أي Leads حديثة في.",
       "emptyDefault": "لا توجد Leads حديثة بعد.",
       "status": {
         "contacted": "تم التواصل",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "workspace النشط",
       "eyebrow": "لقطة workspace",
-      "inWorkspace": "في {name}",
+      "inWorkspace": "في",
       "newCount": "{count} جديد",
       "noWorkspaceHelp": "اختر مساحة عمل لرؤية الأعداد الحية.",
       "noWorkspaceSelected": "لم يتم اختيار مساحة عمل",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "أكد الربط وشغّل الاستيراد. سيتم إنشاء العملاء أو تحديثهم في مساحة العمل النشطة.",
-      "approvalOutcome": "بعد الموافقة، تُدرج الصفوف كعملاء في {name}.",
+      "approvalOutcome": "بعد الموافقة، تُدرج الصفوف كعملاء في.",
       "approveAndImport": "اعتماد & استيراد",
       "backToPreview": "العودة إلى المعاينة",
       "confidence": "الثقة",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "العودة إلى المصدر",
       "continueToMapping": "متابعة إلى التعيين",
-      "headers": "{count} رؤوس",
-      "rowsLoaded": "{count} صفوف تم تحميلها",
-      "rowsShown": "عرض أول {count} صفوف",
+      "headers": "رؤوس",
+      "rowsLoaded": "صفوف تم تحميلها",
+      "rowsShown": "عرض أول صفوف",
       "unmapped": "غير معين"
     },
     "progress": {
-      "completedRatio": "{done} من {total} تم",
-      "currentRow": "صف {row}",
-      "description": "جاري استيراد الصفوف إلى {name}. يمكنك مغادرة هذه الصفحة؛ سيستمر الاستيراد في الخلفية.",
+      "completedRatio": "من تم",
+      "currentRow": "صف",
+      "description": "جاري استيراد الصفوف إلى. يمكنك مغادرة هذه الصفحة؛ سيستمر الاستيراد في الخلفية.",
       "eyebrow": "الاستيراد قيد التنفيذ",
       "preparing": "جارٍ تحضير الاستيراد...",
       "title": "جاري استيراد العملاء"
@@ -653,7 +653,7 @@
       "mappedFields": "الحقول المرتبطة",
       "progress": "التقدم",
       "rowsLoaded": "الصفوف المحملة",
-      "stepNumber": "الخطوة {step}",
+      "stepNumber": "الخطوة {number}",
       "title": "تقدم الاستيراد"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "العودة إلى النظرة العامة",
-      "companyIdLabel": "معرّف الشركة: {id}",
-      "description": "استورد بيانات العملاء إلى {name} من ملف CSV أو رابط.",
+      "companyIdLabel": "معرّف الشركة:",
+      "description": "استورد بيانات العملاء إلى من ملف CSV أو رابط.",
       "eyebrow": "استيراد مساحة العمل",
-      "selectedCompany": "مساحة العمل النشطة: {name}",
-      "stepLabel": "الخطوة {step} من {total}"
+      "selectedCompany": "مساحة العمل النشطة:",
+      "stepLabel": "الخطوة {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "إنشاء مفتاح API جديد",
       "createdHeading": "تم إنشاء مفتاح API",
       "creating": "جارٍ الإنشاء…",
-      "description": "إدارة مفاتيح API لـ <strong>{name}</strong>.",
+      "description": "إدارة مفاتيح API لـ <strong> </strong>.",
       "empty": "لا توجد مفاتيح API حتى الآن.",
       "envLive": "حية",
       "envTest": "اختبار",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "تم رفض الوصول",
       "accessDeniedDescription": "ليس لديك صلاحية الوصول إلى التكاملات في مساحة العمل هذه.",
-      "configuringCompany": "جارٍ تكوين التكاملات لـ <strong>{name}</strong>.",
+      "configuringCompany": "جارٍ تكوين التكاملات لـ <strong> </strong>.",
       "loadFailed": "فشل تحميل كتالوج التكاملات.",
       "loading": "جارٍ تحميل التكاملات…",
       "noAccess": "لا توجد صلاحية لمساحة العمل",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "العودة إلى التكاملات",
       "backToCatalog": "العودة إلى الفهرس",
-      "configuringCompany": "جارٍ إعداد <strong>{integration}</strong> لـ <strong>{company}</strong>.",
-      "noCompany": "اختر مساحة عمل لتكوين <strong>{integration}</strong>.",
+      "configuringCompany": "جارٍ إعداد <strong> </strong> لـ <strong> </strong>.",
+      "noCompany": "اختر مساحة عمل لتكوين <strong> </strong>.",
       "restrictedDescription": "ليس لديك إذن لعرض هذا التكامل.",
       "restrictedTitle": "مقيد",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "عنوان URL الوارد",
       "instanceId": "معرّف المثيل",
       "instanceIdPlaceholder": "مثال: 1101000001",
-      "latency": "الكمون: {ms} مللي ثانية",
+      "latency": "الكمون: مللي ثانية",
       "loadFailed": "فشل تحميل إعدادات Green API.",
       "loading": "جارٍ تحميل إعدادات Green API...",
       "rotateConfirm": "هل تريد تدوير رمز webhook الوارد؟ سيتعين تحديث webhooks الحالية.",
@@ -827,9 +827,9 @@
       "tokenRotated": "تم تدوير رمز webhook.",
       "updateCredentials": "تحديث بيانات الاعتماد",
       "updatedLabel": "تم التحديث",
-      "upstreamStatus": "حالة المصدر العلوي: {status}",
+      "upstreamStatus": "حالة المصدر العلوي:",
       "urlCopied": "تم نسخ URL إلى الحافظة.",
-      "webhookSectionDescription": "قم بتكوين مثيل Green API لتسليم الرسائل الواردة إلى <code>{url}</code>.",
+      "webhookSectionDescription": "قم بتكوين مثيل Green API لتسليم الرسائل الواردة إلى <code> </code>.",
       "webhookSectionTitle": "Webhook الوارد"
     },
     "hide": "إخفاء",
@@ -851,10 +851,10 @@
       "copyUrl": "نسخ URL",
       "createIntegration": "إنشاء تكامل",
       "createdMessage": "تم إنشاء تكامل الإنترانت.",
-      "credentialsDescription": "استخدم هذه الاعتمادات لتوثيق المكالمات إلى <code>{url}</code>.",
+      "credentialsDescription": "استخدم هذه الاعتمادات لتوثيق المكالمات إلى <code> </code>.",
       "credentialsTitle": "الاعتمادات",
       "deliveries": "التسليمات",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "هل تريد قطع اتصال هذا التكامل مع الإنترانت؟ ستبدأ المكالمات الواردة بالفشل.",
       "disconnectDescription": "سيؤدي ذلك إلى إلغاء جميع الرموز وإيقاف قبول الطلبات الواردة.",
       "disconnectIntegration": "قطع اتصال التكامل",
@@ -862,7 +862,7 @@
       "entityLabel": "الكيان",
       "errorLabel": "خطأ",
       "eventLabel": "الحدث",
-      "fieldMappingDescription": "قم بربط الحقول الواردة بخصائص CRM. قدّم JSON مثل <code>{example}</code>.",
+      "fieldMappingDescription": "قم بربط الحقول الواردة بخصائص CRM. قدّم JSON مثل <code> </code>.",
       "fieldMappingLabel": "ربط الحقول",
       "fieldMappingTitle": "ربط الحقول",
       "generateHmac": "إنشاء سر HMAC",
@@ -872,7 +872,7 @@
       "hmacSecret": "سر HMAC",
       "hmacSecretHint": "استخدم هذا السر لحساب <code>X-Lisent-Signature</code> في الطلبات الصادرة.",
       "inactive": "غير نشط",
-      "inboundDescription": "أرسل الحمولات إلى <code>{url}</code> لاستيعاب العملاء المحتملين من الإنترانت الخاص بك.",
+      "inboundDescription": "أرسل الحمولات إلى <code> </code> لاستيعاب العملاء المحتملين من الإنترانت الخاص بك.",
       "inboundToken": "رمز URL الوارد",
       "inboundTokenHint": "هذا token هو جزء من URL الوارد — احفظه سراً.",
       "inboundUrl": "URL الوارد",
@@ -912,7 +912,7 @@
         "savedNotice": "تم حفظ webhook الصادر.",
         "secretConfigured": "مُكوَّن",
         "secretNotSet": "غير مُعيّن — أنشئ واحدًا قبل إرسال الأحداث.",
-        "secretRotatedAt": "(تم تدويره {time})",
+        "secretRotatedAt": "(تم تدويره )",
         "secretRotatedNotice": "تم تدوير سر التوقيع. النص الصريح يُظهر هذا مرة واحدة فقط.",
         "selectAtLeastOne": "اختر حالة واحدة على الأقل، أو حدّد 'جميع تغييرات الحالة'.",
         "signingSecretLabel": "سر التوقيع (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "قم بربط حقول توليد العملاء المحتملين من Meta بأعمدة العملاء المحتملين في CRM. اتركه فارغًا لاستخدام الإعداد الافتراضي (full_name → name، email → email، phone_number → phone).",
       "fieldMappingTitle": "تعيين الحقول",
       "finalizeButton": "إنهاء الإعداد",
-      "followersCount": "{count} متابع",
+      "followersCount": "متابع",
       "formAllSubscribedHint": "لم يتم اختيار أي نماذج → جميع النماذج على هذه الصفحة سيتم الاشتراك فيها (الإعداد الافتراضي لـ Meta).",
       "formIdsHint": "مفصولة بفواصل. فارغ = استلام جميع النماذج في هذه الصفحة.",
       "formIdsLabel": "معرفات النماذج",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "بحث عن النماذج…",
       "formPickerTitle": "اختر نماذج العملاء المحتملين",
       "forms": "نماذج",
-      "formsShownCount": "{shown} من {total}",
+      "formsShownCount": "من",
       "hmacSecretHint": "احفظ هذا الآن — لن نعرض النص الأصلي مرة أخرى.",
       "hmacSecretLabel": "سر HMAC",
       "hmacSecretReveal": "إظهار مرة واحدة",
       "inboundUrlHint": "يقوم n8n بإرسال البيانات هنا بعد جلب العميل المحتمل الكامل من Meta. لا تحتاج إلى لصق هذا في أي مكان.",
       "inboundUrlLabel": "عنوان URL الوارد إلى CRM (يستخدمه n8n)",
       "last7dCount": "{count} في 7 أيام",
-      "lastLeadAgo": "آخر Lead {when}",
+      "lastLeadAgo": "آخر Lead",
       "leads7d": "{count} Lead في 7 أيام",
       "loadFailed": "فشل تحميل تكامل Meta.",
       "metaFieldHeader": "حقل Meta",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "لم يتم العثور على أي صفحات",
       "pagePickerSearch": "بحث عن الصفحات…",
       "pagePickerTitle": "اختر صفحة Facebook",
-      "pagesShownCount": "{shown} من {total}",
+      "pagesShownCount": "من",
       "paused": "متوقف",
       "popupBlocked": "حجب المتصفح نافذة OAuth المنبثقة. اسمح بالنوافذ المنبثقة لهذا الموقع ثم حاول مرة أخرى.",
       "recentDeliveriesEmpty": "لا توجد عمليات تسليم حتى الآن.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "مسودة",
       "statusPaused": "متوقف",
       "statusUnknown": "غير معروف",
-      "subscribedAt": "تم الاشتراك {when}",
+      "subscribedAt": "تم الاشتراك",
       "testLeadButton": "إرسال Lead تجريبي",
       "testLeadDescription": "يقوم بإنشاء حمولة على شكل Meta ويشغلها عبر نفس مسار الإدخال كما في الإنتاج. متاح فقط عندما يكون وضع المحاكاة مفعلاً.",
       "testLeadFailed": "فشل إنشاء Lead تجريبي.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "الجزء",
       "chunksColumn": "أجزاء",
-      "description": "قاعدة معرفة لـ <strong>{name}</strong>. قم بتحميل المستندات التي يمكن للذكاء الاصطناعي الرجوع إليها.",
-      "ingestedDescription": "المستندات الحالية في قاعدة المعرفة لـ <strong>{name}</strong>.",
+      "description": "قاعدة معرفة لـ <strong> </strong>. قم بتحميل المستندات التي يمكن للذكاء الاصطناعي الرجوع إليها.",
+      "ingestedDescription": "المستندات الحالية في قاعدة المعرفة لـ <strong> </strong>.",
       "ingestedDocuments": "المستندات المستوردة",
-      "ingestionExampleDescription": "أرسل طلب POST إلى <code>{url}</code> مع جسم JSON يحتوي على <code>title</code> و <code>content</code> و <code>metadata</code> اختياريًا.",
+      "ingestionExampleDescription": "أرسل طلب POST إلى <code> </code> مع جسم JSON يحتوي على <code>title</code> و <code>content</code> و <code>metadata</code> اختياريًا.",
       "ingestionExampleTitle": "مثال على الاستيعاب",
       "loadConfigFailed": "فشل تحميل إعدادات RAG.",
       "loadContentFailed": "فشل تحميل محتوى المستند.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "مُكوَّن",
-      "configuredAria": "تم تكوين {name}",
+      "configuredAria": "تم تكوين {label}",
       "notSet": "غير محدد",
-      "notSetAria": "{name} غير محدد"
+      "notSetAria": "{label} غير محدد"
     },
     "testConnection": "اختبار الاتصال",
     "testing": "جارٍ الاختبار...",
@@ -1219,7 +1219,7 @@
     "urlCopied": "تم نسخ URL إلى الحافظة.",
     "usage": {
       "allMetrics": "جميع المقاييس",
-      "description": "الاستخدام وحدود المعدل لـ <strong>{name}</strong>.",
+      "description": "الاستخدام وحدود المعدل لـ <strong> </strong>.",
       "loadFailed": "فشل تحميل الاستخدام.",
       "loading": "جارٍ تحميل الاستخدام...",
       "metricColumn": "المقياس",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "رابط Calendly اختياري يمكن للمساعد تقديمه للحجز. يُستخدم في عمليات تسليم الاجتماعات <code>v1</code>.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "رابط Calendly",
-      "description": "قم بتكوين سلوك المؤهل <code>v1</code> لـ <strong>{name}</strong>.",
+      "description": "قم بتكوين سلوك المؤهل <code>v1</code> لـ <strong> </strong>.",
       "frameworkDescription": "اختر إطار التأهيل الذي يستخدمه المساعد لاستخراج الإشارات.",
       "frameworkTitle": "إطار التأهيل",
       "loadFailed": "فشل تحميل إعدادات v1.",
@@ -1292,7 +1292,7 @@
       "configured": "تم التكوين",
       "currentLabel": "الحالي",
       "customPatternsLabel": "أنماط مخصصة (سطر واحد لكل نمط)",
-      "description": "تكوين تسليم webhook لـ <strong>{name}</strong>.",
+      "description": "تكوين تسليم webhook لـ <strong> </strong>.",
       "destinationHint": "ترسل Lisent الأحداث إلى هذا URL مع حمولة موقعة.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "عنوان URL الوجهة",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Payload محدود",
       "payloadMode": "وضع payload",
       "rotateSecret": "تدوير السر",
-      "rotatedAt": "تم التدوير في {time}",
+      "rotatedAt": "تم التدوير في",
       "saveEventSelection": "حفظ اختيار الحدث",
       "saveUrl": "حفظ URL",
       "secretRotated": "تم تدوير سر التوقيع.",
@@ -1371,18 +1371,18 @@
       "title": "تعيين العملاء المحتملين المحددين"
     },
     "bulkBar": {
-      "ariaSelected": "{count} عميل محتمل محدد",
+      "ariaSelected": "عميل محتمل محدد",
       "assign": "تعيين",
       "clearSelection": "مسح الاختيار",
       "delete": "حذف",
       "exportCsv": "تصدير CSV",
       "exportPdf": "تصدير PDF",
-      "selected": "{count} مختار"
+      "selected": "مختار"
     },
     "bulkDelete": {
       "confirm": "حذف المحدد",
       "deleting": "جاري الحذف...",
-      "description": "سيؤدي هذا إلى حذف {count} من الـ leads بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
+      "description": "سيؤدي هذا إلى حذف من الـ leads بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
       "title": "حذف الـ leads المحددة؟"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "جميع المُعينين",
       "allSources": "جميع Sources",
       "byCampaign": "تمت التصفية حسب الحملة: {name}",
-      "byCampaignCount": "{shown} من {total} leads",
+      "byCampaignCount": "من leads",
       "clearCampaign": "مسح الفلتر"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "تم الإنشاء",
       "email": "البريد الإلكتروني",
-      "exportedAt": "{count} Leads · تم التصدير في {date}",
+      "exportedAt": "Leads · تم التصدير في",
       "pageOf": "الصفحة {current} من {total}",
       "title": "Leads"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "تم بدء التأهيل بالذكاء الاصطناعي.",
-      "bulkAssignPartial": "تم إسناد {assigned} من {total} عميل محتمل.",
-      "bulkAssigned": "تم إسناد {count} عميل محتمل.",
-      "bulkPartial": "تم حذف {deleted} من {total} عميل محتمل.",
+      "bulkAssignPartial": "تم إسناد من عميل محتمل.",
+      "bulkAssigned": "تم إسناد عميل محتمل.",
+      "bulkPartial": "تم حذف من عميل محتمل.",
       "bulkRemoved": "تم حذف {count} عميل محتمل.",
       "converted": "تم تحويل العميل المحتمل.",
       "convertedWithDeal": "تم تحويل العميل المحتمل مع صفقة.",
@@ -1599,7 +1599,7 @@
       "assignee": "المكلف",
       "empty": "لا توجد أي Leads تطابق الفلاتر الحالية.",
       "name": "الاسم",
-      "openAIScore": "درجة Open AI لـ {name}",
+      "openAIScore": "درجة Open AI لـ {score}",
       "phone": "الهاتف",
       "rowActions": "إجراءات الصف",
       "selectAll": "تحديد جميع الـ Leads",
@@ -1877,7 +1877,7 @@
       "notes": "أضف تفاصيل حول هذه المهمة...",
       "title": "عنوان المهمة"
     },
-    "publishedBy": "نُشر بواسطة {name}",
+    "publishedBy": "نُشر بواسطة",
     "responseStatus": {
       "accepted": "مقبول",
       "pending": "قيد الانتظار",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "الشركة",
-      "inProgressDone": "{inProgress} قيد التنفيذ · {done} منجز",
-      "myPending": "{count} قيد الانتظار",
-      "openTickets": "{count} مفتوح"
+      "inProgressDone": "قيد التنفيذ · منجز",
+      "myPending": "قيد الانتظار",
+      "openTickets": "مفتوح"
     },
     "systemUser": "النظام",
     "teammatesCount": "{count} زملاء",
@@ -1955,14 +1955,14 @@
     "removeMember": "إزالة العضو",
     "removeModal": {
       "confirm": "إزالة العضو",
-      "description": "{name} سيفقد الوصول إلى مساحة العمل هذه فوراً.",
+      "description": "{company} سيفقد الوصول إلى مساحة العمل هذه فوراً.",
       "eyebrow": "إزالة عضو الفريق",
       "removing": "جارٍ الإزالة...",
       "title": "إزالة عضو الفريق؟"
     },
     "roleModal": {
       "confirm": "تغيير الدور",
-      "description": "تحديث دور {name} في مساحة العمل هذه.",
+      "description": "تحديث دور في مساحة العمل هذه.",
       "eyebrow": "تغيير الدور",
       "title": "تغيير الدور",
       "to": "إلى",

@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Clear selection",
       "confirmDelete": "Delete selected",
-      "deleteDescription": "This will permanently delete {count} customer records. This action cannot be undone.",
+      "deleteDescription": "This will permanently delete customer records. This action cannot be undone.",
       "deleteEyebrow": "Bulk delete",
       "deleteTitle": "Delete selected customers?",
       "regionLabel": "Bulk actions",
-      "selectedCount": "{count} selected"
+      "selectedCount": "selected"
     },
     "closeAddPopup": "Close add customer dialog",
     "confirmDelete": "Delete",
@@ -277,9 +277,9 @@
       "empty": "No customers match the current filters.",
       "eyebrow": "Customer directory",
       "selectAll": "Select all customers",
-      "selectRow": "Select customer {name}",
+      "selectRow": "Select customer",
       "title": "Customers",
-      "visibleCount": "Showing {visible} of {total}"
+      "visibleCount": "Showing {count}"
     },
     "loading": "Loading customers...",
     "noEmail": "No email on file",
@@ -293,7 +293,7 @@
       "label": "Search",
       "placeholder": "Search customers..."
     },
-    "selectedCompany": "Active workspace: {name}",
+    "selectedCompany": "Active workspace:",
     "status": {
       "active": "Active",
       "all": "All",
@@ -303,7 +303,7 @@
     "statusFilter": "Status filter",
     "success": {
       "bulkDeleted": "{count} customers deleted.",
-      "bulkDeletedPartial": "{deleted} of {total} customers deleted.",
+      "bulkDeletedPartial": "of customers deleted.",
       "created": "Customer created.",
       "deleted": "Customer deleted.",
       "updated": "Customer updated."
@@ -323,15 +323,15 @@
       "title": "AI insights"
     },
     "amount": "Amount",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Assignee",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Drag deals between stages to update the pipeline.",
-    "changedBy": "Changed by {name}",
+    "changedBy": "Changed by",
     "close": "Close",
     "closeTarget": "Close target",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Column total: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Column total:",
     "commentPlaceholder": "Write a comment...",
     "comments": "Comments",
     "commentsCount": "{count} comments",
@@ -429,7 +429,7 @@
     "posting": "Posting...",
     "relatedRecords": "Related records",
     "scheduleActivity": "Schedule activity",
-    "selectedCompany": "Active workspace: {name}",
+    "selectedCompany": "Active workspace:",
     "stage": {
       "lost": "Lost",
       "lostDescription": "Closed-lost deals to learn from.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Stage history",
     "stageHistoryEmpty": "No stage changes recorded yet.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Comment added.",
       "created": "Deal created.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Activity chart for the past week",
-      "empty": "No activity recorded yet for {name}.",
+      "empty": "No activity recorded yet for.",
       "emptyDefault": "No activity recorded yet.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Pick a workspace from the switcher to see live data.",
       "noWorkspaceSelected": "No workspace selected",
       "pickWorkspace": "Pick a workspace",
-      "subtitleSelected": "Workspace metrics for {name}.",
+      "subtitleSelected": "Workspace metrics for.",
       "subtitleWithName": "Welcome back, {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leads",
       "leadsHint": "Active leads in the pipeline.",
       "openPipelineHint": "Open pipeline value across all stages.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Customize",
@@ -508,7 +508,7 @@
       "title": "Overview"
     },
     "pipeline": {
-      "empty": "No pipeline data yet for {name}.",
+      "empty": "No pipeline data yet for.",
       "emptyDefault": "No pipeline data yet.",
       "stage": {
         "lost": "Lost",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Distribution of deals by stage.",
       "title": "Pipeline",
-      "totalBadge": "{value} total"
+      "totalBadge": "{count} total"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Quick actions"
     },
     "recentLeads": {
-      "empty": "No recent leads in {name}.",
+      "empty": "No recent leads in.",
       "emptyDefault": "No recent leads yet.",
       "status": {
         "contacted": "Contacted",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Active workspace",
       "eyebrow": "Workspace snapshot",
-      "inWorkspace": "in {name}",
+      "inWorkspace": "in",
       "newCount": "{count} new",
       "noWorkspaceHelp": "Pick a workspace to see live counts.",
       "noWorkspaceSelected": "No workspace selected",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Confirm the mapping and run the import. Customers will be created or updated for the active workspace.",
-      "approvalOutcome": "After approval, rows are inserted as customers in {name}.",
+      "approvalOutcome": "After approval, rows are inserted as customers in.",
       "approveAndImport": "Approve & import",
       "backToPreview": "Back to preview",
       "confidence": "Confidence",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Back to source",
       "continueToMapping": "Continue to mapping",
-      "headers": "{count} headers",
-      "rowsLoaded": "{count} rows loaded",
-      "rowsShown": "Showing first {count} rows",
+      "headers": "headers",
+      "rowsLoaded": "rows loaded",
+      "rowsShown": "Showing first rows",
       "unmapped": "Unmapped"
     },
     "progress": {
-      "completedRatio": "{done} of {total} done",
-      "currentRow": "Row {row}",
-      "description": "Importing rows into {name}. You can leave this page; the import continues in the background.",
+      "completedRatio": "of done",
+      "currentRow": "Row",
+      "description": "Importing rows into. You can leave this page; the import continues in the background.",
       "eyebrow": "Import in progress",
       "preparing": "Preparing import...",
       "title": "Importing customers"
@@ -653,7 +653,7 @@
       "mappedFields": "Mapped fields",
       "progress": "Progress",
       "rowsLoaded": "Rows loaded",
-      "stepNumber": "Step {step}",
+      "stepNumber": "Step {number}",
       "title": "Import progress"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Back to overview",
-      "companyIdLabel": "Company id: {id}",
-      "description": "Bring customer data into {name} from a CSV file or URL.",
+      "companyIdLabel": "Company id:",
+      "description": "Bring customer data into from a CSV file or URL.",
       "eyebrow": "Workspace import",
-      "selectedCompany": "Active workspace: {name}",
-      "stepLabel": "Step {step} of {total}"
+      "selectedCompany": "Active workspace:",
+      "stepLabel": "Step {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Create new API key",
       "createdHeading": "API key created",
       "creating": "Creating...",
-      "description": "Manage API keys for <strong>{name}</strong>.",
+      "description": "Manage API keys for <strong> </strong>.",
       "empty": "No API keys yet.",
       "envLive": "Live",
       "envTest": "Test",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Access denied",
       "accessDeniedDescription": "You don't have access to integrations for this workspace.",
-      "configuringCompany": "Configuring integrations for <strong>{name}</strong>.",
+      "configuringCompany": "Configuring integrations for <strong> </strong>.",
       "loadFailed": "Failed to load integrations catalog.",
       "loading": "Loading integrations...",
       "noAccess": "No workspace access",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Back to integrations",
       "backToCatalog": "Back to catalog",
-      "configuringCompany": "Configuring <strong>{integration}</strong> for <strong>{company}</strong>.",
-      "noCompany": "Pick a workspace to configure <strong>{integration}</strong>.",
+      "configuringCompany": "Configuring <strong> </strong> for <strong> </strong>.",
+      "noCompany": "Pick a workspace to configure <strong> </strong>.",
       "restrictedDescription": "You don't have permission to view this integration.",
       "restrictedTitle": "Restricted",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "Inbound URL",
       "instanceId": "Instance ID",
       "instanceIdPlaceholder": "e.g. 1101000001",
-      "latency": "Latency: {ms} ms",
+      "latency": "Latency: ms",
       "loadFailed": "Failed to load Green API config.",
       "loading": "Loading Green API config...",
       "rotateConfirm": "Rotate the inbound webhook token? Existing webhooks will need to be updated.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Webhook token rotated.",
       "updateCredentials": "Update credentials",
       "updatedLabel": "Updated",
-      "upstreamStatus": "Upstream status: {status}",
+      "upstreamStatus": "Upstream status:",
       "urlCopied": "URL copied to clipboard.",
-      "webhookSectionDescription": "Configure your Green API instance to deliver inbound messages to <code>{url}</code>.",
+      "webhookSectionDescription": "Configure your Green API instance to deliver inbound messages to <code> </code>.",
       "webhookSectionTitle": "Inbound webhook"
     },
     "hide": "Hide",
@@ -851,10 +851,10 @@
       "copyUrl": "Copy URL",
       "createIntegration": "Create integration",
       "createdMessage": "Intranet integration created.",
-      "credentialsDescription": "Use these credentials to authenticate calls to <code>{url}</code>.",
+      "credentialsDescription": "Use these credentials to authenticate calls to <code> </code>.",
       "credentialsTitle": "Credentials",
       "deliveries": "Deliveries",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Disconnect this intranet integration? Inbound calls will start failing.",
       "disconnectDescription": "This will revoke all tokens and stop accepting inbound requests.",
       "disconnectIntegration": "Disconnect integration",
@@ -862,7 +862,7 @@
       "entityLabel": "Entity",
       "errorLabel": "Error",
       "eventLabel": "Event",
-      "fieldMappingDescription": "Map inbound fields to CRM properties. Submit JSON like <code>{example}</code>.",
+      "fieldMappingDescription": "Map inbound fields to CRM properties. Submit JSON like <code> </code>.",
       "fieldMappingLabel": "Field mapping",
       "fieldMappingTitle": "Field mapping",
       "generateHmac": "Generate HMAC secret",
@@ -872,7 +872,7 @@
       "hmacSecret": "HMAC secret",
       "hmacSecretHint": "Use this secret to compute <code>X-Lisent-Signature</code> on outbound requests.",
       "inactive": "Inactive",
-      "inboundDescription": "Send payloads to <code>{url}</code> to ingest leads from your intranet.",
+      "inboundDescription": "Send payloads to <code> </code> to ingest leads from your intranet.",
       "inboundToken": "Inbound URL token",
       "inboundTokenHint": "This token is part of the inbound URL — keep it secret.",
       "inboundUrl": "Inbound URL",
@@ -912,7 +912,7 @@
         "savedNotice": "Outbound webhook saved.",
         "secretConfigured": "Configured",
         "secretNotSet": "Not set — generate one before sending events.",
-        "secretRotatedAt": "(rotated {time})",
+        "secretRotatedAt": "(rotated )",
         "secretRotatedNotice": "Signing secret rotated. The plaintext shows only this once.",
         "selectAtLeastOne": "Select at least one status, or check 'All status changes'.",
         "signingSecretLabel": "Signing secret (HMAC-SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Map Meta lead-gen fields to CRM lead columns. Leave empty to use the default (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Field mapping",
       "finalizeButton": "Finish setup",
-      "followersCount": "{count} followers",
+      "followersCount": "followers",
       "formAllSubscribedHint": "No forms picked → all forms on this page will be subscribed (Meta default).",
       "formIdsHint": "Comma-separated. Empty = receive all forms on this page.",
       "formIdsLabel": "Form IDs",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Search forms…",
       "formPickerTitle": "Choose lead forms",
       "forms": "Forms",
-      "formsShownCount": "{shown} of {total}",
+      "formsShownCount": "of",
       "hmacSecretHint": "Save this now — we won't show the plaintext again.",
       "hmacSecretLabel": "HMAC secret",
       "hmacSecretReveal": "Reveal once",
       "inboundUrlHint": "n8n posts here after fetching the full lead from Meta. You don't need to paste this anywhere.",
       "inboundUrlLabel": "CRM inbound URL (used by n8n)",
       "last7dCount": "{count} in 7d",
-      "lastLeadAgo": "Last lead {when}",
+      "lastLeadAgo": "Last lead",
       "leads7d": "{count} leads in 7d",
       "loadFailed": "Failed to load Meta integration.",
       "metaFieldHeader": "Meta field",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "No pages found",
       "pagePickerSearch": "Search pages…",
       "pagePickerTitle": "Choose a Facebook page",
-      "pagesShownCount": "{shown} of {total}",
+      "pagesShownCount": "of",
       "paused": "Paused",
       "popupBlocked": "Browser blocked the OAuth popup. Allow popups for this site and try again.",
       "recentDeliveriesEmpty": "No deliveries yet.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Draft",
       "statusPaused": "Paused",
       "statusUnknown": "Unknown",
-      "subscribedAt": "Subscribed {when}",
+      "subscribedAt": "Subscribed",
       "testLeadButton": "Send test lead",
       "testLeadDescription": "Synthesises a Meta-shaped payload and runs it through the same insert path as production. Available only while mock mode is on.",
       "testLeadFailed": "Failed to create test lead.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Chunk",
       "chunksColumn": "Chunks",
-      "description": "Knowledge base for <strong>{name}</strong>. Upload documents the AI can reference.",
-      "ingestedDescription": "Documents currently in the knowledge base for <strong>{name}</strong>.",
+      "description": "Knowledge base for <strong> </strong>. Upload documents the AI can reference.",
+      "ingestedDescription": "Documents currently in the knowledge base for <strong> </strong>.",
       "ingestedDocuments": "Ingested documents",
-      "ingestionExampleDescription": "POST to <code>{url}</code> with a JSON body containing <code>title</code>, <code>content</code>, and optional <code>metadata</code>.",
+      "ingestionExampleDescription": "POST to <code> </code> with a JSON body containing <code>title</code>, <code>content</code>, and optional <code>metadata</code>.",
       "ingestionExampleTitle": "Ingestion example",
       "loadConfigFailed": "Failed to load RAG config.",
       "loadContentFailed": "Failed to load document content.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Configured",
-      "configuredAria": "{name} is configured",
+      "configuredAria": "{label} is configured",
       "notSet": "Not set",
-      "notSetAria": "{name} is not set"
+      "notSetAria": "{label} is not set"
     },
     "testConnection": "Test connection",
     "testing": "Testing...",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL copied to clipboard.",
     "usage": {
       "allMetrics": "All metrics",
-      "description": "Usage and rate limits for <strong>{name}</strong>.",
+      "description": "Usage and rate limits for <strong> </strong>.",
       "loadFailed": "Failed to load usage.",
       "loading": "Loading usage...",
       "metricColumn": "Metric",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Optional Calendly link the assistant can offer for booking. Used by <code>v1</code> meeting handoffs.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly link",
-      "description": "Configure the qualifier <code>v1</code> behavior for <strong>{name}</strong>.",
+      "description": "Configure the qualifier <code>v1</code> behavior for <strong> </strong>.",
       "frameworkDescription": "Pick the qualification framework the assistant uses to extract signals.",
       "frameworkTitle": "Qualification framework",
       "loadFailed": "Failed to load v1 config.",
@@ -1292,7 +1292,7 @@
       "configured": "Configured",
       "currentLabel": "Current",
       "customPatternsLabel": "Custom patterns (one per line)",
-      "description": "Configure webhook delivery for <strong>{name}</strong>.",
+      "description": "Configure webhook delivery for <strong> </strong>.",
       "destinationHint": "Lisent posts events to this URL with a signed payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Destination URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimal payload",
       "payloadMode": "Payload mode",
       "rotateSecret": "Rotate secret",
-      "rotatedAt": "Rotated at {time}",
+      "rotatedAt": "Rotated at",
       "saveEventSelection": "Save event selection",
       "saveUrl": "Save URL",
       "secretRotated": "Signing secret rotated.",
@@ -1371,18 +1371,18 @@
       "title": "Assign selected leads"
     },
     "bulkBar": {
-      "ariaSelected": "{count} leads selected",
+      "ariaSelected": "leads selected",
       "assign": "Assign",
       "clearSelection": "Clear selection",
       "delete": "Delete",
       "exportCsv": "Export CSV",
       "exportPdf": "Export PDF",
-      "selected": "{count} selected"
+      "selected": "selected"
     },
     "bulkDelete": {
       "confirm": "Delete selected",
       "deleting": "Deleting...",
-      "description": "This will permanently delete {count} leads. This action cannot be undone.",
+      "description": "This will permanently delete leads. This action cannot be undone.",
       "title": "Delete selected leads?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "All assignees",
       "allSources": "All sources",
       "byCampaign": "Filtered by campaign: {name}",
-      "byCampaignCount": "{shown} of {total} leads",
+      "byCampaignCount": "of leads",
       "clearCampaign": "Clear filter"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Created",
       "email": "Email",
-      "exportedAt": "{count} leads · Exported on {date}",
+      "exportedAt": "leads · Exported on",
       "pageOf": "Page {current} of {total}",
       "title": "Leads"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "AI qualification started.",
-      "bulkAssignPartial": "{assigned} of {total} leads assigned.",
-      "bulkAssigned": "{count} leads assigned.",
-      "bulkPartial": "{deleted} of {total} leads removed.",
+      "bulkAssignPartial": "of leads assigned.",
+      "bulkAssigned": "leads assigned.",
+      "bulkPartial": "of leads removed.",
       "bulkRemoved": "{count} leads removed.",
       "converted": "Lead converted.",
       "convertedWithDeal": "Lead converted with deal.",
@@ -1599,7 +1599,7 @@
       "assignee": "Assignee",
       "empty": "No leads match the current filters.",
       "name": "Name",
-      "openAIScore": "Open AI score for {name}",
+      "openAIScore": "Open AI score for {score}",
       "phone": "Phone",
       "rowActions": "Row actions",
       "selectAll": "Select all leads",
@@ -1877,7 +1877,7 @@
       "notes": "Add details about this task...",
       "title": "Task title"
     },
-    "publishedBy": "Published by {name}",
+    "publishedBy": "Published by",
     "responseStatus": {
       "accepted": "Accepted",
       "pending": "Pending",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Company",
-      "inProgressDone": "{inProgress} in progress · {done} done",
-      "myPending": "{count} pending",
-      "openTickets": "{count} open"
+      "inProgressDone": "in progress · done",
+      "myPending": "pending",
+      "openTickets": "open"
     },
     "systemUser": "System",
     "teammatesCount": "{count} teammates",
@@ -1955,14 +1955,14 @@
     "removeMember": "Remove member",
     "removeModal": {
       "confirm": "Remove member",
-      "description": "{name} will lose access to this workspace immediately.",
+      "description": "{company} will lose access to this workspace immediately.",
       "eyebrow": "Remove team member",
       "removing": "Removing...",
       "title": "Remove team member?"
     },
     "roleModal": {
       "confirm": "Change role",
-      "description": "Update {name}'s role in this workspace.",
+      "description": "Update 's role in this workspace.",
       "eyebrow": "Change role",
       "title": "Change role",
       "to": "to",

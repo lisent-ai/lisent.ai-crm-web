@@ -219,11 +219,11 @@
     "bulk": {
       "clearSelection": "Wyczyść wybór",
       "confirmDelete": "Usuń zaznaczone",
-      "deleteDescription": "To trwale usunie {count} rekordów klientów. Tej operacji nie można cofnąć.",
+      "deleteDescription": "To trwale usunie rekordów klientów. Tej operacji nie można cofnąć.",
       "deleteEyebrow": "Masowe usuwanie",
       "deleteTitle": "Usunąć wybranych klientów?",
       "regionLabel": "Masowe działania",
-      "selectedCount": "{count} wybrano"
+      "selectedCount": "wybrano"
     },
     "closeAddPopup": "Zamknij okno dodawania klienta",
     "confirmDelete": "Usuń",
@@ -277,9 +277,9 @@
       "empty": "Brak klientów spełniających bieżące filtry.",
       "eyebrow": "Katalog klientów",
       "selectAll": "Zaznacz wszystkie rekordy",
-      "selectRow": "Zaznacz klienta {name}",
+      "selectRow": "Zaznacz klienta",
       "title": "Klienci",
-      "visibleCount": "Wyświetlanie {visible} z {total}"
+      "visibleCount": "Wyświetlanie {count}"
     },
     "loading": "Ładowanie klientów…",
     "noEmail": "Brak e‑mailu w bazie",
@@ -293,7 +293,7 @@
       "label": "Szukaj",
       "placeholder": "Szukaj klientów…"
     },
-    "selectedCompany": "Aktywna przestrzeń robocza: {name}",
+    "selectedCompany": "Aktywna przestrzeń robocza:",
     "status": {
       "active": "Aktywny",
       "all": "Wszystkie",
@@ -303,7 +303,7 @@
     "statusFilter": "Filtr statusu",
     "success": {
       "bulkDeleted": "{count} klientów usunięto.",
-      "bulkDeletedPartial": "Usunięto {deleted} z {total} klientów.",
+      "bulkDeletedPartial": "Usunięto z klientów.",
       "created": "Utworzono klienta.",
       "deleted": "Usunięto klienta.",
       "updated": "Zaktualizowano klienta."
@@ -323,15 +323,15 @@
       "title": "Wnioski AI"
     },
     "amount": "Kwota",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Osoba przypisana",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Przeciągnij Deal pomiędzy etapami, aby zaktualizować pipeline.",
-    "changedBy": "Zmienione przez {name}",
+    "changedBy": "Zmienione przez",
     "close": "Zamknij",
     "closeTarget": "Cel zamknięcia",
-    "closeTargetValue": "{date}",
-    "columnTotal": "Suma w kolumnie: {value}",
+    "closeTargetValue": "{value}",
+    "columnTotal": "Suma w kolumnie:",
     "commentPlaceholder": "Napisz komentarz...",
     "comments": "Komentarze",
     "commentsCount": "{count} komentarzy",
@@ -429,7 +429,7 @@
     "posting": "Publikowanie...",
     "relatedRecords": "Powiązane rekordy",
     "scheduleActivity": "Zaplanuj aktywność",
-    "selectedCompany": "Aktywny workspace: {name}",
+    "selectedCompany": "Aktywny workspace:",
     "stage": {
       "lost": "Zagubiony",
       "lostDescription": "Zamknięte, przegrane transakcje, z których można się uczyć.",
@@ -446,7 +446,7 @@
     },
     "stageHistory": "Historia sceny",
     "stageHistoryEmpty": "Nie odnotowano jeszcze żadnych zmian na scenie.",
-    "stageRange": "{from} → {to}",
+    "stageRange": "→",
     "success": {
       "commentAdded": "Komentarz dodany.",
       "created": "Utworzono transakcję.",
@@ -470,7 +470,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Wykres aktywności z ostatniego tygodnia",
-      "empty": "Brak zarejestrowanej aktywności dla {name}.",
+      "empty": "Brak zarejestrowanej aktywności dla.",
       "emptyDefault": "Nie zarejestrowano jeszcze żadnej aktywności.",
       "legendDeals": "Transakcje",
       "legendLeads": "Leads",
@@ -483,7 +483,7 @@
       "noWorkspaceHelp": "Wybierz workspace z przełącznika, aby zobaczyć dane na żywo.",
       "noWorkspaceSelected": "Nie wybrano workspace",
       "pickWorkspace": "Wybierz workspace",
-      "subtitleSelected": "Metryki workspace dla {name}.",
+      "subtitleSelected": "Metryki workspace dla.",
       "subtitleWithName": "Witamy ponownie, {name}."
     },
     "errors": {
@@ -500,7 +500,7 @@
       "leads": "Leads",
       "leadsHint": "Aktywne leads w pipeline.",
       "openPipelineHint": "Wartość otwartego lejka we wszystkich etapach.",
-      "openPipelineValue": "{value}"
+      "openPipelineValue": ""
     },
     "overview": {
       "customize": "Dostosuj",
@@ -508,7 +508,7 @@
       "title": "Przegląd"
     },
     "pipeline": {
-      "empty": "Brak danych lejka dla {name}.",
+      "empty": "Brak danych lejka dla.",
       "emptyDefault": "Brak danych lejka.",
       "stage": {
         "lost": "Przegrany",
@@ -520,7 +520,7 @@
       },
       "subtitle": "Rozkład transakcji według etapu.",
       "title": "Lejek",
-      "totalBadge": "{value} łącznie"
+      "totalBadge": "{count} łącznie"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
       "title": "Szybkie akcje"
     },
     "recentLeads": {
-      "empty": "Brak ostatnich leadów w {name}.",
+      "empty": "Brak ostatnich leadów w.",
       "emptyDefault": "Brak ostatnich leadów.",
       "status": {
         "contacted": "Skontaktowano się",
@@ -575,7 +575,7 @@
     "snapshot": {
       "activeWorkspace": "Aktywny workspace",
       "eyebrow": "Migawka workspace",
-      "inWorkspace": "W {name}",
+      "inWorkspace": "W",
       "newCount": "{count} nowe",
       "noWorkspaceHelp": "Wybierz workspace, aby zobaczyć bieżące liczby.",
       "noWorkspaceSelected": "Nie wybrano workspace",
@@ -620,7 +620,7 @@
     },
     "mapping": {
       "approvalDescription": "Potwierdź mapowanie i uruchom import. Klienci zostaną utworzeni lub zaktualizowani w aktywnym workspace.",
-      "approvalOutcome": "Po zatwierdzeniu wiersze zostaną wstawione jako klienci w {name}.",
+      "approvalOutcome": "Po zatwierdzeniu wiersze zostaną wstawione jako klienci w.",
       "approveAndImport": "Zatwierdź i importuj",
       "backToPreview": "Wróć do podglądu",
       "confidence": "Pewność",
@@ -635,15 +635,15 @@
     "preview": {
       "backToSource": "Wróć do źródła",
       "continueToMapping": "Kontynuuj mapowanie",
-      "headers": "{count} nagłówków",
-      "rowsLoaded": "{count} wierszy załadowano",
-      "rowsShown": "Wyświetlanie pierwszych {count} wierszy",
+      "headers": "nagłówków",
+      "rowsLoaded": "wierszy załadowano",
+      "rowsShown": "Wyświetlanie pierwszych wierszy",
       "unmapped": "Niezmapowane"
     },
     "progress": {
-      "completedRatio": "Zrobiono {done} z {total}",
-      "currentRow": "Wiersz {row}",
-      "description": "Importowanie wierszy do {name}. Może Pan/Pani opuścić tę stronę; import będzie kontynuowany w tle.",
+      "completedRatio": "Zrobiono z",
+      "currentRow": "Wiersz",
+      "description": "Importowanie wierszy do. Może Pan/Pani opuścić tę stronę; import będzie kontynuowany w tle.",
       "eyebrow": "Import w toku",
       "preparing": "Przygotowywanie importu…",
       "title": "Importowanie klientów"
@@ -653,7 +653,7 @@
       "mappedFields": "Zmapowane pola",
       "progress": "Postęp",
       "rowsLoaded": "Wczytane wiersze",
-      "stepNumber": "Krok {step}",
+      "stepNumber": "Krok {number}",
       "title": "Postęp importu"
     },
     "source": {
@@ -692,11 +692,11 @@
     },
     "workspace": {
       "backToOverview": "Powrót do przeglądu",
-      "companyIdLabel": "Id firmy: {id}",
-      "description": "Importuj dane klientów do {name} z pliku CSV lub URL.",
+      "companyIdLabel": "Id firmy:",
+      "description": "Importuj dane klientów do z pliku CSV lub URL.",
       "eyebrow": "Import workspace",
-      "selectedCompany": "Aktywne workspace: {name}",
-      "stepLabel": "Krok {step} z {total}"
+      "selectedCompany": "Aktywne workspace:",
+      "stepLabel": "Krok {step}"
     }
   },
   "integrations": {
@@ -718,7 +718,7 @@
       "createTitle": "Utwórz nowy klucz API",
       "createdHeading": "Klucz API utworzono",
       "creating": "Tworzenie…",
-      "description": "Zarządzaj kluczami API dla <strong>{name}</strong>.",
+      "description": "Zarządzaj kluczami API dla <strong> </strong>.",
       "empty": "Brak kluczy API.",
       "envLive": "Produkcyjne",
       "envTest": "Test",
@@ -749,7 +749,7 @@
     "catalog": {
       "accessDenied": "Odmowa dostępu",
       "accessDeniedDescription": "Nie ma Pan/Pani dostępu do integracji w tym workspace.",
-      "configuringCompany": "Konfigurowanie integracji dla <strong>{name}</strong>.",
+      "configuringCompany": "Konfigurowanie integracji dla <strong> </strong>.",
       "loadFailed": "Nie udało się wczytać katalogu integracji.",
       "loading": "Wczytywanie integracji...",
       "noAccess": "Brak dostępu do workspace",
@@ -776,8 +776,8 @@
     "detail": {
       "backLink": "Powrót do integracji",
       "backToCatalog": "Powrót do katalogu",
-      "configuringCompany": "Konfigurowanie <strong>{integration}</strong> dla <strong>{company}</strong>.",
-      "noCompany": "Wybierz przestrzeń roboczą, aby skonfigurować <strong>{integration}</strong>.",
+      "configuringCompany": "Konfigurowanie <strong> </strong> dla <strong> </strong>.",
+      "noCompany": "Wybierz przestrzeń roboczą, aby skonfigurować <strong> </strong>.",
       "restrictedDescription": "Nie masz uprawnień do wyświetlenia tej integracji.",
       "restrictedTitle": "Ograniczone",
       "slugTitles": {
@@ -817,7 +817,7 @@
       "inbound": "URL przychodzących",
       "instanceId": "ID instancji",
       "instanceIdPlaceholder": "np. 1101000001",
-      "latency": "Opóźnienie: {ms} ms",
+      "latency": "Opóźnienie: ms",
       "loadFailed": "Nie udało się wczytać konfiguracji Green API.",
       "loading": "Wczytywanie konfiguracji Green API...",
       "rotateConfirm": "Obrócić token przychodzącego webhooka? Istniejące webhooki będą wymagały aktualizacji.",
@@ -827,9 +827,9 @@
       "tokenRotated": "Token webhooka obrócony.",
       "updateCredentials": "Zaktualizuj dane uwierzytelniające",
       "updatedLabel": "Zaktualizowano",
-      "upstreamStatus": "Status upstream: {status}",
+      "upstreamStatus": "Status upstream:",
       "urlCopied": "URL skopiowano do schowka.",
-      "webhookSectionDescription": "Skonfiguruj swoją instancję Green API, aby dostarczała przychodzące wiadomości pod adres <code>{url}</code>.",
+      "webhookSectionDescription": "Skonfiguruj swoją instancję Green API, aby dostarczała przychodzące wiadomości pod adres <code> </code>.",
       "webhookSectionTitle": "Webhook przychodzący"
     },
     "hide": "Ukryj",
@@ -851,10 +851,10 @@
       "copyUrl": "Skopiuj URL",
       "createIntegration": "Utwórz integrację",
       "createdMessage": "Utworzono integrację intranetu.",
-      "credentialsDescription": "Użyj tych danych uwierzytelniających, aby autoryzować wywołania do <code>{url}</code>.",
+      "credentialsDescription": "Użyj tych danych uwierzytelniających, aby autoryzować wywołania do <code> </code>.",
       "credentialsTitle": "Dane uwierzytelniające",
       "deliveries": "Dostawy",
-      "deliveriesValue": "{count}",
+      "deliveriesValue": "",
       "disconnectConfirm": "Odłączyć tę integrację intranet? Przychodzące wywołania przestaną działać.",
       "disconnectDescription": "Spowoduje to unieważnienie wszystkich tokenów i zaprzestanie przyjmowania przychodzących żądań.",
       "disconnectIntegration": "Odłącz integrację",
@@ -862,7 +862,7 @@
       "entityLabel": "Encja",
       "errorLabel": "Błąd",
       "eventLabel": "Zdarzenie",
-      "fieldMappingDescription": "Mapuj pola przychodzące na właściwości CRM. Prześlij JSON, np. <code>{example}</code>.",
+      "fieldMappingDescription": "Mapuj pola przychodzące na właściwości CRM. Prześlij JSON, np. <code> </code>.",
       "fieldMappingLabel": "Mapowanie pól",
       "fieldMappingTitle": "Mapowanie pól",
       "generateHmac": "Wygeneruj sekret HMAC",
@@ -872,7 +872,7 @@
       "hmacSecret": "Klucz HMAC",
       "hmacSecretHint": "Użyj tego sekretu do obliczenia <code>X-Lisent-Signature</code> w żądaniach wychodzących.",
       "inactive": "Nieaktywny",
-      "inboundDescription": "Wyślij ładunki do <code>{url}</code>, aby pobrać leady z intranetu.",
+      "inboundDescription": "Wyślij ładunki do <code> </code>, aby pobrać leady z intranetu.",
       "inboundToken": "Token URL przychodzącego",
       "inboundTokenHint": "Ten token jest częścią URL przychodzącego — zachowaj go w tajemnicy.",
       "inboundUrl": "URL przychodzący",
@@ -912,7 +912,7 @@
         "savedNotice": "Zapisano wychodzący webhook.",
         "secretConfigured": "Skonfigurowano",
         "secretNotSet": "Nie ustawiono — wygeneruj przed wysyłaniem zdarzeń.",
-        "secretRotatedAt": "(zresetowano {time})",
+        "secretRotatedAt": "(zresetowano )",
         "secretRotatedNotice": "Sekret podpisu został zresetowany. Tekst jawny wyświetlony tylko raz.",
         "selectAtLeastOne": "Wybierz co najmniej jeden status lub zaznacz „Wszystkie zmiany statusu”.",
         "signingSecretLabel": "Sekret podpisu (HMAC‑SHA256)",
@@ -1004,7 +1004,7 @@
       "fieldMappingHint": "Mapuj pola generowania leadów Meta na kolumny leadów w CRM. Pozostaw puste, aby użyć domyślnych (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Mapowanie pól",
       "finalizeButton": "Zakończ konfigurację",
-      "followersCount": "{count} obserwujących",
+      "followersCount": "obserwujących",
       "formAllSubscribedHint": "Nie wybrano formularzy → wszystkie formularze na tej stronie zostaną subskrybowane (domyślne Meta).",
       "formIdsHint": "Rozdzielane przecinkami. Puste = otrzymuj wszystkie formularze na tej stronie.",
       "formIdsLabel": "Identyfikatory formularzy",
@@ -1014,14 +1014,14 @@
       "formPickerSearch": "Wyszukaj formularze…",
       "formPickerTitle": "Wybierz formularze leadów",
       "forms": "Formularze",
-      "formsShownCount": "{shown} z {total}",
+      "formsShownCount": "z",
       "hmacSecretHint": "Zapisz to teraz — nie pokażemy ponownie tekstu w postaci jawnej.",
       "hmacSecretLabel": "Sekret HMAC",
       "hmacSecretReveal": "Pokaż jednorazowo",
       "inboundUrlHint": "n8n wysyła tutaj po pobraniu pełnego leada z Meta. Nie musisz tego wklejać nigdzie.",
       "inboundUrlLabel": "URL przychodzący CRM (używany przez n8n)",
       "last7dCount": "{count} w ciągu 7 dni",
-      "lastLeadAgo": "Ostatni lead {when}",
+      "lastLeadAgo": "Ostatni lead",
       "leads7d": "{count} leadów w ciągu 7 dni",
       "loadFailed": "Nie udało się załadować integracji Meta.",
       "metaFieldHeader": "Pole Meta",
@@ -1050,7 +1050,7 @@
       "pagePickerEmptyTitle": "Nie znaleziono stron",
       "pagePickerSearch": "Wyszukaj strony…",
       "pagePickerTitle": "Wybierz stronę na Facebooku",
-      "pagesShownCount": "{shown} z {total}",
+      "pagesShownCount": "z",
       "paused": "Wstrzymane",
       "popupBlocked": "Przeglądarka zablokowała okno OAuth. Zezwól na okna popup dla tej witryny i spróbuj ponownie.",
       "recentDeliveriesEmpty": "Brak dostaw.",
@@ -1073,7 +1073,7 @@
       "statusDraft": "Szkic",
       "statusPaused": "Wstrzymane",
       "statusUnknown": "Nieznany",
-      "subscribedAt": "Subskrybowano {when}",
+      "subscribedAt": "Subskrybowano",
       "testLeadButton": "Wyślij testowy lead",
       "testLeadDescription": "Tworzy ładunek w formacie Meta i przetwarza go tą samą ścieżką wstawiania co produkcja. Dostępne tylko gdy tryb mock jest włączony.",
       "testLeadFailed": "Nie udało się utworzyć testowego leada.",
@@ -1162,10 +1162,10 @@
     "rag": {
       "chunkLabel": "Fragment",
       "chunksColumn": "Fragmenty",
-      "description": "Baza wiedzy dla <strong>{name}</strong>. Przesyłaj dokumenty, które AI może odnieść się do.",
-      "ingestedDescription": "Dokumenty aktualnie w bazie wiedzy dla <strong>{name}</strong>.",
+      "description": "Baza wiedzy dla <strong> </strong>. Przesyłaj dokumenty, które AI może odnieść się do.",
+      "ingestedDescription": "Dokumenty aktualnie w bazie wiedzy dla <strong> </strong>.",
       "ingestedDocuments": "Wprowadzone dokumenty",
-      "ingestionExampleDescription": "Wyślij żądanie POST na <code>{url}</code> z ciałem JSON zawierającym <code>title</code>, <code>content</code> oraz opcjonalnie <code>metadata</code>.",
+      "ingestionExampleDescription": "Wyślij żądanie POST na <code> </code> z ciałem JSON zawierającym <code>title</code>, <code>content</code> oraz opcjonalnie <code>metadata</code>.",
       "ingestionExampleTitle": "Przykład wprowadzania",
       "loadConfigFailed": "Nie udało się wczytać konfiguracji RAG.",
       "loadContentFailed": "Nie udało się wczytać treści dokumentu.",
@@ -1209,9 +1209,9 @@
     },
     "subComponent": {
       "configured": "Skonfigurowano",
-      "configuredAria": "{name} jest skonfigurowany",
+      "configuredAria": "{label} jest skonfigurowany",
       "notSet": "Nie             ",
-      "notSetAria": "{name} nie jest ustawiony"
+      "notSetAria": "{label} nie jest ustawiony"
     },
     "testConnection": "Testuj połączenie",
     "testing": "Testowanie…",
@@ -1219,7 +1219,7 @@
     "urlCopied": "URL skopiowano do schowka.",
     "usage": {
       "allMetrics": "Wszystkie metryki",
-      "description": "Użycie i limity szybkości dla <strong>{name}</strong>.",
+      "description": "Użycie i limity szybkości dla <strong> </strong>.",
       "loadFailed": "Nie udało się wczytać danych użycia.",
       "loading": "Wczytywanie danych użycia…",
       "metricColumn": "Metryka",
@@ -1268,7 +1268,7 @@
       "calendlyDescription": "Opcjonalny link Calendly, który asystent może zaoferować do rezerwacji. Używany w przekazywaniach spotkań <code>v1</code>.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Link Calendly",
-      "description": "Skonfiguruj zachowanie kwalifikatora <code>v1</code> dla <strong>{name}</strong>.",
+      "description": "Skonfiguruj zachowanie kwalifikatora <code>v1</code> dla <strong> </strong>.",
       "frameworkDescription": "Wybierz ramy kwalifikacji, których asystent używa do wyodrębniania sygnałów.",
       "frameworkTitle": "Ramy kwalifikacji",
       "loadFailed": "Nie udało się wczytać konfiguracji v1.",
@@ -1292,7 +1292,7 @@
       "configured": "Skonfigurowano",
       "currentLabel": "Bieżący",
       "customPatternsLabel": "Własne wzorce (po jednym w wierszu)",
-      "description": "Skonfiguruj dostarczanie webhooka dla <strong>{name}</strong>.",
+      "description": "Skonfiguruj dostarczanie webhooka dla <strong> </strong>.",
       "destinationHint": "Lisent wysyła zdarzenia na ten adres URL z podpisanym ładunkiem.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Docelowy URL",
@@ -1320,7 +1320,7 @@
       "payloadMinimalLabel": "Minimalny payload",
       "payloadMode": "Tryb payload",
       "rotateSecret": "Zrotuj sekret",
-      "rotatedAt": "Zrotowano {time}",
+      "rotatedAt": "Zrotowano",
       "saveEventSelection": "Zapisz wybór zdarzeń",
       "saveUrl": "Zapisz URL",
       "secretRotated": "Sekret podpisu został zrotowany.",
@@ -1371,18 +1371,18 @@
       "title": "Przypisz wybrane leady"
     },
     "bulkBar": {
-      "ariaSelected": "{count} leadów wybrano",
+      "ariaSelected": "leadów wybrano",
       "assign": "Przypisz",
       "clearSelection": "Wyczyść zaznaczenie",
       "delete": "Usuń",
       "exportCsv": "Eksportuj CSV",
       "exportPdf": "Eksportuj PDF",
-      "selected": "{count} wybrano"
+      "selected": "wybrano"
     },
     "bulkDelete": {
       "confirm": "Usuń wybrane",
       "deleting": "Usuwanie…",
-      "description": "Spowoduje to trwałe usunięcie {count} leadów. Tej operacji nie można cofnąć.",
+      "description": "Spowoduje to trwałe usunięcie leadów. Tej operacji nie można cofnąć.",
       "title": "Usunąć wybrane leady?"
     },
     "convertModal": {
@@ -1503,7 +1503,7 @@
       "allAssignees": "Wszyscy przypisani",
       "allSources": "Wszystkie źródła",
       "byCampaign": "Filtrowano według kampanii: {name}",
-      "byCampaignCount": "{shown} z {total} leadów",
+      "byCampaignCount": "z leadów",
       "clearCampaign": "Wyczyść filtr"
     },
     "formModal": {
@@ -1555,7 +1555,7 @@
     "pdf": {
       "createdAt": "Utworzono",
       "email": "E‑mail",
-      "exportedAt": "{count} leadów · Wyeksportowano {date}",
+      "exportedAt": "leadów · Wyeksportowano",
       "pageOf": "Strona {current} z {total}",
       "title": "Leady"
     },
@@ -1580,9 +1580,9 @@
     },
     "success": {
       "aiStarted": "Rozpoczęto kwalifikację AI.",
-      "bulkAssignPartial": "{assigned} z {total} leadów przypisano.",
-      "bulkAssigned": "{count} leadów przypisano.",
-      "bulkPartial": "{deleted} z {total} leadów usunięto.",
+      "bulkAssignPartial": "z leadów przypisano.",
+      "bulkAssigned": "leadów przypisano.",
+      "bulkPartial": "z leadów usunięto.",
       "bulkRemoved": "{count} leadów usunięto.",
       "converted": "Lead przekonwertowano.",
       "convertedWithDeal": "Lead przekonwertowano z dealem.",
@@ -1599,7 +1599,7 @@
       "assignee": "Osoba przypisana",
       "empty": "Brak leadów spełniających bieżące filtry.",
       "name": "Nazwa",
-      "openAIScore": "Wynik Open AI dla {name}",
+      "openAIScore": "Wynik Open AI dla {score}",
       "phone": "Telefon",
       "rowActions": "Akcje wiersza",
       "selectAll": "Zaznacz wszystkie leady",
@@ -1877,7 +1877,7 @@
       "notes": "Dodaj szczegóły tego zadania...",
       "title": "Tytuł zadania"
     },
-    "publishedBy": "Opublikowane przez {name}",
+    "publishedBy": "Opublikowane przez",
     "responseStatus": {
       "accepted": "Zaakceptowano",
       "pending": "Oczekujące",
@@ -1902,9 +1902,9 @@
     },
     "summary": {
       "company": "Firma",
-      "inProgressDone": "{inProgress} w trakcie · {done} zakończono",
-      "myPending": "{count} oczekujących",
-      "openTickets": "{count} otwartych"
+      "inProgressDone": "w trakcie · zakończono",
+      "myPending": "oczekujących",
+      "openTickets": "otwartych"
     },
     "systemUser": "System",
     "teammatesCount": "{count} współpracowników",
@@ -1955,14 +1955,14 @@
     "removeMember": "Usuń członka",
     "removeModal": {
       "confirm": "Usuń członka",
-      "description": "{name} utraci dostęp do tego workspace natychmiast.",
+      "description": "{company} utraci dostęp do tego workspace natychmiast.",
       "eyebrow": "Usunięcie członka zespołu",
       "removing": "Usuwanie…",
       "title": "Usunąć członka zespołu?"
     },
     "roleModal": {
       "confirm": "Zmień rolę",
-      "description": "Zaktualizuj rolę {name} w tym workspace.",
+      "description": "Zaktualizuj rolę w tym workspace.",
       "eyebrow": "Zmień rolę",
       "title": "Zmień rolę",
       "to": "na",
