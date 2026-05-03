@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Brak danych lejka dla {name}.",
       "emptyDefault": "Brak danych lejka.",
+      "stage": {
+        "lost": "Przegrany",
+        "negotiation": "Negocjacje",
+        "new": "Nowy",
+        "proposal": "Oferta",
+        "qualified": "Zakwalifikowany",
+        "won": "Wygrany"
+      },
       "subtitle": "Rozkład transakcji według etapu.",
       "title": "Lejek",
       "totalBadge": "{value} łącznie"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Brak ostatnich leadów w {name}.",
       "emptyDefault": "Brak ostatnich leadów.",
+      "status": {
+        "contacted": "Skontaktowano się",
+        "converted": "Przekonwertowany",
+        "lost": "Przegrany",
+        "new": "Nowy",
+        "qualified": "Zakwalifikowany"
+      },
       "subtitle": "Najnowsze leady dodane do Twojego workspace.",
       "title": "Ostatnie leady",
       "unnamed": "Lead bez nazwy",
@@ -591,6 +606,17 @@
       "noRows": "Plik lub URL nie zawierał żadnych wierszy.",
       "openFromCompany": "Otwórz tę stronę z przestrzeni roboczej firmy.",
       "parseFailed": "Nie udało się przetworzyć pliku CSV."
+    },
+    "fields": {
+      "countryCode": "Kod kraju",
+      "email": "E-mail",
+      "externalCustomerId": "Zewnętrzny ID klienta",
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "name": "Nazwa",
+      "phone": "Telefon",
+      "preferredLanguage": "Preferowany język",
+      "subscriptionDate": "Data subskrypcji"
     },
     "mapping": {
       "approvalDescription": "Potwierdź mapowanie i uruchom import. Klienci zostaną utworzeni lub zaktualizowani w aktywnym workspace.",
@@ -641,6 +667,23 @@
       "selectedFile": "Wybrano: {name}",
       "uploadCsv": "Prześlij CSV",
       "useUrl": "Użyj URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mapowanie",
+        "summary": "Dopasuj każdą kolumnę do pola w CRM.",
+        "title": "Zmapuj kolumny"
+      },
+      "preview": {
+        "label": "Podgląd",
+        "summary": "Potwierdź dane i uruchom import.",
+        "title": "Sprawdź i zaimportuj"
+      },
+      "source": {
+        "label": "Źródło",
+        "summary": "Wyślij plik CSV lub wklej adres URL.",
+        "title": "Wybierz źródło danych"
+      }
     },
     "utils": {
       "mappedAutomatically": "Mapowano automatycznie",
@@ -877,8 +920,19 @@
         "statusFilterTitle": "Filtr statusu",
         "statusLabels": {
           "contacted": "Lead został skontaktowany",
-          "converted": "Lead przekształcony w klienta"
+          "converted": "Lead przekształcony w klienta",
+          "lost": "Lead oznaczony jako stracony",
+          "new": "Lead właśnie utworzony",
+          "qualified": "Lead zakwalifikowany przez AI / sprzedaż"
         },
+        "testButton": "Wyślij testowe zdarzenie",
+        "testEnqueued": "Testowe zdarzenie w kolejce: {eventId}",
+        "testFailed": "Testowe zdarzenie nie powiodło się.",
+        "testHint": "Wysyła syntetyczne zdarzenie lead.status_changed na Twój URL z tymi samymi nagłówkami i podpisem co prawdziwe zdarzenia.",
+        "testTitle": "Wyślij testowe zdarzenie",
+        "testToStatusLabel": "to_status (którą zmianę zasymulować)",
+        "title": "Wychodzący webhook (aktualizacje statusu)",
+        "urlHint": "Wysyłamy POST ze zdarzeniami zmiany statusu na ten adres URL z podpisem HMAC-SHA256. Na produkcji wymagane HTTPS.",
         "urlLabel": "URL punktu końcowego",
         "urlPlaceholder": "https://example.com/webhooks/lisent",
         "urlRequiredFirst": "Zapisz URL przed wygenerowaniem sekretu.",
@@ -1091,6 +1145,17 @@
       "saveAiConfig": "Zapisz konfigurację AI",
       "secondaryRevoked": "Drugi sekret webhooka odwołany.",
       "sectorLabel": "Sektor",
+      "tabs": {
+        "aiConfig": "Konfiguracja AI",
+        "apiKeys": "Klucze API",
+        "channels": "Kanały",
+        "fallback": "Awaryjny",
+        "leadWebhook": "Webhook leadów",
+        "overview": "Przegląd",
+        "rag": "RAG",
+        "usage": "Wykorzystanie",
+        "v1Config": "Konfiguracja V1"
+      },
       "thresholdHint": "Leady, które uzyskują wynik równy lub wyższy od tego progu, są oznaczane jako zakwalifikowane.",
       "webhookUrlLabel": "Webhook URL"
     },

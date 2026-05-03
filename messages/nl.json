@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Nog geen pipeline-gegevens voor {name}.",
       "emptyDefault": "Nog geen pipeline-gegevens.",
+      "stage": {
+        "lost": "Verloren",
+        "negotiation": "Onderhandeling",
+        "new": "Nieuw",
+        "proposal": "Voorstel",
+        "qualified": "Gekwalificeerd",
+        "won": "Gewonnen"
+      },
       "subtitle": "Verdeling van deals per fase.",
       "title": "Pipeline",
       "totalBadge": "{value} totaal"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Geen recente leads in {name}.",
       "emptyDefault": "Nog geen recente leads.",
+      "status": {
+        "contacted": "Gecontacteerd",
+        "converted": "Geconverteerd",
+        "lost": "Verloren",
+        "new": "Nieuw",
+        "qualified": "Gekwalificeerd"
+      },
       "subtitle": "Recent toegevoegde leads in uw workspace.",
       "title": "Recente leads",
       "unnamed": "Naamloze lead",
@@ -591,6 +606,17 @@
       "noRows": "Het bestand of de URL bevatte geen rijen.",
       "openFromCompany": "Open deze pagina vanuit een bedrijfs‑workspace.",
       "parseFailed": "Kan het CSV‑bestand niet parseren."
+    },
+    "fields": {
+      "countryCode": "Landcode",
+      "email": "E-mail",
+      "externalCustomerId": "Externe klant-ID",
+      "firstName": "Voornaam",
+      "lastName": "Achternaam",
+      "name": "Naam",
+      "phone": "Telefoon",
+      "preferredLanguage": "Voorkeurstaal",
+      "subscriptionDate": "Abonnementsdatum"
     },
     "mapping": {
       "approvalDescription": "Bevestig de mapping en start de import. Klanten worden aangemaakt of bijgewerkt voor de actieve workspace.",
@@ -641,6 +667,23 @@
       "selectedFile": "Geselecteerd: {name}",
       "uploadCsv": "CSV uploaden",
       "useUrl": "URL gebruiken"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Toewijzing",
+        "summary": "Koppel elke kolom aan een CRM-veld.",
+        "title": "Wijs je kolommen toe"
+      },
+      "preview": {
+        "label": "Voorbeeld",
+        "summary": "Bevestig de gegevens en start de import.",
+        "title": "Bekijk en importeer"
+      },
+      "source": {
+        "label": "Bron",
+        "summary": "Upload een CSV of plak een URL.",
+        "title": "Kies je gegevensbron"
+      }
     },
     "utils": {
       "mappedAutomatically": "Automatisch gekoppeld",
@@ -1102,6 +1145,17 @@
       "saveAiConfig": "AI-configuratie opslaan",
       "secondaryRevoked": "Secundair webhook‑secret ingetrokken.",
       "sectorLabel": "Sector",
+      "tabs": {
+        "aiConfig": "AI-configuratie",
+        "apiKeys": "API-sleutels",
+        "channels": "Kanalen",
+        "fallback": "Fallback",
+        "leadWebhook": "Lead-webhook",
+        "overview": "Overzicht",
+        "rag": "RAG",
+        "usage": "Gebruik",
+        "v1Config": "V1-configuratie"
+      },
       "thresholdHint": "Leads die op of boven deze drempel scoren, worden gemarkeerd als gekwalificeerd.",
       "webhookUrlLabel": "Webhook URL"
     },

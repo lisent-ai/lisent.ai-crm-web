@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Nessun dato di pipeline ancora per {name}.",
       "emptyDefault": "Nessun dato di pipeline ancora.",
+      "stage": {
+        "lost": "Perso",
+        "negotiation": "Negoziazione",
+        "new": "Nuovo",
+        "proposal": "Proposta",
+        "qualified": "Qualificato",
+        "won": "Vinto"
+      },
       "subtitle": "Distribuzione dei Deal per fase.",
       "title": "Pipeline",
       "totalBadge": "{value} totale"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Nessun lead recente in {name}.",
       "emptyDefault": "Nessun lead recente.",
+      "status": {
+        "contacted": "Contattato",
+        "converted": "Convertito",
+        "lost": "Perso",
+        "new": "Nuovo",
+        "qualified": "Qualificato"
+      },
       "subtitle": "Ultimi lead aggiunti al suo workspace.",
       "title": "Lead recenti",
       "unnamed": "Lead senza nome",
@@ -591,6 +606,17 @@
       "noRows": "Il file o l'URL non conteneva alcuna riga.",
       "openFromCompany": "Apri questa pagina da un workspace aziendale.",
       "parseFailed": "Impossibile analizzare il file CSV."
+    },
+    "fields": {
+      "countryCode": "Codice paese",
+      "email": "Email",
+      "externalCustomerId": "ID cliente esterno",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "name": "Nome",
+      "phone": "Telefono",
+      "preferredLanguage": "Lingua preferita",
+      "subscriptionDate": "Data di abbonamento"
     },
     "mapping": {
       "approvalDescription": "Conferma la mappatura e avvia l'importazione. I clienti verranno creati o aggiornati per il workspace attivo.",
@@ -641,6 +667,23 @@
       "selectedFile": "Selezionato: {name}",
       "uploadCsv": "Carica CSV",
       "useUrl": "Usa URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mappatura",
+        "summary": "Associa ogni colonna a un campo del CRM.",
+        "title": "Mappa le tue colonne"
+      },
+      "preview": {
+        "label": "Anteprima",
+        "summary": "Conferma i dati ed esegui l'importazione.",
+        "title": "Rivedi e importa"
+      },
+      "source": {
+        "label": "Origine",
+        "summary": "Carica un CSV o incolla un URL.",
+        "title": "Scegli la tua sorgente dati"
+      }
     },
     "utils": {
       "mappedAutomatically": "Mappato automaticamente",
@@ -854,6 +897,13 @@
           "toStatus": "→ Stato"
         },
         "description": "Quando lo stato di un lead cambia in questo CRM, firma l'evento e invialo con POST al tuo endpoint. Riproviamo in caso di errore (6 attempts in ~7h) e poi lo spostiamo nella dead-letter.",
+        "generateSecretButton": "Genera segreto di firma",
+        "loadFailed": "Impossibile caricare la configurazione del webhook in uscita.",
+        "loading": "Caricamento webhook in uscita…",
+        "newSecretHint": "Copia ora questo segreto — dopo la chiusura del dialogo lo cifriamo e mostreremo solo una versione mascherata.",
+        "newSecretReveal": "Nuovo segreto di firma",
+        "pauseHint": "Interrompe le nuove consegne senza perdere il tuo URL. I retry in attesa continuano.",
+        "pauseLabel": "Metti in pausa i webhook in uscita",
         "rotateSecretButton": "Ruota segreto di firma",
         "rotateSecretConfirm": "Ruotare il segreto di firma? Dovrà aggiornare il codice di verifica con il nuovo valore.",
         "rotatingSecret": "Rotazione…",
@@ -886,6 +936,9 @@
         "urlLabel": "URL endpoint",
         "urlPlaceholder": "https://example.com/webhooks/lisent",
         "urlRequiredFirst": "Salva un URL prima di generare un segreto.",
+        "verificationIntro": "Ogni richiesta include questi header:",
+        "verificationNote": "Se ricevi una consegna con timestamp più vecchio di 5 minuti, rifiutala come replay.",
+        "verificationTitle": "Come verificare dal tuo lato",
         "verifyByComputing": "Verifica ricalcolando l'HMAC su '<timestamp>.<rawBody>' e confrontando in tempo costante:"
       },
       "recentDeliveries": "Consegne recenti",
@@ -1092,6 +1145,17 @@
       "saveAiConfig": "Salva configurazione AI",
       "secondaryRevoked": "Segreto secondario del webhook revocato.",
       "sectorLabel": "Settore",
+      "tabs": {
+        "aiConfig": "Configurazione IA",
+        "apiKeys": "Chiavi API",
+        "channels": "Canali",
+        "fallback": "Fallback",
+        "leadWebhook": "Webhook lead",
+        "overview": "Panoramica",
+        "rag": "RAG",
+        "usage": "Utilizzo",
+        "v1Config": "Configurazione V1"
+      },
       "thresholdHint": "I lead con punteggio pari o superiore a questa soglia vengono contrassegnati come qualificati.",
       "webhookUrlLabel": "URL webhook"
     },

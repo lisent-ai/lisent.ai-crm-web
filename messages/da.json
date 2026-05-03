@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Ingen pipeline-data endnu for {name}.",
       "emptyDefault": "Ingen pipeline-data endnu.",
+      "stage": {
+        "lost": "Tabt",
+        "negotiation": "Forhandling",
+        "new": "Ny",
+        "proposal": "Tilbud",
+        "qualified": "Kvalificeret",
+        "won": "Vundet"
+      },
       "subtitle": "Fordeling af deals efter stage.",
       "title": "Pipeline",
       "totalBadge": "{value} i alt"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Ingen nylige leads i {name}.",
       "emptyDefault": "Ingen nylige leads endnu.",
+      "status": {
+        "contacted": "Kontaktet",
+        "converted": "Konverteret",
+        "lost": "Tabt",
+        "new": "Ny",
+        "qualified": "Kvalificeret"
+      },
       "subtitle": "Seneste leads tilføjet til Deres workspace.",
       "title": "Nylige leads",
       "unnamed": "Unavngivet lead",
@@ -591,6 +606,17 @@
       "noRows": "Filen eller URL'en indeholdt ingen rækker.",
       "openFromCompany": "Åbn denne side fra et virksomheds‑workspace.",
       "parseFailed": "Kunne ikke parse CSV-filen."
+    },
+    "fields": {
+      "countryCode": "Landekode",
+      "email": "E-mail",
+      "externalCustomerId": "Ekstern kunde-ID",
+      "firstName": "Fornavn",
+      "lastName": "Efternavn",
+      "name": "Navn",
+      "phone": "Telefon",
+      "preferredLanguage": "Foretrukket sprog",
+      "subscriptionDate": "Abonnementsdato"
     },
     "mapping": {
       "approvalDescription": "Bekræft kortlægningen og kør importen. Kunder vil blive oprettet eller opdateret i det aktive workspace.",
@@ -641,6 +667,23 @@
       "selectedFile": "Valgt: {name}",
       "uploadCsv": "Upload CSV",
       "useUrl": "Brug URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mapping",
+        "summary": "Forbind hver kolonne med et CRM-felt.",
+        "title": "Map dine kolonner"
+      },
+      "preview": {
+        "label": "Forhåndsvisning",
+        "summary": "Bekræft data, og kør derefter importen.",
+        "title": "Gennemgå og importer"
+      },
+      "source": {
+        "label": "Kilde",
+        "summary": "Upload en CSV eller indsæt en URL.",
+        "title": "Vælg din datakilde"
+      }
     },
     "utils": {
       "mappedAutomatically": "Kortlagt automatisk",
@@ -1102,6 +1145,17 @@
       "saveAiConfig": "Gem AI‑konfiguration",
       "secondaryRevoked": "Sekundær webhook‑hemmelighed tilbagekaldt.",
       "sectorLabel": "Sektor",
+      "tabs": {
+        "aiConfig": "AI-konfiguration",
+        "apiKeys": "API-nøgler",
+        "channels": "Kanaler",
+        "fallback": "Reserve",
+        "leadWebhook": "Lead-webhook",
+        "overview": "Oversigt",
+        "rag": "RAG",
+        "usage": "Forbrug",
+        "v1Config": "V1-konfiguration"
+      },
       "thresholdHint": "Leads, der scorer på eller over denne grænse, markeres som kvalificerede.",
       "webhookUrlLabel": "Webhook‑URL"
     },

@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Ei vielä putken dataa {name} varten.",
       "emptyDefault": "Ei vielä putken dataa.",
+      "stage": {
+        "lost": "Hävitty",
+        "negotiation": "Neuvottelu",
+        "new": "Uusi",
+        "proposal": "Tarjous",
+        "qualified": "Kvalifioitu",
+        "won": "Voitettu"
+      },
       "subtitle": "Kauppojen jakautuminen vaiheittain.",
       "title": "Putki",
       "totalBadge": "{value} yhteensä"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Ei viimeaikaisia liidejä kohteessa {name}.",
       "emptyDefault": "Ei vielä viimeaikaisia liidejä.",
+      "status": {
+        "contacted": "Yhteydessä",
+        "converted": "Muunnettu",
+        "lost": "Hävitty",
+        "new": "Uusi",
+        "qualified": "Kvalifioitu"
+      },
       "subtitle": "Viimeisimmät liidit, jotka on lisätty työtilaan",
       "title": "Viimeaikaiset liidit",
       "unnamed": "Nimetön liidi",
@@ -591,6 +606,17 @@
       "noRows": "Tiedosto tai URL ei sisältänyt rivejä.",
       "openFromCompany": "Avaa tämä sivu yrityksen Workspace‑sta.",
       "parseFailed": "CSV‑tiedoston jäsentäminen epäonnistui."
+    },
+    "fields": {
+      "countryCode": "Maakoodi",
+      "email": "Sähköposti",
+      "externalCustomerId": "Ulkoinen asiakas-ID",
+      "firstName": "Etunimi",
+      "lastName": "Sukunimi",
+      "name": "Nimi",
+      "phone": "Puhelin",
+      "preferredLanguage": "Ensisijainen kieli",
+      "subscriptionDate": "Tilauspäivä"
     },
     "mapping": {
       "approvalDescription": "Vahvista kartoitus ja suorita tuonti. Asiakkaat luodaan tai päivitetään aktiivisessa työtilassa.",
@@ -641,6 +667,23 @@
       "selectedFile": "Valittu: {name}",
       "uploadCsv": "Lataa CSV",
       "useUrl": "Käytä URL-osoitetta"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mappaus",
+        "summary": "Yhdistä jokainen sarake CRM-kenttään.",
+        "title": "Mappaa sarakkeet"
+      },
+      "preview": {
+        "label": "Esikatselu",
+        "summary": "Vahvista tiedot ja suorita tuonti.",
+        "title": "Tarkista ja tuo"
+      },
+      "source": {
+        "label": "Lähde",
+        "summary": "Lataa CSV tai liitä URL.",
+        "title": "Valitse tietolähde"
+      }
     },
     "utils": {
       "mappedAutomatically": "Kartoitettiin automaattisesti",
@@ -842,7 +885,13 @@
       "noDeliveries": "Toimituksia ei ole vielä.",
       "noIntegration": "Intranetin integraatiota ei ole määritetty.",
       "outbound": {
+        "allStatusesLabel": "Kaikki tilan muutokset (suositus)",
+        "deliveriesEmpty": "Ei vielä toimituksia. Lähetä testitapahtuma yhteyden vahvistamiseksi.",
+        "deliveriesTitle": "Viimeisimmät toimitukset",
         "deliveryCols": {
+          "attempts": "Yritykset",
+          "createdAt": "Lähetetty",
+          "error": "Viimeisin virhe",
           "eventId": "Tapahtuma ID",
           "status": "Tila",
           "toStatus": "→ Tila"
@@ -1096,6 +1145,17 @@
       "saveAiConfig": "Tallenna AI‑asetukset",
       "secondaryRevoked": "Toissijainen webhook‑salaisuus peruttu.",
       "sectorLabel": "Toimiala",
+      "tabs": {
+        "aiConfig": "Tekoälyasetukset",
+        "apiKeys": "API-avaimet",
+        "channels": "Kanavat",
+        "fallback": "Varajärjestelmä",
+        "leadWebhook": "Liidi-webhook",
+        "overview": "Yleiskatsaus",
+        "rag": "RAG",
+        "usage": "Käyttö",
+        "v1Config": "V1-asetukset"
+      },
       "thresholdHint": "Leadit, jotka saavat pisteitä tämän kynnyksen tasolla tai korkeammalla, merkitään kvalifioiduiksi.",
       "webhookUrlLabel": "Webhook‑URL"
     },
@@ -1493,7 +1553,11 @@
       "unknownAuthor": "Tuntematon"
     },
     "pdf": {
-      "createdAt": "Luotu"
+      "createdAt": "Luotu",
+      "email": "Sähköposti",
+      "exportedAt": "{count} liidiä · Vienti {date}",
+      "pageOf": "Sivu {current} / {total}",
+      "title": "Liidit"
     },
     "rowMenu": {
       "convert": "Muunna",

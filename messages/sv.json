@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Ingen pipeline-data ännu för {name}.",
       "emptyDefault": "Ingen pipeline-data ännu.",
+      "stage": {
+        "lost": "Förlorad",
+        "negotiation": "Förhandling",
+        "new": "Ny",
+        "proposal": "Förslag",
+        "qualified": "Kvalificerad",
+        "won": "Vunnen"
+      },
       "subtitle": "Fördelning av deals per steg.",
       "title": "Pipeline",
       "totalBadge": "{value} totalt"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Inga senaste leads i {name}.",
       "emptyDefault": "Inga senaste leads ännu.",
+      "status": {
+        "contacted": "Kontaktad",
+        "converted": "Konverterad",
+        "lost": "Förlorad",
+        "new": "Ny",
+        "qualified": "Kvalificerad"
+      },
       "subtitle": "Senaste leads som lagts till i ert arbetsområde.",
       "title": "Senaste leads",
       "unnamed": "Namnlös lead",
@@ -591,6 +606,17 @@
       "noRows": "Filen eller URL:en innehöll inga rader.",
       "openFromCompany": "Öppna den här sidan från ett företags‑workspace.",
       "parseFailed": "Det gick inte att tolka CSV‑filen."
+    },
+    "fields": {
+      "countryCode": "Landskod",
+      "email": "E-post",
+      "externalCustomerId": "Externt kund-ID",
+      "firstName": "Förnamn",
+      "lastName": "Efternamn",
+      "name": "Namn",
+      "phone": "Telefon",
+      "preferredLanguage": "Önskat språk",
+      "subscriptionDate": "Prenumerationsdatum"
     },
     "mapping": {
       "approvalDescription": "Bekräfta mappningen och kör importen. Kunder kommer att skapas eller uppdateras för den aktiva workspace.",
@@ -641,6 +667,23 @@
       "selectedFile": "Vald: {name}",
       "uploadCsv": "Ladda upp CSV",
       "useUrl": "Använd URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mappning",
+        "summary": "Koppla varje kolumn till ett CRM-fält.",
+        "title": "Mappa dina kolumner"
+      },
+      "preview": {
+        "label": "Förhandsgranskning",
+        "summary": "Bekräfta data och kör sedan importen.",
+        "title": "Granska och importera"
+      },
+      "source": {
+        "label": "Källa",
+        "summary": "Ladda upp en CSV eller klistra in en URL.",
+        "title": "Välj din datakälla"
+      }
     },
     "utils": {
       "mappedAutomatically": "Mappad automatiskt",
@@ -1102,6 +1145,17 @@
       "saveAiConfig": "Spara AI-konfiguration",
       "secondaryRevoked": "Sekundär webhook-hemlighet återkallad.",
       "sectorLabel": "Sektor",
+      "tabs": {
+        "aiConfig": "AI-konfiguration",
+        "apiKeys": "API-nycklar",
+        "channels": "Kanaler",
+        "fallback": "Reserv",
+        "leadWebhook": "Lead-webhook",
+        "overview": "Översikt",
+        "rag": "RAG",
+        "usage": "Användning",
+        "v1Config": "V1-konfiguration"
+      },
       "thresholdHint": "Leads som får poäng på eller över denna tröskel markeras som kvalificerade.",
       "webhookUrlLabel": "Webhook URL"
     },

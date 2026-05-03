@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Пока нет данных Pipeline для {name}.",
       "emptyDefault": "Пока нет данных Pipeline.",
+      "stage": {
+        "lost": "Проигран",
+        "negotiation": "Переговоры",
+        "new": "Новый",
+        "proposal": "Предложение",
+        "qualified": "Квалифицированный",
+        "won": "Выигран"
+      },
       "subtitle": "Распределение Deal‑ов по Stage.",
       "title": "Pipeline",
       "totalBadge": "{value} всего"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Нет недавних лидов в {name}.",
       "emptyDefault": "Пока нет недавних лидов.",
+      "status": {
+        "contacted": "Связались",
+        "converted": "Преобразован",
+        "lost": "Проигран",
+        "new": "Новый",
+        "qualified": "Квалифицирован"
+      },
       "subtitle": "Последние лиды, добавленные в ваше рабочее пространство.",
       "title": "Недавние лиды",
       "unnamed": "Лид без названия",
@@ -591,6 +606,17 @@
       "noRows": "Файл или URL-адрес не содержит ни одной строки.",
       "openFromCompany": "Откройте эту страницу из рабочего пространства компании.",
       "parseFailed": "Не удалось разобрать CSV‑файл."
+    },
+    "fields": {
+      "countryCode": "Код страны",
+      "email": "Эл. почта",
+      "externalCustomerId": "Внешний ID клиента",
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "name": "Имя",
+      "phone": "Телефон",
+      "preferredLanguage": "Предпочитаемый язык",
+      "subscriptionDate": "Дата подписки"
     },
     "mapping": {
       "approvalDescription": "Подтвердите сопоставление и запустите импорт. Клиенты будут созданы или обновлены в активном рабочем пространстве.",
@@ -641,6 +667,23 @@
       "selectedFile": "Выбрано: {name}",
       "uploadCsv": "Загрузить CSV",
       "useUrl": "Использовать URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Сопоставление",
+        "summary": "Сопоставьте каждый столбец с полем CRM.",
+        "title": "Сопоставьте столбцы"
+      },
+      "preview": {
+        "label": "Предпросмотр",
+        "summary": "Подтвердите данные, затем запустите импорт.",
+        "title": "Проверьте и импортируйте"
+      },
+      "source": {
+        "label": "Источник",
+        "summary": "Загрузите CSV или вставьте URL.",
+        "title": "Выберите источник данных"
+      }
     },
     "utils": {
       "mappedAutomatically": "Сопоставлено автоматически",
@@ -1102,6 +1145,17 @@
       "saveAiConfig": "Сохранить конфигурацию AI",
       "secondaryRevoked": "Вторичный секрет webhook отозван.",
       "sectorLabel": "Сектор",
+      "tabs": {
+        "aiConfig": "Настройки ИИ",
+        "apiKeys": "API-ключи",
+        "channels": "Каналы",
+        "fallback": "Запасной",
+        "leadWebhook": "Webhook лида",
+        "overview": "Обзор",
+        "rag": "RAG",
+        "usage": "Использование",
+        "v1Config": "Настройки V1"
+      },
       "thresholdHint": "Leads, набравшие балл выше или равный этому порогу, помечаются как квалифицированные.",
       "webhookUrlLabel": "Webhook URL"
     },

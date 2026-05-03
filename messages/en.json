@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "No pipeline data yet for {name}.",
       "emptyDefault": "No pipeline data yet.",
+      "stage": {
+        "lost": "Lost",
+        "negotiation": "Negotiation",
+        "new": "New",
+        "proposal": "Proposal",
+        "qualified": "Qualified",
+        "won": "Won"
+      },
       "subtitle": "Distribution of deals by stage.",
       "title": "Pipeline",
       "totalBadge": "{value} total"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "No recent leads in {name}.",
       "emptyDefault": "No recent leads yet.",
+      "status": {
+        "contacted": "Contacted",
+        "converted": "Converted",
+        "lost": "Lost",
+        "new": "New",
+        "qualified": "Qualified"
+      },
       "subtitle": "Latest leads added to your workspace.",
       "title": "Recent leads",
       "unnamed": "Unnamed lead",
@@ -591,6 +606,17 @@
       "noRows": "The file or URL did not contain any rows.",
       "openFromCompany": "Open this page from a company workspace.",
       "parseFailed": "Failed to parse the CSV file."
+    },
+    "fields": {
+      "countryCode": "Country code",
+      "email": "Email",
+      "externalCustomerId": "External customer ID",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "name": "Name",
+      "phone": "Phone",
+      "preferredLanguage": "Preferred language",
+      "subscriptionDate": "Subscription date"
     },
     "mapping": {
       "approvalDescription": "Confirm the mapping and run the import. Customers will be created or updated for the active workspace.",
@@ -641,6 +667,23 @@
       "selectedFile": "Selected: {name}",
       "uploadCsv": "Upload CSV",
       "useUrl": "Use URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mapping",
+        "summary": "Match each column to a CRM field.",
+        "title": "Map your columns"
+      },
+      "preview": {
+        "label": "Preview",
+        "summary": "Confirm the data, then run the import.",
+        "title": "Review and import"
+      },
+      "source": {
+        "label": "Source",
+        "summary": "Upload a CSV or paste a URL.",
+        "title": "Choose your data source"
+      }
     },
     "utils": {
       "mappedAutomatically": "Mapped automatically",
@@ -1102,6 +1145,17 @@
       "saveAiConfig": "Save AI configuration",
       "secondaryRevoked": "Secondary webhook secret revoked.",
       "sectorLabel": "Sector",
+      "tabs": {
+        "aiConfig": "AI config",
+        "apiKeys": "API keys",
+        "channels": "Channels",
+        "fallback": "Fallback",
+        "leadWebhook": "Lead webhook",
+        "overview": "Overview",
+        "rag": "RAG",
+        "usage": "Usage",
+        "v1Config": "V1 config"
+      },
       "thresholdHint": "Leads scoring at or above this threshold are marked qualified.",
       "webhookUrlLabel": "Webhook URL"
     },

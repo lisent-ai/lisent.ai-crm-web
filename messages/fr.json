@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Pas encore de données de pipeline pour {name}.",
       "emptyDefault": "Pas encore de données de pipeline.",
+      "stage": {
+        "lost": "Perdu",
+        "negotiation": "Négociation",
+        "new": "Nouveau",
+        "proposal": "Proposition",
+        "qualified": "Qualifié",
+        "won": "Gagné"
+      },
       "subtitle": "Répartition des deals par stage.",
       "title": "Pipeline",
       "totalBadge": "{value} total"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Aucun lead récent dans {name}.",
       "emptyDefault": "Aucun lead récent pour le moment",
+      "status": {
+        "contacted": "Contacté",
+        "converted": "Converti",
+        "lost": "Perdu",
+        "new": "Nouveau",
+        "qualified": "Qualifié"
+      },
       "subtitle": "Derniers leads ajoutés à votre workspace",
       "title": "Leads récents",
       "unnamed": "Lead sans nom",
@@ -591,6 +606,17 @@
       "noRows": "Le fichier ou l’URL ne contenait aucune ligne.",
       "openFromCompany": "Ouvrez cette page depuis un espace de travail d’entreprise.",
       "parseFailed": "Échec de l’analyse du fichier CSV."
+    },
+    "fields": {
+      "countryCode": "Code pays",
+      "email": "E-mail",
+      "externalCustomerId": "ID client externe",
+      "firstName": "Prénom",
+      "lastName": "Nom de famille",
+      "name": "Nom",
+      "phone": "Téléphone",
+      "preferredLanguage": "Langue préférée",
+      "subscriptionDate": "Date d'abonnement"
     },
     "mapping": {
       "approvalDescription": "Confirmez le mappage et lancez l'importation. Les clients seront créés ou mis à jour pour l'espace de travail actif.",
@@ -641,6 +667,23 @@
       "selectedFile": "Sélectionné : {name}",
       "uploadCsv": "Importer le CSV",
       "useUrl": "Utiliser l’URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mappage",
+        "summary": "Associez chaque colonne à un champ CRM.",
+        "title": "Mappez vos colonnes"
+      },
+      "preview": {
+        "label": "Aperçu",
+        "summary": "Confirmez les données, puis lancez l'importation.",
+        "title": "Vérifier et importer"
+      },
+      "source": {
+        "label": "Source",
+        "summary": "Téléchargez un CSV ou collez une URL.",
+        "title": "Choisissez votre source de données"
+      }
     },
     "utils": {
       "mappedAutomatically": "Mappé automatiquement",
@@ -1102,6 +1145,17 @@
       "saveAiConfig": "Enregistrer la configuration IA",
       "secondaryRevoked": "Secret secondaire du webhook révoqué.",
       "sectorLabel": "Secteur",
+      "tabs": {
+        "aiConfig": "Configuration IA",
+        "apiKeys": "Clés API",
+        "channels": "Canaux",
+        "fallback": "Repli",
+        "leadWebhook": "Webhook lead",
+        "overview": "Aperçu",
+        "rag": "RAG",
+        "usage": "Utilisation",
+        "v1Config": "Configuration V1"
+      },
       "thresholdHint": "Les leads dont le score est égal ou supérieur à ce seuil sont marqués comme qualifiés.",
       "webhookUrlLabel": "URL du webhook"
     },

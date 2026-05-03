@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "{name} için henüz süreç verisi yok.",
       "emptyDefault": "Henüz süreç verisi yok.",
+      "stage": {
+        "lost": "Kaybedildi",
+        "negotiation": "Müzakere",
+        "new": "Yeni",
+        "proposal": "Teklif",
+        "qualified": "Nitelikli",
+        "won": "Kazanıldı"
+      },
       "subtitle": "Aşamaya göre anlaşma dağılımı.",
       "title": "Süreç",
       "totalBadge": "{value} toplam"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "{name} içinde son müşteri adayları yok.",
       "emptyDefault": "Henüz son müşteri adayları yok.",
+      "status": {
+        "contacted": "İletişime geçildi",
+        "converted": "Müşteriye dönüştü",
+        "lost": "Kaybedildi",
+        "new": "Yeni",
+        "qualified": "Nitelikli"
+      },
       "subtitle": "Çalışma alanınıza eklenen son müşteri adayları.",
       "title": "Son müşteri adayları",
       "unnamed": "İsimsiz müşteri adayı",
@@ -591,6 +606,17 @@
       "noRows": "Dosya veya URL hiçbir satır içermedi.",
       "openFromCompany": "Bu sayfayı bir şirket çalışma alanından açın.",
       "parseFailed": "CSV dosyası ayrıştırılamadı."
+    },
+    "fields": {
+      "countryCode": "Ülke kodu",
+      "email": "E-posta",
+      "externalCustomerId": "Dış müşteri ID",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "name": "İsim",
+      "phone": "Telefon",
+      "preferredLanguage": "Tercih edilen dil",
+      "subscriptionDate": "Üyelik tarihi"
     },
     "mapping": {
       "approvalDescription": "Eşlemeyi onaylayın ve içe aktarmayı başlatın. Müşteriler, aktif çalışma alanı için oluşturulacak veya güncellenecek.",
@@ -641,6 +667,23 @@
       "selectedFile": "Seçildi: {name}",
       "uploadCsv": "CSV yükle",
       "useUrl": "URL kullan"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Eşleme",
+        "summary": "Her sütunu bir CRM alanına eşleyin.",
+        "title": "Sütunlarınızı eşleyin"
+      },
+      "preview": {
+        "label": "Önizleme",
+        "summary": "Veriyi onaylayın, sonra içe aktarımı başlatın.",
+        "title": "İncele ve içe aktar"
+      },
+      "source": {
+        "label": "Kaynak",
+        "summary": "CSV yükleyin veya URL yapıştırın.",
+        "title": "Veri kaynağınızı seçin"
+      }
     },
     "utils": {
       "mappedAutomatically": "Otomatik eşlendi",
@@ -842,6 +885,17 @@
       "noDeliveries": "Henüz teslimat yok.",
       "noIntegration": "Henüz intranet entegrasyonu yapılandırılmadı.",
       "outbound": {
+        "allStatusesLabel": "Tüm status değişiklikleri (önerilen)",
+        "deliveriesEmpty": "Henüz teslim yok. Bağlantıyı doğrulamak için test event gönderin.",
+        "deliveriesTitle": "Son teslimler",
+        "deliveryCols": {
+          "attempts": "Deneme",
+          "createdAt": "Gönderildi",
+          "error": "Son hata",
+          "eventId": "Event ID",
+          "status": "Durum",
+          "toStatus": "→ Status"
+        },
         "description": "Bu CRM'de bir Müşteri Adayı'nın durumu değiştiğinde, olayı imzalayın ve POST ile uç noktanıza gönderin. Başarısızlıkta (yaklaşık 7 saat içinde 6 deneme) yeniden deniyoruz ve ardından dead‑letter gönderiyoruz.",
         "generateSecretButton": "İmzalama gizli anahtarını oluştur",
         "loadFailed": "Giden webhook yapılandırması yüklenemedi.",
@@ -1091,6 +1145,17 @@
       "saveAiConfig": "AI yapılandırmasını kaydet",
       "secondaryRevoked": "İkincil web kancası gizliliği iptal edildi.",
       "sectorLabel": "Sektör",
+      "tabs": {
+        "aiConfig": "AI ayarları",
+        "apiKeys": "API anahtarları",
+        "channels": "Kanallar",
+        "fallback": "Geri dönüş",
+        "leadWebhook": "Lead webhook",
+        "overview": "Genel bakış",
+        "rag": "RAG",
+        "usage": "Kullanım",
+        "v1Config": "V1 ayarları"
+      },
       "thresholdHint": "Bu eşikte veya üzerinde puan alan potansiyel müşteriler nitelikli olarak işaretlenir.",
       "webhookUrlLabel": "Web kancası URL'si"
     },
@@ -1491,7 +1556,8 @@
       "createdAt": "Oluşturuldu",
       "email": "E-posta",
       "exportedAt": "{count} müşteri adayı · {date} tarihinde dışa aktarıldı",
-      "pageOf": "Sayfa {current} / {total}"
+      "pageOf": "Sayfa {current} / {total}",
+      "title": "Leadler"
     },
     "rowMenu": {
       "convert": "Dönüştür",

@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "لا توجد بيانات pipeline بعد لـ {name}.",
       "emptyDefault": "لا توجد بيانات pipeline بعد.",
+      "stage": {
+        "lost": "خاسر",
+        "negotiation": "تفاوض",
+        "new": "جديد",
+        "proposal": "عرض",
+        "qualified": "مؤهل",
+        "won": "ناجح"
+      },
       "subtitle": "توزيع الـ Deal حسب المرحلة.",
       "title": "Pipeline",
       "totalBadge": "{value} إجمالي"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "لا توجد أي Leads حديثة في {name}.",
       "emptyDefault": "لا توجد Leads حديثة بعد.",
+      "status": {
+        "contacted": "تم التواصل",
+        "converted": "تم التحويل",
+        "lost": "خاسر",
+        "new": "جديد",
+        "qualified": "مؤهل"
+      },
       "subtitle": "أحدث Leads المضافة إلى workspace الخاص بك.",
       "title": "Leads الحديثة",
       "unnamed": "Lead غير مسمى",
@@ -591,6 +606,17 @@
       "noRows": "الملف أو الرابط لا يحتوي على أي صفوف.",
       "openFromCompany": "افتح هذه الصفحة من مساحة عمل الشركة.",
       "parseFailed": "فشل في تحليل ملف CSV."
+    },
+    "fields": {
+      "countryCode": "رمز الدولة",
+      "email": "البريد الإلكتروني",
+      "externalCustomerId": "معرّف العميل الخارجي",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "name": "الاسم",
+      "phone": "الهاتف",
+      "preferredLanguage": "اللغة المفضلة",
+      "subscriptionDate": "تاريخ الاشتراك"
     },
     "mapping": {
       "approvalDescription": "أكد الربط وشغّل الاستيراد. سيتم إنشاء العملاء أو تحديثهم في مساحة العمل النشطة.",
@@ -641,6 +667,23 @@
       "selectedFile": "المحدد: {name}",
       "uploadCsv": "تحميل CSV",
       "useUrl": "استخدام URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "التعيين",
+        "summary": "اربط كل عمود بحقل في CRM.",
+        "title": "عيّن الأعمدة"
+      },
+      "preview": {
+        "label": "معاينة",
+        "summary": "أكّد البيانات ثم نفّذ الاستيراد.",
+        "title": "راجع واستورد"
+      },
+      "source": {
+        "label": "المصدر",
+        "summary": "ارفع ملف CSV أو الصق رابطًا.",
+        "title": "اختر مصدر البيانات"
+      }
     },
     "utils": {
       "mappedAutomatically": "تمت المطابقة تلقائيًا",
@@ -1102,6 +1145,17 @@
       "saveAiConfig": "حفظ إعدادات AI",
       "secondaryRevoked": "تم إلغاء سر الـ webhook الثانوي.",
       "sectorLabel": "القطاع",
+      "tabs": {
+        "aiConfig": "إعدادات الذكاء الاصطناعي",
+        "apiKeys": "مفاتيح API",
+        "channels": "القنوات",
+        "fallback": "احتياطي",
+        "leadWebhook": "Webhook العميل المحتمل",
+        "overview": "نظرة عامة",
+        "rag": "RAG",
+        "usage": "الاستخدام",
+        "v1Config": "إعدادات V1"
+      },
       "thresholdHint": "يُصنّف الـ Leads التي تحصل على نتيجة مساوية أو أعلى من هذا الحدّ على أنها مؤهلة.",
       "webhookUrlLabel": "URL الـ webhook"
     },

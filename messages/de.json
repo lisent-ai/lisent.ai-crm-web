@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "Noch keine Pipeline-Daten für {name}.",
       "emptyDefault": "Noch keine Pipeline-Daten.",
+      "stage": {
+        "lost": "Verloren",
+        "negotiation": "Verhandlung",
+        "new": "Neu",
+        "proposal": "Angebot",
+        "qualified": "Qualifiziert",
+        "won": "Gewonnen"
+      },
       "subtitle": "Verteilung der Deals nach Stage.",
       "title": "Pipeline",
       "totalBadge": "{value} insgesamt"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "Keine aktuellen Leads in {name}.",
       "emptyDefault": "Noch keine aktuellen Leads.",
+      "status": {
+        "contacted": "Kontaktiert",
+        "converted": "Konvertiert",
+        "lost": "Verloren",
+        "new": "Neu",
+        "qualified": "Qualifiziert"
+      },
       "subtitle": "Neueste Leads, die Ihrem Workspace hinzugefügt wurden.",
       "title": "Aktuelle Leads",
       "unnamed": "Unbenannter Lead",
@@ -591,6 +606,17 @@
       "noRows": "Die Datei oder URL enthielt keine Zeilen.",
       "openFromCompany": "Öffnen Sie diese Seite aus einem Unternehmens‑Workspace.",
       "parseFailed": "CSV-Datei konnte nicht verarbeitet werden."
+    },
+    "fields": {
+      "countryCode": "Ländercode",
+      "email": "E-Mail",
+      "externalCustomerId": "Externe Kunden-ID",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "name": "Name",
+      "phone": "Telefon",
+      "preferredLanguage": "Bevorzugte Sprache",
+      "subscriptionDate": "Abonnementdatum"
     },
     "mapping": {
       "approvalDescription": "Bestätigen Sie die Zuordnung und starten Sie den Import. Kunden werden für den aktiven Workspace erstellt oder aktualisiert.",
@@ -641,6 +667,23 @@
       "selectedFile": "Ausgewählt: {name}",
       "uploadCsv": "CSV hochladen",
       "useUrl": "URL verwenden"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Zuordnung",
+        "summary": "Ordnen Sie jede Spalte einem CRM-Feld zu.",
+        "title": "Spalten zuordnen"
+      },
+      "preview": {
+        "label": "Vorschau",
+        "summary": "Daten bestätigen und dann importieren.",
+        "title": "Prüfen und importieren"
+      },
+      "source": {
+        "label": "Quelle",
+        "summary": "CSV hochladen oder URL einfügen.",
+        "title": "Wählen Sie Ihre Datenquelle"
+      }
     },
     "utils": {
       "mappedAutomatically": "Automatisch zugeordnet",
@@ -842,6 +885,9 @@
       "noDeliveries": "Bisher keine Lieferungen.",
       "noIntegration": "Keine Intranet-Integration konfiguriert.",
       "outbound": {
+        "allStatusesLabel": "Alle Statusänderungen (empfohlen)",
+        "deliveriesEmpty": "Noch keine Zustellungen. Senden Sie ein Testereignis, um die Verbindung zu prüfen.",
+        "deliveriesTitle": "Neueste Zustellungen",
         "deliveryCols": {
           "attempts": "Versuche",
           "createdAt": "Gesendet",
@@ -1099,6 +1145,17 @@
       "saveAiConfig": "AI-Konfiguration speichern",
       "secondaryRevoked": "Sekundäres webhook‑Geheimnis widerrufen.",
       "sectorLabel": "Sektor",
+      "tabs": {
+        "aiConfig": "KI-Konfiguration",
+        "apiKeys": "API-Schlüssel",
+        "channels": "Kanäle",
+        "fallback": "Fallback",
+        "leadWebhook": "Lead-Webhook",
+        "overview": "Übersicht",
+        "rag": "RAG",
+        "usage": "Nutzung",
+        "v1Config": "V1-Konfiguration"
+      },
       "thresholdHint": "Leads, die diesen Schwellenwert erreichen oder überschreiten, werden als qualifiziert markiert.",
       "webhookUrlLabel": "Webhook‑URL"
     },
@@ -1494,6 +1551,13 @@
       "posting": "Wird gesendet…",
       "teamNotes": "Team-Notizen",
       "unknownAuthor": "Unbekannt"
+    },
+    "pdf": {
+      "createdAt": "Erstellt",
+      "email": "E-Mail",
+      "exportedAt": "{count} Leads · Exportiert am {date}",
+      "pageOf": "Seite {current} von {total}",
+      "title": "Leads"
     },
     "rowMenu": {
       "convert": "Konvertieren",

@@ -510,6 +510,14 @@
     "pipeline": {
       "empty": "No pipeline data yet for {name}.",
       "emptyDefault": "No pipeline data yet.",
+      "stage": {
+        "lost": "Lost",
+        "negotiation": "Negotiation",
+        "new": "New",
+        "proposal": "Proposal",
+        "qualified": "Qualified",
+        "won": "Won"
+      },
       "subtitle": "Distribution of deals by stage.",
       "title": "Pipeline",
       "totalBadge": "{value} total"
@@ -552,6 +560,13 @@
     "recentLeads": {
       "empty": "No recent leads in {name}.",
       "emptyDefault": "No recent leads yet.",
+      "status": {
+        "contacted": "Contacted",
+        "converted": "Converted",
+        "lost": "Lost",
+        "new": "New",
+        "qualified": "Qualified"
+      },
       "subtitle": "Latest leads added to your workspace.",
       "title": "Recent leads",
       "unnamed": "Unnamed lead",
@@ -591,6 +606,17 @@
       "noRows": "The file or URL did not contain any rows.",
       "openFromCompany": "Open this page from a company workspace.",
       "parseFailed": "Failed to parse the CSV file."
+    },
+    "fields": {
+      "countryCode": "Country code",
+      "email": "Email",
+      "externalCustomerId": "External customer ID",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "name": "Name",
+      "phone": "Phone",
+      "preferredLanguage": "Preferred language",
+      "subscriptionDate": "Subscription date"
     },
     "mapping": {
       "approvalDescription": "Confirm the mapping and run the import. Customers will be created or updated for the active workspace.",
@@ -641,6 +667,23 @@
       "selectedFile": "Selected: {name}",
       "uploadCsv": "Upload CSV",
       "useUrl": "Use URL"
+    },
+    "steps": {
+      "mapping": {
+        "label": "Mapping",
+        "summary": "Match each column to a CRM field.",
+        "title": "Map your columns"
+      },
+      "preview": {
+        "label": "Preview",
+        "summary": "Confirm the data, then run the import.",
+        "title": "Review and import"
+      },
+      "source": {
+        "label": "Source",
+        "summary": "Upload a CSV or paste a URL.",
+        "title": "Choose your data source"
+      }
     },
     "utils": {
       "mappedAutomatically": "Mapped automatically",
@@ -841,6 +884,63 @@
       "mintBearer": "Mint bearer token",
       "noDeliveries": "No deliveries yet.",
       "noIntegration": "No intranet integration configured.",
+      "outbound": {
+        "allStatusesLabel": "All status changes (recommended)",
+        "deliveriesEmpty": "No deliveries yet. Send a test event to confirm the connection.",
+        "deliveriesTitle": "Recent deliveries",
+        "deliveryCols": {
+          "attempts": "Attempts",
+          "createdAt": "Sent",
+          "error": "Last error",
+          "eventId": "Event ID",
+          "status": "Status",
+          "toStatus": "→ Status"
+        },
+        "description": "When a lead's status changes in this CRM, sign the event and POST it to your endpoint. We retry on failure (6 attempts over ~7h) and dead-letter after that.",
+        "generateSecretButton": "Generate signing secret",
+        "loadFailed": "Failed to load outbound webhook config.",
+        "loading": "Loading outbound webhook…",
+        "newSecretHint": "Copy this secret now — we hash it after this dialog closes and only show a masked version going forward.",
+        "newSecretReveal": "New signing secret",
+        "pauseHint": "Stops new deliveries without losing your URL. Existing pending retries continue.",
+        "pauseLabel": "Pause outbound webhooks",
+        "rotateSecretButton": "Rotate signing secret",
+        "rotateSecretConfirm": "Rotate the signing secret? You'll need to update your verification code with the new value.",
+        "rotatingSecret": "Rotating…",
+        "saveButton": "Save outbound config",
+        "saveFailed": "Failed to save outbound config.",
+        "savedNotice": "Outbound webhook saved.",
+        "secretConfigured": "Configured",
+        "secretNotSet": "Not set — generate one before sending events.",
+        "secretRotatedAt": "(rotated {time})",
+        "secretRotatedNotice": "Signing secret rotated. The plaintext shows only this once.",
+        "selectAtLeastOne": "Select at least one status, or check 'All status changes'.",
+        "signingSecretLabel": "Signing secret (HMAC-SHA256)",
+        "statusFilterHint": "Pick which transitions trigger a webhook. Use '*' to receive every status change.",
+        "statusFilterTitle": "Status filter",
+        "statusLabels": {
+          "contacted": "Lead has been contacted",
+          "converted": "Lead converted to customer",
+          "lost": "Lead marked lost",
+          "new": "Lead just created",
+          "qualified": "Lead qualified by AI / sales"
+        },
+        "testButton": "Send test event",
+        "testEnqueued": "Test event enqueued: {eventId}",
+        "testFailed": "Test event failed.",
+        "testHint": "Sends a synthetic lead.status_changed event to your URL using the same headers and signing as real events.",
+        "testTitle": "Send a test event",
+        "testToStatusLabel": "to_status (which transition to simulate)",
+        "title": "Outbound webhook (status updates)",
+        "urlHint": "We POST status-change events to this URL with HMAC-SHA256 signing. Must be HTTPS in production.",
+        "urlLabel": "Endpoint URL",
+        "urlPlaceholder": "https://example.com/webhooks/lisent",
+        "urlRequiredFirst": "Save a URL before generating a secret.",
+        "verificationIntro": "Each request includes these headers:",
+        "verificationNote": "If you receive a delivery with a timestamp older than 5 minutes, reject it as a replay.",
+        "verificationTitle": "How to verify on your side",
+        "verifyByComputing": "Verify by recomputing the HMAC over '<timestamp>.<rawBody>' and constant-time comparing:"
+      },
       "recentDeliveries": "Recent deliveries",
       "requestExamples": "Request examples",
       "revealDescription": "Tokens are shown only once.",
@@ -1045,6 +1145,17 @@
       "saveAiConfig": "Save AI configuration",
       "secondaryRevoked": "Secondary webhook secret revoked.",
       "sectorLabel": "Sector",
+      "tabs": {
+        "aiConfig": "AI config",
+        "apiKeys": "API keys",
+        "channels": "Channels",
+        "fallback": "Fallback",
+        "leadWebhook": "Lead webhook",
+        "overview": "Overview",
+        "rag": "RAG",
+        "usage": "Usage",
+        "v1Config": "V1 config"
+      },
       "thresholdHint": "Leads scoring at or above this threshold are marked qualified.",
       "webhookUrlLabel": "Webhook URL"
     },
