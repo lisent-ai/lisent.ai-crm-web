@@ -350,13 +350,7 @@ curl -X POST "${config.inboundUrl}" \\
             </button>
           </div>
           <p className="mt-3 text-xs text-[var(--text-secondary)]">
-            {t.rich("integrations.intranet.inboundDescription", {
-              code: (chunks) => (
-                <code className="rounded bg-[var(--surface)] px-1 font-mono text-[var(--text-primary)]">
-                  {chunks}
-                </code>
-              ),
-            })}
+            {t("integrations.intranet.inboundDescription")}
           </p>
         </article>
       ) : (
@@ -404,9 +398,7 @@ curl -X POST "${config.inboundUrl}" \\
               {t("integrations.intranet.credentialsTitle")}
             </h2>
             <p className="mt-1 text-sm text-[var(--text-secondary)]">
-              {t.rich("integrations.intranet.credentialsDescription", {
-                em: (chunks) => <em>{chunks}</em>,
-              })}
+              {t("integrations.intranet.credentialsDescription")}
             </p>
           </header>
           <div className="grid gap-3">
@@ -501,13 +493,7 @@ curl -X POST "${config.inboundUrl}" \\
             {t("integrations.intranet.fieldMappingTitle")}
           </h2>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            {t.rich("integrations.intranet.fieldMappingDescription", {
-              code: (chunks) => (
-                <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
-                  {chunks}
-                </code>
-              ),
-            })}
+            {t("integrations.intranet.fieldMappingDescription")}
           </p>
         </header>
 
@@ -536,13 +522,7 @@ curl -X POST "${config.inboundUrl}" \\
                 <option value="hmac">{t("integrations.intranet.authHmac")}</option>
               </select>
               <span className="text-xs text-[var(--text-tertiary)]">
-                {t.rich("integrations.intranet.authModeHint", {
-                  code: (chunks) => (
-                    <code className="rounded bg-[var(--surface-inset)] px-1 font-mono text-[var(--text-primary)]">
-                      {chunks}
-                    </code>
-                  ),
-                })}
+                {t("integrations.intranet.authModeHint")}
               </span>
             </label>
           </div>
