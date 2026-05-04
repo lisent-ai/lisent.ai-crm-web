@@ -1646,11 +1646,13 @@
       "pickWorkspace": "Выберите рабочее пространство, чтобы увидеть его кампании.",
       "sources": {
         "form": "Форма",
+        "google_sheets": "Google Таблицы",
         "intranet": "Intranet",
         "manual": "Вручную",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (Test)",
         "partner_intranet": "Intranet",
+        "partner_crm": "CRM партнёра",
         "whatsapp": "WhatsApp",
         "widget": "Widget"
       },

@@ -1646,11 +1646,13 @@
       "pickWorkspace": "Seleziona un workspace per vedere le sue campagne.",
       "sources": {
         "form": "Form",
+        "google_sheets": "Google Sheets",
         "intranet": "Intranet",
         "manual": "Manuale",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (Test)",
         "partner_intranet": "Intranet",
+        "partner_crm": "CRM partner",
         "whatsapp": "WhatsApp",
         "widget": "Widget"
       },

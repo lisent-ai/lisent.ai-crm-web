@@ -1646,11 +1646,13 @@
       "pickWorkspace": "اختر مساحة عمل لعرض حملاتها.",
       "sources": {
         "form": "نموذج",
+        "google_sheets": "جداول بيانات Google",
         "intranet": "Intranet",
         "manual": "يدوي",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (اختبار)",
         "partner_intranet": "Intranet",
+        "partner_crm": "CRM الشريك",
         "whatsapp": "WhatsApp",
         "widget": "أداة"
       },

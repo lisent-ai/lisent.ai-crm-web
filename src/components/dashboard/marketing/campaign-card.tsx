@@ -95,13 +95,23 @@ export function CampaignCard({
 
 function sourceTitle(source: string, t: ReturnType<typeof useTranslations>): string {
   const key = `marketing.campaigns.sources.${source}`;
-  // Fall back to capitalised source string if the translation key is
-  // missing (e.g. a vendor source we haven't added yet).
+  // next-intl ^4 returns the raw key string when a translation is missing
+  // (it does NOT throw). Detect that and fall back to a humanised label so
+  // operators never see "marketing.campaigns.sources.partner_crm" in the UI.
+  let value: string;
   try {
-    return t(key as never);
+    value = t(key as never);
   } catch {
-    return source.charAt(0).toUpperCase() + source.slice(1);
+    value = key;
   }
+  if (!value || value === key) {
+    return source
+      .split(/[_-]/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  }
+  return value;
 }
 
 // Source badge colours map onto the design system signals. Meta gets the

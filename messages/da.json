@@ -1646,11 +1646,13 @@
       "pickWorkspace": "Vælg et workspace for at se dets kampagner.",
       "sources": {
         "form": "Formular",
+        "google_sheets": "Google Sheets",
         "intranet": "Intranet",
         "manual": "Manuel",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (Test)",
         "partner_intranet": "Intranet",
+        "partner_crm": "Partner CRM",
         "whatsapp": "WhatsApp",
         "widget": "Widget"
       },
