@@ -1527,6 +1527,7 @@
       "phone": "Telefon",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "Süreç aşaması",
+      "saveAndScheduleEvent": "Kaydet ve etkinlik planla",
       "saveChanges": "Değişiklikleri kaydet"
     },
     "kpi": {

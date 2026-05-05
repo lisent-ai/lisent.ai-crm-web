@@ -150,35 +150,42 @@ export function CalendarEventModal({
         onClick={(event) => event.stopPropagation()}
         role="presentation"
       >
-        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 px-4 py-4 sm:gap-4 sm:px-6 sm:py-6">
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-700/80 sm:text-sm">
-              {editing ? t("calendar.modal.editEyebrow") : t("calendar.modal.newEyebrow")}
-            </p>
-            <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-slate-950 sm:mt-2 sm:text-3xl">
-              {editing ? t("calendar.modal.editTitle") : t("calendar.modal.newTitle")}
-            </h2>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 sm:mt-3 sm:leading-7">
-              {t("calendar.modal.subtitle")}
-            </p>
+        <div className="flex flex-col gap-3 border-b border-slate-100 px-4 py-4 sm:gap-4 sm:px-6 sm:py-6">
+          <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-700/80 sm:text-sm">
+                {editing ? t("calendar.modal.editEyebrow") : t("calendar.modal.newEyebrow")}
+              </p>
+              <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-slate-950 sm:mt-2 sm:text-3xl">
+                {editing ? t("calendar.modal.editTitle") : t("calendar.modal.newTitle")}
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 sm:mt-3 sm:leading-7">
+                {t("calendar.modal.subtitle")}
+              </p>
+            </div>
+
+            <button
+              aria-label={t("common.close")}
+              className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950 sm:px-5 sm:py-3"
+              onClick={onClose}
+              type="button"
+            >
+              {t("common.close")}
+            </button>
           </div>
 
-          <button
-            aria-label={t("common.close")}
-            className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950 sm:px-5 sm:py-3"
-            onClick={onClose}
-            type="button"
-          >
-            {t("common.close")}
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-6">
           {errorMessage ? (
-            <div className="mb-4 rounded-[1.1rem] border border-rose-300 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+            <div
+              aria-live="polite"
+              className="rounded-[1.1rem] border border-rose-300 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700"
+              role="alert"
+            >
               {errorMessage}
             </div>
           ) : null}
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-6">
           <div className="grid gap-4 lg:grid-cols-2">
           <label className="grid gap-2 text-sm font-semibold text-slate-700">
             {t("calendar.fields.title")}

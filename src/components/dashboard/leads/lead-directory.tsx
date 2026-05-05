@@ -101,6 +101,10 @@ export function LeadDirectory() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [members, setMembers] = useState<CompanyMember[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
+  // Unfiltered company-scoped leads. Used by KPIs, header count, and tab
+  // counters so they reflect the full picture instead of dropping to zero
+  // when the user selects a tab whose filter happens to return nothing.
+  const [companyLeads, setCompanyLeads] = useState<Lead[]>([]);
   const [activeCompanyId, setActiveCompanyId] = useState(searchCompanyId);
   const [companiesLoading, setCompaniesLoading] = useState(true);
   const [leadsLoading, setLeadsLoading] = useState(true);
@@ -325,6 +329,34 @@ export function LeadDirectory() {
 
   useEffect(() => {
     if (!selectedCompany?.id) {
+      setCompanyLeads([]);
+      return;
+    }
+
+    const companyId = selectedCompany.id;
+    let cancelled = false;
+
+    async function loadCompanyLeads() {
+      try {
+        const all = await listLeads(companyId, {});
+        if (!cancelled) {
+          setCompanyLeads(all);
+        }
+      } catch {
+        if (!cancelled) {
+          setCompanyLeads([]);
+        }
+      }
+    }
+
+    void loadCompanyLeads();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedCompany?.id]);
+
+  useEffect(() => {
+    if (!selectedCompany?.id) {
       setLeads([]);
       setLeadsLoading(false);
       return;
@@ -433,17 +465,17 @@ export function LeadDirectory() {
     () =>
       leadStatuses.map((status) => ({
         status,
-        count: leads.filter((lead) => lead.status === status).length,
+        count: companyLeads.filter((lead) => lead.status === status).length,
       })),
-    [leads],
+    [companyLeads],
   );
 
   const assignedToMeCount = useMemo(
     () =>
       accountUserId
-        ? leads.filter((lead) => lead.assigneeUserId === accountUserId).length
+        ? companyLeads.filter((lead) => lead.assigneeUserId === accountUserId).length
         : 0,
-    [accountUserId, leads],
+    [accountUserId, companyLeads],
   );
 
   const customerLabel =
@@ -500,13 +532,15 @@ export function LeadDirectory() {
   }
 
   async function reloadReferenceData(companyId: string) {
-    const [nextLeads, nextCustomers, nextMembers] = await Promise.all([
+    const [nextLeads, nextCompanyLeads, nextCustomers, nextMembers] = await Promise.all([
       listLeads(companyId, leadFilters),
+      listLeads(companyId, {}).catch(() => [] as Lead[]),
       listCustomers(companyId).catch(() => []),
       listCompanyMembers(companyId).catch(() => []),
     ]);
 
     setLeads(nextLeads);
+    setCompanyLeads(nextCompanyLeads);
     setCustomers(nextCustomers);
     setMembers(nextMembers);
     setSelectedLeadId((current) => {
@@ -625,7 +659,7 @@ export function LeadDirectory() {
     setShowLeadModal(false);
   }
 
-  async function handleSaveLead() {
+  async function handleSaveLead({ andSchedule = false }: { andSchedule?: boolean } = {}) {
     if (!selectedCompany) {
       return;
     }
@@ -671,6 +705,11 @@ export function LeadDirectory() {
           : t("leads.success.created"),
       );
       closeLeadModal();
+
+      if (andSchedule) {
+        await scheduleLead(savedLead);
+        return;
+      }
     } catch (error) {
       setErrorMessage(
         error instanceof CRMClientError || error instanceof Error
@@ -815,6 +854,7 @@ export function LeadDirectory() {
     setSuccessMessage(null);
     try {
       await createLeadComment(selectedLead.id, { body: leadCommentDraft });
+      await promoteToContactedIfNew(selectedLead);
       await reloadReferenceData(selectedCompany.id);
       const nextComments = await listLeadComments(selectedLead.id);
       setLeadComments(nextComments);
@@ -913,10 +953,23 @@ export function LeadDirectory() {
     }
   }
 
-  function scheduleLead(lead: Lead) {
+  async function promoteToContactedIfNew(lead: Lead) {
+    if (lead.status !== "new") {
+      return;
+    }
+    try {
+      await updateLead(lead.id, { status: "contacted" });
+    } catch {
+      // Promotion is a non-critical follow-up to the user's primary action; surface nothing.
+    }
+  }
+
+  async function scheduleLead(lead: Lead) {
     if (!selectedCompany) {
       return;
     }
+
+    await promoteToContactedIfNew(lead);
 
     const nextSearch = new URLSearchParams({
       company: selectedCompany.id,
@@ -1103,11 +1156,11 @@ export function LeadDirectory() {
 
   return (
     <div className="flex min-w-0 flex-col gap-5">
-      <LeadHeader companyName={companyName} leadCount={leads.length} />
+      <LeadHeader companyName={companyName} leadCount={companyLeads.length} />
 
-      <LeadKpiStrip leads={displayLeads} loading={companiesLoading || leadsLoading} />
+      <LeadKpiStrip leads={companyLeads} loading={companiesLoading || leadsLoading} />
 
-      {errorMessage ? (
+      {errorMessage && !showLeadModal ? (
         <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </div>
@@ -1131,7 +1184,7 @@ export function LeadDirectory() {
               counts={pipelineCounts}
               hideAssignedToMe={isMemberRole}
               onChange={handleStatusTabChange}
-              totalCount={leads.length}
+              totalCount={companyLeads.length}
               value={statusFilter}
             />
           </div>
@@ -1212,7 +1265,7 @@ export function LeadDirectory() {
             icon={<Calendar className="h-4 w-4" aria-hidden="true" />}
             label={t("leads.rowMenu.schedule")}
             onClick={() => {
-              scheduleLead(rowMenu.lead);
+              void scheduleLead(rowMenu.lead);
               setRowMenu(null);
             }}
           />
@@ -1291,10 +1344,12 @@ export function LeadDirectory() {
         <LeadFormModal
           assignableMembers={assignableMembers}
           editingLeadId={editingLeadId}
+          errorMessage={errorMessage}
           leadForm={leadForm}
           onClose={closeLeadModal}
           onLeadFormChange={(updater) => setLeadForm((current) => updater(current))}
-          onSave={handleSaveLead}
+          onSave={() => void handleSaveLead()}
+          onSaveAndSchedule={() => void handleSaveLead({ andSchedule: true })}
           saving={saving}
         />
       ) : null}

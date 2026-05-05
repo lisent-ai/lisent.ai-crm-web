@@ -1527,6 +1527,7 @@
       "phone": "Téléphone",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "Étape du pipeline",
+      "saveAndScheduleEvent": "Enregistrer et planifier un événement",
       "saveChanges": "Enregistrer les modifications"
     },
     "kpi": {

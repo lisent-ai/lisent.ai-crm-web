@@ -1527,6 +1527,7 @@
       "phone": "Puhelin",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "Pipeline-vaihe",
+      "saveAndScheduleEvent": "Tallenna ja ajoita tapahtuma",
       "saveChanges": "Tallenna muutokset"
     },
     "kpi": {
