@@ -971,7 +971,7 @@ export function CalendarWorkspace() {
         </div>
       </div>
 
-      {errorMessage ? (
+      {errorMessage && !showModal ? (
         <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
           {errorMessage}
         </div>
@@ -1207,16 +1207,23 @@ function WeekGrid({
             const key = buildDateInputValue(day.toISOString());
             const dayEvents = eventsByDay.get(key) ?? [];
             return (
-              <button
+              <div
                 aria-label={t("calendar.aria.createOn", { date: day.toLocaleDateString() })}
-                className="relative cursor-pointer border-l border-[var(--border-subtle)] text-left"
+                className="relative cursor-pointer border-l border-[var(--border-subtle)] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)]"
                 key={key}
                 onClick={(event) => {
                   // Only open create when clicking empty slot area (not an event).
                   if ((event.target as HTMLElement).closest("[data-event-card]")) return;
                   onCreate(day);
                 }}
-                type="button"
+                onKeyDown={(event) => {
+                  if (event.key !== "Enter" && event.key !== " ") return;
+                  if ((event.target as HTMLElement).closest("[data-event-card]")) return;
+                  event.preventDefault();
+                  onCreate(day);
+                }}
+                role="button"
+                tabIndex={0}
               >
                 {HOURS.map((hour) => (
                   <div
@@ -1254,7 +1261,7 @@ function WeekGrid({
                     </button>
                   );
                 })}
-              </button>
+              </div>
             );
           })}
         </div>

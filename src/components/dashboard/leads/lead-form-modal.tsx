@@ -13,8 +13,10 @@ type LeadFormModalProps = {
   leadForm: LeadFormState;
   assignableMembers: CompanyMember[];
   saving: boolean;
+  errorMessage?: string | null;
   onClose: () => void;
   onSave: () => void;
+  onSaveAndSchedule: () => void;
   onLeadFormChange: (updater: (current: LeadFormState) => LeadFormState) => void;
 };
 
@@ -23,8 +25,10 @@ export function LeadFormModal({
   leadForm,
   assignableMembers,
   saving,
+  errorMessage,
   onClose,
   onSave,
+  onSaveAndSchedule,
   onLeadFormChange,
 }: Readonly<LeadFormModalProps>) {
   const t = useTranslations();
@@ -47,6 +51,16 @@ export function LeadFormModal({
           {t("common.close")}
         </button>
       </div>
+
+      {errorMessage ? (
+        <div
+          aria-live="polite"
+          className="mt-4 rounded-[1.1rem] border border-rose-300 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700"
+          role="alert"
+        >
+          {errorMessage}
+        </div>
+      ) : null}
 
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         <Field
@@ -152,6 +166,14 @@ export function LeadFormModal({
             : editingLeadId
               ? t("leads.formModal.saveChanges")
               : t("leads.formModal.createLead")}
+        </button>
+        <button
+          className="rounded-full border border-sky-300 bg-sky-50 px-5 py-3 text-sm font-semibold text-sky-800 transition hover:border-sky-400 hover:bg-sky-100 disabled:opacity-50"
+          disabled={saving}
+          onClick={onSaveAndSchedule}
+          type="button"
+        >
+          {t("leads.formModal.saveAndScheduleEvent")}
         </button>
         <button
           className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-950"
