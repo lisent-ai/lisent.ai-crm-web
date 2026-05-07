@@ -131,6 +131,12 @@ export function LeadDirectory() {
   const [showBulkAssignModal, setShowBulkAssignModal] = useState(false);
   const [bulkAssignUserId, setBulkAssignUserId] = useState("");
   const [pendingBulkDelete, setPendingBulkDelete] = useState(false);
+  // PDF export options modal — opens before the actual download so the
+  // user can opt into pulling per-lead comments (extra round-trips per
+  // selected lead, hence opt-in rather than default).
+  const [showPdfOptions, setShowPdfOptions] = useState(false);
+  const [pdfIncludeComments, setPdfIncludeComments] = useState(false);
+  const [pdfExporting, setPdfExporting] = useState(false);
   const [editingLeadId, setEditingLeadId] = useState<string | null>(null);
   const [leadForm, setLeadForm] = useState<LeadFormState>(emptyLeadForm);
   const [convertState, setConvertState] = useState<LeadConvertState | null>(null);
@@ -938,18 +944,56 @@ export function LeadDirectory() {
     setSuccessMessage(t("leads.success.exported", { count: rows.length }));
   }
 
-  async function handleBulkExportPdf() {
+  function handleBulkExportPdf() {
+    if (selectedIds.size === 0) return;
+    // Defer the actual download to the options modal so the user can
+    // pick whether to include comments (which costs one /comments call
+    // per selected lead).
+    setPdfIncludeComments(false);
+    setShowPdfOptions(true);
+  }
+
+  async function runBulkExportPdf({ includeComments }: { includeComments: boolean }) {
     const rows = leads.filter((lead) => selectedIds.has(lead.id));
-    if (rows.length === 0) return;
+    if (rows.length === 0) {
+      setShowPdfOptions(false);
+      return;
+    }
+    setPdfExporting(true);
     try {
       const { downloadLeadPdf } = await import("@/lib/leads/pdf-export");
+
+      let commentsByLeadId: Map<string, LeadComment[]> | undefined;
+      if (includeComments) {
+        // Fetch in parallel; one failed lead must not block the rest of
+        // the export — fall back to an empty list for that lead and let
+        // the PDF render the localized "no comments" placeholder.
+        const entries = await Promise.all(
+          rows.map(async (lead) => {
+            try {
+              const comments = await listLeadComments(lead.id);
+              return [lead.id, comments] as const;
+            } catch {
+              return [lead.id, [] as LeadComment[]] as const;
+            }
+          }),
+        );
+        commentsByLeadId = new Map(entries);
+      }
+
       const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-      downloadLeadPdf(rows, `leads-${stamp}.pdf`, t as never, locale);
+      downloadLeadPdf(rows, `leads-${stamp}.pdf`, t as never, locale, {
+        includeComments,
+        commentsByLeadId,
+      });
       setSuccessMessage(t("leads.success.exported", { count: rows.length }));
+      setShowPdfOptions(false);
     } catch (error) {
       setErrorMessage(
         error instanceof Error ? error.message : t("leads.errors.exportPdf"),
       );
+    } finally {
+      setPdfExporting(false);
     }
   }
 
@@ -1384,6 +1428,22 @@ export function LeadDirectory() {
           saving={saving}
         />
       ) : null}
+
+      {showPdfOptions ? (
+        <PdfExportOptionsModal
+          count={selectedIds.size}
+          exporting={pdfExporting}
+          includeComments={pdfIncludeComments}
+          onClose={() => {
+            if (pdfExporting) return;
+            setShowPdfOptions(false);
+          }}
+          onConfirm={() =>
+            void runBulkExportPdf({ includeComments: pdfIncludeComments })
+          }
+          onIncludeCommentsChange={setPdfIncludeComments}
+        />
+      ) : null}
     </div>
   );
 }
@@ -1464,6 +1524,83 @@ function BulkDeleteConfirmModal({
             type="button"
           >
             {saving ? t("leads.bulkDelete.deleting") : t("leads.bulkDelete.confirm", { count })}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PdfExportOptionsModal({
+  count,
+  exporting,
+  includeComments,
+  onClose,
+  onConfirm,
+  onIncludeCommentsChange,
+}: Readonly<{
+  count: number;
+  exporting: boolean;
+  includeComments: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  onIncludeCommentsChange: (value: boolean) => void;
+}>) {
+  const t = useTranslations();
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-[rgba(11,15,25,0.45)] px-4 py-8 sm:items-center"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="my-auto w-full max-w-md rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[var(--shadow-float)]"
+        onClick={(event) => event.stopPropagation()}
+        role="dialog"
+      >
+        <h2 className="text-lg font-semibold text-[var(--text-primary)]">
+          {t("leads.pdf.options.title")}
+        </h2>
+        <p className="mt-2 text-sm text-[var(--text-tertiary)]">
+          {t("leads.pdf.options.description", { count })}
+        </p>
+        <label
+          className="mt-5 flex items-start gap-3 rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-muted)] p-3 text-sm text-[var(--text-secondary)]"
+        >
+          <input
+            checked={includeComments}
+            className="mt-0.5 h-4 w-4 cursor-pointer accent-[var(--accent-primary)]"
+            disabled={exporting}
+            onChange={(event) => onIncludeCommentsChange(event.target.checked)}
+            type="checkbox"
+          />
+          <span className="flex flex-col gap-1">
+            <span className="font-medium text-[var(--text-primary)]">
+              {t("leads.pdf.options.includeComments")}
+            </span>
+            <span className="text-xs text-[var(--text-tertiary)]">
+              {t("leads.pdf.options.includeCommentsHint")}
+            </span>
+          </span>
+        </label>
+        <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <button
+            className="inline-flex h-10 items-center justify-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)]"
+            disabled={exporting}
+            onClick={onClose}
+            type="button"
+          >
+            {t("common.cancel")}
+          </button>
+          <button
+            className="inline-flex h-10 items-center justify-center rounded-full bg-[var(--text-primary)] px-5 text-sm font-medium text-[var(--surface)] transition hover:opacity-90 disabled:opacity-50"
+            disabled={exporting}
+            onClick={onConfirm}
+            type="button"
+          >
+            {exporting
+              ? t("leads.pdf.options.exporting")
+              : t("leads.pdf.options.confirm")}
           </button>
         </div>
       </div>

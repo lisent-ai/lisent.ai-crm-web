@@ -1554,9 +1554,19 @@
       "unknownAuthor": "Unbekannt"
     },
     "pdf": {
+      "commentByOn": "{author} · {date}",
+      "commentsHeader": "Comments",
       "createdAt": "Erstellt",
       "email": "E-Mail",
       "exportedAt": "Leads · Exportiert am",
+      "options": {
+        "confirm": "Export PDF",
+        "description": "Choose what to include in the export of {count} selected leads.",
+        "exporting": "Exporting...",
+        "includeComments": "Include lead comments",
+        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
+        "title": "Export leads to PDF"
+      },
       "pageOf": "Seite {current} von {total}",
       "title": "Leads"
     },

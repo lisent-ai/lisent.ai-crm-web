@@ -1554,9 +1554,19 @@
       "unknownAuthor": "Bilinmeyen"
     },
     "pdf": {
+      "commentByOn": "{author} · {date}",
+      "commentsHeader": "Yorumlar",
       "createdAt": "Oluşturuldu",
       "email": "E-posta",
       "exportedAt": "müşteri adayı · tarihinde dışa aktarıldı",
+      "options": {
+        "confirm": "PDF dışa aktar",
+        "description": "Seçili {count} müşteri adayının dışa aktarımına neyi ekleyeceğinizi seçin.",
+        "exporting": "Dışa aktarılıyor...",
+        "includeComments": "Müşteri adayı yorumlarını ekle",
+        "includeCommentsHint": "Seçili her müşteri adayı için tüm ekip yorumlarını içeren bir bölüm ekler. Oluşturma işlemi daha uzun sürebilir.",
+        "title": "Müşteri adaylarını PDF olarak dışa aktar"
+      },
       "pageOf": "Sayfa {current} / {total}",
       "title": "Leadler"
     },
