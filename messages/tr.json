@@ -222,6 +222,9 @@
       "deleteDescription": "Bu, müşteri kaydını kalıcı olarak silecektir. Bu işlem geri alınamaz.",
       "deleteEyebrow": "Toplu sil",
       "deleteTitle": "Seçili müşterileri sil?",
+      "exportCsv": "CSV dışa aktar",
+      "exportPdf": "PDF dışa aktar",
+      "exportXlsx": "Excel dışa aktar",
       "regionLabel": "Toplu işlemler",
       "selectedCount": "seçili"
     },
@@ -243,6 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Bazı müşteriler silinemedi.",
       "deleteCustomer": "Müşteriyi silme işlemi başarısız oldu.",
+      "exportFailed": "Müşteriler dışa aktarılamadı.",
       "loadCompanies": "Şirketleri yükleme işlemi başarısız oldu.",
       "loadCustomers": "Müşterileri yükleme işlemi başarısız oldu.",
       "saveCustomer": "Müşteriyi kaydetme işlemi başarısız oldu."
@@ -284,6 +288,11 @@
     "loading": "Müşteriler yükleniyor...",
     "noEmail": "Dosyada e-posta yok",
     "notSet": "Ayarlanmamış",
+    "pdf": {
+      "exportedAt": "müşteri · {date} tarihinde dışa aktarıldı",
+      "pageOf": "Sayfa {current} / {total}",
+      "title": "Müşteriler"
+    },
     "placeholders": {
       "email": "name@company.com",
       "name": "Müşteri adı",
@@ -306,6 +315,7 @@
       "bulkDeletedPartial": "/ müşteri silindi.",
       "created": "Müşteri oluşturuldu.",
       "deleted": "Müşteri silindi.",
+      "exported": "{count} müşteri dışa aktarıldı.",
       "updated": "Müşteri güncellendi."
     }
   },

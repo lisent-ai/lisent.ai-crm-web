@@ -222,6 +222,9 @@
       "deleteDescription": "To trwale usunie rekordów klientów. Tej operacji nie można cofnąć.",
       "deleteEyebrow": "Masowe usuwanie",
       "deleteTitle": "Usunąć wybranych klientów?",
+      "exportCsv": "Export CSV",
+      "exportPdf": "Export PDF",
+      "exportXlsx": "Export Excel",
       "regionLabel": "Masowe działania",
       "selectedCount": "wybrano"
     },
@@ -243,6 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Nie udało się usunąć niektórych klientów.",
       "deleteCustomer": "Nie udało się usunąć klienta.",
+      "exportFailed": "Failed to export customers.",
       "loadCompanies": "Nie udało się wczytać firm.",
       "loadCustomers": "Nie udało się wczytać klientów.",
       "saveCustomer": "Nie udało się zapisać klienta."
@@ -284,6 +288,11 @@
     "loading": "Ładowanie klientów…",
     "noEmail": "Brak e‑mailu w bazie",
     "notSet": "Nie ustawiono",
+    "pdf": {
+      "exportedAt": "customers · Exported on {date}",
+      "pageOf": "Page {current} of {total}",
+      "title": "Customers"
+    },
     "placeholders": {
       "email": "name@firma.com",
       "name": "Nazwa klienta",
@@ -306,6 +315,7 @@
       "bulkDeletedPartial": "Usunięto z klientów.",
       "created": "Utworzono klienta.",
       "deleted": "Usunięto klienta.",
+      "exported": "Exported {count} customers.",
       "updated": "Zaktualizowano klienta."
     }
   },

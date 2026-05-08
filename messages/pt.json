@@ -222,6 +222,9 @@
       "deleteDescription": "Isso excluirá permanentemente registros de cliente. Esta ação não pode ser desfeita.",
       "deleteEyebrow": "Exclusão em massa",
       "deleteTitle": "Excluir clientes selecionados?",
+      "exportCsv": "Export CSV",
+      "exportPdf": "Export PDF",
+      "exportXlsx": "Export Excel",
       "regionLabel": "Ações em massa",
       "selectedCount": "selecionado(s)"
     },
@@ -243,6 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Falha ao excluir alguns clientes.",
       "deleteCustomer": "Falha ao excluir cliente.",
+      "exportFailed": "Failed to export customers.",
       "loadCompanies": "Falha ao carregar empresas.",
       "loadCustomers": "Falha ao carregar clientes.",
       "saveCustomer": "Falha ao salvar cliente."
@@ -284,6 +288,11 @@
     "loading": "Carregando clientes...",
     "noEmail": "Nenhum e‑mail cadastrado",
     "notSet": "Não definido",
+    "pdf": {
+      "exportedAt": "customers · Exported on {date}",
+      "pageOf": "Page {current} of {total}",
+      "title": "Customers"
+    },
     "placeholders": {
       "email": "name@company.com",
       "name": "Nome do cliente",
@@ -306,6 +315,7 @@
       "bulkDeletedPartial": "de clientes excluídos.",
       "created": "Cliente criado.",
       "deleted": "Cliente excluído.",
+      "exported": "Exported {count} customers.",
       "updated": "Cliente atualizado."
     }
   },

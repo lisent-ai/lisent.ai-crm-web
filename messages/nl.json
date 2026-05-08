@@ -222,6 +222,9 @@
       "deleteDescription": "Dit zal klantrecords permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
       "deleteEyebrow": "Bulkverwijdering",
       "deleteTitle": "Geselecteerde klanten verwijderen?",
+      "exportCsv": "Export CSV",
+      "exportPdf": "Export PDF",
+      "exportXlsx": "Export Excel",
       "regionLabel": "Bulkacties",
       "selectedCount": "geselecteerd"
     },
@@ -243,6 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Sommige klanten konden niet worden verwijderd.",
       "deleteCustomer": "Klant kon niet worden verwijderd.",
+      "exportFailed": "Failed to export customers.",
       "loadCompanies": "Bedrijven konden niet worden geladen.",
       "loadCustomers": "Klanten konden niet worden geladen.",
       "saveCustomer": "Opslaan van klant mislukt."
@@ -284,6 +288,11 @@
     "loading": "Klanten laden...",
     "noEmail": "Geen e‑mail beschikbaar",
     "notSet": "Niet ingesteld",
+    "pdf": {
+      "exportedAt": "customers · Exported on {date}",
+      "pageOf": "Page {current} of {total}",
+      "title": "Customers"
+    },
     "placeholders": {
       "email": "name@company.com",
       "name": "Klantnaam",
@@ -306,6 +315,7 @@
       "bulkDeletedPartial": "van klanten verwijderd.",
       "created": "Klant aangemaakt.",
       "deleted": "Klant verwijderd.",
+      "exported": "Exported {count} customers.",
       "updated": "Klant bijgewerkt."
     }
   },

@@ -222,6 +222,9 @@
       "deleteDescription": "This will permanently delete customer records. This action cannot be undone.",
       "deleteEyebrow": "Bulk delete",
       "deleteTitle": "Delete selected customers?",
+      "exportCsv": "Export CSV",
+      "exportPdf": "Export PDF",
+      "exportXlsx": "Export Excel",
       "regionLabel": "Bulk actions",
       "selectedCount": "selected"
     },
@@ -243,6 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Failed to delete some customers.",
       "deleteCustomer": "Failed to delete customer.",
+      "exportFailed": "Failed to export customers.",
       "loadCompanies": "Failed to load companies.",
       "loadCustomers": "Failed to load customers.",
       "saveCustomer": "Failed to save customer."
@@ -284,6 +288,11 @@
     "loading": "Loading customers...",
     "noEmail": "No email on file",
     "notSet": "Not set",
+    "pdf": {
+      "exportedAt": "customers · Exported on {date}",
+      "pageOf": "Page {current} of {total}",
+      "title": "Customers"
+    },
     "placeholders": {
       "email": "name@company.com",
       "name": "Customer name",
@@ -306,6 +315,7 @@
       "bulkDeletedPartial": "of customers deleted.",
       "created": "Customer created.",
       "deleted": "Customer deleted.",
+      "exported": "Exported {count} customers.",
       "updated": "Customer updated."
     }
   },

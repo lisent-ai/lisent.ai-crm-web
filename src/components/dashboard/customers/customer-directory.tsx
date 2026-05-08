@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -14,6 +14,7 @@ import {
   type Customer,
   updateCustomer,
 } from "@/lib/crm/client";
+import type { SupportedLocale } from "@/lib/i18n/config";
 
 import { CustomerCompanyHeader } from "./customer-company-header";
 import { CustomerBulkActionBar } from "./customer-bulk-action-bar";
@@ -27,6 +28,7 @@ import { emptyCustomerForm, type CustomerFormState } from "./customer-types";
 
 export function CustomerDirectory() {
   const t = useTranslations();
+  const locale = useLocale() as SupportedLocale;
   const searchParams = useSearchParams();
   const searchCompanyId = searchParams.get("company") ?? "";
   const searchCompanyName = searchParams.get("companyName");
@@ -54,6 +56,10 @@ export function CustomerDirectory() {
   const [pendingBulkDelete, setPendingBulkDelete] = useState(false);
   const [customerPendingDelete, setCustomerPendingDelete] =
     useState<Customer | null>(null);
+  // Single shared flag covers all three export formats — only one
+  // export can be in flight at a time and the bulk action bar locks
+  // every action while it runs.
+  const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
@@ -421,6 +427,97 @@ export function CustomerDirectory() {
     setSaving(false);
   }
 
+  // The export buttons act on the user's current selection — exactly
+  // matching the bulk-delete contract — so all three handlers share the
+  // same row resolver. The directory keeps the resolver inline rather
+  // than memoizing because the cost is negligible (a single filter pass
+  // over `customers` triggered only on click).
+  function selectedCustomerRows(): Customer[] {
+    return customers.filter((customer) => selectedCustomerIds.has(customer.id));
+  }
+
+  function exportFilenameStem(): string {
+    // Filename is independent of locale: stable, sortable, ASCII-safe
+    // so the file behaves nicely in shells, email attachments, etc.
+    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+    return `customers-${stamp}`;
+  }
+
+  async function handleBulkExportCsv() {
+    const rows = selectedCustomerRows();
+    if (rows.length === 0) return;
+    setExporting(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    try {
+      const { downloadCustomerCsv } = await import("@/lib/customers/csv-export");
+      downloadCustomerCsv(rows, `${exportFilenameStem()}.csv`);
+      setSuccessMessage(t("customers.success.exported", { count: rows.length }));
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : t("customers.errors.exportFailed");
+      setErrorMessage(message);
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  async function handleBulkExportXlsx() {
+    const rows = selectedCustomerRows();
+    if (rows.length === 0) return;
+    setExporting(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    try {
+      const { downloadCustomerXlsx } = await import("@/lib/customers/xlsx-export");
+      // Headers passed in localized form so the file the user opens in
+      // Excel reads naturally in their language. Falls back to the CSV
+      // slug ordering so all three formats stay column-aligned.
+      const headers = [
+        t("customers.fields.id"),
+        t("customers.fields.companyId"),
+        t("customers.fields.name"),
+        t("customers.fields.firstName"),
+        t("customers.fields.lastName"),
+        t("customers.fields.email"),
+        t("customers.fields.phone"),
+        t("customers.fields.status"),
+        t("customers.fields.preferredLanguage"),
+        t("customers.fields.countryCode"),
+      ];
+      downloadCustomerXlsx(rows, `${exportFilenameStem()}.xlsx`, {
+        headers,
+        sheetName: t("customers.list.title"),
+      });
+      setSuccessMessage(t("customers.success.exported", { count: rows.length }));
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : t("customers.errors.exportFailed");
+      setErrorMessage(message);
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  async function handleBulkExportPdf() {
+    const rows = selectedCustomerRows();
+    if (rows.length === 0) return;
+    setExporting(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    try {
+      const { downloadCustomerPdf } = await import("@/lib/customers/pdf-export");
+      downloadCustomerPdf(rows, `${exportFilenameStem()}.pdf`, t as never, locale);
+      setSuccessMessage(t("customers.success.exported", { count: rows.length }));
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : t("customers.errors.exportFailed");
+      setErrorMessage(message);
+    } finally {
+      setExporting(false);
+    }
+  }
+
   const loading = companiesLoading || customersLoading;
 
   return (
@@ -473,8 +570,12 @@ export function CustomerDirectory() {
 
       <CustomerBulkActionBar
         count={selectedCustomerIds.size}
+        exporting={exporting}
         onClear={() => setSelectedCustomerIds(new Set())}
         onDelete={() => setPendingBulkDelete(true)}
+        onExportCsv={() => void handleBulkExportCsv()}
+        onExportPdf={() => void handleBulkExportPdf()}
+        onExportXlsx={() => void handleBulkExportXlsx()}
         saving={saving}
       />
 

@@ -222,6 +222,9 @@
       "deleteDescription": "Dadurch werden Kundendatensätze dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
       "deleteEyebrow": "Massenhaftes Löschen",
       "deleteTitle": "Ausgewählte Kunden löschen?",
+      "exportCsv": "Export CSV",
+      "exportPdf": "Export PDF",
+      "exportXlsx": "Export Excel",
       "regionLabel": "Massenhafte Aktionen",
       "selectedCount": "ausgewählt"
     },
@@ -243,6 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Einige Kunden konnten nicht gelöscht werden.",
       "deleteCustomer": "Kunde konnte nicht gelöscht werden.",
+      "exportFailed": "Failed to export customers.",
       "loadCompanies": "Firmen konnten nicht geladen werden.",
       "loadCustomers": "Kunden konnten nicht geladen werden.",
       "saveCustomer": "Kunde konnte nicht gespeichert werden."
@@ -284,6 +288,11 @@
     "loading": "Kunden werden geladen...",
     "noEmail": "Keine E‑Mail hinterlegt",
     "notSet": "Nicht festgelegt",
+    "pdf": {
+      "exportedAt": "customers · Exported on {date}",
+      "pageOf": "Page {current} of {total}",
+      "title": "Customers"
+    },
     "placeholders": {
       "email": "name@company.com",
       "name": "Kundenname",
@@ -306,6 +315,7 @@
       "bulkDeletedPartial": "von Kunden gelöscht.",
       "created": "Kunde erstellt.",
       "deleted": "Kunde gelöscht.",
+      "exported": "Exported {count} customers.",
       "updated": "Kunde aktualisiert."
     }
   },
