@@ -573,6 +573,7 @@
       "status": {
         "contacted": "Связались",
         "converted": "Преобразован",
+        "disqualified": "Отказ",
         "lost": "Проигран",
         "new": "Новый",
         "qualified": "Квалифицирован"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "Lead был контактуем",
           "converted": "Lead преобразован в клиента",
+          "disqualified": "Лид отклонён продажами",
           "lost": "Lead помечен как потерянный",
           "new": "Lead только что создан",
           "qualified": "Lead квалифицирован AI / продажами"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "Контактирован",
       "converted": "Конвертирован",
+      "disqualified": "Отказ",
       "lost": "Потерян",
       "new": "Новый",
       "qualified": "Квалифицирован"

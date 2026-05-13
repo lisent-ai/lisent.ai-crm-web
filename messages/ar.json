@@ -573,6 +573,7 @@
       "status": {
         "contacted": "تم التواصل",
         "converted": "تم التحويل",
+        "disqualified": "مستبعد",
         "lost": "خاسر",
         "new": "جديد",
         "qualified": "مؤهل"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "تم التواصل مع Lead",
           "converted": "تم تحويل Lead إلى عميل",
+          "disqualified": "تم استبعاد Lead من قبل المبيعات",
           "lost": "تم وضع علامة فقدان على Lead",
           "new": "تم إنشاء Lead حديثًا",
           "qualified": "تم تأهيل Lead بواسطة AI / المبيعات"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "تم التواصل",
       "converted": "محول",
+      "disqualified": "مستبعد",
       "lost": "مفقود",
       "new": "جديد",
       "qualified": "مؤهل"

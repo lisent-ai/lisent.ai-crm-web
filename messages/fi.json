@@ -573,6 +573,7 @@
       "status": {
         "contacted": "Yhteydessä",
         "converted": "Muunnettu",
+        "disqualified": "Hylätty",
         "lost": "Hävitty",
         "new": "Uusi",
         "qualified": "Kvalifioitu"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "Leadia on otettu yhteyttä",
           "converted": "Lead muutettu asiakkaaksi",
+          "disqualified": "Myynti hylkäsi liidin",
           "lost": "Lead merkitty menetykseksi",
           "new": "Lead juuri luotu",
           "qualified": "Lead kvalifioitu AI:n / myynnin toimesta"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "Yhteydenotettu",
       "converted": "Muunnettu",
+      "disqualified": "Hylätty",
       "lost": "Hävitty",
       "new": "Uusi",
       "qualified": "Kvalifioitu"

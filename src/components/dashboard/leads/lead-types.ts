@@ -4,6 +4,7 @@ export const leadStatuses: LeadStatus[] = [
   "new",
   "contacted",
   "qualified",
+  "disqualified",
   "lost",
   "converted",
 ];

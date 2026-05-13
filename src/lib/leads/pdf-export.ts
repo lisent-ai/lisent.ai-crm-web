@@ -11,7 +11,7 @@ import { localeToBcp47, type SupportedLocale } from "@/lib/i18n/config";
 
 type Translator = (key: string, params?: Record<string, string | number>) => string;
 
-const STATUS_KEYS = ["new", "contacted", "qualified", "converted", "lost"] as const;
+const STATUS_KEYS = ["new", "contacted", "qualified", "disqualified", "converted", "lost"] as const;
 
 // Snapshot is intentionally narrower than the full LeadComment so the PDF
 // builder stays decoupled from CRM client typing — callers map LeadComment

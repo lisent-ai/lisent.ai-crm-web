@@ -573,6 +573,7 @@
       "status": {
         "contacted": "Kontaktet",
         "converted": "Konverteret",
+        "disqualified": "Diskvalificeret",
         "lost": "Tabt",
         "new": "Ny",
         "qualified": "Kvalificeret"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "Lead er blevet kontaktet",
           "converted": "Lead konverteret til kunde",
+          "disqualified": "Lead diskvalificeret af salg",
           "lost": "Lead markeret som tabt",
           "new": "Lead netop oprettet",
           "qualified": "Lead kvalificeret af AI / salg"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "Kontaktet",
       "converted": "Konverteret",
+      "disqualified": "Diskvalificeret",
       "lost": "Tabt",
       "new": "Ny",
       "qualified": "Kvalificeret"

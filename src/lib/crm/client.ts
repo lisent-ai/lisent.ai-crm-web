@@ -212,6 +212,7 @@ export type LeadStatus =
   | "new"
   | "contacted"
   | "qualified"
+  | "disqualified"
   | "lost"
   | "converted";
 

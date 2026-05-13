@@ -17,6 +17,7 @@ const STATUS_TONE: Record<LeadStatus, { bg: string; color: string; labelKey: str
   new: { bg: "var(--accent-soft)", color: "var(--accent-strong)", labelKey: "home.recentLeads.status.new" },
   contacted: { bg: "#fef3c7", color: "#b45309", labelKey: "home.recentLeads.status.contacted" },
   qualified: { bg: "#d1fae5", color: "#047857", labelKey: "home.recentLeads.status.qualified" },
+  disqualified: { bg: "#ffedd5", color: "#9a3412", labelKey: "home.recentLeads.status.disqualified" },
   lost: { bg: "#fee2e2", color: "#b91c1c", labelKey: "home.recentLeads.status.lost" },
   converted: { bg: "#ede9fe", color: "#6d28d9", labelKey: "home.recentLeads.status.converted" },
 };

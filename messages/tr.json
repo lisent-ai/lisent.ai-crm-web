@@ -573,6 +573,7 @@
       "status": {
         "contacted": "İletişime geçildi",
         "converted": "Müşteriye dönüştü",
+        "disqualified": "Niteliksiz",
         "lost": "Kaybedildi",
         "new": "Yeni",
         "qualified": "Nitelikli"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "Müşteri Adayı iletişime alındı",
           "converted": "Müşteri Adayı müşteriye dönüştürüldü",
+          "disqualified": "Müşteri Adayı satış tarafından niteliksiz olarak işaretlendi",
           "lost": "Müşteri Adayı kayıp olarak işaretlendi",
           "new": "Müşteri Adayı yeni oluşturuldu",
           "qualified": "Müşteri Adayı AI / satış tarafından nitelendirildi"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "İletişime geçildi",
       "converted": "Dönüştürüldü",
+      "disqualified": "Niteliksiz",
       "lost": "Kaybedildi",
       "new": "Yeni",
       "qualified": "Nitelikli"

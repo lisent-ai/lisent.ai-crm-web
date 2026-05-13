@@ -573,6 +573,7 @@
       "status": {
         "contacted": "Kontaktad",
         "converted": "Konverterad",
+        "disqualified": "Diskvalificerad",
         "lost": "Förlorad",
         "new": "Ny",
         "qualified": "Kvalificerad"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "Lead har kontaktats",
           "converted": "Lead konverterad till kund",
+          "disqualified": "Lead diskvalificerad av försäljning",
           "lost": "Lead markerad som förlorad",
           "new": "Lead har skapats",
           "qualified": "Lead kvalificerad av AI / försäljning"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "Kontaktad",
       "converted": "Konverterad",
+      "disqualified": "Diskvalificerad",
       "lost": "Förlorad",
       "new": "Ny",
       "qualified": "Kvalificerad"

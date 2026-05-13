@@ -8,6 +8,8 @@ export function statusBadgeClasses(status: string) {
       return "bg-[color-mix(in_srgb,_var(--signal-blue)_14%,_var(--surface))] text-[#1e40af]";
     case "qualified":
       return "bg-[color-mix(in_srgb,_var(--signal-green)_14%,_var(--surface))] text-[#065f46]";
+    case "disqualified":
+      return "bg-[color-mix(in_srgb,_var(--signal-amber)_18%,_var(--surface))] text-[#92400e]";
     case "lost":
       return "bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] text-[#b91c1c]";
     case "converted":

@@ -573,6 +573,7 @@
       "status": {
         "contacted": "Kontaktiert",
         "converted": "Konvertiert",
+        "disqualified": "Disqualifiziert",
         "lost": "Verloren",
         "new": "Neu",
         "qualified": "Qualifiziert"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "Lead wurde kontaktiert",
           "converted": "Lead in Kunden umgewandelt",
+          "disqualified": "Lead vom Vertrieb disqualifiziert",
           "lost": "Lead als verloren markiert",
           "new": "Lead gerade erstellt",
           "qualified": "Lead von AI / Vertrieb qualifiziert"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "Kontaktiert",
       "converted": "Konvertiert",
+      "disqualified": "Disqualifiziert",
       "lost": "Verloren",
       "new": "Neu",
       "qualified": "Qualifiziert"

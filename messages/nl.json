@@ -573,6 +573,7 @@
       "status": {
         "contacted": "Gecontacteerd",
         "converted": "Geconverteerd",
+        "disqualified": "Gediskwalificeerd",
         "lost": "Verloren",
         "new": "Nieuw",
         "qualified": "Gekwalificeerd"
@@ -931,6 +932,7 @@
         "statusLabels": {
           "contacted": "Lead is gecontacteerd",
           "converted": "Lead omgezet naar klant",
+          "disqualified": "Lead gediskwalificeerd door sales",
           "lost": "Lead gemarkeerd als verloren",
           "new": "Lead zojuist aangemaakt",
           "qualified": "Lead gekwalificeerd door AI / sales"
@@ -1590,6 +1592,7 @@
     "status": {
       "contacted": "Gecontacteerd",
       "converted": "Geconverteerd",
+      "disqualified": "Gediskwalificeerd",
       "lost": "Verloren",
       "new": "Nieuw",
       "qualified": "Gekwalificeerd"
