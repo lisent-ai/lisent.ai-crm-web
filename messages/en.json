@@ -1729,8 +1729,11 @@
       "templates": {
         "actions": {
           "delete": "Delete",
-          "edit": "Edit"
+          "edit": "Edit",
+          "preview": "Preview"
         },
+        "preview": "Live preview",
+        "previewHint": "Renders the HTML in a sandboxed iframe (scripts disabled). Mailchimp merge tags like {{FNAME|there}} stay visible — they're swapped at send time.",
         "col": {
           "category": "Category",
           "created": "Created",
@@ -1822,13 +1825,19 @@
           "audience": "Audience",
           "audiencePlaceholder": "Pick an audience…",
           "fromName": "From name",
+          "hidePreview": "Hide preview",
           "htmlBody": "HTML body",
           "htmlHint": "Mailchimp accepts raw HTML or merge tags like {{FNAME|there}}. The drag-drop editor lives in Mailchimp's own UI.",
           "internalTitle": "Internal title (optional)",
           "internalTitlePlaceholder": "Used for searching in Mailchimp; defaults to subject",
           "replyTo": "Reply-to email",
+          "showPreview": "Show preview",
           "subject": "Subject line",
-          "subjectPlaceholder": "What goes in the recipient's inbox"
+          "subjectPlaceholder": "What goes in the recipient's inbox",
+          "template": "Start from a template (optional)",
+          "templateHint": "Picking a template fills the HTML body below — you can still edit it before saving.",
+          "templatePlaceholder": "Custom HTML — no template",
+          "templatesEmpty": "No saved templates yet"
         },
         "loadFailed": "Failed to load campaigns.",
         "loading": "Loading campaigns…",
@@ -1851,6 +1860,65 @@
         "title": "Campaigns"
       },
       "audiences": {
+        "actions": {
+          "addMember": "Add member",
+          "addMemberHint": "Add one subscriber manually with email + name + tags",
+          "pushFromCRM": "Push from CRM",
+          "pushFromCRMHint": "Pick CRM leads → batch upsert as Mailchimp members",
+          "uploadCsv": "Upload CSV",
+          "uploadCsvHint": ".csv with email column (auto-mapped) + name / phone / tags"
+        },
+        "addMember": {
+          "body": "Adds or updates one subscriber on {audience}. Repeating with the same email patches the existing row.",
+          "errEmailRequired": "Email is required.",
+          "failed": "Couldn't add the member.",
+          "fields": {
+            "email": "Email",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "phone": "Phone",
+            "status": "Subscription status",
+            "tags": "Tags (optional)",
+            "tagsHint": "Comma- or semicolon-separated. Created if missing."
+          },
+          "status": {
+            "pending": "Pending (double opt-in)",
+            "subscribed": "Subscribed",
+            "unsubscribed": "Unsubscribed"
+          },
+          "submit": "Add member",
+          "submitting": "Adding…",
+          "title": "Add a subscriber"
+        },
+        "csv": {
+          "body": "Upload a .csv to bulk-add or update subscribers on {audience}. Email column is required; first/last/phone/tags are auto-detected.",
+          "done": "Import finished.",
+          "errChunk": "A batch failed — partial import. See counts below.",
+          "errEmailColRequired": "Pick which column holds the email address.",
+          "errEmpty": "The file has no rows.",
+          "errNoValidRows": "No rows with a valid email — check the email column mapping.",
+          "errParse": "Couldn't parse the CSV",
+          "import": "Start import",
+          "importing": "Importing… {processed} of {total}",
+          "map": {
+            "email": "Email column",
+            "fname": "First name column (optional)",
+            "lname": "Last name column (optional)",
+            "phone": "Phone column (optional)",
+            "status": "Default status for NEW subscribers",
+            "tags": "Tags column (optional)"
+          },
+          "pickFile": "Click to choose a CSV file",
+          "pickHint": "Or drag a .csv here. Excel: File → Save As → CSV.",
+          "rowsDetected": "{count} rows ready to import.",
+          "stat": {
+            "created": "Created",
+            "errors": "Errors",
+            "updated": "Updated"
+          },
+          "title": "Upload CSV",
+          "updateExisting": "Also update existing subscribers (recommended)"
+        },
         "col": {
           "created": "Created",
           "members": "Members",
@@ -1859,6 +1927,37 @@
         },
         "emptyBody": "Create an audience in Mailchimp first — it'll appear here next refresh.",
         "emptyTitle": "No audiences yet",
+        "push": {
+          "allStatuses": "All statuses",
+          "body": "Pick CRM leads → push as members of {audience}. Leads without an email are skipped.",
+          "clear": "Clear",
+          "col": {
+            "email": "Email",
+            "name": "Name",
+            "outcome": "Outcome",
+            "reason": "Reason",
+            "status": "Status"
+          },
+          "empty": "No leads match the current filters.",
+          "errNoneSelected": "Pick at least one lead.",
+          "failed": "Couldn't push the leads.",
+          "loadFailed": "Couldn't load CRM leads.",
+          "loading": "Loading leads…",
+          "noEmail": "No email — skipped",
+          "searchPlaceholder": "Search name, email, phone, notes…",
+          "selectAll": "Select all visible",
+          "selected": "{count} selected",
+          "stat": {
+            "created": "Created",
+            "errors": "Errors",
+            "skipped": "Skipped",
+            "updated": "Updated"
+          },
+          "submit": "Push {count} lead(s)",
+          "submitting": "Pushing…",
+          "title": "Push from CRM",
+          "visible": "{count} visible"
+        },
         "loadFailed": "Failed to load audiences.",
         "loading": "Loading audiences…",
         "members": {

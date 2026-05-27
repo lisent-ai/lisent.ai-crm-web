@@ -11,6 +11,8 @@ import {
   type MailchimpTemplate,
 } from "@/lib/crm/client";
 
+import { TemplatePreviewFrame } from "./template-preview-frame";
+
 type TemplateEditModalProps = {
   companyId: string;
   // null → create flow; existing template → edit flow
@@ -111,7 +113,7 @@ export function TemplateEditModal({
       role="presentation"
     >
       <div
-        className="flex w-full max-w-2xl flex-col gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-xl"
+        className="flex max-h-[90vh] w-full max-w-5xl flex-col gap-4 overflow-y-auto rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -151,26 +153,38 @@ export function TemplateEditModal({
           />
         </label>
 
-        <label className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-            {t("marketing.email.templates.fields.html")}
-          </span>
-          <textarea
-            value={html}
-            onChange={(e) => setHtml(e.target.value)}
-            rows={14}
-            placeholder={
-              loadingHtml
-                ? t("marketing.email.templates.loadingBody")
-                : "<p>Hello {{FNAME|there}},</p>"
-            }
-            disabled={loadingHtml}
-            className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)] disabled:opacity-60"
-          />
-          <span className="text-xs text-[var(--text-tertiary)]">
-            {t("marketing.email.templates.fields.htmlHint")}
-          </span>
-        </label>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <label className="flex flex-col gap-1">
+            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+              {t("marketing.email.templates.fields.html")}
+            </span>
+            <textarea
+              value={html}
+              onChange={(e) => setHtml(e.target.value)}
+              rows={20}
+              placeholder={
+                loadingHtml
+                  ? t("marketing.email.templates.loadingBody")
+                  : "<p>Hello {{FNAME|there}},</p>"
+              }
+              disabled={loadingHtml}
+              className="h-[480px] resize-none rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)] disabled:opacity-60"
+            />
+            <span className="text-xs text-[var(--text-tertiary)]">
+              {t("marketing.email.templates.fields.htmlHint")}
+            </span>
+          </label>
+
+          <div className="flex flex-col gap-1">
+            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+              {t("marketing.email.templates.preview")}
+            </span>
+            <TemplatePreviewFrame html={html} title={`${name || "Template"} preview`} />
+            <span className="text-xs text-[var(--text-tertiary)]">
+              {t("marketing.email.templates.previewHint")}
+            </span>
+          </div>
+        </div>
 
         <footer className="flex items-center justify-end gap-2 pt-2">
           <button

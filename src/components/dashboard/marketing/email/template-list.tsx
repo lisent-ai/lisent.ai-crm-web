@@ -11,6 +11,7 @@ import {
 } from "@/lib/crm/client";
 
 import { TemplateEditModal } from "./template-edit-modal";
+import { TemplatePreviewModal } from "./template-preview-modal";
 
 type TemplateListProps = {
   companyId: string;
@@ -33,6 +34,7 @@ export function TemplateList({ companyId }: Readonly<TemplateListProps>) {
   const [error, setError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [editing, setEditing] = useState<MailchimpTemplate | "new" | null>(null);
+  const [previewing, setPreviewing] = useState<MailchimpTemplate | null>(null);
   const [refreshTick, setRefreshTick] = useState(0);
 
   useEffect(() => {
@@ -166,6 +168,13 @@ export function TemplateList({ companyId }: Readonly<TemplateListProps>) {
                     <div className="flex justify-end gap-1">
                       <button
                         type="button"
+                        onClick={() => setPreviewing(tpl)}
+                        className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface)]"
+                      >
+                        {t("marketing.email.templates.actions.preview")}
+                      </button>
+                      <button
+                        type="button"
                         onClick={() => setEditing(tpl)}
                         className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface)]"
                       >
@@ -196,6 +205,14 @@ export function TemplateList({ companyId }: Readonly<TemplateListProps>) {
             setEditing(null);
             refresh();
           }}
+        />
+      )}
+
+      {previewing && (
+        <TemplatePreviewModal
+          companyId={companyId}
+          template={previewing}
+          onClose={() => setPreviewing(null)}
         />
       )}
     </>

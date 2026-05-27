@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import {
@@ -9,6 +9,10 @@ import {
   type MailchimpAudience,
   type MailchimpMember,
 } from "@/lib/crm/client";
+
+import { AudienceAddMemberModal } from "./audience-add-member-modal";
+import { AudienceCSVUploadModal } from "./audience-csv-upload-modal";
+import { AudiencePushFromCRMDialog } from "./audience-push-from-crm-dialog";
 
 type AudienceDetailModalProps = {
   companyId: string;
@@ -33,6 +37,15 @@ export function AudienceDetailModal({
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshTick, setRefreshTick] = useState(0);
+  const [showAdd, setShowAdd] = useState(false);
+  const [showCSV, setShowCSV] = useState(false);
+  const [showPush, setShowPush] = useState(false);
+
+  const refresh = useCallback(() => {
+    setLoading(true);
+    setRefreshTick((n) => n + 1);
+  }, []);
 
   useEffect(() => {
     // Initial loading=true comes from useState; on page change the
@@ -64,7 +77,8 @@ export function AudienceDetailModal({
     return () => {
       cancelled = true;
     };
-  }, [audience.id, companyId, page, t]);
+    // refreshTick re-fires the fetch after add / CSV / push completes.
+  }, [audience.id, companyId, page, refreshTick, t]);
 
   const goToPage = (next: number) => {
     setLoading(true);
@@ -104,6 +118,25 @@ export function AudienceDetailModal({
             ✕
           </button>
         </header>
+
+        <div className="flex flex-wrap gap-2 border-y border-[var(--border-subtle)] py-3">
+          <ActionButton
+            label={t("marketing.email.audiences.actions.addMember")}
+            description={t("marketing.email.audiences.actions.addMemberHint")}
+            onClick={() => setShowAdd(true)}
+            primary
+          />
+          <ActionButton
+            label={t("marketing.email.audiences.actions.uploadCsv")}
+            description={t("marketing.email.audiences.actions.uploadCsvHint")}
+            onClick={() => setShowCSV(true)}
+          />
+          <ActionButton
+            label={t("marketing.email.audiences.actions.pushFromCRM")}
+            description={t("marketing.email.audiences.actions.pushFromCRMHint")}
+            onClick={() => setShowPush(true)}
+          />
+        </div>
 
         {error && (
           <p className="rounded-[var(--radius-card)] border border-[var(--signal-red)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--signal-red)]">
@@ -191,7 +224,73 @@ export function AudienceDetailModal({
           </div>
         </footer>
       </div>
+
+      {showAdd && (
+        <AudienceAddMemberModal
+          companyId={companyId}
+          listId={audience.id}
+          listName={audience.name}
+          onClose={() => setShowAdd(false)}
+          onAdded={() => {
+            setShowAdd(false);
+            refresh();
+          }}
+        />
+      )}
+      {showCSV && (
+        <AudienceCSVUploadModal
+          companyId={companyId}
+          listId={audience.id}
+          listName={audience.name}
+          onClose={() => setShowCSV(false)}
+          onImported={() => {
+            // Modal keeps itself open on its success screen so the
+            // operator sees the counts. They close → we refresh.
+            refresh();
+          }}
+        />
+      )}
+      {showPush && (
+        <AudiencePushFromCRMDialog
+          companyId={companyId}
+          listId={audience.id}
+          listName={audience.name}
+          onClose={() => setShowPush(false)}
+          onPushed={() => refresh()}
+        />
+      )}
     </div>
+  );
+}
+
+function ActionButton({
+  label,
+  description,
+  onClick,
+  primary,
+}: Readonly<{
+  label: string;
+  description: string;
+  onClick: () => void;
+  primary?: boolean;
+}>) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex flex-1 flex-col items-start gap-0.5 rounded-[var(--radius-card)] px-4 py-3 text-left text-sm transition ${
+        primary
+          ? "bg-[var(--accent)] text-white hover:bg-[var(--accent-strong)]"
+          : "border border-[var(--border-subtle)] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]"
+      }`}
+    >
+      <span className="font-semibold">{label}</span>
+      <span
+        className={`text-xs ${primary ? "text-white/85" : "text-[var(--text-tertiary)]"}`}
+      >
+        {description}
+      </span>
+    </button>
   );
 }
 

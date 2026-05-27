@@ -3612,6 +3612,46 @@ export async function upsertMailchimpMember(
   );
 }
 
+/** Result envelope from Mailchimp's batch upsert. Kept loose because
+ *  the new_members / updated_members / errors arrays each carry the full
+ *  Mailchimp member shape (60+ fields) we'd otherwise have to type out;
+ *  the CSV upload UI only reads the counts and the top-level arrays
+ *  length. */
+export type BatchUpsertMembersResult = {
+  new_members?: unknown[];
+  updated_members?: unknown[];
+  errors?: Array<{
+    email_address?: string;
+    error?: string;
+    error_code?: string;
+  }>;
+  total_created?: number;
+  total_updated?: number;
+  error_count?: number;
+};
+
+/** batchUpsertMailchimpMembers wraps the composite endpoint with the
+ *  same shape Mailchimp's /3.0/lists/{id} POST returns. Each call is
+ *  capped at 500 members upstream; the CSV upload modal chunks before
+ *  calling so it can stream progress to the operator. */
+export async function batchUpsertMailchimpMembers(
+  companyId: string,
+  listId: string,
+  payload: { members: Array<Record<string, unknown>>; update_existing?: boolean },
+): Promise<BatchUpsertMembersResult> {
+  return requestCRM<BatchUpsertMembersResult>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/members:batch`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
 export async function archiveMailchimpMember(
   companyId: string,
   listId: string,

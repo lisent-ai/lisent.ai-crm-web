@@ -6,11 +6,16 @@ import { useTranslations } from "next-intl";
 import {
   CRMClientError,
   createMailchimpCampaign,
+  getMailchimpTemplate,
   listMailchimpAudiences,
+  listMailchimpTemplates,
   setMailchimpCampaignContent,
   type MailchimpAudience,
   type MailchimpCampaign,
+  type MailchimpTemplate,
 } from "@/lib/crm/client";
+
+import { TemplatePreviewFrame } from "./template-preview-frame";
 
 type CampaignCreateModalProps = {
   companyId: string;
@@ -34,6 +39,7 @@ export function CampaignCreateModal({
 }: Readonly<CampaignCreateModalProps>) {
   const t = useTranslations();
   const [audiences, setAudiences] = useState<MailchimpAudience[]>([]);
+  const [templates, setTemplates] = useState<MailchimpTemplate[]>([]);
   const [audienceLoadError, setAudienceLoadError] = useState<string | null>(null);
   const [listId, setListId] = useState("");
   const [title, setTitle] = useState("");
@@ -43,22 +49,33 @@ export function CampaignCreateModal({
   const [html, setHtml] = useState(
     "<p>Hello {{FNAME|there}},</p>\n<p>Type your message here.</p>",
   );
+  const [templateId, setTemplateId] = useState<string>("");
+  const [loadingTemplateBody, setLoadingTemplateBody] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    listMailchimpAudiences(companyId, { count: 100 })
-      .then((res) => {
+    // Fetch audiences + user templates in parallel so the modal is
+    // ready as a one-stop shop. Both lists feed dropdowns; templates
+    // is empty-OK (Mailchimp accounts with no user templates just
+    // get the HTML textarea fallback).
+    Promise.all([
+      listMailchimpAudiences(companyId, { count: 100 }),
+      listMailchimpTemplates(companyId, { count: 100, type: "user" }).catch(() => ({
+        templates: [],
+        total_items: 0,
+      })),
+    ])
+      .then(([audRes, tplRes]) => {
         if (cancelled) return;
-        const lists = res.lists ?? [];
+        const lists = audRes.lists ?? [];
         setAudiences(lists);
+        setTemplates(tplRes.templates ?? []);
         if (lists.length > 0 && !listId) {
           setListId(lists[0].id);
           if (!fromName) {
-            // Mailchimp ships a default `from_name` per audience under
-            // contact.company. Use it so the operator usually doesn't
-            // have to retype it.
             const def = lists[0].contact?.company?.trim();
             if (def) setFromName(def);
           }
@@ -77,6 +94,31 @@ export function CampaignCreateModal({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [companyId, t]);
+
+  async function applyTemplate(id: string) {
+    setError(null);
+    setTemplateId(id);
+    if (!id) return;
+    setLoadingTemplateBody(true);
+    try {
+      const tpl = await getMailchimpTemplate(companyId, id);
+      const body =
+        (tpl as { html?: string; source?: { html?: string } }).html ??
+        (tpl as { source?: { html?: string } }).source?.html ??
+        "";
+      if (body) {
+        setHtml(body);
+      }
+    } catch (err) {
+      setError(
+        err instanceof CRMClientError
+          ? err.message
+          : t("marketing.email.templates.loadFailed"),
+      );
+    } finally {
+      setLoadingTemplateBody(false);
+    }
+  }
 
   async function handleSubmit() {
     setError(null);
@@ -134,7 +176,7 @@ export function CampaignCreateModal({
       role="presentation"
     >
       <div
-        className="flex w-full max-w-2xl flex-col gap-4 rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-xl"
+        className="flex max-h-[90vh] w-full max-w-5xl flex-col gap-4 overflow-y-auto rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -241,18 +283,73 @@ export function CampaignCreateModal({
 
           <label className="flex flex-col gap-1 sm:col-span-2">
             <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.campaigns.fields.htmlBody")}
+              {t("marketing.email.campaigns.fields.template")}
             </span>
-            <textarea
-              value={html}
-              onChange={(e) => setHtml(e.target.value)}
-              rows={10}
-              className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]"
-            />
+            <select
+              value={templateId}
+              onChange={(e) => applyTemplate(e.target.value)}
+              disabled={loadingTemplateBody}
+              className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)] disabled:opacity-60"
+            >
+              <option value="">
+                {templates.length === 0
+                  ? t("marketing.email.campaigns.fields.templatesEmpty")
+                  : t("marketing.email.campaigns.fields.templatePlaceholder")}
+              </option>
+              {templates.map((tpl) => (
+                <option key={tpl.id} value={String(tpl.id)}>
+                  {tpl.name}
+                </option>
+              ))}
+            </select>
             <span className="text-xs text-[var(--text-tertiary)]">
-              {t("marketing.email.campaigns.fields.htmlHint")}
+              {loadingTemplateBody
+                ? t("marketing.email.templates.loadingBody")
+                : t("marketing.email.campaigns.fields.templateHint")}
             </span>
           </label>
+
+          <div className="grid grid-cols-1 gap-3 sm:col-span-2 lg:grid-cols-2">
+            <label className="flex flex-col gap-1">
+              <span className="flex items-center justify-between text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                <span>{t("marketing.email.campaigns.fields.htmlBody")}</span>
+                <button
+                  type="button"
+                  onClick={() => setShowPreview((v) => !v)}
+                  className="text-[var(--accent)] hover:underline"
+                >
+                  {showPreview
+                    ? t("marketing.email.campaigns.fields.hidePreview")
+                    : t("marketing.email.campaigns.fields.showPreview")}
+                </button>
+              </span>
+              <textarea
+                value={html}
+                onChange={(e) => setHtml(e.target.value)}
+                rows={16}
+                className="h-[400px] resize-none rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]"
+              />
+              <span className="text-xs text-[var(--text-tertiary)]">
+                {t("marketing.email.campaigns.fields.htmlHint")}
+              </span>
+            </label>
+
+            {showPreview ? (
+              <div className="flex flex-col gap-1">
+                <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                  {t("marketing.email.templates.preview")}
+                </span>
+                <TemplatePreviewFrame
+                  html={html}
+                  title={subject || "Campaign preview"}
+                  className="h-[400px] w-full rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-white"
+                />
+                <span className="text-xs text-[var(--text-tertiary)]">
+                  {t("marketing.email.templates.previewHint")}
+                </span>
+              </div>
+            ) : null}
+          </div>
         </div>
 
         <footer className="flex items-center justify-end gap-2 pt-2">
