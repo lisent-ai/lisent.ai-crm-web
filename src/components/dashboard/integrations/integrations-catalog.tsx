@@ -246,6 +246,9 @@ export function IntegrationsCatalog() {
               if (integration.slug === "google-sheets") {
                 return featureFlags.googleSheetsIntegration;
               }
+              if (integration.slug === "mailchimp") {
+                return featureFlags.mailchimpIntegration;
+              }
               return true;
             })
             .map((integration) => (

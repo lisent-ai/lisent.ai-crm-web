@@ -12,6 +12,7 @@ import type { AccountProfile } from "@/lib/auth/account-profile";
 import { AIQualifierPanel } from "./ai-qualifier-panel";
 import { GoogleSheetsConfigPanel } from "./google-sheets/google-sheets-config";
 import { GreenAPIConfigPanel } from "./greenapi-config";
+import { MailchimpConfigPanel } from "./mailchimp-config";
 import { IntranetConfigPanel } from "./intranet-config";
 import { MetaConfigPanel } from "./meta-config";
 
@@ -119,14 +120,16 @@ export function IntegrationDetail({ slug }: Readonly<Props>) {
     intranet: "integrations.detail.slugTitles.intranet",
     "meta-lead-ads": "integrations.detail.slugTitles.metaLeadAds",
   };
-  // Static title for the Google Sheets card — i18n keys to follow when the
-  // translations file is updated. Slug shows up untranslated until then.
+  // Static title for the Google Sheets + Mailchimp cards — i18n keys may
+  // follow later. Slug shows up untranslated until then.
   const slugTitle =
     slug === "google-sheets"
       ? "Google Sheets"
-      : SLUG_KEY_MAP[slug]
-        ? t(SLUG_KEY_MAP[slug] as never)
-        : slug;
+      : slug === "mailchimp"
+        ? "Mailchimp"
+        : SLUG_KEY_MAP[slug]
+          ? t(SLUG_KEY_MAP[slug] as never)
+          : slug;
 
   return (
     <section className="space-y-6">
@@ -180,6 +183,8 @@ function SlugBody({ slug, companyId, companyName }: { slug: string; companyId: s
       return <MetaConfigPanel companyId={companyId} />;
     case "google-sheets":
       return <GoogleSheetsConfigPanel companyId={companyId} />;
+    case "mailchimp":
+      return <MailchimpConfigPanel companyId={companyId} />;
     default:
       return (
         <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">

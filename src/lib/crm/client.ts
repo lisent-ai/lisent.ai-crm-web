@@ -2795,6 +2795,7 @@ export type IntegrationSlug =
   | "intranet"
   | "meta-lead-ads"
   | "google-sheets"
+  | "mailchimp"
   // Legacy deep-link slugs — the detail page resolves these to the
   // unified ai-lead-qualifier panel with the matching tab pre-selected.
   | "qualifier-lead-webhook"

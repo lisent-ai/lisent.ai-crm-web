@@ -36,6 +36,10 @@ export const featureFlags = {
   /** G1: enables the Google Sheets integration card + wizard inside the
    *  Integrations Hub. Manual "Sync now" only at G1; G2 will add cron. */
   googleSheetsIntegration: isTrue(process.env.NEXT_PUBLIC_GOOGLE_SHEETS_INTEGRATION_ENABLED),
+  /** Mailchimp (per-USER): enables the catalog card + the Marketing
+   *  → Email tab swap-out. The connect flow only works once the backend
+   *  has NANGO_SECRET_KEY + the Mailchimp provider configured in Nango. */
+  mailchimpIntegration: isTrue(process.env.NEXT_PUBLIC_MAILCHIMP_INTEGRATION_ENABLED),
 } as const;
 
 export type FeatureFlag = keyof typeof featureFlags;
