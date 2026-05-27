@@ -3,6 +3,7 @@
 import Nango from "@nangohq/frontend";
 
 import {
+  getMailchimpConnectSession,
   getMetaConnectSession,
   getSheetsConnectSession,
 } from "@/lib/crm/client";
@@ -72,6 +73,38 @@ export async function connectGoogleSheetsViaNango(
     connectSessionToken: session.sessionToken,
   });
   const result = (await nango.auth(session.providerConfigKey)) as
+    | { connectionId?: string; providerConfigKey?: string }
+    | undefined;
+  return {
+    connectionId: result?.connectionId ?? session.connectionId,
+    providerConfigKey: result?.providerConfigKey ?? session.providerConfigKey,
+  };
+}
+
+/**
+ * Triggers Nango's OAuth Connect popup for the Mailchimp provider.
+ *
+ * Per-USER scope: the calling operator owns this connection. The backend
+ * /users/me/mailchimp-connect-session derives identity from the BFF's
+ * X-User-Id + X-Company-Id (forwarded from the authenticated session).
+ *
+ * Same v0.40+ session-token gotcha as Google Sheets: Nango overrides the
+ * connection_id with its own random UUID post-popup; we MUST forward
+ * `result.connectionId` (not the pre-popup placeholder) to
+ * completeMailchimpConnect. The backend trusts the value because tenant
+ * isolation lives on (company_id, user_id) headers, not on connection_id.
+ */
+export async function connectMailchimpViaNango(
+  companyId: string,
+  endUserEmail?: string,
+  providerConfigKey = "mailchimp",
+): Promise<{ connectionId: string; providerConfigKey: string }> {
+  const session = await getMailchimpConnectSession(companyId, endUserEmail);
+  const nango = new Nango({
+    host: getNangoHost(),
+    connectSessionToken: session.sessionToken,
+  });
+  const result = (await nango.auth(providerConfigKey)) as
     | { connectionId?: string; providerConfigKey?: string }
     | undefined;
   return {

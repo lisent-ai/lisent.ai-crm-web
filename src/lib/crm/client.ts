@@ -3131,3 +3131,903 @@ export async function disconnectSheets(companyId: string): Promise<void> {
     method: "POST",
   });
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Mailchimp integration (per-USER — diverges from Meta/Sheets which are
+// per-company). Every operator connects their own Mailchimp account; the
+// BFF forwards company_id as a query param so the Go backend can scope
+// the integration row on (company_id, user_id).
+//
+// Endpoint pathing:
+//   /users/me/mailchimp-{connect-session,connect-complete,config,disconnect}
+//   /users/me/mailchimp/{audiences,campaigns,templates,reports,...}
+//   /companies/:id/mailchimp-connections (owner roster)
+//
+// Response payloads from Mailchimp are forwarded as raw JSON. We provide
+// loose TypeScript shapes (Record<string, unknown> with named optional
+// fields the UI reads) rather than fully typing 60+ Mailchimp fields per
+// resource — the consumer narrows what it needs at call sites.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type MailchimpConfig = {
+  id: string;
+  userId: string;
+  companyId: string;
+  dc: string;
+  accountId?: string;
+  accountName?: string;
+  accountEmail?: string;
+  loginUrl?: string;
+  totalSubscribers?: number;
+  isActive: boolean;
+  lastPushAt?: string;
+  lastPushStatus?: string;
+  pushCountTotal: number;
+  pushCountSuccess: number;
+  pushCountFailed: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type CRMMailchimpStatus = {
+  id: string;
+  user_id: string;
+  company_id: string;
+  dc: string;
+  account_id?: string;
+  account_name?: string;
+  account_email?: string;
+  login_url?: string;
+  total_subscribers?: number;
+  is_active: boolean;
+  last_push_at?: string;
+  last_push_status?: string;
+  push_count_total: number;
+  push_count_success: number;
+  push_count_failed: number;
+  created_at: string;
+  updated_at: string;
+};
+
+function mapMailchimpStatus(r: CRMMailchimpStatus): MailchimpConfig {
+  return {
+    id: r.id,
+    userId: r.user_id,
+    companyId: r.company_id,
+    dc: r.dc,
+    accountId: r.account_id,
+    accountName: r.account_name,
+    accountEmail: r.account_email,
+    loginUrl: r.login_url,
+    totalSubscribers: r.total_subscribers,
+    isActive: r.is_active,
+    lastPushAt: r.last_push_at,
+    lastPushStatus: r.last_push_status,
+    pushCountTotal: r.push_count_total,
+    pushCountSuccess: r.push_count_success,
+    pushCountFailed: r.push_count_failed,
+    createdAt: r.created_at,
+    updatedAt: r.updated_at,
+  };
+}
+
+export type MailchimpOwnerConnection = {
+  userId: string;
+  accountName?: string;
+  accountEmail?: string;
+  loginUrl?: string;
+  totalSubscribers?: number;
+  isActive: boolean;
+  lastPushAt?: string;
+  connectedAt: string;
+};
+
+/** Raw Mailchimp resource shapes — loose by design. The fields enumerated
+ *  here are the ones the UI components currently read; extra Mailchimp
+ *  fields are preserved in the `[key: string]: unknown` bag for future use. */
+export type MailchimpAudience = {
+  id: string;
+  name: string;
+  stats?: {
+    member_count?: number;
+    unsubscribe_count?: number;
+    cleaned_count?: number;
+    open_rate?: number;
+    click_rate?: number;
+  };
+  date_created?: string;
+  list_rating?: number;
+  contact?: { company?: string; country?: string };
+  [key: string]: unknown;
+};
+
+export type MailchimpMember = {
+  id: string;
+  email_address: string;
+  status: string; // subscribed | unsubscribed | cleaned | pending | transactional | archived
+  merge_fields?: Record<string, unknown>;
+  tags?: Array<{ id: number; name: string }>;
+  last_changed?: string;
+  [key: string]: unknown;
+};
+
+export type MailchimpCampaign = {
+  id: string;
+  type: string;
+  status: string; // save | paused | schedule | sending | sent
+  create_time?: string;
+  send_time?: string;
+  emails_sent?: number;
+  settings?: {
+    subject_line?: string;
+    title?: string;
+    from_name?: string;
+    reply_to?: string;
+    template_id?: number;
+  };
+  recipients?: { list_id?: string; list_name?: string; recipient_count?: number };
+  [key: string]: unknown;
+};
+
+export type MailchimpTemplate = {
+  id: number;
+  name: string;
+  type: string; // user | base | gallery
+  category?: string;
+  date_created?: string;
+  active?: boolean;
+  thumbnail?: string;
+  [key: string]: unknown;
+};
+
+export type MailchimpReport = {
+  id: string;
+  campaign_title?: string;
+  type?: string;
+  list_id?: string;
+  list_name?: string;
+  subject_line?: string;
+  emails_sent?: number;
+  send_time?: string;
+  opens?: {
+    opens_total?: number;
+    unique_opens?: number;
+    open_rate?: number;
+    last_open?: string;
+  };
+  clicks?: {
+    clicks_total?: number;
+    unique_clicks?: number;
+    click_rate?: number;
+    last_click?: string;
+  };
+  bounces?: {
+    hard_bounces?: number;
+    soft_bounces?: number;
+    syntax_errors?: number;
+  };
+  forwards?: { forwards_count?: number; forwards_opens?: number };
+  [key: string]: unknown;
+};
+
+/** Push-leads request + per-row response. Mirrors the backend's
+ *  pushLeadsRequest / pushLeadsResponse shape (push_leads_handler.go). */
+export type PushLeadsRequest = {
+  leadIds: string[];
+  updateExisting?: boolean;
+  extraTags?: string[];
+  defaultStatus?: string;
+};
+
+export type PushLeadResult = {
+  leadId: string;
+  email?: string;
+  status: "created" | "updated" | "skipped" | "error";
+  reason?: string;
+};
+
+export type PushLeadsResponse = {
+  audienceId: string;
+  created: number;
+  updated: number;
+  skipped: number;
+  errors: number;
+  totalRequested: number;
+  results: PushLeadResult[];
+  completedAt: string;
+};
+
+/** MailchimpNotConfiguredError mirrors MetaOAuthNotConfiguredError —
+ *  rendered as a "tell the admin to wire NANGO_SECRET_KEY" hint. */
+export class MailchimpNotConfiguredError extends Error {
+  constructor() {
+    super("Mailchimp OAuth (Nango) is not yet configured.");
+    this.name = "MailchimpNotConfiguredError";
+  }
+}
+
+/** Helper: append company_id to a path (or return path as-is if already
+ *  has a query string with company_id). Every /users/me/mailchimp* call
+ *  uses this so the BFF can resolve X-Company-Id. */
+function withCompany(path: string, companyId: string): string {
+  const sep = path.includes("?") ? "&" : "?";
+  return `${path}${sep}company_id=${encodeURIComponent(companyId)}`;
+}
+
+// ── Connection lifecycle ─────────────────────────────────────────────────
+
+export async function getMailchimpConnectSession(
+  companyId: string,
+  endUserEmail?: string,
+): Promise<{ sessionToken: string; connectionId: string; providerConfigKey: string }> {
+  try {
+    const r = await requestCRM<{
+      session_token: string;
+      connection_id: string;
+      provider_config_key: string;
+    }>(withCompany("/users/me/mailchimp-connect-session", companyId), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ end_user_email: endUserEmail ?? "" }),
+    });
+    return {
+      sessionToken: r.session_token,
+      connectionId: r.connection_id,
+      providerConfigKey: r.provider_config_key,
+    };
+  } catch (err) {
+    if (isNangoUnavailable(err)) throw new MailchimpNotConfiguredError();
+    throw err;
+  }
+}
+
+export async function completeMailchimpConnect(
+  companyId: string,
+  payload: { connectionId: string; providerConfigKey?: string },
+): Promise<MailchimpConfig> {
+  try {
+    const r = await requestCRM<CRMMailchimpStatus>(
+      withCompany("/users/me/mailchimp-connect-complete", companyId),
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          connection_id: payload.connectionId,
+          provider_config_key: payload.providerConfigKey ?? "mailchimp",
+        }),
+      },
+    );
+    return mapMailchimpStatus(r);
+  } catch (err) {
+    if (isNangoUnavailable(err)) throw new MailchimpNotConfiguredError();
+    throw err;
+  }
+}
+
+/** getMailchimpConfig returns the operator's own row (no connection_id
+ *  in the response — masked server-side). Resolves to null on 404 so the
+ *  caller can render the "not connected" empty state. */
+export async function getMailchimpConfig(companyId: string): Promise<MailchimpConfig | null> {
+  try {
+    const r = await requestCRM<CRMMailchimpStatus>(
+      withCompany("/users/me/mailchimp-config", companyId),
+    );
+    return mapMailchimpStatus(r);
+  } catch (err) {
+    if (err instanceof CRMClientError && err.status === 404) return null;
+    throw err;
+  }
+}
+
+export async function disconnectMailchimp(companyId: string): Promise<void> {
+  await requestCRM<unknown>(withCompany("/users/me/mailchimp-disconnect", companyId), {
+    method: "POST",
+  });
+}
+
+// ── Owner roster ─────────────────────────────────────────────────────────
+
+export async function listMailchimpConnections(
+  companyId: string,
+): Promise<MailchimpOwnerConnection[]> {
+  const r = await requestCRM<{
+    company_id: string;
+    connections: Array<{
+      user_id: string;
+      account_name?: string;
+      account_email?: string;
+      login_url?: string;
+      total_subscribers?: number;
+      is_active: boolean;
+      last_push_at?: string;
+      connected_at: string;
+    }>;
+  }>(`/companies/${encodeURIComponent(companyId)}/mailchimp-connections`);
+  return (r.connections ?? []).map((c) => ({
+    userId: c.user_id,
+    accountName: c.account_name,
+    accountEmail: c.account_email,
+    loginUrl: c.login_url,
+    totalSubscribers: c.total_subscribers,
+    isActive: c.is_active,
+    lastPushAt: c.last_push_at,
+    connectedAt: c.connected_at,
+  }));
+}
+
+export async function forceDisconnectMailchimpUser(
+  companyId: string,
+  userId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    `/companies/${encodeURIComponent(companyId)}/mailchimp-connections/${encodeURIComponent(userId)}/disconnect`,
+    { method: "POST" },
+  );
+}
+
+// ── Account / Ping ───────────────────────────────────────────────────────
+
+export async function pingMailchimp(companyId: string): Promise<Record<string, unknown>> {
+  return requestCRM<Record<string, unknown>>(
+    withCompany("/users/me/mailchimp/ping", companyId),
+  );
+}
+
+export async function getMailchimpAccount(
+  companyId: string,
+): Promise<Record<string, unknown>> {
+  return requestCRM<Record<string, unknown>>(
+    withCompany("/users/me/mailchimp/account", companyId),
+  );
+}
+
+// ── Audiences (lists) ────────────────────────────────────────────────────
+
+export type AudienceListQuery = {
+  count?: number;
+  offset?: number;
+  email?: string;
+};
+
+function appendQuery(path: string, params: Record<string, string | number | undefined>): string {
+  const usp = new URLSearchParams();
+  for (const [k, v] of Object.entries(params)) {
+    if (v === undefined || v === null || v === "") continue;
+    usp.set(k, String(v));
+  }
+  const q = usp.toString();
+  if (!q) return path;
+  return `${path}${path.includes("?") ? "&" : "?"}${q}`;
+}
+
+export async function listMailchimpAudiences(
+  companyId: string,
+  query: AudienceListQuery = {},
+): Promise<{ lists: MailchimpAudience[]; total_items: number }> {
+  return requestCRM<{ lists: MailchimpAudience[]; total_items: number }>(
+    appendQuery(withCompany("/users/me/mailchimp/audiences", companyId), query),
+  );
+}
+
+export async function getMailchimpAudience(
+  companyId: string,
+  listId: string,
+): Promise<MailchimpAudience> {
+  return requestCRM<MailchimpAudience>(
+    withCompany(`/users/me/mailchimp/audiences/${encodeURIComponent(listId)}`, companyId),
+  );
+}
+
+export async function createMailchimpAudience(
+  companyId: string,
+  payload: Record<string, unknown>,
+): Promise<MailchimpAudience> {
+  return requestCRM<MailchimpAudience>(
+    withCompany("/users/me/mailchimp/audiences", companyId),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function updateMailchimpAudience(
+  companyId: string,
+  listId: string,
+  payload: Record<string, unknown>,
+): Promise<MailchimpAudience> {
+  return requestCRM<MailchimpAudience>(
+    withCompany(`/users/me/mailchimp/audiences/${encodeURIComponent(listId)}`, companyId),
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteMailchimpAudience(
+  companyId: string,
+  listId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(`/users/me/mailchimp/audiences/${encodeURIComponent(listId)}`, companyId),
+    { method: "DELETE" },
+  );
+}
+
+// ── Members ──────────────────────────────────────────────────────────────
+
+export type MemberListQuery = {
+  count?: number;
+  offset?: number;
+  status?: string;
+};
+
+export async function listMailchimpAudienceMembers(
+  companyId: string,
+  listId: string,
+  query: MemberListQuery = {},
+): Promise<{ members: MailchimpMember[]; total_items: number }> {
+  return requestCRM<{ members: MailchimpMember[]; total_items: number }>(
+    appendQuery(
+      withCompany(
+        `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/members`,
+        companyId,
+      ),
+      query,
+    ),
+  );
+}
+
+export async function upsertMailchimpMember(
+  companyId: string,
+  listId: string,
+  email: string,
+  payload: Record<string, unknown>,
+): Promise<MailchimpMember> {
+  return requestCRM<MailchimpMember>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/members/${encodeURIComponent(email)}`,
+      companyId,
+    ),
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...payload, email_address: payload.email_address ?? email }),
+    },
+  );
+}
+
+export async function archiveMailchimpMember(
+  companyId: string,
+  listId: string,
+  email: string,
+  permanent = false,
+): Promise<void> {
+  const path = withCompany(
+    `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/members/${encodeURIComponent(email)}`,
+    companyId,
+  );
+  const url = permanent ? `${path}&permanent=true` : path;
+  await requestCRM<unknown>(url, { method: "DELETE" });
+}
+
+export async function tagMailchimpMember(
+  companyId: string,
+  listId: string,
+  email: string,
+  tags: Array<{ name: string; status: "active" | "inactive" }>,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/members/${encodeURIComponent(email)}/tags`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tags }),
+    },
+  );
+}
+
+export async function pushCRMLeadsToMailchimpAudience(
+  companyId: string,
+  listId: string,
+  request: PushLeadsRequest,
+): Promise<PushLeadsResponse> {
+  type RawResult = {
+    audience_id: string;
+    created: number;
+    updated: number;
+    skipped: number;
+    errors: number;
+    total_requested: number;
+    results: Array<{
+      lead_id: string;
+      email?: string;
+      status: PushLeadResult["status"];
+      reason?: string;
+    }>;
+    completed_at: string;
+  };
+  const r = await requestCRM<RawResult>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/push-leads`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lead_ids: request.leadIds,
+        update_existing: request.updateExisting,
+        extra_tags: request.extraTags,
+        default_status: request.defaultStatus,
+      }),
+    },
+  );
+  return {
+    audienceId: r.audience_id,
+    created: r.created,
+    updated: r.updated,
+    skipped: r.skipped,
+    errors: r.errors,
+    totalRequested: r.total_requested,
+    results: r.results.map((row) => ({
+      leadId: row.lead_id,
+      email: row.email,
+      status: row.status,
+      reason: row.reason,
+    })),
+    completedAt: r.completed_at,
+  };
+}
+
+// ── Campaigns ────────────────────────────────────────────────────────────
+
+export type CampaignListQuery = {
+  count?: number;
+  offset?: number;
+  type?: string;
+  status?: string;
+  list_id?: string;
+  sort_field?: string;
+  sort_dir?: "ASC" | "DESC";
+};
+
+export async function listMailchimpCampaigns(
+  companyId: string,
+  query: CampaignListQuery = {},
+): Promise<{ campaigns: MailchimpCampaign[]; total_items: number }> {
+  return requestCRM<{ campaigns: MailchimpCampaign[]; total_items: number }>(
+    appendQuery(withCompany("/users/me/mailchimp/campaigns", companyId), query),
+  );
+}
+
+export async function getMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+): Promise<MailchimpCampaign> {
+  return requestCRM<MailchimpCampaign>(
+    withCompany(`/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}`, companyId),
+  );
+}
+
+export async function createMailchimpCampaign(
+  companyId: string,
+  payload: Record<string, unknown>,
+): Promise<MailchimpCampaign> {
+  return requestCRM<MailchimpCampaign>(
+    withCompany("/users/me/mailchimp/campaigns", companyId),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function updateMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+  payload: Record<string, unknown>,
+): Promise<MailchimpCampaign> {
+  return requestCRM<MailchimpCampaign>(
+    withCompany(`/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}`, companyId),
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function setMailchimpCampaignContent(
+  companyId: string,
+  campaignId: string,
+  payload: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  return requestCRM<Record<string, unknown>>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/content`,
+      companyId,
+    ),
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function scheduleMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+  payload: { schedule_time: string; timewarp?: boolean },
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/schedule`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function unscheduleMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/unschedule`,
+      companyId,
+    ),
+    { method: "POST" },
+  );
+}
+
+export async function sendMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/send`,
+      companyId,
+    ),
+    { method: "POST" },
+  );
+}
+
+export async function sendMailchimpTestCampaign(
+  companyId: string,
+  campaignId: string,
+  testEmails: string[],
+  sendType: "html" | "plaintext" = "html",
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/test`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ test_emails: testEmails, send_type: sendType }),
+    },
+  );
+}
+
+export async function pauseMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/pause`,
+      companyId,
+    ),
+    { method: "POST" },
+  );
+}
+
+export async function resumeMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/resume`,
+      companyId,
+    ),
+    { method: "POST" },
+  );
+}
+
+export async function replicateMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+): Promise<MailchimpCampaign> {
+  return requestCRM<MailchimpCampaign>(
+    withCompany(
+      `/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}/replicate`,
+      companyId,
+    ),
+    { method: "POST" },
+  );
+}
+
+export async function deleteMailchimpCampaign(
+  companyId: string,
+  campaignId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(`/users/me/mailchimp/campaigns/${encodeURIComponent(campaignId)}`, companyId),
+    { method: "DELETE" },
+  );
+}
+
+// ── Templates ────────────────────────────────────────────────────────────
+
+export type TemplateListQuery = {
+  count?: number;
+  offset?: number;
+  type?: "user" | "base" | "gallery";
+  category?: string;
+};
+
+export async function listMailchimpTemplates(
+  companyId: string,
+  query: TemplateListQuery = {},
+): Promise<{ templates: MailchimpTemplate[]; total_items: number }> {
+  return requestCRM<{ templates: MailchimpTemplate[]; total_items: number }>(
+    appendQuery(withCompany("/users/me/mailchimp/templates", companyId), query),
+  );
+}
+
+export async function getMailchimpTemplate(
+  companyId: string,
+  templateId: string | number,
+): Promise<MailchimpTemplate> {
+  return requestCRM<MailchimpTemplate>(
+    withCompany(
+      `/users/me/mailchimp/templates/${encodeURIComponent(String(templateId))}`,
+      companyId,
+    ),
+  );
+}
+
+export async function createMailchimpTemplate(
+  companyId: string,
+  payload: { name: string; html?: string; folder_id?: string },
+): Promise<MailchimpTemplate> {
+  return requestCRM<MailchimpTemplate>(
+    withCompany("/users/me/mailchimp/templates", companyId),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function updateMailchimpTemplate(
+  companyId: string,
+  templateId: string | number,
+  payload: { name?: string; html?: string; folder_id?: string },
+): Promise<MailchimpTemplate> {
+  return requestCRM<MailchimpTemplate>(
+    withCompany(
+      `/users/me/mailchimp/templates/${encodeURIComponent(String(templateId))}`,
+      companyId,
+    ),
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteMailchimpTemplate(
+  companyId: string,
+  templateId: string | number,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/templates/${encodeURIComponent(String(templateId))}`,
+      companyId,
+    ),
+    { method: "DELETE" },
+  );
+}
+
+// ── Reports ──────────────────────────────────────────────────────────────
+
+export type ReportListQuery = { count?: number; offset?: number; type?: string };
+
+export async function listMailchimpReports(
+  companyId: string,
+  query: ReportListQuery = {},
+): Promise<{ reports: MailchimpReport[]; total_items: number }> {
+  return requestCRM<{ reports: MailchimpReport[]; total_items: number }>(
+    appendQuery(withCompany("/users/me/mailchimp/reports", companyId), query),
+  );
+}
+
+export async function getMailchimpCampaignReport(
+  companyId: string,
+  campaignId: string,
+): Promise<MailchimpReport> {
+  return requestCRM<MailchimpReport>(
+    withCompany(`/users/me/mailchimp/reports/${encodeURIComponent(campaignId)}`, companyId),
+  );
+}
+
+export async function listMailchimpCampaignOpens(
+  companyId: string,
+  campaignId: string,
+  query: { count?: number; offset?: number } = {},
+): Promise<Record<string, unknown>> {
+  return requestCRM<Record<string, unknown>>(
+    appendQuery(
+      withCompany(
+        `/users/me/mailchimp/reports/${encodeURIComponent(campaignId)}/opens`,
+        companyId,
+      ),
+      query,
+    ),
+  );
+}
+
+export async function listMailchimpCampaignClicks(
+  companyId: string,
+  campaignId: string,
+  query: { count?: number; offset?: number } = {},
+): Promise<Record<string, unknown>> {
+  return requestCRM<Record<string, unknown>>(
+    appendQuery(
+      withCompany(
+        `/users/me/mailchimp/reports/${encodeURIComponent(campaignId)}/clicks`,
+        companyId,
+      ),
+      query,
+    ),
+  );
+}
+
+export async function getMailchimpCampaignLocations(
+  companyId: string,
+  campaignId: string,
+): Promise<Record<string, unknown>> {
+  return requestCRM<Record<string, unknown>>(
+    withCompany(
+      `/users/me/mailchimp/reports/${encodeURIComponent(campaignId)}/locations`,
+      companyId,
+    ),
+  );
+}
+
+export async function getMailchimpCampaignEmailActivity(
+  companyId: string,
+  campaignId: string,
+  query: { count?: number; offset?: number } = {},
+): Promise<Record<string, unknown>> {
+  return requestCRM<Record<string, unknown>>(
+    appendQuery(
+      withCompany(
+        `/users/me/mailchimp/reports/${encodeURIComponent(campaignId)}/email-activity`,
+        companyId,
+      ),
+      query,
+    ),
+  );
+}
