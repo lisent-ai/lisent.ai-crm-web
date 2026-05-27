@@ -1726,6 +1726,67 @@
       }
     },
     "email": {
+      "campaigns": {
+        "actionFailed": "Action failed. See Mailchimp's error above.",
+        "actions": {
+          "delete": "Delete",
+          "pause": "Pause",
+          "resume": "Resume",
+          "send": "Send",
+          "test": "Send test"
+        },
+        "audiencesEmpty": "No audiences yet — create one first.",
+        "col": {
+          "audience": "Audience",
+          "created": "Created",
+          "status": "Status",
+          "subject": "Subject"
+        },
+        "confirmDelete": "Delete this campaign permanently? Recent reports won't be deletable later.",
+        "confirmSend": "Send \"{subject}\" to {audience} now? This kicks off the live send and can't be undone.",
+        "createBody": "Drafts land in Mailchimp instantly; you'll send from the row above when ready.",
+        "createFailed": "Couldn't create the campaign.",
+        "createSubmit": "Create draft",
+        "createTitle": "New email campaign",
+        "creating": "Creating draft…",
+        "deleteFailed": "Couldn't delete the campaign.",
+        "emptyBody": "Click \"New campaign\" to write your first one.",
+        "emptyTitle": "No campaigns yet",
+        "errAudienceRequired": "Pick an audience first.",
+        "errFromRequired": "From name and reply-to are both required by Mailchimp.",
+        "errSubjectRequired": "Give the campaign a subject.",
+        "fields": {
+          "audience": "Audience",
+          "audiencePlaceholder": "Pick an audience…",
+          "fromName": "From name",
+          "htmlBody": "HTML body",
+          "htmlHint": "Mailchimp accepts raw HTML or merge tags like {{FNAME|there}}. The drag-drop editor lives in Mailchimp's own UI.",
+          "internalTitle": "Internal title (optional)",
+          "internalTitlePlaceholder": "Used for searching in Mailchimp; defaults to subject",
+          "replyTo": "Reply-to email",
+          "subject": "Subject line",
+          "subjectPlaceholder": "What goes in the recipient's inbox"
+        },
+        "loadFailed": "Failed to load campaigns.",
+        "loading": "Loading campaigns…",
+        "newCampaign": "New campaign",
+        "page": "Page {current} of {total}",
+        "refresh": "Refresh",
+        "sendFailed": "Couldn't send the campaign.",
+        "test": {
+          "emailsHint": "Comma-, semicolon- or newline-separated.",
+          "emailsLabel": "Test recipients",
+          "emailsRequired": "At least one test email is required.",
+          "failed": "Couldn't send the test email.",
+          "format": "Format",
+          "plaintext": "Plain text",
+          "send": "Send test",
+          "sending": "Sending…",
+          "sent": "Test email queued. Check your inbox in ~1 minute.",
+          "title": "Send test email"
+        },
+        "title": "Campaigns"
+      },
       "audiences": {
         "col": {
           "created": "Created",

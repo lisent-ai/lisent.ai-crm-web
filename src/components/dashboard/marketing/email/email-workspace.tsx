@@ -13,6 +13,7 @@ import {
 import { MailchimpConnectModal } from "@/components/dashboard/integrations/mailchimp-connect-modal";
 
 import { AudienceList } from "./audience-list";
+import { CampaignList } from "./campaign-list";
 
 // URL-state sub-tabs for the Email workspace. Active tab comes from
 // ?tab=…; we keep `audiences` as the default so a bare /dashboard/marketing/email
@@ -210,7 +211,7 @@ export function EmailWorkspace() {
 
       <div>
         {tab === "audiences" && <AudienceList companyId={companyId} />}
-        {tab === "campaigns" && <ComingSoonTab label={t("marketing.email.tabs.campaigns")} />}
+        {tab === "campaigns" && <CampaignList companyId={companyId} />}
         {tab === "templates" && <ComingSoonTab label={t("marketing.email.tabs.templates")} />}
         {tab === "reports" && <ComingSoonTab label={t("marketing.email.tabs.reports")} />}
         {tab === "settings" && <SettingsTab config={config} />}
