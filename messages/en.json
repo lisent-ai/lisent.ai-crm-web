@@ -1726,6 +1726,69 @@
       }
     },
     "email": {
+      "templates": {
+        "actions": {
+          "delete": "Delete",
+          "edit": "Edit"
+        },
+        "col": {
+          "category": "Category",
+          "created": "Created",
+          "name": "Name"
+        },
+        "confirmDelete": "Delete this template permanently? Campaigns that reference it keep working — they snapshot HTML at send time.",
+        "create": "Create template",
+        "createTitle": "New template",
+        "deleteFailed": "Couldn't delete the template.",
+        "editTitle": "Edit template",
+        "emptyBody": "Create your first template — campaigns can re-use it without retyping the HTML.",
+        "emptyTitle": "No templates yet",
+        "errHtmlRequired": "Template body cannot be empty.",
+        "errNameRequired": "Template needs a name.",
+        "fields": {
+          "html": "HTML body",
+          "htmlHint": "Raw HTML. Merge tags like {{FNAME|there}} work the same as in campaigns.",
+          "name": "Template name",
+          "namePlaceholder": "Welcome email"
+        },
+        "loadFailed": "Failed to load templates.",
+        "loading": "Loading templates…",
+        "loadingBody": "Loading template body…",
+        "newTemplate": "New template",
+        "refresh": "Refresh",
+        "saveFailed": "Couldn't save the template.",
+        "saving": "Saving…",
+        "title": "Templates",
+        "update": "Save changes"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Clicks",
+          "opens": "Opens",
+          "recipients": "Recipients",
+          "sent": "Sent",
+          "subject": "Campaign"
+        },
+        "deepLinkHint": "For heatmaps, A/B compare, and full email activity, open the campaign in Mailchimp's UI.",
+        "details": "Details",
+        "detailFailed": "Failed to load the full report.",
+        "emptyBody": "Reports appear here after the first campaign send.",
+        "emptyTitle": "No reports yet",
+        "geoEmpty": "No geo data — Mailchimp builds it as opens roll in.",
+        "geoTitle": "Top locations",
+        "kpi": {
+          "bounces": "Bounces",
+          "clicks": "Unique clicks",
+          "hardBounces": "{count} hard",
+          "opens": "Unique opens",
+          "sent": "Recipients"
+        },
+        "loadFailed": "Failed to load reports.",
+        "loading": "Loading reports…",
+        "loadingDetail": "Loading details…",
+        "opens": "opens",
+        "title": "Campaign reports"
+      },
       "campaigns": {
         "actionFailed": "Action failed. See Mailchimp's error above.",
         "actions": {

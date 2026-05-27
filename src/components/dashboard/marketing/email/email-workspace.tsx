@@ -14,6 +14,8 @@ import { MailchimpConnectModal } from "@/components/dashboard/integrations/mailc
 
 import { AudienceList } from "./audience-list";
 import { CampaignList } from "./campaign-list";
+import { ReportList } from "./report-list";
+import { TemplateList } from "./template-list";
 
 // URL-state sub-tabs for the Email workspace. Active tab comes from
 // ?tab=…; we keep `audiences` as the default so a bare /dashboard/marketing/email
@@ -212,8 +214,8 @@ export function EmailWorkspace() {
       <div>
         {tab === "audiences" && <AudienceList companyId={companyId} />}
         {tab === "campaigns" && <CampaignList companyId={companyId} />}
-        {tab === "templates" && <ComingSoonTab label={t("marketing.email.tabs.templates")} />}
-        {tab === "reports" && <ComingSoonTab label={t("marketing.email.tabs.reports")} />}
+        {tab === "templates" && <TemplateList companyId={companyId} />}
+        {tab === "reports" && <ReportList companyId={companyId} />}
         {tab === "settings" && <SettingsTab config={config} />}
       </div>
     </div>
@@ -225,16 +227,6 @@ function EmptyShell({ title, body }: Readonly<{ title: string; body: string }>) 
     <article className="rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-sm text-[var(--text-secondary)] sm:p-8">
       <h2 className="text-lg font-semibold text-[var(--text-primary)]">{title}</h2>
       {body ? <p className="mt-1">{body}</p> : null}
-    </article>
-  );
-}
-
-function ComingSoonTab({ label }: Readonly<{ label: string }>) {
-  const t = useTranslations();
-  return (
-    <article className="rounded-3xl border border-dashed border-[var(--border-subtle)] bg-[var(--surface)] p-8 text-center text-sm text-[var(--text-secondary)]">
-      <h3 className="text-base font-semibold text-[var(--text-primary)]">{label}</h3>
-      <p className="mt-2">{t("marketing.email.subtabComingSoon")}</p>
     </article>
   );
 }
