@@ -1725,6 +1725,58 @@
         "title": "Lead-capture forms"
       }
     },
+    "email": {
+      "audiences": {
+        "col": {
+          "created": "Created",
+          "members": "Members",
+          "name": "Audience",
+          "openRate": "Open rate"
+        },
+        "emptyBody": "Create an audience in Mailchimp first — it'll appear here next refresh.",
+        "emptyTitle": "No audiences yet",
+        "loadFailed": "Failed to load audiences.",
+        "loading": "Loading audiences…",
+        "members": {
+          "close": "Close",
+          "col": {
+            "email": "Email",
+            "lastChanged": "Last changed",
+            "status": "Status"
+          },
+          "empty": "No members in this audience yet.",
+          "loadFailed": "Failed to load members.",
+          "loading": "Loading members…",
+          "next": "Next",
+          "page": "Page {current} of {total}",
+          "prev": "Previous",
+          "total": "Total members"
+        },
+        "refresh": "Refresh",
+        "title": "Audiences",
+        "viewMembers": "View members"
+      },
+      "connectCta": "Connect Mailchimp",
+      "connectedHeader": "Connected Mailchimp account",
+      "loadFailed": "Couldn't load your Mailchimp connection.",
+      "manageConnection": "Manage connection",
+      "noCompanyBody": "Pick a workspace from the dashboard to manage its email module.",
+      "noCompanyTitle": "Pick a workspace",
+      "notConnectedBody": "Connect your Mailchimp account to manage audiences, campaigns, and reports without leaving the CRM. Each operator brings their own connection.",
+      "notConnectedTitle": "Mailchimp isn't connected yet",
+      "openIntegrationDetail": "Open integration settings",
+      "settingsHint": "Configuration lives under Integrations → Mailchimp. The badge above is read-only.",
+      "settingsTitle": "Connection settings",
+      "subtabAria": "Email module sections",
+      "subtabComingSoon": "This section ships in a follow-up step. The connection is ready; the UI just isn't wired yet.",
+      "tabs": {
+        "audiences": "Audiences",
+        "campaigns": "Campaigns",
+        "reports": "Reports",
+        "settings": "Settings",
+        "templates": "Templates"
+      }
+    },
     "ctaCreateWorkspace": "Create workspace access",
     "ctaOpenShell": "Open protected shell",
     "currentStack": "Current stack",
