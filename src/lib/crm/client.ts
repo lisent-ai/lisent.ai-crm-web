@@ -556,9 +556,20 @@ async function requestCRM<T>(path: string, init?: RequestInit): Promise<T> {
   if (!response.ok) {
     let message = `CRM request failed (${response.status})`;
     try {
-      const body = (await response.json()) as { error?: string };
-      if (typeof body.error === "string" && body.error.trim() !== "") {
-        message = body.error;
+      // Mailchimp surface (writeMailchimpError) returns both `error`
+      // (Mailchimp's RFC7807 title — e.g. "Bad Request") and `detail`
+      // (the actually useful sentence — e.g. "Title cannot be blank").
+      // Prefer detail when present so operators see the diagnosis,
+      // falling back to error otherwise.
+      const body = (await response.json()) as { error?: string; detail?: string };
+      const detail = typeof body.detail === "string" ? body.detail.trim() : "";
+      const err = typeof body.error === "string" ? body.error.trim() : "";
+      if (detail && err) {
+        message = `${err}: ${detail}`;
+      } else if (detail) {
+        message = detail;
+      } else if (err) {
+        message = err;
       }
     } catch {
       // ignore JSON parse errors for non-JSON error bodies
