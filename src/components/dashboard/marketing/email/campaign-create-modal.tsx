@@ -15,6 +15,7 @@ import {
   type MailchimpTemplate,
 } from "@/lib/crm/client";
 
+import { RichTextEditor } from "./rich-text-editor";
 import { TemplatePreviewFrame } from "./template-preview-frame";
 
 type CampaignCreateModalProps = {
@@ -310,7 +311,7 @@ export function CampaignCreateModal({
           </label>
 
           <div className="grid grid-cols-1 gap-3 sm:col-span-2 lg:grid-cols-2">
-            <label className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
               <span className="flex items-center justify-between text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
                 <span>{t("marketing.email.campaigns.fields.htmlBody")}</span>
                 <button
@@ -323,16 +324,16 @@ export function CampaignCreateModal({
                     : t("marketing.email.campaigns.fields.showPreview")}
                 </button>
               </span>
-              <textarea
+              <RichTextEditor
                 value={html}
-                onChange={(e) => setHtml(e.target.value)}
-                rows={16}
-                className="h-[400px] resize-none rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)]"
+                onChange={setHtml}
+                placeholder="Type your email body here…"
+                className="flex h-[400px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)]"
               />
               <span className="text-xs text-[var(--text-tertiary)]">
                 {t("marketing.email.campaigns.fields.htmlHint")}
               </span>
-            </label>
+            </div>
 
             {showPreview ? (
               <div className="flex flex-col gap-1">

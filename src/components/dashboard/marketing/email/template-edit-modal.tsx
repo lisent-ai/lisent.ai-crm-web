@@ -11,6 +11,7 @@ import {
   type MailchimpTemplate,
 } from "@/lib/crm/client";
 
+import { RichTextEditor } from "./rich-text-editor";
 import { TemplatePreviewFrame } from "./template-preview-frame";
 
 type TemplateEditModalProps = {
@@ -154,26 +155,24 @@ export function TemplateEditModal({
         </label>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <label className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1">
             <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
               {t("marketing.email.templates.fields.html")}
             </span>
-            <textarea
+            <RichTextEditor
               value={html}
-              onChange={(e) => setHtml(e.target.value)}
-              rows={20}
+              onChange={setHtml}
               placeholder={
                 loadingHtml
                   ? t("marketing.email.templates.loadingBody")
-                  : "<p>Hello {{FNAME|there}},</p>"
+                  : "Type your email body here…"
               }
-              disabled={loadingHtml}
-              className="h-[480px] resize-none rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)] disabled:opacity-60"
+              className="flex h-[480px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)]"
             />
             <span className="text-xs text-[var(--text-tertiary)]">
               {t("marketing.email.templates.fields.htmlHint")}
             </span>
-          </label>
+          </div>
 
           <div className="flex flex-col gap-1">
             <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
