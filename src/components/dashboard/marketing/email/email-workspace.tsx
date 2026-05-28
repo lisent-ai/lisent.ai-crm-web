@@ -15,6 +15,7 @@ import { MailchimpConnectModal } from "@/components/dashboard/integrations/mailc
 import { AudienceList } from "./audience-list";
 import { AutomationList } from "./automation-list";
 import { CampaignList } from "./campaign-list";
+import { EmailOverview } from "./email-overview";
 import { ReportList } from "./report-list";
 import { TemplateList } from "./template-list";
 
@@ -22,6 +23,7 @@ import { TemplateList } from "./template-list";
 // ?tab=…; we keep `audiences` as the default so a bare /dashboard/marketing/email
 // query lands on the first useful surface.
 const TABS = [
+  "overview",
   "audiences",
   "campaigns",
   "templates",
@@ -35,7 +37,7 @@ function resolveTab(raw: string | null): EmailTab {
   if (raw && (TABS as readonly string[]).includes(raw)) {
     return raw as EmailTab;
   }
-  return "audiences";
+  return "overview";
 }
 
 // EmailWorkspace — the Marketing → Email module's root. Three layers:
@@ -220,6 +222,7 @@ export function EmailWorkspace() {
       </nav>
 
       <div>
+        {tab === "overview" && <EmailOverview companyId={companyId} />}
         {tab === "audiences" && <AudienceList companyId={companyId} />}
         {tab === "campaigns" && <CampaignList companyId={companyId} />}
         {tab === "templates" && <TemplateList companyId={companyId} />}

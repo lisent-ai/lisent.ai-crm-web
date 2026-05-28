@@ -2117,9 +2117,39 @@
         "audiences": "Audiences",
         "automations": "Automations",
         "campaigns": "Campaigns",
+        "overview": "Overview",
         "reports": "Reports",
         "settings": "Settings",
         "templates": "Templates"
+      },
+      "overview": {
+        "actions": {
+          "audiences": "Audiences",
+          "newCampaign": "New campaign",
+          "reports": "Reports",
+          "templates": "Templates"
+        },
+        "gettingStartedTitle": "Get started in 4 quick steps",
+        "kpi": {
+          "audiences": "Audiences",
+          "clickRateSub": "{rate}% avg click rate",
+          "openRate": "Avg open rate",
+          "sentCampaigns": "Sent campaigns",
+          "subscribers": "Total subscribers"
+        },
+        "loadFailed": "Couldn't load the overview.",
+        "loading": "Loading overview…",
+        "noCampaigns": "No campaigns yet — create your first one.",
+        "noReports": "No reports yet — they appear after the first send.",
+        "quickActionsTitle": "Quick actions",
+        "recentCampaigns": "Recent campaigns",
+        "recentReports": "Recent reports",
+        "recipients": "recipients",
+        "step1": "Create or import an audience (use \"Audiences → Upload CSV\" if you have a spreadsheet).",
+        "step2": "Optional: save a reusable template under \"Templates\".",
+        "step3": "Compose your first campaign — pick audience, subject, content.",
+        "step4": "Send a test to yourself, then send for real or schedule.",
+        "viewAll": "View all"
       }
     },
     "ctaCreateWorkspace": "Create workspace access",
