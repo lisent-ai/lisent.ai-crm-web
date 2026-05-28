@@ -3,11 +3,53 @@
 import { useState } from "react";
 import Papa from "papaparse";
 import { useTranslations } from "next-intl";
+import * as XLSX from "xlsx";
 
 import {
   batchUpsertMailchimpMembers,
   CRMClientError,
 } from "@/lib/crm/client";
+
+// Extensions we accept on the file input + display in the dropzone hint.
+// xlsx (SheetJS) handles all the spreadsheet formats; PapaParse stays
+// for plain CSV / TSV / TXT because it streams and is friendlier to
+// quoted multi-line cells.
+const SPREADSHEET_EXTS = ["xlsx", "xls", "xlsm", "xlsb", "ods", "fods"] as const;
+const TEXT_EXTS = ["csv", "tsv", "txt"] as const;
+const ACCEPT_ATTR = [...SPREADSHEET_EXTS, ...TEXT_EXTS]
+  .map((e) => `.${e}`)
+  .join(",");
+
+function extOf(file: File): string {
+  const m = /\.([a-z0-9]+)$/i.exec(file.name);
+  return m ? m[1].toLowerCase() : "";
+}
+
+// Spreadsheet parsing (xlsx + xls + ods + …) returns the same row
+// shape PapaParse does — array of { header: cellValue } objects —
+// so the downstream mapping UI works uniformly. Empty rows are
+// dropped and trailing blank cells are coerced to "".
+async function parseSpreadsheet(file: File): Promise<Record<string, string>[]> {
+  const buffer = await file.arrayBuffer();
+  const wb = XLSX.read(buffer, { type: "array" });
+  const sheetName = wb.SheetNames[0];
+  if (!sheetName) return [];
+  const sheet = wb.Sheets[sheetName];
+  // defval:"" gives blank cells back as empty strings instead of skipping
+  // them, which keeps column counts consistent across rows even when an
+  // operator's source file has ragged trailing columns.
+  const json = XLSX.utils.sheet_to_json<Record<string, string | number | boolean>>(
+    sheet,
+    { defval: "", raw: false },
+  );
+  return json.map((row) => {
+    const out: Record<string, string> = {};
+    for (const [k, v] of Object.entries(row)) {
+      out[String(k).trim()] = v === undefined || v === null ? "" : String(v);
+    }
+    return out;
+  });
+}
 
 // PapaParse's ParseLocalConfig requires `complete`; we pass that at the
 // call site below where we have the setState callbacks in scope. Splitting
@@ -92,24 +134,45 @@ export function AudienceCSVUploadModal({
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<Progress | null>(null);
 
-  function handleFile(file: File) {
+  function applyParsed(data: Record<string, string>[]) {
+    if (data.length === 0) {
+      setError(t("marketing.email.audiences.csv.errEmpty"));
+      return;
+    }
+    const cols = Object.keys(data[0]);
+    setHeaders(cols);
+    setRows(data);
+    setEmailCol(guessColumn(cols, "email"));
+    setFnameCol(guessColumn(cols, "fname"));
+    setLnameCol(guessColumn(cols, "lname"));
+    setPhoneCol(guessColumn(cols, "phone"));
+    setTagsCol(guessColumn(cols, "tags"));
+  }
+
+  async function handleFile(file: File) {
     setError(null);
+    const ext = extOf(file);
+    // Spreadsheet formats route through SheetJS (xlsx, xls, ods, …).
+    if ((SPREADSHEET_EXTS as readonly string[]).includes(ext)) {
+      try {
+        const data = await parseSpreadsheet(file);
+        applyParsed(data.filter((row) => Object.keys(row).length > 0));
+      } catch (err) {
+        setError(
+          `${t("marketing.email.audiences.csv.errParse")}: ${
+            err instanceof Error ? err.message : String(err)
+          }`,
+        );
+      }
+      return;
+    }
+    // CSV / TSV / TXT — PapaParse streams these and handles quoted
+    // multi-line cells better than the spreadsheet path.
     Papa.parse<Record<string, string>, File>(file, {
       ...PAPA_STATIC,
       complete: (result) => {
         const data = (result.data ?? []).filter((row) => Object.keys(row).length > 0);
-        if (data.length === 0) {
-          setError(t("marketing.email.audiences.csv.errEmpty"));
-          return;
-        }
-        const cols = Object.keys(data[0]);
-        setHeaders(cols);
-        setRows(data);
-        setEmailCol(guessColumn(cols, "email"));
-        setFnameCol(guessColumn(cols, "fname"));
-        setLnameCol(guessColumn(cols, "lname"));
-        setPhoneCol(guessColumn(cols, "phone"));
-        setTagsCol(guessColumn(cols, "tags"));
+        applyParsed(data);
       },
       error: (err) => {
         setError(`${t("marketing.email.audiences.csv.errParse")}: ${err.message}`);
@@ -272,7 +335,7 @@ function FilePicker({
       <span className="text-xs text-[var(--text-tertiary)]">{hint}</span>
       <input
         type="file"
-        accept=".csv,text/csv"
+        accept={ACCEPT_ATTR}
         className="hidden"
         onChange={(e) => {
           const f = e.target.files?.[0];

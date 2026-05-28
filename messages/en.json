@@ -2116,8 +2116,8 @@
           "addMemberHint": "Add one subscriber manually with email + name + tags",
           "pushFromCRM": "Push from CRM",
           "pushFromCRMHint": "Pick CRM leads → batch upsert as Mailchimp members",
-          "uploadCsv": "Upload CSV",
-          "uploadCsvHint": ".csv with email column (auto-mapped) + name / phone / tags"
+          "uploadCsv": "Upload spreadsheet",
+          "uploadCsvHint": "CSV, Excel or ODS — email column (auto-mapped) + name / phone / tags"
         },
         "addMember": {
           "hideMore": "Hide more options",
@@ -2161,15 +2161,15 @@
             "status": "Default status for NEW subscribers",
             "tags": "Tags column (optional)"
           },
-          "pickFile": "Click to choose a CSV file",
-          "pickHint": "Or drag a .csv here. Excel: File → Save As → CSV.",
+          "pickFile": "Click to choose a spreadsheet file",
+          "pickHint": "CSV, Excel (.xlsx / .xls) or OpenDocument (.ods). First sheet is read; the first row should be the column headers.",
           "rowsDetected": "{count} rows ready to import.",
           "stat": {
             "created": "Created",
             "errors": "Errors",
             "updated": "Updated"
           },
-          "title": "Upload CSV",
+          "title": "Upload a spreadsheet",
           "updateExisting": "Also update existing subscribers (recommended)"
         },
         "col": {

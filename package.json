@@ -30,7 +30,8 @@
     "react-dom": "19.2.3",
     "supertokens-auth-react": "^0.51.2",
     "supertokens-node": "^24.0.1",
-    "supertokens-web-js": "^0.16.0"
+    "supertokens-web-js": "^0.16.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
