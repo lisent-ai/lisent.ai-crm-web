@@ -13,6 +13,7 @@ import {
 import { MailchimpConnectModal } from "@/components/dashboard/integrations/mailchimp-connect-modal";
 
 import { AudienceList } from "./audience-list";
+import { AutomationList } from "./automation-list";
 import { CampaignList } from "./campaign-list";
 import { ReportList } from "./report-list";
 import { TemplateList } from "./template-list";
@@ -20,7 +21,14 @@ import { TemplateList } from "./template-list";
 // URL-state sub-tabs for the Email workspace. Active tab comes from
 // ?tab=…; we keep `audiences` as the default so a bare /dashboard/marketing/email
 // query lands on the first useful surface.
-const TABS = ["audiences", "campaigns", "templates", "reports", "settings"] as const;
+const TABS = [
+  "audiences",
+  "campaigns",
+  "templates",
+  "automations",
+  "reports",
+  "settings",
+] as const;
 type EmailTab = (typeof TABS)[number];
 
 function resolveTab(raw: string | null): EmailTab {
@@ -215,6 +223,7 @@ export function EmailWorkspace() {
         {tab === "audiences" && <AudienceList companyId={companyId} />}
         {tab === "campaigns" && <CampaignList companyId={companyId} />}
         {tab === "templates" && <TemplateList companyId={companyId} />}
+        {tab === "automations" && <AutomationList companyId={companyId} />}
         {tab === "reports" && <ReportList companyId={companyId} />}
         {tab === "settings" && <SettingsTab config={config} />}
       </div>

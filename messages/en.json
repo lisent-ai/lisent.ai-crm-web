@@ -1726,6 +1726,48 @@
       }
     },
     "email": {
+      "automations": {
+        "actionFailed": "Action failed. See Mailchimp's error above.",
+        "actions": {
+          "pauseAll": "Pause all emails",
+          "startAll": "Start all emails"
+        },
+        "col": {
+          "audience": "Audience",
+          "emailsSent": "Emails sent",
+          "status": "Status",
+          "title": "Workflow"
+        },
+        "designerHint": "The Customer Journey designer lives in Mailchimp's own UI — Mailchimp doesn't expose authoring via API. Pause/start each workflow's emails from here without context-switching.",
+        "emptyBody": "Build workflows in Mailchimp's Customer Journey designer; they'll appear here.",
+        "emptyTitle": "No automations yet",
+        "loadFailed": "Failed to load automations.",
+        "loading": "Loading automations…",
+        "refresh": "Refresh",
+        "title": "Automations / Customer Journeys"
+      },
+      "webhooks": {
+        "confirmDelete": "Delete this webhook subscription? Mailchimp stops POSTing events to this URL.",
+        "count": "{count} webhook(s)",
+        "create": "Create webhook",
+        "createBody": "Mailchimp will POST events to your URL. Common targets: n8n flow, inbound/mailchimp/<token>.",
+        "createFailed": "Couldn't create the webhook.",
+        "createTitle": "Subscribe to audience events",
+        "creating": "Creating…",
+        "delete": "Delete",
+        "deleteFailed": "Couldn't delete the webhook.",
+        "empty": "No webhooks subscribed yet.",
+        "errUrlRequired": "URL must start with https://",
+        "fields": {
+          "events": "Events to listen for",
+          "sources": "Event sources (who triggered it)",
+          "url": "Webhook URL (https://)"
+        },
+        "hint": "Mailchimp does not sign list webhooks. Treat the URL as the only secret; do not log it.",
+        "loadFailed": "Failed to load webhooks.",
+        "loading": "Loading webhooks…",
+        "noEvents": "(no events selected)"
+      },
       "segments": {
         "col": {
           "members": "Members",
@@ -1912,7 +1954,8 @@
         "subtabs": {
           "members": "Members",
           "segments": "Segments",
-          "tags": "Tags"
+          "tags": "Tags",
+          "webhooks": "Webhooks"
         },
         "actions": {
           "addMember": "Add member",
@@ -2048,6 +2091,7 @@
       "subtabComingSoon": "This section ships in a follow-up step. The connection is ready; the UI just isn't wired yet.",
       "tabs": {
         "audiences": "Audiences",
+        "automations": "Automations",
         "campaigns": "Campaigns",
         "reports": "Reports",
         "settings": "Settings",
