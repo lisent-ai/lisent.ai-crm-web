@@ -11,6 +11,7 @@ import {
 } from "@/lib/crm/client";
 
 import { AgencyCreateModal } from "./agency-create-modal";
+import { AgencyImportModal } from "./agency-import-modal";
 
 // AgencyList — the directory view. Filters (status, search) live in
 // local state because the URL already carries ?company=…; layering
@@ -24,6 +25,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
   const [error, setError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [editing, setEditing] = useState<Agency | null>(null);
   const [statusFilter, setStatusFilter] = useState<AgencyStatus | "">("");
   const [searchInput, setSearchInput] = useState("");
@@ -134,6 +136,13 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
             </button>
             <button
               type="button"
+              onClick={() => setShowImport(true)}
+              className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
+            >
+              Import spreadsheet
+            </button>
+            <button
+              type="button"
               onClick={() => setShowCreate(true)}
               className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
             >
@@ -210,6 +219,16 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
             setEditing(null);
             refresh();
           }}
+        />
+      )}
+      {showImport && (
+        <AgencyImportModal
+          companyId={companyId}
+          onClose={() => {
+            setShowImport(false);
+            refresh();
+          }}
+          onImported={() => refresh()}
         />
       )}
     </>
