@@ -154,7 +154,8 @@ export function EmailOverview({ companyId }: Readonly<EmailOverviewProps>) {
         />
       </section>
 
-      {/* Quick actions */}
+      {/* Quick actions — each navigates with ?action=new so the
+         destination tab's list component auto-opens its create modal. */}
       <section>
         <h3 className="mb-2 text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
           {t("marketing.email.overview.quickActionsTitle")}
@@ -162,18 +163,18 @@ export function EmailOverview({ companyId }: Readonly<EmailOverviewProps>) {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <QuickAction
             label={t("marketing.email.overview.actions.newCampaign")}
-            href={tabHref("campaigns")}
+            href={`${tabHref("campaigns")}&action=new`}
             icon="✉️"
             primary
           />
           <QuickAction
-            label={t("marketing.email.overview.actions.audiences")}
-            href={tabHref("audiences")}
+            label={t("marketing.email.overview.actions.newAudience")}
+            href={`${tabHref("audiences")}&action=new`}
             icon="👥"
           />
           <QuickAction
-            label={t("marketing.email.overview.actions.templates")}
-            href={tabHref("templates")}
+            label={t("marketing.email.overview.actions.newTemplate")}
+            href={`${tabHref("templates")}&action=new`}
             icon="📄"
           />
           <QuickAction

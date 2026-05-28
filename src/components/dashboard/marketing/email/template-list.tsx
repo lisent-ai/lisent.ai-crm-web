@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import {
@@ -29,13 +30,26 @@ type TemplateListProps = {
 // here as "user template" for re-use in the Campaigns tab.
 export function TemplateList({ companyId }: Readonly<TemplateListProps>) {
   const t = useTranslations();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialNewTemplate = searchParams.get("action") === "new";
   const [items, setItems] = useState<MailchimpTemplate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
-  const [editing, setEditing] = useState<MailchimpTemplate | "new" | null>(null);
+  const [editing, setEditing] = useState<MailchimpTemplate | "new" | null>(
+    initialNewTemplate ? "new" : null,
+  );
   const [previewing, setPreviewing] = useState<MailchimpTemplate | null>(null);
   const [refreshTick, setRefreshTick] = useState(0);
+
+  useEffect(() => {
+    if (!initialNewTemplate) return;
+    const usp = new URLSearchParams(searchParams.toString());
+    usp.delete("action");
+    router.replace(`?${usp.toString()}`, { scroll: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialNewTemplate]);
 
   useEffect(() => {
     let cancelled = false;

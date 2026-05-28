@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import {
@@ -9,6 +10,7 @@ import {
   type MailchimpAudience,
 } from "@/lib/crm/client";
 
+import { AudienceCreateModal } from "./audience-create-modal";
 import { AudienceDetailModal } from "./audience-detail-modal";
 
 type AudienceListProps = {
@@ -25,11 +27,29 @@ type AudienceListProps = {
 // At Phase 1 nobody has that many audiences.
 export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
   const t = useTranslations();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  // Auto-open the create modal when the URL says ?action=new — let
+  // the Overview quick action deep-link straight to a fresh-create
+  // experience.
+  const initialShowCreate = searchParams.get("action") === "new";
+
   const [items, setItems] = useState<MailchimpAudience[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<MailchimpAudience | null>(null);
+  const [showCreate, setShowCreate] = useState(initialShowCreate);
   const [refreshTick, setRefreshTick] = useState(0);
+
+  // Clear ?action=new from the URL after the modal has mounted so a
+  // refresh doesn't re-trigger it.
+  useEffect(() => {
+    if (!initialShowCreate) return;
+    const usp = new URLSearchParams(searchParams.toString());
+    usp.delete("action");
+    router.replace(`?${usp.toString()}`, { scroll: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialShowCreate]);
 
   useEffect(() => {
     let cancelled = false;
@@ -75,29 +95,57 @@ export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
 
   if (items.length === 0) {
     return (
-      <article className="rounded-3xl border border-dashed border-[var(--border-subtle)] bg-[var(--surface)] p-8 text-center text-sm text-[var(--text-secondary)]">
-        <h3 className="text-base font-semibold text-[var(--text-primary)]">
-          {t("marketing.email.audiences.emptyTitle")}
-        </h3>
-        <p className="mt-2">{t("marketing.email.audiences.emptyBody")}</p>
-      </article>
+      <>
+        <article className="rounded-3xl border border-dashed border-[var(--border-subtle)] bg-[var(--surface)] p-8 text-center text-sm text-[var(--text-secondary)]">
+          <h3 className="text-base font-semibold text-[var(--text-primary)]">
+            {t("marketing.email.audiences.emptyTitle")}
+          </h3>
+          <p className="mt-2">{t("marketing.email.audiences.emptyBody")}</p>
+          <button
+            type="button"
+            onClick={() => setShowCreate(true)}
+            className="mt-4 rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
+          >
+            {t("marketing.email.audiences.newAudience")}
+          </button>
+        </article>
+        {showCreate && (
+          <AudienceCreateModal
+            companyId={companyId}
+            onClose={() => setShowCreate(false)}
+            onCreated={() => {
+              setShowCreate(false);
+              refresh();
+            }}
+          />
+        )}
+      </>
     );
   }
 
   return (
     <>
       <article className="overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)]">
-        <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-6 py-3">
+        <header className="flex items-center justify-between gap-3 border-b border-[var(--border-subtle)] px-6 py-3">
           <h3 className="text-base font-semibold text-[var(--text-primary)]">
             {t("marketing.email.audiences.title")} · {items.length}
           </h3>
-          <button
-            type="button"
-            onClick={refresh}
-            className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
-          >
-            {t("marketing.email.audiences.refresh")}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={refresh}
+              className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
+            >
+              {t("marketing.email.audiences.refresh")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowCreate(true)}
+              className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
+            >
+              {t("marketing.email.audiences.newAudience")}
+            </button>
+          </div>
         </header>
         <table className="w-full text-sm">
           <thead>
@@ -133,6 +181,17 @@ export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
           companyId={companyId}
           audience={selected}
           onClose={() => setSelected(null)}
+        />
+      )}
+
+      {showCreate && (
+        <AudienceCreateModal
+          companyId={companyId}
+          onClose={() => setShowCreate(false)}
+          onCreated={() => {
+            setShowCreate(false);
+            refresh();
+          }}
         />
       )}
     </>

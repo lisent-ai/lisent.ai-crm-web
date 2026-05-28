@@ -1947,6 +1947,11 @@
         "title": "Campaign reports"
       },
       "campaigns": {
+        "hideAdvanced": "Hide advanced",
+        "showAdvanced": "Show advanced",
+        "step1Title": "Who is this email for?",
+        "step2Title": "Who is it from?",
+        "step3Title": "Design your email",
         "actionFailed": "Action failed. See Mailchimp's error above.",
         "abtest": {
           "criteria": {
@@ -2045,6 +2050,36 @@
         "title": "Campaigns"
       },
       "audiences": {
+        "newAudience": "New audience",
+        "create": {
+          "body": "Mailchimp requires a postal address (CAN-SPAM) and a default sender. You can edit these later from the audience settings.",
+          "contactSection": "Postal address (required)",
+          "creating": "Creating audience…",
+          "errAddressRequired": "Company + address + city + country are required by Mailchimp.",
+          "errFromRequired": "Default sender name + email are required.",
+          "errNameRequired": "Audience needs a name.",
+          "failed": "Couldn't create the audience.",
+          "fields": {
+            "address": "Street address",
+            "city": "City",
+            "company": "Company / organization name",
+            "country": "Country code (TR, US, …)",
+            "defaultSubject": "Default campaign subject",
+            "fromEmail": "Default from email",
+            "fromName": "Default from name",
+            "language": "Language code (tr, en, …)",
+            "name": "Audience name",
+            "namePlaceholder": "Newsletter subscribers",
+            "permissionReminder": "Permission reminder",
+            "permissionReminderHint": "Shown in the email footer. Mailchimp uses it for compliance.",
+            "state": "State / region",
+            "zip": "ZIP / postal code"
+          },
+          "hideAdvanced": "Hide advanced options",
+          "showAdvanced": "Show advanced options",
+          "submit": "Create audience",
+          "title": "New audience"
+        },
         "subtabs": {
           "fields": "Fields",
           "members": "Members",
@@ -2061,6 +2096,8 @@
           "uploadCsvHint": ".csv with email column (auto-mapped) + name / phone / tags"
         },
         "addMember": {
+          "hideMore": "Hide more options",
+          "showMore": "Show more options (phone, status, tags)",
           "body": "Adds or updates one subscriber on {audience}. Repeating with the same email patches the existing row.",
           "errEmailRequired": "Email is required.",
           "failed": "Couldn't add the member.",
@@ -2195,10 +2232,10 @@
       },
       "overview": {
         "actions": {
-          "audiences": "Audiences",
+          "newAudience": "New audience",
           "newCampaign": "New campaign",
-          "reports": "Reports",
-          "templates": "Templates"
+          "newTemplate": "New template",
+          "reports": "Reports"
         },
         "gettingStartedTitle": "Get started in 4 quick steps",
         "kpi": {

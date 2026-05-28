@@ -67,6 +67,9 @@ export function CampaignCreateModal({
   >("opens");
   const [testPercent, setTestPercent] = useState(25);
   const [waitHours, setWaitHours] = useState(4);
+  // Hide rarely-needed fields behind an "Advanced" toggle so the modal
+  // doesn't overwhelm operators on first open.
+  const [showAdvanced, setShowAdvanced] = useState(false);
   // Promise-style image picker so TipTap's onPickImage callback can await
   // until the modal resolves with a URL.
   const [imagePicker, setImagePicker] = useState<{
@@ -250,82 +253,109 @@ export function CampaignCreateModal({
           </p>
         )}
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <label className="flex flex-col gap-1 sm:col-span-2">
-            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.campaigns.fields.audience")}
-            </span>
-            <select
-              value={listId}
-              onChange={(e) => setListId(e.target.value)}
-              className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-            >
-              <option value="" disabled>
-                {audiences.length === 0
-                  ? t("marketing.email.campaigns.audiencesEmpty")
-                  : t("marketing.email.campaigns.fields.audiencePlaceholder")}
-              </option>
-              {audiences.map((a) => (
-                <option key={a.id} value={a.id}>
-                  {a.name} ({a.stats?.member_count ?? "?"} members)
+        <div className="flex flex-col gap-5">
+          {/* ── Step 1: Who is this for? */}
+          <fieldset className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-[var(--border-subtle)] p-4">
+            <legend className="px-1 text-sm font-semibold text-[var(--text-primary)]">
+              1. {t("marketing.email.campaigns.step1Title")}
+            </legend>
+            <label className="flex flex-col gap-1">
+              <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                {t("marketing.email.campaigns.fields.audience")}
+              </span>
+              <select
+                value={listId}
+                onChange={(e) => setListId(e.target.value)}
+                className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
+              >
+                <option value="" disabled>
+                  {audiences.length === 0
+                    ? t("marketing.email.campaigns.audiencesEmpty")
+                    : t("marketing.email.campaigns.fields.audiencePlaceholder")}
                 </option>
-              ))}
-            </select>
-          </label>
+                {audiences.map((a) => (
+                  <option key={a.id} value={a.id}>
+                    {a.name} ({a.stats?.member_count ?? "?"} members)
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                {t("marketing.email.campaigns.fields.subject")}
+              </span>
+              <input
+                type="text"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                placeholder={t("marketing.email.campaigns.fields.subjectPlaceholder")}
+                className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
+              />
+            </label>
+          </fieldset>
 
-          <label className="flex flex-col gap-1">
-            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.campaigns.fields.subject")}
-            </span>
-            <input
-              type="text"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              placeholder={t("marketing.email.campaigns.fields.subjectPlaceholder")}
-              className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-            />
-          </label>
+          {/* ── Step 2: Who is it from? */}
+          <fieldset className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] p-4">
+            <legend className="px-1 text-sm font-semibold text-[var(--text-primary)]">
+              2. {t("marketing.email.campaigns.step2Title")}
+            </legend>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <label className="flex flex-col gap-1">
+                <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                  {t("marketing.email.campaigns.fields.fromName")}
+                </span>
+                <input
+                  type="text"
+                  value={fromName}
+                  onChange={(e) => setFromName(e.target.value)}
+                  placeholder="Lisent"
+                  className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                />
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                  {t("marketing.email.campaigns.fields.replyTo")}
+                </span>
+                <input
+                  type="email"
+                  value={replyTo}
+                  onChange={(e) => setReplyTo(e.target.value)}
+                  placeholder="noreply@lisent.ai"
+                  className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                />
+              </label>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAdvanced((v) => !v)}
+              className="mt-3 text-xs font-medium text-[var(--accent)] hover:underline"
+            >
+              {showAdvanced
+                ? t("marketing.email.campaigns.hideAdvanced")
+                : t("marketing.email.campaigns.showAdvanced")}
+            </button>
+            {showAdvanced && (
+              <label className="mt-2 flex flex-col gap-1">
+                <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                  {t("marketing.email.campaigns.fields.internalTitle")}
+                </span>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder={t("marketing.email.campaigns.fields.internalTitlePlaceholder")}
+                  className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
+                />
+              </label>
+            )}
+          </fieldset>
 
-          <label className="flex flex-col gap-1">
-            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.campaigns.fields.internalTitle")}
-            </span>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder={t("marketing.email.campaigns.fields.internalTitlePlaceholder")}
-              className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-            />
-          </label>
-
-          <label className="flex flex-col gap-1">
-            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.campaigns.fields.fromName")}
-            </span>
-            <input
-              type="text"
-              value={fromName}
-              onChange={(e) => setFromName(e.target.value)}
-              placeholder="Lisent"
-              className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-            />
-          </label>
-
-          <label className="flex flex-col gap-1">
-            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.campaigns.fields.replyTo")}
-            </span>
-            <input
-              type="email"
-              value={replyTo}
-              onChange={(e) => setReplyTo(e.target.value)}
-              placeholder="noreply@lisent.ai"
-              className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-            />
-          </label>
-
-          <label className="flex items-center gap-2 self-start text-sm text-[var(--text-primary)] sm:col-span-2">
+          {/* ── Step 3: Content */}
+          <fieldset className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--border-subtle)] p-4">
+            <legend className="px-1 text-sm font-semibold text-[var(--text-primary)]">
+              3. {t("marketing.email.campaigns.step3Title")}
+            </legend>
+          <label className="flex items-center gap-2 self-start text-sm text-[var(--text-primary)]">
             <input
               type="checkbox"
               checked={abTest}
@@ -342,7 +372,7 @@ export function CampaignCreateModal({
           </label>
 
           {abTest && (
-            <div className="grid grid-cols-1 gap-3 rounded-[var(--radius-card)] border border-[var(--accent)] bg-[var(--accent-soft)] p-3 sm:col-span-2 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 rounded-[var(--radius-card)] border border-[var(--accent)] bg-[var(--accent-soft)] p-3 sm:grid-cols-2">
               <label className="flex flex-col gap-1 sm:col-span-2">
                 <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
                   {t("marketing.email.campaigns.abtest.subjectB")}
@@ -421,7 +451,7 @@ export function CampaignCreateModal({
             </div>
           )}
 
-          <label className="flex flex-col gap-1 sm:col-span-2">
+          <label className="flex flex-col gap-1">
             <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
               {t("marketing.email.campaigns.fields.template")}
             </span>
@@ -449,7 +479,7 @@ export function CampaignCreateModal({
             </span>
           </label>
 
-          <div className="grid grid-cols-1 gap-3 sm:col-span-2 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
             <div className="flex flex-col gap-1">
               <span className="flex items-center justify-between text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
                 <span>{t("marketing.email.campaigns.fields.htmlBody")}</span>
@@ -491,6 +521,7 @@ export function CampaignCreateModal({
               </div>
             ) : null}
           </div>
+          </fieldset>
         </div>
 
         <footer className="flex items-center justify-end gap-2 pt-2">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import {
@@ -39,13 +40,24 @@ const PAGE_SIZE = 25;
 // `count` + `offset` so deep workspaces stay performant without a cursor.
 export function CampaignList({ companyId }: Readonly<CampaignListProps>) {
   const t = useTranslations();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialShowCreate = searchParams.get("action") === "new";
   const [items, setItems] = useState<MailchimpCampaign[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
-  const [showCreate, setShowCreate] = useState(false);
+  const [showCreate, setShowCreate] = useState(initialShowCreate);
+  // Strip ?action=new after auto-open so refresh doesn't re-trigger.
+  useEffect(() => {
+    if (!initialShowCreate) return;
+    const usp = new URLSearchParams(searchParams.toString());
+    usp.delete("action");
+    router.replace(`?${usp.toString()}`, { scroll: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialShowCreate]);
   const [testTarget, setTestTarget] = useState<MailchimpCampaign | null>(null);
   const [scheduleTarget, setScheduleTarget] = useState<MailchimpCampaign | null>(null);
   const [refreshTick, setRefreshTick] = useState(0);
