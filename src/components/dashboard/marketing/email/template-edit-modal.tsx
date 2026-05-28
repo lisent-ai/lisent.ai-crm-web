@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -28,21 +27,15 @@ type TemplateEditModalProps = {
 const inputClass =
   "rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]";
 
-// TemplateEditModal — guided 2-step wizard for both create + edit.
-// Step 1: name the template (with explanation of where it's used).
-// Step 2: design the HTML body with live preview.
-//
-// On edit we lazy-fetch the existing HTML via GET /templates/{id} —
-// thanks to the local template-html cache the body round-trips
-// correctly (Mailchimp's GET response doesn't include `html` for
-// code-your-own templates).
+// TemplateEditModal — minimal 2-step wizard. Step 1 names the template,
+// step 2 designs the body. Edit mode lazy-fetches the cached HTML so the
+// editor starts populated.
 export function TemplateEditModal({
   companyId,
   template,
   onClose,
   onSaved,
 }: Readonly<TemplateEditModalProps>) {
-  const t = useTranslations();
   const [name, setName] = useState(template?.name ?? "");
   const [html, setHtml] = useState("");
   const [loadingHtml, setLoadingHtml] = useState(template !== null);
@@ -76,7 +69,7 @@ export function TemplateEditModal({
         setError(
           err instanceof CRMClientError
             ? err.message
-            : t("marketing.email.templates.loadFailed"),
+            : "Failed to load the template body.",
         );
       })
       .finally(() => {
@@ -85,7 +78,7 @@ export function TemplateEditModal({
     return () => {
       cancelled = true;
     };
-  }, [companyId, template, t]);
+  }, [companyId, template]);
 
   async function handleSubmit() {
     setError(null);
@@ -109,7 +102,7 @@ export function TemplateEditModal({
           ? err.message
           : err instanceof Error
             ? err.message
-            : t("marketing.email.templates.saveFailed"),
+            : "Failed to save the template.",
       );
     } finally {
       setSubmitting(false);
@@ -119,40 +112,36 @@ export function TemplateEditModal({
   return (
     <>
       <Wizard
-        modalTitle={
-          template ? `✏️ Template'i düzenle — ${template.name}` : "✨ Yeni template oluştur"
-        }
+        modalTitle={template ? `Edit template — ${template.name}` : "New template"}
         modalSubtitle={
           template
-            ? "İçeriği güncelle, kaydet — sonra kampanyalarda kullanabilirsin"
-            : "2 adımda template hazır — kampanyalarda tekrar tekrar kullanırsın"
+            ? "Update the name or the body, then save."
+            : "Two short steps — then you can use it from any campaign."
         }
         onCancel={onClose}
         onSubmit={handleSubmit}
         submitting={submitting}
         error={error}
-        submitLabel={template ? "✓ Değişiklikleri kaydet" : "✓ Template'i oluştur"}
-        submittingLabel="Kaydediliyor…"
+        submitLabel={template ? "Save changes" : "Create template"}
+        submittingLabel="Saving…"
         steps={[
           {
             key: "name",
-            title: "Template'e bir ad ver",
-            description:
-              "Kampanya oluştururken bu adı listeden seçeceksin. Kısa ve tanınabilir bir şey seç.",
+            title: "Name the template",
+            description: "A short label your team uses to find it later.",
             isValid: () => name.trim().length > 0,
             body: (
               <WizardField
-                icon="📛"
-                label="Template adı"
-                help="Sadece sen ve takımın görür — abonelere gözükmez."
-                example="Hoşgeldin emaili"
+                label="Template name"
+                help="Subscribers never see this. Pick something short and descriptive."
+                example="Welcome email"
                 required
               >
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Hoşgeldin emaili"
+                  placeholder="Welcome email"
                   className={inputClass}
                   autoFocus
                 />
@@ -161,35 +150,35 @@ export function TemplateEditModal({
           },
           {
             key: "design",
-            title: "Email içeriği",
+            title: "Write the email",
             description:
-              "Visual modunda Word gibi yazarsın, HTML modunda ham kod yapıştırabilirsin. Sağda canlı preview.",
+              "Visual mode for rich text, HTML mode for raw code. Live preview on the right.",
             isValid: () => html.trim().length > 0,
             body: (
               <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                 <div className="flex flex-col gap-1">
                   <span className="text-sm font-medium text-[var(--text-primary)]">
-                    ✏️ Editör
+                    Editor
                   </span>
                   <span className="text-xs text-[var(--text-secondary)]">
-                    🪄 İçi karışık HTML yapıştırırsan otomatik HTML moduna geçer, hepsi korunur.
+                    Pasting styled HTML auto-switches to HTML mode so nothing is stripped.
                   </span>
                   <RichTextEditor
                     value={html}
                     onChange={setHtml}
                     onPickImage={pickImage}
                     placeholder={
-                      loadingHtml ? "İçerik yükleniyor…" : "Mesajını buraya yaz…"
+                      loadingHtml ? "Loading template body…" : "Type your email body here…"
                     }
                     className="flex h-[480px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)]"
                   />
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-sm font-medium text-[var(--text-primary)]">
-                    👁️ Canlı preview
+                    Live preview
                   </span>
                   <span className="text-xs text-[var(--text-secondary)]">
-                    Alıcının email programında nasıl görüneceği. Merge tag'ler (*|FNAME|*) gönderim sırasında değiştirilir.
+                    How recipients see the email. Merge tags like *|FNAME|* are filled in at send time.
                   </span>
                   <TemplatePreviewFrame
                     html={html}
