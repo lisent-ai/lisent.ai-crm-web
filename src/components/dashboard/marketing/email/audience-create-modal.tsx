@@ -46,7 +46,52 @@ export function AudienceCreateModal({
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
+  // ISO 3166-1 alpha-2 codes for the most common Mailchimp-sender
+  // countries. Operators rarely need anything outside this set; if they
+  // do, we can swap for a full list later.
   const [country, setCountry] = useState("TR");
+  const COUNTRIES = [
+    { code: "TR", label: "🇹🇷 Türkiye" },
+    { code: "US", label: "🇺🇸 United States" },
+    { code: "GB", label: "🇬🇧 United Kingdom" },
+    { code: "DE", label: "🇩🇪 Germany" },
+    { code: "FR", label: "🇫🇷 France" },
+    { code: "NL", label: "🇳🇱 Netherlands" },
+    { code: "ES", label: "🇪🇸 Spain" },
+    { code: "IT", label: "🇮🇹 Italy" },
+    { code: "BE", label: "🇧🇪 Belgium" },
+    { code: "AT", label: "🇦🇹 Austria" },
+    { code: "CH", label: "🇨🇭 Switzerland" },
+    { code: "SE", label: "🇸🇪 Sweden" },
+    { code: "NO", label: "🇳🇴 Norway" },
+    { code: "DK", label: "🇩🇰 Denmark" },
+    { code: "FI", label: "🇫🇮 Finland" },
+    { code: "PL", label: "🇵🇱 Poland" },
+    { code: "PT", label: "🇵🇹 Portugal" },
+    { code: "IE", label: "🇮🇪 Ireland" },
+    { code: "CA", label: "🇨🇦 Canada" },
+    { code: "AU", label: "🇦🇺 Australia" },
+    { code: "NZ", label: "🇳🇿 New Zealand" },
+    { code: "AE", label: "🇦🇪 UAE" },
+    { code: "SA", label: "🇸🇦 Saudi Arabia" },
+    { code: "JP", label: "🇯🇵 Japan" },
+    { code: "KR", label: "🇰🇷 South Korea" },
+  ];
+  const LANGUAGES = [
+    { code: "tr", label: "Türkçe" },
+    { code: "en", label: "English" },
+    { code: "de", label: "Deutsch" },
+    { code: "fr", label: "Français" },
+    { code: "es", label: "Español" },
+    { code: "it", label: "Italiano" },
+    { code: "nl", label: "Nederlands" },
+    { code: "pt", label: "Português" },
+    { code: "ru", label: "Русский" },
+    { code: "ar", label: "العربية" },
+    { code: "ja", label: "日本語" },
+    { code: "ko", label: "한국어" },
+    { code: "zh", label: "中文" },
+  ];
   // Default campaign settings — Mailchimp pre-fills these on every new
   // campaign drawn from this audience, so getting them right once saves
   // typing in campaign-create later.
@@ -190,14 +235,17 @@ export function AudienceCreateModal({
               placeholder={t("marketing.email.audiences.create.fields.zip")}
               className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
             />
-            <input
-              type="text"
+            <select
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              placeholder={t("marketing.email.audiences.create.fields.country")}
-              maxLength={2}
               className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-            />
+            >
+              {COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
           </div>
         </fieldset>
 
@@ -254,14 +302,17 @@ export function AudienceCreateModal({
                 placeholder={t("marketing.email.audiences.create.fields.defaultSubject")}
                 className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
               />
-              <input
-                type="text"
+              <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                placeholder={t("marketing.email.audiences.create.fields.language")}
-                maxLength={2}
                 className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-              />
+              >
+                {LANGUAGES.map((l) => (
+                  <option key={l.code} value={l.code}>
+                    {l.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         )}

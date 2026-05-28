@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -43,9 +43,13 @@ export function RichTextEditor({
   onChange,
   placeholder,
   onPickImage,
-  showHtmlToggle = false,
+  showHtmlToggle = true,
   className,
 }: Readonly<RichTextEditorProps>) {
+  // WYSIWYG by default; flip to HTML for pasting full email templates
+  // (TipTap's parser keeps <p>/<a>/<img>/etc. but strips <style> blocks
+  // and unknown classes — HTML mode bypasses the parser entirely).
+  const [mode, setMode] = useState<"wysiwyg" | "html">("wysiwyg");
   const editor = useEditor({
     // Disable SSR so Next.js doesn't hydrate the editor server-side —
     // TipTap's contenteditable wiring is browser-only.
@@ -111,19 +115,46 @@ export function RichTextEditor({
         "flex flex-col rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)]"
       }
     >
-      <Toolbar editor={editor} onPickImage={onPickImage} showHtmlToggle={showHtmlToggle} />
-      <EditorContent editor={editor} />
+      <Toolbar
+        editor={editor}
+        mode={mode}
+        onToggleMode={() => setMode((m) => (m === "wysiwyg" ? "html" : "wysiwyg"))}
+        onPickImage={onPickImage}
+        showHtmlToggle={showHtmlToggle}
+      />
+      {mode === "wysiwyg" ? (
+        <EditorContent editor={editor} />
+      ) : (
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={
+            placeholder ?? "<p>Paste raw HTML here. Preview will render it.</p>"
+          }
+          className="min-h-[300px] flex-1 resize-none border-0 bg-[var(--surface)] px-3 py-2 font-mono text-xs text-[var(--text-primary)] focus:outline-none"
+          spellCheck={false}
+        />
+      )}
     </div>
   );
 }
 
 type ToolbarProps = {
   editor: Editor;
+  mode: "wysiwyg" | "html";
+  onToggleMode: () => void;
   onPickImage?: () => Promise<string | null>;
   showHtmlToggle?: boolean;
 };
 
-function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>) {
+function Toolbar({
+  editor,
+  mode,
+  onToggleMode,
+  onPickImage,
+  showHtmlToggle,
+}: Readonly<ToolbarProps>) {
+  const inHtml = mode === "html";
   const setLink = useCallback(() => {
     const previous = editor.getAttributes("link").href as string | undefined;
     const url = window.prompt("URL", previous ?? "https://");
@@ -165,16 +196,26 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
 
   const btn = (active: boolean) =>
     `rounded-md px-2 py-1 text-xs font-medium transition ${
-      active
-        ? "bg-[var(--accent-soft)] text-[var(--accent)]"
-        : "text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
+      inHtml
+        ? "cursor-not-allowed text-[var(--text-tertiary)] opacity-40"
+        : active
+          ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+          : "text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
     }`;
+
+  // In HTML mode, the WYSIWYG buttons are disabled — clicking them
+  // through the editor while the textarea is the source-of-truth would
+  // produce inconsistent state.
+  const guardedClick = (fn: () => void) => () => {
+    if (inHtml) return;
+    fn();
+  };
 
   return (
     <div className="flex flex-wrap items-center gap-1 border-b border-[var(--border-subtle)] px-2 py-1.5">
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleBold().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleBold().run()}
         className={btn(editor.isActive("bold"))}
         title="Bold (Cmd+B)"
       >
@@ -182,7 +223,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleItalic().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleItalic().run()}
         className={btn(editor.isActive("italic"))}
         title="Italic (Cmd+I)"
       >
@@ -190,7 +231,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleStrike().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleStrike().run()}
         className={btn(editor.isActive("strike"))}
         title="Strikethrough"
       >
@@ -199,7 +240,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       <ToolbarDivider />
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={btn(editor.isActive("heading", { level: 1 }))}
         title="Heading 1"
       >
@@ -207,7 +248,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={btn(editor.isActive("heading", { level: 2 }))}
         title="Heading 2"
       >
@@ -215,7 +256,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={btn(editor.isActive("heading", { level: 3 }))}
         title="Heading 3"
       >
@@ -224,7 +265,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       <ToolbarDivider />
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={btn(editor.isActive("bulletList"))}
         title="Bullet list"
       >
@@ -232,7 +273,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={btn(editor.isActive("orderedList"))}
         title="Numbered list"
       >
@@ -240,7 +281,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={btn(editor.isActive("blockquote"))}
         title="Quote"
       >
@@ -249,7 +290,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       <ToolbarDivider />
       <button
         type="button"
-        onClick={setLink}
+        disabled={inHtml} onClick={setLink}
         className={btn(editor.isActive("link"))}
         title="Link"
       >
@@ -257,7 +298,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={insertImage}
+        disabled={inHtml} onClick={insertImage}
         className={btn(false)}
         title="Image (upload or URL)"
       >
@@ -265,7 +306,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={insertMergeTag}
+        disabled={inHtml} onClick={insertMergeTag}
         className={btn(false)}
         title="Insert merge tag — *|FNAME|* style"
       >
@@ -274,7 +315,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       <ToolbarDivider />
       <button
         type="button"
-        onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().setHorizontalRule().run()}
         className={btn(false)}
         title="Divider"
       >
@@ -282,7 +323,7 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().undo().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().undo().run()}
         className={btn(false)}
         title="Undo (Cmd+Z)"
       >
@@ -290,16 +331,25 @@ function Toolbar({ editor, onPickImage, showHtmlToggle }: Readonly<ToolbarProps>
       </button>
       <button
         type="button"
-        onClick={() => editor.chain().focus().redo().run()}
+        disabled={inHtml} onClick={() => editor.chain().focus().redo().run()}
         className={btn(false)}
         title="Redo (Cmd+Shift+Z)"
       >
         ↷
       </button>
       {showHtmlToggle ? (
-        <span className="ml-auto text-xs text-[var(--text-tertiary)]">
-          HTML mode toggle coming soon
-        </span>
+        <button
+          type="button"
+          onClick={onToggleMode}
+          className={`ml-auto rounded-md px-2 py-1 text-xs font-medium transition ${
+            inHtml
+              ? "bg-[var(--accent-soft)] text-[var(--accent)]"
+              : "text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
+          }`}
+          title="Toggle WYSIWYG / HTML source"
+        >
+          {inHtml ? "✎ Visual" : "</> HTML"}
+        </button>
       ) : null}
     </div>
   );

@@ -32,7 +32,15 @@ type Stats = {
 export function EmailOverview({ companyId }: Readonly<EmailOverviewProps>) {
   const t = useTranslations();
   const searchParams = useSearchParams();
-  const baseQuery = searchParams.toString();
+  // baseQuery is everything in the URL EXCEPT tab + action — those get
+  // re-appended per quick action below. Without stripping them, the
+  // navigation produces ?tab=overview&tab=campaigns (duplicate), which
+  // URLSearchParams.get("tab") resolves to the FIRST value (overview)
+  // and the tab never actually changes.
+  const queryWithoutTab = new URLSearchParams(searchParams.toString());
+  queryWithoutTab.delete("tab");
+  queryWithoutTab.delete("action");
+  const baseQuery = queryWithoutTab.toString();
 
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
