@@ -223,12 +223,13 @@ export function CampaignCreateModal({
       role="presentation"
     >
       <div
-        className="flex max-h-[90vh] w-full max-w-5xl flex-col gap-4 overflow-y-auto rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-xl"
+        className="relative flex max-h-[90vh] w-full max-w-5xl flex-col rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
       >
-        <header className="flex items-start justify-between gap-4">
+        {/* Sticky header keeps title + close reachable while scrolling. */}
+        <header className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl border-b border-[var(--border-subtle)] bg-[var(--surface)] px-6 py-4">
           <div>
             <h3 className="text-lg font-semibold text-[var(--text-primary)]">
               {t("marketing.email.campaigns.createTitle")}
@@ -247,9 +248,10 @@ export function CampaignCreateModal({
           </button>
         </header>
 
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-6">
         {(error || audienceLoadError) && (
-          <p className="rounded-[var(--radius-card)] border border-[var(--signal-red)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--signal-red)]">
-            {error ?? audienceLoadError}
+          <p className="sticky top-2 z-10 rounded-[var(--radius-card)] border border-[var(--signal-red)] bg-[var(--signal-red-soft)] px-3 py-2 text-sm font-medium text-[var(--signal-red)] shadow-sm">
+            ⚠ {error ?? audienceLoadError}
           </p>
         )}
 
@@ -524,7 +526,16 @@ export function CampaignCreateModal({
           </fieldset>
         </div>
 
-        <footer className="flex items-center justify-end gap-2 pt-2">
+        </div>
+
+        {/* Sticky footer: error appears next to the Save button so the
+            operator never wonders why nothing happened. */}
+        <footer className="sticky bottom-0 z-10 flex flex-wrap items-center justify-end gap-2 rounded-b-3xl border-t border-[var(--border-subtle)] bg-[var(--surface)] px-6 py-3">
+          {(error || audienceLoadError) && (
+            <p className="mr-auto text-sm font-medium text-[var(--signal-red)]">
+              ⚠ {error ?? audienceLoadError}
+            </p>
+          )}
           <button
             type="button"
             onClick={onClose}
