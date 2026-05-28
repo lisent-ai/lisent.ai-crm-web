@@ -1726,6 +1726,13 @@
       }
     },
     "email": {
+      "wizard": {
+        "back": "Back",
+        "fillRequired": "Fill the required field above",
+        "next": "Next",
+        "submit": "Create",
+        "submitting": "Creating…"
+      },
       "merge": {
         "cancelNew": "Cancel",
         "col": {
@@ -1947,6 +1954,14 @@
         "title": "Campaign reports"
       },
       "campaigns": {
+        "wizard": {
+          "step1Title": "Who's this email going to?",
+          "step1Body": "Pick the audience that will receive this campaign.",
+          "step2Title": "Subject and sender",
+          "step2Body": "The subject line + sender info recipients see in their inbox.",
+          "step3Title": "Design your email",
+          "step3Body": "Start from a saved template or compose from scratch — live preview on the right shows what recipients see."
+        },
         "hideAdvanced": "Hide advanced",
         "showAdvanced": "Show advanced",
         "step1Title": "Who is this email for?",
@@ -2052,6 +2067,12 @@
       "audiences": {
         "newAudience": "New audience",
         "create": {
+          "step1Title": "Name your audience",
+          "step1Body": "Pick a short, recognizable name — operators see it everywhere campaigns reference this list.",
+          "step2Title": "Postal address",
+          "step2Body": "Required by Mailchimp + the CAN-SPAM Act. Reused for every campaign sent to this audience.",
+          "step3Title": "Default sender",
+          "step3Body": "Whose name + email appear on every campaign sent to this audience. You can override per campaign later.",
           "addressFilled": "Address complete",
           "addressRequired": "Required by Mailchimp / CAN-SPAM",
           "body": "Mailchimp requires a postal address (CAN-SPAM) and a default sender. You can edit these later from the audience settings.",
@@ -2065,12 +2086,13 @@
             "address": "Street address",
             "city": "City",
             "company": "Company / organization name",
-            "country": "Country code (TR, US, …)",
+            "country": "Country",
             "defaultSubject": "Default campaign subject",
             "fromEmail": "Default from email",
             "fromName": "Default from name",
-            "language": "Language code (tr, en, …)",
+            "language": "Language",
             "name": "Audience name",
+            "nameHint": "Pick something short and memorable — operators see this everywhere.",
             "namePlaceholder": "Newsletter subscribers",
             "permissionReminder": "Permission reminder",
             "permissionReminderHint": "Shown in the email footer. Mailchimp uses it for compliance.",
