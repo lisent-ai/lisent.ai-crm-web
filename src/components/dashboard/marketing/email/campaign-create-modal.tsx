@@ -35,6 +35,16 @@ type CampaignDefaults = {
   subject?: string;
 };
 
+const DEFAULT_HTML =
+  "<p>Hello {{FNAME|there}},</p>\n<p>Type your message here.</p>";
+
+// Body shown in the editor when the operator picks a template whose
+// HTML body can't be retrieved through the Marketing API — typically
+// drag-drop templates built in Mailchimp's own UI, which only return
+// segmented section content, not a renderable email body.
+const NO_BODY_NOTICE =
+  "<p>This template's body isn't available through Mailchimp's API — it was probably built in Mailchimp's drag-drop editor.</p><p>Either edit it directly in Mailchimp, or write your email here from scratch.</p>";
+
 // CampaignCreateModal — atomic wizard. Picks audience first; the
 // audience's stored campaign_defaults pre-fill the sender steps so the
 // operator usually only types the subject.
@@ -51,9 +61,7 @@ export function CampaignCreateModal({
   const [subject, setSubject] = useState("");
   const [fromName, setFromName] = useState("");
   const [replyTo, setReplyTo] = useState("");
-  const [html, setHtml] = useState(
-    "<p>Hello {{FNAME|there}},</p>\n<p>Type your message here.</p>",
-  );
+  const [html, setHtml] = useState(DEFAULT_HTML);
   const [templateId, setTemplateId] = useState<string>("");
   const [loadingTemplateBody, setLoadingTemplateBody] = useState(false);
 
@@ -120,7 +128,13 @@ export function CampaignCreateModal({
   async function applyTemplate(id: string) {
     setError(null);
     setTemplateId(id);
-    if (!id) return;
+    // "Write from scratch" — wipe whatever previous template populated
+    // so the operator starts with a clean default instead of inheriting
+    // the last pick's body.
+    if (!id) {
+      setHtml(DEFAULT_HTML);
+      return;
+    }
     setLoadingTemplateBody(true);
     try {
       const tpl = await getMailchimpTemplate(companyId, id);
@@ -128,7 +142,13 @@ export function CampaignCreateModal({
         (tpl as { html?: string; source?: { html?: string } }).html ??
         (tpl as { source?: { html?: string } }).source?.html ??
         "";
-      if (body) setHtml(body);
+      // ALWAYS replace the editor content when switching templates,
+      // even when the API returned no body. Without this, switching
+      // from a CRM-created template (has cached HTML) to a Mailchimp-
+      // UI template (no cached HTML) left the previous body stuck in
+      // the editor — operators thought the dropdown selection didn't
+      // take effect.
+      setHtml(body || NO_BODY_NOTICE);
     } catch (err) {
       setError(
         err instanceof CRMClientError
