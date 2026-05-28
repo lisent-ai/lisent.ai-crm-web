@@ -1948,6 +1948,23 @@
       },
       "campaigns": {
         "actionFailed": "Action failed. See Mailchimp's error above.",
+        "abtest": {
+          "criteria": {
+            "clicks": "Most clicks",
+            "manual": "Pick manually",
+            "opens": "Most opens"
+          },
+          "fromNameB": "From name — variant B (optional)",
+          "fromNameBPlaceholder": "Different sender name",
+          "hint": "Mailchimp sends each variant to {percent}% of your audience, waits {hours}h, then sends the winner to the rest.",
+          "subjectB": "Subject line — variant B",
+          "subjectBPlaceholder": "Alternate subject to test",
+          "testPercent": "Test audience %",
+          "toggle": "A/B test this campaign",
+          "toggleHint": "Send two subject lines (and/or from names) to a sample, automatically send the winner to the rest.",
+          "waitHours": "Wait before picking winner (hours)",
+          "winnerCriteria": "Winner criteria"
+        },
         "actions": {
           "delete": "Delete",
           "pause": "Pause",
