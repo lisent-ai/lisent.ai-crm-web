@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
+  deleteMailchimpAudience,
   listMailchimpAudiences,
   type MailchimpAudience,
 } from "@/lib/crm/client";
@@ -37,6 +38,7 @@ export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
   const [items, setItems] = useState<MailchimpAudience[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
   const [selected, setSelected] = useState<MailchimpAudience | null>(null);
   const [showCreate, setShowCreate] = useState(initialShowCreate);
   const [refreshTick, setRefreshTick] = useState(0);
@@ -76,6 +78,39 @@ export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
   }, [companyId, t, refreshTick]);
 
   const refresh = useCallback(() => setRefreshTick((n) => n + 1), []);
+
+  const handleDelete = useCallback(
+    async (audience: MailchimpAudience) => {
+      const memberCount = audience.stats?.member_count ?? 0;
+      // Force the operator to type the audience name verbatim — Mailchimp's
+      // audience delete is permanent, takes the members with it, and the
+      // numerical button-click confirm pattern is too easy to bypass.
+      const typed = window.prompt(
+        `WARNING: Deleting "${audience.name}" removes all ${memberCount.toLocaleString()} subscribers permanently.\n\nThis cannot be undone.\n\nType the audience name below to confirm:`,
+      );
+      if (typed === null) return; // cancelled
+      if (typed.trim() !== audience.name) {
+        setActionError(
+          `Audience name didn't match. Nothing was deleted.`,
+        );
+        return;
+      }
+      try {
+        await deleteMailchimpAudience(companyId, audience.id);
+        setActionError(null);
+        refresh();
+      } catch (err) {
+        setActionError(
+          err instanceof CRMClientError
+            ? err.message
+            : err instanceof Error
+              ? err.message
+              : "Failed to delete the audience.",
+        );
+      }
+    },
+    [companyId, refresh],
+  );
 
   if (loading) {
     return (
@@ -147,6 +182,11 @@ export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
             </button>
           </div>
         </header>
+        {actionError && (
+          <div className="border-b border-[var(--signal-red)] bg-[var(--signal-red-soft)] px-6 py-2 text-xs text-[var(--signal-red)]">
+            {actionError}
+          </div>
+        )}
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-[var(--surface-subtle)] text-left text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
@@ -171,6 +211,7 @@ export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
                 key={row.id}
                 row={row}
                 onOpen={() => setSelected(row)}
+                onDelete={() => handleDelete(row)}
               />
             ))}
           </tbody>
@@ -201,7 +242,12 @@ export function AudienceList({ companyId }: Readonly<AudienceListProps>) {
 function AudienceRow({
   row,
   onOpen,
-}: Readonly<{ row: MailchimpAudience; onOpen: () => void }>) {
+  onDelete,
+}: Readonly<{
+  row: MailchimpAudience;
+  onOpen: () => void;
+  onDelete: () => void;
+}>) {
   const t = useTranslations();
   const memberCount = row.stats?.member_count;
   const openRate = row.stats?.open_rate;
@@ -222,13 +268,23 @@ function AudienceRow({
         {created ? new Date(created).toLocaleDateString() : "—"}
       </td>
       <td className="px-6 py-3 text-right">
-        <button
-          type="button"
-          onClick={onOpen}
-          className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface)]"
-        >
-          {t("marketing.email.audiences.viewMembers")}
-        </button>
+        <div className="flex justify-end gap-1">
+          <button
+            type="button"
+            onClick={onOpen}
+            className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface)]"
+          >
+            {t("marketing.email.audiences.viewMembers")}
+          </button>
+          <button
+            type="button"
+            onClick={onDelete}
+            className="rounded-full border border-[var(--signal-red)] px-3 py-1 text-xs font-medium text-[var(--signal-red)] hover:bg-[var(--signal-red-soft)]"
+            title="Delete this audience and all its subscribers permanently"
+          >
+            Delete
+          </button>
+        </div>
       </td>
     </tr>
   );

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
+  archiveMailchimpMember,
   listMailchimpAudienceMembers,
   type MailchimpAudience,
   type MailchimpMember,
@@ -48,11 +49,41 @@ export function AudienceDetailModal({
   const [showAdd, setShowAdd] = useState(false);
   const [showCSV, setShowCSV] = useState(false);
   const [showPush, setShowPush] = useState(false);
+  const [memberActionError, setMemberActionError] = useState<string | null>(null);
+  const [pendingRemoval, setPendingRemoval] = useState<string | null>(null);
 
   const refresh = useCallback(() => {
     setLoading(true);
     setRefreshTick((n) => n + 1);
   }, []);
+
+  const handleRemoveMember = useCallback(
+    async (email: string, permanent: boolean) => {
+      const label = permanent ? "permanently delete" : "archive";
+      const warning = permanent
+        ? `Permanently delete ${email}?\n\nThis cannot be undone. The address can never be re-added to this audience (Mailchimp blocks re-adding GDPR-erased emails).`
+        : `Archive ${email}?\n\nThey will be removed from this audience but you can re-add them later.`;
+      if (!window.confirm(warning)) return;
+      setPendingRemoval(email);
+      setMemberActionError(null);
+      try {
+        await archiveMailchimpMember(companyId, audience.id, email, permanent);
+        setItems((prev) => prev.filter((m) => m.email_address !== email));
+        setTotal((prev) => Math.max(0, prev - 1));
+      } catch (err) {
+        setMemberActionError(
+          err instanceof CRMClientError
+            ? `Failed to ${label} ${email}: ${err.message}`
+            : err instanceof Error
+              ? `Failed to ${label} ${email}: ${err.message}`
+              : `Failed to ${label} ${email}.`,
+        );
+      } finally {
+        setPendingRemoval(null);
+      }
+    },
+    [audience.id, companyId],
+  );
 
   useEffect(() => {
     // Only fetch members when the Members tab is active. Switching to
@@ -183,6 +214,11 @@ export function AudienceDetailModal({
 
         {tab === "members" && (
           <>
+            {memberActionError && (
+              <p className="rounded-[var(--radius-card)] border border-[var(--signal-red)] bg-[var(--signal-red-soft)] px-3 py-2 text-sm text-[var(--signal-red)]">
+                {memberActionError}
+              </p>
+            )}
             <div className="max-h-[55vh] overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border-subtle)]">
               <table className="w-full text-sm">
                 <thead className="sticky top-0 bg-[var(--surface-subtle)] text-left text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
@@ -196,42 +232,72 @@ export function AudienceDetailModal({
                     <th className="px-4 py-2 font-medium">
                       {t("marketing.email.audiences.members.col.lastChanged")}
                     </th>
+                    <th className="px-4 py-2 font-medium text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {loading && (
                     <tr>
-                      <td colSpan={3} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
+                      <td colSpan={4} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
                         {t("marketing.email.audiences.members.loading")}
                       </td>
                     </tr>
                   )}
                   {!loading && items.length === 0 && (
                     <tr>
-                      <td colSpan={3} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
+                      <td colSpan={4} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
                         {t("marketing.email.audiences.members.empty")}
                       </td>
                     </tr>
                   )}
                   {!loading &&
-                    items.map((m) => (
-                      <tr
-                        key={m.id || m.email_address}
-                        className="border-t border-[var(--border-subtle)]"
-                      >
-                        <td className="px-4 py-2 text-[var(--text-primary)]">
-                          {m.email_address}
-                        </td>
-                        <td className="px-4 py-2 text-[var(--text-secondary)]">
-                          <StatusBadge status={m.status} />
-                        </td>
-                        <td className="px-4 py-2 text-[var(--text-secondary)]">
-                          {m.last_changed
-                            ? new Date(m.last_changed).toLocaleString()
-                            : "—"}
-                        </td>
-                      </tr>
-                    ))}
+                    items.map((m) => {
+                      const busy = pendingRemoval === m.email_address;
+                      return (
+                        <tr
+                          key={m.id || m.email_address}
+                          className="border-t border-[var(--border-subtle)]"
+                        >
+                          <td className="px-4 py-2 text-[var(--text-primary)]">
+                            {m.email_address}
+                          </td>
+                          <td className="px-4 py-2 text-[var(--text-secondary)]">
+                            <StatusBadge status={m.status} />
+                          </td>
+                          <td className="px-4 py-2 text-[var(--text-secondary)]">
+                            {m.last_changed
+                              ? new Date(m.last_changed).toLocaleString()
+                              : "—"}
+                          </td>
+                          <td className="px-4 py-2 text-right">
+                            <div className="flex justify-end gap-1">
+                              <button
+                                type="button"
+                                disabled={busy}
+                                onClick={() =>
+                                  handleRemoveMember(m.email_address, false)
+                                }
+                                className="rounded-full border border-[var(--border-subtle)] px-2 py-0.5 text-xs text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] disabled:opacity-50"
+                                title="Archive this subscriber (reversible). They will stop receiving campaigns but can be re-added later."
+                              >
+                                Archive
+                              </button>
+                              <button
+                                type="button"
+                                disabled={busy}
+                                onClick={() =>
+                                  handleRemoveMember(m.email_address, true)
+                                }
+                                className="rounded-full border border-[var(--signal-red)] px-2 py-0.5 text-xs text-[var(--signal-red)] hover:bg-[var(--signal-red-soft)] disabled:opacity-50"
+                                title="Permanently delete (GDPR erase). Cannot be re-added to this audience."
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
