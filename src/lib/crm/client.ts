@@ -4415,3 +4415,207 @@ export async function deleteMailchimpFile(
     { method: "DELETE" },
   );
 }
+
+// ─── Mailchimp Merge Fields (custom audience columns) ────────────────────
+
+export type MailchimpMergeField = {
+  merge_id: number;
+  tag: string; // e.g. FNAME, COMPANY
+  name: string; // human label
+  type: string; // text | number | address | phone | date | url | imageurl | radio | dropdown | birthday | zip
+  required?: boolean;
+  default_value?: string;
+  public?: boolean;
+  display_order?: number;
+  options?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export async function listMailchimpMergeFields(
+  companyId: string,
+  listId: string,
+): Promise<{ merge_fields: MailchimpMergeField[]; total_items: number }> {
+  return requestCRM<{ merge_fields: MailchimpMergeField[]; total_items: number }>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/merge-fields`,
+      companyId,
+    ),
+  );
+}
+
+export async function createMailchimpMergeField(
+  companyId: string,
+  listId: string,
+  payload: {
+    tag: string;
+    name: string;
+    type: string;
+    required?: boolean;
+    default_value?: string;
+    public?: boolean;
+    options?: Record<string, unknown>;
+  },
+): Promise<MailchimpMergeField> {
+  return requestCRM<MailchimpMergeField>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/merge-fields`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function updateMailchimpMergeField(
+  companyId: string,
+  listId: string,
+  mergeId: string | number,
+  payload: Record<string, unknown>,
+): Promise<MailchimpMergeField> {
+  return requestCRM<MailchimpMergeField>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/merge-fields/${encodeURIComponent(String(mergeId))}`,
+      companyId,
+    ),
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteMailchimpMergeField(
+  companyId: string,
+  listId: string,
+  mergeId: string | number,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/merge-fields/${encodeURIComponent(String(mergeId))}`,
+      companyId,
+    ),
+    { method: "DELETE" },
+  );
+}
+
+// ─── Mailchimp Verified Domains ──────────────────────────────────────────
+
+export type MailchimpVerifiedDomain = {
+  domain: string;
+  verified: boolean;
+  authenticated: boolean;
+  verification_email?: string;
+  verification_sent?: string;
+  [key: string]: unknown;
+};
+
+export async function listMailchimpVerifiedDomains(
+  companyId: string,
+): Promise<{ domains: MailchimpVerifiedDomain[]; total_items: number }> {
+  return requestCRM<{ domains: MailchimpVerifiedDomain[]; total_items: number }>(
+    withCompany("/users/me/mailchimp/verified-domains", companyId),
+  );
+}
+
+export async function addMailchimpVerifiedDomain(
+  companyId: string,
+  payload: { verification_email: string },
+): Promise<MailchimpVerifiedDomain> {
+  return requestCRM<MailchimpVerifiedDomain>(
+    withCompany("/users/me/mailchimp/verified-domains", companyId),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function verifyMailchimpDomain(
+  companyId: string,
+  domain: string,
+  payload: { code: string },
+): Promise<MailchimpVerifiedDomain> {
+  return requestCRM<MailchimpVerifiedDomain>(
+    withCompany(
+      `/users/me/mailchimp/verified-domains/${encodeURIComponent(domain)}/verify`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteMailchimpVerifiedDomain(
+  companyId: string,
+  domain: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/verified-domains/${encodeURIComponent(domain)}`,
+      companyId,
+    ),
+    { method: "DELETE" },
+  );
+}
+
+// ─── Mailchimp Search ────────────────────────────────────────────────────
+
+export type SearchMembersResult = {
+  exact_matches?: { members?: MailchimpMember[]; total_items?: number };
+  full_search?: { members?: MailchimpMember[]; total_items?: number };
+};
+
+export async function searchMailchimpMembers(
+  companyId: string,
+  query: string,
+  listId?: string,
+): Promise<SearchMembersResult> {
+  const usp = new URLSearchParams({ query });
+  if (listId) usp.set("list_id", listId);
+  return requestCRM<SearchMembersResult>(
+    `${withCompany("/users/me/mailchimp/search/members", companyId)}&${usp.toString()}`,
+  );
+}
+
+export type SearchCampaignsResult = {
+  results?: Array<{ campaign?: MailchimpCampaign; snippet?: string }>;
+  total_items?: number;
+};
+
+export async function searchMailchimpCampaigns(
+  companyId: string,
+  query: string,
+): Promise<SearchCampaignsResult> {
+  return requestCRM<SearchCampaignsResult>(
+    `${withCompany("/users/me/mailchimp/search/campaigns", companyId)}&query=${encodeURIComponent(query)}`,
+  );
+}
+
+// ─── Customer Journey trigger ─────────────────────────────────────────────
+
+export async function triggerMailchimpJourneyStep(
+  companyId: string,
+  journeyId: string,
+  stepId: string,
+  payload: { email_address: string },
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/customer-journeys/journeys/${encodeURIComponent(journeyId)}/steps/${encodeURIComponent(stepId)}/trigger`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}

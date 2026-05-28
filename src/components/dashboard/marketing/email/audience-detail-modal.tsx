@@ -12,6 +12,7 @@ import {
 
 import { AudienceAddMemberModal } from "./audience-add-member-modal";
 import { AudienceCSVUploadModal } from "./audience-csv-upload-modal";
+import { AudienceMergeFields } from "./audience-merge-fields";
 import { AudiencePushFromCRMDialog } from "./audience-push-from-crm-dialog";
 import { AudienceSegmentList } from "./audience-segment-list";
 import { AudienceTagsList } from "./audience-tags-list";
@@ -35,9 +36,9 @@ export function AudienceDetailModal({
   onClose,
 }: Readonly<AudienceDetailModalProps>) {
   const t = useTranslations();
-  const [tab, setTab] = useState<"members" | "segments" | "tags" | "webhooks">(
-    "members",
-  );
+  const [tab, setTab] = useState<
+    "members" | "segments" | "tags" | "fields" | "webhooks"
+  >("members");
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<MailchimpMember[]>([]);
   const [total, setTotal] = useState(0);
@@ -149,7 +150,7 @@ export function AudienceDetailModal({
         </div>
 
         <nav className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto border-b border-[var(--border-subtle)]">
-          {(["members", "segments", "tags", "webhooks"] as const).map((key) => {
+          {(["members", "segments", "tags", "fields", "webhooks"] as const).map((key) => {
             const active = tab === key;
             return (
               <button
@@ -273,6 +274,12 @@ export function AudienceDetailModal({
         {tab === "tags" && (
           <div className="max-h-[55vh] overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border-subtle)] p-3">
             <AudienceTagsList companyId={companyId} listId={audience.id} />
+          </div>
+        )}
+
+        {tab === "fields" && (
+          <div className="max-h-[55vh] overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border-subtle)] p-3">
+            <AudienceMergeFields companyId={companyId} listId={audience.id} />
           </div>
         )}
 

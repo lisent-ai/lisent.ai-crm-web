@@ -18,6 +18,7 @@ import { CampaignList } from "./campaign-list";
 import { EmailOverview } from "./email-overview";
 import { ReportList } from "./report-list";
 import { TemplateList } from "./template-list";
+import { VerifiedDomainsPanel } from "./verified-domains-panel";
 
 // URL-state sub-tabs for the Email workspace. Active tab comes from
 // ?tab=…; we keep `audiences` as the default so a bare /dashboard/marketing/email
@@ -228,7 +229,12 @@ export function EmailWorkspace() {
         {tab === "templates" && <TemplateList companyId={companyId} />}
         {tab === "automations" && <AutomationList companyId={companyId} />}
         {tab === "reports" && <ReportList companyId={companyId} />}
-        {tab === "settings" && <SettingsTab config={config} />}
+        {tab === "settings" && (
+          <div className="flex flex-col gap-4">
+            <SettingsTab config={config} />
+            <VerifiedDomainsPanel companyId={companyId} />
+          </div>
+        )}
       </div>
     </div>
   );

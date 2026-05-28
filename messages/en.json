@@ -1726,6 +1726,59 @@
       }
     },
     "email": {
+      "merge": {
+        "cancelNew": "Cancel",
+        "col": {
+          "name": "Name",
+          "required": "Required",
+          "tag": "Merge tag",
+          "type": "Type"
+        },
+        "confirmDelete": "Delete this field? Member data in this column will be deleted too.",
+        "count": "{count} field(s) total",
+        "create": "Create field",
+        "createFailed": "Couldn't create the field.",
+        "creating": "Creating…",
+        "delete": "Delete",
+        "deleteFailed": "Couldn't delete the field.",
+        "empty": "No custom fields yet — Mailchimp's default FNAME / LNAME columns still work.",
+        "errRequired": "Tag + name are both required.",
+        "fields": {
+          "defaultValue": "Default value (optional)",
+          "name": "Display name",
+          "required": "Required on signup forms",
+          "tag": "Merge tag (≤10 chars, UPPERCASE)",
+          "type": "Type"
+        },
+        "hint": "Use merge tags in campaigns + templates as *|TAG|*, e.g. \"Welcome *|FNAME|*\".",
+        "loadFailed": "Failed to load merge fields.",
+        "loading": "Loading merge fields…",
+        "newField": "New field"
+      },
+      "domains": {
+        "add": "Add domain",
+        "addEmailLabel": "Email at the domain to authenticate",
+        "addFailed": "Couldn't start verification.",
+        "addHint": "Mailchimp sends a verification code to this address. Make sure you can receive mail there.",
+        "adding": "Sending code…",
+        "body": "Authenticate your sending domain (DKIM / SPF). Authenticated domains have higher trust scores and avoid Omnivore (Mailchimp's anti-abuse) flags.",
+        "codePlaceholder": "Verification code from email",
+        "confirmDelete": "Remove this domain? You'll need to re-verify it to send from it again.",
+        "delete": "Remove",
+        "deleteFailed": "Couldn't remove the domain.",
+        "dkimHint": "After verification, finish DKIM / DMARC setup in Mailchimp's UI (Account → Domains → Authenticate). DNS-record-level setup isn't exposed by the API.",
+        "empty": "No domains added yet. Add the sending domain above to start.",
+        "errCodeRequired": "Paste the code from Mailchimp's email.",
+        "errEmailRequired": "Email is required.",
+        "loadFailed": "Failed to load domains.",
+        "loading": "Loading domains…",
+        "statusAuthenticated": "Verified + DKIM authenticated",
+        "statusPending": "Pending — paste the email verification code below",
+        "statusVerified": "Verified — finish DKIM setup in Mailchimp UI",
+        "title": "Verified Domains",
+        "verify": "Verify",
+        "verifyFailed": "Verification failed — check the code."
+      },
       "images": {
         "body": "Pick an image from your Mailchimp library, upload a new one (max 10MB), or paste a public URL.",
         "confirmDelete": "Delete this image? Campaigns that reference it will keep working (Mailchimp keeps the file).",
@@ -1976,6 +2029,7 @@
       },
       "audiences": {
         "subtabs": {
+          "fields": "Fields",
           "members": "Members",
           "segments": "Segments",
           "tags": "Tags",
