@@ -63,10 +63,19 @@ const PAPA_STATIC: Pick<
   transformHeader: (h) => h.trim(),
 };
 
-// Mailchimp's documented per-call cap for batch upsert. The backend's
-// BatchUpsertMembers passes through with the same ceiling; chunking
-// across the boundary lets a CSV with thousands of rows succeed.
-const BATCH_CHUNK_SIZE = 500;
+// Mailchimp's documented per-call cap is 500 members but real-world
+// 500-row chunks routinely take 30-60s upstream, occasionally hitting
+// the backend's batch timeout. 200 keeps each request well inside the
+// window with minimal extra overhead — the operator sees the progress
+// bar move more often too.
+const BATCH_CHUNK_SIZE = 200;
+
+// One transient retry per chunk before giving up. Mailchimp's edge
+// occasionally returns 502 / network errors on the first attempt and
+// succeeds immediately on the retry; retrying once avoids surfacing
+// noise to the operator.
+const CHUNK_RETRY_ATTEMPTS = 1;
+const CHUNK_RETRY_DELAY_MS = 2000;
 
 // Column auto-detection: if the CSV uses common header names we map them
 // automatically. Operators can still override via the mapping panel.
@@ -222,21 +231,41 @@ export function AudienceCSVUploadModal({
     let errors = 0;
     for (let i = 0; i < members.length; i += BATCH_CHUNK_SIZE) {
       const chunk = members.slice(i, i + BATCH_CHUNK_SIZE);
-      try {
-        const body = await batchUpsertMailchimpMembers(companyId, listId, {
-          members: chunk,
-          update_existing: updateExisting,
-        });
-        created += body.total_created ?? body.new_members?.length ?? 0;
-        updated += body.total_updated ?? body.updated_members?.length ?? 0;
-        errors += body.error_count ?? body.errors?.length ?? 0;
-      } catch (err) {
+      // Tiny retry budget — Mailchimp's edge sometimes returns 502 /
+      // timeout on the first attempt and succeeds on the next. We only
+      // retry on transport-ish failures (timeout, 502, 503, 504),
+      // never on 4xx where Mailchimp explicitly rejected the payload.
+      let attempt = 0;
+      let lastError: unknown = null;
+      let chunkSucceeded = false;
+      while (attempt <= CHUNK_RETRY_ATTEMPTS && !chunkSucceeded) {
+        try {
+          const body = await batchUpsertMailchimpMembers(companyId, listId, {
+            members: chunk,
+            update_existing: updateExisting,
+          });
+          created += body.total_created ?? body.new_members?.length ?? 0;
+          updated += body.total_updated ?? body.updated_members?.length ?? 0;
+          errors += body.error_count ?? body.errors?.length ?? 0;
+          chunkSucceeded = true;
+        } catch (err) {
+          lastError = err;
+          const status =
+            err instanceof CRMClientError ? err.status : 0;
+          const retriable =
+            status === 0 || status === 408 || status === 502 || status === 503 || status === 504;
+          if (!retriable || attempt === CHUNK_RETRY_ATTEMPTS) break;
+          attempt += 1;
+          await new Promise((r) => setTimeout(r, CHUNK_RETRY_DELAY_MS));
+        }
+      }
+      if (!chunkSucceeded) {
         errors += chunk.length;
         setError(
-          err instanceof CRMClientError
-            ? err.message
-            : err instanceof Error
-              ? err.message
+          lastError instanceof CRMClientError
+            ? lastError.message
+            : lastError instanceof Error
+              ? lastError.message
               : t("marketing.email.audiences.csv.errChunk"),
         );
       }
