@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-type MarketingTab = "campaigns" | "forms" | "email";
+type MarketingTab = "campaigns" | "forms" | "email" | "agencies";
 
 type MarketingShellProps = {
   active: MarketingTab;
@@ -15,6 +15,7 @@ const tabs: ReadonlyArray<{ key: MarketingTab; href: string; labelKey: string }>
   { key: "campaigns", href: "/dashboard/marketing/campaigns", labelKey: "marketing.tabs.campaigns" },
   { key: "forms", href: "/dashboard/marketing/forms", labelKey: "marketing.tabs.forms" },
   { key: "email", href: "/dashboard/marketing/email", labelKey: "marketing.tabs.email" },
+  { key: "agencies", href: "/dashboard/marketing/agencies", labelKey: "marketing.tabs.agencies" },
 ];
 
 // MarketingShell renders the page header + sub-tab strip (Bitrix24 / HubSpot
