@@ -99,6 +99,7 @@ export function AudienceCreateModal({
   const [fromEmail, setFromEmail] = useState(defaultFromEmail ?? "");
   const [subject, setSubject] = useState("");
   const [language, setLanguage] = useState("tr");
+  const [showAddress, setShowAddress] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -194,11 +195,53 @@ export function AudienceCreateModal({
           />
         </label>
 
-        {/* ── Required by CAN-SPAM / Mailchimp: company + postal address */}
+        {/* ── Required by Mailchimp: default from name + email FIRST.
+              They're the most-likely-to-be-known fields; address +
+              advanced collapse below. */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <input
+            type="text"
+            value={fromName}
+            onChange={(e) => setFromName(e.target.value)}
+            placeholder={t("marketing.email.audiences.create.fields.fromName")}
+            className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
+          />
+          <input
+            type="email"
+            value={fromEmail}
+            onChange={(e) => setFromEmail(e.target.value)}
+            placeholder={t("marketing.email.audiences.create.fields.fromEmail")}
+            className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
+          />
+        </div>
+
+        {/* ── CAN-SPAM postal address — Mailchimp won't accept the
+              audience without it but operators reuse the same address
+              across audiences. Collapsed by default, with a status
+              hint showing whether it's filled. */}
+        <button
+          type="button"
+          onClick={() => setShowAddress((v) => !v)}
+          className="flex items-center justify-between rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] px-3 py-2 text-left text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--surface)]"
+        >
+          <span>
+            📮 {t("marketing.email.audiences.create.contactSection")}
+            {company && address1 && city && country ? (
+              <span className="ml-2 text-xs text-[var(--signal-green)]">
+                ✓ {t("marketing.email.audiences.create.addressFilled")}
+              </span>
+            ) : (
+              <span className="ml-2 text-xs text-[var(--signal-amber)]">
+                ⚠ {t("marketing.email.audiences.create.addressRequired")}
+              </span>
+            )}
+          </span>
+          <span className="text-[var(--text-tertiary)]">
+            {showAddress ? "▲" : "▼"}
+          </span>
+        </button>
+        {showAddress && (
         <fieldset className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] p-3">
-          <legend className="px-1 text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-            {t("marketing.email.audiences.create.contactSection")}
-          </legend>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <input
               type="text"
@@ -248,24 +291,7 @@ export function AudienceCreateModal({
             </select>
           </div>
         </fieldset>
-
-        {/* ── Required by Mailchimp: default from name + email */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <input
-            type="text"
-            value={fromName}
-            onChange={(e) => setFromName(e.target.value)}
-            placeholder={t("marketing.email.audiences.create.fields.fromName")}
-            className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-          />
-          <input
-            type="email"
-            value={fromEmail}
-            onChange={(e) => setFromEmail(e.target.value)}
-            placeholder={t("marketing.email.audiences.create.fields.fromEmail")}
-            className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]"
-          />
-        </div>
+        )}
 
         {/* ── Advanced toggle: permission reminder + subject + language */}
         <button

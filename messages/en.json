@@ -2052,8 +2052,10 @@
       "audiences": {
         "newAudience": "New audience",
         "create": {
+          "addressFilled": "Address complete",
+          "addressRequired": "Required by Mailchimp / CAN-SPAM",
           "body": "Mailchimp requires a postal address (CAN-SPAM) and a default sender. You can edit these later from the audience settings.",
-          "contactSection": "Postal address (required)",
+          "contactSection": "Postal address",
           "creating": "Creating audience…",
           "errAddressRequired": "Company + address + city + country are required by Mailchimp.",
           "errFromRequired": "Default sender name + email are required.",

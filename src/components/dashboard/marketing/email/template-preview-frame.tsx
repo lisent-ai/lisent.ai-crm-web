@@ -23,8 +23,15 @@ export function TemplatePreviewFrame({
   // sandboxed origin opaque (`null`) which matches the most restrictive
   // safety posture. Mailchimp merge tags like {{FNAME|there}} stay
   // visible in the preview — they only get substituted at send time.
+  //
+  // The key prop forces a fresh iframe instance every time the html
+  // payload changes. Without it some browsers cache the srcDoc and
+  // skip re-rendering on prop change — operators saw stale previews
+  // after pasting fresh templates.
+  const body = html || "<p style='color:#999;font-family:sans-serif;'>(empty)</p>";
   return (
     <iframe
+      key={`${body.length}:${body.slice(0, 64)}`}
       // Sandbox notes:
       //   - allow-same-origin : lets the iframe load external images
       //     that need credentials or cookies (e.g. Mailchimp's own
@@ -33,7 +40,7 @@ export function TemplatePreviewFrame({
       //   - allow-popups      : kept off; preview never needs to open
       //     a new window.
       sandbox="allow-same-origin"
-      srcDoc={html || "<p style='color:#999;font-family:sans-serif;'>(empty)</p>"}
+      srcDoc={body}
       title={title}
       className={
         className ??
