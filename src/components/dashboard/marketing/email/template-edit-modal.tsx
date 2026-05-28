@@ -14,19 +14,28 @@ import {
 import { ImagePickerModal } from "./image-picker-modal";
 import { RichTextEditor } from "./rich-text-editor";
 import { TemplatePreviewFrame } from "./template-preview-frame";
+import { Wizard } from "./wizard";
+import { WizardField } from "./wizard-field";
 
 type TemplateEditModalProps = {
   companyId: string;
-  // null → create flow; existing template → edit flow
+  // null → create flow; existing template → edit flow.
   template: MailchimpTemplate | null;
   onClose: () => void;
   onSaved: () => void;
 };
 
-// TemplateEditModal handles both Create and Update for user-owned
-// Mailchimp templates. The list endpoint returns templates without the
-// HTML body; we lazy-fetch it via GET /templates/{id} when entering edit
-// mode so the textarea starts populated with the live content.
+const inputClass =
+  "rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]";
+
+// TemplateEditModal — guided 2-step wizard for both create + edit.
+// Step 1: name the template (with explanation of where it's used).
+// Step 2: design the HTML body with live preview.
+//
+// On edit we lazy-fetch the existing HTML via GET /templates/{id} —
+// thanks to the local template-html cache the body round-trips
+// correctly (Mailchimp's GET response doesn't include `html` for
+// code-your-own templates).
 export function TemplateEditModal({
   companyId,
   template,
@@ -56,9 +65,6 @@ export function TemplateEditModal({
     getMailchimpTemplate(companyId, template.id)
       .then((res) => {
         if (cancelled) return;
-        // Mailchimp returns the HTML body on the detail endpoint under
-        // `html` (top-level). Some legacy templates store body under a
-        // nested `source.html`; we coalesce both shapes.
         const body =
           (res as { html?: string; source?: { html?: string } }).html ??
           (res as { source?: { html?: string } }).source?.html ??
@@ -83,14 +89,6 @@ export function TemplateEditModal({
 
   async function handleSubmit() {
     setError(null);
-    if (!name.trim()) {
-      setError(t("marketing.email.templates.errNameRequired"));
-      return;
-    }
-    if (!html.trim()) {
-      setError(t("marketing.email.templates.errHtmlRequired"));
-      return;
-    }
     setSubmitting(true);
     try {
       if (template) {
@@ -119,122 +117,91 @@ export function TemplateEditModal({
   }
 
   return (
-    <div
-      className="fixed inset-0 z-40 flex items-center justify-center bg-black/40 p-4"
-      onClick={onClose}
-      role="presentation"
-    >
-      <div
-        className="relative flex max-h-[90vh] w-full max-w-5xl flex-col rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] shadow-xl"
-        onClick={(e) => e.stopPropagation()}
-        role="dialog"
-        aria-modal="true"
-      >
-        {/* Sticky header so close/title are always reachable while
-            scrolling the editor + preview below. */}
-        <header className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl border-b border-[var(--border-subtle)] bg-[var(--surface)] px-6 py-4">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)]">
-            {template
-              ? t("marketing.email.templates.editTitle")
-              : t("marketing.email.templates.createTitle")}
-          </h3>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full px-2 py-1 text-sm text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
-            aria-label={t("marketing.email.audiences.members.close")}
-          >
-            ✕
-          </button>
-        </header>
-
-        <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-6">
-        {error && (
-          <p className="sticky top-2 z-10 rounded-[var(--radius-card)] border border-[var(--signal-red)] bg-[var(--signal-red-soft)] px-3 py-2 text-sm font-medium text-[var(--signal-red)] shadow-sm">
-            ⚠ {error}
-          </p>
-        )}
-
-        <label className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-            {t("marketing.email.templates.fields.name")} <span className="text-[var(--signal-red)]">*</span>
-          </span>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder={t("marketing.email.templates.fields.namePlaceholder")}
-            className={`rounded-[var(--radius-card)] border ${
-              error && !name.trim() ? "border-[var(--signal-red)]" : "border-[var(--border-subtle)]"
-            } bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-primary)]`}
-          />
-        </label>
-
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <div className="flex flex-col gap-1">
-            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.templates.fields.html")}
-            </span>
-            <RichTextEditor
-              value={html}
-              onChange={setHtml}
-              onPickImage={pickImage}
-              placeholder={
-                loadingHtml
-                  ? t("marketing.email.templates.loadingBody")
-                  : "Type your email body here…"
-              }
-              className="flex h-[480px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)]"
-            />
-            <span className="text-xs text-[var(--text-tertiary)]">
-              {t("marketing.email.templates.fields.htmlHint")}
-            </span>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <span className="text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              {t("marketing.email.templates.preview")}
-            </span>
-            <TemplatePreviewFrame html={html} title={`${name || "Template"} preview`} />
-            <span className="text-xs text-[var(--text-tertiary)]">
-              {t("marketing.email.templates.previewHint")}
-            </span>
-          </div>
-        </div>
-
-        </div>
-
-        {/* Sticky footer keeps the Save button always reachable + shows
-            inline error right next to it so the operator never wonders
-            why nothing happened. */}
-        <footer className="sticky bottom-0 z-10 flex flex-wrap items-center justify-end gap-2 rounded-b-3xl border-t border-[var(--border-subtle)] bg-[var(--surface)] px-6 py-3">
-          {error && (
-            <p className="mr-auto text-sm font-medium text-[var(--signal-red)]">
-              ⚠ {error}
-            </p>
-          )}
-          <button
-            type="button"
-            onClick={onClose}
-            disabled={submitting}
-            className="rounded-full px-4 py-2 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
-          >
-            {t("integrations.mailchimp.cancel")}
-          </button>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={submitting || loadingHtml}
-            className="rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white hover:bg-[var(--accent-strong)] disabled:opacity-60"
-          >
-            {submitting
-              ? t("marketing.email.templates.saving")
-              : template
-                ? t("marketing.email.templates.update")
-                : t("marketing.email.templates.create")}
-          </button>
-        </footer>
-      </div>
+    <>
+      <Wizard
+        modalTitle={
+          template ? `✏️ Template'i düzenle — ${template.name}` : "✨ Yeni template oluştur"
+        }
+        modalSubtitle={
+          template
+            ? "İçeriği güncelle, kaydet — sonra kampanyalarda kullanabilirsin"
+            : "2 adımda template hazır — kampanyalarda tekrar tekrar kullanırsın"
+        }
+        onCancel={onClose}
+        onSubmit={handleSubmit}
+        submitting={submitting}
+        error={error}
+        submitLabel={template ? "✓ Değişiklikleri kaydet" : "✓ Template'i oluştur"}
+        submittingLabel="Kaydediliyor…"
+        steps={[
+          {
+            key: "name",
+            title: "Template'e bir ad ver",
+            description:
+              "Kampanya oluştururken bu adı listeden seçeceksin. Kısa ve tanınabilir bir şey seç.",
+            isValid: () => name.trim().length > 0,
+            body: (
+              <WizardField
+                icon="📛"
+                label="Template adı"
+                help="Sadece sen ve takımın görür — abonelere gözükmez."
+                example="Hoşgeldin emaili"
+                required
+              >
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Hoşgeldin emaili"
+                  className={inputClass}
+                  autoFocus
+                />
+              </WizardField>
+            ),
+          },
+          {
+            key: "design",
+            title: "Email içeriği",
+            description:
+              "Visual modunda Word gibi yazarsın, HTML modunda ham kod yapıştırabilirsin. Sağda canlı preview.",
+            isValid: () => html.trim().length > 0,
+            body: (
+              <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm font-medium text-[var(--text-primary)]">
+                    ✏️ Editör
+                  </span>
+                  <span className="text-xs text-[var(--text-secondary)]">
+                    🪄 İçi karışık HTML yapıştırırsan otomatik HTML moduna geçer, hepsi korunur.
+                  </span>
+                  <RichTextEditor
+                    value={html}
+                    onChange={setHtml}
+                    onPickImage={pickImage}
+                    placeholder={
+                      loadingHtml ? "İçerik yükleniyor…" : "Mesajını buraya yaz…"
+                    }
+                    className="flex h-[480px] flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface)]"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm font-medium text-[var(--text-primary)]">
+                    👁️ Canlı preview
+                  </span>
+                  <span className="text-xs text-[var(--text-secondary)]">
+                    Alıcının email programında nasıl görüneceği. Merge tag'ler (*|FNAME|*) gönderim sırasında değiştirilir.
+                  </span>
+                  <TemplatePreviewFrame
+                    html={html}
+                    title={`${name || "Template"} preview`}
+                    className="h-[480px] w-full rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-white"
+                  />
+                </div>
+              </div>
+            ),
+          },
+        ]}
+      />
 
       {imagePicker && (
         <ImagePickerModal
@@ -245,6 +212,6 @@ export function TemplateEditModal({
           }}
         />
       )}
-    </div>
+    </>
   );
 }
