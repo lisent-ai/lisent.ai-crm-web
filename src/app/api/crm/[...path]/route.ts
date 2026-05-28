@@ -154,6 +154,7 @@ function buildForwardHeaders(
   userID: string,
   userName: string | undefined,
   requestID: string,
+  extras?: { companyId?: string; userRole?: string },
 ): Headers {
   const headers = new Headers();
   const contentType = request.headers.get("content-type");
@@ -173,6 +174,16 @@ function buildForwardHeaders(
     // encodeURIComponent unchanged except for spaces ("%20"); the Go
     // service decodes via httputil.ActorUserName.
     headers.set("x-user-name", encodeURIComponent(userName.trim()));
+  }
+  // X-Company-Id + X-User-Role are forwarded only when the route handler
+  // explicitly resolves them (e.g. per-user Mailchimp endpoints scope on
+  // current company, owner-only roster needs role gating server-side).
+  // Sheets/Meta routes don't pass these and continue to work unchanged.
+  if (extras?.companyId?.trim()) {
+    headers.set("x-company-id", extras.companyId.trim());
+  }
+  if (extras?.userRole?.trim()) {
+    headers.set("x-user-role", extras.userRole.trim());
   }
   headers.set(REQUEST_ID_HEADER, requestID);
   return headers;
@@ -227,6 +238,7 @@ async function sendUpstreamRequest(
   config: { baseURL: string; apiKey: string },
   account: AccountProfile,
   pathSegments: string[],
+  extras?: { companyId?: string; userRole?: string },
 ) {
   const upstreamURL = buildUpstreamURL(
     config.baseURL,
@@ -245,6 +257,7 @@ async function sendUpstreamRequest(
       account.userId,
       account.displayName,
       resolveRequestID(request),
+      extras,
     ),
     body,
     cache: "no-store",
@@ -1033,7 +1046,14 @@ async function forwardRequest(
         pathSegments[2] === "meta-connect-nango" ||
         pathSegments[2] === "meta-pages" ||
         pathSegments[2] === "meta-forms" ||
-        pathSegments[2] === "meta-finalize"
+        pathSegments[2] === "meta-finalize" ||
+        // Mailchimp — owner-only roster + force-disconnect for offboarding.
+        // The roster response is metadata only (account_name + last_push_at;
+        // never connection_id) but it still tells the owner who in the
+        // company has connected, which is an integrations.manage signal.
+        // The Go backend re-checks the role via X-User-Role: owner header
+        // (defence in depth).
+        pathSegments[2] === "mailchimp-connections"
       ) {
         allowed = hasCompanyPermissionInAccess(
           account.access,
@@ -1067,11 +1087,24 @@ async function forwardRequest(
         upstreamSegments = rewriteQualifierPath(pathSegments);
       }
 
+      // Mailchimp owner roster + force-disconnect need X-Company-Id +
+      // X-User-Role on the upstream request so the Go handler can apply
+      // its defence-in-depth checks. Other companies/* paths don't forward
+      // those headers, which keeps the Sheets/Meta surface unchanged.
+      const upstreamExtras =
+        pathSegments[2] === "mailchimp-connections"
+          ? {
+              companyId: resourceId,
+              userRole: getCompanyRoleForAccess(account.access, resourceId) ?? "",
+            }
+          : undefined;
+
       const upstreamResponse = await sendUpstreamRequest(
         request,
         config,
         account,
         upstreamSegments,
+        upstreamExtras,
       );
       if (method === "DELETE" && upstreamResponse.ok && pathSegments.length === 2) {
         await removeCompanyFromAllMembers(resourceId);
@@ -1478,6 +1511,45 @@ async function forwardRequest(
     if (authFailure) {
       return authFailure;
     }
+  }
+
+  // Mailchimp per-USER endpoints. Pathing is /users/me/mailchimp-* (the
+  // OAuth lifecycle: -connect-session, -connect-complete, -config,
+  // -disconnect) and /users/me/mailchimp/* (the operational surface:
+  // audiences, campaigns, templates, reports). Both rely on the Go
+  // backend reading X-User-Id (already forwarded) + X-Company-Id (new,
+  // resolved here from the query param).
+  //
+  // Membership-only authz: every operator can manage their OWN Mailchimp
+  // connection regardless of role. integrations.manage on the company
+  // is too strict — the per-user model treats this as a personal channel
+  // the operator brings into their CRM workspace. The OWNER roster lives
+  // at /companies/:id/mailchimp-connections and is gated separately.
+  if (
+    resource === "users" &&
+    pathSegments[1] === "me" &&
+    pathSegments[2] !== undefined &&
+    (pathSegments[2] === "mailchimp" || pathSegments[2].startsWith("mailchimp-"))
+  ) {
+    const requestedCompanyId = request.nextUrl.searchParams.get("company_id")?.trim();
+    if (!requestedCompanyId) {
+      return Response.json(
+        { error: "company_id query parameter required" },
+        { status: 400 },
+      );
+    }
+    if (!canAccessCompanyInAccess(account.access, requestedCompanyId)) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+    const role = getCompanyRoleForAccess(account.access, requestedCompanyId) ?? "";
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      pathSegments,
+      { companyId: requestedCompanyId, userRole: role },
+    );
+    return relayUpstreamResponse(upstreamResponse);
   }
 
   const upstreamResponse = await sendUpstreamRequest(request, config, account, pathSegments);

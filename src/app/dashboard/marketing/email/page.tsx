@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { ComingSoonPanel } from "@/components/dashboard/marketing/coming-soon-panel";
+import { EmailWorkspace } from "@/components/dashboard/marketing/email/email-workspace";
 import { MarketingShell } from "@/components/dashboard/marketing/marketing-shell";
 import { DashboardShell } from "@/components/dashboard/shared/dashboard-shell";
 import { featureFlags } from "@/config/feature-flags";
@@ -21,11 +22,17 @@ export default function MarketingEmailPage() {
   if (!featureFlags.marketingModule) {
     notFound();
   }
+  // Mailchimp flag gates the live workspace; when it is off we fall back
+  // to the original "Coming Soon" placeholder so non-Mailchimp tenants
+  // see a sensible empty state until they enable it per-deploy.
+  const body = featureFlags.mailchimpIntegration ? (
+    <EmailWorkspace />
+  ) : (
+    <ComingSoonPanel slug="email" />
+  );
   return (
     <DashboardShell>
-      <MarketingShell active="email">
-        <ComingSoonPanel slug="email" />
-      </MarketingShell>
+      <MarketingShell active="email">{body}</MarketingShell>
     </DashboardShell>
   );
 }

@@ -14,16 +14,24 @@
   },
   "dependencies": {
     "@nangohq/frontend": "^0.70.1",
+    "@tiptap/extension-image": "^3.23.6",
+    "@tiptap/extension-link": "^3.23.6",
+    "@tiptap/extension-placeholder": "^3.23.6",
+    "@tiptap/react": "^3.23.6",
+    "@tiptap/starter-kit": "^3.23.6",
+    "@types/papaparse": "^5.5.2",
     "lucide-react": "^0.460.0",
     "next": "16.1.6",
     "next-intl": "^4.9.1",
     "nextjs-cors": "^2.2.1",
+    "papaparse": "^5.5.3",
     "pdfmake": "^0.3.7",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "supertokens-auth-react": "^0.51.2",
     "supertokens-node": "^24.0.1",
-    "supertokens-web-js": "^0.16.0"
+    "supertokens-web-js": "^0.16.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -80,6 +80,10 @@ services:
         NEXT_PUBLIC_MARKETING_MODULE_ENABLED: "true"
         NEXT_PUBLIC_META_INTEGRATION_ENABLED: "true"
         NEXT_PUBLIC_META_OAUTH_ENABLED: "${NEXT_PUBLIC_META_OAUTH_ENABLED:-false}"
+        # Mailchimp (per-user). Card + connect modal show up; the actual
+        # OAuth flow only succeeds once the CRM backend has Nango wired
+        # (NANGO_SECRET_KEY + Mailchimp provider config in oauth.lisent.ai).
+        NEXT_PUBLIC_MAILCHIMP_INTEGRATION_ENABLED: "${NEXT_PUBLIC_MAILCHIMP_INTEGRATION_ENABLED:-true}"
         NEXT_PUBLIC_NANGO_HOST: "${NEXT_PUBLIC_NANGO_HOST:-https://oauth.lisent.ai}"
         NEXT_PUBLIC_NANGO_PUBLIC_KEY: "${NEXT_PUBLIC_NANGO_PUBLIC_KEY:-}"
     container_name: lisent-dev-crm-web
