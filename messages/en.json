@@ -1726,6 +1726,30 @@
       }
     },
     "email": {
+      "images": {
+        "body": "Pick an image from your Mailchimp library, upload a new one (max 10MB), or paste a public URL.",
+        "confirmDelete": "Delete this image? Campaigns that reference it will keep working (Mailchimp keeps the file).",
+        "delete": "Delete",
+        "deleteFailed": "Couldn't delete the image.",
+        "empty": "No images uploaded yet. Switch to Upload to add the first one.",
+        "errNoUrl": "Mailchimp accepted the upload but returned no URL.",
+        "errTooLarge": "Mailchimp's max file size is 10MB.",
+        "insertUrl": "Insert URL",
+        "loadFailed": "Failed to load the image library.",
+        "loading": "Loading library…",
+        "modes": {
+          "library": "Library",
+          "upload": "Upload new",
+          "url": "By URL"
+        },
+        "pickFile": "Click to choose an image",
+        "pickHint": "PNG, JPG, GIF, SVG up to 10MB",
+        "title": "Pick or upload an image",
+        "uploadFailed": "Upload failed — see Mailchimp's message.",
+        "uploading": "Uploading…",
+        "urlHint": "Mailchimp may cache the image at its CDN; using its File Manager (Upload tab) is more reliable.",
+        "urlLabel": "Public image URL"
+      },
       "automations": {
         "actionFailed": "Action failed. See Mailchimp's error above.",
         "actions": {

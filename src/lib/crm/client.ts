@@ -4352,3 +4352,66 @@ export async function deleteMailchimpAudienceWebhook(
     { method: "DELETE" },
   );
 }
+
+// ─── Mailchimp File Manager ──────────────────────────────────────────────
+
+export type MailchimpFile = {
+  id: number;
+  name: string;
+  type: string; // image | file
+  size?: number;
+  full_size_url?: string;
+  thumbnail_url?: string;
+  folder_id?: number;
+  created_at?: string;
+  created_by?: string;
+  width?: number;
+  height?: number;
+  [key: string]: unknown;
+};
+
+export type FileListQuery = {
+  count?: number;
+  offset?: number;
+  type?: "image" | "file";
+  sort_field?: "added_date";
+  sort_dir?: "ASC" | "DESC";
+};
+
+export async function listMailchimpFiles(
+  companyId: string,
+  query: FileListQuery = {},
+): Promise<{ files: MailchimpFile[]; total_file_size?: number; total_items: number }> {
+  return requestCRM<{
+    files: MailchimpFile[];
+    total_file_size?: number;
+    total_items: number;
+  }>(appendQuery(withCompany("/users/me/mailchimp/files", companyId), query));
+}
+
+export async function uploadMailchimpFile(
+  companyId: string,
+  payload: { name: string; file_data: string; folder_id?: number },
+): Promise<MailchimpFile> {
+  return requestCRM<MailchimpFile>(
+    withCompany("/users/me/mailchimp/files", companyId),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteMailchimpFile(
+  companyId: string,
+  fileId: number | string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/files/${encodeURIComponent(String(fileId))}`,
+      companyId,
+    ),
+    { method: "DELETE" },
+  );
+}

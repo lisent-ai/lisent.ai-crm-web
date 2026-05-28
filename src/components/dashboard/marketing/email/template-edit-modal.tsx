@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import {
@@ -11,6 +11,7 @@ import {
   type MailchimpTemplate,
 } from "@/lib/crm/client";
 
+import { ImagePickerModal } from "./image-picker-modal";
 import { RichTextEditor } from "./rich-text-editor";
 import { TemplatePreviewFrame } from "./template-preview-frame";
 
@@ -38,6 +39,16 @@ export function TemplateEditModal({
   const [loadingHtml, setLoadingHtml] = useState(template !== null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [imagePicker, setImagePicker] = useState<{
+    resolve: (url: string | null) => void;
+  } | null>(null);
+  const pickImage = useCallback(
+    () =>
+      new Promise<string | null>((resolve) => {
+        setImagePicker({ resolve });
+      }),
+    [],
+  );
 
   useEffect(() => {
     if (!template) return;
@@ -162,6 +173,7 @@ export function TemplateEditModal({
             <RichTextEditor
               value={html}
               onChange={setHtml}
+              onPickImage={pickImage}
               placeholder={
                 loadingHtml
                   ? t("marketing.email.templates.loadingBody")
@@ -208,6 +220,16 @@ export function TemplateEditModal({
           </button>
         </footer>
       </div>
+
+      {imagePicker && (
+        <ImagePickerModal
+          companyId={companyId}
+          onPick={(url) => {
+            imagePicker.resolve(url);
+            setImagePicker(null);
+          }}
+        />
+      )}
     </div>
   );
 }
