@@ -4083,3 +4083,272 @@ export async function getMailchimpCampaignEmailActivity(
     ),
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Mailchimp — advanced surfaces: Segments, audience-level Tags,
+// Automations / Customer Journeys (trigger only), Webhooks. The
+// underlying Go handlers live in internal/mailchimp/advanced_handler.go.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type MailchimpSegment = {
+  id: number;
+  name: string;
+  type: string; // saved | static | fuzzy
+  member_count?: number;
+  created_at?: string;
+  updated_at?: string;
+  options?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type SegmentListQuery = {
+  count?: number;
+  offset?: number;
+  type?: "saved" | "static" | "fuzzy";
+};
+
+export async function listMailchimpSegments(
+  companyId: string,
+  listId: string,
+  query: SegmentListQuery = {},
+): Promise<{ segments: MailchimpSegment[]; total_items: number }> {
+  return requestCRM<{ segments: MailchimpSegment[]; total_items: number }>(
+    appendQuery(
+      withCompany(
+        `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/segments`,
+        companyId,
+      ),
+      query,
+    ),
+  );
+}
+
+export async function getMailchimpSegment(
+  companyId: string,
+  listId: string,
+  segmentId: string | number,
+): Promise<MailchimpSegment> {
+  return requestCRM<MailchimpSegment>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/segments/${encodeURIComponent(String(segmentId))}`,
+      companyId,
+    ),
+  );
+}
+
+export async function createMailchimpSegment(
+  companyId: string,
+  listId: string,
+  payload: { name: string; static_segment?: string[]; options?: Record<string, unknown> },
+): Promise<MailchimpSegment> {
+  return requestCRM<MailchimpSegment>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/segments`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function updateMailchimpSegment(
+  companyId: string,
+  listId: string,
+  segmentId: string | number,
+  payload: Record<string, unknown>,
+): Promise<MailchimpSegment> {
+  return requestCRM<MailchimpSegment>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/segments/${encodeURIComponent(String(segmentId))}`,
+      companyId,
+    ),
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteMailchimpSegment(
+  companyId: string,
+  listId: string,
+  segmentId: string | number,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/segments/${encodeURIComponent(String(segmentId))}`,
+      companyId,
+    ),
+    { method: "DELETE" },
+  );
+}
+
+export async function listMailchimpSegmentMembers(
+  companyId: string,
+  listId: string,
+  segmentId: string | number,
+  query: { count?: number; offset?: number } = {},
+): Promise<{ members: MailchimpMember[]; total_items: number }> {
+  return requestCRM<{ members: MailchimpMember[]; total_items: number }>(
+    appendQuery(
+      withCompany(
+        `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/segments/${encodeURIComponent(String(segmentId))}/members`,
+        companyId,
+      ),
+      query,
+    ),
+  );
+}
+
+// ── Audience-level Tag inventory ───────────────────────────────────────
+
+export type MailchimpAudienceTag = {
+  id: number;
+  name: string;
+  member_count?: number;
+  [key: string]: unknown;
+};
+
+export async function listMailchimpAudienceTags(
+  companyId: string,
+  listId: string,
+  query: { name?: string } = {},
+): Promise<{ tags: MailchimpAudienceTag[]; total_items: number }> {
+  return requestCRM<{ tags: MailchimpAudienceTag[]; total_items: number }>(
+    appendQuery(
+      withCompany(
+        `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/tags`,
+        companyId,
+      ),
+      query,
+    ),
+  );
+}
+
+// ── Automations / Customer Journeys ────────────────────────────────────
+
+export type MailchimpAutomation = {
+  id: string;
+  status: string; // save | paused | sending | sent
+  emails_sent?: number;
+  start_time?: string;
+  recipients?: { list_id?: string; list_name?: string };
+  settings?: { title?: string; from_name?: string; reply_to?: string };
+  [key: string]: unknown;
+};
+
+export async function listMailchimpAutomations(
+  companyId: string,
+): Promise<{ automations: MailchimpAutomation[]; total_items: number }> {
+  return requestCRM<{ automations: MailchimpAutomation[]; total_items: number }>(
+    withCompany(`/users/me/mailchimp/automations`, companyId),
+  );
+}
+
+export async function getMailchimpAutomation(
+  companyId: string,
+  workflowId: string,
+): Promise<MailchimpAutomation> {
+  return requestCRM<MailchimpAutomation>(
+    withCompany(
+      `/users/me/mailchimp/automations/${encodeURIComponent(workflowId)}`,
+      companyId,
+    ),
+  );
+}
+
+export async function pauseAllMailchimpAutomation(
+  companyId: string,
+  workflowId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/automations/${encodeURIComponent(workflowId)}/pause-all`,
+      companyId,
+    ),
+    { method: "POST" },
+  );
+}
+
+export async function startAllMailchimpAutomation(
+  companyId: string,
+  workflowId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/automations/${encodeURIComponent(workflowId)}/start-all`,
+      companyId,
+    ),
+    { method: "POST" },
+  );
+}
+
+// ── Webhooks (per audience) ────────────────────────────────────────────
+
+export type MailchimpWebhook = {
+  id: string;
+  url: string;
+  events?: Record<string, boolean>;
+  sources?: Record<string, boolean>;
+  list_id?: string;
+  [key: string]: unknown;
+};
+
+export async function listMailchimpAudienceWebhooks(
+  companyId: string,
+  listId: string,
+): Promise<{ webhooks: MailchimpWebhook[]; total_items: number }> {
+  return requestCRM<{ webhooks: MailchimpWebhook[]; total_items: number }>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/webhooks`,
+      companyId,
+    ),
+  );
+}
+
+export async function createMailchimpAudienceWebhook(
+  companyId: string,
+  listId: string,
+  payload: {
+    url: string;
+    events?: Partial<{
+      subscribe: boolean;
+      unsubscribe: boolean;
+      profile: boolean;
+      cleaned: boolean;
+      upemail: boolean;
+      campaign: boolean;
+    }>;
+    sources?: Partial<{ user: boolean; admin: boolean; api: boolean }>;
+  },
+): Promise<MailchimpWebhook> {
+  return requestCRM<MailchimpWebhook>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/webhooks`,
+      companyId,
+    ),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteMailchimpAudienceWebhook(
+  companyId: string,
+  listId: string,
+  webhookId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    withCompany(
+      `/users/me/mailchimp/audiences/${encodeURIComponent(listId)}/webhooks/${encodeURIComponent(webhookId)}`,
+      companyId,
+    ),
+    { method: "DELETE" },
+  );
+}

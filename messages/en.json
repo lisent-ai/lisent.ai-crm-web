@@ -1726,6 +1726,41 @@
       }
     },
     "email": {
+      "segments": {
+        "col": {
+          "members": "Members",
+          "name": "Name",
+          "type": "Type",
+          "updated": "Updated"
+        },
+        "confirmDelete": "Delete this segment? Members stay in the audience; only the segment is removed.",
+        "count": "{count} segment(s)",
+        "create": "Create",
+        "createBody": "Static segments are a hand-picked list of email addresses. For condition-based (saved) segments use Mailchimp's UI — they'll appear here on refresh.",
+        "createFailed": "Couldn't create the segment.",
+        "createTitle": "New static segment",
+        "creating": "Creating…",
+        "delete": "Delete",
+        "deleteFailed": "Couldn't delete the segment.",
+        "empty": "No segments yet. Static segments are hand-picked lists; saved segments are condition-based filters.",
+        "errNameRequired": "Segment needs a name.",
+        "fields": {
+          "emails": "Member emails",
+          "emailsHint": "One per line, or comma-separated. Only existing audience members are added.",
+          "name": "Segment name"
+        },
+        "loadFailed": "Failed to load segments.",
+        "loading": "Loading segments…",
+        "newStatic": "New static segment"
+      },
+      "tags": {
+        "empty": "No tags in this audience yet. Add tags to members via 'Add member' or CSV upload.",
+        "emptySearch": "No tags match \"{query}\".",
+        "hint": "Tags are created the moment they're applied to a member (Add member, CSV upload, or push from CRM).",
+        "loadFailed": "Failed to load tags.",
+        "loading": "Loading tags…",
+        "searchPlaceholder": "Search tag name…"
+      },
       "templates": {
         "actions": {
           "delete": "Delete",
@@ -1798,8 +1833,22 @@
           "delete": "Delete",
           "pause": "Pause",
           "resume": "Resume",
+          "schedule": "Schedule",
           "send": "Send",
-          "test": "Send test"
+          "test": "Send test",
+          "unschedule": "Unschedule"
+        },
+        "schedule": {
+          "confirm": "Schedule send",
+          "confirmUnschedule": "Cancel the schedule? The campaign returns to draft so you can re-author it.",
+          "errTimeRequired": "Pick a send time.",
+          "failed": "Couldn't schedule the campaign — see Mailchimp's message.",
+          "hint": "Mailchimp rounds to the nearest 15 minutes. Free plans require ≥30 min lead time.",
+          "scheduling": "Scheduling…",
+          "sendAt": "Send at (your local time)",
+          "timewarp": "Send at recipient's local time (Timewarp)",
+          "timewarpHint": "Mailchimp delivers each subscriber's copy when it's the chosen time in their own timezone.",
+          "title": "Schedule campaign"
         },
         "audiencesEmpty": "No audiences yet — create one first.",
         "col": {
@@ -1860,6 +1909,11 @@
         "title": "Campaigns"
       },
       "audiences": {
+        "subtabs": {
+          "members": "Members",
+          "segments": "Segments",
+          "tags": "Tags"
+        },
         "actions": {
           "addMember": "Add member",
           "addMemberHint": "Add one subscriber manually with email + name + tags",

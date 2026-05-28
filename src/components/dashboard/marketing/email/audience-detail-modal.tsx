@@ -13,6 +13,8 @@ import {
 import { AudienceAddMemberModal } from "./audience-add-member-modal";
 import { AudienceCSVUploadModal } from "./audience-csv-upload-modal";
 import { AudiencePushFromCRMDialog } from "./audience-push-from-crm-dialog";
+import { AudienceSegmentList } from "./audience-segment-list";
+import { AudienceTagsList } from "./audience-tags-list";
 
 type AudienceDetailModalProps = {
   companyId: string;
@@ -32,6 +34,7 @@ export function AudienceDetailModal({
   onClose,
 }: Readonly<AudienceDetailModalProps>) {
   const t = useTranslations();
+  const [tab, setTab] = useState<"members" | "segments" | "tags">("members");
   const [page, setPage] = useState(0);
   const [items, setItems] = useState<MailchimpMember[]>([]);
   const [total, setTotal] = useState(0);
@@ -48,6 +51,10 @@ export function AudienceDetailModal({
   }, []);
 
   useEffect(() => {
+    // Only fetch members when the Members tab is active. Switching to
+    // Segments/Tags doesn't refetch members — those sub-views have
+    // their own effects.
+    if (tab !== "members") return undefined;
     // Initial loading=true comes from useState; on page change the
     // prev/next handlers below flip it back to true via setLoading
     // synchronously (allowed inside event handlers, just not inside
@@ -78,7 +85,7 @@ export function AudienceDetailModal({
       cancelled = true;
     };
     // refreshTick re-fires the fetch after add / CSV / push completes.
-  }, [audience.id, companyId, page, refreshTick, t]);
+  }, [audience.id, companyId, page, refreshTick, tab, t]);
 
   const goToPage = (next: number) => {
     setLoading(true);
@@ -138,91 +145,133 @@ export function AudienceDetailModal({
           />
         </div>
 
+        <nav className="scrollbar-thin -mb-px flex items-center gap-1 overflow-x-auto border-b border-[var(--border-subtle)]">
+          {(["members", "segments", "tags"] as const).map((key) => {
+            const active = tab === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setTab(key)}
+                className={`relative inline-flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-sm transition ${
+                  active
+                    ? "font-semibold text-[var(--text-primary)]"
+                    : "font-medium text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                }`}
+              >
+                {t(`marketing.email.audiences.subtabs.${key}` as never)}
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-2 bottom-0 h-[2px] rounded-full bg-[var(--text-primary)]"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
         {error && (
           <p className="rounded-[var(--radius-card)] border border-[var(--signal-red)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--signal-red)]">
             {error}
           </p>
         )}
 
-        <div className="max-h-[60vh] overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border-subtle)]">
-          <table className="w-full text-sm">
-            <thead className="sticky top-0 bg-[var(--surface-subtle)] text-left text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
-              <tr>
-                <th className="px-4 py-2 font-medium">
-                  {t("marketing.email.audiences.members.col.email")}
-                </th>
-                <th className="px-4 py-2 font-medium">
-                  {t("marketing.email.audiences.members.col.status")}
-                </th>
-                <th className="px-4 py-2 font-medium">
-                  {t("marketing.email.audiences.members.col.lastChanged")}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading && (
-                <tr>
-                  <td colSpan={3} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
-                    {t("marketing.email.audiences.members.loading")}
-                  </td>
-                </tr>
-              )}
-              {!loading && items.length === 0 && (
-                <tr>
-                  <td colSpan={3} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
-                    {t("marketing.email.audiences.members.empty")}
-                  </td>
-                </tr>
-              )}
-              {!loading &&
-                items.map((m) => (
-                  <tr
-                    key={m.id || m.email_address}
-                    className="border-t border-[var(--border-subtle)]"
-                  >
-                    <td className="px-4 py-2 text-[var(--text-primary)]">
-                      {m.email_address}
-                    </td>
-                    <td className="px-4 py-2 text-[var(--text-secondary)]">
-                      <StatusBadge status={m.status} />
-                    </td>
-                    <td className="px-4 py-2 text-[var(--text-secondary)]">
-                      {m.last_changed
-                        ? new Date(m.last_changed).toLocaleString()
-                        : "—"}
-                    </td>
+        {tab === "members" && (
+          <>
+            <div className="max-h-[55vh] overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border-subtle)]">
+              <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-[var(--surface-subtle)] text-left text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
+                  <tr>
+                    <th className="px-4 py-2 font-medium">
+                      {t("marketing.email.audiences.members.col.email")}
+                    </th>
+                    <th className="px-4 py-2 font-medium">
+                      {t("marketing.email.audiences.members.col.status")}
+                    </th>
+                    <th className="px-4 py-2 font-medium">
+                      {t("marketing.email.audiences.members.col.lastChanged")}
+                    </th>
                   </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+                <tbody>
+                  {loading && (
+                    <tr>
+                      <td colSpan={3} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
+                        {t("marketing.email.audiences.members.loading")}
+                      </td>
+                    </tr>
+                  )}
+                  {!loading && items.length === 0 && (
+                    <tr>
+                      <td colSpan={3} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
+                        {t("marketing.email.audiences.members.empty")}
+                      </td>
+                    </tr>
+                  )}
+                  {!loading &&
+                    items.map((m) => (
+                      <tr
+                        key={m.id || m.email_address}
+                        className="border-t border-[var(--border-subtle)]"
+                      >
+                        <td className="px-4 py-2 text-[var(--text-primary)]">
+                          {m.email_address}
+                        </td>
+                        <td className="px-4 py-2 text-[var(--text-secondary)]">
+                          <StatusBadge status={m.status} />
+                        </td>
+                        <td className="px-4 py-2 text-[var(--text-secondary)]">
+                          {m.last_changed
+                            ? new Date(m.last_changed).toLocaleString()
+                            : "—"}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
 
-        <footer className="flex items-center justify-between text-xs text-[var(--text-tertiary)]">
-          <span>
-            {t("marketing.email.audiences.members.page", {
-              current: page + 1,
-              total: totalPages,
-            })}
-          </span>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              disabled={page === 0}
-              onClick={() => goToPage(Math.max(0, page - 1))}
-              className="rounded-full border border-[var(--border-subtle)] px-3 py-1 disabled:opacity-50"
-            >
-              {t("marketing.email.audiences.members.prev")}
-            </button>
-            <button
-              type="button"
-              disabled={page + 1 >= totalPages}
-              onClick={() => goToPage(page + 1)}
-              className="rounded-full border border-[var(--border-subtle)] px-3 py-1 disabled:opacity-50"
-            >
-              {t("marketing.email.audiences.members.next")}
-            </button>
+            <footer className="flex items-center justify-between text-xs text-[var(--text-tertiary)]">
+              <span>
+                {t("marketing.email.audiences.members.page", {
+                  current: page + 1,
+                  total: totalPages,
+                })}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  disabled={page === 0}
+                  onClick={() => goToPage(Math.max(0, page - 1))}
+                  className="rounded-full border border-[var(--border-subtle)] px-3 py-1 disabled:opacity-50"
+                >
+                  {t("marketing.email.audiences.members.prev")}
+                </button>
+                <button
+                  type="button"
+                  disabled={page + 1 >= totalPages}
+                  onClick={() => goToPage(page + 1)}
+                  className="rounded-full border border-[var(--border-subtle)] px-3 py-1 disabled:opacity-50"
+                >
+                  {t("marketing.email.audiences.members.next")}
+                </button>
+              </div>
+            </footer>
+          </>
+        )}
+
+        {tab === "segments" && (
+          <div className="max-h-[55vh] overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border-subtle)] p-3">
+            <AudienceSegmentList companyId={companyId} listId={audience.id} />
           </div>
-        </footer>
+        )}
+
+        {tab === "tags" && (
+          <div className="max-h-[55vh] overflow-y-auto rounded-[var(--radius-card)] border border-[var(--border-subtle)] p-3">
+            <AudienceTagsList companyId={companyId} listId={audience.id} />
+          </div>
+        )}
       </div>
 
       {showAdd && (

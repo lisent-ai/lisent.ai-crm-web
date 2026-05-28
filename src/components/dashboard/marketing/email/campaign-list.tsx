@@ -10,10 +10,12 @@ import {
   pauseMailchimpCampaign,
   resumeMailchimpCampaign,
   sendMailchimpCampaign,
+  unscheduleMailchimpCampaign,
   type MailchimpCampaign,
 } from "@/lib/crm/client";
 
 import { CampaignCreateModal } from "./campaign-create-modal";
+import { CampaignScheduleDialog } from "./campaign-schedule-dialog";
 import { CampaignSendTestDialog } from "./campaign-send-test-dialog";
 
 type CampaignListProps = {
@@ -45,6 +47,7 @@ export function CampaignList({ companyId }: Readonly<CampaignListProps>) {
   const [actionError, setActionError] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [testTarget, setTestTarget] = useState<MailchimpCampaign | null>(null);
+  const [scheduleTarget, setScheduleTarget] = useState<MailchimpCampaign | null>(null);
   const [refreshTick, setRefreshTick] = useState(0);
 
   useEffect(() => {
@@ -149,6 +152,24 @@ export function CampaignList({ companyId }: Readonly<CampaignListProps>) {
     [companyId, refresh, t],
   );
 
+  const handleUnschedule = useCallback(
+    async (campaign: MailchimpCampaign) => {
+      if (!window.confirm(t("marketing.email.campaigns.schedule.confirmUnschedule")))
+        return;
+      try {
+        await unscheduleMailchimpCampaign(companyId, campaign.id);
+        refresh();
+      } catch (err) {
+        setActionError(
+          err instanceof CRMClientError
+            ? err.message
+            : t("marketing.email.campaigns.actionFailed"),
+        );
+      }
+    },
+    [companyId, refresh, t],
+  );
+
   const startPageChange = (next: number) => {
     setLoading(true);
     setPage(next);
@@ -228,6 +249,8 @@ export function CampaignList({ companyId }: Readonly<CampaignListProps>) {
                   campaign={c}
                   onSend={() => handleSend(c)}
                   onSendTest={() => setTestTarget(c)}
+                  onSchedule={() => setScheduleTarget(c)}
+                  onUnschedule={() => handleUnschedule(c)}
                   onDelete={() => handleDelete(c)}
                   onPauseResume={() => handlePauseOrResume(c)}
                 />
@@ -279,6 +302,18 @@ export function CampaignList({ companyId }: Readonly<CampaignListProps>) {
           onClose={() => setTestTarget(null)}
         />
       )}
+
+      {scheduleTarget && (
+        <CampaignScheduleDialog
+          companyId={companyId}
+          campaign={scheduleTarget}
+          onClose={() => setScheduleTarget(null)}
+          onScheduled={() => {
+            setScheduleTarget(null);
+            refresh();
+          }}
+        />
+      )}
     </>
   );
 }
@@ -287,12 +322,16 @@ function CampaignRow({
   campaign,
   onSend,
   onSendTest,
+  onSchedule,
+  onUnschedule,
   onDelete,
   onPauseResume,
 }: Readonly<{
   campaign: MailchimpCampaign;
   onSend: () => void;
   onSendTest: () => void;
+  onSchedule: () => void;
+  onUnschedule: () => void;
   onDelete: () => void;
   onPauseResume: () => void;
 }>) {
@@ -303,6 +342,7 @@ function CampaignRow({
     ? new Date(campaign.create_time).toLocaleDateString()
     : "—";
   const isDraft = campaign.status === "save";
+  const isScheduled = campaign.status === "schedule";
   const isSent = campaign.status === "sent";
   const isSending = campaign.status === "sending";
   const isPaused = campaign.status === "paused";
@@ -326,6 +366,24 @@ function CampaignRow({
               className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold text-white hover:bg-[var(--accent-strong)]"
             >
               {t("marketing.email.campaigns.actions.send")}
+            </button>
+          )}
+          {isDraft && (
+            <button
+              type="button"
+              onClick={onSchedule}
+              className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface)]"
+            >
+              {t("marketing.email.campaigns.actions.schedule")}
+            </button>
+          )}
+          {isScheduled && (
+            <button
+              type="button"
+              onClick={onUnschedule}
+              className="rounded-full border border-[var(--signal-amber)] px-3 py-1 text-xs font-medium text-[var(--signal-amber)] hover:bg-[var(--signal-amber-soft)]"
+            >
+              {t("marketing.email.campaigns.actions.unschedule")}
             </button>
           )}
           <button
