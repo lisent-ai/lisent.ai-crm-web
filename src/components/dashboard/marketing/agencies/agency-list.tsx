@@ -12,6 +12,7 @@ import {
 
 import { AgencyCreateModal } from "./agency-create-modal";
 import { AgencyImportModal } from "./agency-import-modal";
+import { AgencyPushDialog } from "./agency-push-dialog";
 
 // AgencyList — the directory view. Filters (status, search) live in
 // local state because the URL already carries ?company=…; layering
@@ -26,6 +27,8 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
   const [actionError, setActionError] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [showImport, setShowImport] = useState(false);
+  const [showPush, setShowPush] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState<Agency | null>(null);
   const [statusFilter, setStatusFilter] = useState<AgencyStatus | "">("");
   const [searchInput, setSearchInput] = useState("");
@@ -143,6 +146,19 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
             </button>
             <button
               type="button"
+              disabled={selectedIds.size === 0}
+              onClick={() => setShowPush(true)}
+              className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] disabled:opacity-40"
+              title={
+                selectedIds.size === 0
+                  ? "Select rows first by ticking the checkbox column."
+                  : `Push the ${selectedIds.size} selected agencies to a Mailchimp audience.`
+              }
+            >
+              Push to Mailchimp ({selectedIds.size})
+            </button>
+            <button
+              type="button"
               onClick={() => setShowCreate(true)}
               className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
             >
@@ -163,6 +179,26 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
         <table className="w-full text-sm">
           <thead className="bg-[var(--surface-subtle)] text-left text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
             <tr>
+              <th className="px-4 py-2">
+                <input
+                  type="checkbox"
+                  aria-label="Select all"
+                  checked={items.length > 0 && selectedIds.size === items.length}
+                  ref={(el) => {
+                    if (el) {
+                      el.indeterminate =
+                        selectedIds.size > 0 && selectedIds.size < items.length;
+                    }
+                  }}
+                  onChange={(e) => {
+                    setSelectedIds(
+                      e.target.checked
+                        ? new Set(items.map((a) => a.id))
+                        : new Set(),
+                    );
+                  }}
+                />
+              </th>
               <th className="px-6 py-2 font-medium">Name</th>
               <th className="px-6 py-2 font-medium">Contact</th>
               <th className="px-6 py-2 font-medium">Email / Phone</th>
@@ -175,14 +211,14 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
           <tbody>
             {loading && (
               <tr>
-                <td colSpan={7} className="px-6 py-6 text-center text-[var(--text-tertiary)]">
+                <td colSpan={8} className="px-6 py-6 text-center text-[var(--text-tertiary)]">
                   Loading agencies…
                 </td>
               </tr>
             )}
             {!loading && items.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-6 py-6 text-center text-[var(--text-tertiary)]">
+                <td colSpan={8} className="px-6 py-6 text-center text-[var(--text-tertiary)]">
                   No agencies yet. Add one or import a spreadsheet.
                 </td>
               </tr>
@@ -192,6 +228,15 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                 <AgencyRow
                   key={row.id}
                   row={row}
+                  selected={selectedIds.has(row.id)}
+                  onToggleSelect={() => {
+                    setSelectedIds((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(row.id)) next.delete(row.id);
+                      else next.add(row.id);
+                      return next;
+                    });
+                  }}
                   onEdit={() => setEditing(row)}
                   onDelete={() => handleDelete(row)}
                 />
@@ -231,18 +276,47 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
           onImported={() => refresh()}
         />
       )}
+      {showPush && (
+        <AgencyPushDialog
+          companyId={companyId}
+          selected={items.filter((a) => selectedIds.has(a.id))}
+          onClose={() => setShowPush(false)}
+          onPushed={() => {
+            // Keep the dialog open so the operator can read the
+            // per-row result; selection stays as-is so they can retry
+            // a subset if they need to. The list itself doesn't need
+            // a refresh because the push doesn't mutate agency rows.
+          }}
+        />
+      )}
     </>
   );
 }
 
 function AgencyRow({
   row,
+  selected,
+  onToggleSelect,
   onEdit,
   onDelete,
-}: Readonly<{ row: Agency; onEdit: () => void; onDelete: () => void }>) {
+}: Readonly<{
+  row: Agency;
+  selected: boolean;
+  onToggleSelect: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+}>) {
   const window = formatWindow(row.starts_at, row.ends_at);
   return (
     <tr className="border-t border-[var(--border-subtle)] hover:bg-[var(--surface-subtle)]">
+      <td className="px-4 py-3">
+        <input
+          type="checkbox"
+          checked={selected}
+          onChange={onToggleSelect}
+          aria-label={`Select ${row.name}`}
+        />
+      </td>
       <td className="px-6 py-3">
         <div className="font-medium text-[var(--text-primary)]">{row.name}</div>
         {row.notes && (
