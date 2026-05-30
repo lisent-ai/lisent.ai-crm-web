@@ -41,8 +41,18 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
   const [searchQuery, setSearchQuery] = useState("");
   const [bulkDeleting, setBulkDeleting] = useState(false);
   const [refreshTick, setRefreshTick] = useState(0);
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(25);
+  const [total, setTotal] = useState(0);
 
   const refresh = useCallback(() => setRefreshTick((n) => n + 1), []);
+
+  // Reset to the first page whenever a filter or page size changes —
+  // landing on a page that no longer has rows is the most common
+  // pagination footgun.
+  useEffect(() => {
+    setPage(0);
+  }, [statusFilter, searchQuery, pageSize]);
 
   useEffect(() => {
     let cancelled = false;
@@ -50,11 +60,13 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     listAgencies(companyId, {
       status: statusFilter || undefined,
       q: searchQuery || undefined,
-      limit: 500,
+      limit: pageSize,
+      offset: page * pageSize,
     })
       .then((res) => {
         if (cancelled) return;
         setItems(res.items ?? []);
+        setTotal(res.total ?? 0);
         setError(null);
       })
       .catch((err) => {
@@ -73,7 +85,9 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     return () => {
       cancelled = true;
     };
-  }, [companyId, statusFilter, searchQuery, refreshTick]);
+  }, [companyId, statusFilter, searchQuery, refreshTick, page, pageSize]);
+
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   const handleDelete = useCallback(
     async (agency: Agency) => {
@@ -156,7 +170,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
         {/* Row 1 — title + always-visible actions */}
         <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-subtle)] px-6 py-3">
           <h3 className="text-base font-semibold text-[var(--text-primary)]">
-            Agencies · {items.length}
+            Agencies · {total}
           </h3>
           <div className="flex flex-wrap items-center gap-2">
             <button
@@ -340,6 +354,19 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination — only render when there's more than one page so
+            the resting view stays clean for short lists. */}
+        {total > pageSize && (
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            total={total}
+            pageSize={pageSize}
+            onPage={setPage}
+            onPageSize={setPageSize}
+          />
+        )}
       </article>
 
       {showCreate && (
@@ -471,6 +498,109 @@ function AgencyRow({
         </div>
       </td>
     </tr>
+  );
+}
+
+function Pagination({
+  page,
+  totalPages,
+  total,
+  pageSize,
+  onPage,
+  onPageSize,
+}: Readonly<{
+  page: number;
+  totalPages: number;
+  total: number;
+  pageSize: number;
+  onPage: (n: number) => void;
+  onPageSize: (n: number) => void;
+}>) {
+  // Compact page-number strip: always show first, last, current ±1,
+  // and ellipses for the gaps. For ≤7 pages we just show them all —
+  // simpler and avoids ellipsis flicker as the operator pages around.
+  const pages: (number | "...")[] = [];
+  if (totalPages <= 7) {
+    for (let i = 0; i < totalPages; i++) pages.push(i);
+  } else {
+    pages.push(0);
+    if (page > 2) pages.push("...");
+    for (let i = Math.max(1, page - 1); i <= Math.min(totalPages - 2, page + 1); i++) {
+      pages.push(i);
+    }
+    if (page < totalPages - 3) pages.push("...");
+    pages.push(totalPages - 1);
+  }
+
+  const from = page * pageSize + 1;
+  const to = Math.min(total, (page + 1) * pageSize);
+
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border-subtle)] px-6 py-3 text-xs text-[var(--text-secondary)]">
+      <div className="flex items-center gap-2">
+        <span>
+          {from}–{to} of {total}
+        </span>
+        <label className="flex items-center gap-1">
+          <span className="text-[var(--text-tertiary)]">Per page</span>
+          <select
+            value={pageSize}
+            onChange={(e) => onPageSize(Number(e.target.value))}
+            className="rounded border border-[var(--border-subtle)] bg-[var(--surface)] px-1 py-0.5"
+          >
+            <option value={10}>10</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </select>
+        </label>
+      </div>
+      <nav className="flex items-center gap-1" aria-label="Pagination">
+        <button
+          type="button"
+          disabled={page === 0}
+          onClick={() => onPage(page - 1)}
+          className="rounded-full border border-[var(--border-subtle)] px-2 py-1 disabled:opacity-40"
+          aria-label="Previous page"
+        >
+          ‹
+        </button>
+        {pages.map((p, i) =>
+          p === "..." ? (
+            <span
+              key={`gap-${i}`}
+              className="px-2 text-[var(--text-tertiary)]"
+              aria-hidden
+            >
+              …
+            </span>
+          ) : (
+            <button
+              key={p}
+              type="button"
+              onClick={() => onPage(p)}
+              aria-current={p === page ? "page" : undefined}
+              className={`min-w-[28px] rounded-full px-2 py-1 ${
+                p === page
+                  ? "bg-[var(--accent)] font-semibold text-white"
+                  : "border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
+              }`}
+            >
+              {p + 1}
+            </button>
+          ),
+        )}
+        <button
+          type="button"
+          disabled={page >= totalPages - 1}
+          onClick={() => onPage(page + 1)}
+          className="rounded-full border border-[var(--border-subtle)] px-2 py-1 disabled:opacity-40"
+          aria-label="Next page"
+        >
+          ›
+        </button>
+      </nav>
+    </div>
   );
 }
 
