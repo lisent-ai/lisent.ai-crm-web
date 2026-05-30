@@ -40,6 +40,11 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [bulkDeleting, setBulkDeleting] = useState(false);
+  // selectAllMatching = "the operator wants every row matching the
+  // current filter selected, not just this page". We don't materialise
+  // 5000 IDs into selectedIds — the bulk-delete path expands the flag
+  // back into IDs lazily by paginating through listAgencies.
+  const [selectAllMatching, setSelectAllMatching] = useState(false);
   const [refreshTick, setRefreshTick] = useState(0);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(25);
@@ -52,6 +57,11 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
   // pagination footgun.
   useEffect(() => {
     setPage(0);
+    // Filter change invalidates a "select all matching" intent — the
+    // matching set just changed under the operator. Drop both flags
+    // so they re-tick deliberately.
+    setSelectAllMatching(false);
+    setSelectedIds(new Set());
   }, [statusFilter, searchQuery, pageSize]);
 
   useEffect(() => {
@@ -115,23 +125,62 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     [companyId, refresh],
   );
 
+  // resolveTargetIds expands the selection into a concrete ID list.
+  // In page-mode we already have the IDs in selectedIds. In
+  // "all matching" mode we walk listAgencies in 500-row chunks (the
+  // backend's hard cap) and concatenate — typical case is one round
+  // trip, only thousand-row companies pay for more.
+  async function resolveTargetIds(): Promise<string[]> {
+    if (!selectAllMatching) return Array.from(selectedIds);
+    const out: string[] = [];
+    const chunk = 500;
+    for (let offset = 0; offset < total; offset += chunk) {
+      const res = await listAgencies(companyId, {
+        status: statusFilter || undefined,
+        q: searchQuery || undefined,
+        limit: chunk,
+        offset,
+      });
+      for (const a of res.items ?? []) out.push(a.id);
+      if ((res.items ?? []).length < chunk) break;
+    }
+    return out;
+  }
+
   // Bulk delete runs sequentially: a parallel Promise.all would still
   // be capped by the browser's per-origin connection limit (~6) and a
   // failure halfway through would leave the operator without a clean
   // "which ones failed" report. Sequential gives us a deterministic
   // per-id error trail and keeps the backend's audit log readable.
   async function handleBulkDelete() {
-    const ids = Array.from(selectedIds);
-    if (ids.length === 0) return;
+    setBulkDeleting(true);
+    setActionError(null);
+    let ids: string[];
+    try {
+      ids = await resolveTargetIds();
+    } catch (err) {
+      setBulkDeleting(false);
+      setActionError(
+        err instanceof CRMClientError
+          ? err.message
+          : err instanceof Error
+            ? err.message
+            : "Failed to resolve target rows.",
+      );
+      return;
+    }
+    if (ids.length === 0) {
+      setBulkDeleting(false);
+      return;
+    }
     if (
       !window.confirm(
         `Delete ${ids.length} ${ids.length === 1 ? "agency" : "agencies"}?\n\nThis cannot be undone.`,
       )
     ) {
+      setBulkDeleting(false);
       return;
     }
-    setBulkDeleting(true);
-    setActionError(null);
     const failed: string[] = [];
     for (const id of ids) {
       try {
@@ -149,6 +198,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     }
     setBulkDeleting(false);
     setSelectedIds(new Set());
+    setSelectAllMatching(false);
     if (failed.length > 0) {
       setActionError(
         `${failed.length} of ${ids.length} could not be deleted:\n${failed.slice(0, 5).join("\n")}${failed.length > 5 ? `\n…and ${failed.length - 5} more` : ""}`,
@@ -162,7 +212,13 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     setSearchQuery(searchInput.trim());
   }
 
-  const selectedCount = selectedIds.size;
+  // Effective count: "all matching" mode reports the filter total even
+  // before we've materialised IDs (we materialise lazily on action).
+  const effectiveSelectedCount = selectAllMatching ? total : selectedIds.size;
+  const pageFullySelected =
+    items.length > 0 && items.every((a) => selectedIds.has(a.id));
+  const showSelectAllMatchingBanner =
+    !selectAllMatching && pageFullySelected && total > items.length;
 
   return (
     <>
@@ -242,35 +298,82 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
         </div>
 
         {/* Row 3 — selection bar (mounts only when there's a selection) */}
-        {selectedCount > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-subtle)] bg-[var(--surface-subtle)] px-6 py-2">
-            <span className="text-xs font-medium text-[var(--text-secondary)]">
-              {selectedCount} selected
-            </span>
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setShowPush(true)}
-                className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
-              >
-                Push to Mailchimp
-              </button>
-              <button
-                type="button"
-                disabled={bulkDeleting}
-                onClick={handleBulkDelete}
-                className="rounded-full border border-[var(--signal-red)] bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--signal-red)] hover:bg-[var(--signal-red-soft)] disabled:opacity-50"
-              >
-                {bulkDeleting ? "Deleting…" : `Delete ${selectedCount}`}
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedIds(new Set())}
-                className="text-xs text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] underline"
-              >
-                Clear
-              </button>
+        {effectiveSelectedCount > 0 && (
+          <div className="flex flex-col gap-1 border-b border-[var(--border-subtle)] bg-[var(--surface-subtle)] px-6 py-2">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-xs font-medium text-[var(--text-secondary)]">
+                {selectAllMatching
+                  ? `All ${total} matching the current filter selected`
+                  : `${selectedIds.size} selected on this page`}
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  disabled={selectAllMatching}
+                  onClick={() => setShowPush(true)}
+                  className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] disabled:opacity-50"
+                  title={
+                    selectAllMatching
+                      ? "Pick rows on this page to push (cross-page push isn't supported)."
+                      : ""
+                  }
+                >
+                  Push to Mailchimp
+                </button>
+                <button
+                  type="button"
+                  disabled={bulkDeleting}
+                  onClick={handleBulkDelete}
+                  className="rounded-full border border-[var(--signal-red)] bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--signal-red)] hover:bg-[var(--signal-red-soft)] disabled:opacity-50"
+                >
+                  {bulkDeleting
+                    ? "Deleting…"
+                    : `Delete ${effectiveSelectedCount}`}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedIds(new Set());
+                    setSelectAllMatching(false);
+                  }}
+                  className="text-xs text-[var(--text-tertiary)] underline hover:text-[var(--text-secondary)]"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
+
+            {/* The "extend selection across pages" banner mirrors the
+                Gmail / Notion pattern: tick the page-header checkbox
+                first, then click here to widen the intent to every
+                row matching the current filter. */}
+            {showSelectAllMatchingBanner && (
+              <div className="text-xs text-[var(--text-secondary)]">
+                All {items.length} on this page are selected.{" "}
+                <button
+                  type="button"
+                  onClick={() => setSelectAllMatching(true)}
+                  className="font-semibold text-[var(--accent)] underline"
+                >
+                  Select all {total} matching the current filter
+                </button>
+              </div>
+            )}
+            {selectAllMatching && (
+              <div className="text-xs text-[var(--text-secondary)]">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectAllMatching(false);
+                    // Drop back to "this page only" so the operator
+                    // doesn't lose the on-page ticks they had before.
+                  }}
+                  className="font-semibold text-[var(--accent)] underline"
+                >
+                  Just select this page ({items.length})
+                </button>
+              </div>
+            )}
           </div>
         )}
 
@@ -292,15 +395,21 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                 <th className="w-10 px-4 py-2">
                   <input
                     type="checkbox"
-                    aria-label="Select all"
-                    checked={items.length > 0 && selectedIds.size === items.length}
+                    aria-label="Select all on this page"
+                    checked={
+                      selectAllMatching ||
+                      (items.length > 0 && selectedIds.size === items.length)
+                    }
                     ref={(el) => {
                       if (el) {
                         el.indeterminate =
-                          selectedIds.size > 0 && selectedIds.size < items.length;
+                          !selectAllMatching &&
+                          selectedIds.size > 0 &&
+                          selectedIds.size < items.length;
                       }
                     }}
                     onChange={(e) => {
+                      setSelectAllMatching(false);
                       setSelectedIds(
                         e.target.checked
                           ? new Set(items.map((a) => a.id))
@@ -338,8 +447,18 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                   <AgencyRow
                     key={row.id}
                     row={row}
-                    selected={selectedIds.has(row.id)}
+                    selected={selectAllMatching || selectedIds.has(row.id)}
                     onToggleSelect={() => {
+                      // Any per-row tick collapses "all matching" mode
+                      // back to a page-mode selection so the operator
+                      // can hand-curate from a checked-all state.
+                      if (selectAllMatching) {
+                        setSelectAllMatching(false);
+                        const next = new Set(items.map((a) => a.id));
+                        next.delete(row.id);
+                        setSelectedIds(next);
+                        return;
+                      }
                       setSelectedIds((prev) => {
                         const next = new Set(prev);
                         if (next.has(row.id)) next.delete(row.id);
