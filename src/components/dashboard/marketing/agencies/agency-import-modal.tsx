@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Papa from "papaparse";
 import * as XLSX from "xlsx";
+import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -48,7 +49,10 @@ async function parseSpreadsheet(file: File): Promise<Record<string, string>[]> {
 
 // Header guesses cover the common shapes operators paste — English +
 // Turkish — so the column mapping is right by default for typical
-// spreadsheets. Mapping can still be overridden field by field.
+// spreadsheets. Operators in any other language can still override
+// each mapping field by field. These strings are deliberately NOT
+// translated: they're matched against raw column headers, not shown
+// in the UI.
 const HEADER_GUESSES: Record<string, string[]> = {
   name: ["name", "agency", "agency name", "company", "ad", "acente", "acente adı"],
   contact: ["contact", "contact person", "contact name", "yetkili", "yetkili kişi"],
@@ -106,6 +110,7 @@ export function AgencyImportModal({
   onClose,
   onImported,
 }: Readonly<AgencyImportModalProps>) {
+  const t = useTranslations();
   const [rows, setRows] = useState<Record<string, string>[]>([]);
   const [headers, setHeaders] = useState<string[]>([]);
   const [nameCol, setNameCol] = useState("");
@@ -124,7 +129,7 @@ export function AgencyImportModal({
 
   function applyParsed(data: Record<string, string>[]) {
     if (data.length === 0) {
-      setError("The file looks empty.");
+      setError(t("marketing.agencies.import.empty"));
       return;
     }
     const cols = Object.keys(data[0]);
@@ -151,7 +156,9 @@ export function AgencyImportModal({
         applyParsed(data.filter((r) => Object.keys(r).length > 0));
       } catch (err) {
         setError(
-          `Could not parse the file: ${err instanceof Error ? err.message : String(err)}`,
+          `${t("marketing.agencies.import.errorPrefix")}: ${
+            err instanceof Error ? err.message : String(err)
+          }`,
         );
       }
       return;
@@ -162,7 +169,8 @@ export function AgencyImportModal({
         const data = (res.data ?? []).filter((r) => Object.keys(r).length > 0);
         applyParsed(data);
       },
-      error: (err) => setError(`Could not parse the file: ${err.message}`),
+      error: (err) =>
+        setError(`${t("marketing.agencies.import.errorPrefix")}: ${err.message}`),
     });
   }
 
@@ -181,7 +189,7 @@ export function AgencyImportModal({
     setError(null);
     setResult(null);
     if (!nameCol) {
-      setError("Pick a column for the agency name first.");
+      setError(t("marketing.agencies.import.needName"));
       return;
     }
     const payload: AgencyImportRow[] = [];
@@ -209,7 +217,7 @@ export function AgencyImportModal({
       });
     }
     if (payload.length === 0) {
-      setError("No rows have a non-empty name.");
+      setError(t("marketing.agencies.import.noValid"));
       return;
     }
     setSubmitting(true);
@@ -223,7 +231,7 @@ export function AgencyImportModal({
           ? err.message
           : err instanceof Error
             ? err.message
-            : "The import failed.",
+            : t("marketing.agencies.import.failed"),
       );
     } finally {
       setSubmitting(false);
@@ -236,11 +244,10 @@ export function AgencyImportModal({
         <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-5 py-3">
           <div>
             <h3 className="text-base font-semibold text-[var(--text-primary)]">
-              Import agencies from a spreadsheet
+              {t("marketing.agencies.import.title")}
             </h3>
             <p className="text-xs text-[var(--text-secondary)]">
-              Accepts CSV, Excel (xlsx / xls / xlsm / xlsb) and OpenDocument
-              (ods / fods). Name is the only required column.
+              {t("marketing.agencies.import.accepts")}
             </p>
           </div>
           <button
@@ -248,16 +255,18 @@ export function AgencyImportModal({
             onClick={onClose}
             className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
           >
-            Close
+            {t("marketing.agencies.import.close")}
           </button>
         </header>
 
         <div className="flex flex-col gap-4 overflow-y-auto px-5 py-4">
           {rows.length === 0 ? (
             <label className="flex flex-col items-center justify-center gap-2 rounded-[var(--radius-card)] border border-dashed border-[var(--border-subtle)] bg-[var(--surface-subtle)] p-10 text-sm text-[var(--text-secondary)]">
-              <span className="font-medium">Pick a spreadsheet</span>
+              <span className="font-medium">
+                {t("marketing.agencies.import.pickLabel")}
+              </span>
               <span className="text-xs text-[var(--text-tertiary)]">
-                Click to choose. We&apos;ll read the first sheet only.
+                {t("marketing.agencies.import.pickHint")}
               </span>
               <input
                 type="file"
@@ -272,24 +281,70 @@ export function AgencyImportModal({
           ) : (
             <>
               <div className="text-xs text-[var(--text-tertiary)]">
-                Loaded {rows.length} row{rows.length === 1 ? "" : "s"} with{" "}
-                {headers.length} column{headers.length === 1 ? "" : "s"}.
-                Map each CRM field to the spreadsheet column it should come
-                from.
+                {t("marketing.agencies.import.loaded", {
+                  rowCount: rows.length,
+                  colCount: headers.length,
+                })}
               </div>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <Mapping label="Name (required)" value={nameCol} onChange={setNameCol} headers={headers} required />
-                <Mapping label="Contact person" value={contactCol} onChange={setContactCol} headers={headers} />
-                <Mapping label="Phone" value={phoneCol} onChange={setPhoneCol} headers={headers} />
-                <Mapping label="Email" value={emailCol} onChange={setEmailCol} headers={headers} />
-                <Mapping label="Notes" value={notesCol} onChange={setNotesCol} headers={headers} />
-                <Mapping label="Starts at (YYYY-MM-DD)" value={startsCol} onChange={setStartsCol} headers={headers} />
-                <Mapping label="Ends at (YYYY-MM-DD)" value={endsCol} onChange={setEndsCol} headers={headers} />
-                <Mapping label="Status column" value={statusCol} onChange={setStatusCol} headers={headers} />
-                <Mapping label="Tags (comma / semicolon separated)" value={tagsCol} onChange={setTagsCol} headers={headers} />
+                <Mapping
+                  label={t("marketing.agencies.import.label.name")}
+                  value={nameCol}
+                  onChange={setNameCol}
+                  headers={headers}
+                  required
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.contact")}
+                  value={contactCol}
+                  onChange={setContactCol}
+                  headers={headers}
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.phone")}
+                  value={phoneCol}
+                  onChange={setPhoneCol}
+                  headers={headers}
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.email")}
+                  value={emailCol}
+                  onChange={setEmailCol}
+                  headers={headers}
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.notes")}
+                  value={notesCol}
+                  onChange={setNotesCol}
+                  headers={headers}
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.starts")}
+                  value={startsCol}
+                  onChange={setStartsCol}
+                  headers={headers}
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.ends")}
+                  value={endsCol}
+                  onChange={setEndsCol}
+                  headers={headers}
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.status")}
+                  value={statusCol}
+                  onChange={setStatusCol}
+                  headers={headers}
+                />
+                <Mapping
+                  label={t("marketing.agencies.import.label.tags")}
+                  value={tagsCol}
+                  onChange={setTagsCol}
+                  headers={headers}
+                />
                 <label className="flex flex-col gap-1 text-sm">
                   <span className="font-medium text-[var(--text-primary)]">
-                    Default status (for rows without one)
+                    {t("marketing.agencies.import.defaultStatus")}
                   </span>
                   <select
                     value={statusDefault}
@@ -298,30 +353,49 @@ export function AgencyImportModal({
                     }
                     className={inputClass}
                   >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="expired">Expired</option>
+                    <option value="active">
+                      {t("marketing.agencies.filter.statusActive")}
+                    </option>
+                    <option value="inactive">
+                      {t("marketing.agencies.filter.statusInactive")}
+                    </option>
+                    <option value="expired">
+                      {t("marketing.agencies.filter.statusExpired")}
+                    </option>
                   </select>
                 </label>
               </div>
               {result && (
                 <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] px-3 py-2 text-sm">
                   <div className="font-medium text-[var(--text-primary)]">
-                    Import complete
+                    {t("marketing.agencies.import.complete")}
                   </div>
                   <div className="text-xs text-[var(--text-secondary)]">
-                    Created {result.created} of {result.total} rows.{" "}
+                    {t("marketing.agencies.import.completeSummary", {
+                      created: result.created,
+                      total: result.total,
+                    })}{" "}
                     {result.errors.length > 0 && (
-                      <>{result.errors.length} rows had errors:</>
+                      <>
+                        {t("marketing.agencies.import.errorsHeader", {
+                          count: result.errors.length,
+                        })}
+                      </>
                     )}
                   </div>
                   {result.errors.length > 0 && (
                     <ul className="mt-1 max-h-32 overflow-auto text-xs text-[var(--signal-red)]">
                       {result.errors.slice(0, 25).map((e) => (
-                        <li key={e.index}>Row {e.index + 1}: {e.error}</li>
+                        <li key={e.index}>
+                          Row {e.index + 1}: {e.error}
+                        </li>
                       ))}
                       {result.errors.length > 25 && (
-                        <li>… {result.errors.length - 25} more</li>
+                        <li>
+                          {t("marketing.agencies.import.errorsMore", {
+                            count: result.errors.length - 25,
+                          })}
+                        </li>
                       )}
                     </ul>
                   )}
@@ -348,7 +422,7 @@ export function AgencyImportModal({
                 }}
                 className="rounded-full border border-[var(--border-subtle)] px-3 py-1.5 text-sm text-[var(--text-secondary)]"
               >
-                Pick a different file
+                {t("marketing.agencies.import.pickAnother")}
               </button>
             )}
             {result ? (
@@ -357,7 +431,7 @@ export function AgencyImportModal({
                 onClick={onClose}
                 className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
               >
-                Done
+                {t("marketing.agencies.import.done")}
               </button>
             ) : (
               <button
@@ -366,7 +440,9 @@ export function AgencyImportModal({
                 onClick={handleImport}
                 className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)] disabled:opacity-50"
               >
-                {submitting ? "Importing…" : "Import"}
+                {submitting
+                  ? t("marketing.agencies.import.importing")
+                  : t("marketing.agencies.import.importBtn")}
               </button>
             )}
           </div>
@@ -389,18 +465,21 @@ function Mapping({
   headers: string[];
   required?: boolean;
 }>) {
+  const t = useTranslations();
   return (
     <label className="flex flex-col gap-1 text-sm">
       <span className="font-medium text-[var(--text-primary)]">
         {label}
-        {required ? <span className="ml-1 text-[var(--signal-red)]">*</span> : null}
+        {required ? (
+          <span className="ml-1 text-[var(--signal-red)]">*</span>
+        ) : null}
       </span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={inputClass}
       >
-        <option value="">— (not used) —</option>
+        <option value="">{t("marketing.agencies.import.notUsed")}</option>
         {headers.map((h) => (
           <option key={h} value={h}>
             {h}

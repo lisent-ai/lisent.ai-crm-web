@@ -1680,6 +1680,200 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Import spreadsheet",
+        "newAgency": "New agency",
+        "refresh": "Refresh"
+      },
+      "createModal": {
+        "editTitle": "Edit {name}",
+        "newSubtitle": "Step through the fields — one or two per screen.",
+        "newTitle": "Add a new agency",
+        "saveChanges": "Save changes",
+        "saveError": "Failed to save the agency.",
+        "saving": "Saving…",
+        "submit": "Create agency"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "The person you usually talk to at the agency.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "Optional — fills LNAME when this agency is pushed to a Mailchimp audience.",
+          "fieldLabel": "Contact name",
+          "title": "Primary contact"
+        },
+        "name": {
+          "description": "The display name your team will recognise.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Shown on the directory list and in any campaign mail merge.",
+          "fieldLabel": "Name",
+          "title": "Agency name"
+        },
+        "notes": {
+          "description": "Anything else worth remembering about this agency.",
+          "fieldHelp": "Free text — not pushed to Mailchimp, only visible inside the CRM.",
+          "fieldLabel": "Notes",
+          "fieldPlaceholder": "Renewal in March. Prefers WhatsApp for quick updates.",
+          "title": "Notes"
+        },
+        "reach": {
+          "description": "Email is required if you want to push this row to Mailchimp later.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Used as the Mailchimp unique key when you push.",
+          "emailLabel": "Email",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Free-form — include country code if you have it.",
+          "phoneLabel": "Phone",
+          "title": "How to reach them"
+        },
+        "status": {
+          "description": "Active = currently engaged. Inactive = paused. Expired = past contract end.",
+          "fieldHelp": "You can change this any time — used for filtering the directory.",
+          "fieldLabel": "Status",
+          "title": "Status"
+        },
+        "tags": {
+          "description": "Tags carry through to Mailchimp if you push this agency later.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Separate with commas or semicolons. Created on first push.",
+          "fieldLabel": "Tags",
+          "title": "Tags"
+        },
+        "window": {
+          "description": "Both ends are optional — leave a side empty for perpetual or open-ended.",
+          "endsHelp": "When the relationship ends.",
+          "endsLabel": "Ends on",
+          "startsHelp": "When the relationship begins.",
+          "startsLabel": "Starts on",
+          "title": "Contract window"
+        }
+      },
+      "deleteConfirm": "Delete {name}?\n\nThis removes the agency from the CRM. It does not touch any Mailchimp subscriber created from this row.",
+      "deleteError": "Failed to delete the agency.",
+      "empty": "No agencies yet. Add one or import a spreadsheet.",
+      "filter": {
+        "apply": "Apply",
+        "clear": "Clear filters",
+        "searchPlaceholder": "Search name, contact, email",
+        "statusAll": "All statuses",
+        "statusActive": "Active",
+        "statusInactive": "Inactive",
+        "statusExpired": "Expired"
+      },
+      "import": {
+        "accepts": "Accepts CSV, Excel (xlsx / xls / xlsm / xlsb) and OpenDocument (ods / fods). Name is the only required column.",
+        "close": "Close",
+        "complete": "Import complete",
+        "completeSummary": "Created {created} of {total} rows.",
+        "defaultStatus": "Default status (for rows without one)",
+        "done": "Done",
+        "empty": "The file looks empty.",
+        "errorPrefix": "Could not parse the file",
+        "errorsHeader": "{count} rows had errors:",
+        "errorsMore": "… {count} more",
+        "failed": "The import failed.",
+        "importBtn": "Import",
+        "importing": "Importing…",
+        "label": {
+          "contact": "Contact person",
+          "email": "Email",
+          "ends": "Ends at (YYYY-MM-DD)",
+          "name": "Name (required)",
+          "notes": "Notes",
+          "phone": "Phone",
+          "starts": "Starts at (YYYY-MM-DD)",
+          "status": "Status column",
+          "tags": "Tags (comma / semicolon separated)"
+        },
+        "loaded": "Loaded {rowCount, plural, one {# row} other {# rows}} with {colCount, plural, one {# column} other {# columns}}. Map each CRM field to the spreadsheet column it should come from.",
+        "needName": "Pick a column for the agency name first.",
+        "noValid": "No rows have a non-empty name.",
+        "notUsed": "— (not used) —",
+        "pickAnother": "Pick a different file",
+        "pickHint": "Click to choose. We'll read the first sheet only.",
+        "pickLabel": "Pick a spreadsheet",
+        "subtitle": "Accepts CSV, Excel and OpenDocument spreadsheets.",
+        "title": "Import agencies from a spreadsheet"
+      },
+      "list": {
+        "agencies": "Agencies",
+        "loading": "Loading agencies…"
+      },
+      "loadError": "Failed to load agencies.",
+      "noCompany": "Pick a company from the dashboard to manage its agencies.",
+      "page": {
+        "next": "Next page",
+        "perPage": "Per page",
+        "prev": "Previous page",
+        "range": "{from}–{to} of {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Close",
+        "defaultStatus": "Default status for new subscribers",
+        "disabledHint": "Pick rows on this page to push (cross-page push isn't supported).",
+        "done": "Done",
+        "extraTagsHelp": "Added to every pushed subscriber on top of each agency's own tags. Comma or semicolon separated.",
+        "extraTagsLabel": "Extra tags",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "The push failed.",
+        "loading": "Loading…",
+        "loadAudiencesFailed": "Failed to load Mailchimp audiences.",
+        "mailchimpAudience": "Mailchimp audience",
+        "noAudiences": "— No audiences yet —",
+        "noEmail": "None of the selected agencies has an email address.",
+        "notConnected": "Mailchimp isn't connected yet for this account. Connect under Marketing → Email → Settings, then come back.",
+        "patchExisting": "Patch existing subscribers (recommended). Re-running this push updates merge fields instead of erroring on duplicates.",
+        "pickAudience": "Pick an audience first.",
+        "pushBtn": "Push to Mailchimp",
+        "pushing": "Pushing…",
+        "result": {
+          "header": "Push complete",
+          "summary": "{created} created · {updated} updated · {skipped} skipped · {errors} errors."
+        },
+        "skippedNotice": "{count} of the selected {count, plural, one {agency has} other {agencies have}} no email and will be skipped.",
+        "statusPending": "Pending (double opt-in)",
+        "statusSubscribed": "Subscribed",
+        "statusUnsubscribed": "Unsubscribed",
+        "subtitle": "Each agency becomes a Mailchimp subscriber. Name maps to FNAME, contact to LNAME, phone to PHONE. The tag {tag} is added automatically.",
+        "summary": "{eligible} of {total} will be pushed.",
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
+      },
+      "row": {
+        "actions": {
+          "delete": "Delete",
+          "edit": "Edit"
+        },
+        "ariaSelect": "Select {name}",
+        "fromDate": "From {date}",
+        "untilDate": "Until {date}"
+      },
+      "select": {
+        "allMatchingSelected": "All {total} matching the current filter selected",
+        "ariaAll": "Select all on this page",
+        "bulkDelete": "Delete {count}",
+        "bulkDeleting": "Deleting…",
+        "clear": "Clear",
+        "confirmDelete": "Delete {count, plural, one {# agency} other {# agencies}}?\n\nThis cannot be undone.",
+        "deleteFailed": "{failed} of {total} could not be deleted:\n{detail}",
+        "deleteFailedMore": "…and {count} more",
+        "justThisPage": "Just select this page ({count})",
+        "pageFullySelected": "All {count} on this page are selected.",
+        "pageSelectedCount": "{count} selected on this page",
+        "selectAllMatching": "Select all {total} matching the current filter"
+      },
+      "table": {
+        "actions": "Actions",
+        "contact": "Contact",
+        "emailPhone": "Email / Phone",
+        "name": "Name",
+        "status": "Status",
+        "tags": "Tags",
+        "window": "Window"
+      },
+      "title": "Agencies · {total}"
+    },
     "authBody": "Sign-in, sign-up, and session validation via <code>/api/auth</code>",
     "authTitle": "Auth",
     "bffBody": "Browser calls should stop at this app. Trusted server routes will talk to the internal CRM service.",
@@ -2585,6 +2779,25 @@
       "title": "Change role",
       "to": "to",
       "updating": "Updating..."
+    },
+    "moduleAccess": {
+      "discard": "Discard",
+      "empty": "No team members to manage — owners always have full access.",
+      "granted": "Granted",
+      "loadError": "Failed to load access grants.",
+      "loading": "Loading…",
+      "module": {
+        "marketingAgencies": "Marketing · Agencies"
+      },
+      "noAccess": "No access",
+      "role": "Role",
+      "save": "Save changes",
+      "saveError": "Failed to save changes.",
+      "saving": "Saving…",
+      "subtitle": "Owners always see every module. Use the toggles to grant each team member access to a specific module.",
+      "teamMember": "Team member",
+      "title": "Module access",
+      "unsaved": " · unsaved"
     },
     "section": {
       "admins": "Admins",

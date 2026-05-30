@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -25,15 +26,15 @@ const inputClass =
 
 // AgencyCreateModal — wizard for adding (or editing) one agency.
 // Same atomic-step pattern as the audience add-member wizard: 1-2
-// fields per step, helper text per field, no emojis, English only
-// (the Tolgee + DeepL pipeline handles the other 14 languages at
-// build time, so the UI strings stay in one file).
+// fields per step, helper text per field, no emojis. Source strings
+// live in EN; Tolgee + Groq fan them out to the 14 other languages.
 export function AgencyCreateModal({
   companyId,
   initialAgency,
   onClose,
   onSaved,
 }: Readonly<AgencyCreateModalProps>) {
+  const t = useTranslations();
   const isEdit = Boolean(initialAgency);
   const [name, setName] = useState(initialAgency?.name ?? "");
   const [contactPerson, setContactPerson] = useState(
@@ -88,7 +89,7 @@ export function AgencyCreateModal({
           ? err.message
           : err instanceof Error
             ? err.message
-            : "Failed to save the agency.",
+            : t("marketing.agencies.createModal.saveError"),
       );
     } finally {
       setSubmitting(false);
@@ -97,32 +98,44 @@ export function AgencyCreateModal({
 
   return (
     <Wizard
-      modalTitle={isEdit ? `Edit ${initialAgency?.name}` : "Add a new agency"}
-      modalSubtitle="Step through the fields — one or two per screen."
+      modalTitle={
+        isEdit
+          ? t("marketing.agencies.createModal.editTitle", {
+              name: initialAgency?.name ?? "",
+            })
+          : t("marketing.agencies.createModal.newTitle")
+      }
+      modalSubtitle={t("marketing.agencies.createModal.newSubtitle")}
       onCancel={onClose}
       onSubmit={handleSubmit}
       submitting={submitting}
       error={error}
-      submitLabel={isEdit ? "Save changes" : "Create agency"}
-      submittingLabel="Saving…"
+      submitLabel={
+        isEdit
+          ? t("marketing.agencies.createModal.saveChanges")
+          : t("marketing.agencies.createModal.submit")
+      }
+      submittingLabel={t("marketing.agencies.createModal.saving")}
       steps={[
         {
           key: "name",
-          title: "Agency name",
-          description: "The display name your team will recognise.",
+          title: t("marketing.agencies.createWizard.name.title"),
+          description: t("marketing.agencies.createWizard.name.description"),
           isValid: () => name.trim().length > 0,
           body: (
             <WizardField
-              label="Name"
-              help="Shown on the directory list and in any campaign mail merge."
-              example="Acme Travel Ltd."
+              label={t("marketing.agencies.createWizard.name.fieldLabel")}
+              help={t("marketing.agencies.createWizard.name.fieldHelp")}
+              example={t("marketing.agencies.createWizard.name.fieldExample")}
               required
             >
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Acme Travel Ltd."
+                placeholder={t(
+                  "marketing.agencies.createWizard.name.fieldExample",
+                )}
                 className={inputClass}
                 autoFocus
               />
@@ -131,21 +144,25 @@ export function AgencyCreateModal({
         },
         {
           key: "contact",
-          title: "Primary contact",
-          description: "The person you usually talk to at the agency.",
+          title: t("marketing.agencies.createWizard.contact.title"),
+          description: t("marketing.agencies.createWizard.contact.description"),
           isValid: () => true,
           alwaysComplete: true,
           body: (
             <WizardField
-              label="Contact name"
-              help="Optional — fills LNAME when this agency is pushed to a Mailchimp audience."
-              example="Jane Doe"
+              label={t("marketing.agencies.createWizard.contact.fieldLabel")}
+              help={t("marketing.agencies.createWizard.contact.fieldHelp")}
+              example={t(
+                "marketing.agencies.createWizard.contact.fieldExample",
+              )}
             >
               <input
                 type="text"
                 value={contactPerson}
                 onChange={(e) => setContactPerson(e.target.value)}
-                placeholder="Jane Doe"
+                placeholder={t(
+                  "marketing.agencies.createWizard.contact.fieldExample",
+                )}
                 className={inputClass}
                 autoFocus
               />
@@ -154,37 +171,44 @@ export function AgencyCreateModal({
         },
         {
           key: "reach",
-          title: "How to reach them",
-          description:
-            "Email is required if you want to push this row to Mailchimp later.",
+          title: t("marketing.agencies.createWizard.reach.title"),
+          description: t("marketing.agencies.createWizard.reach.description"),
           isValid: () => true,
           alwaysComplete: true,
           body: (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <WizardField
-                label="Email"
-                help="Used as the Mailchimp unique key when you push."
-                example="jane@acme.example"
+                label={t("marketing.agencies.createWizard.reach.emailLabel")}
+                help={t("marketing.agencies.createWizard.reach.emailHelp")}
+                example={t(
+                  "marketing.agencies.createWizard.reach.emailExample",
+                )}
               >
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="jane@acme.example"
+                  placeholder={t(
+                    "marketing.agencies.createWizard.reach.emailExample",
+                  )}
                   className={inputClass}
                   autoFocus
                 />
               </WizardField>
               <WizardField
-                label="Phone"
-                help="Free-form — include country code if you have it."
-                example="+90 555 000 00 00"
+                label={t("marketing.agencies.createWizard.reach.phoneLabel")}
+                help={t("marketing.agencies.createWizard.reach.phoneHelp")}
+                example={t(
+                  "marketing.agencies.createWizard.reach.phoneExample",
+                )}
               >
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+90 555 000 00 00"
+                  placeholder={t(
+                    "marketing.agencies.createWizard.reach.phoneExample",
+                  )}
                   className={inputClass}
                 />
               </WizardField>
@@ -193,9 +217,8 @@ export function AgencyCreateModal({
         },
         {
           key: "window",
-          title: "Contract window",
-          description:
-            "Both ends are optional — leave a side empty for perpetual or open-ended.",
+          title: t("marketing.agencies.createWizard.window.title"),
+          description: t("marketing.agencies.createWizard.window.description"),
           isValid: () => {
             if (startsAt && endsAt) return endsAt >= startsAt;
             return true;
@@ -204,8 +227,8 @@ export function AgencyCreateModal({
           body: (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <WizardField
-                label="Starts on"
-                help="When the relationship begins."
+                label={t("marketing.agencies.createWizard.window.startsLabel")}
+                help={t("marketing.agencies.createWizard.window.startsHelp")}
               >
                 <input
                   type="date"
@@ -215,7 +238,10 @@ export function AgencyCreateModal({
                   autoFocus
                 />
               </WizardField>
-              <WizardField label="Ends on" help="When the relationship ends.">
+              <WizardField
+                label={t("marketing.agencies.createWizard.window.endsLabel")}
+                help={t("marketing.agencies.createWizard.window.endsHelp")}
+              >
                 <input
                   type="date"
                   value={endsAt}
@@ -228,14 +254,13 @@ export function AgencyCreateModal({
         },
         {
           key: "status",
-          title: "Status",
-          description:
-            "Active = currently engaged. Inactive = paused. Expired = past contract end.",
+          title: t("marketing.agencies.createWizard.status.title"),
+          description: t("marketing.agencies.createWizard.status.description"),
           isValid: () => true,
           body: (
             <WizardField
-              label="Status"
-              help="You can change this any time — used for filtering the directory."
+              label={t("marketing.agencies.createWizard.status.fieldLabel")}
+              help={t("marketing.agencies.createWizard.status.fieldHelp")}
             >
               <select
                 value={status}
@@ -243,31 +268,38 @@ export function AgencyCreateModal({
                 className={inputClass}
                 autoFocus
               >
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-                <option value="expired">Expired</option>
+                <option value="active">
+                  {t("marketing.agencies.filter.statusActive")}
+                </option>
+                <option value="inactive">
+                  {t("marketing.agencies.filter.statusInactive")}
+                </option>
+                <option value="expired">
+                  {t("marketing.agencies.filter.statusExpired")}
+                </option>
               </select>
             </WizardField>
           ),
         },
         {
           key: "tags",
-          title: "Tags",
-          description:
-            "Tags carry through to Mailchimp if you push this agency later.",
+          title: t("marketing.agencies.createWizard.tags.title"),
+          description: t("marketing.agencies.createWizard.tags.description"),
           isValid: () => true,
           alwaysComplete: true,
           body: (
             <WizardField
-              label="Tags"
-              help="Separate with commas or semicolons. Created on first push."
-              example="vip, summer-2026, eu"
+              label={t("marketing.agencies.createWizard.tags.fieldLabel")}
+              help={t("marketing.agencies.createWizard.tags.fieldHelp")}
+              example={t("marketing.agencies.createWizard.tags.fieldExample")}
             >
               <input
                 type="text"
                 value={tagsRaw}
                 onChange={(e) => setTagsRaw(e.target.value)}
-                placeholder="vip, summer-2026, eu"
+                placeholder={t(
+                  "marketing.agencies.createWizard.tags.fieldExample",
+                )}
                 className={inputClass}
                 autoFocus
               />
@@ -276,20 +308,22 @@ export function AgencyCreateModal({
         },
         {
           key: "notes",
-          title: "Notes",
-          description: "Anything else worth remembering about this agency.",
+          title: t("marketing.agencies.createWizard.notes.title"),
+          description: t("marketing.agencies.createWizard.notes.description"),
           isValid: () => true,
           alwaysComplete: true,
           body: (
             <WizardField
-              label="Notes"
-              help="Free text — not pushed to Mailchimp, only visible inside the CRM."
+              label={t("marketing.agencies.createWizard.notes.fieldLabel")}
+              help={t("marketing.agencies.createWizard.notes.fieldHelp")}
             >
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={5}
-                placeholder="Renewal in March. Prefers WhatsApp for quick updates."
+                placeholder={t(
+                  "marketing.agencies.createWizard.notes.fieldPlaceholder",
+                )}
                 className={inputClass}
                 autoFocus
               />

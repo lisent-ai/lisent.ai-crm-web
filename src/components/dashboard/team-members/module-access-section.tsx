@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -16,13 +17,13 @@ type ModuleAccessSectionProps = {
   members: CompanyMember[];
 };
 
-// Module display names for the header strip. Adding a new module means
-// (a) registering it on the backend's IsKnownModule switch, (b) the API
-// will surface it in known_modules, and (c) appending a row here so the
-// label shows up in the header. The backend allow-list is the source of
-// truth — this map only adds a friendly label.
-const MODULE_LABELS: Record<ModuleKey, string> = {
-  "marketing.agencies": "Marketing · Agencies",
+// Module → i18n label key. Adding a new module means (a) registering
+// it on the backend's IsKnownModule switch, (b) the API surfaces it in
+// known_modules, and (c) appending a row here so the label shows up
+// in the header. The backend allow-list is the source of truth; this
+// map only translates the friendly column header.
+const MODULE_LABEL_KEYS: Record<ModuleKey, string> = {
+  "marketing.agencies": "teamMembers.moduleAccess.module.marketingAgencies",
 };
 
 // ModuleAccessSection — owner-only matrix that toggles per-user-per-
@@ -38,6 +39,7 @@ export function ModuleAccessSection({
   companyId,
   members,
 }: Readonly<ModuleAccessSectionProps>) {
+  const t = useTranslations();
   const [knownModules, setKnownModules] = useState<ModuleKey[]>([]);
   const [grants, setGrants] = useState<ModuleAccessGrant[]>([]);
   // local edits: key = `${user_id}|${module_key}` → boolean
@@ -64,7 +66,7 @@ export function ModuleAccessSection({
             ? err.message
             : err instanceof Error
               ? err.message
-              : "Failed to load access grants.",
+              : t("teamMembers.moduleAccess.loadError"),
         );
       })
       .finally(() => {
@@ -73,7 +75,7 @@ export function ModuleAccessSection({
     return () => {
       cancelled = true;
     };
-  }, [companyId]);
+  }, [companyId, t]);
 
   useEffect(() => reload(), [reload]);
 
@@ -129,7 +131,7 @@ export function ModuleAccessSection({
           ? err.message
           : err instanceof Error
             ? err.message
-            : "Failed to save changes.",
+            : t("teamMembers.moduleAccess.saveError"),
       );
     } finally {
       setSaving(false);
@@ -141,11 +143,10 @@ export function ModuleAccessSection({
       <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-6 py-3">
         <div>
           <h3 className="text-base font-semibold text-[var(--text-primary)]">
-            Module access
+            {t("teamMembers.moduleAccess.title")}
           </h3>
           <p className="text-xs text-[var(--text-secondary)]">
-            Owners always see every module. Use the toggles to grant each
-            team member access to a specific module.
+            {t("teamMembers.moduleAccess.subtitle")}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -155,7 +156,7 @@ export function ModuleAccessSection({
               onClick={() => setEdits({})}
               className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
             >
-              Discard
+              {t("teamMembers.moduleAccess.discard")}
             </button>
           )}
           <button
@@ -164,7 +165,9 @@ export function ModuleAccessSection({
             onClick={handleSave}
             className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold text-white hover:bg-[var(--accent-strong)] disabled:opacity-50"
           >
-            {saving ? "Saving…" : "Save changes"}
+            {saving
+              ? t("teamMembers.moduleAccess.saving")
+              : t("teamMembers.moduleAccess.save")}
           </button>
         </div>
       </header>
@@ -177,11 +180,15 @@ export function ModuleAccessSection({
         <table className="w-full text-sm">
           <thead className="bg-[var(--surface-subtle)] text-left text-xs uppercase tracking-wide text-[var(--text-tertiary)]">
             <tr>
-              <th className="px-6 py-2 font-medium">Team member</th>
-              <th className="px-6 py-2 font-medium">Role</th>
+              <th className="px-6 py-2 font-medium">
+                {t("teamMembers.moduleAccess.teamMember")}
+              </th>
+              <th className="px-6 py-2 font-medium">
+                {t("teamMembers.moduleAccess.role")}
+              </th>
               {knownModules.map((m) => (
                 <th key={m} className="px-6 py-2 font-medium">
-                  {MODULE_LABELS[m] ?? m}
+                  {t(MODULE_LABEL_KEYS[m] as never) ?? m}
                 </th>
               ))}
             </tr>
@@ -193,7 +200,7 @@ export function ModuleAccessSection({
                   colSpan={2 + knownModules.length}
                   className="px-6 py-6 text-center text-[var(--text-tertiary)]"
                 >
-                  Loading…
+                  {t("teamMembers.moduleAccess.loading")}
                 </td>
               </tr>
             )}
@@ -203,8 +210,7 @@ export function ModuleAccessSection({
                   colSpan={2 + knownModules.length}
                   className="px-6 py-6 text-center text-[var(--text-tertiary)]"
                 >
-                  No team members to manage — owners always have full
-                  access.
+                  {t("teamMembers.moduleAccess.empty")}
                 </td>
               </tr>
             )}
@@ -246,8 +252,12 @@ export function ModuleAccessSection({
                                 : "text-[var(--text-tertiary)]"
                             }`}
                           >
-                            {granted ? "Granted" : "No access"}
-                            {isDirty ? " · unsaved" : ""}
+                            {granted
+                              ? t("teamMembers.moduleAccess.granted")
+                              : t("teamMembers.moduleAccess.noAccess")}
+                            {isDirty
+                              ? t("teamMembers.moduleAccess.unsaved")
+                              : ""}
                           </span>
                         </label>
                       </td>

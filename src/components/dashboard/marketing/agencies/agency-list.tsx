@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -27,6 +28,7 @@ import { AgencyPushDialog } from "./agency-push-dialog";
 // 8-column directory scrolls horizontally on narrow screens instead
 // of crushing rows.
 export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
+  const t = useTranslations();
   const [items, setItems] = useState<Agency[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -86,7 +88,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
             ? err.message
             : err instanceof Error
               ? err.message
-              : "Failed to load agencies.",
+              : t("marketing.agencies.loadError"),
         );
       })
       .finally(() => {
@@ -95,7 +97,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     return () => {
       cancelled = true;
     };
-  }, [companyId, statusFilter, searchQuery, refreshTick, page, pageSize]);
+  }, [companyId, statusFilter, searchQuery, refreshTick, page, pageSize, t]);
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
@@ -103,7 +105,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     async (agency: Agency) => {
       if (
         !window.confirm(
-          `Delete ${agency.name}?\n\nThis removes the agency from the CRM. It does not touch any Mailchimp subscriber created from this row.`,
+          t("marketing.agencies.deleteConfirm", { name: agency.name }),
         )
       ) {
         return;
@@ -118,11 +120,11 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
             ? err.message
             : err instanceof Error
               ? err.message
-              : "Failed to delete the agency.",
+              : t("marketing.agencies.deleteError"),
         );
       }
     },
-    [companyId, refresh],
+    [companyId, refresh, t],
   );
 
   // resolveTargetIds expands the selection into a concrete ID list.
@@ -165,7 +167,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
           ? err.message
           : err instanceof Error
             ? err.message
-            : "Failed to resolve target rows.",
+            : t("marketing.agencies.deleteError"),
       );
       return;
     }
@@ -175,7 +177,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     }
     if (
       !window.confirm(
-        `Delete ${ids.length} ${ids.length === 1 ? "agency" : "agencies"}?\n\nThis cannot be undone.`,
+        t("marketing.agencies.select.confirmDelete", { count: ids.length }),
       )
     ) {
       setBulkDeleting(false);
@@ -200,8 +202,20 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
     setSelectedIds(new Set());
     setSelectAllMatching(false);
     if (failed.length > 0) {
+      const detail =
+        failed.slice(0, 5).join("\n") +
+        (failed.length > 5
+          ? "\n" +
+            t("marketing.agencies.select.deleteFailedMore", {
+              count: failed.length - 5,
+            })
+          : "");
       setActionError(
-        `${failed.length} of ${ids.length} could not be deleted:\n${failed.slice(0, 5).join("\n")}${failed.length > 5 ? `\n…and ${failed.length - 5} more` : ""}`,
+        t("marketing.agencies.select.deleteFailed", {
+          failed: failed.length,
+          total: ids.length,
+          detail,
+        }),
       );
     }
     refresh();
@@ -226,7 +240,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
         {/* Row 1 — title + always-visible actions */}
         <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-subtle)] px-6 py-3">
           <h3 className="text-base font-semibold text-[var(--text-primary)]">
-            Agencies · {total}
+            {t("marketing.agencies.title", { total })}
           </h3>
           <div className="flex flex-wrap items-center gap-2">
             <button
@@ -234,33 +248,36 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
               onClick={refresh}
               className="rounded-full border border-[var(--border-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
             >
-              Refresh
+              {t("marketing.agencies.actions.refresh")}
             </button>
             <button
               type="button"
               onClick={() => setShowImport(true)}
               className="rounded-full border border-[var(--border-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
             >
-              Import spreadsheet
+              {t("marketing.agencies.actions.import")}
             </button>
             <button
               type="button"
               onClick={() => setShowCreate(true)}
               className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
             >
-              New agency
+              {t("marketing.agencies.actions.newAgency")}
             </button>
           </div>
         </header>
 
         {/* Row 2 — search + filter */}
         <div className="flex flex-wrap items-center gap-2 border-b border-[var(--border-subtle)] px-6 py-2">
-          <form onSubmit={applySearch} className="flex flex-wrap items-center gap-2">
+          <form
+            onSubmit={applySearch}
+            className="flex flex-wrap items-center gap-2"
+          >
             <input
               type="search"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Search name, contact, email"
+              placeholder={t("marketing.agencies.filter.searchPlaceholder")}
               className="w-72 rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--text-primary)]"
             />
             <select
@@ -270,16 +287,24 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
               }
               className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--text-primary)]"
             >
-              <option value="">All statuses</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="expired">Expired</option>
+              <option value="">
+                {t("marketing.agencies.filter.statusAll")}
+              </option>
+              <option value="active">
+                {t("marketing.agencies.filter.statusActive")}
+              </option>
+              <option value="inactive">
+                {t("marketing.agencies.filter.statusInactive")}
+              </option>
+              <option value="expired">
+                {t("marketing.agencies.filter.statusExpired")}
+              </option>
             </select>
             <button
               type="submit"
               className="rounded-full border border-[var(--border-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
             >
-              Apply
+              {t("marketing.agencies.filter.apply")}
             </button>
             {(searchQuery || statusFilter) && (
               <button
@@ -289,9 +314,9 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                   setSearchQuery("");
                   setStatusFilter("");
                 }}
-                className="text-xs text-[var(--text-tertiary)] hover:text-[var(--text-secondary)] underline"
+                className="text-xs text-[var(--text-tertiary)] underline hover:text-[var(--text-secondary)]"
               >
-                Clear filters
+                {t("marketing.agencies.filter.clear")}
               </button>
             )}
           </form>
@@ -303,8 +328,10 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="text-xs font-medium text-[var(--text-secondary)]">
                 {selectAllMatching
-                  ? `All ${total} matching the current filter selected`
-                  : `${selectedIds.size} selected on this page`}
+                  ? t("marketing.agencies.select.allMatchingSelected", { total })
+                  : t("marketing.agencies.select.pageSelectedCount", {
+                      count: selectedIds.size,
+                    })}
               </span>
               <div className="flex flex-wrap items-center gap-2">
                 <button
@@ -314,11 +341,11 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                   className="rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] disabled:opacity-50"
                   title={
                     selectAllMatching
-                      ? "Pick rows on this page to push (cross-page push isn't supported)."
+                      ? t("marketing.agencies.push.disabledHint")
                       : ""
                   }
                 >
-                  Push to Mailchimp
+                  {t("marketing.agencies.push.pushBtn")}
                 </button>
                 <button
                   type="button"
@@ -327,8 +354,10 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                   className="rounded-full border border-[var(--signal-red)] bg-[var(--surface)] px-3 py-1 text-xs font-medium text-[var(--signal-red)] hover:bg-[var(--signal-red-soft)] disabled:opacity-50"
                 >
                   {bulkDeleting
-                    ? "Deleting…"
-                    : `Delete ${effectiveSelectedCount}`}
+                    ? t("marketing.agencies.select.bulkDeleting")
+                    : t("marketing.agencies.select.bulkDelete", {
+                        count: effectiveSelectedCount,
+                      })}
                 </button>
                 <button
                   type="button"
@@ -338,7 +367,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                   }}
                   className="text-xs text-[var(--text-tertiary)] underline hover:text-[var(--text-secondary)]"
                 >
-                  Clear
+                  {t("marketing.agencies.select.clear")}
                 </button>
               </div>
             </div>
@@ -349,13 +378,15 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                 row matching the current filter. */}
             {showSelectAllMatchingBanner && (
               <div className="text-xs text-[var(--text-secondary)]">
-                All {items.length} on this page are selected.{" "}
+                {t("marketing.agencies.select.pageFullySelected", {
+                  count: items.length,
+                })}{" "}
                 <button
                   type="button"
                   onClick={() => setSelectAllMatching(true)}
                   className="font-semibold text-[var(--accent)] underline"
                 >
-                  Select all {total} matching the current filter
+                  {t("marketing.agencies.select.selectAllMatching", { total })}
                 </button>
               </div>
             )}
@@ -365,12 +396,12 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                   type="button"
                   onClick={() => {
                     setSelectAllMatching(false);
-                    // Drop back to "this page only" so the operator
-                    // doesn't lose the on-page ticks they had before.
                   }}
                   className="font-semibold text-[var(--accent)] underline"
                 >
-                  Just select this page ({items.length})
+                  {t("marketing.agencies.select.justThisPage", {
+                    count: items.length,
+                  })}
                 </button>
               </div>
             )}
@@ -395,7 +426,7 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                 <th className="w-10 px-4 py-2">
                   <input
                     type="checkbox"
-                    aria-label="Select all on this page"
+                    aria-label={t("marketing.agencies.select.ariaAll")}
                     checked={
                       selectAllMatching ||
                       (items.length > 0 && selectedIds.size === items.length)
@@ -418,27 +449,45 @@ export function AgencyList({ companyId }: Readonly<{ companyId: string }>) {
                     }}
                   />
                 </th>
-                <th className="px-4 py-2 font-medium">Name</th>
-                <th className="px-4 py-2 font-medium">Contact</th>
-                <th className="px-4 py-2 font-medium">Email / Phone</th>
-                <th className="px-4 py-2 font-medium">Window</th>
-                <th className="px-4 py-2 font-medium">Status</th>
-                <th className="px-4 py-2 font-medium">Tags</th>
+                <th className="px-4 py-2 font-medium">
+                  {t("marketing.agencies.table.name")}
+                </th>
+                <th className="px-4 py-2 font-medium">
+                  {t("marketing.agencies.table.contact")}
+                </th>
+                <th className="px-4 py-2 font-medium">
+                  {t("marketing.agencies.table.emailPhone")}
+                </th>
+                <th className="px-4 py-2 font-medium">
+                  {t("marketing.agencies.table.window")}
+                </th>
+                <th className="px-4 py-2 font-medium">
+                  {t("marketing.agencies.table.status")}
+                </th>
+                <th className="px-4 py-2 font-medium">
+                  {t("marketing.agencies.table.tags")}
+                </th>
                 <th className="px-4 py-2"></th>
               </tr>
             </thead>
             <tbody>
               {loading && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
-                    Loading agencies…
+                  <td
+                    colSpan={8}
+                    className="px-4 py-6 text-center text-[var(--text-tertiary)]"
+                  >
+                    {t("marketing.agencies.list.loading")}
                   </td>
                 </tr>
               )}
               {!loading && items.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-6 text-center text-[var(--text-tertiary)]">
-                    No agencies yet. Add one or import a spreadsheet.
+                  <td
+                    colSpan={8}
+                    className="px-4 py-6 text-center text-[var(--text-tertiary)]"
+                  >
+                    {t("marketing.agencies.empty")}
                   </td>
                 </tr>
               )}
@@ -548,7 +597,16 @@ function AgencyRow({
   onEdit: () => void;
   onDelete: () => void;
 }>) {
-  const window = formatWindow(row.starts_at, row.ends_at);
+  const t = useTranslations();
+  const window = (() => {
+    const startsAt = row.starts_at;
+    const endsAt = row.ends_at;
+    if (!startsAt && !endsAt) return "—";
+    const fmt = (d: string) => new Date(d).toLocaleDateString();
+    if (startsAt && endsAt) return `${fmt(startsAt)} → ${fmt(endsAt)}`;
+    if (startsAt) return t("marketing.agencies.row.fromDate", { date: fmt(startsAt) });
+    return t("marketing.agencies.row.untilDate", { date: fmt(endsAt!) });
+  })();
   return (
     <tr className="border-t border-[var(--border-subtle)] hover:bg-[var(--surface-subtle)]">
       <td className="px-4 py-3">
@@ -556,7 +614,7 @@ function AgencyRow({
           type="checkbox"
           checked={selected}
           onChange={onToggleSelect}
-          aria-label={`Select ${row.name}`}
+          aria-label={t("marketing.agencies.row.ariaSelect", { name: row.name })}
         />
       </td>
       <td className="px-4 py-3">
@@ -576,7 +634,7 @@ function AgencyRow({
           <div className="text-xs text-[var(--text-tertiary)]">{row.phone}</div>
         )}
       </td>
-      <td className="px-4 py-3 whitespace-nowrap text-xs text-[var(--text-secondary)]">
+      <td className="whitespace-nowrap px-4 py-3 text-xs text-[var(--text-secondary)]">
         {window}
       </td>
       <td className="px-4 py-3">
@@ -587,12 +645,12 @@ function AgencyRow({
           "—"
         ) : (
           <div className="flex max-w-[200px] flex-wrap gap-1">
-            {row.tags.map((t) => (
+            {row.tags.map((tag) => (
               <span
-                key={t}
+                key={tag}
                 className="rounded-full bg-[var(--surface-subtle)] px-2 py-0.5"
               >
-                {t}
+                {tag}
               </span>
             ))}
           </div>
@@ -605,14 +663,14 @@ function AgencyRow({
             onClick={onEdit}
             className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:bg-[var(--surface)]"
           >
-            Edit
+            {t("marketing.agencies.row.actions.edit")}
           </button>
           <button
             type="button"
             onClick={onDelete}
             className="rounded-full border border-[var(--signal-red)] px-3 py-1 text-xs font-medium text-[var(--signal-red)] hover:bg-[var(--signal-red-soft)]"
           >
-            Delete
+            {t("marketing.agencies.row.actions.delete")}
           </button>
         </div>
       </td>
@@ -635,6 +693,7 @@ function Pagination({
   onPage: (n: number) => void;
   onPageSize: (n: number) => void;
 }>) {
+  const t = useTranslations();
   // Compact page-number strip: always show first, last, current ±1,
   // and ellipses for the gaps. For ≤7 pages we just show them all —
   // simpler and avoids ellipsis flicker as the operator pages around.
@@ -644,7 +703,11 @@ function Pagination({
   } else {
     pages.push(0);
     if (page > 2) pages.push("...");
-    for (let i = Math.max(1, page - 1); i <= Math.min(totalPages - 2, page + 1); i++) {
+    for (
+      let i = Math.max(1, page - 1);
+      i <= Math.min(totalPages - 2, page + 1);
+      i++
+    ) {
       pages.push(i);
     }
     if (page < totalPages - 3) pages.push("...");
@@ -658,10 +721,12 @@ function Pagination({
     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border-subtle)] px-6 py-3 text-xs text-[var(--text-secondary)]">
       <div className="flex items-center gap-2">
         <span>
-          {from}–{to} of {total}
+          {t("marketing.agencies.page.range", { from, to, total })}
         </span>
         <label className="flex items-center gap-1">
-          <span className="text-[var(--text-tertiary)]">Per page</span>
+          <span className="text-[var(--text-tertiary)]">
+            {t("marketing.agencies.page.perPage")}
+          </span>
           <select
             value={pageSize}
             onChange={(e) => onPageSize(Number(e.target.value))}
@@ -680,7 +745,7 @@ function Pagination({
           disabled={page === 0}
           onClick={() => onPage(page - 1)}
           className="rounded-full border border-[var(--border-subtle)] px-2 py-1 disabled:opacity-40"
-          aria-label="Previous page"
+          aria-label={t("marketing.agencies.page.prev")}
         >
           ‹
         </button>
@@ -714,7 +779,7 @@ function Pagination({
           disabled={page >= totalPages - 1}
           onClick={() => onPage(page + 1)}
           className="rounded-full border border-[var(--border-subtle)] px-2 py-1 disabled:opacity-40"
-          aria-label="Next page"
+          aria-label={t("marketing.agencies.page.next")}
         >
           ›
         </button>
@@ -724,26 +789,25 @@ function Pagination({
 }
 
 function StatusPill({ status }: Readonly<{ status: AgencyStatus }>) {
+  const t = useTranslations();
   const cls =
     status === "active"
       ? "bg-emerald-100 text-emerald-700"
       : status === "inactive"
         ? "bg-slate-100 text-slate-600"
         : "bg-amber-100 text-amber-700";
+  const label =
+    status === "active"
+      ? t("marketing.agencies.filter.statusActive")
+      : status === "inactive"
+        ? t("marketing.agencies.filter.statusInactive")
+        : t("marketing.agencies.filter.statusExpired");
   return (
-    <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${cls}`}>
-      {status}
+    <span
+      className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${cls}`}
+    >
+      {label}
     </span>
   );
 }
 
-function formatWindow(
-  startsAt?: string | null,
-  endsAt?: string | null,
-): string {
-  if (!startsAt && !endsAt) return "—";
-  const fmt = (d: string) => new Date(d).toLocaleDateString();
-  if (startsAt && endsAt) return `${fmt(startsAt)} → ${fmt(endsAt)}`;
-  if (startsAt) return `From ${fmt(startsAt)}`;
-  return `Until ${fmt(endsAt!)}`;
-}

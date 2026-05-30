@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import {
   CRMClientError,
@@ -25,25 +26,18 @@ const inputClass =
 // audience. Two states the operator might be in:
 //
 //   1. Mailchimp not connected — listMailchimpAudiences returns a
-//      404-ish error. We surface that with a link back to the Email
+//      404-ish error. We surface that with a hint back to the Email
 //      module's settings tab so the operator can connect first.
 //
 //   2. Connected, no audiences yet — empty picker; operator can switch
 //      to the Email > Audiences tab to create one.
-//
-// Push semantics match the leads push:
-//   - skipped: agency has no email
-//   - error: Mailchimp rejected (bad email shape, blocked address, …)
-//   - created / updated: success
-//
-// update_existing defaults to true so re-running a push patches the
-// existing row instead of erroring on duplicate emails.
 export function AgencyPushDialog({
   companyId,
   selected,
   onClose,
   onPushed,
 }: Readonly<AgencyPushDialogProps>) {
+  const t = useTranslations();
   const [audiences, setAudiences] = useState<MailchimpAudience[]>([]);
   const [loadingAudiences, setLoadingAudiences] = useState(true);
   const [audiencesError, setAudiencesError] = useState<string | null>(null);
@@ -74,11 +68,11 @@ export function AgencyPushDialog({
         const msg =
           err instanceof CRMClientError
             ? err.status === 404
-              ? "Mailchimp isn't connected yet for this account. Connect under Marketing → Email → Settings, then come back."
+              ? t("marketing.agencies.push.notConnected")
               : err.message
             : err instanceof Error
               ? err.message
-              : "Failed to load Mailchimp audiences.";
+              : t("marketing.agencies.push.loadAudiencesFailed");
         setAudiencesError(msg);
       })
       .finally(() => {
@@ -87,7 +81,7 @@ export function AgencyPushDialog({
     return () => {
       cancelled = true;
     };
-  }, [companyId]);
+  }, [companyId, t]);
 
   const eligible = selected.filter((a) => (a.email ?? "").trim().length > 0);
   const skipped = selected.length - eligible.length;
@@ -96,11 +90,11 @@ export function AgencyPushDialog({
     setPushError(null);
     setResult(null);
     if (!listId) {
-      setPushError("Pick an audience first.");
+      setPushError(t("marketing.agencies.push.pickAudience"));
       return;
     }
     if (eligible.length === 0) {
-      setPushError("None of the selected agencies has an email address.");
+      setPushError(t("marketing.agencies.push.noEmail"));
       return;
     }
     const extraTags = extraTagsRaw
@@ -124,7 +118,7 @@ export function AgencyPushDialog({
           ? err.message
           : err instanceof Error
             ? err.message
-            : "The push failed.",
+            : t("marketing.agencies.push.failed"),
       );
     } finally {
       setPushing(false);
@@ -137,15 +131,12 @@ export function AgencyPushDialog({
         <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-5 py-3">
           <div>
             <h3 className="text-base font-semibold text-[var(--text-primary)]">
-              Push {selected.length} {selected.length === 1 ? "agency" : "agencies"} to Mailchimp
+              {t("marketing.agencies.push.title", { count: selected.length })}
             </h3>
             <p className="text-xs text-[var(--text-secondary)]">
-              Each agency becomes a Mailchimp subscriber. Name maps to FNAME,
-              contact to LNAME, phone to PHONE. The tag{" "}
-              <code className="rounded bg-[var(--surface-subtle)] px-1 py-0.5">
-                source:crm-agency
-              </code>{" "}
-              is added automatically.
+              {t("marketing.agencies.push.subtitle", {
+                tag: t("marketing.agencies.push.auto"),
+              })}
             </p>
           </div>
           <button
@@ -153,15 +144,14 @@ export function AgencyPushDialog({
             onClick={onClose}
             className="rounded-full border border-[var(--border-subtle)] px-3 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
           >
-            Close
+            {t("marketing.agencies.push.close")}
           </button>
         </header>
 
         <div className="flex flex-col gap-3 overflow-y-auto px-5 py-4">
           {skipped > 0 && (
             <div className="rounded-[var(--radius-card)] border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-700">
-              {skipped} of the selected{" "}
-              {skipped === 1 ? "agency has" : "agencies have"} no email and will be skipped.
+              {t("marketing.agencies.push.skippedNotice", { count: skipped })}
             </div>
           )}
 
@@ -172,7 +162,7 @@ export function AgencyPushDialog({
           ) : (
             <label className="flex flex-col gap-1 text-sm">
               <span className="font-medium text-[var(--text-primary)]">
-                Mailchimp audience
+                {t("marketing.agencies.push.mailchimpAudience")}
               </span>
               <select
                 value={listId}
@@ -180,9 +170,13 @@ export function AgencyPushDialog({
                 className={inputClass}
                 disabled={loadingAudiences}
               >
-                {loadingAudiences && <option>Loading…</option>}
+                {loadingAudiences && (
+                  <option>{t("marketing.agencies.push.loading")}</option>
+                )}
                 {!loadingAudiences && audiences.length === 0 && (
-                  <option value="">— No audiences yet —</option>
+                  <option value="">
+                    {t("marketing.agencies.push.noAudiences")}
+                  </option>
                 )}
                 {audiences.map((a) => (
                   <option key={a.id} value={a.id}>
@@ -195,24 +189,23 @@ export function AgencyPushDialog({
 
           <label className="flex flex-col gap-1 text-sm">
             <span className="font-medium text-[var(--text-primary)]">
-              Extra tags
+              {t("marketing.agencies.push.extraTagsLabel")}
             </span>
             <span className="text-xs text-[var(--text-secondary)]">
-              Added to every pushed subscriber on top of each agency&apos;s own
-              tags. Comma or semicolon separated.
+              {t("marketing.agencies.push.extraTagsHelp")}
             </span>
             <input
               type="text"
               value={extraTagsRaw}
               onChange={(e) => setExtraTagsRaw(e.target.value)}
-              placeholder="campaign:spring-2026, region:eu"
+              placeholder={t("marketing.agencies.push.extraTagsPlaceholder")}
               className={inputClass}
             />
           </label>
 
           <label className="flex flex-col gap-1 text-sm">
             <span className="font-medium text-[var(--text-primary)]">
-              Default status for new subscribers
+              {t("marketing.agencies.push.defaultStatus")}
             </span>
             <select
               value={defaultStatus}
@@ -223,9 +216,15 @@ export function AgencyPushDialog({
               }
               className={inputClass}
             >
-              <option value="subscribed">Subscribed</option>
-              <option value="pending">Pending (double opt-in)</option>
-              <option value="unsubscribed">Unsubscribed</option>
+              <option value="subscribed">
+                {t("marketing.agencies.push.statusSubscribed")}
+              </option>
+              <option value="pending">
+                {t("marketing.agencies.push.statusPending")}
+              </option>
+              <option value="unsubscribed">
+                {t("marketing.agencies.push.statusUnsubscribed")}
+              </option>
             </select>
           </label>
 
@@ -235,20 +234,21 @@ export function AgencyPushDialog({
               checked={updateExisting}
               onChange={(e) => setUpdateExisting(e.target.checked)}
             />
-            <span>
-              Patch existing subscribers (recommended). Re-running this push
-              updates merge fields instead of erroring on duplicates.
-            </span>
+            <span>{t("marketing.agencies.push.patchExisting")}</span>
           </label>
 
           {result && (
             <div className="rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] px-3 py-2 text-sm">
               <div className="font-medium text-[var(--text-primary)]">
-                Push complete
+                {t("marketing.agencies.push.result.header")}
               </div>
               <div className="text-xs text-[var(--text-secondary)]">
-                {result.created} created · {result.updated} updated ·{" "}
-                {result.skipped} skipped · {result.errors} errors.
+                {t("marketing.agencies.push.result.summary", {
+                  created: result.created,
+                  updated: result.updated,
+                  skipped: result.skipped,
+                  errors: result.errors,
+                })}
               </div>
               {result.errors > 0 && (
                 <ul className="mt-1 max-h-32 overflow-auto text-xs text-[var(--signal-red)]">
@@ -271,7 +271,10 @@ export function AgencyPushDialog({
             <span className="text-xs text-[var(--signal-red)]">{pushError}</span>
           ) : (
             <span className="text-xs text-[var(--text-tertiary)]">
-              {eligible.length} of {selected.length} will be pushed.
+              {t("marketing.agencies.push.summary", {
+                eligible: eligible.length,
+                total: selected.length,
+              })}
             </span>
           )}
           <div className="flex gap-2">
@@ -281,7 +284,7 @@ export function AgencyPushDialog({
                 onClick={onClose}
                 className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)]"
               >
-                Done
+                {t("marketing.agencies.push.done")}
               </button>
             ) : (
               <button
@@ -290,7 +293,9 @@ export function AgencyPushDialog({
                 onClick={handlePush}
                 className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[var(--accent-strong)] disabled:opacity-50"
               >
-                {pushing ? "Pushing…" : "Push to Mailchimp"}
+                {pushing
+                  ? t("marketing.agencies.push.pushing")
+                  : t("marketing.agencies.push.pushBtn")}
               </button>
             )}
           </div>
