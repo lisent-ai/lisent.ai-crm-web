@@ -107,10 +107,9 @@ services:
       EMAIL_GATEWAY_HMAC_SECRET: ${EMAIL_GATEWAY_HMAC_SECRET:-dev-email-gateway-hmac-secret}
       # Pepper for hashing OTP codes at rest (email verification / OTP login).
       AUTH_OTP_PEPPER: ${AUTH_OTP_PEPPER:-dev-auth-otp-pepper}
-      # Public URL of the white wordmark shown in email headers. In dev this
-      # is localhost (won't load in an external inbox — the white "Lisent"
-      # text fallback shows instead). Prod: https://app.lisent.ai/email/logo-white.png
-      EMAIL_LOGO_URL: ${EMAIL_LOGO_URL:-http://localhost:3111/email/logo-white.png}
+      # Public URL of the white wordmark shown in email headers — hosted on
+      # the marketing site so it loads in real inboxes (dev + prod).
+      EMAIL_LOGO_URL: ${EMAIL_LOGO_URL:-https://lisent.ai/logos/logo_white_text.png}
       # Turn on SuperTokens SDK debug output so a 401 on the BFF prints exactly
       # why verifySession() failed. Set to "false" once the session issue is
       # resolved — debug logs are verbose.
