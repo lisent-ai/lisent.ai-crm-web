@@ -48,6 +48,23 @@
     "emailLabel": "E-posta",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "Yeni çalışma alanı kullanıcısı?",
+    "otp": {
+      "verifyTitle": "E-postanı doğrula",
+      "verifySubtitle": "{email} adresine 6 haneli bir kod gönderdik. Bitirmek için aşağıya gir.",
+      "codeLabel": "Doğrulama kodu",
+      "verifyButton": "E-postayı doğrula",
+      "verifying": "Doğrulanıyor…",
+      "resend": "Kodu yeniden gönder",
+      "resendIn": "{seconds} sn sonra yeniden gönder",
+      "resent": "Yeni kod yolda.",
+      "invalid": "Kod doğru değil. Lütfen tekrar dene.",
+      "expired": "Kodun süresi doldu — yenisini iste.",
+      "tooMany": "Çok fazla deneme. Yeni bir kod iste.",
+      "noCode": "Aktif kod yok — yenisini iste.",
+      "incomplete": "6 haneli kodu gir.",
+      "genericError": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+      "signOut": "Farklı bir hesap kullan"
+    },
     "passwordLabel": "Parola",
     "passwordPlaceholderSignIn": "Parolanızı girin",
     "passwordPlaceholderSignUp": "Güçlü bir parola oluşturun",
@@ -480,6 +497,13 @@
       "cta": "Şifreyi sıfırla",
       "fallback": "Buton çalışmazsa bu bağlantıyı tarayıcına kopyalayıp yapıştır:",
       "ignore": "Bu talebi sen yapmadıysan bu e-postayı yok sayabilirsin — şifren değişmez."
+    },
+    "verifyEmail": {
+      "subject": "Lisent doğrulama kodun",
+      "heading": "E-postanı onayla",
+      "intro": "{email} adresini doğrulamak için bu kodu gir:",
+      "expiry": "Bu kod 10 dakika içinde geçersiz olur.",
+      "ignore": "Bir Lisent hesabı oluşturmadıysan bu e-postayı yok sayabilirsin."
     }
   },
   "errors": {

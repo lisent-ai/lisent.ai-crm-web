@@ -2,10 +2,12 @@ import crypto from "node:crypto";
 
 import SuperTokens from "supertokens-node";
 import EmailPassword from "supertokens-node/recipe/emailpassword";
+import EmailVerification from "supertokens-node/recipe/emailverification";
 import Session from "supertokens-node/recipe/session";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 
 import { resolveAppInfoForBackend } from "@/config/app-info";
+import { sendEmailVerifyOtp } from "@/lib/auth/otp/email";
 import { sendViaGateway } from "@/lib/email/client";
 import { renderEmail } from "@/lib/email/render";
 import {
@@ -133,17 +135,50 @@ export function ensureBackendSuperTokensInit(request?: Request) {
               const fieldValue = (id: string) =>
                 String(input.formFields.find((field) => field.id === id)?.value ?? "").trim();
 
+              const language = fieldValue("language");
               await UserMetadata.updateUserMetadata(response.user.id, {
                 profile: {
                   firstName: fieldValue("first_name"),
                   lastName: fieldValue("last_name"),
                   phoneNumber: fieldValue("phone_number"),
                   gender: fieldValue("gender"),
-                  language: fieldValue("language"),
+                  language,
                 },
               });
 
+              // Fire the email-verification OTP. Best-effort: a send hiccup
+              // must NOT fail the signup — the user lands on the OTP screen
+              // and can hit "resend". The recipient email is the one they
+              // just signed up with.
+              const signupEmail = response.user.emails[0];
+              if (signupEmail) {
+                try {
+                  await sendEmailVerifyOtp({
+                    userId: response.user.id,
+                    email: signupEmail,
+                    language: language || undefined,
+                  });
+                } catch (err) {
+                  console.error("[auth] signup OTP send failed", err);
+                }
+              }
+
               return response;
+            },
+          }),
+        },
+      }),
+      // Track email-verification state (free recipe). OPTIONAL mode: we
+      // drive verification ourselves with a 6-digit OTP, so SuperTokens'
+      // built-in link email is suppressed below and gating is done in the
+      // app (the account profile exposes emailVerified).
+      EmailVerification.init({
+        mode: "OPTIONAL",
+        emailDelivery: {
+          override: (original) => ({
+            ...original,
+            sendEmail: async () => {
+              // no-op: our own OTP email is sent at signup / via resend.
             },
           }),
         },

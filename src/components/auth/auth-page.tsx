@@ -10,10 +10,14 @@ import {
   useSyncExternalStore,
 } from "react";
 import { signIn, signUp } from "supertokens-auth-react/recipe/emailpassword";
-import { doesSessionExist } from "supertokens-auth-react/recipe/session";
+import {
+  doesSessionExist,
+  signOut,
+} from "supertokens-auth-react/recipe/session";
 
 import { AuthFormCard } from "@/components/auth/auth-form-card";
 import { AuthShell } from "@/components/auth/auth-shell";
+import { VerifyEmailStep } from "@/components/auth/verify-email-step";
 import {
   mapFieldErrors,
   resolveMode,
@@ -40,6 +44,10 @@ export function AuthPage() {
   const [busy, setBusy] = useState(false);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
+  // After a successful sign-in/up we may need the email-verification OTP
+  // step before entering the app.
+  const [phase, setPhase] = useState<"form" | "verify">("form");
+  const [pendingEmail, setPendingEmail] = useState("");
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -121,7 +129,7 @@ export function AuthPage() {
         }
       }
 
-      router.replace("/dashboard");
+      await proceedAfterAuth();
     } catch (error) {
       const message =
         error instanceof Error ? error.message : t("auth.authFailed");
@@ -131,9 +139,51 @@ export function AuthPage() {
     }
   }
 
+  // Gate entry on email verification. Signup already triggered an OTP
+  // (server-side at signUpPOST); for an unverified sign-in we send a fresh
+  // code before showing the step. Verified users go straight to the app.
+  async function proceedAfterAuth() {
+    try {
+      const res = await fetch("/api/auth-otp/status");
+      const json = (await res.json().catch(() => ({}))) as {
+        emailVerified?: boolean | null;
+        email?: string | null;
+      };
+      if (json.emailVerified === false) {
+        setPendingEmail(json.email ?? email);
+        if (mode === "signin") {
+          await fetch("/api/auth-otp/resend-email-code", { method: "POST" });
+        }
+        setPhase("verify");
+        return;
+      }
+    } catch {
+      // If the status check fails, fall through to the app — the dashboard
+      // will surface any session problem.
+    }
+    router.replace("/dashboard");
+  }
+
+  async function handleVerifySignOut() {
+    try {
+      await signOut();
+    } catch {
+      // ignore — we reset the local UI regardless
+    }
+    setPhase("form");
+    setPendingEmail("");
+    setPassword("");
+  }
+
   return (
     <AuthShell>
-      {mounted ? (
+      {mounted && phase === "verify" ? (
+        <VerifyEmailStep
+          email={pendingEmail}
+          onVerified={() => router.replace("/dashboard")}
+          onSignOut={() => void handleVerifySignOut()}
+        />
+      ) : mounted ? (
         <AuthFormCard
           busy={busy}
           email={email}
