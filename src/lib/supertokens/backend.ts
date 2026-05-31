@@ -1,15 +1,32 @@
+import crypto from "node:crypto";
+
 import SuperTokens from "supertokens-node";
 import EmailPassword from "supertokens-node/recipe/emailpassword";
 import Session from "supertokens-node/recipe/session";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 
 import { resolveAppInfoForBackend } from "@/config/app-info";
+import { sendViaGateway } from "@/lib/email/client";
+import { renderEmail } from "@/lib/email/render";
 import {
   validateFirstName,
   validateGender,
   validateLastName,
   validatePhoneNumber,
 } from "@/lib/auth/sign-up-fields";
+
+// Best-effort lookup of the recipient's saved UI language so auth emails
+// render in their locale. Falls back (undefined → default locale) on any
+// error — an email must never fail because metadata was unreadable.
+async function resolveUserLanguage(userId: string): Promise<string | undefined> {
+  try {
+    const md = await UserMetadata.getUserMetadata(userId);
+    const profile = md.metadata?.profile as { language?: string } | undefined;
+    return profile?.language;
+  } catch {
+    return undefined;
+  }
+}
 
 function normaliseSuperTokensConnectionURI(raw: string): string {
   const trimmed = raw.trim();
@@ -41,6 +58,45 @@ export function ensureBackendSuperTokensInit(request?: Request) {
     },
     recipeList: [
       EmailPassword.init({
+        // Route transactional auth emails (password reset) through the
+        // email-gateway so they're sent from our own domain, localized,
+        // and rate-limited — instead of SuperTokens' default service.
+        emailDelivery: {
+          override: (original) => ({
+            ...original,
+            sendEmail: async (input) => {
+              if (input.type !== "PASSWORD_RESET") {
+                return original.sendEmail(input);
+              }
+              const language = await resolveUserLanguage(input.user.id);
+              const rendered = await renderEmail(
+                {
+                  id: "password-reset",
+                  data: {
+                    email: input.user.email,
+                    link: input.passwordResetLink,
+                  },
+                },
+                language,
+              );
+              // Idempotency keyed on the unique reset token so a retried
+              // delivery never double-sends the same link.
+              const tokenHash = crypto
+                .createHash("sha256")
+                .update(input.passwordResetLink)
+                .digest("hex")
+                .slice(0, 32);
+              await sendViaGateway({
+                to: input.user.email,
+                subject: rendered.subject,
+                html: rendered.html,
+                text: rendered.text,
+                idempotencyKey: `pwreset:${tokenHash}`,
+                tags: { kind: "password-reset" },
+              });
+            },
+          }),
+        },
         signUpFeature: {
           formFields: [
             {

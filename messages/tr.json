@@ -470,6 +470,18 @@
     "unknownAuthor": "Bilinmeyen",
     "untitledDeal": "Başlıksız anlaşma"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Bu e-postayı bir Lisent hesabınız olduğu için alıyorsunuz.",
+    "passwordReset": {
+      "subject": "Şifreni sıfırla",
+      "heading": "Şifreni sıfırla",
+      "intro": "{email} için bir şifre sıfırlama talebi aldık.",
+      "cta": "Şifreyi sıfırla",
+      "fallback": "Buton çalışmazsa bu bağlantıyı tarayıcına kopyalayıp yapıştır:",
+      "ignore": "Bu talebi sen yapmadıysan bu e-postayı yok sayabilirsin — şifren değişmez."
+    }
+  },
   "errors": {
     "forbidden": "İzniniz yok.",
     "generic": "Bir şeyler ters gitti.",

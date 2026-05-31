@@ -470,6 +470,18 @@
     "unknownAuthor": "Unknown",
     "untitledDeal": "Untitled deal"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "You're receiving this email because you have a Lisent account.",
+    "passwordReset": {
+      "subject": "Reset your password",
+      "heading": "Reset your password",
+      "intro": "We received a request to reset the password for {email}.",
+      "cta": "Reset password",
+      "fallback": "If the button doesn't work, copy and paste this link into your browser:",
+      "ignore": "If you didn't request this, you can safely ignore this email — your password won't change."
+    }
+  },
   "errors": {
     "forbidden": "You don't have permission.",
     "generic": "Something went wrong.",
