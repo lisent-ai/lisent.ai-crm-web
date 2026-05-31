@@ -71,7 +71,7 @@
         "emailSubtitle": "E-postanı gir, sana 6 haneli bir giriş kodu gönderelim.",
         "sendCode": "Kod gönder",
         "sending": "Gönderiliyor…",
-        "codeSubtitle": "{email} adresine giriş kodu gönderdik."
+        "codeSubtitle": "{email} adresine ait bir hesap varsa giriş kodu gönderdik. Gelen kutunu kontrol et."
       }
     },
     "passwordLabel": "Parola",

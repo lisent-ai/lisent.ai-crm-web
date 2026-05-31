@@ -71,7 +71,7 @@
         "emailSubtitle": "Enter your email and we'll send you a 6-digit sign-in code.",
         "sendCode": "Send code",
         "sending": "Sending…",
-        "codeSubtitle": "We sent a sign-in code to {email}."
+        "codeSubtitle": "If an account exists for {email}, we've sent a sign-in code. Check your inbox."
       }
     },
     "passwordLabel": "Password",
