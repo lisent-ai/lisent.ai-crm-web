@@ -48,6 +48,32 @@
     "emailLabel": "Correo electrónico",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "¿Nuevo usuario de workspace?",
+    "otp": {
+      "codeLabel": "Código de verificación",
+      "expired": "Ese código ha expirado — solicite uno nuevo.",
+      "genericError": "Algo salió mal. Por favor, inténtelo de nuevo.",
+      "incomplete": "Ingrese el código de 6 dígitos.",
+      "invalid": "Ese código no es correcto. Por favor, inténtelo de nuevo.",
+      "noCode": "No hay código activo — solicite uno nuevo.",
+      "resend": "Reenviar código",
+      "resendIn": "Reenviar en {seconds}s",
+      "resent": "Un nuevo código está en camino.",
+      "signOut": "Usar una cuenta diferente",
+      "signin": {
+        "codeSubtitle": "Si existe una cuenta para {email}, hemos enviado un código de inicio de sesión. Revise su bandeja de entrada.",
+        "emailSubtitle": "Introduzca su correo electrónico y le enviaremos un código de inicio de sesión de 6 dígitos.",
+        "emailTitle": "Inicie sesión con un código",
+        "sendCode": "Enviar código",
+        "sending": "Enviando…"
+      },
+      "tooMany": "Demasiados intentos. Solicite un nuevo código.",
+      "useOtpLink": "Iniciar sesión con un código de correo",
+      "usePassword": "Inicie sesión con su contraseña",
+      "verifyButton": "Verificar correo electrónico",
+      "verifySubtitle": "Le enviamos un código de 6 dígitos a {email}. Ingréselo a continuación para terminar.",
+      "verifyTitle": "Verifique su correo electrónico",
+      "verifying": "Verificando…"
+    },
     "passwordLabel": "Contraseña",
     "passwordPlaceholderSignIn": "Introduzca su contraseña",
     "passwordPlaceholderSignUp": "Cree una contraseña segura",
@@ -294,7 +320,7 @@
       "title": "Clientes"
     },
     "placeholders": {
-      "email": "name@company.com",
+      "email": "nombre@empresa.com",
       "name": "Nombre del cliente",
       "phone": "+49 555 123 4567"
     },
@@ -470,6 +496,32 @@
     "unknownAuthor": "Desconocido",
     "untitledDeal": "Deal sin título"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Está recibiendo este correo porque tiene una cuenta de Lisent.",
+    "passwordReset": {
+      "cta": "Restablecer contraseña",
+      "fallback": "Si el botón no funciona, copie y pegue este enlace en su navegador:",
+      "heading": "Restablezca su contraseña",
+      "ignore": "Si no solicitó esto, puede ignorar este correo sin riesgo — su contraseña no cambiará.",
+      "intro": "Hemos recibido una solicitud para restablecer la contraseña de {email}.",
+      "subject": "Restablezca su contraseña"
+    },
+    "signinOtp": {
+      "expiry": "Este código caduca en 10 minutos.",
+      "heading": "Inicie sesión en Lisent",
+      "ignore": "Si no intentó iniciar sesión, puede ignorar este correo electrónico.",
+      "intro": "Introduzca este código para iniciar sesión como {email}:",
+      "subject": "Su código de inicio de sesión de Lisent"
+    },
+    "verifyEmail": {
+      "expiry": "Este código expira en 10 minutos.",
+      "heading": "Confirme su correo electrónico",
+      "ignore": "Si no creó una cuenta de Lisent, puede ignorar este correo.",
+      "intro": "Introduzca este código para verificar {email}:",
+      "subject": "Su código de verificación de Lisent"
+    }
+  },
   "errors": {
     "forbidden": "No tiene permiso.",
     "generic": "Algo salió mal.",
@@ -587,10 +639,10 @@
       "activeWorkspace": "Workspace activo",
       "eyebrow": "Instantánea de workspace",
       "inWorkspace": "En {name}",
-      "newCount": "{count} nuevo",
+      "newCount": "{count} nuevos",
       "noWorkspaceHelp": "Seleccione un espacio de trabajo para ver los recuentos en tiempo real.",
       "noWorkspaceSelected": "Ningún espacio de trabajo seleccionado",
-      "openCount": "{count} abierto",
+      "openCount": "{count} abiertos",
       "openFullDashboard": "Abrir panel completo",
       "openPipeline": "Abrir pipeline"
     },
@@ -671,8 +723,8 @@
       "continueToPreview": "Continuar a la vista previa",
       "csvUpload": "Cargar archivo CSV",
       "csvUploadHelp": "Arrastre y suelte o busque un archivo .csv en su computadora.",
-      "csvUrl": "URL CSV",
-      "csvUrlHelp": "Proporcione una URL de acceso público que apunte a un archivo CSV.",
+      "csvUrl": "CSV URL",
+      "csvUrlHelp": "Proporcione una URL accesible públicamente que apunte a un archivo CSV.",
       "noFileSelected": "Ningún archivo seleccionado",
       "processing": "Procesando…",
       "selectedFile": "Seleccionado: {name}",
@@ -1186,7 +1238,7 @@
       "qualificationThreshold": "Umbral de calificación",
       "revokeSecondaryConfirm": "¿Revocar el secreto secundario del webhook?",
       "rotateWebhookConfirm": "¿Rotar el secreto del webhook? El secreto antiguo sigue siendo válido durante la ventana de rotación.",
-      "saveAiConfig": "Guardar configuración de IA",
+      "saveAiConfig": "Guardar configuración de AI",
       "secondaryRevoked": "Se revocó el secreto del webhook secundario.",
       "sectorLabel": "Sector",
       "tabs": {
@@ -1786,6 +1838,7 @@
           "status": "Columna de estado",
           "tags": "Etiquetas (separadas por coma / punto y coma)"
         },
+        "loaded": "{rowCount, plural, one {# fila con {colCount, plural, one {# columna} other {# columnas}} cargadas. Asigna cada campo del CRM a la columna de la hoja de cálculo de la que debe provenir.} other {# filas con {colCount, plural, one {# columna} other {# columnas}} cargadas. Asigna cada campo del CRM a la columna de la hoja de cálculo de la que debe provenir.}}",
         "needName": "Seleccione primero una columna para el nombre de la agencia.",
         "noValid": "Ninguna fila tiene un nombre no vacío.",
         "notUsed": "— (no usado) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "Haga clic para elegir. Solo leeremos la primera hoja.",
         "pickLabel": "Seleccione una hoja de cálculo",
         "subtitle": "Acepta hojas de cálculo CSV, Excel y OpenDocument.",
-        "title": "Importar agencias desde una hoja de cálculo",
-        "loaded": "{rowCount, plural, one {# fila} other {# filas}} con {colCount, plural, one {# columna} other {# columnas}} cargadas. Asigna cada campo del CRM a la columna de la hoja de cálculo de la que debe provenir."
+        "title": "Importar agencias desde una hoja de cálculo"
       },
       "list": {
         "agencies": "Agencias",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "Eliminar {count}",
         "bulkDeleting": "Eliminando…",
         "clear": "Borrar",
+        "confirmDelete": "{count, plural, one {¿Eliminar # agencia?\n\nEsta acción no se puede deshacer.} other {¿Eliminar # agencias?\n\nEsta acción no se puede deshacer.}}",
         "deleteFailed": "{failed} de {total} no pudieron eliminarse:\n{detail}",
         "deleteFailedMore": "…y {count} más",
         "justThisPage": "Solo seleccione esta página ({count})",
         "pageFullySelected": "Todos los {count} de esta página están seleccionados.",
         "pageSelectedCount": "{count} seleccionados en esta página",
-        "selectAllMatching": "Seleccionar todos los {total} que coinciden con el filtro actual",
-        "confirmDelete": "¿Eliminar {count, plural, one {# agencia} other {# agencias}}?\n\nEsta acción no se puede deshacer."
+        "selectAllMatching": "Seleccionar todos los {total} que coinciden con el filtro actual"
       },
       "table": {
         "actions": "Acciones",
@@ -2818,7 +2870,8 @@
     "demoUser": "Usuario de demostración",
     "openMenu": "Abrir menú de cuenta",
     "signOut": "Cerrar sesión",
-    "workspaceUser": "Usuario de Workspace"
+    "workspaceUser": "Usuario de Workspace",
+    "signOutEverywhere": "Cerrar sesión en todos los dispositivos"
   },
   "validation": {
     "firstNameRequired": "El nombre es obligatorio.",

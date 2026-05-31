@@ -48,6 +48,32 @@
     "emailLabel": "E‑post",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "Ny workspace‑användare?",
+    "otp": {
+      "codeLabel": "Verifieringskod",
+      "expired": "Koden har gått ut — begär en ny.",
+      "genericError": "Något gick fel. Försök igen.",
+      "incomplete": "Ange den sexsiffriga koden.",
+      "invalid": "Koden är felaktig. Försök igen.",
+      "noCode": "Ingen aktiv kod — begär en ny.",
+      "resend": "Skicka kod igen",
+      "resendIn": "Skicka igen om {seconds}s",
+      "resent": "En ny kod är på väg.",
+      "signOut": "Använd ett annat konto",
+      "signin": {
+        "codeSubtitle": "Om ett konto finns för {email} har vi skickat en inloggningskod. Kontrollera din inkorg.",
+        "emailSubtitle": "Ange din e‑postadress så skickar vi en sexsiffrig inloggningskod.",
+        "emailTitle": "Logga in med en kod",
+        "sendCode": "Skicka kod",
+        "sending": "Skickar…"
+      },
+      "tooMany": "För många försök. Begär en ny kod.",
+      "useOtpLink": "Logga in med en e‑postkod",
+      "usePassword": "Logga in med ditt lösenord istället",
+      "verifyButton": "Verifiera e‑post",
+      "verifySubtitle": "Vi har skickat en sexsiffrig kod till {email}. Ange den nedan för att slutföra.",
+      "verifyTitle": "Verifiera din e‑post",
+      "verifying": "Verifierar…"
+    },
     "passwordLabel": "Lösenord",
     "passwordPlaceholderSignIn": "Ange ert lösenord",
     "passwordPlaceholderSignUp": "Skapa ett starkt lösenord",
@@ -104,7 +130,7 @@
       "canceled": "Avbruten",
       "completed": "Slutförd",
       "missed": "Missad",
-      "scheduled": "Planerad"
+      "scheduled": "Schemalagd"
     },
     "eventType": {
       "call": "Samtal",
@@ -172,7 +198,7 @@
     },
     "tabs": {
       "allScheduled": "Alla schemalagda",
-      "events": "Händelser",
+      "events": "Evenemang",
       "meetings": "Möten",
       "taskReminders": "Uppgiftspåminnelser"
     },
@@ -470,6 +496,32 @@
     "unknownAuthor": "Okänd",
     "untitledDeal": "Namnlös deal"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Ni får det här mejlet eftersom ni har ett Lisent‑konto.",
+    "passwordReset": {
+      "cta": "Återställ lösenord",
+      "fallback": "Om knappen inte fungerar, kopiera och klistra in den här länken i er webbläsare:",
+      "heading": "Återställ ditt lösenord",
+      "ignore": "Om ni inte begärde detta kan ni lugnt ignorera mejlet — ert lösenord kommer inte att ändras.",
+      "intro": "Vi har mottagit en begäran om att återställa lösenordet för {email}.",
+      "subject": "Återställ ditt lösenord"
+    },
+    "signinOtp": {
+      "expiry": "Koden löper ut om 10 minuter.",
+      "heading": "Logga in i Lisent",
+      "ignore": "Om du inte försökte logga in kan du ignorera det här mejlet.",
+      "intro": "Ange den här koden för att logga in som {email}:",
+      "subject": "Din Lisent‑inloggningskod"
+    },
+    "verifyEmail": {
+      "expiry": "Den här koden går ut om 10 minuter.",
+      "heading": "Bekräfta er e‑post",
+      "ignore": "Om du inte skapade ett Lisent‑konto kan du ignorera det här mejlet.",
+      "intro": "Ange den här koden för att verifiera {email}:",
+      "subject": "Er Lisent‑verifieringskod"
+    }
+  },
   "errors": {
     "forbidden": "Ni har inte behörighet.",
     "generic": "Något gick fel.",
@@ -586,7 +638,7 @@
     "snapshot": {
       "activeWorkspace": "Aktivt arbetsområde",
       "eyebrow": "Översikt av arbetsområde",
-      "inWorkspace": "i {name}",
+      "inWorkspace": "I {name}",
       "newCount": "{count} nya",
       "noWorkspaceHelp": "Välj en workspace för att se live‑antal.",
       "noWorkspaceSelected": "Ingen workspace vald",
@@ -1156,7 +1208,7 @@
       "handoffAggressiveness": "Överlämningsaggressivitet",
       "icpPlaceholder": "Beskriv din ideala kundprofil…",
       "idealCustomerProfile": "Ideal kundprofil",
-      "languageLabel": "Konversationsspråk",
+      "languageLabel": "Samtalspråk",
       "leadWebhookDescription": "Lisent skickar kvalificerade leads tillbaka till ditt CRM via den här webhook‑URL:en.",
       "leadWebhookTitle": "Lead‑webhook",
       "liveDescription": "Kvalificeraren är aktiv och bearbetar leads.",
@@ -1565,7 +1617,7 @@
       "leadValue": "Uppskattat värde",
       "leadValuePlaceholder": "0",
       "newEyebrow": "Ny lead",
-      "newTitle": "Skapa en lead",
+      "newTitle": "Skapa en Lead",
       "notes": "Anteckningar",
       "notesPlaceholder": "Lägg till information om detta lead...",
       "phone": "Telefon",
@@ -1786,6 +1838,7 @@
           "status": "Statuskolumn",
           "tags": "Taggar (kommaseparerade / semikolonseparerade)"
         },
+        "loaded": "{rowCount, plural, one {Läste in # rad med {colCount, plural, one {# kolumn} other {# kolumner}}. Koppla varje CRM-fält till kalkylbladskolumnen det ska hämtas från.} other {Läste in # rader med {colCount, plural, one {# kolumn} other {# kolumner}}. Koppla varje CRM-fält till kalkylbladskolumnen det ska hämtas från.}}",
         "needName": "Välj en kolumn för byrånamnet först.",
         "noValid": "Inga rader har ett icke‑tomt namn.",
         "notUsed": "— (ej använd) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "Klicka för att välja. Vi läser bara det första bladet.",
         "pickLabel": "Välj ett kalkylblad",
         "subtitle": "Accepterar CSV-, Excel- och OpenDocument‑kalkylblad.",
-        "title": "Importera byråer från ett kalkylblad",
-        "loaded": "Läste in {rowCount, plural, one {# rad} other {# rader}} med {colCount, plural, one {# kolumn} other {# kolumner}}. Koppla varje CRM-fält till kalkylbladskolumnen det ska hämtas från."
+        "title": "Importera byråer från ett kalkylblad"
       },
       "list": {
         "agencies": "Byråer",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "Radera {count}",
         "bulkDeleting": "Raderar…",
         "clear": "Rensa",
+        "confirmDelete": "{count, plural, one {Ta bort # byrå?\n\nDet här går inte att ångra.} other {Ta bort # byråer?\n\nDet här går inte att ångra.}}",
         "deleteFailed": "{failed} av {total} kunde inte tas bort:\n{detail}",
         "deleteFailedMore": "…och {count} till",
         "justThisPage": "Välj bara den här sidan ({count})",
         "pageFullySelected": "Alla {count} på den här sidan är valda.",
         "pageSelectedCount": "{count} valda på den här sidan",
-        "selectAllMatching": "Välj alla {total} som matchar det aktuella filtret",
-        "confirmDelete": "Ta bort {count, plural, one {# byrå} other {# byråer}}?\n\nDet här går inte att ångra."
+        "selectAllMatching": "Välj alla {total} som matchar det aktuella filtret"
       },
       "table": {
         "actions": "Åtgärder",
@@ -2818,7 +2870,8 @@
     "demoUser": "Demoanvändare",
     "openMenu": "Öppna kontomenyn",
     "signOut": "Logga ut",
-    "workspaceUser": "Workspace-användare"
+    "workspaceUser": "Workspace-användare",
+    "signOutEverywhere": "Logga ut överallt"
   },
   "validation": {
     "firstNameRequired": "Namn krävs.",

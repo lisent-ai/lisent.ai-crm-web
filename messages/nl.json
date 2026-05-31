@@ -48,6 +48,32 @@
     "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "Nieuwe workspace-gebruiker?",
+    "otp": {
+      "codeLabel": "Verificatiecode",
+      "expired": "De code is verlopen — vraag een nieuwe aan.",
+      "genericError": "Er is iets misgegaan. Probeer het opnieuw.",
+      "incomplete": "Voer de 6-cijferige code in.",
+      "invalid": "De code is onjuist. Probeer het opnieuw.",
+      "noCode": "Geen actieve code — vraag een nieuwe aan.",
+      "resend": "Code opnieuw verzenden",
+      "resendIn": "Opnieuw verzenden over {seconds}s",
+      "resent": "Er is een nieuwe code onderweg.",
+      "signOut": "Gebruik een ander account",
+      "signin": {
+        "codeSubtitle": "Als er een account bestaat voor {email}, hebben we een aanmeldcode verzonden. Controleer uw inbox.",
+        "emailSubtitle": "Voer uw e‑mail in en we sturen u een 6‑cijferige aanmeldcode.",
+        "emailTitle": "Meld u aan met een code",
+        "sendCode": "Code verzenden",
+        "sending": "Verzenden…"
+      },
+      "tooMany": "Te veel pogingen. Vraag een nieuwe code aan.",
+      "useOtpLink": "Meld u aan met een e‑mailcode",
+      "usePassword": "Meld u in plaats daarvan aan met uw wachtwoord",
+      "verifyButton": "Verifieer e‑mail",
+      "verifySubtitle": "We hebben een 6-cijferige code naar {email} gestuurd. Voer deze hieronder in om te voltooien.",
+      "verifyTitle": "Verifieer uw e‑mail",
+      "verifying": "Verifiëren…"
+    },
     "passwordLabel": "Wachtwoord",
     "passwordPlaceholderSignIn": "Voer uw wachtwoord in",
     "passwordPlaceholderSignUp": "Maak een sterk wachtwoord",
@@ -97,8 +123,8 @@
       "loadEvents": "Evenementen laden mislukt.",
       "pastDate": "Evenement kan niet in het verleden beginnen.",
       "save": "Kan gebeurtenis niet opslaan.",
-      "startRequired": "Startdatum en -tijd zijn vereist.",
-      "titleRequired": "Titel is vereist."
+      "startRequired": "Startdatum en -tijd zijn verplicht.",
+      "titleRequired": "Titel is verplicht."
     },
     "eventStatus": {
       "canceled": "Geannuleerd",
@@ -261,7 +287,7 @@
       "customerId": "Klant-id",
       "email": "E‑mail",
       "firstName": "Voornaam",
-      "id": "Id",
+      "id": "ID",
       "industry": "Industrie",
       "lastName": "Achternaam",
       "name": "Naam",
@@ -283,7 +309,7 @@
       "selectAll": "Alle klanten selecteren",
       "selectRow": "Klant {name} selecteren",
       "title": "Klanten",
-      "visibleCount": "Toont {visible} van {total}"
+      "visibleCount": "Weergegeven {visible} van {total}"
     },
     "loading": "Klanten laden...",
     "noEmail": "Geen e‑mail beschikbaar",
@@ -469,6 +495,32 @@
     "unassigned": "Niet toegewezen",
     "unknownAuthor": "Onbekend",
     "untitledDeal": "Naamloze deal"
+  },
+  "email": {
+    "brand": "Lisent",
+    "footer": "U ontvangt deze e‑mail omdat u een Lisent‑account heeft.",
+    "passwordReset": {
+      "cta": "Wachtwoord resetten",
+      "fallback": "Als de knop niet werkt, kopieer en plak deze link in uw browser:",
+      "heading": "Reset uw wachtwoord",
+      "ignore": "Als u dit niet heeft aangevraagd, kunt u deze e‑mail gerust negeren — uw wachtwoord verandert niet.",
+      "intro": "We hebben een verzoek ontvangen om het wachtwoord voor {email} te resetten.",
+      "subject": "Reset uw wachtwoord"
+    },
+    "signinOtp": {
+      "expiry": "Deze code verloopt over 10 minuten.",
+      "heading": "Meld u aan bij Lisent",
+      "ignore": "Als u niet hebt geprobeerd u aan te melden, kunt u deze e‑mail negeren.",
+      "intro": "Voer deze code in om u aan te melden als {email}:",
+      "subject": "Uw Lisent-aanmeldcode"
+    },
+    "verifyEmail": {
+      "expiry": "Deze code verloopt over 10 minuten.",
+      "heading": "Bevestig uw e‑mail",
+      "ignore": "Als u geen Lisent-account hebt aangemaakt, kunt u deze e‑mail negeren.",
+      "intro": "Voer deze code in om {email} te verifiëren:",
+      "subject": "Uw Lisent‑verificatiecode"
+    }
   },
   "errors": {
     "forbidden": "U heeft geen toestemming.",
@@ -893,7 +945,7 @@
       "loading": "Intranetconfiguratie laden...",
       "mappingMustBeObject": "Veldkoppeling moet een JSON-object zijn.",
       "mintBearer": "Maak bearer-token aan",
-      "noDeliveries": "Nog geen leveringen.",
+      "noDeliveries": "Nog geen leveringen",
       "noIntegration": "Geen intranet‑integratie geconfigureerd.",
       "outbound": {
         "allStatusesLabel": "Alle statuswijzigingen (aanbevolen)",
@@ -1786,6 +1838,7 @@
           "status": "Statuskolom",
           "tags": "Tags (komma‑ of puntkomma‑gescheiden)"
         },
+        "loaded": "{rowCount, plural, one {# rij met {colCount, plural, one {# kolom} other {# kolommen}} geladen. Koppel elk CRM-veld aan de spreadsheetkolom waaruit het moet komen.} other {# rijen met {colCount, plural, one {# kolom} other {# kolommen}} geladen. Koppel elk CRM-veld aan de spreadsheetkolom waaruit het moet komen.}}",
         "needName": "Selecteer eerst een kolom voor de naam van het bureau.",
         "noValid": "Geen rijen hebben een niet‑lege naam.",
         "notUsed": "— (niet gebruikt) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "Klik om te kiezen. We lezen alleen het eerste blad.",
         "pickLabel": "Kies een spreadsheet",
         "subtitle": "Accepteert CSV-, Excel- en OpenDocument‑spreadsheets.",
-        "title": "Importeer agentschappen vanuit een spreadsheet",
-        "loaded": "{rowCount, plural, one {# rij} other {# rijen}} met {colCount, plural, one {# kolom} other {# kolommen}} geladen. Koppel elk CRM-veld aan de spreadsheetkolom waaruit het moet komen."
+        "title": "Importeer agentschappen vanuit een spreadsheet"
       },
       "list": {
         "agencies": "Agentschappen",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "Verwijder {count}",
         "bulkDeleting": "Verwijderen…",
         "clear": "Wissen",
+        "confirmDelete": "{count, plural, one {# bureau verwijderen?\n\nDit kan niet ongedaan worden gemaakt.} other {# bureaus verwijderen?\n\nDit kan niet ongedaan worden gemaakt.}}",
         "deleteFailed": "{failed} van {total} konden niet worden verwijderd:\n{detail}",
         "deleteFailedMore": "…en {count} meer",
         "justThisPage": "Selecteer alleen deze pagina ({count})",
         "pageFullySelected": "Alle {count} op deze pagina zijn geselecteerd.",
         "pageSelectedCount": "{count} geselecteerd op deze pagina",
-        "selectAllMatching": "Selecteer alle {total} die overeenkomen met het huidige filter",
-        "confirmDelete": "{count, plural, one {# bureau} other {# bureaus}} verwijderen?\n\nDit kan niet ongedaan worden gemaakt."
+        "selectAllMatching": "Selecteer alle {total} die overeenkomen met het huidige filter"
       },
       "table": {
         "actions": "Acties",
@@ -2373,6 +2425,7 @@
           "updated": "Bijgewerkt"
         },
         "confirmDelete": "Dit segment verwijderen? Leden blijven in het publiek; alleen het segment wordt verwijderd.",
+        "count": "{count} segment(en)",
         "create": "Aanmaken",
         "createBody": "Statische segmenten zijn een handmatig samengestelde lijst met e‑mailadressen. Voor op voorwaarden gebaseerde (opgeslagen) segmenten gebruik de UI van Mailchimp — ze verschijnen hier na verversen.",
         "createFailed": "Kan het segment niet aanmaken.",
@@ -2389,8 +2442,7 @@
         },
         "loadFailed": "Kan segmenten niet laden.",
         "loading": "Segmenten laden…",
-        "newStatic": "Nieuw statisch segment",
-        "count": "{count} segment(en)"
+        "newStatic": "Nieuw statisch segment"
       },
       "settingsHint": "Configuratie bevindt zich onder Integraties → Mailchimp. Het badge‑icoon hierboven is alleen‑lezen.",
       "settingsTitle": "Verbindingsinstellingen",
@@ -2607,7 +2659,7 @@
     "recommendedOpening": "Aanbevolen opening",
     "risksToWatch": "Risico's om in de gaten te houden",
     "salesContext": "Verkoopcontext",
-    "scoredAt": "gescoord op {date}",
+    "scoredAt": "Gescored op {date}",
     "scoring": "Scoren…",
     "whoTheyAre": "Wie ze zijn"
   },
@@ -2818,7 +2870,8 @@
     "demoUser": "Demo‑gebruiker",
     "openMenu": "Accountmenu openen",
     "signOut": "Afmelden",
-    "workspaceUser": "Workspace-gebruiker"
+    "workspaceUser": "Workspace-gebruiker",
+    "signOutEverywhere": "Overal afmelden"
   },
   "validation": {
     "firstNameRequired": "Naam is verplicht.",

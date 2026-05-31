@@ -48,6 +48,32 @@
     "emailLabel": "Sähköposti",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "Uusi workspace‑käyttäjä?",
+    "otp": {
+      "codeLabel": "Vahvistuskoodi",
+      "expired": "Koodi on vanhentunut — pyydä uusi.",
+      "genericError": "Jotain meni vikaan. Yritä uudelleen.",
+      "incomplete": "Syötä 6-numeroinen koodi.",
+      "invalid": "Koodi on virheellinen. Yritä uudelleen.",
+      "noCode": "Ei aktiivista koodia — pyydä uusi.",
+      "resend": "Lähetä koodi uudelleen",
+      "resendIn": "Lähetä uudelleen {seconds}s kuluttua",
+      "resent": "Uusi koodi on matkalla.",
+      "signOut": "Käytä toista tiliä",
+      "signin": {
+        "codeSubtitle": "Jos tili on olemassa osoitteelle {email}, olemme lähettäneet kirjautumiskoodin. Tarkista postilaatikkosi.",
+        "emailSubtitle": "Syötä sähköpostiosoitteesi, niin lähetämme sinulle 6-numeron kirjautumiskoodin.",
+        "emailTitle": "Kirjaudu sisään koodilla",
+        "sendCode": "Lähetä koodi",
+        "sending": "Lähetetään…"
+      },
+      "tooMany": "Liian monta yritystä. Pyydä uusi koodi.",
+      "useOtpLink": "Kirjaudu sisään sähköpostikoodilla",
+      "usePassword": "Kirjaudu sisään salasanallasi",
+      "verifyButton": "Vahvista sähköposti",
+      "verifySubtitle": "Lähetimme 6‑numeroinen koodi {email}-osoitteeseen. Syötä se alla viimeistelläksesi.",
+      "verifyTitle": "Vahvista sähköpostiosoitteesi",
+      "verifying": "Vahvistetaan…"
+    },
     "passwordLabel": "Salasana",
     "passwordPlaceholderSignIn": "Syötä salasanasi",
     "passwordPlaceholderSignUp": "Luo vahva salasana",
@@ -349,7 +375,7 @@
     "deal": "Kauppa",
     "dealDetail": "Kaupan tiedot",
     "dealList": "Kauppalista",
-    "dealValue": "Kaupan arvo",
+    "dealValue": "Deal arvo",
     "dealsInPipeline": "{count} kauppoja putkessa",
     "dealsInView": "{count} kauppoja näkymässä",
     "delete": "Poista",
@@ -469,6 +495,32 @@
     "unassigned": "Ei määritetty",
     "unknownAuthor": "Tuntematon",
     "untitledDeal": "Nimetön Deal"
+  },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Saat tämän sähköpostin, koska sinulla on Lisent-tili.",
+    "passwordReset": {
+      "cta": "Nollaa salasana",
+      "fallback": "Jos painike ei toimi, kopioi ja liitä tämä linkki selaimeesi:",
+      "heading": "Nollaa salasanasi",
+      "ignore": "Jos et pyytänyt tätä, voit turvallisesti jättää tämän sähköpostin huomiotta — salasanasi ei muutu.",
+      "intro": "Olemme vastaanottaneet pyynnön nollata salasana tilille {email}.",
+      "subject": "Nollaa salasanasi"
+    },
+    "signinOtp": {
+      "expiry": "Tämä koodi vanhenee 10 minuutissa.",
+      "heading": "Kirjaudu Lisent-tilille",
+      "ignore": "Jos et yrittänyt kirjautua, voit ohittaa tämän sähköpostin.",
+      "intro": "Syötä tämä koodi kirjautuaksesi sisään {email}:",
+      "subject": "Lisent-sisäänkirjautumiskoodisi"
+    },
+    "verifyEmail": {
+      "expiry": "Tämä koodi vanhenee 10 minuutissa.",
+      "heading": "Vahvista sähköpostiosoitteesi",
+      "ignore": "Jos et luonut Lisent-tiliä, voit ohittaa tämän sähköpostin.",
+      "intro": "Syötä tämä koodi vahvistaaksesi {email}:",
+      "subject": "Lisent‑vahvistuskoodisi"
+    }
   },
   "errors": {
     "forbidden": "Sinulla ei ole oikeutta.",
@@ -636,7 +688,7 @@
       "backToPreview": "Takaisin esikatseluun",
       "confidence": "Luottamus",
       "enableFallback": "Ota käyttöön vararivi",
-      "importing": "Tuodaan...",
+      "importing": "Tuodaan…",
       "leaveUnmapped": "Jätä kartoittamatta",
       "sample": "Esimerkki",
       "sourceHeader": "Lähdeotsikko",
@@ -742,7 +794,7 @@
       "revoke": "Peru",
       "revokeConfirm": "Perutaanko tämä API-avain? Toimenpidettä ei voi perua.",
       "revokeFailed": "API-avaimen peruutus epäonnistui.",
-      "revokedBadge": "Peruutettu",
+      "revokedBadge": "Kumottu",
       "revoking": "Peruutetaan...",
       "savedClose": "Olen tallentanut avaimen — sulje",
       "scopes": {
@@ -840,7 +892,7 @@
       "updatedLabel": "Päivitetty",
       "upstreamStatus": "Ylävirran tila: {status}",
       "urlCopied": "URL kopioitu leikepöydälle.",
-      "webhookSectionDescription": "Määritä Green API -instanssisi toimittamaan saapuvat viestit osoitteeseen <code>{url}</code>.",
+      "webhookSectionDescription": "Määritä Green API -instanssisi toimittamaan saapuvat viestit <code>{url}</code>.",
       "webhookSectionTitle": "Saapuva webhook"
     },
     "hide": "Piilota",
@@ -1284,7 +1336,7 @@
       "mtdShort": "MTD",
       "perMin": "{count}/min",
       "plan": "Suunnitelma",
-      "primaryMetrics": "Ensisijaiset mittarit",
+      "primaryMetrics": "Päämittarit",
       "rateLimit": "Ratelimitti",
       "refresh": "Päivitä",
       "refreshing": "Päivitetään…",
@@ -1493,7 +1545,7 @@
       "editLead": "Muokkaa leadia",
       "emptyDetails": "Ei vielä tallennettuja tietoja.",
       "leadProfile": "Lead-profiili",
-      "linkedCustomer": "Linkitetty asiakas",
+      "linkedCustomer": "Liitetty asiakas",
       "linkedDealId": "Linkitetyn dealin ID",
       "nextStep": "Seuraava vaihe",
       "noDealYet": "Ei kauppaa vielä",
@@ -1786,6 +1838,7 @@
           "status": "Tila-sarake",
           "tags": "Tunnisteet (pilkku- tai puolipiste-eroteltuina)"
         },
+        "loaded": "{rowCount, plural, one {Ladattiin # rivi, joissa {colCount, plural, one {# sarake} other {# saraketta}}. Yhdistä kukin CRM-kenttä laskentataulukon sarakkeeseen, josta sen tulee tulla.} other {Ladattiin # riviä, joissa {colCount, plural, one {# sarake} other {# saraketta}}. Yhdistä kukin CRM-kenttä laskentataulukon sarakkeeseen, josta sen tulee tulla.}}",
         "needName": "Valitse ensin sarake, jossa on toimiston nimi.",
         "noValid": "Yhdelläkään rivillä ei ole nimeä.",
         "notUsed": "— (ei käytössä) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "Napsauta valitaksesi. Luemme vain ensimmäisen taulukon.",
         "pickLabel": "Valitse taulukko",
         "subtitle": "Hyväksyy CSV-, Excel- ja OpenDocument-taulukot.",
-        "title": "Tuo toimistot taulukosta",
-        "loaded": "Ladattiin {rowCount, plural, one {# rivi} other {# riviä}}, joissa {colCount, plural, one {# sarake} other {# saraketta}}. Yhdistä kukin CRM-kenttä laskentataulukon sarakkeeseen, josta sen tulee tulla."
+        "title": "Tuo toimistot taulukosta"
       },
       "list": {
         "agencies": "Toimistot",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "Poista {count}",
         "bulkDeleting": "Poistetaan…",
         "clear": "Tyhjennä",
+        "confirmDelete": "{count, plural, one {Poistetaanko # toimisto?\n\nTätä ei voi kumota.} other {Poistetaanko # toimistoa?\n\nTätä ei voi kumota.}}",
         "deleteFailed": "{failed} / {total} ei voitu poistaa:\n{detail}",
         "deleteFailedMore": "…ja {count} lisää",
         "justThisPage": "Valitse vain tämä sivu ({count})",
         "pageFullySelected": "Kaikki {count} tällä sivulla on valittu.",
         "pageSelectedCount": "{count} valittu tällä sivulla",
-        "selectAllMatching": "Valitse kaikki {total} nykyisen suodattimen täsmäävät",
-        "confirmDelete": "Poistetaanko {count, plural, one {# toimisto} other {# toimistoa}}?\n\nTätä ei voi kumota."
+        "selectAllMatching": "Valitse kaikki {total} nykyisen suodattimen täsmäävät"
       },
       "table": {
         "actions": "Toiminnot",
@@ -2612,7 +2664,7 @@
     "whoTheyAre": "Keitä he ovat"
   },
   "search": {
-    "aria": "Etsi työtilasta",
+    "aria": "Etsi työtila",
     "placeholder": "Hae…"
   },
   "tasks": {
@@ -2818,7 +2870,8 @@
     "demoUser": "Demo‑käyttäjä",
     "openMenu": "Avaa tilivalikko",
     "signOut": "Kirjaudu ulos",
-    "workspaceUser": "Työtilan käyttäjä"
+    "workspaceUser": "Työtilan käyttäjä",
+    "signOutEverywhere": "Kirjaudu ulos kaikkialta"
   },
   "validation": {
     "firstNameRequired": "Nimi on pakollinen.",

@@ -48,6 +48,32 @@
     "emailLabel": "E‑Mail",
     "emailPlaceholder": "name@firma.com",
     "newWorkspaceUser": "Neuer Workspace‑Benutzer?",
+    "otp": {
+      "codeLabel": "Verifizierungscode",
+      "expired": "Der Code ist abgelaufen — fordern Sie einen neuen an.",
+      "genericError": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      "incomplete": "Geben Sie den 6‑stelligen Code ein.",
+      "invalid": "Der Code ist nicht korrekt. Bitte versuchen Sie es erneut.",
+      "noCode": "Kein aktiver Code – fordern Sie einen neuen an.",
+      "resend": "Code erneut senden",
+      "resendIn": "Erneut senden in {seconds}s",
+      "resent": "Ein neuer Code ist unterwegs.",
+      "signOut": "Ein anderes Konto verwenden",
+      "signin": {
+        "codeSubtitle": "Wenn ein Konto für {email} existiert, haben wir einen Anmeldecode gesendet. Prüfen Sie Ihren Posteingang.",
+        "emailSubtitle": "Geben Sie Ihre E‑Mail-Adresse ein, wir senden Ihnen einen 6‑stelligen Anmeldecode.",
+        "emailTitle": "Mit einem Code anmelden",
+        "sendCode": "Code senden",
+        "sending": "Senden…"
+      },
+      "tooMany": "Zu viele Versuche. Fordern Sie einen neuen Code an.",
+      "useOtpLink": "Mit einem E‑Mail‑Code anmelden",
+      "usePassword": "Stattdessen mit Ihrem Passwort anmelden",
+      "verifyButton": "E‑Mail verifizieren",
+      "verifySubtitle": "Wir haben einen 6‑stelligen Code an {email} gesendet. Bitte geben Sie ihn unten ein, um abzuschließen.",
+      "verifyTitle": "E‑Mail verifizieren",
+      "verifying": "Verifiziere…"
+    },
     "passwordLabel": "Passwort",
     "passwordPlaceholderSignIn": "Passwort eingeben",
     "passwordPlaceholderSignUp": "Erstellen Sie ein starkes Passwort",
@@ -470,6 +496,32 @@
     "unknownAuthor": "Unbekannt",
     "untitledDeal": "Unbenannter Deal"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Sie erhalten diese E‑Mail, weil Sie ein Lisent‑Konto haben.",
+    "passwordReset": {
+      "cta": "Passwort zurücksetzen",
+      "fallback": "Falls der Button nicht funktioniert, kopieren Sie diesen Link und fügen ihn in Ihren Browser ein:",
+      "heading": "Passwort zurücksetzen",
+      "ignore": "Falls Sie das nicht angefordert haben, können Sie diese E‑Mail bedenkenlos ignorieren – Ihr Passwort wird nicht geändert.",
+      "intro": "Wir haben eine Anfrage zum Zurücksetzen des Passworts für {email} erhalten.",
+      "subject": "Passwort zurücksetzen"
+    },
+    "signinOtp": {
+      "expiry": "Dieser Code läuft in 10 Minuten ab.",
+      "heading": "Melden Sie sich bei Lisent an",
+      "ignore": "Wenn Sie nicht versucht haben, sich anzumelden, können Sie diese E‑Mail ignorieren.",
+      "intro": "Geben Sie diesen Code ein, um sich als {email} anzumelden:",
+      "subject": "Ihr Lisent-Anmeldecode"
+    },
+    "verifyEmail": {
+      "expiry": "Dieser Code läuft in 10 Minuten ab.",
+      "heading": "Bestätigen Sie Ihre E‑Mail",
+      "ignore": "Wenn Sie kein Lisent-Konto erstellt haben, können Sie diese E‑Mail ignorieren.",
+      "intro": "Geben Sie diesen Code ein, um {email} zu verifizieren:",
+      "subject": "Ihr Lisent-Verifizierungscode"
+    }
+  },
   "errors": {
     "forbidden": "Sie haben keine Berechtigung.",
     "generic": "Ein Fehler ist aufgetreten.",
@@ -734,13 +786,13 @@
       "envLive": "Live",
       "envTest": "Test",
       "environment": "Umgebung",
-      "loadFailed": "API-Schlüssel konnten nicht geladen werden.",
+      "loadFailed": "API‑Schlüssel konnten nicht geladen werden.",
       "loading": "API-Schlüssel werden geladen…",
       "namePlaceholder": "z. B. Production webhook",
       "nameRequired": "Name ist erforderlich.",
       "never": "Nie",
       "revoke": "Widerrufen",
-      "revokeConfirm": "Diesen API-Schlüssel widerrufen? Dies kann nicht rückgängig gemacht werden.",
+      "revokeConfirm": "Diesen API‑Schlüssel widerrufen? Dies kann nicht rückgängig gemacht werden.",
       "revokeFailed": "API-Schlüssel konnte nicht widerrufen werden.",
       "revokedBadge": "Widerrufen",
       "revoking": "Widerrufen…",
@@ -883,7 +935,7 @@
       "hmacSecret": "HMAC‑Geheimnis",
       "hmacSecretHint": "Verwenden Sie dieses Geheimnis, um <code>X-Lisent-Signature</code> bei ausgehenden Anfragen zu berechnen.",
       "inactive": "Inaktiv",
-      "inboundDescription": "Senden Sie Payloads an <code>{url}</code>, um Leads aus Ihrem Intranet zu übernehmen.",
+      "inboundDescription": "Senden Sie Payloads an <code>{url}</code>, um Leads aus Ihrem Intranet zu importieren.",
       "inboundToken": "Inbound‑URL‑Token",
       "inboundTokenHint": "Dieser Token ist Teil der Inbound‑URL — halten Sie ihn geheim.",
       "inboundUrl": "Inbound‑URL",
@@ -1350,7 +1402,7 @@
       "dlqEmpty": "Dead Letter Queue ist leer.",
       "dlqTitle": "Dead Letter Queue",
       "eventSelectionDescription": "Wählen Sie aus, welche Ereignistypen Lisent liefern soll. Verwenden Sie <code>*</code>, um alles zu abonnieren.",
-      "eventSelectionSaved": "Ereignisauswahl gespeichert.",
+      "eventSelectionSaved": "Auswahl des Ereignisses gespeichert.",
       "eventSelectionTitle": "Ereignisauswahl",
       "loadFailed": "Laden der webhook-Konfiguration fehlgeschlagen.",
       "loading": "Lade Webhook-Konfiguration…",
@@ -1663,7 +1715,7 @@
       "source": "Source",
       "status": "Status",
       "value": "Wert",
-      "viewAIDetails": "AI-Details anzeigen"
+      "viewAIDetails": "KI-Details anzeigen"
     },
     "toolbar": {
       "add": "Hinzufügen",
@@ -1786,6 +1838,7 @@
           "status": "Statusspalte",
           "tags": "Tags (durch Komma / Semikolon getrennt)"
         },
+        "loaded": "{rowCount, plural, one {# Zeile mit {colCount, plural, one {# Spalte} other {# Spalten}} geladen. Ordnen Sie jedes CRM-Feld der Tabellenspalte zu, aus der es stammen soll.} other {# Zeilen mit {colCount, plural, one {# Spalte} other {# Spalten}} geladen. Ordnen Sie jedes CRM-Feld der Tabellenspalte zu, aus der es stammen soll.}}",
         "needName": "Wählen Sie zuerst eine Spalte für den Agenturnamen.",
         "noValid": "Keine Zeilen haben einen nicht-leeren Namen.",
         "notUsed": "— (nicht verwendet) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "Klicken Sie zum Auswählen. Wir lesen nur das erste Blatt.",
         "pickLabel": "Wählen Sie eine Tabellenkalkulation",
         "subtitle": "Unterstützt CSV-, Excel- und OpenDocument-Tabellen.",
-        "title": "Agenturen aus einer Tabellenkalkulation importieren",
-        "loaded": "{rowCount, plural, one {# Zeile} other {# Zeilen}} mit {colCount, plural, one {# Spalte} other {# Spalten}} geladen. Ordnen Sie jedes CRM-Feld der Tabellenspalte zu, aus der es stammen soll."
+        "title": "Agenturen aus einer Tabellenkalkulation importieren"
       },
       "list": {
         "agencies": "Agenturen",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "Löschen {count}",
         "bulkDeleting": "Löschen…",
         "clear": "Zurücksetzen",
+        "confirmDelete": "{count, plural, one {# Agentur löschen?\n\nDies kann nicht rückgängig gemacht werden.} other {# Agenturen löschen?\n\nDies kann nicht rückgängig gemacht werden.}}",
         "deleteFailed": "{failed} von {total} konnten nicht gelöscht werden:\n{detail}",
         "deleteFailedMore": "…und {count} weitere",
         "justThisPage": "Wählen Sie einfach diese Seite ({count})",
         "pageFullySelected": "Alle {count} auf dieser Seite sind ausgewählt.",
         "pageSelectedCount": "{count} auf dieser Seite ausgewählt",
-        "selectAllMatching": "Alle {total} auswählen, die dem aktuellen Filter entsprechen",
-        "confirmDelete": "{count, plural, one {# Agentur} other {# Agenturen}} löschen?\n\nDies kann nicht rückgängig gemacht werden."
+        "selectAllMatching": "Alle {total} auswählen, die dem aktuellen Filter entsprechen"
       },
       "table": {
         "actions": "Aktionen",
@@ -2818,7 +2870,8 @@
     "demoUser": "Demo‑Benutzer",
     "openMenu": "Konto‑Menü öffnen",
     "signOut": "Abmelden",
-    "workspaceUser": "Workspace‑Benutzer"
+    "workspaceUser": "Workspace‑Benutzer",
+    "signOutEverywhere": "Überall abmelden"
   },
   "validation": {
     "firstNameRequired": "Name ist erforderlich",

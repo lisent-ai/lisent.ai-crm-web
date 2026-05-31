@@ -48,6 +48,32 @@
     "emailLabel": "E-mail",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "Nouvel utilisateur de l'espace de travail ?",
+    "otp": {
+      "codeLabel": "Code de vérification",
+      "expired": "Ce code a expiré — demandez‑en un nouveau.",
+      "genericError": "Une erreur s’est produite. Veuillez réessayer.",
+      "incomplete": "Saisissez le code à 6 chiffres.",
+      "invalid": "Ce code n’est pas correct. Veuillez réessayer.",
+      "noCode": "Aucun code actif — demandez un nouveau.",
+      "resend": "Renvoyer le code",
+      "resendIn": "Renvoyer dans {seconds}s",
+      "resent": "Un nouveau code est en cours d’envoi.",
+      "signOut": "Utiliser un autre compte",
+      "signin": {
+        "codeSubtitle": "Si un compte existe pour {email}, nous avons envoyé un code de connexion. Vérifiez votre boîte de réception.",
+        "emailSubtitle": "Saisissez votre adresse e‑mail et nous vous enverrons un code de connexion à 6 chiffres.",
+        "emailTitle": "Connectez‑vous avec un code",
+        "sendCode": "Envoyer le code",
+        "sending": "Envoi…"
+      },
+      "tooMany": "Trop de tentatives. Demandez un nouveau code.",
+      "useOtpLink": "Connectez‑vous avec un code e‑mail",
+      "usePassword": "Connectez‑vous avec votre mot de passe à la place",
+      "verifyButton": "Vérifier l’e‑mail",
+      "verifySubtitle": "Nous avons envoyé un code à 6 chiffres à {email}. Saisissez‑le ci‑dessous pour terminer.",
+      "verifyTitle": "Vérifiez votre e‑mail",
+      "verifying": "Vérification…"
+    },
     "passwordLabel": "Mot de passe",
     "passwordPlaceholderSignIn": "Saisissez votre mot de passe",
     "passwordPlaceholderSignUp": "Créez un mot de passe sécurisé",
@@ -91,13 +117,13 @@
       "upcoming": "Aucun événement à venir."
     },
     "errors": {
-      "delete": "Échec de la suppression de l'événement.",
+      "delete": "Échec de la suppression de l’événement.",
       "linkRecordMissing": "Un enregistrement lié est requis lorsqu'un type de lien est sélectionné.",
       "loadCompanies": "Échec du chargement des entreprises.",
       "loadEvents": "Échec du chargement des événements.",
-      "pastDate": "L'événement ne peut pas commencer dans le passé.",
-      "save": "Échec de l'enregistrement de l'événement.",
-      "startRequired": "La date et l'heure de début sont obligatoires.",
+      "pastDate": "L’événement ne peut pas commencer dans le passé.",
+      "save": "Échec de l’enregistrement de l’événement.",
+      "startRequired": "La date et l’heure de début sont obligatoires.",
       "titleRequired": "Le titre est obligatoire."
     },
     "eventStatus": {
@@ -121,7 +147,7 @@
       "description": "Description",
       "end": "Fin",
       "endDate": "Date de fin",
-      "eventType": "Type d'événement",
+      "eventType": "Type d’événement",
       "linkTo": "Lien vers",
       "linkedRecord": "Enregistrement lié",
       "location": "Lieu",
@@ -469,6 +495,32 @@
     "unassigned": "Non attribué",
     "unknownAuthor": "Inconnu",
     "untitledDeal": "Deal sans titre"
+  },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Vous recevez cet e‑mail car vous avez un compte Lisent.",
+    "passwordReset": {
+      "cta": "Réinitialiser le mot de passe",
+      "fallback": "Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :",
+      "heading": "Réinitialisez votre mot de passe",
+      "ignore": "Si vous n’avez pas demandé cela, vous pouvez ignorer cet e‑mail en toute sécurité — votre mot de passe ne changera pas.",
+      "intro": "Nous avons reçu une demande de réinitialisation du mot de passe pour {email}.",
+      "subject": "Réinitialisez votre mot de passe"
+    },
+    "signinOtp": {
+      "expiry": "Ce code expire dans 10 minutes.",
+      "heading": "Connectez‑vous à Lisent",
+      "ignore": "Si vous n’avez pas tenté de vous connecter, vous pouvez ignorer cet e‑mail.",
+      "intro": "Saisissez ce code pour vous connecter en tant que {email} :",
+      "subject": "Votre code de connexion Lisent"
+    },
+    "verifyEmail": {
+      "expiry": "Ce code expire dans 10 minutes.",
+      "heading": "Confirmez votre e‑mail",
+      "ignore": "Si vous n’avez pas créé de compte Lisent, vous pouvez ignorer cet e‑mail.",
+      "intro": "Saisissez ce code pour vérifier {email} :",
+      "subject": "Votre code de vérification Lisent"
+    }
   },
   "errors": {
     "forbidden": "Vous n’avez pas la permission.",
@@ -1359,9 +1411,9 @@
       "noChanges": "Aucune modification à enregistrer.",
       "notSetWillGenerate": "Non défini — un secret sera généré lors de l’enregistrement.",
       "payloadFullDesc": "Envoyer la charge utile complète de l’événement, incluant tous les champs.",
-      "payloadFullLabel": "Charge utile complète",
+      "payloadFullLabel": "Payload complet",
       "payloadMinimalDesc": "Envoyer uniquement l’ID de l’événement, le type et un ID de référence.",
-      "payloadMinimalLabel": "Charge utile minimale",
+      "payloadMinimalLabel": "Payload minimal",
       "payloadMode": "Mode de charge utile",
       "rotateSecret": "Renouveler le secret",
       "rotatedAt": "Roté le {time}",
@@ -1786,6 +1838,7 @@
           "status": "Colonne statut",
           "tags": "Tags (séparés par des virgules / points-virgules)"
         },
+        "loaded": "{rowCount, plural, one {# ligne avec {colCount, plural, one {# colonne} other {# colonnes}} chargées. Associez chaque champ CRM à la colonne du tableur dont il doit provenir.} other {# lignes avec {colCount, plural, one {# colonne} other {# colonnes}} chargées. Associez chaque champ CRM à la colonne du tableur dont il doit provenir.}}",
         "needName": "Sélectionnez d'abord une colonne pour le nom de l'agence.",
         "noValid": "Aucune ligne n'a de nom non vide.",
         "notUsed": "— (non utilisé) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "Cliquez pour choisir. Nous ne lirons que la première feuille.",
         "pickLabel": "Choisir une feuille de calcul",
         "subtitle": "Accepte les feuilles de calcul CSV, Excel et OpenDocument.",
-        "title": "Importer des agences depuis une feuille de calcul",
-        "loaded": "{rowCount, plural, one {# ligne} other {# lignes}} avec {colCount, plural, one {# colonne} other {# colonnes}} chargées. Associez chaque champ CRM à la colonne du tableur dont il doit provenir."
+        "title": "Importer des agences depuis une feuille de calcul"
       },
       "list": {
         "agencies": "Agences",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "Supprimer {count}",
         "bulkDeleting": "Suppression…",
         "clear": "Effacer",
+        "confirmDelete": "{count, plural, one {Supprimer # agence ?\n\nCette action est irréversible.} other {Supprimer # agences ?\n\nCette action est irréversible.}}",
         "deleteFailed": "{failed} sur {total} n’ont pas pu être supprimés :\n{detail}",
         "deleteFailedMore": "…et {count} de plus",
         "justThisPage": "Sélectionner uniquement cette page ({count})",
         "pageFullySelected": "Tous les {count} de cette page sont sélectionnés.",
         "pageSelectedCount": "{count} sélectionnés sur cette page",
-        "selectAllMatching": "Sélectionner tous les {total} correspondant au filtre actuel",
-        "confirmDelete": "Supprimer {count, plural, one {# agence} other {# agences}} ?\n\nCette action est irréversible."
+        "selectAllMatching": "Sélectionner tous les {total} correspondant au filtre actuel"
       },
       "table": {
         "actions": "Actions",
@@ -2559,7 +2611,7 @@
     },
     "dashboard": {
       "description": "Vue d’ensemble de l’espace de travail et actions rapides.",
-      "title": "Tableau de bord"
+      "title": "Dashboard"
     },
     "deals": {
       "description": "Suivez les deals ouverts et la valeur du pipeline.",
@@ -2815,10 +2867,11 @@
   "userMenu": {
     "accountSettings": "Paramètres du compte",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Utilisateur de démonstration",
+    "demoUser": "Utilisateur de démo",
     "openMenu": "Ouvrir le menu du compte",
     "signOut": "Déconnexion",
-    "workspaceUser": "Utilisateur Workspace"
+    "workspaceUser": "Utilisateur Workspace",
+    "signOutEverywhere": "Se déconnecter partout"
   },
   "validation": {
     "firstNameRequired": "Le prénom est obligatoire.",

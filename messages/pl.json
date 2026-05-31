@@ -48,10 +48,36 @@
     "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "Nowy użytkownik workspace?",
+    "otp": {
+      "codeLabel": "Kod weryfikacyjny",
+      "expired": "Ten kod wygasł — poproś o nowy.",
+      "genericError": "Coś poszło nie tak. Spróbuj ponownie.",
+      "incomplete": "Wpisz 6‑cyfrowy kod.",
+      "invalid": "Ten kod jest nieprawidłowy. Spróbuj ponownie.",
+      "noCode": "Brak aktywnego kodu — poproś o nowy.",
+      "resend": "Wyślij kod ponownie",
+      "resendIn": "Wyślij ponownie za {seconds}s",
+      "resent": "Nowy kod jest w drodze.",
+      "signOut": "Użyj innego konta",
+      "signin": {
+        "codeSubtitle": "Jeśli istnieje konto dla {email}, wysłaliśmy kod logowania. Sprawdź swoją skrzynkę odbiorczą.",
+        "emailSubtitle": "Wpisz swój adres e‑mail, a wyślemy Ci 6‑cyfrowy kod logowania.",
+        "emailTitle": "Zaloguj się kodem",
+        "sendCode": "Wyślij kod",
+        "sending": "Wysyłanie…"
+      },
+      "tooMany": "Zbyt wiele prób. Poproś o nowy kod.",
+      "useOtpLink": "Zaloguj się kodem e‑mailowym",
+      "usePassword": "Zaloguj się zamiast tego hasłem",
+      "verifyButton": "Zweryfikuj e‑mail",
+      "verifySubtitle": "Wysłaliśmy 6‑cyfrowy kod na {email}. Wpisz go poniżej, aby dokończyć.",
+      "verifyTitle": "Zweryfikuj swój e‑mail",
+      "verifying": "Weryfikowanie…"
+    },
     "passwordLabel": "Hasło",
     "passwordPlaceholderSignIn": "Wpisz swoje hasło",
     "passwordPlaceholderSignUp": "Utwórz silne hasło",
-    "selectGenderPlaceholder": "Wybierz swoją płeć",
+    "selectGenderPlaceholder": "Wybierz płeć",
     "signIn": "Zaloguj się",
     "signInButton": "Zaloguj się",
     "signInInstead": "Zaloguj się zamiast tego",
@@ -380,7 +406,7 @@
       "lossReason": "Powód utraty",
       "records": "Rekordy",
       "sourceLead": "Lead źródłowy",
-      "termination": "Zakończenie",
+      "termination": "Rozwiązanie",
       "updated": "Zaktualizowano",
       "wonReason": "Powód wygranej"
     },
@@ -459,7 +485,7 @@
     "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Dodano komentarz.",
-      "created": "Utworzono transakcję.",
+      "created": "Utworzono Deal.",
       "deleted": "Transakcja usunięta.",
       "updated": "Zaktualizowano transakcję."
     },
@@ -470,9 +496,35 @@
     "unknownAuthor": "Nieznany",
     "untitledDeal": "Transakcja bez tytułu"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Otrzymujesz tę wiadomość, ponieważ masz konto w Lisent.",
+    "passwordReset": {
+      "cta": "Zresetuj hasło",
+      "fallback": "Jeśli przycisk nie działa, skopiuj i wklej ten link do przeglądarki:",
+      "heading": "Zresetuj hasło",
+      "ignore": "Jeśli nie prosiłeś o to, możesz bezpiecznie zignorować tę wiadomość — Twoje hasło nie ulegnie zmianie.",
+      "intro": "Otrzymaliśmy prośbę o zresetowanie hasła dla {email}.",
+      "subject": "Zresetuj hasło"
+    },
+    "signinOtp": {
+      "expiry": "Kod wygasa za 10 minut.",
+      "heading": "Zaloguj się do Lisent",
+      "ignore": "Jeśli nie próbował(a) Pan/Pani się zalogować, może Pan/Pani zignorować tę wiadomość.",
+      "intro": "Wprowadź ten kod, aby zalogować się jako {email}:",
+      "subject": "Twój kod logowania do Lisent"
+    },
+    "verifyEmail": {
+      "expiry": "Kod jest ważny przez 10 minut.",
+      "heading": "Potwierdź swój adres e‑mail",
+      "ignore": "Jeśli nie utworzyłeś konta w Lisent, możesz zignorować tę wiadomość.",
+      "intro": "Wpisz ten kod, aby zweryfikować {email}:",
+      "subject": "Twój kod weryfikacyjny Lisent"
+    }
+  },
   "errors": {
     "forbidden": "Nie masz uprawnień.",
-    "generic": "Coś poszło nie tak.",
+    "generic": "Wystąpił błąd.",
     "networkError": "Błąd sieci. Spróbuj ponownie.",
     "sessionRequired": "Wymagane uwierzytelnienie.",
     "userNotFound": "Użytkownik nie został znaleziony."
@@ -882,7 +934,7 @@
       "hmacExampleTitle": "Przykład HMAC",
       "hmacSecret": "Klucz HMAC",
       "hmacSecretHint": "Użyj tego sekretu do obliczenia <code>X-Lisent-Signature</code> w żądaniach wychodzących.",
-      "inactive": "Nieaktywny",
+      "inactive": "Nieaktywne",
       "inboundDescription": "Wyślij ładunki do <code>{url}</code>, aby pobrać leady z intranetu.",
       "inboundToken": "Token URL przychodzącego",
       "inboundTokenHint": "Ten token jest częścią URL przychodzącego — zachowaj go w tajemnicy.",
@@ -1313,7 +1365,7 @@
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Link Calendly",
       "description": "Skonfiguruj zachowanie kwalifikatora <code>v1</code> dla <strong>{name}</strong>.",
-      "frameworkDescription": "Wybierz ramy kwalifikacji, których asystent używa do wyodrębniania sygnałów.",
+      "frameworkDescription": "Wybierz ramy kwalifikacji, które asystent używa do wyodrębniania sygnałów.",
       "frameworkTitle": "Ramy kwalifikacji",
       "loadFailed": "Nie udało się wczytać konfiguracji v1.",
       "loading": "Wczytywanie konfiguracji v1...",
@@ -1786,6 +1838,7 @@
           "status": "Kolumna statusu",
           "tags": "Tagi (oddzielone przecinkiem lub średnikiem)"
         },
+        "loaded": "{rowCount, plural, one {Wczytano # wiersz z {colCount, plural, one {# kolumną} other {# kolumnami}}. Przypisz każde pole CRM do kolumny arkusza, z której ma pochodzić.} other {Wczytano # wierszy z {colCount, plural, one {# kolumną} other {# kolumnami}}. Przypisz każde pole CRM do kolumny arkusza, z której ma pochodzić.}}",
         "needName": "Najpierw wybierz kolumnę z nazwą agencji.",
         "noValid": "Żadne wiersze nie mają niepustej nazwy.",
         "notUsed": "— (nie używane) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "Kliknij, aby wybrać. Odczytamy tylko pierwszy arkusz.",
         "pickLabel": "Wybierz arkusz kalkulacyjny",
         "subtitle": "Obsługuje pliki CSV, Excel oraz OpenDocument.",
-        "title": "Importuj agencje z arkusza kalkulacyjnego",
-        "loaded": "Wczytano {rowCount, plural, one {# wiersz} other {# wierszy}} z {colCount, plural, one {# kolumną} other {# kolumnami}}. Przypisz każde pole CRM do kolumny arkusza, z której ma pochodzić."
+        "title": "Importuj agencje z arkusza kalkulacyjnego"
       },
       "list": {
         "agencies": "Agencje",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "Usuń {count}",
         "bulkDeleting": "Usuwanie…",
         "clear": "Wyczyść",
+        "confirmDelete": "{count, plural, one {Usunąć # agencję?\n\nTej operacji nie można cofnąć.} other {Usunąć # agencji?\n\nTej operacji nie można cofnąć.}}",
         "deleteFailed": "Nie udało się usunąć {failed} z {total}:\n{detail}",
         "deleteFailedMore": "…oraz {count} więcej",
         "justThisPage": "Zaznacz tylko tę stronę ({count})",
         "pageFullySelected": "Wszystkie {count} na tej stronie są zaznaczone.",
         "pageSelectedCount": "{count} zaznaczonych na tej stronie",
-        "selectAllMatching": "Zaznacz wszystkie {total} pasujące do bieżącego filtru",
-        "confirmDelete": "Usunąć {count, plural, one {# agencję} other {# agencji}}?\n\nTej operacji nie można cofnąć."
+        "selectAllMatching": "Zaznacz wszystkie {total} pasujące do bieżącego filtru"
       },
       "table": {
         "actions": "Akcje",
@@ -2818,7 +2870,8 @@
     "demoUser": "Użytkownik demo",
     "openMenu": "Otwórz menu konta",
     "signOut": "Wyloguj się",
-    "workspaceUser": "Użytkownik Workspace"
+    "workspaceUser": "Użytkownik Workspace",
+    "signOutEverywhere": "Wyloguj się wszędzie"
   },
   "validation": {
     "firstNameRequired": "Imię jest wymagane.",

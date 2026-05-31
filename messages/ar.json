@@ -48,6 +48,32 @@
     "emailLabel": "البريد الإلكتروني",
     "emailPlaceholder": "name@company.com",
     "newWorkspaceUser": "مستخدم جديد في مساحة العمل؟",
+    "otp": {
+      "codeLabel": "رمز التحقق",
+      "expired": "انتهت صلاحية الرمز — اطلب رمزًا جديدًا.",
+      "genericError": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+      "incomplete": "أدخل الرمز المكوّن من 6 أرقام.",
+      "invalid": "الرمز غير صحيح. يرجى المحاولة مرة أخرى.",
+      "noCode": "لا يوجد رمز نشط — اطلب رمزًا جديدًا.",
+      "resend": "إعادة إرسال الرمز",
+      "resendIn": "إعادة الإرسال خلال {seconds} ثانية",
+      "resent": "تم إرسال رمز جديد.",
+      "signOut": "استخدم حسابًا مختلفًا",
+      "signin": {
+        "codeSubtitle": "إذا كان هناك حساب مرتبط بـ {email}، فقد أرسلنا رمز تسجيل الدخول. تحقق من صندوق الوارد.",
+        "emailSubtitle": "أدخل بريدك الإلكتروني وسنرسل لك رمز تسجيل الدخول المكوّن من 6 أرقام.",
+        "emailTitle": "تسجيل الدخول برمز",
+        "sendCode": "إرسال الرمز",
+        "sending": "جارٍ الإرسال…"
+      },
+      "tooMany": "عدد المحاولات كبير جدًا. اطلب رمزًا جديدًا.",
+      "useOtpLink": "تسجيل الدخول برمز عبر البريد الإلكتروني",
+      "usePassword": "سجّل الدخول باستخدام كلمة المرور بدلاً من ذلك",
+      "verifyButton": "تحقق من البريد الإلكتروني",
+      "verifySubtitle": "أرسلنا رمزًا مكونًا من 6 أرقام إلى {email}. أدخله أدناه لإكمال العملية.",
+      "verifyTitle": "تحقق من بريدك الإلكتروني",
+      "verifying": "جارٍ التحقق…"
+    },
     "passwordLabel": "كلمة المرور",
     "passwordPlaceholderSignIn": "أدخل كلمة المرور",
     "passwordPlaceholderSignUp": "أنشئ كلمة مرور قوية",
@@ -444,7 +470,7 @@
       "lost": "خسارة",
       "lostDescription": "الصفقات المغلقة كخسارة للتعلم منها.",
       "negotiation": "تفاوض",
-      "negotiationDescription": "التوافق على الأسعار والشروط والجداول الزمنية.",
+      "negotiationDescription": "التوافق على الأسعار والشروط والجدول الزمني.",
       "new": "جديد",
       "newDescription": "الفرص التي تم إنشاؤها حديثًا ولم يتم تأهيلها بعد.",
       "proposal": "اقتراح",
@@ -468,7 +494,33 @@
     "thisDeal": "هذا Deal",
     "unassigned": "غير مُعيَّن",
     "unknownAuthor": "غير معروف",
-    "untitledDeal": "صفقة بدون عنوان"
+    "untitledDeal": "بدون عنوان Deal"
+  },
+  "email": {
+    "brand": "Lisent",
+    "footer": "أنت تتلقى هذا البريد لأن لديك حسابًا في Lisent.",
+    "passwordReset": {
+      "cta": "إعادة تعيين كلمة المرور",
+      "fallback": "إذا لم يعمل الزر، انسخ والصق هذا الرابط في المتصفح الخاص بك:",
+      "heading": "إعادة تعيين كلمة المرور",
+      "ignore": "إذا لم تطلب ذلك، يمكنك تجاهل هذا البريد بأمان — لن تتغير كلمة المرور الخاصة بك.",
+      "intro": "تلقينا طلبًا لإعادة تعيين كلمة المرور الخاصة بـ {email}.",
+      "subject": "إعادة تعيين كلمة المرور"
+    },
+    "signinOtp": {
+      "expiry": "ينتهي صلاحية هذا الرمز خلال 10 دقائق.",
+      "heading": "تسجيل الدخول إلى Lisent",
+      "ignore": "إذا لم تحاول تسجيل الدخول، يمكنك تجاهل هذا البريد.",
+      "intro": "أدخل هذا الرمز لتسجيل الدخول كـ {email}:",
+      "subject": "رمز تسجيل الدخول الخاص بك إلى Lisent"
+    },
+    "verifyEmail": {
+      "expiry": "ينتهي صلاحية هذا الرمز خلال 10 دقائق.",
+      "heading": "تأكيد بريدك الإلكتروني",
+      "ignore": "إذا لم تقم بإنشاء حساب Lisent، يمكنك تجاهل هذا البريد.",
+      "intro": "أدخل هذا الرمز للتحقق من {email}:",
+      "subject": "رمز التحقق الخاص بك من Lisent"
+    }
   },
   "errors": {
     "forbidden": "ليس لديك الصلاحية.",
@@ -482,7 +534,7 @@
       "chartAriaLabel": "مخطط النشاط للأسبوع الماضي",
       "empty": "لم يتم تسجيل أي نشاط بعد لـ {name}.",
       "emptyDefault": "لم يتم تسجيل أي نشاط بعد.",
-      "legendDeals": "الصفقات",
+      "legendDeals": "Deals",
       "legendLeads": "Leads",
       "subtitle": "Leads التي تم إنشاؤها وDeals التي أُغلقت خلال الأسبوع الماضي.",
       "title": "النشاط"
@@ -596,15 +648,15 @@
     },
     "workspaceOverview": {
       "acrossAccount": "عبر حسابك",
-      "activeWorkspace": "مساحة العمل النشطة",
+      "activeWorkspace": "Workspace نشط",
       "allCombined": "الكل مجمّع",
       "customers": "العملاء",
       "noneSelected": "لم يتم اختيار أي شيء",
-      "pickToActivate": "اختر مساحة عمل لتفعيل المقاييس.",
+      "pickToActivate": "اختر Workspace لتفعيل المقاييس.",
       "scopedViews": "عروض محدودة",
-      "singleWorkspace": "مساحة عمل واحدة",
+      "singleWorkspace": "Workspace واحد",
       "subtitle": "ملخص على مستوى الحساب لمساحات عملك.",
-      "workspaces": "مساحات العمل"
+      "workspaces": "Workspaces"
     }
   },
   "imports": {
@@ -1339,7 +1391,7 @@
       "description": "تكوين تسليم webhook لـ <strong>{name}</strong>.",
       "destinationHint": "ترسل Lisent الأحداث إلى هذا URL مع حمولة موقعة.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
-      "destinationUrl": "عنوان URL الوجهة",
+      "destinationUrl": "URL الوجهة",
       "dlqCols": {
         "attempts": "محاولات",
         "eventId": "معرّف الحدث",
@@ -1424,7 +1476,7 @@
       "selected": "{count} مختار"
     },
     "bulkDelete": {
-      "confirm": "حذف المحدد",
+      "confirm": "حذف المحدَّد",
       "deleting": "جاري الحذف...",
       "description": "سيؤدي هذا إلى حذف {count} من الـ leads بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
       "title": "حذف الـ leads المحددة؟"
@@ -1568,7 +1620,7 @@
       "newTitle": "إنشاء عميل محتمل",
       "notes": "ملاحظات",
       "notesPlaceholder": "أضف سياقًا حول هذا العميل...",
-      "phone": "الهاتف",
+      "phone": "هاتف",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "مرحلة المسار",
       "saveAndScheduleEvent": "حفظ & جدولة الحدث",
@@ -1786,6 +1838,7 @@
           "status": "عمود الحالة",
           "tags": "الوسوم (مفصولة بفواصل أو فواصل منقوطة)"
         },
+        "loaded": "{rowCount, plural, one {تم تحميل # صف مع {colCount, plural, one {# عمود} other {# أعمدة}}. طابِق كل حقل في CRM مع عمود جدول البيانات الذي يجب أن يأتي منه.} other {تم تحميل # صفوف مع {colCount, plural, one {# عمود} other {# أعمدة}}. طابِق كل حقل في CRM مع عمود جدول البيانات الذي يجب أن يأتي منه.}}",
         "needName": "اختر عمودًا لاسم الوكالة أولاً.",
         "noValid": "لا توجد صفوف تحتوي على اسم غير فارغ.",
         "notUsed": "— (غير مستخدم) —",
@@ -1793,8 +1846,7 @@
         "pickHint": "انقر للاختيار. سنقرأ الورقة الأولى فقط.",
         "pickLabel": "اختر جدول بيانات",
         "subtitle": "يدعم ملفات CSV و Excel و OpenDocument بصيغة جدول بيانات.",
-        "title": "استيراد الوكالات من جدول بيانات",
-        "loaded": "تم تحميل {rowCount, plural, one {# صف} other {# صفوف}} مع {colCount, plural, one {# عمود} other {# أعمدة}}. طابِق كل حقل في CRM مع عمود جدول البيانات الذي يجب أن يأتي منه."
+        "title": "استيراد الوكالات من جدول بيانات"
       },
       "list": {
         "agencies": "الوكالات",
@@ -1855,13 +1907,13 @@
         "bulkDelete": "حذف {count}",
         "bulkDeleting": "جارٍ الحذف…",
         "clear": "مسح",
+        "confirmDelete": "{count, plural, one {حذف # وكالة؟\n\nلا يمكن التراجع عن هذا الإجراء.} other {حذف # وكالات؟\n\nلا يمكن التراجع عن هذا الإجراء.}}",
         "deleteFailed": "لم يتم حذف {failed} من أصل {total}:\n{detail}",
         "deleteFailedMore": "…و {count} أخرى",
         "justThisPage": "حدد فقط هذه الصفحة ({count})",
         "pageFullySelected": "تم اختيار جميع {count} في هذه الصفحة.",
         "pageSelectedCount": "تم اختيار {count} في هذه الصفحة",
-        "selectAllMatching": "اختر جميع {total} التي تطابق الفلتر الحالي",
-        "confirmDelete": "حذف {count, plural, one {# وكالة} other {# وكالات}}؟\n\nلا يمكن التراجع عن هذا الإجراء."
+        "selectAllMatching": "اختر جميع {total} التي تطابق الفلتر الحالي"
       },
       "table": {
         "actions": "إجراءات",
@@ -1875,7 +1927,7 @@
       "title": "الوكالات · {total}"
     },
     "authBody": "تسجيل الدخول، التسجيل، والتحقق من الجلسة عبر <code>/api/auth</code>",
-    "authTitle": "المصادقة",
+    "authTitle": "Auth",
     "bffBody": "يجب أن تتوقف مكالمات المتصفح عند هذا التطبيق. ستتواصل مسارات الخادم الموثوقة مع خدمة CRM الداخلية.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
@@ -2743,7 +2795,7 @@
       "role": "الدور"
     },
     "empty": {
-      "createWorkspace": "أنشئ مساحة عمل لبدء إضافة أعضاء الفريق.",
+      "createWorkspace": "أنشئ Workspace لبدء إضافة أعضاء الفريق.",
       "description": "لم تقم بإضافة أي زملاء إلى مساحة العمل هذه بعد.",
       "heading": "لا يوجد أعضاء فريق بعد",
       "subtitle": "ادعُ زميلك الأول للبدء في التعاون."
@@ -2818,7 +2870,8 @@
     "demoUser": "مستخدم تجريبي",
     "openMenu": "فتح قائمة الحساب",
     "signOut": "تسجيل الخروج",
-    "workspaceUser": "مستخدم Workspace"
+    "workspaceUser": "مستخدم Workspace",
+    "signOutEverywhere": "تسجيل الخروج من كل الأجهزة"
   },
   "validation": {
     "firstNameRequired": "الاسم مطلوب.",
