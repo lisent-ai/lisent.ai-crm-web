@@ -63,7 +63,26 @@ export function AuthPage() {
 
     void (async () => {
       const hasSession = await doesSessionExist();
-      if (!cancelled && hasSession) {
+      if (cancelled || !hasSession) {
+        return;
+      }
+      // A logged-in but unverified user lands on the OTP step instead of
+      // bouncing to the dashboard (which would just send them back here).
+      try {
+        const res = await fetch("/api/auth-otp/status");
+        const json = (await res.json().catch(() => ({}))) as {
+          emailVerified?: boolean | null;
+          email?: string | null;
+        };
+        if (!cancelled && json.emailVerified === false) {
+          setPendingEmail(json.email ?? "");
+          setPhase("verify");
+          return;
+        }
+      } catch {
+        // fall through to the dashboard
+      }
+      if (!cancelled) {
         router.replace("/dashboard");
       }
     })();

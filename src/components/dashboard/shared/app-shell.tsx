@@ -43,6 +43,32 @@ export function AppShell({ children }: Readonly<AppShellProps>) {
     ensureFrontendSuperTokensInit();
   }
 
+  // Email-verification gate: an authenticated-but-unverified user is sent
+  // back to /auth, which shows the OTP step. Stops anyone entering the app
+  // without finishing signup verification. SessionAuth still handles the
+  // no-session case.
+  useEffect(() => {
+    if (uiOnlyMode || !mounted) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/auth-otp/status");
+        if (cancelled || res.status === 401) return;
+        const json = (await res.json().catch(() => ({}))) as {
+          emailVerified?: boolean | null;
+        };
+        if (!cancelled && json.emailVerified === false) {
+          router.replace("/auth/signin");
+        }
+      } catch {
+        // transient error → don't lock the user out
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [mounted, router]);
+
   useEffect(() => {
     if (uiOnlyMode) return;
 
