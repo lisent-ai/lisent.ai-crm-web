@@ -1060,6 +1060,26 @@ async function forwardRequest(
           resourceId,
           "integrations.manage",
         );
+      } else if (pathSegments[2] === "agencies") {
+        // Agencies is an independent module. The real gate is
+        // user_module_access on the backend (owner bypass + per-user
+        // grant). We only check that the caller is a member of the
+        // company — company.read for any read, company.update for any
+        // write. The backend returns 403 to non-owners without an
+        // explicit grant regardless of what we wave through here.
+        allowed =
+          method === "GET"
+            ? hasCompanyPermissionInAccess(account.access, resourceId, "company.read")
+            : hasCompanyPermissionInAccess(account.access, resourceId, "company.update");
+      } else if (pathSegments[2] === "module-access") {
+        // Owner-only on the backend; the membership check here is the
+        // BFF's defence-in-depth. integrations.manage is the closest
+        // existing permission for "manages access rules".
+        allowed = hasCompanyPermissionInAccess(
+          account.access,
+          resourceId,
+          "integrations.manage",
+        );
       } else {
         allowed =
           method === "GET"
@@ -1092,7 +1112,9 @@ async function forwardRequest(
       // its defence-in-depth checks. Other companies/* paths don't forward
       // those headers, which keeps the Sheets/Meta surface unchanged.
       const upstreamExtras =
-        pathSegments[2] === "mailchimp-connections"
+        pathSegments[2] === "mailchimp-connections" ||
+        pathSegments[2] === "agencies" ||
+        pathSegments[2] === "module-access"
           ? {
               companyId: resourceId,
               userRole: getCompanyRoleForAccess(account.access, resourceId) ?? "",

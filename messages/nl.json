@@ -5,7 +5,7 @@
     "emailNotEditable": "E-mailwijzigingen worden op dit scherm niet verwerkt.",
     "fields": {
       "companyAccess": "Bedrijfs‑toegang",
-      "companyMemberships": "Bedrijfslidmaatschappen",
+      "companyMemberships": "Bedrijfs­lidmaatschappen",
       "email": "E‑mail",
       "firstName": "Voornaam",
       "gender": "Geslacht",
@@ -21,7 +21,7 @@
       "male": "Man"
     },
     "loadFailed": "Kan accountinstellingen niet laden.",
-    "noMemberships": "Nog geen bedrijfslidmaatschappen.",
+    "noMemberships": "Nog geen bedrijfs­lidmaatschappen.",
     "placeholders": {
       "firstName": "Uw voornaam",
       "language": "Selecteer taal",
@@ -111,7 +111,7 @@
       "deadline": "Deadline",
       "demo": "Demo",
       "follow_up": "Follow‑up",
-      "meeting": "Vergadering"
+      "meeting": "Meeting"
     },
     "fields": {
       "allDayEvent": "Hele‑dag‑evenement",
@@ -160,9 +160,9 @@
       "noLinkedCustomer": "Geen gekoppelde klant",
       "optionalCustomer": "Selecteer een klant (optioneel)",
       "selectRecord": "Selecteer een record",
-      "title": "Ontdekkingsgesprek met..."
+      "title": "Ontdekkingsgesprek met…"
     },
-    "searchAriaLabel": "Evenementen zoeken",
+    "searchAriaLabel": "Zoek evenementen",
     "searchPlaceholder": "Zoek evenementen...",
     "selectedCompanyFallback": "Uw workspace",
     "success": {
@@ -179,7 +179,7 @@
     "title": "Agenda",
     "today": "Vandaag",
     "unassigned": "Niet toegewezen",
-    "untitled": "Evenement zonder titel",
+    "untitled": "Naamloos evenement",
     "view": {
       "day": "Dag",
       "month": "Maand",
@@ -218,15 +218,15 @@
     "addCustomer": "Klant toevoegen",
     "bulk": {
       "clearSelection": "Selectie wissen",
-      "confirmDelete": "Geselecteerde verwijderen",
-      "deleteDescription": "Dit zal klantrecords permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
+      "confirmDelete": "Verwijder geselecteerde",
+      "deleteDescription": "Dit zal {count} klantrecords permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
       "deleteEyebrow": "Bulkverwijdering",
       "deleteTitle": "Geselecteerde klanten verwijderen?",
       "exportCsv": "Export CSV",
       "exportPdf": "Export PDF",
       "exportXlsx": "Export Excel",
       "regionLabel": "Bulkacties",
-      "selectedCount": "geselecteerd"
+      "selectedCount": "{count} geselecteerd"
     },
     "closeAddPopup": "Dialoogvenster klant toevoegen sluiten",
     "confirmDelete": "Verwijderen",
@@ -246,7 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Sommige klanten konden niet worden verwijderd.",
       "deleteCustomer": "Klant kon niet worden verwijderd.",
-      "exportFailed": "Failed to export customers.",
+      "exportFailed": "Exporteren van klanten mislukt.",
       "loadCompanies": "Bedrijven konden niet worden geladen.",
       "loadCustomers": "Klanten konden niet worden geladen.",
       "saveCustomer": "Opslaan van klant mislukt."
@@ -281,17 +281,17 @@
       "empty": "Er zijn geen klanten die overeenkomen met de huidige filters.",
       "eyebrow": "Klantendirectory",
       "selectAll": "Alle klanten selecteren",
-      "selectRow": "Klant selecteren",
+      "selectRow": "Klant {name} selecteren",
       "title": "Klanten",
-      "visibleCount": "Toont {count}"
+      "visibleCount": "Toont {visible} van {total}"
     },
     "loading": "Klanten laden...",
     "noEmail": "Geen e‑mail beschikbaar",
     "notSet": "Niet ingesteld",
     "pdf": {
-      "exportedAt": "customers · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Customers"
+      "exportedAt": "klanten · Geëxporteerd op {date}",
+      "pageOf": "Pagina {current} van {total}",
+      "title": "Klanten"
     },
     "placeholders": {
       "email": "name@company.com",
@@ -302,7 +302,7 @@
       "label": "Zoeken",
       "placeholder": "Zoek klanten…"
     },
-    "selectedCompany": "Actieve workspace:",
+    "selectedCompany": "Actieve workspace: {name}",
     "status": {
       "active": "Actief",
       "all": "Alle",
@@ -312,10 +312,10 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} klanten verwijderd.",
-      "bulkDeletedPartial": "van klanten verwijderd.",
+      "bulkDeletedPartial": "{deleted} van {total} klanten verwijderd.",
       "created": "Klant aangemaakt.",
       "deleted": "Klant verwijderd.",
-      "exported": "Exported {count} customers.",
+      "exported": "Geëxporteerd {count} klanten.",
       "updated": "Klant bijgewerkt."
     }
   },
@@ -329,23 +329,23 @@
       "champExtraction": "CHAMP-extractie",
       "path": "Pad",
       "reasoningReport": "Redeneringsrapport",
-      "scoredAt": "Gescoord op {date}",
-      "title": "AI-inzichten"
+      "scoredAt": "Beoordeeld op {date}",
+      "title": "AI‑inzichten"
     },
     "amount": "Bedrag",
-    "amountValue": "{value}",
+    "amountValue": "{amount}",
     "assignee": "Toegewezen aan",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "Sleep deals tussen fases om de pipeline bij te werken.",
-    "changedBy": "Gewijzigd door",
+    "changedBy": "Gewijzigd door {name}",
     "close": "Sluiten",
     "closeTarget": "Sluitdoel",
-    "closeTargetValue": "{value}",
-    "columnTotal": "Kolomtotaal:",
+    "closeTargetValue": "{date}",
+    "columnTotal": "Kolomtotaal: {value}",
     "commentPlaceholder": "Schrijf een reactie...",
-    "comments": "Reacties",
+    "comments": "Opmerkingen",
     "commentsCount": "{count} reacties",
-    "commentsEmpty": "Nog geen reacties.",
+    "commentsEmpty": "Nog geen opmerkingen.",
     "deal": "Deal",
     "dealDetail": "Dealdetails",
     "dealList": "Dealoverzicht",
@@ -377,7 +377,7 @@
       "currency": "Valuta",
       "customer": "Klant",
       "industry": "Industrie",
-      "lossReason": "Reden van verlies",
+      "lossReason": "Verliesreden",
       "records": "Records",
       "sourceLead": "Bron lead",
       "termination": "Beëindiging",
@@ -434,17 +434,17 @@
     "noRelatedCustomer": "Geen gerelateerde klant.",
     "noWinReason": "Geen winreden geregistreerd.",
     "notSet": "Niet ingesteld",
-    "now": "nu",
+    "now": "Nu",
     "pipelineLoading": "Pipeline laden...",
     "posting": "Plaatsen...",
     "relatedRecords": "Gerelateerde records",
     "scheduleActivity": "Activiteit plannen",
-    "selectedCompany": "Actieve workspace:",
+    "selectedCompany": "Actieve workspace: {name}",
     "stage": {
       "lost": "Verloren",
       "lostDescription": "Gesloten verloren deals om van te leren.",
       "negotiation": "Onderhandeling",
-      "negotiationDescription": "Afstemming over prijzen, voorwaarden en tijdlijnen.",
+      "negotiationDescription": "Afstemmen van prijzen, voorwaarden en tijdlijnen.",
       "new": "Nieuw",
       "newDescription": "Recent aangemaakte kansen die nog niet gekwalificeerd zijn.",
       "proposal": "Voorstel",
@@ -456,7 +456,7 @@
     },
     "stageHistory": "Stagegeschiedenis",
     "stageHistoryEmpty": "Nog geen stagewijzigingen geregistreerd.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Reactie toegevoegd.",
       "created": "Deal aangemaakt.",
@@ -480,7 +480,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Activiteitsgrafiek van de afgelopen week",
-      "empty": "Nog geen activiteit geregistreerd voor.",
+      "empty": "Nog geen activiteit geregistreerd voor {name}.",
       "emptyDefault": "Nog geen activiteit geregistreerd.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -493,7 +493,7 @@
       "noWorkspaceHelp": "Selecteer een workspace in de switcher om live gegevens te bekijken.",
       "noWorkspaceSelected": "Geen workspace geselecteerd",
       "pickWorkspace": "Selecteer een workspace",
-      "subtitleSelected": "Workspace‑statistieken voor.",
+      "subtitleSelected": "Workspace‑statistieken voor {name}.",
       "subtitleWithName": "Welkom terug, {name}."
     },
     "errors": {
@@ -510,7 +510,7 @@
       "leads": "Leads",
       "leadsHint": "Actieve leads in de pipeline.",
       "openPipelineHint": "Open pipeline-waarde over alle fasen.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Aanpassen",
@@ -518,7 +518,7 @@
       "title": "Overzicht"
     },
     "pipeline": {
-      "empty": "Nog geen pipeline-gegevens voor.",
+      "empty": "Nog geen pipeline-gegevens voor {name}.",
       "emptyDefault": "Nog geen pipeline-gegevens.",
       "stage": {
         "lost": "Verloren",
@@ -530,7 +530,7 @@
       },
       "subtitle": "Verdeling van deals per fase.",
       "title": "Pipeline",
-      "totalBadge": "{count} totaal"
+      "totalBadge": "{value} totaal"
     },
     "quickActions": {
       "aiQualifier": {
@@ -545,7 +545,7 @@
       },
       "homeViews": {
         "cta": "Weergaven aanpassen",
-        "description": "Kies welke widgets op het dashboard verschijnen.",
+        "description": "Kies welke widgets op het dashboard worden weergegeven.",
         "title": "Home-weergaven"
       },
       "inviteMembers": {
@@ -568,7 +568,7 @@
       "title": "Snelle acties"
     },
     "recentLeads": {
-      "empty": "Geen recente leads in.",
+      "empty": "Geen recente leads in {name}.",
       "emptyDefault": "Nog geen recente leads.",
       "status": {
         "contacted": "Gecontacteerd",
@@ -586,12 +586,12 @@
     "snapshot": {
       "activeWorkspace": "Actieve workspace",
       "eyebrow": "Workspace‑snapshot",
-      "inWorkspace": "in",
+      "inWorkspace": "in {name}",
       "newCount": "{count} nieuw",
       "noWorkspaceHelp": "Selecteer een workspace om live aantallen te zien.",
       "noWorkspaceSelected": "Geen workspace geselecteerd",
       "openCount": "{count} open",
-      "openFullDashboard": "Volledig dashboard openen",
+      "openFullDashboard": "Open volledig dashboard",
       "openPipeline": "Pipeline openen"
     },
     "workspaceOverview": {
@@ -620,8 +620,8 @@
     },
     "fields": {
       "countryCode": "Landcode",
-      "email": "E-mail",
-      "externalCustomerId": "Externe klant-ID",
+      "email": "E‑mail",
+      "externalCustomerId": "Externe klant‑ID",
       "firstName": "Voornaam",
       "lastName": "Achternaam",
       "name": "Naam",
@@ -631,7 +631,7 @@
     },
     "mapping": {
       "approvalDescription": "Bevestig de mapping en start de import. Klanten worden aangemaakt of bijgewerkt voor de actieve workspace.",
-      "approvalOutcome": "Na goedkeuring worden rijen als klanten ingevoegd in.",
+      "approvalOutcome": "Na goedkeuring worden rijen als klanten ingevoegd in {name}.",
       "approveAndImport": "Goedkeuren & importeren",
       "backToPreview": "Terug naar voorbeeld",
       "confidence": "Betrouwbaarheid",
@@ -646,15 +646,15 @@
     "preview": {
       "backToSource": "Terug naar bron",
       "continueToMapping": "Doorgaan naar mapping",
-      "headers": "koppen",
-      "rowsLoaded": "rijen geladen",
-      "rowsShown": "Eerste rijen tonen",
+      "headers": "{count} koppen",
+      "rowsLoaded": "{count} rijen geladen",
+      "rowsShown": "Eerste {count} rijen tonen",
       "unmapped": "Niet toegewezen"
     },
     "progress": {
-      "completedRatio": "van voltooid",
-      "currentRow": "Rij",
-      "description": "Rijen importeren in. U kunt deze pagina verlaten; de import wordt op de achtergrond voortgezet.",
+      "completedRatio": "{done} van {total} voltooid",
+      "currentRow": "Rij {row}",
+      "description": "Rijen importeren in {name}. U kunt deze pagina verlaten; de import wordt op de achtergrond voortgezet.",
       "eyebrow": "Import bezig",
       "preparing": "Import voorbereiden…",
       "title": "Klanten importeren"
@@ -664,7 +664,7 @@
       "mappedFields": "Toegewezen velden",
       "progress": "Voortgang",
       "rowsLoaded": "Rijen geladen",
-      "stepNumber": "Stap {number}",
+      "stepNumber": "Stap {step}",
       "title": "Importvoortgang"
     },
     "source": {
@@ -681,19 +681,19 @@
     },
     "steps": {
       "mapping": {
-        "label": "Toewijzing",
-        "summary": "Koppel elke kolom aan een CRM-veld.",
-        "title": "Wijs je kolommen toe"
+        "label": "Mapping",
+        "summary": "Koppel elke kolom aan een CRM‑veld.",
+        "title": "Koppel uw kolommen"
       },
       "preview": {
         "label": "Voorbeeld",
-        "summary": "Bevestig de gegevens en start de import.",
-        "title": "Bekijk en importeer"
+        "summary": "Bevestig de gegevens en start vervolgens de import.",
+        "title": "Controleren en importeren"
       },
       "source": {
         "label": "Bron",
         "summary": "Upload een CSV of plak een URL.",
-        "title": "Kies je gegevensbron"
+        "title": "Kies uw gegevensbron"
       }
     },
     "utils": {
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "Terug naar overzicht",
-      "companyIdLabel": "Bedrijfs‑id:",
-      "description": "Importeer klantgegevens in vanuit een CSV‑bestand of URL.",
+      "companyIdLabel": "Bedrijfs‑id: {id}",
+      "description": "Importeer klantgegevens in {name} vanuit een CSV‑bestand of URL.",
       "eyebrow": "Workspace‑import",
-      "selectedCompany": "Actieve workspace:",
-      "stepLabel": "Stap {step}"
+      "selectedCompany": "Actieve workspace: {name}",
+      "stepLabel": "Stap {step} van {total}"
     }
   },
   "integrations": {
@@ -729,7 +729,7 @@
       "createTitle": "Nieuwe API-sleutel maken",
       "createdHeading": "API-sleutel aangemaakt",
       "creating": "Aanmaken…",
-      "description": "Beheer API-sleutels voor <strong> </strong>.",
+      "description": "Beheer API-sleutels voor <strong>{name}</strong>.",
       "empty": "Nog geen API-sleutels.",
       "envLive": "Live",
       "envTest": "Test",
@@ -760,7 +760,7 @@
     "catalog": {
       "accessDenied": "Toegang geweigerd",
       "accessDeniedDescription": "U heeft geen toegang tot integraties voor deze workspace.",
-      "configuringCompany": "Integraties configureren voor <strong> </strong>.",
+      "configuringCompany": "Integraties configureren voor <strong>{name}</strong>.",
       "loadFailed": "Kan integratiecatalogus niet laden.",
       "loading": "Integraties laden…",
       "noAccess": "Geen workspace-toegang",
@@ -787,8 +787,8 @@
     "detail": {
       "backLink": "Terug naar integraties",
       "backToCatalog": "Terug naar catalogus",
-      "configuringCompany": "Instellen <strong> </strong> voor <strong> </strong>.",
-      "noCompany": "Selecteer een workspace om <strong> </strong> te configureren.",
+      "configuringCompany": "Instellen <strong>{integration}</strong> voor <strong>{company}</strong>.",
+      "noCompany": "Selecteer een workspace om <strong>{integration}</strong> te configureren.",
       "restrictedDescription": "U heeft geen toestemming om deze integratie te bekijken.",
       "restrictedTitle": "Beperkt",
       "slugTitles": {
@@ -811,7 +811,7 @@
       "saveFailed": "Opslaan van wijzigingen mislukt.",
       "unknown": "Onbekende fout."
     },
-    "generateToken": "Token genereren",
+    "generateToken": "Genereer token",
     "greenapi": {
       "activeLabel": "Actief",
       "apiTokenLabel": "API token",
@@ -828,7 +828,7 @@
       "inbound": "Inkomende URL",
       "instanceId": "Instance‑ID",
       "instanceIdPlaceholder": "bijv. 1101000001",
-      "latency": "Vertraging: ms",
+      "latency": "Vertraging: {ms} ms",
       "loadFailed": "Laden van Green API-configuratie mislukt.",
       "loading": "Green API-configuratie laden...",
       "rotateConfirm": "Inkomende webhook-token roteren? Bestaande webhooks moeten worden bijgewerkt.",
@@ -836,11 +836,11 @@
       "tokenLabel": "Token",
       "tokenPrefix": "Token begint met",
       "tokenRotated": "Webhook-token geroteerd.",
-      "updateCredentials": "Inloggegevens bijwerken",
+      "updateCredentials": "Werk referenties bij",
       "updatedLabel": "Bijgewerkt",
-      "upstreamStatus": "Upstream-status:",
+      "upstreamStatus": "Upstream-status: {status}",
       "urlCopied": "URL gekopieerd naar klembord.",
-      "webhookSectionDescription": "Configureer uw Green API‑instantie om inkomende berichten te leveren aan <code> </code>.",
+      "webhookSectionDescription": "Configureer uw Green API‑instantie om inkomende berichten te leveren aan <code>{url}</code>.",
       "webhookSectionTitle": "Inkomende webhook"
     },
     "hide": "Verbergen",
@@ -853,7 +853,7 @@
       "authHmacOrBearer": "HMAC of Bearer",
       "authHmacShort": "HMAC",
       "authMode": "Authenticatiemodus",
-      "authModeHint": "Kies hoe Lisent inkomende verzoeken authenticeert. HMAC ondertekent de payload; Bearer stuurt een statisch token.",
+      "authModeHint": "Kies hoe Liset inbound verzoeken van uw intranet moet authenticeren. <strong>HMAC</strong> ondertekent de payload; <strong>Bearer</strong> stuurt een statisch token.",
       "bearerCopied": "Bearer-token gekopieerd.",
       "bearerExampleTitle": "Bearer-voorbeeld",
       "bearerToken": "Bearer-token",
@@ -862,10 +862,10 @@
       "copyUrl": "Kopieer URL",
       "createIntegration": "Maak integratie",
       "createdMessage": "Intranet-integratie aangemaakt.",
-      "credentialsDescription": "Gebruik deze inloggegevens om inkomende webhook-aanroepen te verifiëren.",
+      "credentialsDescription": "Gebruik deze inloggegevens om oproepen naar <code>{url}</code> te authenticeren.",
       "credentialsTitle": "Inloggegevens",
       "deliveries": "Leveringen",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "Deze intranet-integratie loskoppelen? Inkomende oproepen zullen falen.",
       "disconnectDescription": "Dit zal alle tokens intrekken en stoppen met het accepteren van inkomende verzoeken.",
       "disconnectIntegration": "Integratie verbreken",
@@ -873,7 +873,7 @@
       "entityLabel": "Entiteit",
       "errorLabel": "Fout",
       "eventLabel": "Evenement",
-      "fieldMappingDescription": "Koppel inkomende velden aan CRM-eigenschappen met JMESPath-expressies. Stuur een JSON-object waarvan de waarden JMESPath-strings zijn.",
+      "fieldMappingDescription": "Koppel inkomende velden aan CRM-eigenschappen. Verstuur JSON zoals <code>{example}</code>.",
       "fieldMappingLabel": "Veldkoppeling",
       "fieldMappingTitle": "Veldkoppeling",
       "generateHmac": "Genereer HMAC-secret",
@@ -883,7 +883,7 @@
       "hmacSecret": "HMAC-secret",
       "hmacSecretHint": "Gebruik dit secret om <code>X-Lisent-Signature</code> te berekenen bij uitgaande verzoeken.",
       "inactive": "Inactief",
-      "inboundDescription": "Stuur payloads naar de URL hierboven om leads vanuit je intranet binnen te halen.",
+      "inboundDescription": "Stuur payloads naar <code>{url}</code> om leads van uw intranet te importeren.",
       "inboundToken": "Inkomende URL-token",
       "inboundTokenHint": "Dit token maakt deel uit van de inkomende URL — houd het geheim.",
       "inboundUrl": "Inkomende URL",
@@ -894,7 +894,7 @@
       "mappingMustBeObject": "Veldkoppeling moet een JSON-object zijn.",
       "mintBearer": "Maak bearer-token aan",
       "noDeliveries": "Nog geen leveringen.",
-      "noIntegration": "Geen intranetintegratie geconfigureerd.",
+      "noIntegration": "Geen intranet‑integratie geconfigureerd.",
       "outbound": {
         "allStatusesLabel": "Alle statuswijzigingen (aanbevolen)",
         "deliveriesEmpty": "Nog geen leveringen. Verstuur een test‑event om de verbinding te bevestigen.",
@@ -923,7 +923,7 @@
         "savedNotice": "Uitgaande webhook opgeslagen.",
         "secretConfigured": "Geconfigureerd",
         "secretNotSet": "Niet ingesteld — genereer er één voordat u events verzendt.",
-        "secretRotatedAt": "(vernieuwd )",
+        "secretRotatedAt": "(vernieuwd {time})",
         "secretRotatedNotice": "Ondertekeningssecret vernieuwd. De platte tekst wordt slechts één keer getoond.",
         "selectAtLeastOne": "Selecteer minimaal één status, of vink 'Alle statuswijzigingen' aan.",
         "signingSecretLabel": "Ondertekeningssecret (HMAC-SHA256)",
@@ -979,6 +979,38 @@
       "urlCopied": "URL gekopieerd naar klembord."
     },
     "loadingProfile": "Profiel laden…",
+    "mailchimp": {
+      "benefitAudiences": "Beheer Mailchimp-doelgroepen (lijsten), leden, segmenten en tags vanuit het CRM.",
+      "benefitCampaigns": "Maak, plan en verstuur e‑mailcampagnes — en dupliceer en test‑verzend voordat u live gaat.",
+      "benefitPerUser": "Per‑gebruiker verbinding: elke operator brengt zijn eigen Mailchimp‑account mee.",
+      "benefitReports": "Bekijk open‑, klik‑, bounce‑ en geografische rapporten zonder het CRM te verlaten.",
+      "cancel": "Annuleren",
+      "cardDescription": "Per‑operator Mailchimp‑verbinding. Beheer doelgroepen, push CRM‑contacten, maak campagnes en lees rapporten zonder het CRM te verlaten. Customer Journey‑ontwerper blijft in Mailchimp.",
+      "cardName": "Mailchimp",
+      "connectButton": "Mailchimp verbinden",
+      "connectCta": "Mailchimp verbinden",
+      "connectDescription": "We openen de OAuth‑popup van Mailchimp. U autoriseert Lisent CRM, wij ontvangen een access‑token via Nango, en uw doelgroepen verschijnen in de Marketing → E‑mail module.",
+      "connectFailed": "De Mailchimp‑verbinding kon niet worden voltooid. Probeer het opnieuw.",
+      "connectTitle": "Verbind uw Mailchimp‑account",
+      "connected": "Mailchimp‑account verbonden.",
+      "connectedAs": "Verbonden als {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "Mailchimp wordt geopend…",
+      "dcLabel": "Datacenter",
+      "disconnect": "Ontkoppelen",
+      "disconnectConfirm": "Wilt u uw Mailchimp‑account ontkoppelen van deze workspace? Doelgroepen en campagnes blijven veilig in Mailchimp; alleen de koppeling vanuit het CRM wordt verwijderd.",
+      "failed": "Mislukt",
+      "lastPushLabel": "Laatste push",
+      "loadFailed": "Kan uw Mailchimp‑verbinding niet laden.",
+      "nangoNotConfigured": "Mailchimp OAuth is nog niet geconfigureerd aan de serverzijde. Vraag uw beheerder om NANGO_SECRET_KEY + een Mailchimp‑providerconfiguratie toe te voegen in Nango.",
+      "openEmailModule": "Open e‑mailmodule",
+      "openInMailchimp": "Openen in Mailchimp",
+      "pushCountLabel": "Contacten gepusht (succes / totaal)",
+      "reconnect": "Opnieuw verbinden",
+      "scopedToCompany": "Deze verbinding behoort tot u, beperkt tot {name}. Andere gebruikers zien hier hun eigen verbinding.",
+      "statusActive": "Actief",
+      "statusPaused": "Gepauzeerd",
+      "totalSubscribersLabel": "Totaal aantal abonnees"
+    },
     "meta": {
       "active": "Actief",
       "addMappingRow": "Veldtoewijzing toevoegen",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "Koppel Meta lead‑gen velden aan CRM lead‑kolommen. Laat leeg om de standaard te gebruiken (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Veldtoewijzing",
       "finalizeButton": "Voltooi configuratie",
-      "followersCount": "volgers",
+      "followersCount": "{count} volgers",
       "formAllSubscribedHint": "Geen formulieren geselecteerd → alle formulieren op deze pagina worden geabonneerd (Meta-standaard).",
       "formIdsHint": "Komma‑gescheiden. Leeg = ontvang alle formulieren op deze pagina.",
       "formIdsLabel": "Formulier‑ID's",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "Zoek formulieren…",
       "formPickerTitle": "Kies lead‑formulieren",
       "forms": "Formulieren",
-      "formsShownCount": "van",
+      "formsShownCount": "{shown} van {total}",
       "hmacSecretHint": "Sla dit nu op — we zullen de platte tekst niet opnieuw tonen.",
       "hmacSecretLabel": "HMAC‑secret",
       "hmacSecretReveal": "Eenmalig tonen",
       "inboundUrlHint": "n8n post hier na het ophalen van de volledige lead van Meta. U hoeft dit nergens te plakken.",
       "inboundUrlLabel": "CRM inbound‑URL (gebruikt door n8n)",
       "last7dCount": "{count} in 7d",
-      "lastLeadAgo": "Laatste lead",
+      "lastLeadAgo": "Laatste lead {when}",
       "leads7d": "{count} leads in 7d",
       "loadFailed": "Laden van Meta-integratie mislukt.",
       "metaFieldHeader": "Meta‑veld",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "Geen pagina's gevonden",
       "pagePickerSearch": "Zoek pagina's…",
       "pagePickerTitle": "Kies een Facebook-pagina",
-      "pagesShownCount": "van",
+      "pagesShownCount": "{shown} van {total}",
       "paused": "Gepauzeerd",
       "popupBlocked": "Browser blokkeerde de OAuth‑popup. Sta pop-ups toe voor deze site en probeer het opnieuw.",
       "recentDeliveriesEmpty": "Nog geen leveringen.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "Concept",
       "statusPaused": "Gepauzeerd",
       "statusUnknown": "Onbekend",
-      "subscribedAt": "Geabonneerd",
+      "subscribedAt": "Geabonneerd {when}",
       "testLeadButton": "Testlead verzenden",
       "testLeadDescription": "Stelt een Meta‑vormige payload samen en voert deze via hetzelfde insert‑pad als productie uit. Alleen beschikbaar wanneer mock‑modus is ingeschakeld.",
       "testLeadFailed": "Aanmaken testlead mislukt.",
@@ -1154,7 +1186,7 @@
       "qualificationThreshold": "Kwalificatiedrempel",
       "revokeSecondaryConfirm": "Secundair webhook‑secret intrekken?",
       "rotateWebhookConfirm": "Webhook‑secret roteren? Het oude secret blijft geldig tijdens het rotatiewindow.",
-      "saveAiConfig": "AI-configuratie opslaan",
+      "saveAiConfig": "AI‑configuratie opslaan",
       "secondaryRevoked": "Secundair webhook‑secret ingetrokken.",
       "sectorLabel": "Sector",
       "tabs": {
@@ -1162,22 +1194,22 @@
         "apiKeys": "API-sleutels",
         "channels": "Kanalen",
         "fallback": "Fallback",
-        "leadWebhook": "Lead-webhook",
+        "leadWebhook": "Lead webhook",
         "overview": "Overzicht",
         "rag": "RAG",
         "usage": "Gebruik",
         "v1Config": "V1-configuratie"
       },
-      "thresholdHint": "Leads die op of boven deze drempel scoren, worden gemarkeerd als gekwalificeerd.",
+      "thresholdHint": "Leads met een score gelijk aan of hoger dan deze drempel worden gemarkeerd als gekwalificeerd.",
       "webhookUrlLabel": "Webhook URL"
     },
     "rag": {
       "chunkLabel": "Fragment",
       "chunksColumn": "Fragmenten",
-      "description": "Kennisbank voor <strong> </strong>. Upload documenten die de AI kan raadplegen.",
-      "ingestedDescription": "Documenten momenteel in de kennisbank voor <strong> </strong>.",
+      "description": "Kennisbank voor <strong>{name}</strong>. Upload documenten die de AI kan raadplegen.",
+      "ingestedDescription": "Documenten momenteel in de kennisbank voor <strong>{name}</strong>.",
       "ingestedDocuments": "Geïmporteerde documenten",
-      "ingestionExampleDescription": "POST naar <code> </code> met een JSON-body met <code>title</code>, <code>content</code> en optionele <code>metadata</code>.",
+      "ingestionExampleDescription": "POST naar <code>{url}</code> met een JSON-body met <code>title</code>, <code>content</code> en optionele <code>metadata</code>.",
       "ingestionExampleTitle": "Voorbeeld van ingestie",
       "loadConfigFailed": "Kan RAG-configuratie niet laden.",
       "loadContentFailed": "Kan documentinhoud niet laden.",
@@ -1221,9 +1253,9 @@
     },
     "subComponent": {
       "configured": "Geconfigureerd",
-      "configuredAria": "{label} is geconfigureerd",
+      "configuredAria": "{name} is geconfigureerd",
       "notSet": "Niet ingesteld",
-      "notSetAria": "{label} is niet ingesteld"
+      "notSetAria": "{name} is niet ingesteld"
     },
     "testConnection": "Verbinding testen",
     "testing": "Bezig met testen…",
@@ -1231,7 +1263,7 @@
     "urlCopied": "URL gekopieerd naar klembord.",
     "usage": {
       "allMetrics": "Alle statistieken",
-      "description": "Gebruik en limieten voor <strong> </strong>.",
+      "description": "Gebruik en limieten voor <strong>{name}</strong>.",
       "loadFailed": "Kan gebruik niet laden.",
       "loading": "Gebruik wordt geladen…",
       "metricColumn": "Statistiek",
@@ -1280,9 +1312,9 @@
       "calendlyDescription": "Optionele Calendly-link die de assistent kan aanbieden voor het boeken. Wordt gebruikt door <code>v1</code> meeting‑overdrachten.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly-link",
-      "description": "Configureer het gedrag van qualifier <code>v1</code> voor <strong> </strong>.",
-      "frameworkDescription": "Kies het kwalificatiekader dat de assistent gebruikt om signalen te extraheren.",
-      "frameworkTitle": "Kwalificatiekader",
+      "description": "Configureer het gedrag van qualifier <code>v1</code> voor <strong>{name}</strong>.",
+      "frameworkDescription": "Kies het kwalificatie‑framework dat de assistent gebruikt om signalen te extraheren.",
+      "frameworkTitle": "Kwalificatie‑framework",
       "loadFailed": "Kan v1-configuratie niet laden.",
       "loading": "V1-configuratie laden…",
       "outboundWebhookDescription": "Waar de qualifier gekwalificeerde leads plaatst.",
@@ -1304,7 +1336,7 @@
       "configured": "Geconfigureerd",
       "currentLabel": "Huidig",
       "customPatternsLabel": "Aangepaste patronen (één per regel)",
-      "description": "Configureer webhooklevering voor <strong> </strong>.",
+      "description": "Configureer webhook‑levering voor <strong>{name}</strong>.",
       "destinationHint": "Lisent plaatst gebeurtenissen op deze URL met een ondertekende payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Doel-URL",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Minimale payload",
       "payloadMode": "Payload-modus",
       "rotateSecret": "Secret roteren",
-      "rotatedAt": "Geroteerd op",
+      "rotatedAt": "Geroteerd op {time}",
       "saveEventSelection": "Eventselectie opslaan",
       "saveUrl": "URL opslaan",
       "secretRotated": "Signing secret geroteerd.",
@@ -1378,23 +1410,23 @@
       "assignTo": "Toewijzen aan",
       "assigning": "Toewijzen…",
       "description": "Selecteer een teamgenoot om de geselecteerde leads over te nemen.",
-      "eyebrow": "Bulk toewijzen",
+      "eyebrow": "Bulktoewijzing",
       "selectTeammate": "Selecteer een teamgenoot",
       "title": "Geselecteerde leads toewijzen"
     },
     "bulkBar": {
-      "ariaSelected": "leads geselecteerd",
+      "ariaSelected": "{count} leads geselecteerd",
       "assign": "Toewijzen",
       "clearSelection": "Selectie wissen",
       "delete": "Verwijderen",
       "exportCsv": "CSV exporteren",
       "exportPdf": "PDF exporteren",
-      "selected": "geselecteerd"
+      "selected": "{count} geselecteerd"
     },
     "bulkDelete": {
       "confirm": "Verwijder geselecteerde",
       "deleting": "Verwijderen…",
-      "description": "Dit zal leads permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
+      "description": "Dit zal {count} leads permanent verwijderen. Deze actie kan niet ongedaan worden gemaakt.",
       "title": "Geselecteerde leads verwijderen?"
     },
     "convertModal": {
@@ -1465,7 +1497,7 @@
       "linkedDealId": "Gekoppelde deal ID",
       "nextStep": "Volgende stap",
       "noDealYet": "Nog geen deal",
-      "noneYet": "Nog geen",
+      "noneYet": "Nog niets",
       "qualify": "Kwalificeren",
       "quickFacts": "Snelle feiten",
       "roundRobin": "Ronde robin",
@@ -1482,7 +1514,7 @@
       "timeline": "Tijdlijn",
       "updated": "Bijgewerkt",
       "value": "Waarde",
-      "viewAIQualification": "Bekijk AI-kwalificatie"
+      "viewAIQualification": "AI-kwalificatie bekijken"
     },
     "emptyState": {
       "pickWorkspace": "Selecteer een workspace om leads te bekijken."
@@ -1513,9 +1545,9 @@
     },
     "filters": {
       "allAssignees": "Alle toegewezen personen",
-      "allSources": "Alle bronnen",
+      "allSources": "Alle sources",
       "byCampaign": "Gefilterd op campagne: {name}",
-      "byCampaignCount": "van leads",
+      "byCampaignCount": "{shown} van {total} leads",
       "clearCampaign": "Filter wissen"
     },
     "formModal": {
@@ -1528,7 +1560,7 @@
       "emailPlaceholder": "name@company.com",
       "leadName": "Leadnaam",
       "leadNamePlaceholder": "Volledige leadnaam",
-      "leadSource": "Bron",
+      "leadSource": "Source",
       "leadSourcePlaceholder": "Bijv. Inbound, Referral",
       "leadValue": "Geschatte waarde",
       "leadValuePlaceholder": "0",
@@ -1539,7 +1571,7 @@
       "phone": "Telefoon",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "Pipeline‑fase",
-      "saveAndScheduleEvent": "Opslaan en gebeurtenis plannen",
+      "saveAndScheduleEvent": "Opslaan & gebeurtenis plannen",
       "saveChanges": "Wijzigingen opslaan"
     },
     "kpi": {
@@ -1567,17 +1599,17 @@
     },
     "pdf": {
       "commentByOn": "{author} · {date}",
-      "commentsHeader": "Comments",
+      "commentsHeader": "Reacties",
       "createdAt": "Aangemaakt",
       "email": "E‑mail",
-      "exportedAt": "leads · Geëxporteerd op",
+      "exportedAt": "{count} leads · Geëxporteerd op {date}",
       "options": {
         "confirm": "Export PDF",
-        "description": "Choose what to include in the export of {count} selected leads.",
-        "exporting": "Exporting...",
-        "includeComments": "Include lead comments",
-        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
-        "title": "Export leads to PDF"
+        "description": "Kies wat u wilt opnemen in de export van {count} geselecteerde leads.",
+        "exporting": "Exporteren…",
+        "includeComments": "Leadreacties opnemen",
+        "includeCommentsHint": "Voegt een sectie toe met alle teamreacties voor elke geselecteerde lead. Kan langer duren om te genereren.",
+        "title": "Leads exporteren naar PDF"
       },
       "pageOf": "Pagina {current} van {total}",
       "title": "Leads"
@@ -1604,9 +1636,9 @@
     },
     "success": {
       "aiStarted": "AI-kwalificatie gestart.",
-      "bulkAssignPartial": "van leads toegewezen.",
-      "bulkAssigned": "leads toegewezen.",
-      "bulkPartial": "van leads verwijderd.",
+      "bulkAssignPartial": "{assigned} van {total} leads toegewezen.",
+      "bulkAssigned": "{count} leads toegewezen.",
+      "bulkPartial": "{deleted} van {total} leads verwijderd.",
       "bulkRemoved": "{count} leads verwijderd.",
       "converted": "Lead geconverteerd.",
       "convertedWithDeal": "Lead geconverteerd met deal.",
@@ -1623,10 +1655,10 @@
       "assignee": "Toegewezene",
       "empty": "Geen leads komen overeen met de huidige filters.",
       "name": "Naam",
-      "openAIScore": "Open AI-score voor {score}",
+      "openAIScore": "Open AI-score voor {name}",
       "phone": "Telefoon",
       "rowActions": "Rijacties",
-      "selectAll": "Selecteer alle leads",
+      "selectAll": "Alle leads selecteren",
       "selectRow": "Selecteer lead {name}",
       "source": "Bron",
       "status": "Status",
@@ -1648,8 +1680,202 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Spreadsheet importeren",
+        "newAgency": "Nieuw bureau",
+        "refresh": "Vernieuwen"
+      },
+      "createModal": {
+        "editTitle": "Bewerk {name}",
+        "newSubtitle": "Doorloop de velden — één of twee per scherm.",
+        "newTitle": "Voeg een nieuw bureau toe",
+        "saveChanges": "Wijzigingen opslaan",
+        "saveError": "Opslaan van het bureau mislukt.",
+        "saving": "Opslaan…",
+        "submit": "Maak bureau aan"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "De persoon met wie u meestal contact heeft bij het bureau.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "Optioneel — vult LNAME wanneer dit bureau naar een Mailchimp‑doelgroep wordt gepusht.",
+          "fieldLabel": "Contactnaam",
+          "title": "Primaire contactpersoon"
+        },
+        "name": {
+          "description": "De weergavenaam die uw team zal herkennen.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Wordt weergegeven in de directorylijst en in elke campagne‑mailmerge.",
+          "fieldLabel": "Naam",
+          "title": "Bureaunaam"
+        },
+        "notes": {
+          "description": "Alle andere zaken die u over dit bureau moet onthouden.",
+          "fieldHelp": "Vrije tekst — niet naar Mailchimp gepusht, alleen zichtbaar binnen de CRM.",
+          "fieldLabel": "Notities",
+          "fieldPlaceholder": "Vernieuwing in maart. Heeft voorkeur voor WhatsApp voor snelle updates.",
+          "title": "Notities"
+        },
+        "reach": {
+          "description": "E‑mail is vereist als u deze rij later naar Mailchimp wilt pushen.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Wordt gebruikt als de unieke Mailchimp‑sleutel bij het pushen.",
+          "emailLabel": "E‑mail",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Vrije invoer — voeg de landcode toe indien beschikbaar.",
+          "phoneLabel": "Telefoon",
+          "title": "Hoe u ze kunt bereiken"
+        },
+        "status": {
+          "description": "Actief = momenteel betrokken. Inactief = gepauzeerd. Verlopen = einde contract.",
+          "fieldHelp": "U kunt dit op elk moment wijzigen — wordt gebruikt voor het filteren van de directory.",
+          "fieldLabel": "Status",
+          "title": "Status"
+        },
+        "tags": {
+          "description": "Tags worden doorgegeven aan Mailchimp als u dit bureau later synchroniseert.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Scheiden met komma’s of puntkomma’s. Wordt aangemaakt bij de eerste synchronisatie.",
+          "fieldLabel": "Tags",
+          "title": "Tags"
+        },
+        "window": {
+          "description": "Beide uiteinden zijn optioneel — laat een kant leeg voor een permanente of open einddatum.",
+          "endsHelp": "Wanneer de relatie eindigt.",
+          "endsLabel": "Eindigt op",
+          "startsHelp": "Wanneer de relatie begint.",
+          "startsLabel": "Begint op",
+          "title": "Contractvenster"
+        }
+      },
+      "deleteConfirm": "Verwijder {name}?\n\nDit verwijdert het bureau uit de CRM. Het heeft geen invloed op Mailchimp-abonnees die vanuit deze rij zijn aangemaakt.",
+      "deleteError": "Kan het bureau niet verwijderen.",
+      "empty": "Nog geen bureaus. Voeg er één toe of importeer een spreadsheet.",
+      "filter": {
+        "apply": "Toepassen",
+        "clear": "Filters wissen",
+        "searchPlaceholder": "Zoek naam, contact, e‑mail",
+        "statusActive": "Actief",
+        "statusAll": "Alle statussen",
+        "statusExpired": "Verlopen",
+        "statusInactive": "Inactief"
+      },
+      "import": {
+        "accepts": "Accepteert CSV, Excel (xlsx / xls / xlsm / xlsb) en OpenDocument (ods / fods). Naam is de enige verplichte kolom.",
+        "close": "Sluiten",
+        "complete": "Import voltooid",
+        "completeSummary": "Aangemaakt {created} van {total} rijen.",
+        "defaultStatus": "Standaardstatus (voor rijen zonder status)",
+        "done": "Gereed",
+        "empty": "Het bestand lijkt leeg.",
+        "errorPrefix": "Kan het bestand niet verwerken",
+        "errorsHeader": "{count} rijen bevatten fouten:",
+        "errorsMore": "… {count} meer",
+        "failed": "Import is mislukt.",
+        "importBtn": "Importeren",
+        "importing": "Importeren…",
+        "label": {
+          "contact": "Contactpersoon",
+          "email": "E‑mail",
+          "ends": "Eindigt op (JJJJ-MM-DD)",
+          "name": "Naam (verplicht)",
+          "notes": "Notities",
+          "phone": "Telefoon",
+          "starts": "Begint op (JJJJ-MM-DD)",
+          "status": "Statuskolom",
+          "tags": "Tags (komma‑ of puntkomma‑gescheiden)"
+        },
+        "needName": "Selecteer eerst een kolom voor de naam van het bureau.",
+        "noValid": "Geen rijen hebben een niet‑lege naam.",
+        "notUsed": "— (niet gebruikt) —",
+        "pickAnother": "Kies een ander bestand",
+        "pickHint": "Klik om te kiezen. We lezen alleen het eerste blad.",
+        "pickLabel": "Kies een spreadsheet",
+        "subtitle": "Accepteert CSV-, Excel- en OpenDocument‑spreadsheets.",
+        "title": "Importeer agentschappen vanuit een spreadsheet",
+        "loaded": "{rowCount, plural, one {# rij} other {# rijen}} met {colCount, plural, one {# kolom} other {# kolommen}} geladen. Koppel elk CRM-veld aan de spreadsheetkolom waaruit het moet komen."
+      },
+      "list": {
+        "agencies": "Agentschappen",
+        "loading": "Agentschappen laden…"
+      },
+      "loadError": "Kan agentschappen niet laden.",
+      "noCompany": "Selecteer een bedrijf op het dashboard om de agentschappen te beheren.",
+      "page": {
+        "next": "Volgende pagina",
+        "perPage": "Per pagina",
+        "prev": "Vorige pagina",
+        "range": "{from}–{to} van {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Sluiten",
+        "defaultStatus": "Standaardstatus voor nieuwe abonnees",
+        "disabledHint": "Selecteer rijen op deze pagina om te pushen (pushen over meerdere pagina's wordt niet ondersteund).",
+        "done": "Gereed",
+        "extraTagsHelp": "Toegevoegd aan elke gepushte abonnee bovenop de eigen tags van elk agentschap. Gescheiden door komma of puntkomma.",
+        "extraTagsLabel": "Extra tags",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "De push is mislukt.",
+        "loadAudiencesFailed": "Kan Mailchimp-doelgroepen niet laden.",
+        "loading": "Laden…",
+        "mailchimpAudience": "Mailchimp-doelgroep",
+        "noAudiences": "— Nog geen doelgroepen —",
+        "noEmail": "Geen van de geselecteerde bureaus heeft een e-mailadres.",
+        "notConnected": "Mailchimp is nog niet verbonden voor dit account. Verbind via Marketing → E‑mail → Instellingen en kom daarna terug.",
+        "patchExisting": "Bestaande abonnees bijwerken (aanbevolen). Het opnieuw uitvoeren van deze push werkt merge‑velden bij in plaats van fouten te geven bij duplicaten.",
+        "pickAudience": "Selecteer eerst een doelgroep.",
+        "pushBtn": "Push naar Mailchimp",
+        "pushing": "Pushen…",
+        "result": {
+          "header": "Push voltooid",
+          "summary": "{created} gemaakt · {updated} bijgewerkt · {skipped} overgeslagen · {errors} fouten."
+        },
+        "skippedNotice": "{count, plural, one {{count} van het geselecteerde bureau heeft geen e‑mail en wordt overgeslagen.} other {{count} van de geselecteerde bureaus hebben geen e‑mail en worden overgeslagen.}}",
+        "statusPending": "In afwachting (dubbele opt‑in)",
+        "statusSubscribed": "Geabonneerd",
+        "statusUnsubscribed": "Uitgeschreven",
+        "subtitle": "Elk bureau wordt een Mailchimp-abonnee. Naam wordt gekoppeld aan FNAME, contact aan LNAME, telefoon aan PHONE. De tag {tag} wordt automatisch toegevoegd.",
+        "summary": "{eligible} van de {total} zullen worden gepusht.",
+        "title": "{count, plural, one {Push {count} bureau naar Mailchimp} other {Push {count} bureaus naar Mailchimp}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "Verwijderen",
+          "edit": "Bewerken"
+        },
+        "ariaSelect": "Selecteer {name}",
+        "fromDate": "Vanaf {date}",
+        "untilDate": "Tot {date}"
+      },
+      "select": {
+        "allMatchingSelected": "Alle {total} die overeenkomen met het huidige filter geselecteerd",
+        "ariaAll": "Selecteer alles op deze pagina",
+        "bulkDelete": "Verwijder {count}",
+        "bulkDeleting": "Verwijderen…",
+        "clear": "Wissen",
+        "deleteFailed": "{failed} van {total} konden niet worden verwijderd:\n{detail}",
+        "deleteFailedMore": "…en {count} meer",
+        "justThisPage": "Selecteer alleen deze pagina ({count})",
+        "pageFullySelected": "Alle {count} op deze pagina zijn geselecteerd.",
+        "pageSelectedCount": "{count} geselecteerd op deze pagina",
+        "selectAllMatching": "Selecteer alle {total} die overeenkomen met het huidige filter",
+        "confirmDelete": "{count, plural, one {# bureau} other {# bureaus}} verwijderen?\n\nDit kan niet ongedaan worden gemaakt."
+      },
+      "table": {
+        "actions": "Acties",
+        "contact": "Contact",
+        "emailPhone": "E‑mail / Telefoon",
+        "name": "Naam",
+        "status": "Status",
+        "tags": "Tags",
+        "window": "Venster"
+      },
+      "title": "Bureaus · {total}"
+    },
     "authBody": "Inloggen, registreren en sessievalidatie via <code>/api/auth</code>",
-    "authTitle": "Auth",
+    "authTitle": "Authenticatie",
     "bffBody": "Browser‑aanroepen moeten bij deze app stoppen. Vertrouwde server‑routes communiceren met de interne CRM-service.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
@@ -1696,6 +1922,565 @@
     "ctaCreateWorkspace": "Workspace-toegang aanmaken",
     "ctaOpenShell": "Beschermde shell openen",
     "currentStack": "Huidige stack",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "Lid toevoegen",
+          "addMemberHint": "Voeg handmatig één abonnee toe met e‑mail + naam + tags",
+          "pushFromCRM": "Push vanuit CRM",
+          "pushFromCRMHint": "Selecteer CRM‑leads → batch‑upsert als Mailchimp‑leden",
+          "uploadCsv": "Spreadsheet uploaden",
+          "uploadCsvHint": "CSV, Excel of ODS — e‑mailkolom (automatisch gekoppeld) + naam / telefoon / tags"
+        },
+        "addMember": {
+          "body": "Voegt één abonnee toe aan {audience} of werkt deze bij. Herhalen met hetzelfde e‑mailadres werkt de bestaande rij bij.",
+          "errEmailRequired": "E‑mail is verplicht.",
+          "failed": "Kan het lid niet toevoegen.",
+          "fields": {
+            "email": "E‑mail",
+            "firstName": "Voornaam",
+            "lastName": "Achternaam",
+            "phone": "Telefoon",
+            "status": "Abonnementsstatus",
+            "tags": "Tags (optioneel)",
+            "tagsHint": "Komma‑ of puntkomma‑gescheiden. Aangemaakt indien ontbrekend."
+          },
+          "hideMore": "Meer opties verbergen",
+          "showMore": "Meer opties tonen (telefoon, status, tags)",
+          "status": {
+            "pending": "In afwachting (dubbele opt‑in)",
+            "subscribed": "Geabonneerd",
+            "unsubscribed": "Afgemeld"
+          },
+          "submit": "Lid toevoegen",
+          "submitting": "Bezig met toevoegen…",
+          "title": "Abonnee toevoegen"
+        },
+        "col": {
+          "created": "Aangemaakt",
+          "members": "Leden",
+          "name": "Doelgroep",
+          "openRate": "Openingspercentage"
+        },
+        "create": {
+          "addressFilled": "Adres compleet",
+          "addressRequired": "Vereist door Mailchimp / CAN-SPAM",
+          "body": "Mailchimp vereist een postadres (CAN-SPAM) en een standaardafzender. U kunt deze later aanpassen via de publieksinstellingen.",
+          "contactSection": "Postadres",
+          "creating": "Publiek aanmaken…",
+          "errAddressRequired": "Bedrijf + adres + stad + land zijn vereist door Mailchimp.",
+          "errFromRequired": "Standaard afzendernaam + e‑mail zijn vereist.",
+          "errNameRequired": "Publiek moet een naam hebben.",
+          "failed": "Kan het publiek niet aanmaken.",
+          "fields": {
+            "address": "Straatadres",
+            "city": "Stad",
+            "company": "Bedrijfs‑ / organisatienaam",
+            "country": "Land",
+            "defaultSubject": "Standaardcampagnetitel",
+            "fromEmail": "Standaard afzender‑e‑mail",
+            "fromName": "Standaard afzendernaam",
+            "language": "Taal",
+            "name": "Doelgroepnaam",
+            "nameHint": "Kies iets kort en memorabel — operators zien dit overal.",
+            "namePlaceholder": "Nieuwsbriefabonnees",
+            "permissionReminder": "Toestemmingsherinnering",
+            "permissionReminderHint": "Wordt getoond in de e‑mailvoettekst. Mailchimp gebruikt dit voor naleving.",
+            "state": "Staat / regio",
+            "zip": "ZIP / postcode"
+          },
+          "hideAdvanced": "Geavanceerde opties verbergen",
+          "showAdvanced": "Geavanceerde opties weergeven",
+          "step1Body": "Kies een korte, herkenbare naam — operators zien deze overal; campagnes verwijzen naar deze lijst.",
+          "step1Title": "Geef uw publiek een naam",
+          "step2Body": "Vereist door Mailchimp + de CAN-SPAM-wet. Wordt hergebruikt voor elke campagne die naar dit publiek wordt gestuurd.",
+          "step2Title": "Postadres",
+          "step3Body": "Naam + e‑mail verschijnen op elke campagne die naar dit publiek wordt gestuurd. U kunt later per campagne overschrijven.",
+          "step3Title": "Standaard afzender",
+          "submit": "Doelgroep maken",
+          "title": "Nieuwe doelgroep"
+        },
+        "csv": {
+          "body": "Upload een .csv om in bulk abonnees toe te voegen of bij te werken in {audience}. De e‑mailkolom is vereist; voor‑/achternaam/telefoon/tags worden automatisch gedetecteerd.",
+          "done": "Import voltooid.",
+          "errChunk": "Een batch is mislukt — gedeeltelijke import. Zie de aantallen hieronder.",
+          "errEmailColRequired": "Selecteer welke kolom het e‑mailadres bevat.",
+          "errEmpty": "Het bestand bevat geen rijen.",
+          "errNoValidRows": "Geen rijen met een geldig e‑mailadres — controleer de toewijzing van de e‑mailkolom.",
+          "errParse": "Kan de CSV niet parseren.",
+          "import": "Import starten",
+          "importing": "Importeren… {processed} van {total}",
+          "map": {
+            "email": "E‑mailkolom",
+            "fname": "Voornaamkolom (optioneel)",
+            "lname": "Achternaamkolom (optioneel)",
+            "phone": "Telefoonkolom (optioneel)",
+            "status": "Standaardstatus voor NIEUWE abonnees",
+            "tags": "Tags‑kolom (optioneel)"
+          },
+          "pickFile": "Klik om een spreadsheet‑bestand te kiezen",
+          "pickHint": "CSV, Excel (.xlsx / .xls) of OpenDocument (.ods). Het eerste blad wordt gelezen; de eerste rij moet de kolomkoppen bevatten.",
+          "rowsDetected": "{count} rijen klaar om te importeren.",
+          "stat": {
+            "created": "Aangemaakt",
+            "errors": "Fouten",
+            "updated": "Bijgewerkt"
+          },
+          "title": "Upload een spreadsheet",
+          "updateExisting": "Bestaande abonnees ook bijwerken (aanbevolen)"
+        },
+        "emptyBody": "Maak eerst een doelgroep aan in Mailchimp — deze verschijnt hier bij de volgende verversing.",
+        "emptyTitle": "Nog geen doelgroepen",
+        "loadFailed": "Kan doelgroepen niet laden.",
+        "loading": "Doelgroepen laden…",
+        "members": {
+          "close": "Sluiten",
+          "col": {
+            "email": "E‑mail",
+            "lastChanged": "Laatst gewijzigd",
+            "status": "Status"
+          },
+          "empty": "Nog geen leden in deze doelgroep.",
+          "loadFailed": "Laden van leden mislukt.",
+          "loading": "Leden laden…",
+          "next": "Volgende",
+          "page": "Pagina {current} van {total}",
+          "prev": "Vorige",
+          "total": "Totaal aantal leden"
+        },
+        "newAudience": "Nieuw publiek",
+        "push": {
+          "allStatuses": "Alle statussen",
+          "body": "Selecteer CRM-leads → pushen als leden van {audience}. Leads zonder e‑mail worden overgeslagen.",
+          "clear": "Wissen",
+          "col": {
+            "email": "E‑mail",
+            "name": "Naam",
+            "outcome": "Resultaat",
+            "reason": "Reden",
+            "status": "Status"
+          },
+          "empty": "Geen leads komen overeen met de huidige filters.",
+          "errNoneSelected": "Selecteer minimaal één lead.",
+          "failed": "Kan de leads niet pushen.",
+          "loadFailed": "Kan CRM-leads niet laden.",
+          "loading": "Leads laden…",
+          "noEmail": "Geen e‑mail — overgeslagen",
+          "searchPlaceholder": "Zoek naam, e‑mail, telefoon, notities…",
+          "selectAll": "Selecteer alle zichtbare",
+          "selected": "{count} geselecteerd",
+          "stat": {
+            "created": "Aangemaakt",
+            "errors": "Fouten",
+            "skipped": "Overgeslagen",
+            "updated": "Bijgewerkt"
+          },
+          "submit": "Push {count} lead(s)",
+          "submitting": "Pushen…",
+          "title": "Push vanuit CRM",
+          "visible": "{count} zichtbaar"
+        },
+        "refresh": "Vernieuwen",
+        "subtabs": {
+          "fields": "Velden",
+          "members": "Leden",
+          "segments": "Segmenten",
+          "tags": "Tags",
+          "webhooks": "Webhooks"
+        },
+        "title": "Doelgroepen",
+        "viewMembers": "Leden bekijken"
+      },
+      "automations": {
+        "actionFailed": "Actie mislukt. Zie de fout van Mailchimp hierboven.",
+        "actions": {
+          "pauseAll": "Alle e‑mails pauzeren",
+          "startAll": "Alle e‑mails starten"
+        },
+        "col": {
+          "audience": "Doelgroep",
+          "emailsSent": "Verzonden e‑mails",
+          "status": "Status",
+          "title": "Workflow"
+        },
+        "designerHint": "De Customer Journey‑designer bevindt zich in de eigen UI van Mailchimp — Mailchimp biedt geen authoring via API. Pauzeer/start de e‑mails van elke workflow hier zonder van context te wisselen.",
+        "emptyBody": "Maak workflows in de Customer Journey‑ontwerper van Mailchimp; ze verschijnen hier.",
+        "emptyTitle": "Nog geen automatiseringen",
+        "loadFailed": "Kan automatiseringen niet laden.",
+        "loading": "Automatiseringen laden…",
+        "refresh": "Vernieuwen",
+        "title": "Automatiseringen / Customer Journeys"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "Meeste klikken",
+            "manual": "Handmatig kiezen",
+            "opens": "Meeste openingen"
+          },
+          "fromNameB": "Afzendernaam — variant B (optioneel)",
+          "fromNameBPlaceholder": "Andere afzendernaam",
+          "hint": "Mailchimp stuurt elke variant naar {percent}% van uw publiek, wacht {hours}h, en stuurt vervolgens de winnaar naar de rest.",
+          "subjectB": "Onderwerpsregel — variant B",
+          "subjectBPlaceholder": "Alternatief onderwerp om te testen",
+          "testPercent": "Testpubliek %",
+          "toggle": "Voer A/B-test uit voor deze campagne",
+          "toggleHint": "Stuur twee onderwerpsregels (en/of afzendernamen) naar een steekproef, en stuur de winnaar automatisch naar de rest.",
+          "waitHours": "Wacht voordat de winnaar wordt gekozen (uren)",
+          "winnerCriteria": "Winnende criteria"
+        },
+        "actionFailed": "Actie mislukt. Zie de fout van Mailchimp hierboven.",
+        "actions": {
+          "delete": "Verwijderen",
+          "pause": "Pauzeren",
+          "resume": "Hervatten",
+          "schedule": "Inplannen",
+          "send": "Verzenden",
+          "test": "Test verzenden",
+          "unschedule": "Planning annuleren"
+        },
+        "audiencesEmpty": "Nog geen doelgroepen — maak er eerst één aan.",
+        "col": {
+          "audience": "Doelgroep",
+          "created": "Aangemaakt",
+          "status": "Status",
+          "subject": "Onderwerp"
+        },
+        "confirmDelete": "Deze campagne permanent verwijderen? Recente rapporten kunnen later niet meer worden verwijderd.",
+        "confirmSend": "\"{subject}\" nu naar {audience} verzenden? Dit start de live verzending en kan niet ongedaan worden gemaakt.",
+        "createBody": "Concepten verschijnen direct in Mailchimp; u verzendt ze vanaf de rij hierboven wanneer u klaar bent.",
+        "createFailed": "Kan de campagne niet aanmaken.",
+        "createSubmit": "Concept aanmaken",
+        "createTitle": "Nieuwe e‑mailcampagne",
+        "creating": "Concept aanmaken…",
+        "deleteFailed": "Kan de campagne niet verwijderen.",
+        "emptyBody": "Klik op \"Nieuwe campagne\" om uw eerste te schrijven.",
+        "emptyTitle": "Nog geen campagnes",
+        "errAudienceRequired": "Selecteer eerst een doelgroep.",
+        "errFromRequired": "Van-naam en reply-to zijn beide vereist door Mailchimp.",
+        "errSubjectRequired": "Geef de campagne een onderwerp.",
+        "fields": {
+          "audience": "Doelgroep",
+          "audiencePlaceholder": "Selecteer een doelgroep…",
+          "fromName": "Van-naam",
+          "hidePreview": "Voorbeeld verbergen",
+          "htmlBody": "HTML-body",
+          "htmlHint": "Mailchimp accepteert ruwe HTML of samenvoeg‑tags zoals {{FNAME|there}}. De drag‑drop‑editor bevindt zich in de eigen UI van Mailchimp.",
+          "internalTitle": "Interne titel (optioneel)",
+          "internalTitlePlaceholder": "Wordt gebruikt voor zoeken in Mailchimp; standaard het onderwerp",
+          "replyTo": "Reply-to e‑mail",
+          "showPreview": "Voorbeeld tonen",
+          "subject": "Onderwerpsregel",
+          "subjectPlaceholder": "Wat er in de inbox van de ontvanger verschijnt",
+          "template": "Begin met een sjabloon (optioneel)",
+          "templateHint": "Het kiezen van een sjabloon vult de HTML-body hieronder — u kunt deze nog steeds bewerken vóór het opslaan.",
+          "templatePlaceholder": "Aangepaste HTML — geen sjabloon",
+          "templatesEmpty": "Nog geen opgeslagen sjablonen"
+        },
+        "hideAdvanced": "Geavanceerde opties verbergen",
+        "loadFailed": "Kan campagnes niet laden.",
+        "loading": "Campagnes laden…",
+        "newCampaign": "Nieuwe campagne",
+        "page": "Pagina {current} van {total}",
+        "refresh": "Vernieuwen",
+        "schedule": {
+          "confirm": "Verzending inplannen",
+          "confirmUnschedule": "De planning annuleren? De campagne wordt teruggezet naar concept zodat u deze opnieuw kunt bewerken.",
+          "errTimeRequired": "Kies een verzendtijd.",
+          "failed": "Kan de campagne niet inplannen — zie het bericht van Mailchimp.",
+          "hint": "Mailchimp rondt af op de dichtstbijzijnde 15 minuten. Gratis abonnementen vereisen ≥30 min voorbereidingstijd.",
+          "scheduling": "Inplannen…",
+          "sendAt": "Verzenden om (uw lokale tijd)",
+          "timewarp": "Verzenden op lokale tijd van ontvanger (Timewarp)",
+          "timewarpHint": "Mailchimp levert de kopie aan elke abonnee op het gekozen tijdstip in hun eigen tijdzone.",
+          "title": "Campagne inplannen"
+        },
+        "sendFailed": "De campagne kon niet worden verzonden.",
+        "showAdvanced": "Geavanceerde opties tonen",
+        "step1Title": "Voor wie is deze e‑mail?",
+        "step2Title": "Van wie is deze e‑mail?",
+        "step3Title": "Ontwerp uw e‑mail",
+        "test": {
+          "emailsHint": "Gescheiden door komma, puntkomma of nieuwe regel.",
+          "emailsLabel": "Testontvangers",
+          "emailsRequired": "Er is minimaal één test‑e‑mail vereist.",
+          "failed": "De test‑e‑mail kon niet worden verzonden.",
+          "format": "Formaat",
+          "plaintext": "Platte tekst",
+          "send": "Test verzenden",
+          "sending": "Bezig met verzenden…",
+          "sent": "Test‑e‑mail in de wachtrij. Controleer uw inbox over ~1 minuut.",
+          "title": "Test‑e‑mail verzenden"
+        },
+        "title": "Campagnes",
+        "wizard": {
+          "step1Body": "Selecteer de doelgroep die deze campagne ontvangt.",
+          "step1Title": "Naar wie gaat deze e‑mail?",
+          "step2Body": "De onderwerpregel + afzenderinformatie die ontvangers in hun inbox zien.",
+          "step2Title": "Onderwerp en afzender",
+          "step3Body": "Begin met een opgeslagen sjabloon of maak vanaf nul — de live‑preview aan de rechterkant toont wat ontvangers zien.",
+          "step3Title": "Ontwerp uw e‑mail"
+        }
+      },
+      "connectCta": "Mailchimp verbinden",
+      "connectedHeader": "Verbonden Mailchimp-account",
+      "domains": {
+        "add": "Domein toevoegen",
+        "addEmailLabel": "E‑mail op het domein om te authenticeren",
+        "addFailed": "Kan verificatie niet starten.",
+        "addHint": "Mailchimp stuurt een verificatiecode naar dit adres. Zorg ervoor dat u hier e‑mail kunt ontvangen.",
+        "adding": "Code verzenden…",
+        "body": "Authenticeer uw verzenddomein (DKIM / SPF). Geauthenticeerde domeinen hebben hogere vertrouwensscores en vermijden Omnivore‑waarschuwingen (anti‑misbruik van Mailchimp).",
+        "codePlaceholder": "Verificatiecode uit e‑mail",
+        "confirmDelete": "Dit domein verwijderen? U moet het opnieuw verifiëren om er opnieuw vanaf te kunnen verzenden.",
+        "delete": "Verwijderen",
+        "deleteFailed": "Kan het domein niet verwijderen.",
+        "dkimHint": "Na verificatie voltooit u de DKIM / DMARC‑configuratie in de UI van Mailchimp (Account → Domains → Authenticate). Instellen op DNS‑recordniveau is niet beschikbaar via de API.",
+        "empty": "Er zijn nog geen domeinen toegevoegd. Voeg hierboven het verzenddomein toe om te beginnen.",
+        "errCodeRequired": "Plak de code uit de e‑mail van Mailchimp.",
+        "errEmailRequired": "E‑mail is verplicht.",
+        "loadFailed": "Domeinen laden mislukt.",
+        "loading": "Domeinen laden…",
+        "statusAuthenticated": "Geverifieerd + DKIM geauthenticeerd",
+        "statusPending": "In behandeling — plak de e‑mailverificatiecode hieronder",
+        "statusVerified": "Geverifieerd — voltooi de DKIM‑configuratie in de Mailchimp‑UI",
+        "title": "Geverifieerde domeinen",
+        "verify": "Verifiëren",
+        "verifyFailed": "Verificatie mislukt — controleer de code."
+      },
+      "images": {
+        "body": "Kies een afbeelding uit uw Mailchimp‑bibliotheek, upload een nieuwe (max 10 MB) of plak een openbare URL.",
+        "confirmDelete": "Deze afbeelding verwijderen? Campagnes die ernaar verwijzen blijven werken (Mailchimp behoudt het bestand).",
+        "delete": "Verwijderen",
+        "deleteFailed": "Afbeelding kon niet worden verwijderd.",
+        "empty": "Nog geen afbeeldingen geüpload. Schakel over naar Upload om de eerste toe te voegen.",
+        "errNoUrl": "Mailchimp accepteerde de upload maar leverde geen URL.",
+        "errTooLarge": "De maximale bestandsgrootte van Mailchimp is 10 MB.",
+        "insertUrl": "URL invoegen",
+        "loadFailed": "Kan de afbeeldingsbibliotheek niet laden.",
+        "loading": "Bibliotheek laden…",
+        "modes": {
+          "library": "Bibliotheek",
+          "upload": "Nieuwe upload",
+          "url": "Via URL"
+        },
+        "pickFile": "Klik om een afbeelding te kiezen",
+        "pickHint": "PNG, JPG, GIF, SVG tot 10 MB",
+        "title": "Selecteer of upload een afbeelding",
+        "uploadFailed": "Upload mislukt — zie het bericht van Mailchimp.",
+        "uploading": "Uploaden…",
+        "urlHint": "Mailchimp kan de afbeelding cachen op zijn CDN; het gebruik van de bestandsbeheerder (tabblad Upload) is betrouwbaarder.",
+        "urlLabel": "Openbare afbeelding‑URL"
+      },
+      "loadFailed": "Kan uw Mailchimp-verbinding niet laden.",
+      "manageConnection": "Verbinding beheren",
+      "merge": {
+        "cancelNew": "Annuleren",
+        "col": {
+          "name": "Naam",
+          "required": "Verplicht",
+          "tag": "Merge-tag",
+          "type": "Type"
+        },
+        "confirmDelete": "Dit veld verwijderen? Leden‑gegevens in deze kolom worden ook verwijderd.",
+        "count": "{count} veld(en) totaal",
+        "create": "Veld aanmaken",
+        "createFailed": "Kan het veld niet aanmaken.",
+        "creating": "Aanmaken…",
+        "delete": "Verwijderen",
+        "deleteFailed": "Kan het veld niet verwijderen.",
+        "empty": "Nog geen aangepaste velden — de standaard FNAME / LNAME‑kolommen van Mailchimp werken nog steeds.",
+        "errRequired": "Tag + naam zijn beide verplicht.",
+        "fields": {
+          "defaultValue": "Standaardwaarde (optioneel)",
+          "name": "Weergavenaam",
+          "required": "Vereist op aanmeldformulieren",
+          "tag": "Merge‑tag (≤10 tekens, HOOFDLETTERS)",
+          "type": "Type"
+        },
+        "hint": "Gebruik merge‑tags in campagnes + sjablonen als *|TAG|*, bijv. \"Welcome *|FNAME|*\".",
+        "loadFailed": "Kan merge‑velden niet laden.",
+        "loading": "Merge‑velden laden…",
+        "newField": "Nieuw veld"
+      },
+      "noCompanyBody": "Kies een workspace in het dashboard om de e‑mailmodule te beheren.",
+      "noCompanyTitle": "Kies een workspace",
+      "notConnectedBody": "Verbind uw Mailchimp-account om doelgroepen, campagnes en rapporten te beheren zonder de CRM te verlaten. Elke operator heeft zijn eigen verbinding.",
+      "notConnectedTitle": "Mailchimp is nog niet verbonden",
+      "openIntegrationDetail": "Integratie‑instellingen openen",
+      "overview": {
+        "actions": {
+          "newAudience": "Nieuwe doelgroep",
+          "newCampaign": "Nieuwe campagne",
+          "newTemplate": "Nieuw sjabloon",
+          "reports": "Rapporten"
+        },
+        "gettingStartedTitle": "Aan de slag in 4 snelle stappen",
+        "kpi": {
+          "audiences": "Doelgroepen",
+          "clickRateSub": "{rate}% gemiddelde klikfrequentie",
+          "openRate": "Gemiddelde openratio",
+          "sentCampaigns": "Verzonden campagnes",
+          "subscribers": "Totaal abonnees"
+        },
+        "loadFailed": "Kon het overzicht niet laden.",
+        "loading": "Overzicht laden…",
+        "noCampaigns": "Nog geen campagnes — maak uw eerste aan.",
+        "noReports": "Nog geen rapporten — ze verschijnen na de eerste verzending.",
+        "quickActionsTitle": "Snelle acties",
+        "recentCampaigns": "Recente campagnes",
+        "recentReports": "Recente rapporten",
+        "recipients": "Ontvangers",
+        "step1": "Maak of importeer een doelgroep (gebruik \"Doelgroepen → Upload CSV\" als u een spreadsheet heeft).",
+        "step2": "Optioneel: sla een herbruikbare sjabloon op onder \"Templates\".",
+        "step3": "Stel uw eerste campagne op — kies doelgroep, onderwerp, inhoud.",
+        "step4": "Stuur een test naar uzelf, verzend daarna echt of plan in.",
+        "viewAll": "Alles bekijken"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Kliks",
+          "opens": "Openingen",
+          "recipients": "Ontvangers",
+          "sent": "Verzonden",
+          "subject": "Campagne"
+        },
+        "deepLinkHint": "Voor heatmaps, A/B‑vergelijkingen en volledige e‑mailactiviteit, open de campagne in de UI van Mailchimp.",
+        "detailFailed": "Kan het volledige rapport niet laden.",
+        "details": "Details",
+        "emptyBody": "Rapporten verschijnen hier na de eerste verzending van de campagne.",
+        "emptyTitle": "Nog geen rapporten",
+        "geoEmpty": "Geen geografische gegevens — Mailchimp maakt ze aan terwijl de openingen binnenkomen.",
+        "geoTitle": "Toplocaties",
+        "kpi": {
+          "bounces": "Bounces",
+          "clicks": "Unieke klikken",
+          "hardBounces": "{count} hard",
+          "opens": "Unieke openingen",
+          "sent": "Ontvangers"
+        },
+        "loadFailed": "Kan rapporten niet laden.",
+        "loading": "Rapporten laden…",
+        "loadingDetail": "Details laden…",
+        "opens": "openingen",
+        "title": "Campagnerapporten"
+      },
+      "segments": {
+        "col": {
+          "members": "Leden",
+          "name": "Naam",
+          "type": "Type",
+          "updated": "Bijgewerkt"
+        },
+        "confirmDelete": "Dit segment verwijderen? Leden blijven in het publiek; alleen het segment wordt verwijderd.",
+        "create": "Aanmaken",
+        "createBody": "Statische segmenten zijn een handmatig samengestelde lijst met e‑mailadressen. Voor op voorwaarden gebaseerde (opgeslagen) segmenten gebruik de UI van Mailchimp — ze verschijnen hier na verversen.",
+        "createFailed": "Kan het segment niet aanmaken.",
+        "createTitle": "Nieuw statisch segment",
+        "creating": "Aanmaken…",
+        "delete": "Verwijderen",
+        "deleteFailed": "Kan het segment niet verwijderen.",
+        "empty": "Nog geen segmenten. Statische segmenten zijn handmatig samengestelde lijsten; opgeslagen segmenten zijn op voorwaarden gebaseerde filters.",
+        "errNameRequired": "Segment moet een naam hebben.",
+        "fields": {
+          "emails": "E‑mailadressen van leden",
+          "emailsHint": "Eén per regel, of door komma's gescheiden. Alleen bestaande audience‑leden worden toegevoegd.",
+          "name": "Segmentnaam"
+        },
+        "loadFailed": "Kan segmenten niet laden.",
+        "loading": "Segmenten laden…",
+        "newStatic": "Nieuw statisch segment",
+        "count": "{count} segment(en)"
+      },
+      "settingsHint": "Configuratie bevindt zich onder Integraties → Mailchimp. Het badge‑icoon hierboven is alleen‑lezen.",
+      "settingsTitle": "Verbindingsinstellingen",
+      "subtabAria": "E-mailmodule secties",
+      "subtabComingSoon": "Deze sectie wordt in een volgende stap geleverd. De verbinding is klaar; de UI is nog niet gekoppeld.",
+      "tabs": {
+        "audiences": "Doelgroepen",
+        "automations": "Automatiseringen",
+        "campaigns": "Campagnes",
+        "overview": "Overzicht",
+        "reports": "Rapporten",
+        "settings": "Instellingen",
+        "templates": "Sjablonen"
+      },
+      "tags": {
+        "empty": "Nog geen tags in deze audience. Voeg tags toe aan leden via 'Add member' of CSV‑upload.",
+        "emptySearch": "Geen tags komen overeen met \"{query}\".",
+        "hint": "Tags worden aangemaakt op het moment dat ze aan een lid worden toegewezen (Add member, CSV‑upload, of push vanuit CRM).",
+        "loadFailed": "Kan tags niet laden.",
+        "loading": "Tags laden…",
+        "searchPlaceholder": "Tagnaam zoeken…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "Verwijderen",
+          "edit": "Bewerken",
+          "preview": "Voorbeeld"
+        },
+        "col": {
+          "category": "Categorie",
+          "created": "Aangemaakt",
+          "name": "Naam"
+        },
+        "confirmDelete": "Deze template permanent verwijderen? Campagnes die ernaar verwijzen blijven werken — ze maken een momentopname van de HTML bij het verzenden.",
+        "create": "Sjabloon maken",
+        "createTitle": "Nieuwe sjabloon",
+        "deleteFailed": "Sjabloon kon niet worden verwijderd.",
+        "editTitle": "Sjabloon bewerken",
+        "emptyBody": "Maak uw eerste sjabloon — campagnes kunnen deze hergebruiken zonder de HTML opnieuw te typen.",
+        "emptyTitle": "Nog geen sjablonen",
+        "errHtmlRequired": "Sjablooninhoud mag niet leeg zijn.",
+        "errNameRequired": "Sjabloon moet een naam hebben.",
+        "fields": {
+          "html": "HTML-body",
+          "htmlHint": "Ruwe HTML. Samenvoeg‑tags zoals {{FNAME|there}} werken hetzelfde als in campagnes.",
+          "name": "Sjabloonnaam",
+          "namePlaceholder": "Welkomstmail"
+        },
+        "loadFailed": "Sjablonen laden mislukt.",
+        "loading": "Sjablonen laden…",
+        "loadingBody": "Sjablooninhoud laden…",
+        "newTemplate": "Nieuwe sjabloon",
+        "preview": "Live voorbeeld",
+        "previewHint": "Renderen van de HTML in een sandboxed iframe (scripts uitgeschakeld). Mailchimp‑samenvoegtags zoals {{FNAME|there}} blijven zichtbaar — ze worden bij het verzenden vervangen.",
+        "refresh": "Vernieuwen",
+        "saveFailed": "Sjabloon kon niet worden opgeslagen.",
+        "saving": "Opslaan…",
+        "title": "Sjablonen",
+        "update": "Wijzigingen opslaan"
+      },
+      "webhooks": {
+        "confirmDelete": "Deze webhook‑abonnement verwijderen? Mailchimp stopt met het POST‑en van gebeurtenissen naar deze URL.",
+        "count": "{count} webhook(s)",
+        "create": "Webhook maken",
+        "createBody": "Mailchimp zal gebeurtenissen POSTen naar uw URL. Veelvoorkomende doelen: n8n‑flow, inbound/mailchimp/<token>.",
+        "createFailed": "Kan de webhook niet aanmaken.",
+        "createTitle": "Abonneren op publieksgebeurtenissen",
+        "creating": "Aanmaken…",
+        "delete": "Verwijderen",
+        "deleteFailed": "Kan de webhook niet verwijderen.",
+        "empty": "Nog geen webhooks geabonneerd.",
+        "errUrlRequired": "URL moet beginnen met https://",
+        "fields": {
+          "events": "Gebeurtenissen om naar te luisteren",
+          "sources": "Bronnen van gebeurtenissen (wie ze heeft getriggerd)",
+          "url": "Webhook‑URL (https://)"
+        },
+        "hint": "Mailchimp ondertekent geen lijst‑webhooks. Beschouw de URL als het enige geheim; log deze niet.",
+        "loadFailed": "Webhooks laden mislukt.",
+        "loading": "Webhooks laden…",
+        "noEvents": "(geen gebeurtenissen geselecteerd)"
+      },
+      "wizard": {
+        "back": "Terug",
+        "fillRequired": "Vul het verplichte veld hierboven in",
+        "next": "Volgende",
+        "submit": "Aanmaken",
+        "submitting": "Aanmaken…"
+      }
+    },
     "heroEyebrow": "Voice-native CRM-platform",
     "heroLead": "Lisent CRM combineert authenticatie, tenant‑bewuste workflows, import‑profiel onboarding en een beschermde applicatieshell voor bedrijfsoperators. De webapp beheert de gebruikersgerichte processen. De Go CRM‑service blijft achter een vertrouwde backend‑grens.",
     "heroTitle": "Begrijpen van intentie, niet alleen woorden.",
@@ -1708,6 +2493,7 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "Bureaus",
       "aria": "Marketingsecties",
       "campaigns": "Campagnes",
       "email": "E‑mail",
@@ -1903,7 +2689,7 @@
       "notes": "Voeg details toe over deze taak...",
       "title": "Taaktitel"
     },
-    "publishedBy": "Gepubliceerd door",
+    "publishedBy": "Gepubliceerd door {name}",
     "responseStatus": {
       "accepted": "Geaccepteerd",
       "pending": "In behandeling",
@@ -1928,9 +2714,9 @@
     },
     "summary": {
       "company": "Bedrijf",
-      "inProgressDone": "bezig · voltooid",
-      "myPending": "in behandeling",
-      "openTickets": "open"
+      "inProgressDone": "{inProgress} bezig · {done} voltooid",
+      "myPending": "{count} in behandeling",
+      "openTickets": "{count} open"
     },
     "systemUser": "Systeem",
     "teammatesCount": "{count} teamleden",
@@ -1973,22 +2759,41 @@
       "role": "Rol"
     },
     "member": "Lid",
+    "moduleAccess": {
+      "discard": "Negeren",
+      "empty": "Geen teamleden om te beheren — eigenaren hebben altijd volledige toegang.",
+      "granted": "Verleend",
+      "loadError": "Kan toegangsrechten niet laden.",
+      "loading": "Laden…",
+      "module": {
+        "marketingAgencies": "Marketing · Bureaus"
+      },
+      "noAccess": "Geen toegang",
+      "role": "Rol",
+      "save": "Wijzigingen opslaan",
+      "saveError": "Opslaan van wijzigingen mislukt.",
+      "saving": "Opslaan…",
+      "subtitle": "Eigenaren zien altijd elke module. Gebruik de schakelaars om elk teamlid toegang te geven tot een specifieke module.",
+      "teamMember": "Teamlid",
+      "title": "Moduletoegang",
+      "unsaved": " · niet opgeslagen"
+    },
     "noEmail": "Geen e‑mail beschikbaar",
     "noPermission": "U heeft geen toestemming om teamleden te beheren.",
     "placeholders": {
       "email": "name@company.com"
     },
-    "removeMember": "Lid verwijderen",
+    "removeMember": "Verwijder lid",
     "removeModal": {
-      "confirm": "Lid verwijderen",
-      "description": "{company} verliest onmiddellijk toegang tot deze workspace.",
+      "confirm": "Verwijder lid",
+      "description": "{name} verliest onmiddellijk toegang tot deze workspace.",
       "eyebrow": "Teamlid verwijderen",
       "removing": "Bezig met verwijderen…",
       "title": "Teamlid verwijderen?"
     },
     "roleModal": {
       "confirm": "Rol wijzigen",
-      "description": "Werk de rol van bij in deze workspace.",
+      "description": "Werk de rol van {name} bij in deze workspace.",
       "eyebrow": "Rol wijzigen",
       "title": "Rol wijzigen",
       "to": "Naar",
@@ -2010,7 +2815,7 @@
   "userMenu": {
     "accountSettings": "Accountinstellingen",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Demo-gebruiker",
+    "demoUser": "Demo‑gebruiker",
     "openMenu": "Accountmenu openen",
     "signOut": "Afmelden",
     "workspaceUser": "Workspace-gebruiker"
@@ -2032,7 +2837,7 @@
     "label": "Workspace",
     "loadFailed": "Kan workspaces niet laden.",
     "loading": "Workspaces laden...",
-    "retry": "Opnieuw proberen",
+    "retry": "Opnieuw",
     "select": "Selecteer workspace",
     "switch": "Workspace wisselen",
     "untitled": "Naamloze workspace",

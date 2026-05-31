@@ -143,18 +143,27 @@ class TolgeeClient {
 
   async fetchAllTranslations(languages) {
     const langCsv = languages.join(",");
-    const url = `${this.apiUrl}/v2/projects/${this.projectId}/translations?size=2000&languages=${encodeURIComponent(langCsv)}`;
-    const res = await fetch(url, { headers: { "X-API-Key": this.apiKey } });
-    if (!res.ok) {
-      throw new Error(`Tolgee fetch failed (${res.status}): ${await res.text()}`);
+    const pageSize = 2000;
+    const out = [];
+    let page = 0;
+    // Crossed the single-page limit once the catalog passed 2k keys —
+    // walk page=0,1,2,… until totalPages is reached.
+    while (true) {
+      const url = `${this.apiUrl}/v2/projects/${this.projectId}/translations?size=${pageSize}&page=${page}&languages=${encodeURIComponent(langCsv)}`;
+      const res = await fetch(url, { headers: { "X-API-Key": this.apiKey } });
+      if (!res.ok) {
+        throw new Error(
+          `Tolgee fetch failed (${res.status}): ${await res.text()}`,
+        );
+      }
+      const json = await res.json();
+      const keys = json._embedded?.keys ?? [];
+      out.push(...keys);
+      const totalPages = json.page?.totalPages ?? 1;
+      if (page + 1 >= totalPages || keys.length === 0) break;
+      page += 1;
     }
-    const json = await res.json();
-    const total = json.page?.totalElements ?? 0;
-    const fetched = json._embedded?.keys?.length ?? 0;
-    if (fetched < total) {
-      throw new Error(`Tolgee returned ${fetched}/${total} keys; pagination needed`);
-    }
-    return json._embedded?.keys ?? [];
+    return out;
   }
 
   /**

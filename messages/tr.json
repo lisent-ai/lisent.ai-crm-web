@@ -21,7 +21,7 @@
       "male": "Erkek"
     },
     "loadFailed": "Hesap ayarları yüklenemedi.",
-    "noMemberships": "Henüz şirket üyeliği yok.",
+    "noMemberships": "Henüz şirket üyeliğiniz yok.",
     "placeholders": {
       "firstName": "Adınız",
       "language": "Dil seçin",
@@ -56,11 +56,11 @@
     "signInButton": "Giriş yap",
     "signInInstead": "Bunun yerine giriş yapın",
     "signInSubtitle": "Ekibinize verilen şirket hesabı bilgilerini kullanın.",
-    "signInTitle": "Çalışma alanınıza erişin",
+    "signInTitle": "Çalışma Alanınıza erişin",
     "signUp": "Kayıt ol",
     "signUpButton": "Hesap oluştur",
     "signUpSubtitle": "E-posta ve parolayla başlayın. Kiracı ataması ardından gelir.",
-    "signUpTitle": "Çalışma alanı erişiminizi oluşturun",
+    "signUpTitle": "Çalışma Alanı erişiminizi oluşturun",
     "signingIn": "Giriş yapılıyor...",
     "workspaceAuth": "Çalışma alanı kimlik doğrulama",
     "wrongCredentials": "E-posta veya parola hatalı."
@@ -69,12 +69,12 @@
     "actions": {
       "apply": "Uygula",
       "clear": "Temizle",
-      "createEvent": "Etkinlik oluştur",
+      "createEvent": "Etkinlik oluşturun",
       "deleteEvent": "Etkinlik sil",
       "filter": "Filtrele",
       "invite": "Davet et",
       "new": "Yeni",
-      "saveChanges": "Değişiklikleri kaydet"
+      "saveChanges": "Değişiklikleri kaydedin"
     },
     "allAssignees": "Tüm atananlar",
     "allDay": "Tüm gün",
@@ -125,7 +125,7 @@
       "linkTo": "Bağlantı",
       "linkedRecord": "Bağlantılı kayıt",
       "location": "Konum",
-      "meetingUrl": "Toplantı URL'si",
+      "meetingUrl": "Toplantı URL",
       "reminder": "Hatırlatıcı",
       "start": "Başlangıç",
       "startDate": "Başlangıç tarihi",
@@ -219,14 +219,14 @@
     "bulk": {
       "clearSelection": "Seçimi temizle",
       "confirmDelete": "Seçilenleri sil",
-      "deleteDescription": "Bu, müşteri kaydını kalıcı olarak silecektir. Bu işlem geri alınamaz.",
+      "deleteDescription": "Bu, {count} müşteri kaydını kalıcı olarak silecektir. Bu işlem geri alınamaz.",
       "deleteEyebrow": "Toplu sil",
       "deleteTitle": "Seçili müşterileri sil?",
       "exportCsv": "CSV dışa aktar",
       "exportPdf": "PDF dışa aktar",
       "exportXlsx": "Excel dışa aktar",
       "regionLabel": "Toplu işlemler",
-      "selectedCount": "seçili"
+      "selectedCount": "{count} seçili"
     },
     "closeAddPopup": "Müşteri ekleme iletişim kutusunu kapat",
     "confirmDelete": "Sil",
@@ -244,9 +244,9 @@
       "identity": "Kimlik"
     },
     "errors": {
-      "bulkDeleteFailed": "Bazı müşteriler silinemedi.",
+      "bulkDeleteFailed": "Bazı müşterileri silme başarısız oldu.",
       "deleteCustomer": "Müşteriyi silme işlemi başarısız oldu.",
-      "exportFailed": "Müşteriler dışa aktarılamadı.",
+      "exportFailed": "Müşterileri dışa aktarma başarısız oldu.",
       "loadCompanies": "Şirketleri yükleme işlemi başarısız oldu.",
       "loadCustomers": "Müşterileri yükleme işlemi başarısız oldu.",
       "saveCustomer": "Müşteriyi kaydetme işlemi başarısız oldu."
@@ -261,10 +261,10 @@
       "customerId": "Müşteri kimliği",
       "email": "E-posta",
       "firstName": "Ad",
-      "id": "Kimlik",
+      "id": "ID",
       "industry": "Sektör",
       "lastName": "Soyad",
-      "name": "İsim",
+      "name": "Ad",
       "phone": "Telefon",
       "preferredLanguage": "Tercih edilen dil",
       "records": "Kayıtlar",
@@ -278,18 +278,18 @@
       "saveChanges": "Değişiklikleri kaydet"
     },
     "list": {
-      "empty": "Mevcut filtrelerle eşleşen müşteri yok.",
+      "empty": "Mevcut filtrelere uyan müşteri bulunamadı.",
       "eyebrow": "Müşteri dizini",
       "selectAll": "Tüm müşterileri seç",
-      "selectRow": "Müşteri seç",
+      "selectRow": "Müşteri {name} seç",
       "title": "Müşteriler",
-      "visibleCount": "Gösterilen {count}"
+      "visibleCount": "Gösterilen {visible} / {total}"
     },
     "loading": "Müşteriler yükleniyor...",
     "noEmail": "Dosyada e-posta yok",
     "notSet": "Ayarlanmamış",
     "pdf": {
-      "exportedAt": "müşteri · {date} tarihinde dışa aktarıldı",
+      "exportedAt": "Müşteriler · {date} tarihinde dışa aktarıldı",
       "pageOf": "Sayfa {current} / {total}",
       "title": "Müşteriler"
     },
@@ -302,7 +302,7 @@
       "label": "Ara",
       "placeholder": "Müşterileri ara..."
     },
-    "selectedCompany": "Aktif çalışma alanı:",
+    "selectedCompany": "Aktif çalışma alanı: {name}",
     "status": {
       "active": "Aktif",
       "all": "Tümü",
@@ -312,7 +312,7 @@
     "statusFilter": "Durum filtresi",
     "success": {
       "bulkDeleted": "{count} müşteri silindi.",
-      "bulkDeletedPartial": "/ müşteri silindi.",
+      "bulkDeletedPartial": "{deleted} / {total} müşteri silindi.",
       "created": "Müşteri oluşturuldu.",
       "deleted": "Müşteri silindi.",
       "exported": "{count} müşteri dışa aktarıldı.",
@@ -333,15 +333,15 @@
       "title": "AI içgörüleri"
     },
     "amount": "Tutar",
-    "amountValue": "{value}",
+    "amountValue": "{amount}",
     "assignee": "Atanan",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "Anlaşmaları aşamalar arasında sürükleyerek süreci güncelleyin.",
-    "changedBy": "Değiştiren",
+    "changedBy": "Değiştiren {name}",
     "close": "Kapat",
     "closeTarget": "Kapatma hedefi",
-    "closeTargetValue": "{value}",
-    "columnTotal": "Sütun toplamı:",
+    "closeTargetValue": "{date}",
+    "columnTotal": "Sütun toplamı: {value}",
     "commentPlaceholder": "Yorum yazın...",
     "comments": "Yorumlar",
     "commentsCount": "{count} yorum",
@@ -355,7 +355,7 @@
     "delete": "Sil",
     "deleteConfirmDescription": "Bu işlem, anlaşmayı kalıcı olarak kaldırır. Bu işlem geri alınamaz.",
     "deleteConfirmTitle": "Anlaşmayı sil?",
-    "deleteDeal": "Anlaşmayı sil",
+    "deleteDeal": "Anlaşma sil",
     "deleting": "Siliniyor...",
     "editDeal": "Anlaşmayı düzenle",
     "emptyColumn": "Bu aşamada anlaşma yok.",
@@ -380,7 +380,7 @@
       "lossReason": "Kayıp nedeni",
       "records": "Kayıtlar",
       "sourceLead": "Kaynak müşteri adayı",
-      "termination": "Fesih",
+      "termination": "Sonlandırma",
       "updated": "Güncellendi",
       "wonReason": "Kazanma nedeni"
     },
@@ -413,7 +413,7 @@
       "newEyebrow": "Yeni anlaşma",
       "newTitle": "Anlaşma oluştur",
       "options": {
-        "noLinkedCustomer": "Bağlantılı müşteri yok",
+        "noLinkedCustomer": "Bağlı müşteri yok",
         "noSourceLead": "Kaynak aday yok"
       },
       "placeholders": {
@@ -425,21 +425,21 @@
       "saveChanges": "Değişiklikleri kaydet"
     },
     "kanbanBoard": "Kanban panosu",
-    "loadingBoard": "Yükleme panosu...",
-    "loadingDeals": "Fırsatlar yükleniyor...",
+    "loadingBoard": "Pano yükleniyor...",
+    "loadingDeals": "Anlaşmalar yükleniyor...",
     "meetingTitle": "Toplantı",
     "noDate": "Tarih yok",
     "noDealsMatch": "Mevcut filtrelerle eşleşen anlaşma yok.",
-    "noLossReason": "Kayıp nedeni kaydedilmemiştir.",
+    "noLossReason": "Kayıp nedeni kaydedilmedi.",
     "noRelatedCustomer": "İlgili müşteri yok.",
-    "noWinReason": "Kazanma nedeni kaydedilmedi.",
+    "noWinReason": "Kazanma nedeni kaydedilmemiş.",
     "notSet": "Ayarlanmamış",
-    "now": "Şimdi",
+    "now": "şimdi",
     "pipelineLoading": "Süreç yükleniyor...",
     "posting": "Gönderiliyor...",
     "relatedRecords": "İlgili kayıtlar",
     "scheduleActivity": "Aktivite planlayın",
-    "selectedCompany": "Aktif çalışma alanı:",
+    "selectedCompany": "Aktif çalışma alanı: {name}",
     "stage": {
       "lost": "Kaybedildi",
       "lostDescription": "Kaybedilen anlaşmalardan öğrenilir.",
@@ -452,11 +452,11 @@
       "qualified": "Nitelikli",
       "qualifiedDescription": "Müşteri uyumu ve bütçe doğrulandı.",
       "won": "Kazanıldı",
-      "wonDescription": "Kazanılan anlaşmalar gelir olarak kaydedildi."
+      "wonDescription": "Kazanılmış olarak kapatılan anlaşmalar gelir olarak kaydedilir."
     },
     "stageHistory": "Aşama geçmişi",
     "stageHistoryEmpty": "Henüz aşama değişikliği kaydedilmedi.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Yorum eklendi.",
       "created": "Anlaşma oluşturuldu.",
@@ -480,20 +480,20 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Geçtiğimiz haftanın aktivite grafiği",
-      "empty": "Henüz için aktivite kaydedilmedi.",
+      "empty": "Henüz {name} için aktivite kaydedilmedi.",
       "emptyDefault": "Henüz kayıtlı etkinlik yok.",
       "legendDeals": "Anlaşmalar",
       "legendLeads": "Müşteri adayları",
       "subtitle": "Geçtiğimiz hafta boyunca oluşturulan müşteri adayları ve kapanan anlaşmalar.",
-      "title": "Etkinlik"
+      "title": "Aktivite"
     },
     "company": {
       "createWorkspace": "Çalışma alanı oluştur",
       "goToOverview": "Çalışma alanı genel bakışına gidin",
       "noWorkspaceHelp": "Canlı verileri görmek için değiştiricide bir çalışma alanı seçin",
-      "noWorkspaceSelected": "Seçili çalışma alanı yok",
+      "noWorkspaceSelected": "Çalışma alanı seçilmedi",
       "pickWorkspace": "Bir çalışma alanı seçin",
-      "subtitleSelected": "için çalışma alanı ölçümleri",
+      "subtitleSelected": "{name} için çalışma alanı ölçümleri",
       "subtitleWithName": "Tekrar hoş geldiniz, {name}"
     },
     "errors": {
@@ -510,7 +510,7 @@
       "leads": "Müşteri Adayları",
       "leadsHint": "Süreçteki aktif müşteri adayları.",
       "openPipelineHint": "Tüm aşamalardaki açık süreç değeri.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Özelleştir",
@@ -518,10 +518,10 @@
       "title": "Genel bakış"
     },
     "pipeline": {
-      "empty": "için henüz süreç verisi yok.",
+      "empty": "{name} için henüz süreç verisi yok.",
       "emptyDefault": "Henüz süreç verisi yok.",
       "stage": {
-        "lost": "Kaybedildi",
+        "lost": "Kayıp",
         "negotiation": "Müzakere",
         "new": "Yeni",
         "proposal": "Teklif",
@@ -530,7 +530,7 @@
       },
       "subtitle": "Aşamaya göre anlaşma dağılımı.",
       "title": "Süreç",
-      "totalBadge": "{count} toplam"
+      "totalBadge": "{value} toplam"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +558,7 @@
         "description": "Başka bir iş birimi için yeni bir kiracı başlatın.",
         "title": "Yeni çalışma alanı"
       },
-      "oneClickSetup": "Tek tıkla kurulum",
+      "oneClickSetup": "Tek tıklamalı kurulum",
       "scheduleMeeting": {
         "cta": "Takvimi açın",
         "description": "Keşif görüşmesi veya takip toplantısı planlayın.",
@@ -568,11 +568,11 @@
       "title": "Hızlı eylemler"
     },
     "recentLeads": {
-      "empty": "içinde son müşteri adayları yok.",
+      "empty": "{name} içinde son müşteri adayları yok.",
       "emptyDefault": "Henüz son müşteri adayları yok.",
       "status": {
         "contacted": "İletişime geçildi",
-        "converted": "Müşteriye dönüştü",
+        "converted": "Dönüştürüldü",
         "disqualified": "Niteliksiz",
         "lost": "Kaybedildi",
         "new": "Yeni",
@@ -585,8 +585,8 @@
     },
     "snapshot": {
       "activeWorkspace": "Etkin çalışma alanı",
-      "eyebrow": "Çalışma alanı anlık görüntüsü",
-      "inWorkspace": "içinde",
+      "eyebrow": "Çalışma Alanı anlık görüntüsü",
+      "inWorkspace": "{name} içinde",
       "newCount": "{count} yeni",
       "noWorkspaceHelp": "Canlı sayıları görmek için bir çalışma alanı seçin.",
       "noWorkspaceSelected": "Çalışma alanı seçilmedi",
@@ -595,9 +595,9 @@
       "openPipeline": "Süreç aç"
     },
     "workspaceOverview": {
-      "acrossAccount": "Hesabınız genelinde",
+      "acrossAccount": "Hesabınızda",
       "activeWorkspace": "Etkin çalışma alanı",
-      "allCombined": "Hepsi bir arada",
+      "allCombined": "Hepsi birleştirildi",
       "customers": "Müşteriler",
       "noneSelected": "Hiçbiri seçilmedi",
       "pickToActivate": "Metrikleri etkinleştirmek için bir çalışma alanı seçin.",
@@ -621,17 +621,17 @@
     "fields": {
       "countryCode": "Ülke kodu",
       "email": "E-posta",
-      "externalCustomerId": "Dış müşteri ID",
+      "externalCustomerId": "Harici müşteri kimliği",
       "firstName": "Ad",
       "lastName": "Soyad",
       "name": "İsim",
       "phone": "Telefon",
       "preferredLanguage": "Tercih edilen dil",
-      "subscriptionDate": "Üyelik tarihi"
+      "subscriptionDate": "Abonelik tarihi"
     },
     "mapping": {
       "approvalDescription": "Eşlemeyi onaylayın ve içe aktarmayı başlatın. Müşteriler, aktif çalışma alanı için oluşturulacak veya güncellenecek.",
-      "approvalOutcome": "Onaydan sonra, satırlar içinde müşteriler olarak eklenir.",
+      "approvalOutcome": "Onaydan sonra, satırlar {name} içinde müşteriler olarak eklenir.",
       "approveAndImport": "Onaylayın ve içe aktarın",
       "backToPreview": "Ön izlemeye dönün",
       "confidence": "Güven",
@@ -646,15 +646,15 @@
     "preview": {
       "backToSource": "Kaynağa geri dön",
       "continueToMapping": "Eşlemeye devam edin",
-      "headers": "başlık",
-      "rowsLoaded": "Satır yüklendi",
-      "rowsShown": "İlk satırı gösteriyor",
+      "headers": "{count} başlık",
+      "rowsLoaded": "{count} Satır yüklendi",
+      "rowsShown": "İlk {count} satırı gösteriyor",
       "unmapped": "Eşlenmemiş"
     },
     "progress": {
-      "completedRatio": "/ tamamlandı",
-      "currentRow": "Satır",
-      "description": "Satırları içine içe aktarıyoruz. Bu sayfayı terk edebilirsiniz; içe aktarma arka planda devam eder.",
+      "completedRatio": "{done}/{total} tamamlandı",
+      "currentRow": "Satır {row}",
+      "description": "Satırları {name} içine içe aktarıyoruz. Bu sayfayı terk edebilirsiniz; içe aktarma arka planda devam eder.",
       "eyebrow": "İçe aktarma devam ediyor",
       "preparing": "İçe aktarma hazırlanıyor...",
       "title": "Müşterileri içe aktarıyor"
@@ -664,7 +664,7 @@
       "mappedFields": "Eşlenen alanlar",
       "progress": "İlerleme",
       "rowsLoaded": "Satırlar yüklendi",
-      "stepNumber": "Adım {number}",
+      "stepNumber": "Adım {step}",
       "title": "İçe aktarma ilerlemesi"
     },
     "source": {
@@ -675,24 +675,24 @@
       "csvUrlHelp": "CSV dosyasına işaret eden, herkese açık bir URL sağlayın.",
       "noFileSelected": "Dosya seçilmedi",
       "processing": "İşleniyor...",
-      "selectedFile": "Seçildi: {name}",
+      "selectedFile": "Seçilen: {name}",
       "uploadCsv": "CSV yükle",
       "useUrl": "URL kullan"
     },
     "steps": {
       "mapping": {
         "label": "Eşleme",
-        "summary": "Her sütunu bir CRM alanına eşleyin.",
-        "title": "Sütunlarınızı eşleyin"
+        "summary": "Her sütunu bir CRM alanına eşleştirin.",
+        "title": "Sütunlarınızı eşleştirin"
       },
       "preview": {
         "label": "Önizleme",
-        "summary": "Veriyi onaylayın, sonra içe aktarımı başlatın.",
-        "title": "İncele ve içe aktar"
+        "summary": "Verileri onaylayın, ardından içe aktarmayı başlatın.",
+        "title": "İnceleyin ve içe aktarın"
       },
       "source": {
         "label": "Kaynak",
-        "summary": "CSV yükleyin veya URL yapıştırın.",
+        "summary": "Bir CSV yükleyin veya bir URL yapıştırın.",
         "title": "Veri kaynağınızı seçin"
       }
     },
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "Genel bakışa dön",
-      "companyIdLabel": "Şirket kimliği:",
-      "description": "Müşteri verilerini içine bir CSV dosyası veya URL üzerinden getirin.",
+      "companyIdLabel": "Şirket id: {id}",
+      "description": "Müşteri verilerini {name} içine bir CSV dosyası veya URL üzerinden getirin.",
       "eyebrow": "Çalışma alanı içe aktarımı",
-      "selectedCompany": "Aktif çalışma alanı:",
-      "stepLabel": "Adım {step}"
+      "selectedCompany": "Aktif çalışma alanı: {name}",
+      "stepLabel": "Adım {step} / {total}"
     }
   },
   "integrations": {
@@ -720,28 +720,28 @@
         "name": "Ad",
         "scopes": "Kapsamlar"
       },
-      "copied": "API anahtarı panoya kopyalandı.",
+      "copied": "API key panoya kopyalandı.",
       "copyKey": "Anahtarı kopyalayın",
       "copyWarning": "Tam anahtarı yalnızca bu sefer görebilirsiniz. Güvenli bir şekilde saklayın.",
       "createButton": "API anahtarı oluşturun",
       "createKey": "Anahtar oluşturun",
       "createNote": "Bu anahtar için bir ad girin ve kapsamları seçin.",
       "createTitle": "Yeni API anahtarı oluşturun",
-      "createdHeading": "API anahtarı oluşturuldu",
+      "createdHeading": "API key oluşturuldu",
       "creating": "Oluşturuluyor...",
-      "description": "<strong> </strong> için API anahtarlarını yönetin.",
-      "empty": "Henüz API anahtarı yok.",
+      "description": "<strong>{name}</strong> için API keys yönetin.",
+      "empty": "Henüz API keys yok.",
       "envLive": "Canlı",
       "envTest": "Test",
       "environment": "Ortam",
-      "loadFailed": "API anahtarları yüklenemedi.",
-      "loading": "API anahtarları yükleniyor...",
+      "loadFailed": "API keys yüklenemedi.",
+      "loading": "API keys yükleniyor...",
       "namePlaceholder": "örn. Production webhook",
       "nameRequired": "İsim zorunludur.",
       "never": "Asla",
       "revoke": "İptal et",
       "revokeConfirm": "Bu API anahtarını iptal etmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
-      "revokeFailed": "API anahtarı iptal edilemedi.",
+      "revokeFailed": "API key iptal edilemedi.",
       "revokedBadge": "İptal edildi",
       "revoking": "İptal ediliyor...",
       "savedClose": "Anahtarı kaydettim — kapat",
@@ -760,7 +760,7 @@
     "catalog": {
       "accessDenied": "Erişim reddedildi",
       "accessDeniedDescription": "Bu çalışma alanı için entegrasyonlara erişiminiz yok.",
-      "configuringCompany": "<strong> </strong> için entegrasyonlar yapılandırılıyor.",
+      "configuringCompany": "<strong>{name}</strong> için entegrasyonlar yapılandırılıyor.",
       "loadFailed": "Entegrasyon kataloğu yüklenemedi.",
       "loading": "Entegrasyonlar yükleniyor...",
       "noAccess": "Çalışma alanı erişimi yok",
@@ -787,8 +787,8 @@
     "detail": {
       "backLink": "Entegrasyonlara geri dön",
       "backToCatalog": "Kataloğa geri dön",
-      "configuringCompany": "<strong> </strong> entegrasyonu <strong> </strong> için yapılandırılıyor.",
-      "noCompany": "<strong> </strong> yapılandırmak için bir çalışma alanı seçin.",
+      "configuringCompany": "<strong>{integration}</strong> entegrasyonu <strong>{company}</strong> için yapılandırılıyor.",
+      "noCompany": "<strong>{integration}</strong> yapılandırmak için bir çalışma alanı seçin.",
       "restrictedDescription": "Bu entegrasyonu görüntüleme izniniz yok.",
       "restrictedTitle": "Kısıtlı",
       "slugTitles": {
@@ -828,7 +828,7 @@
       "inbound": "Gelen URL",
       "instanceId": "Instance ID",
       "instanceIdPlaceholder": "Örn. 1101000001",
-      "latency": "Gecikme: ms",
+      "latency": "Gecikme: {ms} ms",
       "loadFailed": "Green API yapılandırması yüklenemedi.",
       "loading": "Green API yapılandırması yükleniyor...",
       "rotateConfirm": "Gelen webhook tokenını döndürmek ister misiniz? Mevcut webhook'ların güncellenmesi gerekir.",
@@ -838,9 +838,9 @@
       "tokenRotated": "Webhook tokenı döndürüldü.",
       "updateCredentials": "Kimlik bilgilerini güncelleyin",
       "updatedLabel": "Güncellendi",
-      "upstreamStatus": "Yukarı akış durumu:",
+      "upstreamStatus": "Üst akış durumu: {status}",
       "urlCopied": "URL panoya kopyalandı.",
-      "webhookSectionDescription": "Green API örneğinizi gelen mesajları <code> </code> adresine gönderecek şekilde yapılandırın.",
+      "webhookSectionDescription": "Green API örneğinizi gelen mesajları <code>{url}</code> adresine gönderecek şekilde yapılandırın.",
       "webhookSectionTitle": "Gelen webhook"
     },
     "hide": "Gizle",
@@ -853,7 +853,7 @@
       "authHmacOrBearer": "HMAC veya Bearer",
       "authHmacShort": "HMAC",
       "authMode": "Kimlik doğrulama modu",
-      "authModeHint": "Lisent inbound istekleri nasıl doğrulasın seçin. HMAC payload'ı imzalar; Bearer statik bir token gönderir.",
+      "authModeHint": "Lisent'in intranetinizden gelen istekleri nasıl kimlik doğrulayacağını seçin. <strong>HMAC</strong> yükü imzalar; <strong>Bearer</strong> sabit bir token gönderir.",
       "bearerCopied": "Bearer token kopyalandı.",
       "bearerExampleTitle": "Bearer örneği",
       "bearerToken": "Bearer token",
@@ -862,10 +862,10 @@
       "copyUrl": "URL'yi kopyala",
       "createIntegration": "Entegrasyon oluştur",
       "createdMessage": "Intranet entegrasyonu oluşturuldu.",
-      "credentialsDescription": "Inbound webhook çağrılarını doğrulamak için bu kimlik bilgilerini kullanın.",
+      "credentialsDescription": "Bu kimlik bilgilerini <code>{url}</code> adresine yapılan çağrıları kimlik doğrulamak için kullanın.",
       "credentialsTitle": "Kimlik bilgileri",
       "deliveries": "Teslimatlar",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "Bu intranet entegrasyonunun bağlantısını kesin mi? Gelen çağrılar başarısız olmaya başlayacak.",
       "disconnectDescription": "Bu, tüm token'ları iptal eder ve gelen istekleri kabul etmeyi durdurur.",
       "disconnectIntegration": "Entegrasyonun bağlantısını kesin",
@@ -873,7 +873,7 @@
       "entityLabel": "Varlık",
       "errorLabel": "Hata",
       "eventLabel": "Olay",
-      "fieldMappingDescription": "Inbound alanları JMESPath ifadeleriyle CRM özelliklerine eşleyin. Değerleri JMESPath stringleri olan bir JSON objesi gönderin.",
+      "fieldMappingDescription": "Gelen alanları CRM özelliklerine eşleyin. <code>{example}</code> gibi JSON gönderin.",
       "fieldMappingLabel": "Alan eşlemesi",
       "fieldMappingTitle": "Alan eşlemesi",
       "generateHmac": "HMAC gizli anahtar oluştur",
@@ -883,7 +883,7 @@
       "hmacSecret": "HMAC gizli anahtar",
       "hmacSecretHint": "Bu gizli anahtarı, dış isteklerde <code>X-Lisent-Signature</code> hesaplamak için kullanın.",
       "inactive": "Aktif değil",
-      "inboundDescription": "Yukarıdaki URL'e payload gönderin, intranetinizden lead alalım.",
+      "inboundDescription": "İntranetinizden müşteri adaylarını almak için <code>{url}</code> adresine yükleri gönderin.",
       "inboundToken": "Gelen URL token",
       "inboundTokenHint": "Bu token, gelen URL'nin bir parçasıdır — gizli tutun.",
       "inboundUrl": "Gelen URL",
@@ -896,16 +896,16 @@
       "noDeliveries": "Henüz teslimat yok.",
       "noIntegration": "Henüz intranet entegrasyonu yapılandırılmadı.",
       "outbound": {
-        "allStatusesLabel": "Tüm status değişiklikleri (önerilen)",
-        "deliveriesEmpty": "Henüz teslim yok. Bağlantıyı doğrulamak için test event gönderin.",
-        "deliveriesTitle": "Son teslimler",
+        "allStatusesLabel": "Tüm durum değişiklikleri (önerilir)",
+        "deliveriesEmpty": "Henüz teslimat yok. Bağlantıyı doğrulamak için bir test olayı gönderin.",
+        "deliveriesTitle": "Son teslimatlar",
         "deliveryCols": {
-          "attempts": "Deneme",
+          "attempts": "Denemeler",
           "createdAt": "Gönderildi",
           "error": "Son hata",
           "eventId": "Event ID",
           "status": "Durum",
-          "toStatus": "→ Status"
+          "toStatus": "→ Durum"
         },
         "description": "Bu CRM'de bir Müşteri Adayı'nın durumu değiştiğinde, olayı imzalayın ve POST ile uç noktanıza gönderin. Başarısızlıkta (yaklaşık 7 saat içinde 6 deneme) yeniden deniyoruz ve ardından dead‑letter gönderiyoruz.",
         "generateSecretButton": "İmzalama gizli anahtarını oluştur",
@@ -923,7 +923,7 @@
         "savedNotice": "Giden webhook kaydedildi.",
         "secretConfigured": "Yapılandırıldı",
         "secretNotSet": "Ayarlanmamış — olay göndermeden önce bir tane oluşturun.",
-        "secretRotatedAt": "(döndürüldü )",
+        "secretRotatedAt": "(döndürüldü {time})",
         "secretRotatedNotice": "İmzalama gizli anahtarı döndürüldü. Düz metin sadece bir kez gösterilir.",
         "selectAtLeastOne": "En az bir durum seçin veya 'Tüm durum değişiklikleri' seçeneğini işaretleyin.",
         "signingSecretLabel": "İmzalama gizli anahtarı (HMAC-SHA256)",
@@ -932,7 +932,7 @@
         "statusLabels": {
           "contacted": "Müşteri Adayı iletişime alındı",
           "converted": "Müşteri Adayı müşteriye dönüştürüldü",
-          "disqualified": "Müşteri Adayı satış tarafından niteliksiz olarak işaretlendi",
+          "disqualified": "Satış tarafından niteliksiz müşteri adayı",
           "lost": "Müşteri Adayı kayıp olarak işaretlendi",
           "new": "Müşteri Adayı yeni oluşturuldu",
           "qualified": "Müşteri Adayı AI / satış tarafından nitelendirildi"
@@ -979,6 +979,38 @@
       "urlCopied": "URL panoya kopyalandı."
     },
     "loadingProfile": "Profil yükleniyor...",
+    "mailchimp": {
+      "benefitAudiences": "CRM içinde Mailchimp kitlelerini (listeleri), üyeleri, segmentleri ve etiketleri yönetin.",
+      "benefitCampaigns": "E-posta kampanyalarını oluşturun, planlayın ve gönderin — ayrıca yayına almadan önce kopyalayın ve test gönderimi yapın.",
+      "benefitPerUser": "Kullanıcı başına bağlantı: her operatör kendi Mailchimp hesabını getirir.",
+      "benefitReports": "CRM'den çıkmadan açık / tıklama / geri dönüş / coğrafi raporları okuyun.",
+      "cancel": "İptal",
+      "cardDescription": "Operatör başına Mailchimp bağlantısı. Hedef kitleleri yönetin, CRM kişilerini gönderin, kampanyaları oluşturun ve raporları CRM'den çıkmadan okuyun. Müşteri yolculuğu tasarımcısı Mailchimp içinde kalır.",
+      "cardName": "Mailchimp",
+      "connectButton": "Mailchimp bağlayın",
+      "connectCta": "Mailchimp bağlayın",
+      "connectDescription": "Mailchimp OAuth açılır penceresini açacağız. Lisent CRM'yi yetkilendirirsiniz, Nango aracılığıyla bir erişim tokeni alırız ve hedef kitleleriniz Pazarlama → E-posta modülünde görünür.",
+      "connectFailed": "Mailchimp bağlantısını tamamlayamadık. Tekrar deneyin.",
+      "connectTitle": "Mailchimp hesabınızı bağlayın",
+      "connected": "Mailchimp hesabı bağlandı.",
+      "connectedAs": "Bağlandı {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "Mailchimp açılıyor…",
+      "dcLabel": "Veri merkezi",
+      "disconnect": "Bağlantıyı kesin",
+      "disconnectConfirm": "Mailchimp hesabınızın bu çalışma alanından bağlantısını kesmek istediğinizden emin misiniz? Hedef kitleler ve kampanyalar Mailchimp içinde güvende kalır; yalnızca CRM'den bağlantı kaldırılır.",
+      "failed": "Başarısız",
+      "lastPushLabel": "Son gönderim",
+      "loadFailed": "Mailchimp bağlantınızı yükleyemedik.",
+      "nangoNotConfigured": "Mailchimp OAuth henüz sunucu tarafında yapılandırılmadı. Yöneticinizden NANGO_SECRET_KEY + bir Mailchimp sağlayıcı yapılandırmasını Nango'ya eklemesini isteyin.",
+      "openEmailModule": "E-posta modülünü aç",
+      "openInMailchimp": "Mailchimp'te aç",
+      "pushCountLabel": "Gönderilen kişiler (başarılı / toplam)",
+      "reconnect": "Yeniden bağlan",
+      "scopedToCompany": "Bu bağlantı size aittir, {name} ile sınırlıdır. Diğer operatörler burada kendi bağlantılarını görür.",
+      "statusActive": "Aktif",
+      "statusPaused": "Duraklatıldı",
+      "totalSubscribersLabel": "Toplam abone"
+    },
     "meta": {
       "active": "Aktif",
       "addMappingRow": "Alan eşlemesi ekle",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "Meta Müşteri Adayı oluşturma alanlarını CRM Müşteri Adayı sütunlarıyla eşleyin. Varsayılanı kullanmak için boş bırakın (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Alan eşlemesi",
       "finalizeButton": "Kurulumu tamamlayın",
-      "followersCount": "takipçi",
+      "followersCount": "{count} takipçi",
       "formAllSubscribedHint": "Form seçilmedi → bu sayfadaki tüm formlar abone edilecektir (Meta varsayılanı).",
       "formIdsHint": "Virgülle ayrılmış. Boş = bu sayfadaki tüm formları alır.",
       "formIdsLabel": "Form kimlikleri",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "Formları ara…",
       "formPickerTitle": "Lead Ads formlarını seçin",
       "forms": "Formlar",
-      "formsShownCount": "/",
+      "formsShownCount": "{shown}/{total}",
       "hmacSecretHint": "Bunu şimdi kaydedin — bir daha düz metni göstermeyeceğiz.",
       "hmacSecretLabel": "HMAC secret",
       "hmacSecretReveal": "Bir kez göster",
       "inboundUrlHint": "n8n, Meta'dan tam Müşteri Adayı verisini aldıktan sonra buraya gönderir. Bunu herhangi bir yere yapıştırmanız gerekmez.",
       "inboundUrlLabel": "CRM inbound URL (n8n tarafından kullanılır)",
       "last7dCount": "{count} 7 gün içinde",
-      "lastLeadAgo": "Son müşteri adayı",
+      "lastLeadAgo": "Son müşteri adayı {when}",
       "leads7d": "7 gün içinde {count} müşteri adayı",
       "loadFailed": "Meta entegrasyonu yüklenemedi.",
       "metaFieldHeader": "Meta alanı",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "Sayfa bulunamadı",
       "pagePickerSearch": "Sayfaları ara…",
       "pagePickerTitle": "Bir Facebook sayfası seçin",
-      "pagesShownCount": "/",
+      "pagesShownCount": "{shown}/{total}",
       "paused": "Duraklatıldı",
       "popupBlocked": "Tarayıcı OAuth açılır penceresini engelledi. Bu site için açılır pencerelere izin verin ve tekrar deneyin.",
       "recentDeliveriesEmpty": "Henüz teslimat yok.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "Taslak",
       "statusPaused": "Duraklatıldı",
       "statusUnknown": "Bilinmiyor",
-      "subscribedAt": "Abone olundu",
+      "subscribedAt": "Abone olundu {when}",
       "testLeadButton": "Test müşteri adayı gönder",
       "testLeadDescription": "Meta biçiminde bir yük oluşturur ve üretimle aynı ekleme yolundan geçirir. Yalnızca taklit modu açıkken kullanılabilir.",
       "testLeadFailed": "Test müşteri adayı oluşturulamadı.",
@@ -1154,19 +1186,19 @@
       "qualificationThreshold": "Yeterlilik eşiği",
       "revokeSecondaryConfirm": "İkincil web kancası sırrını iptal edin?",
       "rotateWebhookConfirm": "Web kancası sırrını döndürmek mi? Eski sır, döndürme penceresi için geçerli kalır.",
-      "saveAiConfig": "AI yapılandırmasını kaydet",
+      "saveAiConfig": "AI yapılandırmasını kaydedin",
       "secondaryRevoked": "İkincil web kancası gizliliği iptal edildi.",
       "sectorLabel": "Sektör",
       "tabs": {
-        "aiConfig": "AI ayarları",
+        "aiConfig": "AI yapılandırması",
         "apiKeys": "API anahtarları",
         "channels": "Kanallar",
-        "fallback": "Geri dönüş",
-        "leadWebhook": "Lead webhook",
+        "fallback": "Yedek",
+        "leadWebhook": "Müşteri Adayı webhook",
         "overview": "Genel bakış",
         "rag": "RAG",
         "usage": "Kullanım",
-        "v1Config": "V1 ayarları"
+        "v1Config": "V1 yapılandırması"
       },
       "thresholdHint": "Bu eşikte veya üzerinde puan alan potansiyel müşteriler nitelikli olarak işaretlenir.",
       "webhookUrlLabel": "Web kancası URL'si"
@@ -1174,10 +1206,10 @@
     "rag": {
       "chunkLabel": "Chunk",
       "chunksColumn": "Parçalar",
-      "description": "<strong> </strong> için bilgi tabanı. AI'nin referans alabileceği belgeleri yükleyin.",
-      "ingestedDescription": "<strong> </strong> için bilgi tabanında şu anda bulunan belgeler.",
+      "description": "<strong>{name}</strong> için bilgi tabanı. AI'nin referans alabileceği belgeleri yükleyin.",
+      "ingestedDescription": "<strong>{name}</strong> için bilgi tabanında şu anda bulunan belgeler.",
       "ingestedDocuments": "Alınan belgeler",
-      "ingestionExampleDescription": "POST <code> </code> adresine, <code>title</code>, <code>content</code> ve isteğe bağlı <code>metadata</code> içeren bir JSON gövdesiyle gönderin.",
+      "ingestionExampleDescription": "POST <code>{url}</code> adresine, <code>title</code>, <code>content</code> ve isteğe bağlı <code>metadata</code> içeren bir JSON gövdesiyle gönderin.",
       "ingestionExampleTitle": "Alım örneği",
       "loadConfigFailed": "RAG yapılandırması yüklenemedi.",
       "loadContentFailed": "Belge içeriği yüklenemedi.",
@@ -1211,19 +1243,19 @@
     "rotationWindow": "Döndürme penceresi",
     "secondary": "İkincil",
     "status": {
-      "active": "Aktif",
+      "active": "Etkin",
       "aria": "Entegrasyon durumu",
       "comingSoon": "Yakında",
       "connected": "Bağlandı",
       "error": "Hata",
-      "notConfigured": "Yapılandırılmamış",
+      "notConfigured": "Yapılandırılmadı",
       "paused": "Duraklatıldı"
     },
     "subComponent": {
       "configured": "Yapılandırıldı",
-      "configuredAria": "{label} yapılandırıldı",
+      "configuredAria": "{name} yapılandırıldı",
       "notSet": "Ayarlanmamış",
-      "notSetAria": "{label} ayarlanmamış"
+      "notSetAria": "{name} ayarlanmamış"
     },
     "testConnection": "Bağlantıyı test edin",
     "testing": "Test ediliyor...",
@@ -1231,7 +1263,7 @@
     "urlCopied": "URL panoya kopyalandı.",
     "usage": {
       "allMetrics": "Tüm ölçümler",
-      "description": "<strong> </strong> için kullanım ve oran sınırlamaları.",
+      "description": "<strong>{name}</strong> için kullanım ve oran sınırlamaları.",
       "loadFailed": "Kullanım yüklenemedi.",
       "loading": "Kullanım yükleniyor...",
       "metricColumn": "Ölçüm",
@@ -1280,7 +1312,7 @@
       "calendlyDescription": "Asistanın randevu için sunabileceği isteğe bağlı Calendly bağlantısı. <code>v1</code> toplantı teslimlerinde kullanılır.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly bağlantısı",
-      "description": "<strong> </strong> için <code>v1</code> nitelendiricisinin davranışını yapılandırın.",
+      "description": "<strong>{name}</strong> için <code>v1</code> nitelendiricisinin davranışını yapılandırın.",
       "frameworkDescription": "Asistanın sinyalleri çıkarmak için kullandığı nitelendirme çerçevesini seçin.",
       "frameworkTitle": "Nitelendirme çerçevesi",
       "loadFailed": "V1 yapılandırması yüklenemedi.",
@@ -1304,7 +1336,7 @@
       "configured": "Yapılandırıldı",
       "currentLabel": "Mevcut",
       "customPatternsLabel": "Özel desenler (satır başına bir)",
-      "description": "<strong> </strong> için webhook teslimini yapılandırın.",
+      "description": "<strong>{name}</strong> için webhook teslimini yapılandırın.",
       "destinationHint": "Lisent, bu URL'ye imzalı bir yük ile olayları gönderir.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Hedef URL",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Minimum payload",
       "payloadMode": "Payload modu",
       "rotateSecret": "Gizli anahtarı döndür",
-      "rotatedAt": "tarihinde döndürüldü",
+      "rotatedAt": "{time} tarihinde döndürüldü",
       "saveEventSelection": "Event seçimini kaydedin",
       "saveUrl": "URL'yi kaydedin",
       "secretRotated": "İmzalama gizli anahtarı döndürüldü.",
@@ -1383,18 +1415,18 @@
       "title": "Seçilen müşteri adaylarını atayın"
     },
     "bulkBar": {
-      "ariaSelected": "müşteri adayı seçildi",
+      "ariaSelected": "{count} müşteri adayı seçildi",
       "assign": "Ata",
       "clearSelection": "Seçimi temizle",
       "delete": "Sil",
       "exportCsv": "CSV dışa aktar",
       "exportPdf": "PDF dışa aktar",
-      "selected": "seçildi"
+      "selected": "{count} seçildi"
     },
     "bulkDelete": {
       "confirm": "Seçilenleri sil",
       "deleting": "Siliniyor...",
-      "description": "Bu, müşteri adayını kalıcı olarak siler. Bu işlem geri alınamaz.",
+      "description": "Bu, {count} müşteri adayını kalıcı olarak siler. Bu işlem geri alınamaz.",
       "title": "Seçili müşteri adaylarını sil?"
     },
     "convertModal": {
@@ -1437,7 +1469,7 @@
     "drawer": {
       "activity": {
         "aiScored": "AI puanladı",
-        "convertedToCustomer": "Müşteriye dönüştürüldü",
+        "convertedToCustomer": "Müşteri olarak dönüştürüldü",
         "created": "Oluşturuldu",
         "lastUpdated": "Son güncelleme"
       },
@@ -1457,7 +1489,7 @@
       "dealRelationship": "Anlaşma ilişkisi",
       "dealUnlinkedHint": "Henüz bir anlaşma bağlı değil.",
       "delete": "Sil",
-      "detailSections": "Detay bölümleri",
+      "detailSections": "Detay bölümler",
       "editLead": "Müşteri Adayı düzenle",
       "emptyDetails": "Henüz detay kaydedilmedi.",
       "leadProfile": "Müşteri Adayı profili",
@@ -1515,7 +1547,7 @@
       "allAssignees": "Tüm atananlar",
       "allSources": "Tüm kaynaklar",
       "byCampaign": "Kampanyaya göre filtrelendi: {name}",
-      "byCampaignCount": "/ müşteri adayı",
+      "byCampaignCount": "{shown}/{total} müşteri adayı",
       "clearCampaign": "Filtreyi temizle"
     },
     "formModal": {
@@ -1539,7 +1571,7 @@
       "phone": "Telefon",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "Süreç aşaması",
-      "saveAndScheduleEvent": "Kaydet ve etkinlik planla",
+      "saveAndScheduleEvent": "Kaydet ve etkinliği planla",
       "saveChanges": "Değişiklikleri kaydet"
     },
     "kpi": {
@@ -1570,17 +1602,17 @@
       "commentsHeader": "Yorumlar",
       "createdAt": "Oluşturuldu",
       "email": "E-posta",
-      "exportedAt": "müşteri adayı · tarihinde dışa aktarıldı",
+      "exportedAt": "{count} müşteri adayı · {date} tarihinde dışa aktarıldı",
       "options": {
         "confirm": "PDF dışa aktar",
-        "description": "Seçili {count} müşteri adayının dışa aktarımına neyi ekleyeceğinizi seçin.",
+        "description": "Seçilen {count} müşteri adayı dışa aktarımına neyin dahil edileceğini seçin.",
         "exporting": "Dışa aktarılıyor...",
-        "includeComments": "Müşteri adayı yorumlarını ekle",
-        "includeCommentsHint": "Seçili her müşteri adayı için tüm ekip yorumlarını içeren bir bölüm ekler. Oluşturma işlemi daha uzun sürebilir.",
+        "includeComments": "Müşteri adayı yorumlarını dahil et",
+        "includeCommentsHint": "Seçilen her müşteri adayı için tüm ekip yorumlarını içeren bir bölüm ekler. Oluşturulması daha uzun sürebilir.",
         "title": "Müşteri adaylarını PDF olarak dışa aktar"
       },
       "pageOf": "Sayfa {current} / {total}",
-      "title": "Leadler"
+      "title": "Müşteri adayları"
     },
     "rowMenu": {
       "convert": "Dönüştür",
@@ -1591,7 +1623,7 @@
     "scheduleTitle": "{name} ile görüşme planlayın",
     "status": {
       "contacted": "İletişime geçildi",
-      "converted": "Dönüştürüldü",
+      "converted": "Dönüştürülmüş",
       "disqualified": "Niteliksiz",
       "lost": "Kaybedildi",
       "new": "Yeni",
@@ -1604,9 +1636,9 @@
     },
     "success": {
       "aiStarted": "AI nitelendirme başlatıldı.",
-      "bulkAssignPartial": "müşteri adayından tanesi atandı.",
-      "bulkAssigned": "müşteri adayı atandı.",
-      "bulkPartial": "müşteri adayından tanesi silindi.",
+      "bulkAssignPartial": "{total} müşteri adayından {assigned} tanesi atandı.",
+      "bulkAssigned": "{count} müşteri adayı atandı.",
+      "bulkPartial": "{total} müşteri adayından {deleted} tanesi silindi.",
       "bulkRemoved": "{count} müşteri adayı silindi.",
       "converted": "Müşteri adayı dönüştürüldü.",
       "convertedWithDeal": "Müşteri adayı anlaşma ile dönüştürüldü.",
@@ -1623,7 +1655,7 @@
       "assignee": "Atanan",
       "empty": "Mevcut filtrelerle eşleşen müşteri adayı yok.",
       "name": "Ad",
-      "openAIScore": "Open AI puanı {score} için",
+      "openAIScore": "Open AI puanı {name} için",
       "phone": "Telefon",
       "rowActions": "Satır eylemleri",
       "selectAll": "Tüm müşteri adaylarını seçin",
@@ -1648,6 +1680,200 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Elektronik tabloyu içe aktar",
+        "newAgency": "Yeni ajans",
+        "refresh": "Yenile"
+      },
+      "createModal": {
+        "editTitle": "Düzenle {name}",
+        "newSubtitle": "Alanları adım adım ilerleyin — ekranda bir ya da iki.",
+        "newTitle": "Yeni bir ajans ekleyin",
+        "saveChanges": "Değişiklikleri kaydedin",
+        "saveError": "Ajansı kaydetme başarısız oldu.",
+        "saving": "Kaydediliyor…",
+        "submit": "Ajans oluştur"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "Ajansla genellikle iletişim kurduğunuz kişi.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "İsteğe bağlı — bu ajans Mailchimp kitlesine gönderildiğinde LNAME alanını doldurur.",
+          "fieldLabel": "İletişim adı",
+          "title": "Ana iletişim"
+        },
+        "name": {
+          "description": "Ekibinizin tanıyacağı görüntülenen ad.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Dizin listesinde ve kampanya birleştirmelerinde gösterilir.",
+          "fieldLabel": "Ad",
+          "title": "Ajans adı"
+        },
+        "notes": {
+          "description": "Ajans hakkında hatırlamaya değer başka bir şey.",
+          "fieldHelp": "Serbest metin — Mailchimp'e gönderilmez, yalnızca CRM içinde görünür.",
+          "fieldLabel": "Notlar",
+          "fieldPlaceholder": "Mart ayında yenileme. Hızlı güncellemeler için WhatsApp tercih ediyor.",
+          "title": "Notlar"
+        },
+        "reach": {
+          "description": "Bu satırı daha sonra Mailchimp'e göndermek istiyorsanız e-posta gereklidir.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Gönderdiğinizde Mailchimp benzersiz anahtarı olarak kullanılır.",
+          "emailLabel": "E-posta",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Serbest biçim — varsa ülke kodunu ekleyin.",
+          "phoneLabel": "Telefon",
+          "title": "Nasıl ulaşılır"
+        },
+        "status": {
+          "description": "Aktif = şu anda etkileşimde. Pasif = duraklatıldı. Süresi dolmuş = sözleşme sonu geçmiş.",
+          "fieldHelp": "Bunu istediğiniz zaman değiştirebilirsiniz — dizini filtrelemek için kullanılır.",
+          "fieldLabel": "Durum",
+          "title": "Durum"
+        },
+        "tags": {
+          "description": "Etiketler, bu ajansı daha sonra gönderdiğinizde Mailchimp'e aktarılır.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Virgül veya noktalı virgül ile ayırın. İlk gönderimde oluşturulur.",
+          "fieldLabel": "Etiketler",
+          "title": "Etiketler"
+        },
+        "window": {
+          "description": "Her iki uç da isteğe bağlıdır — süresiz veya açık uçlu olması için bir tarafı boş bırakın.",
+          "endsHelp": "İlişkinin sona erdiği zaman.",
+          "endsLabel": "Bitiş tarihi",
+          "startsHelp": "İlişkinin başladığı zaman.",
+          "startsLabel": "Başlangıç tarihi",
+          "title": "Sözleşme penceresi"
+        }
+      },
+      "deleteConfirm": "Sil {name}?\n\nBu, ajansı CRM'den kaldırır. Bu satırdan oluşturulan herhangi bir Mailchimp abonesine dokunmaz.",
+      "deleteError": "Ajansı silme işlemi başarısız oldu.",
+      "empty": "Henüz ajans yok. Birini ekleyin veya bir elektronik tablo içe aktarın.",
+      "filter": {
+        "apply": "Uygula",
+        "clear": "Filtreleri temizle",
+        "searchPlaceholder": "İsim, iletişim, e-posta ara",
+        "statusActive": "Aktif",
+        "statusAll": "Tüm durumlar",
+        "statusExpired": "Süresi dolmuş",
+        "statusInactive": "Pasif"
+      },
+      "import": {
+        "accepts": "CSV, Excel (xlsx / xls / xlsm / xlsb) ve OpenDocument (ods / fods) kabul eder. İsim yalnızca zorunlu sütundur.",
+        "close": "Kapat",
+        "complete": "İçe aktarım tamamlandı",
+        "completeSummary": "Toplam {total} satırın {created} tanesi oluşturuldu.",
+        "defaultStatus": "Varsayılan durum (durumu olmayan satırlar için)",
+        "done": "Tamam",
+        "empty": "Dosya boş görünüyor.",
+        "errorPrefix": "Dosya ayrıştırılamadı",
+        "errorsHeader": "{count} satırda hata var:",
+        "errorsMore": "… {count} daha",
+        "failed": "İçe aktarma başarısız oldu.",
+        "importBtn": "İçe aktar",
+        "importing": "İçe aktarılıyor…",
+        "label": {
+          "contact": "İletişim kişisi",
+          "email": "E-posta",
+          "ends": "Bitiş tarihi (YYYY-AA-GG)",
+          "name": "Ad (gerekli)",
+          "notes": "Notlar",
+          "phone": "Telefon",
+          "starts": "Başlangıç tarihi (YYYY-AA-GG)",
+          "status": "Durum sütunu",
+          "tags": "Etiketler (virgül / noktalı virgül ile ayrılmış)"
+        },
+        "needName": "Önce ajans adı için bir sütun seçin.",
+        "noValid": "Boş olmayan ad içeren satır yok.",
+        "notUsed": "— (kullanılmıyor) —",
+        "pickAnother": "Farklı bir dosya seçin",
+        "pickHint": "Seçmek için tıklayın. Yalnızca ilk sayfayı okuyacağız.",
+        "pickLabel": "Bir elektronik tablo seçin",
+        "subtitle": "CSV, Excel ve OpenDocument elektronik tablolarını kabul eder.",
+        "title": "Bir elektronik tablodan ajansları içe aktarın",
+        "loaded": "{rowCount, plural, one {# satır} other {# satır}} ve {colCount, plural, one {# sütun} other {# sütun}} yüklendi. Her CRM alanını gelmesi gereken elektronik tablo sütunuyla eşleştirin."
+      },
+      "list": {
+        "agencies": "Ajanslar",
+        "loading": "Ajanslar yükleniyor…"
+      },
+      "loadError": "Ajanslar yüklenemedi.",
+      "noCompany": "Ajanslarını yönetmek için panodan bir şirket seçin.",
+      "page": {
+        "next": "Sonraki sayfa",
+        "perPage": "Sayfa başına",
+        "prev": "Önceki sayfa",
+        "range": "{from}–{to} toplam {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Kapat",
+        "defaultStatus": "Yeni aboneler için varsayılan durum",
+        "disabledHint": "Bu sayfadaki satırları gönderin (sayfalar arası gönderim desteklenmiyor).",
+        "done": "Tamam",
+        "extraTagsHelp": "Her gönderilen aboneye, ajansın kendi etiketlerinin üzerine eklenir. Virgül veya noktalı virgül ile ayrılmış.",
+        "extraTagsLabel": "Ek etiketler",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "Gönderim başarısız oldu.",
+        "loadAudiencesFailed": "Mailchimp hedef kitleleri yüklenemedi.",
+        "loading": "Yükleniyor…",
+        "mailchimpAudience": "Mailchimp hedef kitlesi",
+        "noAudiences": "— Henüz hedef kitle yok —",
+        "noEmail": "Seçilen ajansların hiçbiri e-posta adresine sahip değil.",
+        "notConnected": "Mailchimp bu hesap için henüz bağlanmadı. Pazarlama → E-posta → Ayarlar bölümünden bağlayın, ardından geri dönün.",
+        "patchExisting": "Mevcut aboneleri yama (önerilir). Bu gönderimi yeniden çalıştırmak, birleştirme alanlarını günceller ve kopyalar için hata vermez.",
+        "pickAudience": "Önce bir hedef kitle seçin.",
+        "pushBtn": "Mailchimp'e gönder",
+        "pushing": "Gönderiliyor…",
+        "result": {
+          "header": "Gönderme tamamlandı",
+          "summary": "{created} oluşturuldu · {updated} güncellendi · {skipped} atlandı · {errors} hata."
+        },
+        "skippedNotice": "{count, plural, other {{count} seçilen ajansın e-posta adresi yok ve atlanacak.} }",
+        "statusPending": "Beklemede (çift onay)",
+        "statusSubscribed": "Abone",
+        "statusUnsubscribed": "Abonelikten çıkmış",
+        "subtitle": "Her ajans bir Mailchimp abonesi olur. İsim FNAME, iletişim LNAME, telefon PHONE alanına eşlenir. {tag} etiketi otomatik olarak eklenir.",
+        "summary": "{eligible} / {total} gönderilecek.",
+        "title": "{count, plural, one {Mailchimp'e {count} ajansı gönder} other {Mailchimp'e {count} ajansları gönder}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "Sil",
+          "edit": "Düzenle"
+        },
+        "ariaSelect": "Seç {name}",
+        "fromDate": "Başlangıç {date}",
+        "untilDate": "Bitiş {date}"
+      },
+      "select": {
+        "allMatchingSelected": "Mevcut filtreyle eşleşen {total} öğe seçildi",
+        "ariaAll": "Bu sayfadaki tümünü seçin",
+        "bulkDelete": "{count} sil",
+        "bulkDeleting": "Siliniyor…",
+        "clear": "Temizle",
+        "deleteFailed": "{total} öğeden {failed} silinemedi:\n{detail}",
+        "deleteFailedMore": "…ve {count} tane daha",
+        "justThisPage": "Yalnızca bu sayfayı seçin ({count})",
+        "pageFullySelected": "Bu sayfadaki {count} öğenin tamamı seçildi.",
+        "pageSelectedCount": "Bu sayfada {count} seçildi",
+        "selectAllMatching": "Mevcut filtreyle eşleşen tüm {total} öğeyi seçin",
+        "confirmDelete": "{count, plural, one {# ajans} other {# ajans}} silinsin mi?\n\nBu işlem geri alınamaz."
+      },
+      "table": {
+        "actions": "İşlemler",
+        "contact": "İletişim",
+        "emailPhone": "E-posta / Telefon",
+        "name": "Ad",
+        "status": "Durum",
+        "tags": "Etiketler",
+        "window": "Pencere"
+      },
+      "title": "Ajanslar · {total}"
+    },
     "authBody": "Giriş, kayıt ve oturum doğrulama <code>/api/auth</code> üzerinden",
     "authTitle": "Kimlik doğrulama",
     "bffBody": "Tarayıcı çağrıları bu uygulamada durmalı. Güvenilir sunucu yolları dahili CRM hizmetiyle iletişim kurar.",
@@ -1696,6 +1922,565 @@
     "ctaCreateWorkspace": "Çalışma Alanı erişimini oluşturun",
     "ctaOpenShell": "Korumalı kabuğu açın",
     "currentStack": "Mevcut yığın",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "Üye ekleyin",
+          "addMemberHint": "E-posta + ad + etiketlerle bir aboneyi manuel olarak ekleyin",
+          "pushFromCRM": "CRM'den aktarın",
+          "pushFromCRMHint": "CRM müşteri adaylarını seçin → toplu olarak Mailchimp üyeleri olarak ekleyin/güncelleyin",
+          "uploadCsv": "Elektronik tablo yükleyin",
+          "uploadCsvHint": "CSV, Excel veya ODS — e-posta sütunu (otomatik eşlenen) + ad / telefon / etiketler"
+        },
+        "addMember": {
+          "body": "{audience} üzerinde bir aboneyi ekler veya günceller. Aynı e-posta ile tekrarlamak mevcut satırı günceller.",
+          "errEmailRequired": "E-posta zorunludur.",
+          "failed": "Üyeyi ekleyemedik.",
+          "fields": {
+            "email": "E-posta",
+            "firstName": "İsim",
+            "lastName": "Soyisim",
+            "phone": "Telefon",
+            "status": "Abonelik durumu",
+            "tags": "Etiketler (isteğe bağlı)",
+            "tagsHint": "Virgül veya noktalı virgül ile ayrılmış. Eksikse oluşturulur."
+          },
+          "hideMore": "Daha fazla seçeneği gizleyin",
+          "showMore": "Daha fazla seçeneği gösterin (telefon, durum, etiketler)",
+          "status": {
+            "pending": "Beklemede (çift onay)",
+            "subscribed": "Abone",
+            "unsubscribed": "Abonelikten çıkmış"
+          },
+          "submit": "Üye ekle",
+          "submitting": "Ekleniyor…",
+          "title": "Abone ekle"
+        },
+        "col": {
+          "created": "Oluşturuldu",
+          "members": "Üyeler",
+          "name": "Hedef kitle",
+          "openRate": "Açılma oranı"
+        },
+        "create": {
+          "addressFilled": "Adres tamamlandı",
+          "addressRequired": "Mailchimp / CAN-SPAM tarafından gereklidir",
+          "body": "Mailchimp bir posta adresi (CAN-SPAM) ve varsayılan gönderici ister. Bu ayarları daha sonra hedef kitle ayarlarından düzenleyebilirsiniz.",
+          "contactSection": "Posta adresi",
+          "creating": "Hedef kitle oluşturuluyor…",
+          "errAddressRequired": "Mailchimp, Şirket + adres + şehir + ülke bilgilerini zorunlu kılar.",
+          "errFromRequired": "Varsayılan gönderici adı + e-posta gereklidir.",
+          "errNameRequired": "Kitle bir ad gerektirir.",
+          "failed": "Kitle oluşturulamadı.",
+          "fields": {
+            "address": "Sokak adresi",
+            "city": "Şehir",
+            "company": "Şirket / kuruluş adı",
+            "country": "Ülke",
+            "defaultSubject": "Varsayılan kampanya konusu",
+            "fromEmail": "Varsayılan gönderici e-posta",
+            "fromName": "Varsayılan gönderici adı",
+            "language": "Dil",
+            "name": "Kitle adı",
+            "nameHint": "Kısa ve akılda kalıcı bir şey seçin — operatörler bunu her yerde görür.",
+            "namePlaceholder": "Bülten aboneleri",
+            "permissionReminder": "İzin hatırlatıcısı",
+            "permissionReminderHint": "E-posta altbilgisinde gösterilir. Mailchimp uyumluluk için kullanır.",
+            "state": "Eyalet / bölge",
+            "zip": "Posta kodu"
+          },
+          "hideAdvanced": "Gelişmiş seçenekleri gizleyin",
+          "showAdvanced": "Gelişmiş seçenekleri gösterin",
+          "step1Body": "Kısa, tanınabilir bir ad seçin — operatörler her yerde görür, kampanyalar bu listeye referans verir.",
+          "step1Title": "Hedef kitlenizi adlandırın",
+          "step2Body": "Mailchimp ve CAN-SPAM Yasası tarafından gereklidir. Bu hedef kitleye gönderilen her kampanyada tekrar kullanılır.",
+          "step2Title": "Posta adresi",
+          "step3Body": "Adı ve e-posta adresi bu hedef kitleye gönderilen her kampanyada görünür. Daha sonra kampanya bazında geçersiz kılabilirsiniz.",
+          "step3Title": "Varsayılan gönderici",
+          "submit": "Hedef kitle oluşturun",
+          "title": "Yeni hedef kitle"
+        },
+        "csv": {
+          "body": "Aboneleri toplu eklemek veya güncellemek için {audience} üzerinde bir .csv yükleyin. E-posta sütunu zorunludur; isim/soyisim/telefon/etiketler otomatik algılanır.",
+          "done": "İçe aktarma tamamlandı.",
+          "errChunk": "Bir toplu işlem başarısız oldu — kısmi içe aktarma. Aşağıdaki sayılara bakın.",
+          "errEmailColRequired": "E-posta adresini içeren sütunu seçin.",
+          "errEmpty": "Dosyada satır yok.",
+          "errNoValidRows": "Geçerli e-posta içeren satır yok — e-posta sütunu eşlemesini kontrol edin.",
+          "errParse": "CSV ayrıştırılamadı",
+          "import": "İçe aktarmayı başlat",
+          "importing": "İçe aktarılıyor… {processed} / {total}",
+          "map": {
+            "email": "E-posta sütunu",
+            "fname": "İsim sütunu (isteğe bağlı)",
+            "lname": "Soyisim sütunu (isteğe bağlı)",
+            "phone": "Telefon sütunu (isteğe bağlı)",
+            "status": "Yeni aboneler için varsayılan durum",
+            "tags": "Etiketler sütunu (isteğe bağlı)"
+          },
+          "pickFile": "Bir elektronik tablo dosyası seçmek için tıklayın",
+          "pickHint": "CSV, Excel (.xlsx / .xls) veya OpenDocument (.ods). İlk sayfa okunur; ilk satır sütun başlıkları olmalıdır.",
+          "rowsDetected": "{count} satır içe aktarılmaya hazır.",
+          "stat": {
+            "created": "Oluşturuldu",
+            "errors": "Hatalar",
+            "updated": "Güncellendi"
+          },
+          "title": "Bir elektronik tablo yükleyin",
+          "updateExisting": "Mevcut aboneleri de güncelle (önerilir)"
+        },
+        "emptyBody": "Önce Mailchimp'te bir kitle oluşturun — bir sonraki yenilemede burada görünecek.",
+        "emptyTitle": "Henüz kitle yok",
+        "loadFailed": "Kitleler yüklenemedi.",
+        "loading": "Kitleler yükleniyor…",
+        "members": {
+          "close": "Kapat",
+          "col": {
+            "email": "E-posta",
+            "lastChanged": "Son değişiklik",
+            "status": "Durum"
+          },
+          "empty": "Bu kitlede henüz üye yok.",
+          "loadFailed": "Üyeler yüklenemedi.",
+          "loading": "Üyeler yükleniyor…",
+          "next": "İleri",
+          "page": "Sayfa {current} / {total}",
+          "prev": "Geri",
+          "total": "Toplam üye"
+        },
+        "newAudience": "Yeni hedef kitle",
+        "push": {
+          "allStatuses": "Tüm durumlar",
+          "body": "CRM müşteri adaylarını seçin → {audience} üyeleri olarak ittirin. E-posta olmayan müşteri adayları atlanır.",
+          "clear": "Temizle",
+          "col": {
+            "email": "E-posta",
+            "name": "Ad",
+            "outcome": "Sonuç",
+            "reason": "Sebep",
+            "status": "Durum"
+          },
+          "empty": "Mevcut filtrelerle eşleşen müşteri adayı yok.",
+          "errNoneSelected": "En az bir müşteri adayı seçin.",
+          "failed": "Müşteri adayları ittirilemedi.",
+          "loadFailed": "CRM müşteri adayları yüklenemedi.",
+          "loading": "Müşteri adayları yükleniyor…",
+          "noEmail": "E-posta yok — atlandı",
+          "searchPlaceholder": "Ad, e-posta, telefon, notları ara…",
+          "selectAll": "Görünür olanları seç",
+          "selected": "{count} seçildi",
+          "stat": {
+            "created": "Oluşturuldu",
+            "errors": "Hatalar",
+            "skipped": "Atlandı",
+            "updated": "Güncellendi"
+          },
+          "submit": "Gönder {count} müşteri adayı",
+          "submitting": "Gönderiliyor…",
+          "title": "CRM'den gönder",
+          "visible": "Görünür {count}"
+        },
+        "refresh": "Yenile",
+        "subtabs": {
+          "fields": "Alanlar",
+          "members": "Üyeler",
+          "segments": "Segmentler",
+          "tags": "Etiketler",
+          "webhooks": "Webhooks"
+        },
+        "title": "Hedef kitleler",
+        "viewMembers": "Üyeleri görüntüle"
+      },
+      "automations": {
+        "actionFailed": "İşlem başarısız. Yukarıdaki Mailchimp hatasına bakın.",
+        "actions": {
+          "pauseAll": "Tüm e-postaları duraklat",
+          "startAll": "Tüm e-postaları başlat"
+        },
+        "col": {
+          "audience": "Hedef kitle",
+          "emailsSent": "Gönderilen e-postalar",
+          "status": "Durum",
+          "title": "İş akışı"
+        },
+        "designerHint": "Müşteri Yolculuğu tasarımcısı Mailchimp'in kendi UI'sinde bulunur — Mailchimp, API üzerinden oluşturmayı sunmaz. Buradan, bağlam değiştirmeden, her iş akışının e-postalarını duraklatabilir/başlatabilirsiniz.",
+        "emptyBody": "Mailchimp'in Müşteri Yolculuğu tasarımcısında iş akışları oluşturun; burada görünecekler.",
+        "emptyTitle": "Henüz otomasyon yok",
+        "loadFailed": "Otomasyonlar yüklenemedi.",
+        "loading": "Otomasyonlar yükleniyor…",
+        "refresh": "Yenile",
+        "title": "Otomasyonlar / müşteri yolculukları"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "En çok tıklama",
+            "manual": "Manuel olarak seçin",
+            "opens": "En çok açılma"
+          },
+          "fromNameB": "Gönderen adı — varyant B (isteğe bağlı)",
+          "fromNameBPlaceholder": "Farklı gönderici adı",
+          "hint": "Mailchimp, her varyantı kitlenizin {percent}% kısmına gönderir, {hours}h bekler, ardından kazananı kalanlara gönderir.",
+          "subjectB": "Konu satırı — varyant B",
+          "subjectBPlaceholder": "Test etmek için alternatif konu",
+          "testPercent": "Test kitlesi %",
+          "toggle": "Bu kampanyada A/B testi yapın",
+          "toggleHint": "İki konu satırını (ve/veya gönderici adlarını) bir örnek kitleye gönderin, kazananı otomatik olarak kalanlara gönderin.",
+          "waitHours": "Kazananı seçmeden önce bekleme süresi (saat)",
+          "winnerCriteria": "Kazanan kriteri"
+        },
+        "actionFailed": "İşlem başarısız oldu. Yukarıdaki Mailchimp hatasına bakın.",
+        "actions": {
+          "delete": "Sil",
+          "pause": "Duraklat",
+          "resume": "Devam ettir",
+          "schedule": "Planla",
+          "send": "Gönder",
+          "test": "Test gönder",
+          "unschedule": "Planlamayı iptal et"
+        },
+        "audiencesEmpty": "Henüz bir kitle yok — önce bir tane oluşturun.",
+        "col": {
+          "audience": "Hedef kitle",
+          "created": "Oluşturulma",
+          "status": "Durum",
+          "subject": "Konu"
+        },
+        "confirmDelete": "Bu kampanyayı kalıcı olarak silmek ister misiniz? Son raporlar daha sonra silinemez.",
+        "confirmSend": "\"{subject}\" kampanyasını {audience} hedef kitlesine şimdi göndermek ister misiniz? Bu, canlı gönderimi başlatır ve geri alınamaz.",
+        "createBody": "Taslaklar Mailchimp'e anında eklenir; hazır olduğunuzda yukarıdaki satırdan gönderirsiniz.",
+        "createFailed": "Kampanyayı oluşturamadınız.",
+        "createSubmit": "Taslak oluştur",
+        "createTitle": "Yeni e-posta kampanyası",
+        "creating": "Taslak oluşturuluyor…",
+        "deleteFailed": "Kampanyayı silemediniz.",
+        "emptyBody": "İlk kampanyanızı yazmak için \"Yeni kampanya\"yı tıklayın.",
+        "emptyTitle": "Henüz kampanya yok",
+        "errAudienceRequired": "Önce bir hedef kitle seçin.",
+        "errFromRequired": "Mailchimp, gönderen adını ve yanıt adresini zorunlu kılar.",
+        "errSubjectRequired": "Kampanyaya bir konu girin.",
+        "fields": {
+          "audience": "Hedef kitle",
+          "audiencePlaceholder": "Bir hedef kitle seçin…",
+          "fromName": "Gönderen adı",
+          "hidePreview": "Önizlemeyi gizle",
+          "htmlBody": "HTML gövdesi",
+          "htmlHint": "Mailchimp, {{FNAME|there}} gibi ham HTML veya birleştirme etiketlerini kabul eder. Sürükle-bırak düzenleyici, Mailchimp'in kendi arayüzünde bulunur.",
+          "internalTitle": "Dahili başlık (isteğe bağlı)",
+          "internalTitlePlaceholder": "Mailchimp'te arama için kullanılır; varsayılan olarak konu",
+          "replyTo": "Yanıt e-posta adresi",
+          "showPreview": "Önizlemeyi göster",
+          "subject": "Konu satırı",
+          "subjectPlaceholder": "Alıcının gelen kutusuna ne gider",
+          "template": "Şablondan başla (isteğe bağlı)",
+          "templateHint": "Bir şablon seçmek aşağıdaki HTML gövdesini doldurur — kaydetmeden önce hâlâ düzenleyebilirsiniz.",
+          "templatePlaceholder": "Özel HTML — şablon yok",
+          "templatesEmpty": "Henüz kaydedilmiş şablon yok"
+        },
+        "hideAdvanced": "Gelişmiş ayarları gizle",
+        "loadFailed": "Kampanyalar yüklenemedi.",
+        "loading": "Kampanyalar yükleniyor…",
+        "newCampaign": "Yeni kampanya",
+        "page": "Sayfa {current} / {total}",
+        "refresh": "Yenile",
+        "schedule": {
+          "confirm": "Gönderimi planlayın",
+          "confirmUnschedule": "Planlamayı iptal edin? Kampanya taslağa döner, böylece yeniden düzenleyebilirsiniz.",
+          "errTimeRequired": "Gönderim zamanını seçin.",
+          "failed": "Kampanyayı planlayamadı — Mailchimp mesajına bakın.",
+          "hint": "Mailchimp en yakın 15 dakikaya yuvarlar. Ücretsiz planlar ≥30 dk önceden planlama gerektirir.",
+          "scheduling": "Planlanıyor…",
+          "sendAt": "Gönder (yerel zamanınızda)",
+          "timewarp": "Alıcının yerel zamanında gönder (Timewarp)",
+          "timewarpHint": "Mailchimp, her abonenin kopyasını kendi saat diliminde seçilen zamanda gönderir.",
+          "title": "Kampanyayı planlayın"
+        },
+        "sendFailed": "Kampanya gönderilemedi.",
+        "showAdvanced": "Gelişmiş ayarları göster",
+        "step1Title": "Bu e-posta kim için?",
+        "step2Title": "Gönderen kim?",
+        "step3Title": "E-postanızı tasarlayın",
+        "test": {
+          "emailsHint": "Virgül, noktalı virgül veya yeni satır ile ayrılmış.",
+          "emailsLabel": "Test alıcıları",
+          "emailsRequired": "En az bir test e-postası gereklidir.",
+          "failed": "Test e-postası gönderilemedi.",
+          "format": "Biçim",
+          "plaintext": "Düz metin",
+          "send": "Test gönder",
+          "sending": "Gönderiliyor…",
+          "sent": "Test e-postası kuyruğa alındı. Gelen kutunuzu yaklaşık 1 dakika içinde kontrol edin.",
+          "title": "Test e-postası gönder"
+        },
+        "title": "Kampanyalar",
+        "wizard": {
+          "step1Body": "Bu kampanyayı alacak hedef kitleyi seçin.",
+          "step1Title": "Bu e-posta kime gönderilecek?",
+          "step2Body": "Alıcıların gelen kutusunda gördüğü konu satırı + gönderici bilgisi.",
+          "step2Title": "Konu ve gönderen",
+          "step3Body": "Kaydedilmiş bir şablondan başlayın veya sıfırdan oluşturun — sağdaki canlı önizleme alıcıların gördüklerini gösterir.",
+          "step3Title": "E-postanızı tasarlayın"
+        }
+      },
+      "connectCta": "Mailchimp'i bağlayın",
+      "connectedHeader": "Bağlı Mailchimp hesabı",
+      "domains": {
+        "add": "Alan adı ekleyin",
+        "addEmailLabel": "Doğrulama için alan adındaki e-posta adresi",
+        "addFailed": "Doğrulama başlatılamadı.",
+        "addHint": "Mailchimp bu adrese bir doğrulama kodu gönderir. Oradan e-posta alabildiğinizden emin olun.",
+        "adding": "Kod gönderiliyor…",
+        "body": "Gönderim alan adınızı (DKIM / SPF) doğrulayın. Doğrulanmış alan adları daha yüksek güven puanı alır ve Omnivore (Mailchimp'in kötüye kullanım önleyicisi) işaretlerinden kaçınır.",
+        "codePlaceholder": "E-postadan gelen doğrulama kodu",
+        "confirmDelete": "Bu alan adını kaldırmak ister misiniz? Tekrar göndermek için yeniden doğrulamanız gerekir.",
+        "delete": "Kaldır",
+        "deleteFailed": "Alan adı kaldırılamadı.",
+        "dkimHint": "Doğrulamanın ardından Mailchimp arayüzünde (Hesap → Alan Adları → Doğrula) DKIM / DMARC kurulumunu tamamlayın. DNS kaydı düzeyindeki kurulum API aracılığıyla sunulmaz.",
+        "empty": "Henüz alan adı eklenmedi. Başlamak için yukarıdan gönderim alan adını ekleyin.",
+        "errCodeRequired": "Mailchimp e-postasındaki kodu yapıştırın.",
+        "errEmailRequired": "E-posta zorunludur.",
+        "loadFailed": "Alan adları yüklenemedi.",
+        "loading": "Alan adları yükleniyor…",
+        "statusAuthenticated": "Doğrulandı + DKIM kimliği doğrulandı",
+        "statusPending": "Beklemede — aşağıdaki e-posta doğrulama kodunu yapıştırın",
+        "statusVerified": "Doğrulandı — Mailchimp UI'da DKIM kurulumunu tamamlayın",
+        "title": "Doğrulanmış alan adları",
+        "verify": "Doğrula",
+        "verifyFailed": "Doğrulama başarısız — kodu kontrol edin"
+      },
+      "images": {
+        "body": "Mailchimp kitaplığınızdan bir resim seçin, yeni bir tane yükleyin (maks 10 MB), ya da herkese açık bir URL yapıştırın",
+        "confirmDelete": "Bu resmi silmek istediğinizden emin misiniz? Ona referans veren kampanyalar çalışmaya devam eder (Mailchimp dosyayı tutar).",
+        "delete": "Sil",
+        "deleteFailed": "Resmi silinemedi.",
+        "empty": "Henüz bir resim yüklenmedi. İlk resmi eklemek için Yükle'ye geçin.",
+        "errNoUrl": "Mailchimp yüklemeyi kabul etti ancak URL döndürmedi.",
+        "errTooLarge": "Mailchimp'in maksimum dosya boyutu 10 MB.",
+        "insertUrl": "URL ekle",
+        "loadFailed": "Resim kitaplığı yüklenemedi.",
+        "loading": "Kitaplık yükleniyor…",
+        "modes": {
+          "library": "Kitaplık",
+          "upload": "Yeni yükle",
+          "url": "URL ile"
+        },
+        "pickFile": "Resim seçmek için tıklayın",
+        "pickHint": "PNG, JPG, GIF, SVG, 10 MB’a kadar",
+        "title": "Bir görsel seçin veya yükleyin",
+        "uploadFailed": "Yükleme başarısız — Mailchimp mesajına bakın.",
+        "uploading": "Yükleniyor…",
+        "urlHint": "Mailchimp görseli CDN'sinde önbelleğe alabilir; Dosya Yöneticisi (Yükleme sekmesi) kullanmak daha güvenilir.",
+        "urlLabel": "Genel görsel URL'si"
+      },
+      "loadFailed": "Mailchimp bağlantınız yüklenemedi.",
+      "manageConnection": "Bağlantıyı yönetin",
+      "merge": {
+        "cancelNew": "İptal",
+        "col": {
+          "name": "Ad",
+          "required": "Gerekli",
+          "tag": "Birleştirme etiketi",
+          "type": "Tür"
+        },
+        "confirmDelete": "Bu alanı silmek istiyor musunuz? Bu sütundaki Üye verileri de silinecek.",
+        "count": "{count} alan toplam",
+        "create": "Alan oluştur",
+        "createFailed": "Alan oluşturulamadı.",
+        "creating": "Oluşturuluyor…",
+        "delete": "Sil",
+        "deleteFailed": "Alan silinemedi.",
+        "empty": "Henüz özel alan yok — Mailchimp'in varsayılan FNAME / LNAME sütunları hâlâ çalışıyor.",
+        "errRequired": "Etiket ve ad her ikisi de gerekli.",
+        "fields": {
+          "defaultValue": "Varsayılan değer (isteğe bağlı)",
+          "name": "Görünüm adı",
+          "required": "Kayıt formlarında gerekli",
+          "tag": "Birleştirme etiketi (≤10 karakter, BÜYÜK HARF)",
+          "type": "Tür"
+        },
+        "hint": "Kampanyalarda ve şablonlarda birleştirme etiketlerini *|TAG|* biçiminde kullanın, örn. \"Welcome *|FNAME|*\".",
+        "loadFailed": "Birleştirme alanları yüklenemedi.",
+        "loading": "Birleştirme alanları yükleniyor…",
+        "newField": "Yeni alan"
+      },
+      "noCompanyBody": "E-posta modülünü yönetmek için panodan bir çalışma alanı seçin.",
+      "noCompanyTitle": "Bir çalışma alanı seçin",
+      "notConnectedBody": "Mailchimp hesabınızı bağlayarak CRM'den çıkmadan hedef kitleleri, kampanyaları ve raporları yönetin. Her operatör kendi bağlantısını getirir.",
+      "notConnectedTitle": "Mailchimp henüz bağlanmadı",
+      "openIntegrationDetail": "Entegrasyon ayarlarını aç",
+      "overview": {
+        "actions": {
+          "newAudience": "Yeni hedef kitle",
+          "newCampaign": "Yeni kampanya",
+          "newTemplate": "Yeni şablon",
+          "reports": "Raporlar"
+        },
+        "gettingStartedTitle": "4 hızlı adımda başlayın",
+        "kpi": {
+          "audiences": "Hedef kitleler",
+          "clickRateSub": "%{rate} ortalama tıklama oranı",
+          "openRate": "Ortalama açılma oranı",
+          "sentCampaigns": "Gönderilen kampanyalar",
+          "subscribers": "Toplam aboneler"
+        },
+        "loadFailed": "Genel bakış yüklenemedi.",
+        "loading": "Genel bakış yükleniyor…",
+        "noCampaigns": "Henüz kampanya yok — ilk kampanyanızı oluşturun.",
+        "noReports": "Henüz rapor yok — ilk gönderimden sonra görünür.",
+        "quickActionsTitle": "Hızlı eylemler",
+        "recentCampaigns": "Son kampanyalar",
+        "recentReports": "Son raporlar",
+        "recipients": "Alıcılar",
+        "step1": "Bir kitle oluşturun veya içe aktarın (eğer bir elektronik tabloya sahipseniz \"Audiences → Upload CSV\" seçeneğini kullanın).",
+        "step2": "İsteğe bağlı: \"Templates\" altında yeniden kullanılabilir bir şablon kaydedin.",
+        "step3": "İlk kampanyanızı oluşturun — kitleyi, konuyu ve içeriği seçin.",
+        "step4": "Kendinize bir test gönderin, ardından gerçek gönderim yapın veya zamanlayın.",
+        "viewAll": "Hepsini görüntüle"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Tıklamalar",
+          "opens": "Açılmalar",
+          "recipients": "Alıcılar",
+          "sent": "Gönderildi",
+          "subject": "Kampanya"
+        },
+        "deepLinkHint": "Isı haritaları, A/B karşılaştırması ve tam e-posta etkinliği için kampanyayı Mailchimp arayüzünde açın.",
+        "detailFailed": "Tam raporu yükleyemedik.",
+        "details": "Ayrıntılar",
+        "emptyBody": "Raporlar, ilk kampanya gönderildikten sonra burada görünecek.",
+        "emptyTitle": "Henüz rapor yok",
+        "geoEmpty": "Coğrafi veri yok — Mailchimp, açılmalar geldikçe oluşturur.",
+        "geoTitle": "En çok konumlar",
+        "kpi": {
+          "bounces": "Geri dönüşler",
+          "clicks": "Benzersiz tıklamalar",
+          "hardBounces": "{count} sert",
+          "opens": "Benzersiz açılmalar",
+          "sent": "Alıcılar"
+        },
+        "loadFailed": "Raporları yükleyemedik.",
+        "loading": "Raporlar yükleniyor…",
+        "loadingDetail": "Ayrıntılar yükleniyor…",
+        "opens": "açılmalar",
+        "title": "Kampanya raporları"
+      },
+      "segments": {
+        "col": {
+          "members": "Üyeler",
+          "name": "Ad",
+          "type": "Tür",
+          "updated": "Güncellendi"
+        },
+        "confirmDelete": "Bu segmenti silmek istiyor musunuz? Üyeler izleyicide kalır; yalnızca segment kaldırılır.",
+        "count": "{count} segment",
+        "create": "Oluştur",
+        "createBody": "Statik segmentler el ile seçilmiş e-posta adresi listeleridir. Koşula dayalı (kaydedilmiş) segmentler için Mailchimp arayüzünü kullanın — yenilediğinizde burada görünecekler.",
+        "createFailed": "Segment oluşturulamadı.",
+        "createTitle": "Yeni statik segment",
+        "creating": "Oluşturuluyor…",
+        "delete": "Sil",
+        "deleteFailed": "Segment silinemedi.",
+        "empty": "Henüz segment yok. Statik segmentler el ile seçilmiş listelerdir; kaydedilmiş segmentler koşula dayalı filtrelerdir.",
+        "errNameRequired": "Segmentin bir adı olmalı.",
+        "fields": {
+          "emails": "Üye e-postaları",
+          "emailsHint": "Satır başına bir, ya da virgülle ayrılmış. Yalnızca mevcut izleyici üyeleri eklenir.",
+          "name": "Segment adı"
+        },
+        "loadFailed": "Segmentler yüklenemedi.",
+        "loading": "Segmentler yükleniyor…",
+        "newStatic": "Yeni statik segment"
+      },
+      "settingsHint": "Yapılandırma Entegrasyonlar → Mailchimp altında bulunur. Yukarıdaki rozet yalnızca okunabilir.",
+      "settingsTitle": "Bağlantı ayarları",
+      "subtabAria": "E-posta modülü bölümleri",
+      "subtabComingSoon": "Bu bölüm sonraki adımda gelir. Bağlantı hazır; kullanıcı arayüzü henüz bağlanmadı.",
+      "tabs": {
+        "audiences": "Hedef kitleler",
+        "automations": "Otomasyonlar",
+        "campaigns": "Kampanyalar",
+        "overview": "Genel bakış",
+        "reports": "Raporlar",
+        "settings": "Ayarlar",
+        "templates": "Şablonlar"
+      },
+      "tags": {
+        "empty": "Bu izleyicide henüz etiket yok. Üyelere 'Üye ekle' ya da CSV yüklemesiyle etiket ekleyin.",
+        "emptySearch": "\"{query}\" ile eşleşen etiket yok.",
+        "hint": "Etiketler, bir üyeye (Üye ekle, CSV yükleme veya CRM'den itme) uygulandığı anda oluşturulur.",
+        "loadFailed": "Etiketler yüklenemedi.",
+        "loading": "Etiketler yükleniyor…",
+        "searchPlaceholder": "Etiket adını ara…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "Sil",
+          "edit": "Düzenle",
+          "preview": "Önizleme"
+        },
+        "col": {
+          "category": "Kategori",
+          "created": "Oluşturulma",
+          "name": "Ad"
+        },
+        "confirmDelete": "Bu şablonu kalıcı olarak silmek istediğinizden emin misiniz? Ona referans veren kampanyalar çalışmaya devam eder — gönderim sırasında HTML anlık görüntüsü alınır.",
+        "create": "Şablon oluştur",
+        "createTitle": "Yeni şablon",
+        "deleteFailed": "Şablonu silemediniz.",
+        "editTitle": "Şablonu düzenle",
+        "emptyBody": "İlk şablonunuzu oluşturun — kampanyalar HTML'yi yeniden yazmadan tekrar kullanabilir.",
+        "emptyTitle": "Henüz şablon yok",
+        "errHtmlRequired": "Şablon gövdesi boş olamaz.",
+        "errNameRequired": "Şablonun bir adı olmalıdır.",
+        "fields": {
+          "html": "HTML gövdesi",
+          "htmlHint": "Ham HTML. {{FNAME|there}} gibi birleştirme etiketleri kampanyalardaki gibi çalışır.",
+          "name": "Şablon adı",
+          "namePlaceholder": "Hoş geldiniz e-postası"
+        },
+        "loadFailed": "Şablonlar yüklenemedi.",
+        "loading": "Şablonlar yükleniyor…",
+        "loadingBody": "Şablon gövdesi yükleniyor…",
+        "newTemplate": "Yeni şablon",
+        "preview": "Canlı önizleme",
+        "previewHint": "HTML'i izole bir iframe içinde render eder (betikler devre dışı). {{FNAME|there}} gibi Mailchimp birleştirme etiketleri görünür kalır — gönderim sırasında değiştirilir.",
+        "refresh": "Yenile",
+        "saveFailed": "Şablon kaydedilemedi.",
+        "saving": "Kaydediliyor…",
+        "title": "Şablonlar",
+        "update": "Değişiklikleri kaydet"
+      },
+      "webhooks": {
+        "confirmDelete": "Bu webhook aboneliğini silmek istiyor musunuz? Mailchimp bu URL'ye POST gönderimini durdurur.",
+        "count": "{count} webhook",
+        "create": "Webhook oluştur",
+        "createBody": "Mailchimp, URL'nize POST olayları gönderecek. Yaygın hedefler: n8n akışı, inbound/mailchimp/<token>.",
+        "createFailed": "Webhook oluşturulamadı.",
+        "createTitle": "Hedef kitle olaylarına abone olun",
+        "creating": "Oluşturuluyor…",
+        "delete": "Sil",
+        "deleteFailed": "Webhook silinemedi.",
+        "empty": "Henüz webhook abonesi yok.",
+        "errUrlRequired": "URL https:// ile başlamalıdır",
+        "fields": {
+          "events": "Dinlenecek olaylar",
+          "sources": "Olay kaynakları (kim tetikledi)",
+          "url": "Webhook URL (https://)"
+        },
+        "hint": "Mailchimp, liste webhook'larını imzalamaz. URL'yi tek gizli bilgi olarak kabul edin; kaydetmeyin.",
+        "loadFailed": "Webhook'lar yüklenemedi.",
+        "loading": "Webhook'lar yükleniyor…",
+        "noEvents": "(seçili olay yok)"
+      },
+      "wizard": {
+        "back": "Geri",
+        "fillRequired": "Yukarıdaki zorunlu alanı doldurun",
+        "next": "İleri",
+        "submit": "Oluştur",
+        "submitting": "Oluşturuluyor…"
+      }
+    },
     "heroEyebrow": "Ses‑yerel CRM platformu",
     "heroLead": "Lisent CRM, kimlik doğrulama, kiracı‑bilinçli iş akışları, profil‑içe aktarım onboarding'i ve şirket operatörleri için korumalı bir uygulama kabuğunu birleştirir. Web uygulaması kullanıcı odaklı akışları yönetir. Go CRM hizmeti güvenilir bir backend sınırının arkasında kalır.",
     "heroTitle": "Niyeti anlamak, sadece kelimeleri değil.",
@@ -1708,6 +2493,7 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "Ajanslar",
       "aria": "Pazarlama bölümleri",
       "campaigns": "Kampanyalar",
       "email": "E-posta",
@@ -1720,7 +2506,7 @@
   "nav": {
     "brandName": "Lisent CRM",
     "calendar": "Takvim",
-    "closeNavigation": "Navigasyonu kapat",
+    "closeNavigation": "Gezinmeyi kapat",
     "customerImport": "Müşteri içe aktarımı",
     "customers": "Müşteriler",
     "dashboard": "Pano",
@@ -1729,11 +2515,11 @@
     "import": "İçe aktar",
     "integrations": "Entegrasyonlar",
     "leads": "Müşteri adayları",
-    "lisentHome": "Lisent CRM ana sayfa",
-    "lisentWorkspace": "Lisent çalışma alanı",
+    "lisentHome": "Lisent CRM ana sayfası",
+    "lisentWorkspace": "Lisent Çalışma Alanı",
     "marketing": "Pazarlama",
-    "navigation": "Navigasyon",
-    "openNavigation": "Navigasyonu aç",
+    "navigation": "Gezinti",
+    "openNavigation": "Gezinmeyi aç",
     "overview": "Genel bakış",
     "primary": "Birincil",
     "quickCreate": "Hızlı oluştur",
@@ -1756,7 +2542,7 @@
   },
   "page": {
     "access": {
-      "description": "Çalışma alanlarınız için rolleri ve erişimi yönetin.",
+      "description": "Çalışma alanlarınız için roller ve erişimi yönetin.",
       "title": "Erişim"
     },
     "account": {
@@ -1811,7 +2597,7 @@
   "qualifier": {
     "companyOrBuyerProfile": "Şirket / alıcı profili",
     "fallbackExplanation": "LLM değerlendirmesi çalışmadı — puan form verisi kalitesinden hesaplandı.",
-    "fallbackMode": "Geri dönüş modu",
+    "fallbackMode": "Yedek mod",
     "formulaAudit": "Formül denetimi",
     "keyQuestions": "Arama için ana sorular",
     "leadAssessment": "Müşteri adayı değerlendirmesi",
@@ -1903,7 +2689,7 @@
       "notes": "Bu görevle ilgili detayları ekleyin...",
       "title": "Görev başlığı"
     },
-    "publishedBy": "Yayınlayan",
+    "publishedBy": "Yayınlayan {name}",
     "responseStatus": {
       "accepted": "Kabul edildi",
       "pending": "Bekliyor",
@@ -1923,14 +2709,14 @@
     "success": {
       "assigned": "Görev atandı.",
       "deleted": "Görev silindi.",
-      "deletedBroadcast": "Yayın görevi silindi.",
+      "deletedBroadcast": "Yayınlanan görev silindi.",
       "publishedTeam": "Görev ekipte yayınlandı."
     },
     "summary": {
       "company": "Şirket",
-      "inProgressDone": "devam ediyor · tamamlandı",
-      "myPending": "beklemede",
-      "openTickets": "açık"
+      "inProgressDone": "{inProgress} devam ediyor · {done} tamamlandı",
+      "myPending": "{count} beklemede",
+      "openTickets": "{count} açık"
     },
     "systemUser": "Sistem",
     "teammatesCount": "{count} ekip üyesi",
@@ -1946,7 +2732,7 @@
       "title": "Ekip üyesi ekle"
     },
     "aria": {
-      "removeName": "Kaldır {name}"
+      "removeName": "Kaldırın {name}"
     },
     "cantRemove": "Kendinizi kaldıramazsınız.",
     "columns": {
@@ -1973,22 +2759,41 @@
       "role": "Rol"
     },
     "member": "Üye",
+    "moduleAccess": {
+      "discard": "İptal et",
+      "empty": "Yönetilecek ekip üyesi yok — sahipler her zaman tam erişime sahiptir.",
+      "granted": "Verildi",
+      "loadError": "Erişim izinleri yüklenemedi.",
+      "loading": "Yükleniyor…",
+      "module": {
+        "marketingAgencies": "Pazarlama · Ajanslar"
+      },
+      "noAccess": "Erişim yok",
+      "role": "Rol",
+      "save": "Değişiklikleri kaydet",
+      "saveError": "Değişiklikler kaydedilemedi.",
+      "saving": "Kaydediliyor…",
+      "subtitle": "Sahipler her zaman tüm modülleri görür. Her ekip üyesine belirli bir modüle erişim vermek için geçişleri kullanın.",
+      "teamMember": "Ekip üyesi",
+      "title": "Modül erişimi",
+      "unsaved": " · kaydedilmemiş"
+    },
     "noEmail": "Kayıtlı e-posta yok",
     "noPermission": "Takım üyelerini yönetme izniniz yok.",
     "placeholders": {
       "email": "name@company.com"
     },
-    "removeMember": "Üyeyi kaldır",
+    "removeMember": "Üyeyi kaldırın",
     "removeModal": {
-      "confirm": "Üyeyi kaldır",
-      "description": "{company} bu çalışma alanına erişimini hemen kaybedecek.",
+      "confirm": "Üyeyi kaldırın",
+      "description": "{name} bu çalışma alanına erişimini hemen kaybedecek.",
       "eyebrow": "Takım üyesini kaldır",
       "removing": "Kaldırılıyor...",
       "title": "Takım üyesini kaldır?"
     },
     "roleModal": {
       "confirm": "Rolü değiştir",
-      "description": "Bu çalışma alanında kullanıcısının rolünü güncelleyin.",
+      "description": "Bu çalışma alanında {name} kullanıcısının rolünü güncelleyin.",
       "eyebrow": "Rolü değiştir",
       "title": "Rolü değiştir",
       "to": "olarak",

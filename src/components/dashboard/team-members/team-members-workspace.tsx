@@ -10,6 +10,7 @@ import { requestCreateWorkspace } from "@/components/dashboard/shared/create-wor
 import { AddTeamMemberModal } from "@/components/dashboard/team-members/add-team-member-modal";
 import { MemberRemoveModal } from "@/components/dashboard/team-members/member-remove-modal";
 import { MemberRoleChangeModal } from "@/components/dashboard/team-members/member-role-change-modal";
+import { ModuleAccessSection } from "@/components/dashboard/team-members/module-access-section";
 import {
   addCompanyMember,
   CompanyMembershipClientError,
@@ -287,6 +288,14 @@ export function TeamMembersWorkspace() {
         title={t("teamMembers.section.users")}
         updatingUserId={updatingUserId}
       />
+
+      {/* Module access — only the owner can manage these toggles. We
+          gate the entire section on the current member's role rather
+          than canManageMembers because module gating is an owner-only
+          surface in the backend (admins get 403 on PUT). */}
+      {members.some((m) => m.isCurrentUser && m.role === "owner") && (
+        <ModuleAccessSection companyId={companyId} members={members} />
+      )}
 
       {inviteOpen && (
         <AddTeamMemberModal

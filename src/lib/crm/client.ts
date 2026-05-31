@@ -4619,3 +4619,232 @@ export async function triggerMailchimpJourneyStep(
     },
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Agencies (per-COMPANY) + module access
+//
+// The agencies surface is independent of Mailchimp: rows live in the
+// CRM and can optionally be pushed to a Mailchimp audience. Routes are
+// embedded in /companies/:id/... so the URL itself carries the tenant,
+// not a query string — that's intentional so a typo can never silently
+// scope to the wrong company.
+//
+// Visibility within a company is gated by user_module_access; the owner
+// manages grants via the /companies/:id/module-access surface below.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type AgencyStatus = "active" | "inactive" | "expired";
+
+export type Agency = {
+  id: string;
+  company_id: string;
+  name: string;
+  contact_person?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  notes?: string | null;
+  starts_at?: string | null;
+  ends_at?: string | null;
+  status: AgencyStatus;
+  tags: string[];
+  created_by_user_id?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AgencyListResponse = {
+  items: Agency[];
+  total: number;
+  limit: number;
+  offset: number;
+};
+
+export type AgencyMutationPayload = {
+  name?: string;
+  contact_person?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  notes?: string | null;
+  starts_at?: string | null;
+  ends_at?: string | null;
+  status?: AgencyStatus;
+  tags?: string[];
+};
+
+export type AgencyListFilters = {
+  status?: AgencyStatus;
+  q?: string;
+  tags?: string[];
+  limit?: number;
+  offset?: number;
+};
+
+export async function listAgencies(
+  companyId: string,
+  filters: AgencyListFilters = {},
+): Promise<AgencyListResponse> {
+  const params = new URLSearchParams();
+  if (filters.status) params.set("status", filters.status);
+  if (filters.q) params.set("q", filters.q);
+  for (const tag of filters.tags ?? []) params.append("tag", tag);
+  if (filters.limit != null) params.set("limit", String(filters.limit));
+  if (filters.offset != null) params.set("offset", String(filters.offset));
+  const qs = params.toString();
+  return requestCRM<AgencyListResponse>(
+    `/companies/${companyId}/agencies${qs ? `?${qs}` : ""}`,
+  );
+}
+
+export async function getAgency(
+  companyId: string,
+  agencyId: string,
+): Promise<Agency> {
+  return requestCRM<Agency>(
+    `/companies/${companyId}/agencies/${encodeURIComponent(agencyId)}`,
+  );
+}
+
+export async function createAgency(
+  companyId: string,
+  payload: AgencyMutationPayload,
+): Promise<Agency> {
+  return requestCRM<Agency>(`/companies/${companyId}/agencies`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateAgency(
+  companyId: string,
+  agencyId: string,
+  payload: AgencyMutationPayload,
+): Promise<Agency> {
+  return requestCRM<Agency>(
+    `/companies/${companyId}/agencies/${encodeURIComponent(agencyId)}`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+export async function deleteAgency(
+  companyId: string,
+  agencyId: string,
+): Promise<void> {
+  await requestCRM<unknown>(
+    `/companies/${companyId}/agencies/${encodeURIComponent(agencyId)}`,
+    { method: "DELETE" },
+  );
+}
+
+export type AgencyImportRow = {
+  name: string;
+  contact_person?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  notes?: string | null;
+  starts_at?: string | null;
+  ends_at?: string | null;
+  status?: AgencyStatus;
+  tags?: string[];
+};
+
+export type AgencyImportResponse = {
+  created: number;
+  errors: { index: number; error: string }[];
+  total: number;
+};
+
+export async function importAgencies(
+  companyId: string,
+  rows: AgencyImportRow[],
+): Promise<AgencyImportResponse> {
+  return requestCRM<AgencyImportResponse>(
+    `/companies/${companyId}/agencies/import`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rows }),
+    },
+  );
+}
+
+export type AgencyPushResult = {
+  agency_id: string;
+  email?: string;
+  status: "created" | "updated" | "skipped" | "error";
+  reason?: string;
+};
+
+export type AgencyPushResponse = {
+  audience_id: string;
+  created: number;
+  updated: number;
+  skipped: number;
+  errors: number;
+  total_requested: number;
+  results: AgencyPushResult[];
+  completed_at: string;
+};
+
+export async function pushAgenciesToMailchimp(
+  companyId: string,
+  payload: {
+    list_id: string;
+    agency_ids: string[];
+    update_existing?: boolean;
+    extra_tags?: string[];
+    default_status?: "subscribed" | "pending" | "unsubscribed";
+  },
+): Promise<AgencyPushResponse> {
+  return requestCRM<AgencyPushResponse>(
+    `/companies/${companyId}/agencies/push-to-mailchimp`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+}
+
+// ── Module access ────────────────────────────────────────────────────────
+
+export type ModuleKey = "marketing.agencies";
+
+export type ModuleAccessGrant = {
+  id: string;
+  company_id: string;
+  user_id: string;
+  module_key: ModuleKey;
+  granted: boolean;
+  created_by_user_id?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ModuleAccessResponse = {
+  grants: ModuleAccessGrant[];
+  known_modules: ModuleKey[];
+};
+
+export async function listModuleAccess(
+  companyId: string,
+): Promise<ModuleAccessResponse> {
+  return requestCRM<ModuleAccessResponse>(
+    `/companies/${companyId}/module-access`,
+  );
+}
+
+export async function setModuleAccess(
+  companyId: string,
+  grants: { user_id: string; module_key: ModuleKey; granted: boolean }[],
+): Promise<void> {
+  await requestCRM<unknown>(`/companies/${companyId}/module-access`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ grants }),
+  });
+}

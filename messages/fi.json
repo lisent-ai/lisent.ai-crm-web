@@ -34,7 +34,7 @@
     },
     "profileSummary": "Profiilin yhteenveto",
     "saveButton": "Tallenna asetukset",
-    "saveFailed": "Tilin asetusten tallentaminen epäonnistui.",
+    "saveFailed": "Tilin asetusten tallennus epäonnistui.",
     "saved": "Tilin asetukset tallennettu.",
     "saving": "Tallennetaan…",
     "subtitle": "Hallinnoi profiilia, asetuksia ja käyttöoikeuksia.",
@@ -47,11 +47,11 @@
     "creatingAccount": "Luodaan tiliä...",
     "emailLabel": "Sähköposti",
     "emailPlaceholder": "name@company.com",
-    "newWorkspaceUser": "Uusi työtilan käyttäjä?",
+    "newWorkspaceUser": "Uusi workspace‑käyttäjä?",
     "passwordLabel": "Salasana",
     "passwordPlaceholderSignIn": "Syötä salasanasi",
     "passwordPlaceholderSignUp": "Luo vahva salasana",
-    "selectGenderPlaceholder": "Valitse sukupuolesi",
+    "selectGenderPlaceholder": "Valitse sukupuoli",
     "signIn": "Kirjaudu sisään",
     "signInButton": "Kirjaudu sisään",
     "signInInstead": "Kirjaudu sisään sen sijaan",
@@ -79,8 +79,8 @@
     "allAssignees": "Kaikki vastuuhenkilöt",
     "allDay": "Koko päivä",
     "aria": {
-      "addOn": "Lisää tapahtuma {date}",
-      "createOn": "Luo tapahtuma {date}",
+      "addOn": "Lisää tapahtuma päivälle {date}",
+      "createOn": "Luo tapahtuma päivälle {date}",
       "next": "Seuraava jakso",
       "previous": "Edellinen jakso"
     },
@@ -101,7 +101,7 @@
       "titleRequired": "Otsikko on pakollinen."
     },
     "eventStatus": {
-      "canceled": "Peruutettu",
+      "canceled": "Peruttu",
       "completed": "Suoritettu",
       "missed": "Jäänyt väliin",
       "scheduled": "Aikataulutettu"
@@ -219,14 +219,14 @@
     "bulk": {
       "clearSelection": "Tyhjennä valinta",
       "confirmDelete": "Poista valitut",
-      "deleteDescription": "Tämä poistaa pysyvästi asiakastietuetta. Toimintoa ei voi peruuttaa.",
+      "deleteDescription": "Tämä poistaa pysyvästi {count} asiakastietuetta. Toimintoa ei voi peruuttaa.",
       "deleteEyebrow": "Massapoisto",
       "deleteTitle": "Poistetaanko valitut asiakkaat?",
-      "exportCsv": "Export CSV",
-      "exportPdf": "Export PDF",
-      "exportXlsx": "Export Excel",
+      "exportCsv": "Vie CSV",
+      "exportPdf": "Vie PDF",
+      "exportXlsx": "Vie Excel",
       "regionLabel": "Massatoiminnot",
-      "selectedCount": "valittua"
+      "selectedCount": "{count} valittua"
     },
     "closeAddPopup": "Sulje asiakkaan lisäämisdialogi",
     "confirmDelete": "Poista",
@@ -244,9 +244,9 @@
       "identity": "Identiteetti"
     },
     "errors": {
-      "bulkDeleteFailed": "Joidenkin asiakkaiden poistaminen epäonnistui.",
-      "deleteCustomer": "Asiakkaan poistaminen epäonnistui.",
-      "exportFailed": "Failed to export customers.",
+      "bulkDeleteFailed": "Joitakin asiakkaita ei voitu poistaa.",
+      "deleteCustomer": "Asiakasta ei voitu poistaa.",
+      "exportFailed": "Asiakkaiden vienti epäonnistui.",
       "loadCompanies": "Yritysten lataaminen epäonnistui.",
       "loadCustomers": "Asiakkaiden lataaminen epäonnistui.",
       "saveCustomer": "Asiakkaan tallentaminen epäonnistui."
@@ -261,7 +261,7 @@
       "customerId": "Asiakkaan id",
       "email": "Sähköposti",
       "firstName": "Etunimi",
-      "id": "Id",
+      "id": "ID",
       "industry": "Toimiala",
       "lastName": "Sukunimi",
       "name": "Nimi",
@@ -281,17 +281,17 @@
       "empty": "Ei asiakkaita, jotka täsmäävät nykyisiin suodattimiin.",
       "eyebrow": "Asiakasrekisteri",
       "selectAll": "Valitse kaikki asiakkaat",
-      "selectRow": "Valitse asiakas",
+      "selectRow": "Valitse asiakas {name}",
       "title": "Asiakkaat",
-      "visibleCount": "Näytetään {count}"
+      "visibleCount": "Näytetään {visible} / {total}"
     },
     "loading": "Ladataan asiakkaita...",
     "noEmail": "Sähköpostiosoitetta ei ole tallennettu",
     "notSet": "Ei asetettu",
     "pdf": {
-      "exportedAt": "customers · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Customers"
+      "exportedAt": "Asiakkaat · Viety {date}",
+      "pageOf": "Sivu {current}/{total}",
+      "title": "Asiakkaat"
     },
     "placeholders": {
       "email": "name@company.com",
@@ -302,7 +302,7 @@
       "label": "Hae",
       "placeholder": "Hae asiakkaita..."
     },
-    "selectedCompany": "Aktiivinen Workspace:",
+    "selectedCompany": "Aktiivinen Workspace: {name}",
     "status": {
       "active": "Aktiivinen",
       "all": "Kaikki",
@@ -312,10 +312,10 @@
     "statusFilter": "Tilan suodatin",
     "success": {
       "bulkDeleted": "{count} asiakasta poistettu.",
-      "bulkDeletedPartial": "/ asiakasta poistettu.",
+      "bulkDeletedPartial": "{deleted} / {total} asiakasta poistettu.",
       "created": "Asiakas luotu.",
       "deleted": "Asiakas poistettu.",
-      "exported": "Exported {count} customers.",
+      "exported": "Vietiin {count} asiakasta.",
       "updated": "Asiakas päivitetty."
     }
   },
@@ -332,20 +332,20 @@
       "scoredAt": "Arvioitu {date}",
       "title": "AI-näkemykset"
     },
-    "amount": "Määrä",
-    "amountValue": "{value}",
+    "amount": "Summa",
+    "amountValue": "{amount}",
     "assignee": "Vastuuhenkilö",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "Vedä kauppoja vaiheiden välillä päivittää putken.",
-    "changedBy": "Muutettu",
+    "changedBy": "Muutettu {name}",
     "close": "Sulje",
-    "closeTarget": "Sulje kohde",
-    "closeTargetValue": "{value}",
-    "columnTotal": "Sarakkeen summa:",
-    "commentPlaceholder": "Kirjoita kommentti...",
+    "closeTarget": "Sulkemistavoite",
+    "closeTargetValue": "{date}",
+    "columnTotal": "Sarakkeen summa: {value}",
+    "commentPlaceholder": "Kirjoita kommentti…",
     "comments": "Kommentit",
     "commentsCount": "{count} kommenttia",
-    "commentsEmpty": "Ei vielä kommentteja.",
+    "commentsEmpty": "Ei kommentteja vielä.",
     "deal": "Kauppa",
     "dealDetail": "Kaupan tiedot",
     "dealList": "Kauppalista",
@@ -386,11 +386,11 @@
     },
     "filters": {
       "allAssignees": "Kaikki vastuuhenkilöt",
-      "allStages": "Kaikki vaiheet",
+      "allStages": "Kaikki stages",
       "assigneeLabel": "Vastuuhenkilö",
       "searchLabel": "Haku",
       "searchPlaceholder": "Etsi deal...",
-      "stageLabel": "Vaihe"
+      "stageLabel": "Stage"
     },
     "form": {
       "assigneeHint": "Valitse tiimikaveri omistamaan tämä deal.",
@@ -426,20 +426,20 @@
     },
     "kanbanBoard": "Kanban-taulu",
     "loadingBoard": "Ladataan taulua...",
-    "loadingDeals": "Ladataan tarjouksia...",
+    "loadingDeals": "Ladataan deals...",
     "meetingTitle": "Kokous",
     "noDate": "Ei päivämäärää",
-    "noDealsMatch": "Mikään tarjous ei vastaa nykyisiä suodattimia.",
-    "noLossReason": "Ei kirjattua tappion syytä.",
+    "noDealsMatch": "Ei deals vastaa nykyisiä suodattimia.",
+    "noLossReason": "Ei tallennettua häviösyytä.",
     "noRelatedCustomer": "Ei liittyvää asiakasta.",
-    "noWinReason": "Voiton syytä ei ole kirjattu.",
+    "noWinReason": "Ei tallennettua voiton syytä.",
     "notSet": "Ei asetettu",
     "now": "nyt",
-    "pipelineLoading": "Putken lataaminen...",
+    "pipelineLoading": "Ladataan pipeline...",
     "posting": "Lähetetään...",
     "relatedRecords": "Liittyvät tietueet",
     "scheduleActivity": "Aikatauluta aktiviteetti",
-    "selectedCompany": "Aktiivinen workspace:",
+    "selectedCompany": "Aktiivinen workspace: {name}",
     "stage": {
       "lost": "Hävitty",
       "lostDescription": "Hävittyjä kauppoja, joista opitaan.",
@@ -456,7 +456,7 @@
     },
     "stageHistory": "Vaiheen historia",
     "stageHistoryEmpty": "Vaiheen muutoksia ei ole vielä tallennettu.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Kommentti lisätty.",
       "created": "Deal luotu.",
@@ -474,13 +474,13 @@
     "forbidden": "Sinulla ei ole oikeutta.",
     "generic": "Jotain meni vikaan.",
     "networkError": "Verkkovirhe. Yritä uudelleen.",
-    "sessionRequired": "Tunnistautuminen vaaditaan.",
+    "sessionRequired": "Todennus vaaditaan.",
     "userNotFound": "Käyttäjää ei löytynyt."
   },
   "home": {
     "activity": {
       "chartAriaLabel": "Viikon aktiviteettikaavio",
-      "empty": "Käyttäjälle ei ole vielä kirjattu toimintaa.",
+      "empty": "Käyttäjälle {name} ei ole vielä kirjattu toimintaa.",
       "emptyDefault": "Ei vielä kirjattua toimintaa.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -493,7 +493,7 @@
       "noWorkspaceHelp": "Valitse workspace vaihtajasta nähdäksesi reaaliaikaiset tiedot.",
       "noWorkspaceSelected": "Workspacea ei valittu",
       "pickWorkspace": "Valitse workspace",
-      "subtitleSelected": "Workspace‑mittarit kohteelle.",
+      "subtitleSelected": "Workspace‑mittarit kohteelle {name}.",
       "subtitleWithName": "Tervetuloa takaisin, {name}."
     },
     "errors": {
@@ -510,27 +510,27 @@
       "leads": "Leadit",
       "leadsHint": "Aktiiviset leadit putkessa.",
       "openPipelineHint": "Avaa putken arvo kaikilla vaiheilla.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Mukauta",
-      "thisWeek": "Tällä viikolla",
-      "title": "Yleiskatsaus"
+      "thisWeek": "Tämä viikko",
+      "title": "Yhteenveto"
     },
     "pipeline": {
-      "empty": "Ei vielä putken dataa varten.",
+      "empty": "Ei vielä putken dataa {name} varten.",
       "emptyDefault": "Ei vielä putken dataa.",
       "stage": {
         "lost": "Hävitty",
         "negotiation": "Neuvottelu",
         "new": "Uusi",
-        "proposal": "Tarjous",
+        "proposal": "Ehdotus",
         "qualified": "Kvalifioitu",
         "won": "Voitettu"
       },
-      "subtitle": "Kauppojen jakautuminen vaiheittain.",
+      "subtitle": "Dealien jakautuminen vaiheittain.",
       "title": "Putki",
-      "totalBadge": "{count} yhteensä"
+      "totalBadge": "{value} yhteensä"
     },
     "quickActions": {
       "aiQualifier": {
@@ -554,9 +554,9 @@
         "title": "Kutsu tiimi"
       },
       "newWorkspace": {
-        "cta": "Luo työtila",
+        "cta": "Luo workspace",
         "description": "Aloita uusi vuokraaja toiselle liiketoimintayksikölle.",
-        "title": "Uusi työtila"
+        "title": "Uusi workspace"
       },
       "oneClickSetup": "Yhden klikkauksen käyttöönotto",
       "scheduleMeeting": {
@@ -568,10 +568,10 @@
       "title": "Pikatoiminnot"
     },
     "recentLeads": {
-      "empty": "Ei viimeaikaisia liidejä kohteessa.",
+      "empty": "Ei viimeaikaisia liidejä kohteessa {name}.",
       "emptyDefault": "Ei vielä viimeaikaisia liidejä.",
       "status": {
-        "contacted": "Yhteydessä",
+        "contacted": "Yhteydenotettu",
         "converted": "Muunnettu",
         "disqualified": "Hylätty",
         "lost": "Hävitty",
@@ -581,37 +581,37 @@
       "subtitle": "Viimeisimmät liidit, jotka on lisätty työtilaan",
       "title": "Viimeaikaiset liidit",
       "unnamed": "Nimetön liidi",
-      "viewAll": "Näytä kaikki liidit"
+      "viewAll": "Näytä kaikki Leadit"
     },
     "snapshot": {
-      "activeWorkspace": "Aktiivinen työtila",
-      "eyebrow": "Työtilan tilannekuva",
-      "inWorkspace": "Kohdassa",
+      "activeWorkspace": "Aktiivinen workspace",
+      "eyebrow": "Workspace-tilannekuva",
+      "inWorkspace": "Kohdassa {name}",
       "newCount": "{count} uutta",
       "noWorkspaceHelp": "Valitse työtila, jonka avulla näet elävät laskut.",
       "noWorkspaceSelected": "Ei valittu",
       "openCount": "{count} avattu",
-      "openFullDashboard": "Avaa koko kojelauta",
+      "openFullDashboard": "Avaa koko dashboard",
       "openPipeline": "Avaa putki"
     },
     "workspaceOverview": {
       "acrossAccount": "Tilin yli",
-      "activeWorkspace": "Aktiivinen työtila",
+      "activeWorkspace": "Aktiivinen workspace",
       "allCombined": "Kaikki yhdistetty",
       "customers": "Asiakkaat",
-      "noneSelected": "Ei valittua",
-      "pickToActivate": "Valitse työtila, jossa voit aktivoida mittarit.",
-      "scopedViews": "Laajennetut näkymät",
-      "singleWorkspace": "Yksi työtila",
-      "subtitle": "Työtilojen tilitason yhdistely.",
-      "workspaces": "Työtilat"
+      "noneSelected": "Ei valittuja",
+      "pickToActivate": "Valitse workspace aktivoidaksesi mittarit.",
+      "scopedViews": "Rajoitetut näkymät",
+      "singleWorkspace": "Yksi workspace",
+      "subtitle": "Tilitasolla koonti työtiloistasi.",
+      "workspaces": "Workspaces"
     }
   },
   "imports": {
     "errors": {
       "approveFailed": "Hyväksyminen ja tuonti epäonnistui.",
-      "chooseFile": "Valitse ladattava CSV-tiedosto.",
-      "enterUrl": "Syötä CSV URL-osoite.",
+      "chooseFile": "Valitse CSV-tiedosto ladattavaksi.",
+      "enterUrl": "Syötä CSV-URL.",
       "fetchUrlFailed": "CSV‑osoitteen noutaminen epäonnistui.",
       "mapAtLeastOne": "Määritä vähintään yksi lähdesarake kohdekenttään.",
       "noRows": "Tiedosto tai URL ei sisältänyt rivejä.",
@@ -619,7 +619,7 @@
       "parseFailed": "CSV‑tiedoston jäsentäminen epäonnistui."
     },
     "fields": {
-      "countryCode": "Maakoodi",
+      "countryCode": "Maatunnus",
       "email": "Sähköposti",
       "externalCustomerId": "Ulkoinen asiakas-ID",
       "firstName": "Etunimi",
@@ -627,12 +627,12 @@
       "name": "Nimi",
       "phone": "Puhelin",
       "preferredLanguage": "Ensisijainen kieli",
-      "subscriptionDate": "Tilauspäivä"
+      "subscriptionDate": "Tilauksen päivämäärä"
     },
     "mapping": {
       "approvalDescription": "Vahvista kartoitus ja suorita tuonti. Asiakkaat luodaan tai päivitetään aktiivisessa työtilassa.",
-      "approvalOutcome": "Hyväksynnän jälkeen rivit lisätään asiakkaina kohteessa.",
-      "approveAndImport": "Hyväksy & tuo",
+      "approvalOutcome": "Hyväksynnän jälkeen rivit lisätään asiakkaina kohteessa {name}.",
+      "approveAndImport": "Hyväksy ja tuo",
       "backToPreview": "Takaisin esikatseluun",
       "confidence": "Luottamus",
       "enableFallback": "Ota käyttöön vararivi",
@@ -645,16 +645,16 @@
     },
     "preview": {
       "backToSource": "Takaisin lähteeseen",
-      "continueToMapping": "Jatka kartoitukseen",
-      "headers": "otsikkoa",
-      "rowsLoaded": "riviä ladattu",
-      "rowsShown": "Näytetään ensimmäiset riviä",
+      "continueToMapping": "Jatka kartoittamista",
+      "headers": "{count} otsikkoa",
+      "rowsLoaded": "{count} riviä ladattu",
+      "rowsShown": "Näytetään ensimmäiset {count} riviä",
       "unmapped": "Kohdistamaton"
     },
     "progress": {
-      "completedRatio": "/ valmis",
-      "currentRow": "Rivi",
-      "description": "Tuodaan rivejä kohteeseen. Voit poistua tältä sivulta; tuonti jatkuu taustalla.",
+      "completedRatio": "{done} / {total} valmis",
+      "currentRow": "Rivi {row}",
+      "description": "Tuodaan rivejä kohteeseen {name}. Voit poistua tältä sivulta; tuonti jatkuu taustalla.",
       "eyebrow": "Tuonti käynnissä",
       "preparing": "Valmistellaan tuontia...",
       "title": "Tuodaan asiakkaita"
@@ -664,12 +664,12 @@
       "mappedFields": "Kohdistetut kentät",
       "progress": "Edistyminen",
       "rowsLoaded": "Rivejä ladattu",
-      "stepNumber": "Vaihe {number}",
+      "stepNumber": "Vaihe {step}",
       "title": "Tuonnin eteneminen"
     },
     "source": {
-      "continueToPreview": "Jatka esikatseluun",
-      "csvUpload": "Lataa CSV-tiedosto",
+      "continueToPreview": "Jatka esikatselua",
+      "csvUpload": "Lataa CSV‑tiedosto",
       "csvUploadHelp": "Vedä ja pudota tai selaa .csv-tiedostoa tietokoneeltasi.",
       "csvUrl": "CSV-URL",
       "csvUrlHelp": "Anna julkisesti saavutettava URL, joka osoittaa CSV-tiedostoon.",
@@ -677,22 +677,22 @@
       "processing": "Käsitellään...",
       "selectedFile": "Valittu: {name}",
       "uploadCsv": "Lataa CSV",
-      "useUrl": "Käytä URL-osoitetta"
+      "useUrl": "Käytä URL‑osoitetta"
     },
     "steps": {
       "mapping": {
-        "label": "Mappaus",
+        "label": "Kartoitus",
         "summary": "Yhdistä jokainen sarake CRM-kenttään.",
-        "title": "Mappaa sarakkeet"
+        "title": "Määritä sarakkeet"
       },
       "preview": {
         "label": "Esikatselu",
         "summary": "Vahvista tiedot ja suorita tuonti.",
-        "title": "Tarkista ja tuo"
+        "title": "Tarkastele ja tuo"
       },
       "source": {
         "label": "Lähde",
-        "summary": "Lataa CSV tai liitä URL.",
+        "summary": "Lataa CSV tai liitä URL-osoite.",
         "title": "Valitse tietolähde"
       }
     },
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "Takaisin yleiskatsaukseen",
-      "companyIdLabel": "Yrityksen id:",
-      "description": "Tuo asiakastiedot iin CSV-tiedostosta tai URL-osoitteesta.",
+      "companyIdLabel": "Yrityksen id: {id}",
+      "description": "Tuo asiakastiedot {name}iin CSV-tiedostosta tai URL-osoitteesta.",
       "eyebrow": "Työtilan tuonti",
-      "selectedCompany": "Aktiivinen työtila:",
-      "stepLabel": "Vaihe {step}/"
+      "selectedCompany": "Aktiivinen työtila: {name}",
+      "stepLabel": "Vaihe {step}/{total}"
     }
   },
   "integrations": {
@@ -722,14 +722,14 @@
       },
       "copied": "API-avain kopioitu leikepöydälle.",
       "copyKey": "Kopioi avain",
-      "copyWarning": "Tämä on ainoa kerta, kun näet koko avaimen. Säilytä se turvallisesti.",
+      "copyWarning": "Tämä on ainoa kerta kun näet koko avaimen. Säilytä se turvallisesti.",
       "createButton": "Luo API-avain",
       "createKey": "Luo avain",
       "createNote": "Anna nimi ja valitse oikeusalueet tälle avaimelle.",
       "createTitle": "Luo uusi API-avain",
       "createdHeading": "API-avain luotu",
       "creating": "Luodaan…",
-      "description": "Hallinnoi API-avaimia kohteelle <strong> </strong>.",
+      "description": "Hallinnoi API-avaimia kohteelle <strong>{name}</strong>.",
       "empty": "API-avaimia ei ole vielä.",
       "envLive": "Live",
       "envTest": "Testaa",
@@ -760,7 +760,7 @@
     "catalog": {
       "accessDenied": "Pääsy evätty",
       "accessDeniedDescription": "Teillä ei ole pääsyä integraatioihin tässä työtilassa.",
-      "configuringCompany": "Määritetään integraatioita työtilalle <strong> </strong>.",
+      "configuringCompany": "Määritetään integraatioita työtilalle <strong>{name}</strong>.",
       "loadFailed": "Integraatiokatalogin lataaminen epäonnistui",
       "loading": "Ladataan integraatioita...",
       "noAccess": "Ei työtilan käyttöoikeutta",
@@ -787,8 +787,8 @@
     "detail": {
       "backLink": "Takaisin integraatioihin",
       "backToCatalog": "Takaisin katalogiin",
-      "configuringCompany": "Määritetään <strong> </strong> kohteelle <strong> </strong>.",
-      "noCompany": "Valitse työtila määrittääksesi <strong> </strong>.",
+      "configuringCompany": "Määritetään <strong>{integration}</strong> kohteelle <strong>{company}</strong>.",
+      "noCompany": "Valitse työtila määrittääksesi <strong>{integration}</strong>.",
       "restrictedDescription": "Sinulla ei ole oikeutta tarkastella tätä integraatiota.",
       "restrictedTitle": "Rajoitettu",
       "slugTitles": {
@@ -828,7 +828,7 @@
       "inbound": "Saapuva URL",
       "instanceId": "Instanssi-ID",
       "instanceIdPlaceholder": "Esim. 1101000001",
-      "latency": "Viive: ms",
+      "latency": "Viive: {ms} ms",
       "loadFailed": "Green API -asetusten lataus epäonnistui.",
       "loading": "Ladataan Green API -asetuksia...",
       "rotateConfirm": "Kierrä saapuvan webhook-tokenin? Olemassa olevat webhookit on päivitettävä.",
@@ -838,9 +838,9 @@
       "tokenRotated": "Webhook-token kierrätetty.",
       "updateCredentials": "Päivitä kirjautumistiedot",
       "updatedLabel": "Päivitetty",
-      "upstreamStatus": "Ylävirran tila:",
+      "upstreamStatus": "Ylävirran tila: {status}",
       "urlCopied": "URL kopioitu leikepöydälle.",
-      "webhookSectionDescription": "Määritä Green API -instanssisi toimittamaan saapuvat viestit osoitteeseen <code> </code>.",
+      "webhookSectionDescription": "Määritä Green API -instanssisi toimittamaan saapuvat viestit osoitteeseen <code>{url}</code>.",
       "webhookSectionTitle": "Saapuva webhook"
     },
     "hide": "Piilota",
@@ -853,7 +853,7 @@
       "authHmacOrBearer": "HMAC tai Bearer",
       "authHmacShort": "HMAC",
       "authMode": "Todennustapa",
-      "authModeHint": "Valitse, kuinka Lisent vahvistaa saapuvat pyynnöt. HMAC allekirjoittaa payloadin; Bearer lähettää staattisen tokenin.",
+      "authModeHint": "Valitse, miten Lisent autentikoi sisääntulevat pyynnöt intranetistasi. <strong>HMAC</strong> allekirjoittaa sisällön; <strong>Bearer</strong> lähettää staattisen tokenin.",
       "bearerCopied": "Bearer-token kopioitu.",
       "bearerExampleTitle": "Bearer-esimerkki",
       "bearerToken": "Bearer-token",
@@ -862,10 +862,10 @@
       "copyUrl": "Kopioi URL",
       "createIntegration": "Luo integraatio",
       "createdMessage": "Intranet-integraatio luotu.",
-      "credentialsDescription": "Käytä näitä tunnistetietoja saapuvien webhook-kutsujen vahvistamiseen.",
+      "credentialsDescription": "Käytä näitä tunnistetietoja autentikoidaksesi kutsut kohteeseen <code>{url}</code>.",
       "credentialsTitle": "Tunnistetiedot",
       "deliveries": "Toimitukset",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "Katkaistaanko tämä intranet-integraatio? Sisääntulevat kutsut alkavat epäonnistua.",
       "disconnectDescription": "Tämä peruuttaa kaikki tokenit eikä enää hyväksy sisääntulevia pyyntöjä.",
       "disconnectIntegration": "Katkaise integraatio",
@@ -873,7 +873,7 @@
       "entityLabel": "Entiteetti",
       "errorLabel": "Virhe",
       "eventLabel": "Tapahtuma",
-      "fieldMappingDescription": "Yhdistä saapuvat kentät CRM-ominaisuuksiin JMESPath-lausekkeilla. Lähetä JSON-objekti, jonka arvot ovat JMESPath-merkkijonoja.",
+      "fieldMappingDescription": "Määritä sisääntulevat kentät CRM-ominaisuuksiin. Lähetä JSON esimerkiksi <code>{example}</code>.",
       "fieldMappingLabel": "Kenttien kartoitus",
       "fieldMappingTitle": "Kenttien kartoitus",
       "generateHmac": "Luo HMAC secret",
@@ -883,7 +883,7 @@
       "hmacSecret": "HMAC secret",
       "hmacSecretHint": "Käytä tätä salaisuutta laskeaksesi <code>X-Lisent-Signature</code> lähtevissä pyynnöissä.",
       "inactive": "Ei aktiivinen",
-      "inboundDescription": "Lähetä payloadit yllä olevaan URL:ään, jotta saamme liidit intranetistäsi.",
+      "inboundDescription": "Lähetä payloadit osoitteeseen <code>{url}</code> kerätäksesi liidit intranetistäsi.",
       "inboundToken": "Saapuvan URL:n token",
       "inboundTokenHint": "Tämä token on osa saapuvaa URL-osoitetta — pidä se salassa.",
       "inboundUrl": "Saapuva URL",
@@ -896,13 +896,13 @@
       "noDeliveries": "Toimituksia ei ole vielä.",
       "noIntegration": "Intranetin integraatiota ei ole määritetty.",
       "outbound": {
-        "allStatusesLabel": "Kaikki tilan muutokset (suositus)",
-        "deliveriesEmpty": "Ei vielä toimituksia. Lähetä testitapahtuma yhteyden vahvistamiseksi.",
+        "allStatusesLabel": "Kaikki tilamuutokset (suositeltu)",
+        "deliveriesEmpty": "Toimituksia ei ole vielä. Lähetä testitapahtuma vahvistaaksesi yhteyden.",
         "deliveriesTitle": "Viimeisimmät toimitukset",
         "deliveryCols": {
           "attempts": "Yritykset",
           "createdAt": "Lähetetty",
-          "error": "Viimeisin virhe",
+          "error": "Viimeinen virhe",
           "eventId": "Tapahtuma ID",
           "status": "Tila",
           "toStatus": "→ Tila"
@@ -923,7 +923,7 @@
         "savedNotice": "Ulospäin suuntautuva webhook tallennettu.",
         "secretConfigured": "Määritetty",
         "secretNotSet": "Ei asetettu — luo se ennen tapahtumien lähettämistä.",
-        "secretRotatedAt": "(uudistettu )",
+        "secretRotatedAt": "(uudistettu {time})",
         "secretRotatedNotice": "Allekirjoitussalaisuus uudistettu. Selväkielinen arvo näytetään vain kerran.",
         "selectAtLeastOne": "Valitse vähintään yksi tila tai merkitse 'Kaikki tilamuutokset'.",
         "signingSecretLabel": "Allekirjoitussalaisuus (HMAC-SHA256)",
@@ -979,6 +979,38 @@
       "urlCopied": "URL kopioitu leikepöydälle."
     },
     "loadingProfile": "Ladataan profiilia...",
+    "mailchimp": {
+      "benefitAudiences": "Hallinnoi Mailchimp-yleisöjä (listoja), jäseniä, segmenttejä ja tageja suoraan CRM:stä.",
+      "benefitCampaigns": "Luo, ajoita ja lähetä sähköpostikampanjoita — sekä tee kopioita ja testilähetyksiä ennen julkaisua.",
+      "benefitPerUser": "Käyttäjäkohtainen yhteys: jokainen käyttäjä tuo oman Mailchimp-tilinsä.",
+      "benefitReports": "Lue avaus‑ / klikkaus‑ / palautus‑ / maantieteelliset raportit poistumatta CRM:stä.",
+      "cancel": "Peru",
+      "cardDescription": "Käyttäjäkohtainen Mailchimp-yhteys. Hallinnoi yleisöjä, siirrä CRM-yhteystietoja, luo kampanjoita ja lue raportteja poistumatta CRM:stä. Customer Journey -suunnittelija pysyy Mailchimpissa.",
+      "cardName": "Mailchimp",
+      "connectButton": "Yhdistä Mailchimp",
+      "connectCta": "Yhdistä Mailchimp",
+      "connectDescription": "Avaamme Mailchimpin OAuth-ikkunan. Valtuutat Lisent CRM:n, saamme Nango:n kautta käyttöoikeustunnuksen, ja yleisösi näkyvät Marketing → Email -moduulissa.",
+      "connectFailed": "Mailchimp-yhteyden muodostaminen epäonnistui. Yritä uudelleen.",
+      "connectTitle": "Yhdistä Mailchimp-tilisi",
+      "connected": "Mailchimp-tili yhdistetty.",
+      "connectedAs": "Yhdistetty käyttäjänä {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "Avataan Mailchimpia…",
+      "dcLabel": "Datacenter",
+      "disconnect": "Katkaise yhteys",
+      "disconnectConfirm": "Katkaistaanko Mailchimp-tilisi yhteys tähän työtilaan? Yleisöt ja kampanjat pysyvät turvassa Mailchimpissa; vain CRM:n linkki poistetaan.",
+      "failed": "Epäonnistui",
+      "lastPushLabel": "Viimeinen siirto",
+      "loadFailed": "Mailchimp-yhteyttä ei voitu ladata.",
+      "nangoNotConfigured": "Mailchimp OAuthia ei ole vielä otettu käyttöön palvelinpuolella. Pyydä ylläpitäjääsi lisäämään NANGO_SECRET_KEY + Mailchimp-palveluntarjoajan asetuksen Nangoon.",
+      "openEmailModule": "Avaa sähköpostimoduuli",
+      "openInMailchimp": "Avaa Mailchimpissa",
+      "pushCountLabel": "Siirrettyjä kontakteja (onnistui / yhteensä)",
+      "reconnect": "Yhdistä uudelleen",
+      "scopedToCompany": "Tämä yhteys kuuluu teille, rajoitettuna {name}. Muut käyttäjät näkevät omat yhteytensä täällä.",
+      "statusActive": "Aktiivinen",
+      "statusPaused": "Keskeytetty",
+      "totalSubscribersLabel": "Tilaajia yhteensä"
+    },
     "meta": {
       "active": "Aktiivinen",
       "addMappingRow": "Lisää kenttäkartoitus",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "Kartoita Metan liidien luontikentät CRM:n liidisarakkeisiin. Jätä tyhjäksi käyttääksesi oletusta (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Kenttäkartoitus",
       "finalizeButton": "Viimeistele asennus",
-      "followersCount": "seuraajaa",
+      "followersCount": "{count} seuraajaa",
       "formAllSubscribedHint": "Ei valittuja lomakkeita → kaikki tämän sivun lomakkeet tilataan (Meta‑oletus).",
       "formIdsHint": "Pilkuilla erotettu. Tyhjä = vastaanota kaikki lomakkeet tällä sivulla.",
       "formIdsLabel": "Lomake-ID:t",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "Etsi lomakkeita…",
       "formPickerTitle": "Valitse lead-lomakkeet",
       "forms": "Lomakkeet",
-      "formsShownCount": "/",
+      "formsShownCount": "{shown}/{total}",
       "hmacSecretHint": "Tallenna tämä nyt — emme näytä selkokieltä uudelleen.",
       "hmacSecretLabel": "HMAC‑salaisuus",
       "hmacSecretReveal": "Paljasta kerran",
       "inboundUrlHint": "n8n lähettää tähän täyden leadin hakemisen jälkeen Metasta. Sinun ei tarvitse liittää tätä mihinkään.",
       "inboundUrlLabel": "CRM inbound‑URL (n8n käyttää)",
       "last7dCount": "{count} 7 pv:ssa",
-      "lastLeadAgo": "Viimeinen liidi",
+      "lastLeadAgo": "Viimeinen liidi {when}",
       "leads7d": "{count} liidiä 7 pv:ssa",
       "loadFailed": "Meta-integraation lataaminen epäonnistui.",
       "metaFieldHeader": "Meta-kenttä",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "Sivuja ei löytynyt",
       "pagePickerSearch": "Etsi sivuja…",
       "pagePickerTitle": "Valitse Facebook-sivu",
-      "pagesShownCount": "/",
+      "pagesShownCount": "{shown}/{total}",
       "paused": "Keskeytetty",
       "popupBlocked": "Selain esti OAuth‑ponnahdusikkunan. Salli ponnahdusikkunat tälle sivustolle ja yritä uudelleen.",
       "recentDeliveriesEmpty": "Ei vielä toimituksia.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "Luonnos",
       "statusPaused": "Keskeytetty",
       "statusUnknown": "Tuntematon",
-      "subscribedAt": "Tilattu",
+      "subscribedAt": "Tilattu {when}",
       "testLeadButton": "Lähetä test Lead",
       "testLeadDescription": "Luo Meta-muotoisen payloadin ja suorittaa sen saman lisäyspolun kautta kuin tuotannossa. Saatavilla vain, kun mock-tila on päällä.",
       "testLeadFailed": "Test Leadin luominen epäonnistui.",
@@ -1158,12 +1190,12 @@
       "secondaryRevoked": "Toissijainen webhook‑salaisuus peruttu.",
       "sectorLabel": "Toimiala",
       "tabs": {
-        "aiConfig": "Tekoälyasetukset",
+        "aiConfig": "AI-asetukset",
         "apiKeys": "API-avaimet",
         "channels": "Kanavat",
         "fallback": "Varajärjestelmä",
-        "leadWebhook": "Liidi-webhook",
-        "overview": "Yleiskatsaus",
+        "leadWebhook": "Lead webhook",
+        "overview": "Yhteenveto",
         "rag": "RAG",
         "usage": "Käyttö",
         "v1Config": "V1-asetukset"
@@ -1174,14 +1206,14 @@
     "rag": {
       "chunkLabel": "Osio",
       "chunksColumn": "Osat",
-      "description": "Tietopohja kohteelle <strong> </strong>. Lataa asiakirjoja, joita AI voi käyttää viitteinä.",
-      "ingestedDescription": "Asiakirjat, jotka ovat tällä hetkellä tietopohjassa kohteelle <strong> </strong>.",
+      "description": "Tietopohja kohteelle <strong>{name}</strong>. Lataa asiakirjoja, joita AI voi käyttää viitteinä.",
+      "ingestedDescription": "Asiakirjat, jotka ovat tällä hetkellä tietopohjassa kohteelle <strong>{name}</strong>.",
       "ingestedDocuments": "Syötetyt asiakirjat",
-      "ingestionExampleDescription": "Lähetä POST-pyyntö osoitteeseen <code> </code> JSON‑runko, joka sisältää <code>title</code>, <code>content</code> ja valinnaisen <code>metadata</code>.",
+      "ingestionExampleDescription": "Lähetä POST-pyyntö osoitteeseen <code>{url}</code> JSON‑runko, joka sisältää <code>title</code>, <code>content</code> ja valinnaisen <code>metadata</code>.",
       "ingestionExampleTitle": "Syötteen esimerkki",
       "loadConfigFailed": "RAG‑asetusten lataaminen epäonnistui.",
       "loadContentFailed": "Dokumentin sisällön lataaminen epäonnistui.",
-      "loadDocsFailed": "Asiakirjojen lataaminen epäonnistui.",
+      "loadDocsFailed": "Dokumenttien lataus epäonnistui.",
       "loading": "Ladataan RAG…",
       "loadingContent": "Ladataan sisältöä…",
       "loadingDocs": "Ladataan asiakirjoja…",
@@ -1221,9 +1253,9 @@
     },
     "subComponent": {
       "configured": "Määritetty",
-      "configuredAria": "{label} on määritetty",
+      "configuredAria": "{name} on määritetty",
       "notSet": "Ei asetettu",
-      "notSetAria": "{label} ei ole asetettu"
+      "notSetAria": "{name} ei ole asetettu"
     },
     "testConnection": "Testaa yhteys",
     "testing": "Testataan...",
@@ -1231,7 +1263,7 @@
     "urlCopied": "URL kopioitu leikepöydälle.",
     "usage": {
       "allMetrics": "Kaikki mittarit",
-      "description": "Käyttö ja nopeusrajoitukset <strong> </strong>.",
+      "description": "Käyttö ja nopeusrajoitukset <strong>{name}</strong>.",
       "loadFailed": "Käytön lataus epäonnistui.",
       "loading": "Ladataan käyttöä...",
       "metricColumn": "Mittari",
@@ -1280,7 +1312,7 @@
       "calendlyDescription": "Valinnainen Calendly-linkki, jonka avustaja voi tarjota varaukseen. Käytetään <code>v1</code> kokousluovutuksissa.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly-linkki",
-      "description": "Määritä kvalifioijan <code>v1</code> toiminta kohteelle <strong> </strong>.",
+      "description": "Määritä kvalifioijan <code>v1</code> toiminta kohteelle <strong>{name}</strong>.",
       "frameworkDescription": "Valitse kvalifiointikehys, jota avustaja käyttää signaalien poimimiseen.",
       "frameworkTitle": "Kvalifiointikehys",
       "loadFailed": "V1-asetusten lataaminen epäonnistui.",
@@ -1304,7 +1336,7 @@
       "configured": "Määritetty",
       "currentLabel": "Nykyinen",
       "customPatternsLabel": "Mukautetut mallit (yksi riviä kohti)",
-      "description": "Määritä webhook-toimitus kohteelle <strong> </strong>.",
+      "description": "Määritä webhook-toimitus kohteelle <strong>{name}</strong>.",
       "destinationHint": "Lisent lähettää tapahtumat tähän URL-osoitteeseen allekirjoitetulla sisällöllä.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Kohde-URL",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Minimaalinen payload",
       "payloadMode": "Payload-tila",
       "rotateSecret": "Uudista secret",
-      "rotatedAt": "Uudistettu klo",
+      "rotatedAt": "Uudistettu klo {time}",
       "saveEventSelection": "Tallenna tapahtumavalinta",
       "saveUrl": "Tallenna URL",
       "secretRotated": "Signing secret uudistettu.",
@@ -1383,18 +1415,18 @@
       "title": "Määritä valitut liidit"
     },
     "bulkBar": {
-      "ariaSelected": "liidiä valittu",
+      "ariaSelected": "{count} liidiä valittu",
       "assign": "Määritä",
       "clearSelection": "Tyhjennä valinta",
       "delete": "Poista",
       "exportCsv": "Vie CSV",
       "exportPdf": "Vie PDF",
-      "selected": "valittua"
+      "selected": "{count} valittua"
     },
     "bulkDelete": {
       "confirm": "Poista valitut",
       "deleting": "Poistetaan...",
-      "description": "Tämä poistaa pysyvästi liidiä. Tätä toimintoa ei voi peruuttaa.",
+      "description": "Tämä poistaa pysyvästi {count} liidiä. Tätä toimintoa ei voi peruuttaa.",
       "title": "Poistetaanko valitut liidit?"
     },
     "convertModal": {
@@ -1467,7 +1499,7 @@
       "noDealYet": "Ei kauppaa vielä",
       "noneYet": "Ei vielä",
       "qualify": "Kvalifioi",
-      "quickFacts": "Pikatiedot",
+      "quickFacts": "Pikafaktat",
       "roundRobin": "Kierrosjakelu",
       "scheduleCall": "Aikatauluta puhelu",
       "source": "Lähde",
@@ -1499,7 +1531,7 @@
       "exportPdf": "PDF:n luominen epäonnistui.",
       "loadCompanies": "Yritysten lataaminen epäonnistui.",
       "loadLeads": "Leadien lataaminen epäonnistui.",
-      "loadNotes": "Muistiinpanojen lataaminen epäonnistui.",
+      "loadNotes": "Muistiinpanojen lataus epäonnistui.",
       "nameRequired": "Leadin nimi on pakollinen.",
       "roundRobinNoMembers": "Kierrospalveluun ei ole saatavilla tiimikavereita.",
       "saveLead": "Leadia ei voitu tallentaa.",
@@ -1515,7 +1547,7 @@
       "allAssignees": "Kaikki vastuuhenkilöt",
       "allSources": "Kaikki Sourceja",
       "byCampaign": "Suodatettu kampanjan mukaan: {name}",
-      "byCampaignCount": "Näytetään / liidiä",
+      "byCampaignCount": "Näytetään {shown}/{total} liidiä",
       "clearCampaign": "Tyhjennä suodatin"
     },
     "formModal": {
@@ -1567,20 +1599,20 @@
     },
     "pdf": {
       "commentByOn": "{author} · {date}",
-      "commentsHeader": "Comments",
+      "commentsHeader": "Kommentit",
       "createdAt": "Luotu",
       "email": "Sähköposti",
-      "exportedAt": "liidiä · Vienti",
+      "exportedAt": "{count} leads · Viety {date}",
       "options": {
-        "confirm": "Export PDF",
-        "description": "Choose what to include in the export of {count} selected leads.",
-        "exporting": "Exporting...",
-        "includeComments": "Include lead comments",
-        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
-        "title": "Export leads to PDF"
+        "confirm": "Vie PDF",
+        "description": "Valitse, mitä sisällytetään {count} valittuun liidiin.",
+        "exporting": "Viedään...",
+        "includeComments": "Sisällytä liidin kommentit",
+        "includeCommentsHint": "Lisää osion, jossa on kaikki tiimin kommentit jokaiselle valitulle liidille. Voi kestää pidempään.",
+        "title": "Vie liidit PDF‑tiedostoon"
       },
-      "pageOf": "Sivu {current} / {total}",
-      "title": "Liidit"
+      "pageOf": "Sivu {current}/{total}",
+      "title": "Leads"
     },
     "rowMenu": {
       "convert": "Muunna",
@@ -1604,9 +1636,9 @@
     },
     "success": {
       "aiStarted": "AI-qualifiointi käynnistetty.",
-      "bulkAssignPartial": "/ liidiä osoitettu.",
-      "bulkAssigned": "liidiä osoitettu.",
-      "bulkPartial": "/ liidiä poistettu.",
+      "bulkAssignPartial": "{assigned} / {total} liidiä osoitettu.",
+      "bulkAssigned": "{count} liidiä osoitettu.",
+      "bulkPartial": "{deleted} / {total} liidiä poistettu.",
       "bulkRemoved": "{count} liidiä poistettu.",
       "converted": "Liidi muunnettu.",
       "convertedWithDeal": "Liidi muunnettu kaupan kanssa.",
@@ -1623,12 +1655,12 @@
       "assignee": "Vastuuhenkilö",
       "empty": "Ei leadia, jotka täsmäävät nykyisiin suodattimiin.",
       "name": "Nimi",
-      "openAIScore": "Open AI -pisteet kohteelle {score}",
+      "openAIScore": "Open AI -pisteet kohteelle {name}",
       "phone": "Puhelin",
       "rowActions": "Rivin toiminnot",
       "selectAll": "Valitse kaikki leadit",
       "selectRow": "Valitse lead {name}",
-      "source": "Lähde",
+      "source": "Source",
       "status": "Tila",
       "value": "Arvo",
       "viewAIDetails": "Näytä AI‑tiedot"
@@ -1648,6 +1680,200 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Tuo taulukko",
+        "newAgency": "Uusi toimisto",
+        "refresh": "Päivitä"
+      },
+      "createModal": {
+        "editTitle": "Muokkaa {name}",
+        "newSubtitle": "Käy kentät läpi — yksi tai kaksi per näyttö.",
+        "newTitle": "Lisää uusi toimisto",
+        "saveChanges": "Tallenna muutokset",
+        "saveError": "Toimiston tallentaminen epäonnistui.",
+        "saving": "Tallennetaan…",
+        "submit": "Luo toimisto"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "Henkilö, jonka kanssa yleensä kommunikoit toimistossa.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "Valinnainen — täyttää LNAME:n, kun tämä toimisto lähetetään Mailchimp-yleisölle.",
+          "fieldLabel": "Yhteyshenkilön nimi",
+          "title": "Ensisijainen yhteyshenkilö"
+        },
+        "name": {
+          "description": "Näyttönimi, jonka tiimisi tunnistaa.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Näkyy hakemistoluettelossa ja kaikissa kampanjan massapostituksissa.",
+          "fieldLabel": "Nimi",
+          "title": "Toimiston nimi"
+        },
+        "notes": {
+          "description": "Muita tärkeitä muistiinpanoja tästä toimistosta.",
+          "fieldHelp": "Vapaa teksti — ei lähetetä Mailchimpille, näkyy vain CRM:ssä.",
+          "fieldLabel": "Muistiinpanot",
+          "fieldPlaceholder": "Uusinta maaliskuussa. Suosii WhatsAppia nopeisiin päivityksiin.",
+          "title": "Muistiinpanot"
+        },
+        "reach": {
+          "description": "Sähköposti vaaditaan, jos haluat myöhemmin lähettää tämän rivin Mailchimpiin.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Käytetään Mailchimpin ainutkertaisena avaimena lähetyksessä.",
+          "emailLabel": "Sähköposti",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Vapaamuotoinen — sisällytä maatunnus, jos se on tiedossa.",
+          "phoneLabel": "Puhelin",
+          "title": "Miten heihin otetaan yhteyttä"
+        },
+        "status": {
+          "description": "Aktiivinen = tällä hetkellä mukana. Passiivinen = tauolla. Päättynyt = sopimuksen päättymisen jälkeen.",
+          "fieldHelp": "Voit muuttaa tätä milloin tahansa — käytetään hakemiston suodattamiseen.",
+          "fieldLabel": "Tila",
+          "title": "Tila"
+        },
+        "tags": {
+          "description": "Tunnisteet siirtyvät Mailchimpiin, jos lähetät tämän toimiston myöhemmin.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Erota pilkuilla tai puolipisteillä. Luodaan ensimmäisellä lähetyksellä.",
+          "fieldLabel": "Tunnisteet",
+          "title": "Tunnisteet"
+        },
+        "window": {
+          "description": "Molemmat päät ovat valinnaisia — jätä toinen puoli tyhjäksi, jos haluat jatkuvan tai avoimen aikavälin.",
+          "endsHelp": "Kun suhde päättyy.",
+          "endsLabel": "Päättyy",
+          "startsHelp": "Kun suhde alkaa.",
+          "startsLabel": "Alkaa",
+          "title": "Sopimuksen aikaväli"
+        }
+      },
+      "deleteConfirm": "Poistetaanko {name}?\n\nTämä poistaa toimiston CRM:stä. Se ei vaikuta Mailchimp-tilaajiin, jotka on luotu tästä rivistä.",
+      "deleteError": "Virhe poistettaessa toimistoa.",
+      "empty": "Ei toimistoja vielä. Lisää yksi tai tuo taulukko.",
+      "filter": {
+        "apply": "Käytä",
+        "clear": "Tyhjennä suodattimet",
+        "searchPlaceholder": "Hae nimeä, yhteystietoa, sähköpostia",
+        "statusActive": "Aktiivinen",
+        "statusAll": "Kaikki tilat",
+        "statusExpired": "Vanhentunut",
+        "statusInactive": "Ei‑aktiivinen"
+      },
+      "import": {
+        "accepts": "Hyväksyy CSV:n, Excelin (xlsx / xls / xlsm / xlsb) ja OpenDocumentin (ods / fods). Nimi on ainoa pakollinen sarake.",
+        "close": "Sulje",
+        "complete": "Tuonti valmis",
+        "completeSummary": "Luotiin {created} / {total} riviä.",
+        "defaultStatus": "Oletustila (riveille ilman tilaa)",
+        "done": "Valmis",
+        "empty": "Tiedosto näyttää tyhjältä.",
+        "errorPrefix": "Tiedostoa ei voitu jäsentää",
+        "errorsHeader": "{count} riviä sisälsi virheitä:",
+        "errorsMore": "… {count} lisää",
+        "failed": "Tuonti epäonnistui.",
+        "importBtn": "Tuo",
+        "importing": "Tuodaan…",
+        "label": {
+          "contact": "Yhteyshenkilö",
+          "email": "Sähköposti",
+          "ends": "Päättyy (VVVV-KK-PP)",
+          "name": "Nimi (pakollinen)",
+          "notes": "Muistiinpanot",
+          "phone": "Puhelin",
+          "starts": "Alkaa (VVVV-KK-PP)",
+          "status": "Tila-sarake",
+          "tags": "Tunnisteet (pilkku- tai puolipiste-eroteltuina)"
+        },
+        "needName": "Valitse ensin sarake, jossa on toimiston nimi.",
+        "noValid": "Yhdelläkään rivillä ei ole nimeä.",
+        "notUsed": "— (ei käytössä) —",
+        "pickAnother": "Valitse toinen tiedosto",
+        "pickHint": "Napsauta valitaksesi. Luemme vain ensimmäisen taulukon.",
+        "pickLabel": "Valitse taulukko",
+        "subtitle": "Hyväksyy CSV-, Excel- ja OpenDocument-taulukot.",
+        "title": "Tuo toimistot taulukosta",
+        "loaded": "Ladattiin {rowCount, plural, one {# rivi} other {# riviä}}, joissa {colCount, plural, one {# sarake} other {# saraketta}}. Yhdistä kukin CRM-kenttä laskentataulukon sarakkeeseen, josta sen tulee tulla."
+      },
+      "list": {
+        "agencies": "Toimistot",
+        "loading": "Ladataan toimistoja…"
+      },
+      "loadError": "Toimistojen lataus epäonnistui.",
+      "noCompany": "Valitse hallintapaneelista yritys hallitaksesi sen toimistoja.",
+      "page": {
+        "next": "Seuraava sivu",
+        "perPage": "Sivua per sivu",
+        "prev": "Edellinen sivu",
+        "range": "{from}–{to} / {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Sulje",
+        "defaultStatus": "Uusien tilaajien oletustila",
+        "disabledHint": "Valitse tämän sivun rivit lähetettäväksi (monisivupuskuria ei tueta).",
+        "done": "Valmis",
+        "extraTagsHelp": "Lisätään jokaiselle lähetetylle tilaajalle kunkin toimiston omien tagien lisäksi. Pilkulla tai puolipisteellä erotettuna.",
+        "extraTagsLabel": "Lisätagit",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "Lähetys epäonnistui.",
+        "loadAudiencesFailed": "Mailchimp-yleisöjen lataus epäonnistui.",
+        "loading": "Ladataan…",
+        "mailchimpAudience": "Mailchimp-yleisö",
+        "noAudiences": "— Ei vielä yleisöjä —",
+        "noEmail": "Yhdelläkään valitulla toimistolla ei ole sähköpostiosoitetta.",
+        "notConnected": "Mailchimp ei ole vielä yhdistetty tähän tiliin. Yhdistä valitsemalla Markkinointi → Sähköposti → Asetukset, ja palaa sitten takaisin.",
+        "patchExisting": "Korjaa olemassa olevat tilaajat (suositellaan). Tämän työn uudelleenkäynnistys päivittää yhdistyskentät sen sijaan, että se aiheuttaisi virheen kaksoiskappaleissa.",
+        "pickAudience": "Valitse ensin yleisö.",
+        "pushBtn": "Lähetä Mailchimpiin",
+        "pushing": "Lähetetään…",
+        "result": {
+          "header": "Lähetys valmis",
+          "summary": "{created} luotu · {updated} päivitetty · {skipped} ohitettu · {errors} virhettä."
+        },
+        "skippedNotice": "{count, plural, one {{count} valitusta toimistosta ei sisällä sähköpostiosoitetta ja se ohitetaan.} other {{count} valitusta toimistosta ei sisällä sähköpostiosoitetta ja ne ohitetaan.}}",
+        "statusPending": "Odottava (kaksinkertainen opt-in)",
+        "statusSubscribed": "Tilattu",
+        "statusUnsubscribed": "Peruutettu",
+        "subtitle": "Jokainen toimisto muuttuu Mailchimp-tilaajaksi. Nimi kartoitetaan FNAME‑kenttään, yhteystieto LNAME‑kenttään, puhelin PHONE‑kenttään. Tunniste {tag} lisätään automaattisesti.",
+        "summary": "{eligible} / {total} lähetetään.",
+        "title": "{count, plural, one {Lähetä {count} toimisto Mailchimpiin} other {Lähetä {count} toimistoa Mailchimpiin}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "Poista",
+          "edit": "Muokkaa"
+        },
+        "ariaSelect": "Valitse {name}",
+        "fromDate": "Alkaen {date}",
+        "untilDate": "Saakka {date}"
+      },
+      "select": {
+        "allMatchingSelected": "Kaikki {total} nykyisen suodattimen täsmäävää on valittu",
+        "ariaAll": "Valitse kaikki tällä sivulla",
+        "bulkDelete": "Poista {count}",
+        "bulkDeleting": "Poistetaan…",
+        "clear": "Tyhjennä",
+        "deleteFailed": "{failed} / {total} ei voitu poistaa:\n{detail}",
+        "deleteFailedMore": "…ja {count} lisää",
+        "justThisPage": "Valitse vain tämä sivu ({count})",
+        "pageFullySelected": "Kaikki {count} tällä sivulla on valittu.",
+        "pageSelectedCount": "{count} valittu tällä sivulla",
+        "selectAllMatching": "Valitse kaikki {total} nykyisen suodattimen täsmäävät",
+        "confirmDelete": "Poistetaanko {count, plural, one {# toimisto} other {# toimistoa}}?\n\nTätä ei voi kumota."
+      },
+      "table": {
+        "actions": "Toiminnot",
+        "contact": "Yhteystieto",
+        "emailPhone": "Sähköposti / Puhelin",
+        "name": "Nimi",
+        "status": "Tila",
+        "tags": "Tunnisteet",
+        "window": "Ikkuna"
+      },
+      "title": "Toimistot · {total}"
+    },
     "authBody": "Sisäänkirjautuminen, rekisteröityminen ja istunnon vahvistus via <code>/api/auth</code>",
     "authTitle": "Tunnistus",
     "bffBody": "Selainkutsujen tulisi pysähtyä tähän sovellukseen. Luotettavat palvelinreitit kommunikoivat sisäisen CRM-palvelun kanssa.",
@@ -1675,7 +1901,7 @@
         "manual": "Manuaalinen",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (Test)",
-        "partner_crm": "Kumppani-CRM",
+        "partner_crm": "Partner CRM",
         "partner_intranet": "Intranet",
         "whatsapp": "WhatsApp",
         "widget": "Widget"
@@ -1693,9 +1919,568 @@
         "title": "Lead-keräyslomakkeet"
       }
     },
-    "ctaCreateWorkspace": "Luo työtilan käyttöoikeus",
-    "ctaOpenShell": "Avaa suojattu kuori",
+    "ctaCreateWorkspace": "Luo workspace-pääsy",
+    "ctaOpenShell": "Avaa suojattu shell",
     "currentStack": "Nykyinen stack",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "Lisää jäsen",
+          "addMemberHint": "Lisää yksi tilaaja manuaalisesti sähköpostilla, nimellä ja tunnisteilla",
+          "pushFromCRM": "Vie CRM:stä",
+          "pushFromCRMHint": "Valitse CRM-leadit → eräpäivitys Mailchimp-jäseniin",
+          "uploadCsv": "Lataa taulukko",
+          "uploadCsvHint": "CSV, Excel tai ODS — sähköpostisarake (automaattinen kartoitus) + nimi / puhelin / tagit"
+        },
+        "addMember": {
+          "body": "Lisää tai päivittää yhden tilaajan kohteessa {audience}. Toistaminen samalla sähköpostilla korjaa olemassa olevan rivin.",
+          "errEmailRequired": "Sähköposti on pakollinen.",
+          "failed": "Jäsenen lisääminen epäonnistui.",
+          "fields": {
+            "email": "Sähköposti",
+            "firstName": "Etunimi",
+            "lastName": "Sukunimi",
+            "phone": "Puhelin",
+            "status": "Tilauksen tila",
+            "tags": "Tagit (valinnainen)",
+            "tagsHint": "Pilkuilla tai puolipisteillä erotettu. Luodaan, jos puuttuu."
+          },
+          "hideMore": "Piilota lisäasetukset",
+          "showMore": "Näytä lisäasetukset (puhelin, tila, tagit)",
+          "status": {
+            "pending": "Odottava (kaksinkertainen vahvistus)",
+            "subscribed": "Tilattu",
+            "unsubscribed": "Peruutettu"
+          },
+          "submit": "Lisää jäsen",
+          "submitting": "Lisätään…",
+          "title": "Lisää tilaaja"
+        },
+        "col": {
+          "created": "Luotu",
+          "members": "Jäsenet",
+          "name": "Kohdeyleisö",
+          "openRate": "Avausprosentti"
+        },
+        "create": {
+          "addressFilled": "Osoite täytetty",
+          "addressRequired": "Mailchimpin / CAN-SPAMin vaatima",
+          "body": "Mailchimp vaatii postiosoitteen (CAN-SPAM) ja oletuslähettäjän. Voit muokata näitä myöhemmin yleisön asetuksista.",
+          "contactSection": "Postiosoite",
+          "creating": "Luodaan yleisöä…",
+          "errAddressRequired": "Yritys + osoite + kaupunki + maa ovat Mailchimpin vaatimia.",
+          "errFromRequired": "Oletuslähettäjän nimi + sähköposti ovat pakollisia.",
+          "errNameRequired": "Yleisölle täytyy olla nimi.",
+          "failed": "Yleisön luominen epäonnistui.",
+          "fields": {
+            "address": "Katuosoite",
+            "city": "Kaupunki",
+            "company": "Yrityksen / organisaation nimi",
+            "country": "Maa",
+            "defaultSubject": "Oletuskampanjan aihe",
+            "fromEmail": "Oletuslähettäjän sähköposti",
+            "fromName": "Oletuslähettäjän nimi",
+            "language": "Kieli",
+            "name": "Yleisön nimi",
+            "nameHint": "Valitse lyhyt ja mieleenpainuva nimi — operaattorit näkevät sen kaikkialla.",
+            "namePlaceholder": "Uutiskirjeen tilaajat",
+            "permissionReminder": "Lupamuistutus",
+            "permissionReminderHint": "Näytetään sähköpostin alatunnisteessa. Mailchimp käyttää sitä vaatimustenmukaisuuteen.",
+            "state": "Osavaltio / alue",
+            "zip": "ZIP / postinumero"
+          },
+          "hideAdvanced": "Piilota lisäasetukset",
+          "showAdvanced": "Näytä lisäasetukset",
+          "step1Body": "Valitse lyhyt, helposti tunnistettava nimi — operaattorit näkevät sen kaikkialla, kun kampanjat viittaavat tähän listaan.",
+          "step1Title": "Anna yleisölle nimi",
+          "step2Body": "Mailchimpin ja CAN-SPAM-lain vaatima. Käytetään jokaisessa tähän yleisöön lähetetyssä kampanjassa.",
+          "step2Title": "Postiosoite",
+          "step3Body": "Nimen ja sähköpostiosoitteen näkyvät jokaisessa tähän yleisöön lähetetyssä kampanjassa. Voit ohittaa sen kampanjakohtaisesti myöhemmin.",
+          "step3Title": "Oletuslähettäjä",
+          "submit": "Luo yleisö",
+          "title": "Uusi yleisö"
+        },
+        "csv": {
+          "body": "Lataa .csv lisätäksesi tai päivittääksesi tilaajia kohteessa {audience}. Sähköpostisarake on pakollinen; etunimi, sukunimi, puhelin ja tagit havaitaan automaattisesti.",
+          "done": "Tuonti valmis.",
+          "errChunk": "Erä epäonnistui — osittainen tuonti. Katso määrät alla.",
+          "errEmailColRequired": "Valitse sarake, jossa on sähköpostiosoite.",
+          "errEmpty": "Tiedostossa ei ole rivejä.",
+          "errNoValidRows": "Ei rivejä, joissa on kelvollinen sähköposti — tarkista sähköpostisarakkeen kartoitus.",
+          "errParse": "CSV:n jäsentäminen epäonnistui",
+          "import": "Aloita tuonti",
+          "importing": "Tuodaan… {processed} / {total}",
+          "map": {
+            "email": "Sähköpostisarake",
+            "fname": "Etunimensarake (valinnainen)",
+            "lname": "Sukunimensarake (valinnainen)",
+            "phone": "Puhelinsarake (valinnainen)",
+            "status": "Oletustila uusille tilaajille",
+            "tags": "Tunnistesarake (valinnainen)"
+          },
+          "pickFile": "Napsauta valitaksesi taulukko-tiedoston",
+          "pickHint": "CSV, Excel (.xlsx / .xls) tai OpenDocument (.ods). Ensimmäinen taulukko luetaan; ensimmäisen rivin tulee sisältää sarakeotsikot.",
+          "rowsDetected": "{count} riviä valmiina tuontiin.",
+          "stat": {
+            "created": "Luotu",
+            "errors": "Virheet",
+            "updated": "Päivitetty"
+          },
+          "title": "Lataa taulukko",
+          "updateExisting": "Päivitä myös olemassa olevat tilaajat (suositellaan)"
+        },
+        "emptyBody": "Luo kohdeyleisö Mailchimpissa ensin — se näkyy täällä seuraavassa päivityksessä.",
+        "emptyTitle": "Ei vielä kohdeyleisöjä",
+        "loadFailed": "Yleisöjen lataus epäonnistui.",
+        "loading": "Ladataan yleisöjä…",
+        "members": {
+          "close": "Sulje",
+          "col": {
+            "email": "Email",
+            "lastChanged": "Viimeksi muutettu",
+            "status": "Tila"
+          },
+          "empty": "Tässä yleisössä ei ole vielä jäseniä.",
+          "loadFailed": "Jäsenten lataus epäonnistui.",
+          "loading": "Ladataan jäseniä…",
+          "next": "Seuraava",
+          "page": "Sivu {current}/{total}",
+          "prev": "Edellinen",
+          "total": "Jäseniä yhteensä"
+        },
+        "newAudience": "Uusi yleisö",
+        "push": {
+          "allStatuses": "Kaikki tilat",
+          "body": "Valitse CRM-johtolähteet → lähetä {audience} -kohdeyleisön jäseninä. Johtolähteet ilman sähköpostia ohitetaan.",
+          "clear": "Tyhjennä",
+          "col": {
+            "email": "Sähköposti",
+            "name": "Nimi",
+            "outcome": "Tulos",
+            "reason": "Syy",
+            "status": "Tila"
+          },
+          "empty": "Ei yhtään Leadia, jotka täsmäävät nykyisiin suodattimiin.",
+          "errNoneSelected": "Valitse vähintään yksi Lead.",
+          "failed": "Leadien työntäminen epäonnistui.",
+          "loadFailed": "CRM Leadien lataus epäonnistui.",
+          "loading": "Ladataan Leadit…",
+          "noEmail": "Sähköpostia ei — ohitettu",
+          "searchPlaceholder": "Etsi nimi, sähköposti, puhelin, muistiinpanot…",
+          "selectAll": "Valitse kaikki näkyvät",
+          "selected": "{count} valittu",
+          "stat": {
+            "created": "Luotu",
+            "errors": "Virheet",
+            "skipped": "Ohitettu",
+            "updated": "Päivitetty"
+          },
+          "submit": "Työnnä {count} Leadia",
+          "submitting": "Työnnetään…",
+          "title": "Työnnä CRM:stä",
+          "visible": "{count} näkyvissä"
+        },
+        "refresh": "Päivitä",
+        "subtabs": {
+          "fields": "Kentät",
+          "members": "Jäsenet",
+          "segments": "Segmentit",
+          "tags": "Tunnisteet",
+          "webhooks": "Webhooks"
+        },
+        "title": "Kohdeyleisöt",
+        "viewMembers": "Näytä jäsenet"
+      },
+      "automations": {
+        "actionFailed": "Toiminto epäonnistui. Katso yllä oleva Mailchimp-virhe.",
+        "actions": {
+          "pauseAll": "Keskeytä kaikki sähköpostit",
+          "startAll": "Käynnistä kaikki sähköpostit"
+        },
+        "col": {
+          "audience": "Yleisö",
+          "emailsSent": "Lähetetyt sähköpostit",
+          "status": "Tila",
+          "title": "Työnkulku"
+        },
+        "designerHint": "Customer Journey -suunnittelija sijaitsee Mailchimp käyttöliittymässä — Mailchimp ei tarjoa luomista API:n kautta. Keskeytä/käynnistä kunkin työnkulun sähköpostit täältä ilman kontekstin vaihtamista.",
+        "emptyBody": "Rakenna työnkulkuja Mailchimp Customer Journey -suunnittelijassa; ne näkyvät täällä.",
+        "emptyTitle": "Ei automaatioita vielä",
+        "loadFailed": "Automaatioiden lataaminen epäonnistui.",
+        "loading": "Ladataan automaatioita…",
+        "refresh": "Päivitä",
+        "title": "Automaatioita / asiakaspolut"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "Eniten klikkauksia",
+            "manual": "Valitse manuaalisesti",
+            "opens": "Eniten avauksia"
+          },
+          "fromNameB": "Lähettäjän nimi — variantti B (valinnainen)",
+          "fromNameBPlaceholder": "Eri lähettäjän nimi",
+          "hint": "Mailchimp lähettää jokaisen variantin {percent}% yleisöstäsi, odottaa {hours}h, ja lähettää sitten voittajan lopuille.",
+          "subjectB": "Aihe — variantti B",
+          "subjectBPlaceholder": "Vaihtoehtoinen testattava aihe",
+          "testPercent": "Testikohde %",
+          "toggle": "A/B-testaa tätä kampanjaa",
+          "toggleHint": "Lähetä kaksi aihetta (ja/tai lähettäjän nimiä) otokselle, lähetä automaattisesti voittaja muille.",
+          "waitHours": "Odota ennen voittajan valintaa (tunnit)",
+          "winnerCriteria": "Voittajan kriteerit"
+        },
+        "actionFailed": "Toiminto epäonnistui. Katso Mailchimpin virhe yllä.",
+        "actions": {
+          "delete": "Poista",
+          "pause": "Tauota",
+          "resume": "Jatka",
+          "schedule": "Aikatauluta",
+          "send": "Lähetä",
+          "test": "Lähetä testiviesti",
+          "unschedule": "Poista aikataulu"
+        },
+        "audiencesEmpty": "Ei kohdeyleisöjä vielä — luo yksi ensin.",
+        "col": {
+          "audience": "Kohdeyleisö",
+          "created": "Luotu",
+          "status": "Tila",
+          "subject": "Aihe"
+        },
+        "confirmDelete": "Poistetaanko tämä kampanja pysyvästi? Viimeaikaisia raportteja ei voi poistaa myöhemmin.",
+        "confirmSend": "Lähetetäänkö \"{subject}\" kohteelle {audience} nyt? Tämä käynnistää lähetyksen eikä sitä voi peruuttaa.",
+        "createBody": "Luonnokset tallentuvat Mailchimpiin heti; voit lähettää yllä olevasta rivistä, kun olet valmis.",
+        "createFailed": "Kampanjaa ei voitu luoda.",
+        "createSubmit": "Luo luonnos",
+        "createTitle": "Uusi sähköpostikampanja",
+        "creating": "Luodaan luonnosta…",
+        "deleteFailed": "Kampanjaa ei voitu poistaa.",
+        "emptyBody": "Napsauta \"Uusi kampanja\" kirjoittaaksesi ensimmäisen kampanjasi.",
+        "emptyTitle": "Ei kampanjoita vielä",
+        "errAudienceRequired": "Valitse kohdeyleisö ensin.",
+        "errFromRequired": "Mailchimp vaatii sekä lähettäjän nimen että reply-to-osoitteen.",
+        "errSubjectRequired": "Anna kampanjalle aihe.",
+        "fields": {
+          "audience": "Kohdeyleisö",
+          "audiencePlaceholder": "Valitse kohdeyleisö…",
+          "fromName": "Lähettäjän nimi",
+          "hidePreview": "Piilota esikatselu",
+          "htmlBody": "HTML-sisältö",
+          "htmlHint": "Mailchimp hyväksyy raak HTML:n tai yhdistämistagit kuten {{FNAME|there}}. Vedä‑ja‑pudota -editori löytyy Mailchimpin omasta käyttöliittymästä.",
+          "internalTitle": "Sisäinen otsikko (valinnainen)",
+          "internalTitlePlaceholder": "Käytetään Mailchimpissä hakemiseen; oletuksena aihe",
+          "replyTo": "Reply-to-sähköposti",
+          "showPreview": "Näytä esikatselu",
+          "subject": "Aihe",
+          "subjectPlaceholder": "Mitä vastaanottajan postilaatikkoon",
+          "template": "Aloita mallista (valinnainen)",
+          "templateHint": "Mallin valinta täyttää alla olevan HTML-sisällön — voit silti muokata sitä ennen tallentamista.",
+          "templatePlaceholder": "Mukautettu HTML — ei mallia",
+          "templatesEmpty": "Ei tallennettuja malleja vielä"
+        },
+        "hideAdvanced": "Piilota lisäasetukset",
+        "loadFailed": "Kampanjoiden lataaminen epäonnistui.",
+        "loading": "Ladataan kampanjoita…",
+        "newCampaign": "Uusi kampanja",
+        "page": "Sivu {current} / {total}",
+        "refresh": "Päivitä",
+        "schedule": {
+          "confirm": "Aikatauluta lähetys",
+          "confirmUnschedule": "Perutaanko aikataulu? Kampanja palaa luonnokseksi, jotta voit muokata sitä uudelleen.",
+          "errTimeRequired": "Valitse lähetysaika.",
+          "failed": "Aikataulua ei voitu luoda — katso Mailchimpin viesti.",
+          "hint": "Mailchimp pyöristää lähimpään 15 minuuttiin. Ilmaisissa suunnitelmissa vaaditaan ≥30 min etukäteisaika.",
+          "scheduling": "Aikataulutetaan…",
+          "sendAt": "Lähetä (paikallisessa ajassasi)",
+          "timewarp": "Lähetä vastaanottajan paikallisessa ajassa (Timewarp)",
+          "timewarpHint": "Mailchimp toimittaa jokaiselle tilaajalle viestin, kun valittu aika on heidän aikavyöhykkeessään.",
+          "title": "Aikatauluta kampanja"
+        },
+        "sendFailed": "Kampanjaa ei voitu lähettää.",
+        "showAdvanced": "Näytä lisäasetukset",
+        "step1Title": "Kenelle tämä sähköposti on?",
+        "step2Title": "Keneltä se on?",
+        "step3Title": "Suunnittele sähköpostisi",
+        "test": {
+          "emailsHint": "Pilkuin, puolipistein tai rivinvaihdoin erotettu.",
+          "emailsLabel": "Testivastaanottajat",
+          "emailsRequired": "Vähintään yksi testisähköposti vaaditaan.",
+          "failed": "Testisähköpostia ei voitu lähettää.",
+          "format": "Muoto",
+          "plaintext": "Pelkkä teksti",
+          "send": "Lähetä testisähköposti",
+          "sending": "Lähetetään…",
+          "sent": "Testisähköposti on jonossa. Tarkista postilaatikkosi noin minuutin kuluttua.",
+          "title": "Lähetä testisähköposti"
+        },
+        "title": "Kampanjat",
+        "wizard": {
+          "step1Body": "Valitse kohdeyleisö, joka vastaanottaa tämän kampanjan.",
+          "step1Title": "Kenelle tämä sähköposti on tarkoitettu?",
+          "step2Body": "Vastaanottajat näkevät postilaatikossaan aihe- ja lähettäjätiedot.",
+          "step2Title": "Aihe ja lähettäjä",
+          "step3Body": "Aloita tallennetusta mallista tai luo alusta alkaen — oikealla oleva live-esikatselu näyttää, mitä vastaanottajat näkevät.",
+          "step3Title": "Suunnittele sähköpostisi"
+        }
+      },
+      "connectCta": "Yhdistä Mailchimp",
+      "connectedHeader": "Yhdistetty Mailchimp-tili",
+      "domains": {
+        "add": "Lisää toimialue",
+        "addEmailLabel": "Sähköpostiosoite toimialueella vahvistettavaksi",
+        "addFailed": "Vahvistuksen käynnistäminen epäonnistui.",
+        "addHint": "Mailchimp lähettää vahvistuskoodin tähän osoitteeseen. Varmista, että voit vastaanottaa postia siellä.",
+        "adding": "Lähetetään koodia…",
+        "body": "Vahvista lähetystoimialueesi (DKIM / SPF). Vahvistetut toimialueet saavat korkeamman luottamuspisteen ja välttävät Omnivore (Mailchimpin anti-huijaus) -liput.",
+        "codePlaceholder": "Vahvistuskoodi sähköpostista",
+        "confirmDelete": "Poistetaanko tämä toimialue? Sinun täytyy vahvistaa se uudelleen, jotta voit lähettää siltä jälleen.",
+        "delete": "Poista",
+        "deleteFailed": "Toimialueen poistaminen epäonnistui.",
+        "dkimHint": "Vahvistuksen jälkeen viimeistele DKIM / DMARC -asetukset Mailchimpin käyttöliittymässä (Account → Domains → Authenticate). DNS-tietueiden tasoinen asetus ei ole API:n kautta käytettävissä.",
+        "empty": "Verkkotunnuksia ei ole vielä lisätty. Lisää lähettävä verkkotunnus yllä aloittaaksesi.",
+        "errCodeRequired": "Liitä Mailchimpin sähköpostista kopioitu koodi.",
+        "errEmailRequired": "Sähköposti on pakollinen.",
+        "loadFailed": "Verkkotunnusten lataus epäonnistui.",
+        "loading": "Ladataan verkkotunnuksia…",
+        "statusAuthenticated": "Vahvistettu + DKIM todennettu",
+        "statusPending": "Odottamassa — liitä alla oleva sähköpostivahvistuskoodi",
+        "statusVerified": "Vahvistettu — viimeistele DKIM-asetukset Mailchimpin käyttöliittymässä",
+        "title": "Vahvistetut verkkotunnukset",
+        "verify": "Vahvista",
+        "verifyFailed": "Vahvistus epäonnistui — tarkista koodi."
+      },
+      "images": {
+        "body": "Valitse kuva Mailchimp‑kirjastostasi, lataa uusi (max 10 MB) tai liitä julkinen URL.",
+        "confirmDelete": "Poistetaanko tämä kuva? Kampanjat, jotka viittaavat siihen, toimivat edelleen (Mailchimp säilyttää tiedoston).",
+        "delete": "Poista",
+        "deleteFailed": "Kuvan poistaminen epäonnistui.",
+        "empty": "Kuvia ei ole vielä ladattu. Vaihda Lataa-tilaan lisätäksesi ensimmäisen kuvan.",
+        "errNoUrl": "Mailchimp hyväksyi latauksen, mutta ei palauttanut URL‑osoitetta.",
+        "errTooLarge": "Mailchimpin enimmäistiedostokoko on 10 MB.",
+        "insertUrl": "Lisää URL",
+        "loadFailed": "Kuvakirjaston lataus epäonnistui.",
+        "loading": "Ladataan kirjastoa…",
+        "modes": {
+          "library": "Kirjasto",
+          "upload": "Lataa uusi",
+          "url": "URL:n kautta"
+        },
+        "pickFile": "Napsauta valitaksesi kuva",
+        "pickHint": "PNG, JPG, GIF, SVG enintään 10 MB",
+        "title": "Valitse tai lataa kuva",
+        "uploadFailed": "Lataus epäonnistui — katso Mailchimp-viesti.",
+        "uploading": "Ladataan…",
+        "urlHint": "Mailchimp voi välimuistittaa kuvan sen CDN:ssä; sen File Manager (Upload-välilehti) käyttö on luotettavampaa.",
+        "urlLabel": "Julkinen kuvan URL"
+      },
+      "loadFailed": "Mailchimp-yhteyttä ei voitu ladata.",
+      "manageConnection": "Hallitse yhteyttä",
+      "merge": {
+        "cancelNew": "Peruuta",
+        "col": {
+          "name": "Nimi",
+          "required": "Pakollinen",
+          "tag": "Yhdistystagi",
+          "type": "Tyyppi"
+        },
+        "confirmDelete": "Poistetaanko tämä kenttä? Myös tämän sarakkeen jäsendata poistetaan.",
+        "count": "{count} kenttää yhteensä",
+        "create": "Luo kenttä",
+        "createFailed": "Kentän luominen epäonnistui.",
+        "creating": "Luodaan…",
+        "delete": "Poista",
+        "deleteFailed": "Kentän poistaminen epäonnistui.",
+        "empty": "Ei vielä mukautettuja kenttiä — Mailchimpin oletus FNAME / LNAME -sarakkeet toimivat edelleen.",
+        "errRequired": "Tagi ja nimi ovat molemmat pakollisia.",
+        "fields": {
+          "defaultValue": "Oletusarvo (valinnainen)",
+          "name": "Näyttönimi",
+          "required": "Pakollinen rekisteröintilomakkeissa",
+          "tag": "Yhdistämistagi (≤10 merkkiä, ISOT KIRJAIMET)",
+          "type": "Tyyppi"
+        },
+        "hint": "Käytä yhdistämistageja kampanjoissa + malleissa muodossa *|TAG|*, esim. \"Welcome *|FNAME|*\".",
+        "loadFailed": "Yhdistämiskenttien lataus epäonnistui.",
+        "loading": "Ladataan yhdistämiskenttiä…",
+        "newField": "Uusi kenttä"
+      },
+      "noCompanyBody": "Valitse työtila hallintapaneelista hallitaksesi sen sähköpostimoduulia.",
+      "noCompanyTitle": "Valitse työtila",
+      "notConnectedBody": "Yhdistä Mailchimp-tilisi hallitaksesi kohdeyleisöjä, kampanjoita ja raportteja poistumatta CRM:stä. Jokainen operaattori tuo oman yhteytensä.",
+      "notConnectedTitle": "Mailchimp ei ole vielä yhdistetty",
+      "openIntegrationDetail": "Avaa integraatioasetukset",
+      "overview": {
+        "actions": {
+          "newAudience": "Uusi yleisö",
+          "newCampaign": "Uusi kampanja",
+          "newTemplate": "Uusi mallipohja",
+          "reports": "Raportit"
+        },
+        "gettingStartedTitle": "Aloita neljässä nopeassa vaiheessa",
+        "kpi": {
+          "audiences": "Yleisöt",
+          "clickRateSub": "{rate}% keskimääräinen klikkausprosentti",
+          "openRate": "Keskimääräinen avausprosentti",
+          "sentCampaigns": "Lähetetyt kampanjat",
+          "subscribers": "Tilaajia yhteensä"
+        },
+        "loadFailed": "Yhteenvetoa ei voitu ladata.",
+        "loading": "Ladataan yleiskatsaus…",
+        "noCampaigns": "Kampanjoita ei vielä — luo ensimmäinen kampanjasi.",
+        "noReports": "Raportteja ei vielä — ne ilmestyvät ensimmäisen lähetyksen jälkeen.",
+        "quickActionsTitle": "Pikatoiminnot",
+        "recentCampaigns": "Viimeisimmät kampanjat",
+        "recentReports": "Viimeisimmät raportit",
+        "recipients": "Vastaanottajat",
+        "step1": "Luo tai tuo yleisö (käytä \"Audiences → Upload CSV\" jos teillä on taulukko).",
+        "step2": "Valinnainen: tallenna uudelleenkäytettävä malli \"Templates\"-kansioon.",
+        "step3": "Luo ensimmäinen kampanjasi — valitse yleisö, aihe, sisältö.",
+        "step4": "Lähetä testiviesti itsellesi, sitten lähetä oikeasti tai ajoita.",
+        "viewAll": "Näytä kaikki"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Klikkaukset",
+          "opens": "Avaukset",
+          "recipients": "Vastaanottajat",
+          "sent": "Lähetetyt",
+          "subject": "Kampanja"
+        },
+        "deepLinkHint": "Lämpökarttoja, A/B‑vertailua ja täyttä sähköpostitoimintaa varten avaa kampanja Mailchimpin käyttöliittymässä.",
+        "detailFailed": "Täyttä raporttia ei voitu ladata.",
+        "details": "Tiedot",
+        "emptyBody": "Raportit näkyvät täällä ensimmäisen kampanjan lähettämisen jälkeen.",
+        "emptyTitle": "Raportteja ei vielä",
+        "geoEmpty": "Ei maantieteellisiä tietoja — Mailchimp kerää ne avautumisten myötä.",
+        "geoTitle": "Suosituimmat sijainnit",
+        "kpi": {
+          "bounces": "Palautukset",
+          "clicks": "Ainutlaatuiset klikkaukset",
+          "hardBounces": "{count} kova",
+          "opens": "Ainutlaatuiset avaukset",
+          "sent": "Vastaanottajat"
+        },
+        "loadFailed": "Raporttien lataus epäonnistui.",
+        "loading": "Ladataan raportteja…",
+        "loadingDetail": "Ladataan tietoja…",
+        "opens": "avauksia",
+        "title": "Kampanjaraportit"
+      },
+      "segments": {
+        "col": {
+          "members": "Jäsenet",
+          "name": "Nimi",
+          "type": "Tyyppi",
+          "updated": "Päivitetty"
+        },
+        "confirmDelete": "Poistetaanko tämä segmentti? Jäsenet pysyvät yleisössä; vain segmentti poistetaan.",
+        "count": "{count} segmenttiä",
+        "create": "Luo",
+        "createBody": "Staattiset segmentit ovat käsin valittuja sähköpostiosoitteiden listoja. Ehdollisiin (tallennettuihin) segmentteihin käytä Mailchimpin käyttöliittymää — ne näkyvät täällä päivityksen jälkeen.",
+        "createFailed": "Segmenttiä ei voitu luoda.",
+        "createTitle": "Uusi staattinen segmentti",
+        "creating": "Luodaan…",
+        "delete": "Poista",
+        "deleteFailed": "Segmenttiä ei voitu poistaa.",
+        "empty": "Ei segmenttejä vielä. Staattiset segmentit ovat käsin valittuja listoja; tallennetut segmentit ovat ehtopohjaisia suodattimia.",
+        "errNameRequired": "Segmentti vaatii nimen.",
+        "fields": {
+          "emails": "Jäsenten sähköpostiosoitteet",
+          "emailsHint": "Yksi riviä kohti tai pilkulla erotettuna. Vain olemassa olevat yleisön jäsenet lisätään.",
+          "name": "Segmentin nimi"
+        },
+        "loadFailed": "Segmenttien lataaminen epäonnistui.",
+        "loading": "Ladataan segmenttejä…",
+        "newStatic": "Uusi staattinen segmentti"
+      },
+      "settingsHint": "Asetukset löytyvät kohdasta Integraatiot → Mailchimp. Yllä oleva merkki on vain luku -tilassa.",
+      "settingsTitle": "Yhteysasetukset",
+      "subtabAria": "Sähköpostimoduulin osiot",
+      "subtabComingSoon": "Tämä osio tulee myöhemmässä vaiheessa. Yhteys on valmis; käyttöliittymä ei ole vielä kytketty.",
+      "tabs": {
+        "audiences": "Yleisöt",
+        "automations": "Automaatiot",
+        "campaigns": "Kampanjat",
+        "overview": "Yhteenveto",
+        "reports": "Raportit",
+        "settings": "Asetukset",
+        "templates": "Mallipohjat"
+      },
+      "tags": {
+        "empty": "Tässä yleisössä ei ole vielä tunnisteita. Lisää tunnisteita jäsenille 'Add member' -toiminnolla tai CSV-latauksella.",
+        "emptySearch": "Tunnisteita ei löytynyt haulle \"{query}\".",
+        "hint": "Tunnisteet luodaan heti, kun ne lisätään jäsenelle (Add member, CSV-lataus tai työntö CRM:stä).",
+        "loadFailed": "Tunnisteiden lataaminen epäonnistui.",
+        "loading": "Ladataan tunnisteita…",
+        "searchPlaceholder": "Etsi tunnisteen nimeä…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "Poista",
+          "edit": "Muokkaa",
+          "preview": "Esikatselu"
+        },
+        "col": {
+          "category": "Kategoria",
+          "created": "Luotu",
+          "name": "Nimi"
+        },
+        "confirmDelete": "Poistetaanko tämä malli pysyvästi? Kampanjat, jotka viittaavat siihen, toimivat edelleen — ne ottavat HTML:n tilannekuvan lähetyksen yhteydessä.",
+        "create": "Luo malli",
+        "createTitle": "Uusi malli",
+        "deleteFailed": "Mallia ei voitu poistaa.",
+        "editTitle": "Muokkaa mallia",
+        "emptyBody": "Luo ensimmäinen mallisi — kampanjat voivat käyttää sitä uudelleen ilman HTML:n uudelleenkirjoittamista.",
+        "emptyTitle": "Ei vielä malleja",
+        "errHtmlRequired": "Mallin runko ei voi olla tyhjä.",
+        "errNameRequired": "Mallilla täytyy olla nimi.",
+        "fields": {
+          "html": "HTML-runko",
+          "htmlHint": "Raaka HTML. Yhdistämistunnisteet kuten {{FNAME|there}} toimivat samalla tavalla kuin kampanjoissa.",
+          "name": "Mallin nimi",
+          "namePlaceholder": "Tervetuloviesti"
+        },
+        "loadFailed": "Mallien lataaminen epäonnistui.",
+        "loading": "Ladataan malleja…",
+        "loadingBody": "Ladataan mallin runkoa…",
+        "newTemplate": "Uusi malli",
+        "preview": "Live-esikatselu",
+        "previewHint": "Renderöi HTML:n eristettyyn iframeen (skriptit pois käytöstä). Mailchimpin yhdistämiskoodit, kuten {{FNAME|there}}, näkyvät – ne korvataan lähetyksen yhteydessä.",
+        "refresh": "Päivitä",
+        "saveFailed": "Mallia ei voitu tallentaa.",
+        "saving": "Tallennetaan…",
+        "title": "Mallit",
+        "update": "Tallenna muutokset"
+      },
+      "webhooks": {
+        "confirmDelete": "Poistetaanko tämä webhook-tilaus? Mailchimp lopettaa tapahtumien POSTauksen tähän URL-osoitteeseen.",
+        "count": "{count} webhookia",
+        "create": "Luo webhook",
+        "createBody": "Mailchimp POSTaa tapahtumia URL-osoitteeseesi. Yleisiä kohteita: n8n flow, inbound/mailchimp/<token>.",
+        "createFailed": "Webhookin luominen epäonnistui.",
+        "createTitle": "Tilaa yleisön tapahtumat",
+        "creating": "Luodaan…",
+        "delete": "Poista",
+        "deleteFailed": "Webhookin poistaminen epäonnistui.",
+        "empty": "Ei vielä tilattuja webhookeja.",
+        "errUrlRequired": "URL-osoitteen on aloitettava https://",
+        "fields": {
+          "events": "Kuunneltavat tapahtumat",
+          "sources": "Tapahtuman lähteet (kuka sen käynnisti)",
+          "url": "Webhook-URL (https://)"
+        },
+        "hint": "Mailchimp ei allekirjoita listan webhookeja. Käsittele URL-osoitetta ainoana salaisuutena; älä kirjaa sitä lokiin.",
+        "loadFailed": "Webhookien lataaminen epäonnistui.",
+        "loading": "Ladataan webhookeja…",
+        "noEvents": "(tapahtumia ei valittu)"
+      },
+      "wizard": {
+        "back": "Takaisin",
+        "fillRequired": "Täytä yllä oleva pakollinen kenttä",
+        "next": "Seuraava",
+        "submit": "Luo",
+        "submitting": "Luodaan…"
+      }
+    },
     "heroEyebrow": "Ääniä tukeva CRM-alusta",
     "heroLead": "Lisent CRM yhdistää todennuksen, vuokraajakohtaiset työnkulut, tuontiprofiilin käyttöönoton ja suojatun sovelluskuoren yrityskäyttäjille. Web-sovellus hallitsee käyttäjälle näkyviä prosesseja. Go CRM -palvelu pysyy luotettavan taustajärjestelmän takana.",
     "heroTitle": "Ymmärrämme tarkoituksen, ei pelkästään sanoja.",
@@ -1708,6 +2493,7 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "Toimistot",
       "aria": "Markkinoinnin osiot",
       "campaigns": "Kampanjat",
       "email": "Sähköposti",
@@ -1730,7 +2516,7 @@
     "integrations": "Integraatiot",
     "leads": "Liidit",
     "lisentHome": "Lisent CRM -etusivu",
-    "lisentWorkspace": "Lisent-työtila",
+    "lisentWorkspace": "Lisent workspace",
     "marketing": "Markkinointi",
     "navigation": "Navigointi",
     "openNavigation": "Avaa navigointi",
@@ -1738,7 +2524,7 @@
     "primary": "Ensisijainen",
     "quickCreate": "Pikaluonti",
     "sectionTools": "Työkalut",
-    "sectionWorkspace": "Työtila",
+    "sectionWorkspace": "Workspace",
     "tasks": "Tehtävät",
     "teamMembers": "Tiimin jäsenet"
   },
@@ -1772,7 +2558,7 @@
       "title": "Asiakkaat"
     },
     "dashboard": {
-      "description": "Työtilan yleiskatsaus ja pikatoiminnot.",
+      "description": "Workspace‑yleiskatsaus ja pikatoiminnot.",
       "title": "Dashboard"
     },
     "deals": {
@@ -1780,7 +2566,7 @@
       "title": "Kaupat"
     },
     "imports": {
-      "description": "Tuo asiakastiedot työtilaasi.",
+      "description": "Tuo asiakastiedot workspaceen.",
       "title": "Tuonnit"
     },
     "integrationDetail": {
@@ -1804,8 +2590,8 @@
       "title": "Tehtävät"
     },
     "workspace": {
-      "description": "Työtilan asetukset ja jäsenet.",
-      "title": "Työtila"
+      "description": "Workspace‑asetukset ja jäsenet.",
+      "title": "Workspace"
     }
   },
   "qualifier": {
@@ -1827,7 +2613,7 @@
   },
   "search": {
     "aria": "Etsi työtilasta",
-    "placeholder": "Etsi..."
+    "placeholder": "Hae…"
   },
   "tasks": {
     "actions": {
@@ -1860,11 +2646,11 @@
       "onlyCreatorCanDelete": "Vain tehtävän luoja voi poistaa tämän tehtävän.",
       "publish": "Tehtävän julkaiseminen epäonnistui.",
       "titleRequired": "Otsikko on pakollinen.",
-      "update": "Tehtävän päivittäminen epäonnistui."
+      "update": "Tehtävän päivitys epäonnistui."
     },
     "fields": {
       "assignedTo": "Vastuuhenkilö",
-      "assignee": "Vastaanottaja",
+      "assignee": "Vastuuhenkilö",
       "assignmentMode": "Määritystapa",
       "due": "Erä",
       "dueDate": "Eräpäivä",
@@ -1903,7 +2689,7 @@
       "notes": "Lisää tietoja tästä tehtävästä...",
       "title": "Tehtävän otsikko"
     },
-    "publishedBy": "Julkaissut",
+    "publishedBy": "Julkaissut {name}",
     "responseStatus": {
       "accepted": "Hyväksytty",
       "pending": "Odottava",
@@ -1928,9 +2714,9 @@
     },
     "summary": {
       "company": "Yritys",
-      "inProgressDone": "käynnissä · valmiina",
-      "myPending": "odottaa",
-      "openTickets": "avointa"
+      "inProgressDone": "{inProgress} käynnissä · {done} valmiina",
+      "myPending": "{count} odottaa",
+      "openTickets": "{count} avointa"
     },
     "systemUser": "Järjestelmä",
     "teammatesCount": "{count} tiimikaveria",
@@ -1973,6 +2759,25 @@
       "role": "Rooli"
     },
     "member": "Jäsen",
+    "moduleAccess": {
+      "discard": "Hylkää",
+      "empty": "Ei hallittavia tiimin jäseniä — omistajilla on aina täysi pääsy.",
+      "granted": "Myönnetty",
+      "loadError": "Pääsyoikeuksien lataaminen epäonnistui.",
+      "loading": "Ladataan…",
+      "module": {
+        "marketingAgencies": "Markkinointi · Toimistot"
+      },
+      "noAccess": "Ei pääsyä",
+      "role": "Rooli",
+      "save": "Tallenna muutokset",
+      "saveError": "Muutosten tallentaminen epäonnistui.",
+      "saving": "Tallennetaan…",
+      "subtitle": "Omistajat näkevät aina kaikki moduulit. Käytä kytkimiä myöntääksesi jokaiselle tiimin jäsenelle pääsyn tiettyyn moduuliin.",
+      "teamMember": "Tiimin jäsen",
+      "title": "Moduulien käyttöoikeus",
+      "unsaved": " · tallentamaton"
+    },
     "noEmail": "Sähköpostiosoitetta ei ole tallennettu",
     "noPermission": "Teillä ei ole oikeutta hallita tiimin jäseniä.",
     "placeholders": {
@@ -1981,14 +2786,14 @@
     "removeMember": "Poista jäsen",
     "removeModal": {
       "confirm": "Poista jäsen",
-      "description": "{company} menettää pääsyn tähän workspaceen heti.",
+      "description": "{name} menettää pääsyn tähän workspaceen heti.",
       "eyebrow": "Poista tiimin jäsen",
       "removing": "Poistetaan…",
       "title": "Poista tiimin jäsen?"
     },
     "roleModal": {
       "confirm": "Vaihda rooli",
-      "description": "Päivitä n rooli tässä workspaceessa.",
+      "description": "Päivitä {name}n rooli tässä workspaceessa.",
       "eyebrow": "Vaihda rooli",
       "title": "Vaihda rooli",
       "to": "rooliin",
@@ -2000,7 +2805,7 @@
       "emptyAdmins": "Ylläpitäjiä ei ole määritetty.",
       "emptyUsers": "Tavallisia jäseniä ei ole vielä.",
       "users": "Käyttäjät",
-      "usersDescription": "Tavalliset jäsenet, joilla on päivittäinen pääsy."
+      "usersDescription": "Tavalliset jäsenet, joilla on päivittäinen käyttöoikeus."
     },
     "thisWorkspace": "tämä workspace",
     "title": "Tiimin jäsenet",
@@ -2017,7 +2822,7 @@
   },
   "validation": {
     "firstNameRequired": "Nimi on pakollinen.",
-    "firstNameTooShort": "Nimen on oltava vähintään 2 merkkiä.",
+    "firstNameTooShort": "Etunimen on oltava vähintään 2 merkkiä.",
     "genderInvalid": "Valitse kelvollinen sukupuoli.",
     "genderRequired": "Sukupuoli on pakollinen.",
     "languageInvalid": "Valitse kelvollinen kieli.",

@@ -54,10 +54,10 @@
     "selectGenderPlaceholder": "Выберите ваш пол",
     "signIn": "Войти",
     "signInButton": "Войти",
-    "signInInstead": "Войти вместо этого",
+    "signInInstead": "Войдите вместо этого",
     "signInSubtitle": "Используйте учетные данные компании, выданные вашей команде.",
     "signInTitle": "Получите доступ к рабочему пространству",
-    "signUp": "Зарегистрироваться",
+    "signUp": "Регистрация",
     "signUpButton": "Создать аккаунт",
     "signUpSubtitle": "Начните с электронной почты и пароля. Затем будет назначение арендатора.",
     "signUpTitle": "Создайте доступ к рабочему пространству",
@@ -157,7 +157,7 @@
     "placeholders": {
       "description": "Введите краткое описание...",
       "location": "Офис, Zoom, адрес...",
-      "noLinkedCustomer": "Нет связанного клиента",
+      "noLinkedCustomer": "Нет привязанного клиента",
       "optionalCustomer": "Выберите клиента (необязательно)",
       "selectRecord": "Выберите запись",
       "title": "Первичный звонок с..."
@@ -219,14 +219,14 @@
     "bulk": {
       "clearSelection": "Снять выделение",
       "confirmDelete": "Удалить выбранные",
-      "deleteDescription": "Это навсегда удалит записей клиентов. Это действие нельзя отменить.",
+      "deleteDescription": "Это навсегда удалит {count} записей клиентов. Это действие нельзя отменить.",
       "deleteEyebrow": "Массовое удаление",
       "deleteTitle": "Удалить выбранных клиентов?",
-      "exportCsv": "Export CSV",
-      "exportPdf": "Export PDF",
-      "exportXlsx": "Export Excel",
+      "exportCsv": "Экспорт CSV",
+      "exportPdf": "Экспорт PDF",
+      "exportXlsx": "Экспорт Excel",
       "regionLabel": "Массовые действия",
-      "selectedCount": "выбрано"
+      "selectedCount": "{count} выбрано"
     },
     "closeAddPopup": "Закрыть окно добавления клиента",
     "confirmDelete": "Удалить",
@@ -246,7 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Не удалось удалить некоторых клиентов.",
       "deleteCustomer": "Не удалось удалить клиента.",
-      "exportFailed": "Failed to export customers.",
+      "exportFailed": "Не удалось экспортировать клиентов.",
       "loadCompanies": "Не удалось загрузить компании.",
       "loadCustomers": "Не удалось загрузить клиентов.",
       "saveCustomer": "Не удалось сохранить клиента."
@@ -281,17 +281,17 @@
       "empty": "Нет клиентов, соответствующих текущим фильтрам.",
       "eyebrow": "Каталог клиентов",
       "selectAll": "Выбрать всех клиентов",
-      "selectRow": "Выбрать клиента",
+      "selectRow": "Выбрать клиента {name}",
       "title": "Клиенты",
-      "visibleCount": "Показано {count}"
+      "visibleCount": "Показано {visible} из {total}"
     },
-    "loading": "Загрузка клиентов...",
+    "loading": "Загрузка клиентов…",
     "noEmail": "Электронная почта не указана",
     "notSet": "Не указано",
     "pdf": {
-      "exportedAt": "customers · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Customers"
+      "exportedAt": "customers · Экспортировано {date}",
+      "pageOf": "Страница {current} из {total}",
+      "title": "Клиенты"
     },
     "placeholders": {
       "email": "name@company.com",
@@ -302,7 +302,7 @@
       "label": "Поиск",
       "placeholder": "Поиск клиентов..."
     },
-    "selectedCompany": "Активный workspace:",
+    "selectedCompany": "Активный workspace: {name}",
     "status": {
       "active": "Активен",
       "all": "Все",
@@ -312,10 +312,10 @@
     "statusFilter": "Фильтр статуса",
     "success": {
       "bulkDeleted": "Удалено {count} клиентов.",
-      "bulkDeletedPartial": "Удалено из клиентов.",
+      "bulkDeletedPartial": "Удалено {deleted} из {total} клиентов.",
       "created": "Клиент создан.",
       "deleted": "Клиент удалён.",
-      "exported": "Exported {count} customers.",
+      "exported": "Экспортировано {count} клиентов.",
       "updated": "Клиент обновлён."
     }
   },
@@ -333,39 +333,39 @@
       "title": "AI‑инсайты"
     },
     "amount": "Сумма",
-    "amountValue": "{value}",
+    "amountValue": "{amount}",
     "assignee": "Ответственный",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "Перетаскивайте сделки между стадиями, чтобы обновить pipeline.",
-    "changedBy": "Изменено пользователем",
+    "changedBy": "Изменено пользователем {name}",
     "close": "Закрыть",
     "closeTarget": "Цель закрытия",
-    "closeTargetValue": "{value}",
-    "columnTotal": "Итого по колонке:",
+    "closeTargetValue": "{date}",
+    "columnTotal": "Итого по колонке: {value}",
     "commentPlaceholder": "Напишите комментарий…",
     "comments": "Комментарии",
-    "commentsCount": "{count} комментарии",
+    "commentsCount": "{count} комментариев",
     "commentsEmpty": "Комментариев пока нет.",
     "deal": "Сделка",
     "dealDetail": "Подробности сделки",
     "dealList": "Список сделок",
     "dealValue": "Сумма сделки",
-    "dealsInPipeline": "{count} сделок в процессе подготовки",
-    "dealsInView": "{count} сделки на виду",
+    "dealsInPipeline": "{count} сделок в воронке",
+    "dealsInView": "{count} сделок в представлении",
     "delete": "Удалить",
     "deleteConfirmDescription": "Это навсегда удалит эту сделку. Это действие нельзя отменить.",
-    "deleteConfirmTitle": "Удалить сделку?",
-    "deleteDeal": "Удалить сделку",
+    "deleteConfirmTitle": "Удалить deal?",
+    "deleteDeal": "Удалить deal",
     "deleting": "Удаляется...",
-    "editDeal": "Редактировать сделку",
+    "editDeal": "Редактировать deal",
     "emptyColumn": "Нет сделок на этом этапе.",
     "errors": {
       "addComment": "Не удалось добавить комментарий.",
-      "deleteDeal": "Не удалось удалить сделку.",
+      "deleteDeal": "Не удалось удалить deal.",
       "loadCompanies": "Не удалось загрузить компании.",
-      "loadDeals": "Не удалось загрузить сделки.",
+      "loadDeals": "Не удалось загрузить deals.",
       "nameRequired": "Требуется указать название сделки.",
-      "saveDeal": "Не удалось сохранить сделку.",
+      "saveDeal": "Не удалось сохранить deal.",
       "unsupportedCurrency": "Неподдерживаемая валюта."
     },
     "extraData": "Дополнительные данные",
@@ -434,12 +434,12 @@
     "noRelatedCustomer": "Нет связанного клиента.",
     "noWinReason": "Причина выигрыша не указана.",
     "notSet": "Не указано",
-    "now": "сейчас",
+    "now": "Сейчас",
     "pipelineLoading": "Загрузка pipeline...",
     "posting": "Отправка...",
     "relatedRecords": "Связанные записи",
     "scheduleActivity": "Запланировать действие",
-    "selectedCompany": "Активный workspace:",
+    "selectedCompany": "Активный workspace: {name}",
     "stage": {
       "lost": "Потерян",
       "lostDescription": "Сделки, закрытые как потерянные, для анализа.",
@@ -456,7 +456,7 @@
     },
     "stageHistory": "История этапов",
     "stageHistoryEmpty": "Изменения этапов пока не зафиксированы.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Комментарий добавлен.",
       "created": "Сделка создана.",
@@ -465,10 +465,10 @@
     },
     "system": "Система",
     "terminationOpen": "Открыто",
-    "thisDeal": "эта сделка",
+    "thisDeal": "Эта сделка",
     "unassigned": "Не назначено",
     "unknownAuthor": "Неизвестно",
-    "untitledDeal": "Сделка без названия"
+    "untitledDeal": "Deal без названия"
   },
   "errors": {
     "forbidden": "У вас нет прав.",
@@ -480,10 +480,10 @@
   "home": {
     "activity": {
       "chartAriaLabel": "Диаграмма активности за прошлую неделю",
-      "empty": "Пока нет активности для.",
+      "empty": "Пока нет активности для {name}.",
       "emptyDefault": "Активность пока не зафиксирована.",
-      "legendDeals": "Сделки",
-      "legendLeads": "Лиды",
+      "legendDeals": "Deals",
+      "legendLeads": "Leads",
       "subtitle": "Созданные за прошлую неделю лиды и закрытые сделки.",
       "title": "Активность"
     },
@@ -493,24 +493,24 @@
       "noWorkspaceHelp": "Выберите рабочее пространство в переключателе, чтобы увидеть актуальные данные.",
       "noWorkspaceSelected": "Рабочее пространство не выбрано",
       "pickWorkspace": "Выберите рабочее пространство",
-      "subtitleSelected": "Метрики рабочего пространства для.",
+      "subtitleSelected": "Метрики Workspace для {name}.",
       "subtitleWithName": "С возвращением, {name}."
     },
     "errors": {
       "loadDashboard": "Не удалось загрузить данные дашборда.",
       "loadSnapshot": "Не удалось загрузить снимок рабочего пространства.",
-      "loadWorkspaces": "Не удалось загрузить рабочие пространства."
+      "loadWorkspaces": "Не удалось загрузить workspaces."
     },
     "kpi": {
       "customers": "Клиенты",
       "customersHint": "Всего аккаунтов в этом рабочем пространстве.",
       "customersInWorkspace": "Клиенты в {name}",
-      "deals": "Сделки",
+      "deals": "Deals",
       "dealsAmountEmpty": "Пока нет стоимости сделок.",
-      "leads": "Лиды",
+      "leads": "Leads",
       "leadsHint": "Активные лиды в pipeline.",
       "openPipelineHint": "Стоимость открытого pipeline во всех стадиях.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Настроить",
@@ -518,19 +518,19 @@
       "title": "Обзор"
     },
     "pipeline": {
-      "empty": "Пока нет данных Pipeline для.",
+      "empty": "Пока нет данных Pipeline для {name}.",
       "emptyDefault": "Пока нет данных Pipeline.",
       "stage": {
-        "lost": "Проигран",
+        "lost": "Потеряно",
         "negotiation": "Переговоры",
-        "new": "Новый",
+        "new": "Новое",
         "proposal": "Предложение",
-        "qualified": "Квалифицированный",
-        "won": "Выигран"
+        "qualified": "Квалифицировано",
+        "won": "Выиграно"
       },
       "subtitle": "Распределение Deal‑ов по Stage.",
       "title": "Pipeline",
-      "totalBadge": "{count} всего"
+      "totalBadge": "{value} всего"
     },
     "quickActions": {
       "aiQualifier": {
@@ -556,7 +556,7 @@
       "newWorkspace": {
         "cta": "Создать Workspace",
         "description": "Создайте нового арендатора для другого бизнес‑подразделения.",
-        "title": "Новое рабочее пространство"
+        "title": "Новое Workspace"
       },
       "oneClickSetup": "Настройка в один клик",
       "scheduleMeeting": {
@@ -568,15 +568,15 @@
       "title": "Быстрые действия"
     },
     "recentLeads": {
-      "empty": "Нет недавних лидов в.",
+      "empty": "Нет недавних лидов в {name}.",
       "emptyDefault": "Пока нет недавних лидов.",
       "status": {
-        "contacted": "Связались",
-        "converted": "Преобразован",
+        "contacted": "Контактировано",
+        "converted": "Конвертировано",
         "disqualified": "Отказ",
-        "lost": "Проигран",
-        "new": "Новый",
-        "qualified": "Квалифицирован"
+        "lost": "Потеряно",
+        "new": "Новое",
+        "qualified": "Квалифицировано"
       },
       "subtitle": "Последние лиды, добавленные в ваше рабочее пространство.",
       "title": "Недавние лиды",
@@ -584,9 +584,9 @@
       "viewAll": "Показать все Lead"
     },
     "snapshot": {
-      "activeWorkspace": "Активное рабочее пространство",
+      "activeWorkspace": "Активный Workspace",
       "eyebrow": "Снимок рабочего пространства",
-      "inWorkspace": "в",
+      "inWorkspace": "В {name}",
       "newCount": "{count} новых",
       "noWorkspaceHelp": "Выберите рабочее пространство, чтобы увидеть текущие показатели.",
       "noWorkspaceSelected": "Рабочее пространство не выбрано",
@@ -602,36 +602,36 @@
       "noneSelected": "Не выбрано",
       "pickToActivate": "Выберите workspace, чтобы активировать метрики.",
       "scopedViews": "Ограниченные представления",
-      "singleWorkspace": "Одно рабочее место",
-      "subtitle": "Свертка рабочих пространств на уровне учетной записи.",
-      "workspaces": "Рабочие места"
+      "singleWorkspace": "Одно рабочее пространство",
+      "subtitle": "Сводка ваших рабочих пространств на уровне аккаунта.",
+      "workspaces": "Рабочие пространства"
     }
   },
   "imports": {
     "errors": {
-      "approveFailed": "Не удалось утвердить и импортировать.",
-      "chooseFile": "Выберите файл CSV для загрузки.",
-      "enterUrl": "Введите URL-адрес CSV.",
-      "fetchUrlFailed": "Не удалось получить URL-адрес CSV.",
-      "mapAtLeastOne": "Сопоставьте по крайней мере один исходный столбец с целевым полем.",
-      "noRows": "Файл или URL-адрес не содержит ни одной строки.",
-      "openFromCompany": "Откройте эту страницу из рабочего пространства компании.",
+      "approveFailed": "Не удалось одобрить и импортировать.",
+      "chooseFile": "Выберите CSV‑файл для загрузки.",
+      "enterUrl": "Введите URL CSV‑файла.",
+      "fetchUrlFailed": "Не удалось получить CSV‑URL.",
+      "mapAtLeastOne": "Сопоставьте хотя бы один столбец источника с полем назначения.",
+      "noRows": "Файл или URL не содержат строк.",
+      "openFromCompany": "Откройте эту страницу из workspace компании.",
       "parseFailed": "Не удалось разобрать CSV‑файл."
     },
     "fields": {
       "countryCode": "Код страны",
-      "email": "Эл. почта",
+      "email": "Электронная почта",
       "externalCustomerId": "Внешний ID клиента",
       "firstName": "Имя",
       "lastName": "Фамилия",
       "name": "Имя",
       "phone": "Телефон",
-      "preferredLanguage": "Предпочитаемый язык",
+      "preferredLanguage": "Предпочтительный язык",
       "subscriptionDate": "Дата подписки"
     },
     "mapping": {
       "approvalDescription": "Подтвердите сопоставление и запустите импорт. Клиенты будут созданы или обновлены в активном рабочем пространстве.",
-      "approvalOutcome": "После одобрения строки будут добавлены как клиенты в.",
+      "approvalOutcome": "После одобрения строки будут добавлены как клиенты в {name}.",
       "approveAndImport": "Одобрить и импортировать",
       "backToPreview": "Назад к предпросмотру",
       "confidence": "Уверенность",
@@ -644,18 +644,18 @@
       "targetField": "Поле назначения"
     },
     "preview": {
-      "backToSource": "Вернуться к источнику",
+      "backToSource": "Назад к источнику",
       "continueToMapping": "Перейти к сопоставлению",
-      "headers": "заголовков",
-      "rowsLoaded": "строк загружено",
-      "rowsShown": "Показаны первые строк",
+      "headers": "{count} заголовков",
+      "rowsLoaded": "{count} строк загружено",
+      "rowsShown": "Показаны первые {count} строк",
       "unmapped": "Не сопоставлено"
     },
     "progress": {
-      "completedRatio": "Выполнено из",
-      "currentRow": "Строка",
-      "description": "Импортируем строки в. Вы можете покинуть эту страницу — импорт продолжится в фоновом режиме.",
-      "eyebrow": "Импорт в процессе",
+      "completedRatio": "Выполнено {done} из {total}",
+      "currentRow": "Строка {row}",
+      "description": "Импортируем строки в {name}. Вы можете покинуть эту страницу — импорт продолжится в фоновом режиме.",
+      "eyebrow": "Импорт выполняется",
       "preparing": "Подготовка импорта...",
       "title": "Импорт клиентов"
     },
@@ -664,7 +664,7 @@
       "mappedFields": "Сопоставленные поля",
       "progress": "Прогресс",
       "rowsLoaded": "Строк загружено",
-      "stepNumber": "Шаг {number}",
+      "stepNumber": "Шаг {step}",
       "title": "Прогресс импорта"
     },
     "source": {
@@ -683,7 +683,7 @@
       "mapping": {
         "label": "Сопоставление",
         "summary": "Сопоставьте каждый столбец с полем CRM.",
-        "title": "Сопоставьте столбцы"
+        "title": "Сопоставьте ваши столбцы"
       },
       "preview": {
         "label": "Предпросмотр",
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "Вернуться к обзору",
-      "companyIdLabel": "ID компании:",
-      "description": "Импортируйте данные клиентов в из CSV‑файла или по URL.",
+      "companyIdLabel": "ID компании: {id}",
+      "description": "Импортируйте данные клиентов в {name} из CSV‑файла или по URL.",
       "eyebrow": "Импорт рабочего пространства",
-      "selectedCompany": "Активный Workspace:",
-      "stepLabel": "Шаг {step}"
+      "selectedCompany": "Активный Workspace: {name}",
+      "stepLabel": "Шаг {step} из {total}"
     }
   },
   "integrations": {
@@ -729,7 +729,7 @@
       "createTitle": "Создать новый API‑ключ",
       "createdHeading": "API‑ключ создан",
       "creating": "Создание…",
-      "description": "Управляйте API‑ключами для <strong> </strong>.",
+      "description": "Управляйте API‑ключами для <strong>{name}</strong>.",
       "empty": "API‑ключи пока отсутствуют.",
       "envLive": "Рабочая",
       "envTest": "Тест",
@@ -760,7 +760,7 @@
     "catalog": {
       "accessDenied": "Доступ запрещён",
       "accessDeniedDescription": "У вас нет доступа к интеграциям в этом рабочем пространстве.",
-      "configuringCompany": "Настройка интеграций для <strong> </strong>.",
+      "configuringCompany": "Настройка интеграций для <strong>{name}</strong>.",
       "loadFailed": "Не удалось загрузить каталог интеграций.",
       "loading": "Загрузка интеграций…",
       "noAccess": "Нет доступа к рабочему пространству",
@@ -771,7 +771,7 @@
       "switchCompany": "Сменить рабочее пространство"
     },
     "companyPicker": {
-      "description": "Выберите рабочее пространство, чтобы управлять его интеграциями.",
+      "description": "Выберите рабочее пространство для управления его интеграциями.",
       "empty": "У вас пока нет рабочих пространств. <link>Создать</link>.",
       "listAria": "Список рабочих пространств",
       "loadFailed": "Не удалось загрузить рабочие пространства.",
@@ -787,8 +787,8 @@
     "detail": {
       "backLink": "Назад к интеграциям",
       "backToCatalog": "Назад к каталогу",
-      "configuringCompany": "Настройка <strong> </strong> для <strong> </strong>.",
-      "noCompany": "Выберите рабочее пространство, чтобы настроить <strong> </strong>.",
+      "configuringCompany": "Настройка <strong>{integration}</strong> для <strong>{company}</strong>.",
+      "noCompany": "Выберите рабочее пространство, чтобы настроить <strong>{integration}</strong>.",
       "restrictedDescription": "У вас нет прав для просмотра этой интеграции.",
       "restrictedTitle": "Ограничено",
       "slugTitles": {
@@ -828,7 +828,7 @@
       "inbound": "Входящий URL",
       "instanceId": "ID экземпляра",
       "instanceIdPlaceholder": "Например, 1101000001",
-      "latency": "Задержка: мс",
+      "latency": "Задержка: {ms} мс",
       "loadFailed": "Не удалось загрузить конфигурацию Green API.",
       "loading": "Загрузка конфигурации Green API...",
       "rotateConfirm": "Повернуть токен входящего webhook? Существующие webhook‑ы потребуется обновить.",
@@ -838,9 +838,9 @@
       "tokenRotated": "Токен webhook повернут.",
       "updateCredentials": "Обновить учётные данные",
       "updatedLabel": "Обновлено",
-      "upstreamStatus": "Статус upstream:",
+      "upstreamStatus": "Статус upstream: {status}",
       "urlCopied": "URL скопирован в буфер обмена.",
-      "webhookSectionDescription": "Настройте ваш Green API для доставки входящих сообщений на <code> </code>.",
+      "webhookSectionDescription": "Настройте ваш Green API для доставки входящих сообщений на <code>{url}</code>.",
       "webhookSectionTitle": "Входящий webhook"
     },
     "hide": "Скрыть",
@@ -853,7 +853,7 @@
       "authHmacOrBearer": "HMAC or Bearer",
       "authHmacShort": "HMAC",
       "authMode": "Режим аутентификации",
-      "authModeHint": "Выберите, как Lisent аутентифицирует входящие запросы. HMAC подписывает полезную нагрузку; Bearer отправляет статический токен.",
+      "authModeHint": "Выберите способ, которым Lisent будет аутентифицировать входящие запросы из вашего интранета. <strong>HMAC</strong> подписывает полезную нагрузку; <strong>Bearer</strong> отправляет статический токен.",
       "bearerCopied": "Токен Bearer скопирован.",
       "bearerExampleTitle": "Пример Bearer",
       "bearerToken": "Токен Bearer",
@@ -862,10 +862,10 @@
       "copyUrl": "Скопировать URL",
       "createIntegration": "Создать интеграцию",
       "createdMessage": "Интеграция интранета создана.",
-      "credentialsDescription": "Используйте эти учётные данные для аутентификации входящих webhook-запросов.",
+      "credentialsDescription": "Используйте эти учётные данные для аутентификации вызовов к <code>{url}</code>.",
       "credentialsTitle": "Учётные данные",
       "deliveries": "Доставки",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "Отключить эту интеграцию интранета? Входящие вызовы начнут давать сбои.",
       "disconnectDescription": "Это отзовет все токены и прекратит приём входящих запросов.",
       "disconnectIntegration": "Отключить интеграцию",
@@ -873,7 +873,7 @@
       "entityLabel": "Сущность",
       "errorLabel": "Ошибка",
       "eventLabel": "Событие",
-      "fieldMappingDescription": "Сопоставьте входящие поля со свойствами CRM с помощью выражений JMESPath. Отправьте JSON-объект, значения которого — строки JMESPath.",
+      "fieldMappingDescription": "Сопоставьте входящие поля со свойствами CRM. Отправьте JSON, например <code>{example}</code>.",
       "fieldMappingLabel": "Сопоставление полей",
       "fieldMappingTitle": "Сопоставление полей",
       "generateHmac": "Создать секрет HMAC",
@@ -883,7 +883,7 @@
       "hmacSecret": "Секрет HMAC",
       "hmacSecretHint": "Используйте этот секрет для вычисления <code>X-Lisent-Signature</code> в исходящих запросах.",
       "inactive": "Неактивно",
-      "inboundDescription": "Отправляйте полезные нагрузки на URL выше, чтобы импортировать лиды из вашего интранета.",
+      "inboundDescription": "Отправляйте полезные нагрузки на <code>{url}</code>, чтобы импортировать лиды из вашей интранет‑системы.",
       "inboundToken": "Токен входящего URL",
       "inboundTokenHint": "Этот токен является частью входящего URL — храните его в секрете.",
       "inboundUrl": "Входящий URL",
@@ -923,7 +923,7 @@
         "savedNotice": "Исходящий webhook сохранён.",
         "secretConfigured": "Настроено",
         "secretNotSet": "Не задано — сгенерируйте его перед отправкой событий.",
-        "secretRotatedAt": "(повернут )",
+        "secretRotatedAt": "(повернут {time})",
         "secretRotatedNotice": "Секрет подписи обновлён. Открытый текст отображается только один раз.",
         "selectAtLeastOne": "Выберите хотя бы один статус, или отметьте 'All status changes'.",
         "signingSecretLabel": "Секрет подписи (HMAC-SHA256)",
@@ -971,7 +971,7 @@
       "saved": "Сохранено.",
       "secondaryBearerRevoked": "Вторичный bearer token отозван.",
       "secondarySecretRevoked": "Вторичный HMAC secret отозван.",
-      "secondaryTokenRevoked": "Вторичный входящий токен отозван.",
+      "secondaryTokenRevoked": "Вторичный токен входящего URL отозван.",
       "sendPayloads": "Отправить полезные нагрузки",
       "target": "Цель",
       "targetEntity": "Целевая сущность",
@@ -979,6 +979,38 @@
       "urlCopied": "URL скопирован в буфер обмена."
     },
     "loadingProfile": "Загрузка профиля…",
+    "mailchimp": {
+      "benefitAudiences": "Управляйте аудиториями Mailchimp (списками), участниками, сегментами и тегами прямо из CRM.",
+      "benefitCampaigns": "Создавайте, планируйте и отправляйте email‑кампании — а также дублируйте и тестово отправляйте их перед запуском.",
+      "benefitPerUser": "Подключение для каждого пользователя: каждый оператор использует свой аккаунт Mailchimp.",
+      "benefitReports": "Просматривайте отчёты по открытию, кликам, отказам и географии, не выходя из CRM.",
+      "cancel": "Отмена",
+      "cardDescription": "Подключение Mailchimp для каждого оператора. Управляйте аудиториями, передавайте контакты CRM, создавайте кампании и просматривайте отчёты, не выходя из CRM. Дизайнер Customer Journey остаётся в Mailchimp.",
+      "cardName": "Mailchimp",
+      "connectButton": "Подключить Mailchimp",
+      "connectCta": "Подключить Mailchimp",
+      "connectDescription": "Мы откроем OAuth‑попап Mailchimp. Вы авторизуете Lisent CRM, мы получаем токен доступа через Nango, и ваши аудитории появятся в модуле Маркетинг → Email.",
+      "connectFailed": "Не удалось завершить подключение Mailchimp. Попробуйте ещё раз.",
+      "connectTitle": "Подключите ваш аккаунт Mailchimp",
+      "connected": "Аккаунт Mailchimp подключён.",
+      "connectedAs": "Подключено как {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "Открываем Mailchimp…",
+      "dcLabel": "Дата‑центр",
+      "disconnect": "Отключить",
+      "disconnectConfirm": "Отключить ваш аккаунт Mailchimp от этого рабочего пространства? Аудитории и кампании останутся в Mailchimp; будет удалена только связь с CRM.",
+      "failed": "Не удалось",
+      "lastPushLabel": "Последняя отправка",
+      "loadFailed": "Не удалось загрузить подключение к Mailchimp.",
+      "nangoNotConfigured": "OAuth Mailchimp ещё не настроен на стороне сервера. Попросите администратора добавить NANGO_SECRET_KEY и конфигурацию провайдера Mailchimp в Nango.",
+      "openEmailModule": "Открыть модуль Email",
+      "openInMailchimp": "Открыть в Mailchimp",
+      "pushCountLabel": "Отправленные контакты (успешно / всего)",
+      "reconnect": "Переподключить",
+      "scopedToCompany": "Это подключение принадлежит вам, ограничено {name}. Другие операторы видят здесь свои подключения.",
+      "statusActive": "Активно",
+      "statusPaused": "Приостановлено",
+      "totalSubscribersLabel": "Всего подписчиков"
+    },
     "meta": {
       "active": "Активно",
       "addMappingRow": "Добавить сопоставление полей",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "Сопоставьте поля генерации лидов Meta с колонками лидов CRM. Оставьте пустым, чтобы использовать значения по умолчанию (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Сопоставление полей",
       "finalizeButton": "Завершить настройку",
-      "followersCount": "подписчиков",
+      "followersCount": "{count} подписчиков",
       "formAllSubscribedHint": "Формы не выбраны → все формы на этой странице будут подписаны (по умолчанию Meta).",
       "formIdsHint": "Разделяются запятыми. Пусто = получать все формы на этой странице.",
       "formIdsLabel": "ID форм",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "Поиск форм…",
       "formPickerTitle": "Выберите формы лидов",
       "forms": "Формы",
-      "formsShownCount": "из",
+      "formsShownCount": "{shown} из {total}",
       "hmacSecretHint": "Сохраните это сейчас — больше не покажем открытый текст.",
       "hmacSecretLabel": "Секрет HMAC",
       "hmacSecretReveal": "Показать один раз",
       "inboundUrlHint": "n8n отправляет запрос сюда после получения полного лида из Meta. Вам не нужно вставлять это куда-либо.",
       "inboundUrlLabel": "Входящий URL CRM (используется n8n)",
       "last7dCount": "{count} за 7 дн",
-      "lastLeadAgo": "Последний лид",
+      "lastLeadAgo": "Последний лид {when}",
       "leads7d": "{count} лидов за 7 дн",
       "loadFailed": "Не удалось загрузить интеграцию Meta.",
       "metaFieldHeader": "Поле Meta",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "Страницы не найдены",
       "pagePickerSearch": "Поиск страниц…",
       "pagePickerTitle": "Выберите страницу Facebook",
-      "pagesShownCount": "из",
+      "pagesShownCount": "{shown} из {total}",
       "paused": "Приостановлено",
       "popupBlocked": "Браузер заблокировал всплывающее окно OAuth. Разрешите всплывающие окна для этого сайта и попробуйте снова.",
       "recentDeliveriesEmpty": "Пока нет доставок.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "Черновик",
       "statusPaused": "Приостановлен",
       "statusUnknown": "Неизвестно",
-      "subscribedAt": "Подписано",
+      "subscribedAt": "Подписано {when}",
       "testLeadButton": "Отправить тестовый Lead",
       "testLeadDescription": "Создаёт payload в формате Meta и пропускает его через тот же путь вставки, что и в продакшн. Доступно только при включённом режиме mock.",
       "testLeadFailed": "Не удалось создать тестовый Lead.",
@@ -1159,14 +1191,14 @@
       "sectorLabel": "Сектор",
       "tabs": {
         "aiConfig": "Настройки ИИ",
-        "apiKeys": "API-ключи",
+        "apiKeys": "API‑ключи",
         "channels": "Каналы",
-        "fallback": "Запасной",
-        "leadWebhook": "Webhook лида",
+        "fallback": "Резервный вариант",
+        "leadWebhook": "Lead webhook",
         "overview": "Обзор",
         "rag": "RAG",
         "usage": "Использование",
-        "v1Config": "Настройки V1"
+        "v1Config": "V1 config"
       },
       "thresholdHint": "Leads, набравшие балл выше или равный этому порогу, помечаются как квалифицированные.",
       "webhookUrlLabel": "Webhook URL"
@@ -1174,10 +1206,10 @@
     "rag": {
       "chunkLabel": "Фрагмент",
       "chunksColumn": "Фрагменты",
-      "description": "База знаний для <strong> </strong>. Загрузите документы, к которым может обращаться ИИ.",
-      "ingestedDescription": "Документы, находящиеся в базе знаний для <strong> </strong>.",
+      "description": "База знаний для <strong>{name}</strong>. Загрузите документы, к которым может обращаться ИИ.",
+      "ingestedDescription": "Документы, находящиеся в базе знаний для <strong>{name}</strong>.",
       "ingestedDocuments": "Загруженные документы",
-      "ingestionExampleDescription": "Отправьте POST‑запрос на <code> </code> с JSON‑тело, содержащим <code>title</code>, <code>content</code> и необязательный <code>metadata</code>.",
+      "ingestionExampleDescription": "Отправьте POST‑запрос на <code>{url}</code> с JSON‑тело, содержащим <code>title</code>, <code>content</code> и необязательный <code>metadata</code>.",
       "ingestionExampleTitle": "Пример загрузки",
       "loadConfigFailed": "Не удалось загрузить конфигурацию RAG.",
       "loadContentFailed": "Не удалось загрузить содержимое документа.",
@@ -1221,9 +1253,9 @@
     },
     "subComponent": {
       "configured": "Настроено",
-      "configuredAria": "{label} настроен",
+      "configuredAria": "{name} настроен",
       "notSet": "Не задано",
-      "notSetAria": "{label} не задан"
+      "notSetAria": "{name} не задан"
     },
     "testConnection": "Проверить соединение",
     "testing": "Проверка...",
@@ -1231,7 +1263,7 @@
     "urlCopied": "URL скопирован в буфер обмена.",
     "usage": {
       "allMetrics": "Все метрики",
-      "description": "Использование и ограничения скорости для <strong> </strong>.",
+      "description": "Использование и ограничения скорости для <strong>{name}</strong>.",
       "loadFailed": "Не удалось загрузить данные об использовании.",
       "loading": "Загрузка данных об использовании...",
       "metricColumn": "Метрика",
@@ -1242,7 +1274,7 @@
         "champExtractions": "Извлечения CHAMP",
         "kbDocuments": "Документы KB",
         "leadsIngested": "Внесённые лиды",
-        "leadsQualified": "Квалифицированные лиды",
+        "leadsQualified": "Квалифицированные Leads",
         "llmTokens": "Токены LLM",
         "sseSessions": "SSE‑сессии",
         "webhookDeliveries": "Доставки webhook",
@@ -1280,7 +1312,7 @@
       "calendlyDescription": "Опциональная ссылка Calendly, которую помощник может предлагать для бронирования. Используется в передаче встреч <code>v1</code>.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Ссылка Calendly",
-      "description": "Настройте поведение квалификатора <code>v1</code> для <strong> </strong>.",
+      "description": "Настройте поведение квалификатора <code>v1</code> для <strong>{name}</strong>.",
       "frameworkDescription": "Выберите фреймворк квалификации, который помощник использует для извлечения сигналов.",
       "frameworkTitle": "Фреймворк квалификации",
       "loadFailed": "Не удалось загрузить конфигурацию v1.",
@@ -1304,7 +1336,7 @@
       "configured": "Настроено",
       "currentLabel": "Текущий",
       "customPatternsLabel": "Пользовательские шаблоны (по одному в строке)",
-      "description": "Настройте доставку webhook для <strong> </strong>.",
+      "description": "Настройте доставку webhook для <strong>{name}</strong>.",
       "destinationHint": "Lisent отправляет события на этот URL с подписанным payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "URL назначения",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Минимальная нагрузка",
       "payloadMode": "Режим нагрузки",
       "rotateSecret": "Сменить секрет",
-      "rotatedAt": "Сменено",
+      "rotatedAt": "Сменено {time}",
       "saveEventSelection": "Сохранить выбор событий",
       "saveUrl": "Сохранить URL",
       "secretRotated": "Секрет подписи сменён.",
@@ -1383,18 +1415,18 @@
       "title": "Назначить выбранные лиды"
     },
     "bulkBar": {
-      "ariaSelected": "лидов выбрано",
+      "ariaSelected": "{count} лидов выбрано",
       "assign": "Назначить",
       "clearSelection": "Снять выделение",
       "delete": "Удалить",
       "exportCsv": "Экспорт CSV",
       "exportPdf": "Экспортировать PDF",
-      "selected": "выбрано"
+      "selected": "{count} выбрано"
     },
     "bulkDelete": {
       "confirm": "Удалить выбранные",
       "deleting": "Удаляем…",
-      "description": "Это навсегда удалит лидов. Это действие нельзя отменить.",
+      "description": "Это навсегда удалит {count} лидов. Это действие нельзя отменить.",
       "title": "Удалить выбранные лиды?"
     },
     "convertModal": {
@@ -1449,7 +1481,7 @@
       "convert": "Конвертировать",
       "convertedCustomer": "Конвертированный клиент",
       "convertedCustomerId": "ID конвертированного клиента",
-      "convertedDeal": "Конвертированная сделка",
+      "convertedDeal": "Конвертированная Deal",
       "created": "Создано",
       "currentStatus": "Текущий статус",
       "customerId": "ID клиента",
@@ -1470,12 +1502,12 @@
       "quickFacts": "Краткие сведения",
       "roundRobin": "Распределение по кругу",
       "scheduleCall": "Запланировать звонок",
-      "source": "Источник",
+      "source": "Source",
       "starting": "Запуск…",
       "status": "Статус",
       "tabs": {
         "activity": "Активность",
-        "deals": "Сделки",
+        "deals": "Deals",
         "notes": "Заметки",
         "overview": "Обзор"
       },
@@ -1515,7 +1547,7 @@
       "allAssignees": "Все назначенные",
       "allSources": "Все источники",
       "byCampaign": "Отфильтровано по кампании: {name}",
-      "byCampaignCount": "Показано из лидов",
+      "byCampaignCount": "Показано {shown} из {total} лидов",
       "clearCampaign": "Сбросить фильтр"
     },
     "formModal": {
@@ -1567,17 +1599,17 @@
     },
     "pdf": {
       "commentByOn": "{author} · {date}",
-      "commentsHeader": "Comments",
+      "commentsHeader": "Комментарии",
       "createdAt": "Создано",
       "email": "Эл. почта",
-      "exportedAt": "leads · Экспортировано",
+      "exportedAt": "{count} leads · Экспортировано {date}",
       "options": {
-        "confirm": "Export PDF",
-        "description": "Choose what to include in the export of {count} selected leads.",
-        "exporting": "Exporting...",
-        "includeComments": "Include lead comments",
-        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
-        "title": "Export leads to PDF"
+        "confirm": "Экспорт PDF",
+        "description": "Выберите, что включить в экспорт {count} выбранных лидов.",
+        "exporting": "Экспорт…",
+        "includeComments": "Включить комментарии к лидам",
+        "includeCommentsHint": "Добавляет раздел со всеми комментариями команды для каждого выбранного лида. Может занять больше времени для генерации.",
+        "title": "Экспортировать лиды в PDF"
       },
       "pageOf": "Страница {current} из {total}",
       "title": "Leads"
@@ -1604,9 +1636,9 @@
     },
     "success": {
       "aiStarted": "AI‑квалификация начата.",
-      "bulkAssignPartial": "Назначено из лидов.",
-      "bulkAssigned": "лидов назначено.",
-      "bulkPartial": "Удалено из лидов.",
+      "bulkAssignPartial": "Назначено {assigned} из {total} лидов.",
+      "bulkAssigned": "{count} лидов назначено.",
+      "bulkPartial": "Удалено {deleted} из {total} лидов.",
       "bulkRemoved": "{count} лидов удалено.",
       "converted": "Лид конвертирован.",
       "convertedWithDeal": "Лид конвертирован с сделкой.",
@@ -1623,12 +1655,12 @@
       "assignee": "Ответственный",
       "empty": "Нет лидов, соответствующих текущим фильтрам.",
       "name": "Имя",
-      "openAIScore": "Оценка Open AI для {score}",
+      "openAIScore": "Оценка Open AI для {name}",
       "phone": "Телефон",
       "rowActions": "Действия строки",
       "selectAll": "Выбрать все лиды",
       "selectRow": "Выбрать Lead {name}",
-      "source": "Источник",
+      "source": "Source",
       "status": "Статус",
       "value": "Сумма",
       "viewAIDetails": "Просмотреть детали AI"
@@ -1644,10 +1676,204 @@
       "searchAria": "Поиск lead",
       "searchPlaceholder": "Поиск lead…",
       "showOnlyUnassigned": "Показать только без ответственного",
-      "source": "Источник"
+      "source": "Source"
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Импортировать таблицу",
+        "newAgency": "Новое агентство",
+        "refresh": "Обновить"
+      },
+      "createModal": {
+        "editTitle": "Редактировать {name}",
+        "newSubtitle": "Заполняйте поля шаг за шагом — по одному‑двум на экран.",
+        "newTitle": "Добавить новое агентство",
+        "saveChanges": "Сохранить изменения",
+        "saveError": "Не удалось сохранить агентство.",
+        "saving": "Сохранение…",
+        "submit": "Создать агентство"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "Человек, с которым вы обычно общаетесь в агентстве.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "Необязательно — заполняет LNAME, когда агентство отправляется в аудиторию Mailchimp.",
+          "fieldLabel": "Имя контакта",
+          "title": "Основной контакт"
+        },
+        "name": {
+          "description": "Отображаемое название, которое будет узнавать ваша команда.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Отображается в списке каталога и в любой рассылке кампании.",
+          "fieldLabel": "Название",
+          "title": "Название агентства"
+        },
+        "notes": {
+          "description": "Любая другая информация, которую стоит запомнить об этом агентстве.",
+          "fieldHelp": "Свободный текст — не отправляется в Mailchimp, виден только внутри CRM.",
+          "fieldLabel": "Заметки",
+          "fieldPlaceholder": "Продление в марте. Предпочитает WhatsApp для быстрых обновлений.",
+          "title": "Заметки"
+        },
+        "reach": {
+          "description": "Требуется email, если вы хотите позже отправить эту запись в Mailchimp.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Используется как уникальный ключ Mailchimp при отправке.",
+          "emailLabel": "Электронная почта",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Свободный ввод — укажите код страны, если он известен.",
+          "phoneLabel": "Телефон",
+          "title": "Как связаться"
+        },
+        "status": {
+          "description": "Active = в настоящее время задействован. Inactive = приостановлен. Expired = срок контракта истёк.",
+          "fieldHelp": "Вы можете изменить это в любой момент — используется для фильтрации каталога.",
+          "fieldLabel": "Статус",
+          "title": "Статус"
+        },
+        "tags": {
+          "description": "Теги передаются в Mailchimp, если вы позже отправите это агентство.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Разделяйте запятыми или точками с запятой. Создаётся при первой отправке.",
+          "fieldLabel": "Теги",
+          "title": "Теги"
+        },
+        "window": {
+          "description": "Обе границы необязательны — оставьте одну сторону пустой для бессрочного или открытого периода.",
+          "endsHelp": "Когда отношения заканчиваются.",
+          "endsLabel": "Окончание",
+          "startsHelp": "Когда отношения начинаются.",
+          "startsLabel": "Начало",
+          "title": "Окно контракта"
+        }
+      },
+      "deleteConfirm": "Удалить {name}?\n\nЭто удалит агентство из CRM. Подписчики Mailchimp, созданные из этой строки, не будут затронуты.",
+      "deleteError": "Не удалось удалить агентство.",
+      "empty": "Агентств пока нет. Добавьте одно или импортируйте таблицу.",
+      "filter": {
+        "apply": "Применить",
+        "clear": "Очистить фильтры",
+        "searchPlaceholder": "Поиск по имени, контакту, email",
+        "statusActive": "Активный",
+        "statusAll": "Все статусы",
+        "statusExpired": "Истёкший",
+        "statusInactive": "Неактивный"
+      },
+      "import": {
+        "accepts": "Поддерживает CSV, Excel (xlsx / xls / xlsm / xlsb) и OpenDocument (ods / fods). Единственный обязательный столбец — Name.",
+        "close": "Закрыть",
+        "complete": "Импорт завершён",
+        "completeSummary": "Создано {created} из {total} строк.",
+        "defaultStatus": "Статус по умолчанию (для строк без него)",
+        "done": "Готово",
+        "empty": "Файл выглядит пустым.",
+        "errorPrefix": "Не удалось разобрать файл",
+        "errorsHeader": "{count} строк содержат ошибки:",
+        "errorsMore": "… ещё {count}",
+        "failed": "Импорт не удался.",
+        "importBtn": "Импортировать",
+        "importing": "Импортируется…",
+        "label": {
+          "contact": "Контактное лицо",
+          "email": "Email",
+          "ends": "Окончание (YYYY-MM-DD)",
+          "name": "Название (обязательно)",
+          "notes": "Заметки",
+          "phone": "Телефон",
+          "starts": "Начало (YYYY-MM-DD)",
+          "status": "Столбец статуса",
+          "tags": "Теги (через запятую/точку с запятой)"
+        },
+        "needName": "Сначала выберите столбец с названием агентства.",
+        "noValid": "Нет строк с непустым названием.",
+        "notUsed": "— (не используется) —",
+        "pickAnother": "Выберите другой файл",
+        "pickHint": "Нажмите, чтобы выбрать. Будет прочитан только первый лист.",
+        "pickLabel": "Выберите таблицу",
+        "subtitle": "Поддерживает CSV, Excel и OpenDocument‑таблицы.",
+        "title": "Импортировать агентства из таблицы",
+        "loaded": "Загружено {rowCount, plural, one {# строка} other {# строк}} с {colCount, plural, one {# столбцом} other {# столбцами}}. Сопоставьте каждое поле CRM со столбцом таблицы, из которого оно должно браться."
+      },
+      "list": {
+        "agencies": "Агентства",
+        "loading": "Загрузка агентств…"
+      },
+      "loadError": "Не удалось загрузить агентства.",
+      "noCompany": "Выберите компанию на панели управления, чтобы управлять её агентствами.",
+      "page": {
+        "next": "Следующая страница",
+        "perPage": "На страницу",
+        "prev": "Предыдущая страница",
+        "range": "{from}–{to} из {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Закрыть",
+        "defaultStatus": "Статус по умолчанию для новых подписчиков",
+        "disabledHint": "Выберите строки на этой странице для отправки (отправка между страницами не поддерживается).",
+        "done": "Готово",
+        "extraTagsHelp": "Добавляется к каждому отправленному подписчику поверх собственных тегов агентства. Разделяются запятыми или точкой с запятой.",
+        "extraTagsLabel": "Дополнительные теги",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "Отправка не удалась.",
+        "loadAudiencesFailed": "Не удалось загрузить аудитории Mailchimp.",
+        "loading": "Загрузка…",
+        "mailchimpAudience": "Аудитория Mailchimp",
+        "noAudiences": "— Аудиторий пока нет —",
+        "noEmail": "У выбранных агентств нет адреса электронной почты.",
+        "notConnected": "Mailchimp ещё не подключён для этой учётной записи. Подключите его в Marketing → Email → Settings, затем вернитесь.",
+        "patchExisting": "Обновить существующих подписчиков (рекомендовано). Повторный запуск этой отправки обновит поля слияния вместо ошибки при дублировании.",
+        "pickAudience": "Сначала выберите аудиторию.",
+        "pushBtn": "Отправить в Mailchimp",
+        "pushing": "Отправка…",
+        "result": {
+          "header": "Отправка завершена",
+          "summary": "{created} создано · {updated} обновлено · {skipped} пропущено · {errors} ошибок."
+        },
+        "skippedNotice": "{count, plural, one {{count} из выбранного агентства не имеет email и будет пропущено.} other {{count} из выбранных агентств не имеют email и будут пропущены.}}",
+        "statusPending": "В ожидании (двойное подтверждение)",
+        "statusSubscribed": "Подписан",
+        "statusUnsubscribed": "Отписан",
+        "subtitle": "Каждое агентство становится подписчиком Mailchimp. Имя сопоставляется с FNAME, контакт — с LNAME, телефон — с PHONE. Тег {tag} добавляется автоматически.",
+        "summary": "{eligible} из {total} будет отправлено.",
+        "title": "{count, plural, one {Отправить {count} агентство в Mailchimp} other {Отправить {count} агентств в Mailchimp}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "Удалить",
+          "edit": "Редактировать"
+        },
+        "ariaSelect": "Выбрать {name}",
+        "fromDate": "С {date}",
+        "untilDate": "По {date}"
+      },
+      "select": {
+        "allMatchingSelected": "Выбрано всех {total}, соответствующих текущему фильтру",
+        "ariaAll": "Выбрать всё на этой странице",
+        "bulkDelete": "Удалить {count}",
+        "bulkDeleting": "Удаляется…",
+        "clear": "Очистить",
+        "deleteFailed": "{failed} из {total} не удалось удалить:\n{detail}",
+        "deleteFailedMore": "…и ещё {count}",
+        "justThisPage": "Выбрать только эту страницу ({count})",
+        "pageFullySelected": "Все {count} на этой странице выбраны.",
+        "pageSelectedCount": "{count} выбрано на этой странице",
+        "selectAllMatching": "Выбрать все {total}, соответствующие текущему фильтру",
+        "confirmDelete": "Удалить {count, plural, one {# агентство} other {# агентств}}?\n\nЭто действие нельзя отменить."
+      },
+      "table": {
+        "actions": "Действия",
+        "contact": "Контакт",
+        "emailPhone": "Электронная почта / Телефон",
+        "name": "Название",
+        "status": "Статус",
+        "tags": "Теги",
+        "window": "Окно"
+      },
+      "title": "Агентства · {total}"
+    },
     "authBody": "Вход, регистрация и проверка сессии через <code>/api/auth</code>",
     "authTitle": "Аутентификация",
     "bffBody": "Вызовы из браузера должны останавливаться на этом приложении. Надёжные серверные маршруты будут обращаться к внутреннему сервису CRM.",
@@ -1670,12 +1896,12 @@
       "pickWorkspace": "Выберите рабочее пространство, чтобы увидеть его кампании.",
       "sources": {
         "form": "Форма",
-        "google_sheets": "Google Таблицы",
+        "google_sheets": "Google Sheets",
         "intranet": "Intranet",
         "manual": "Вручную",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (Test)",
-        "partner_crm": "CRM партнёра",
+        "partner_crm": "Partner CRM",
         "partner_intranet": "Intranet",
         "whatsapp": "WhatsApp",
         "widget": "Widget"
@@ -1696,6 +1922,565 @@
     "ctaCreateWorkspace": "Создать доступ к workspace",
     "ctaOpenShell": "Открыть защищённую оболочку",
     "currentStack": "Текущий стек",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "Добавить участника",
+          "addMemberHint": "Добавьте одного подписчика вручную, указав email, имя и теги",
+          "pushFromCRM": "Передать из CRM",
+          "pushFromCRMHint": "Выберите лиды CRM → пакетно добавить/обновить как члены Mailchimp",
+          "uploadCsv": "Загрузить таблицу",
+          "uploadCsvHint": "CSV, Excel или ODS — столбец email (автосопоставление) + имя / телефон / теги"
+        },
+        "addMember": {
+          "body": "Добавляет или обновляет одного подписчика в {audience}. Повторное использование того же email обновит существующую запись.",
+          "errEmailRequired": "Требуется указать email.",
+          "failed": "Не удалось добавить участника.",
+          "fields": {
+            "email": "Email",
+            "firstName": "Имя",
+            "lastName": "Фамилия",
+            "phone": "Телефон",
+            "status": "Статус подписки",
+            "tags": "Теги (необязательно)",
+            "tagsHint": "Разделяются запятыми или точкой с запятой. При отсутствии будет создано."
+          },
+          "hideMore": "Скрыть дополнительные параметры",
+          "showMore": "Показать дополнительные параметры (телефон, статус, теги)",
+          "status": {
+            "pending": "В ожидании (двойное подтверждение)",
+            "subscribed": "Подписан",
+            "unsubscribed": "Отписан"
+          },
+          "submit": "Добавить участника",
+          "submitting": "Добавление…",
+          "title": "Добавить подписчика"
+        },
+        "col": {
+          "created": "Создано",
+          "members": "Участники",
+          "name": "Аудитория",
+          "openRate": "Уровень открытий"
+        },
+        "create": {
+          "addressFilled": "Адрес заполнен",
+          "addressRequired": "Требуется Mailchimp / CAN‑SPAM",
+          "body": "Mailchimp требует почтовый адрес (CAN‑SPAM) и отправителя по умолчанию. Позже их можно изменить в настройках аудитории.",
+          "contactSection": "Почтовый адрес",
+          "creating": "Создание аудитории…",
+          "errAddressRequired": "Mailchimp требует указать компанию, адрес, город и страну.",
+          "errFromRequired": "Требуются имя и email отправителя по умолчанию.",
+          "errNameRequired": "Аудитории требуется название.",
+          "failed": "Не удалось создать аудиторию.",
+          "fields": {
+            "address": "Улица",
+            "city": "Город",
+            "company": "Компания / название организации",
+            "country": "Страна",
+            "defaultSubject": "Тема кампании по умолчанию",
+            "fromEmail": "Email отправителя по умолчанию",
+            "fromName": "Имя отправителя по умолчанию",
+            "language": "Язык",
+            "name": "Имя аудитории",
+            "nameHint": "Выберите короткое и запоминающееся название — операторы видят его везде.",
+            "namePlaceholder": "Подписчики на рассылку",
+            "permissionReminder": "Напоминание о согласии",
+            "permissionReminderHint": "Отображается в нижнем колонтитуле письма. Mailchimp использует его для соответствия требованиям.",
+            "state": "Штат / регион",
+            "zip": "ZIP / почтовый индекс"
+          },
+          "hideAdvanced": "Скрыть расширенные параметры",
+          "showAdvanced": "Показать расширенные параметры",
+          "step1Body": "Выберите короткое, легко узнаваемое название — операторы видят его везде, где кампании ссылаются на этот список.",
+          "step1Title": "Назовите вашу аудиторию",
+          "step2Body": "Требуется Mailchimp и законом CAN‑SPAM. Используется для каждой кампании, отправляемой этой аудитории.",
+          "step2Title": "Почтовый адрес",
+          "step3Body": "Имя и email отправителя отображаются в каждой кампании, отправляемой этой аудитории. Позже их можно переопределить для отдельной кампании.",
+          "step3Title": "Отправитель по умолчанию",
+          "submit": "Создать аудиторию",
+          "title": "Новая аудитория"
+        },
+        "csv": {
+          "body": "Загрузите файл .csv для массового добавления или обновления подписчиков в {audience}. Требуется столбец Email; имена, фамилия, телефон и теги определяются автоматически.",
+          "done": "Импорт завершён.",
+          "errChunk": "Пакет не выполнен — частичный импорт. Смотрите количество ниже.",
+          "errEmailColRequired": "Укажите, какой столбец содержит адрес электронной почты.",
+          "errEmpty": "Файл не содержит строк.",
+          "errNoValidRows": "Нет строк с корректным email — проверьте сопоставление столбца Email.",
+          "errParse": "Не удалось разобрать CSV",
+          "import": "Начать импорт",
+          "importing": "Импорт… {processed} из {total}",
+          "map": {
+            "email": "Столбец Email",
+            "fname": "Столбец имени (необязательно)",
+            "lname": "Столбец фамилии (необязательно)",
+            "phone": "Столбец телефона (необязательно)",
+            "status": "Статус по умолчанию для новых подписчиков",
+            "tags": "Столбец тегов (необязательно)"
+          },
+          "pickFile": "Нажмите, чтобы выбрать файл таблицы",
+          "pickHint": "CSV, Excel (.xlsx / .xls) или OpenDocument (.ods). Читается первый лист; первая строка должна содержать заголовки столбцов.",
+          "stat": {
+            "created": "Создано",
+            "errors": "Ошибки",
+            "updated": "Обновлено"
+          },
+          "title": "Загрузить таблицу",
+          "updateExisting": "Также обновить существующих подписчиков (рекомендовано)",
+          "rowsDetected": "{count} строк готово к импорту."
+        },
+        "emptyBody": "Сначала создайте аудиторию в Mailchimp — она появится здесь после обновления.",
+        "emptyTitle": "Аудиторий пока нет",
+        "loadFailed": "Не удалось загрузить аудитории.",
+        "loading": "Загрузка аудиторий…",
+        "members": {
+          "close": "Закрыть",
+          "col": {
+            "email": "Email",
+            "lastChanged": "Последнее изменение",
+            "status": "Статус"
+          },
+          "empty": "В этой аудитории пока нет участников.",
+          "loadFailed": "Не удалось загрузить участников.",
+          "loading": "Загрузка участников…",
+          "next": "Далее",
+          "page": "Страница {current} из {total}",
+          "prev": "Назад",
+          "total": "Всего участников"
+        },
+        "newAudience": "Новая аудитория",
+        "push": {
+          "allStatuses": "Все статусы",
+          "body": "Выберите Lead из CRM → добавить их как участников {audience}. Lead без email пропускаются.",
+          "clear": "Очистить",
+          "col": {
+            "email": "Email",
+            "name": "Имя",
+            "outcome": "Результат",
+            "reason": "Причина",
+            "status": "Статус"
+          },
+          "empty": "Нет Lead, соответствующих текущим фильтрам.",
+          "errNoneSelected": "Выберите хотя бы один Lead.",
+          "failed": "Не удалось отправить leads.",
+          "loadFailed": "Не удалось загрузить leads CRM.",
+          "loading": "Загрузка leads…",
+          "noEmail": "Нет email — пропущено",
+          "searchPlaceholder": "Поиск имени, email, телефона, заметок…",
+          "selectAll": "Выбрать все видимые",
+          "selected": "{count} выбрано",
+          "stat": {
+            "created": "Создано",
+            "errors": "Ошибки",
+            "skipped": "Пропущено",
+            "updated": "Обновлено"
+          },
+          "submit": "Отправить {count} lead(s)",
+          "submitting": "Отправка…",
+          "title": "Отправка из CRM",
+          "visible": "{count} видимых"
+        },
+        "refresh": "Обновить",
+        "subtabs": {
+          "fields": "Поля",
+          "members": "Участники",
+          "segments": "Сегменты",
+          "tags": "Теги",
+          "webhooks": "Webhooks"
+        },
+        "title": "Аудитории",
+        "viewMembers": "Просмотреть участников"
+      },
+      "automations": {
+        "actionFailed": "Действие не удалось. См. ошибку Mailchimp выше.",
+        "actions": {
+          "pauseAll": "Приостановить все письма",
+          "startAll": "Запустить все письма"
+        },
+        "col": {
+          "audience": "Аудитория",
+          "emailsSent": "Отправленные письма",
+          "status": "Статус",
+          "title": "Рабочий процесс"
+        },
+        "designerHint": "Конструктор Customer Journey находится в пользовательском интерфейсе Mailchimp — Mailchimp не предоставляет возможность создания через API. Приостанавливайте/запускайте письма каждого рабочего процесса здесь, без переключения контекста.",
+        "emptyBody": "Создавайте рабочие процессы в конструкторе Customer Journey от Mailchimp; они появятся здесь.",
+        "emptyTitle": "Автоматизации пока отсутствуют",
+        "loadFailed": "Не удалось загрузить автоматизации.",
+        "loading": "Загрузка автоматизаций…",
+        "refresh": "Обновить",
+        "title": "Автоматизации / Customer Journeys"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "Наибольшее количество кликов",
+            "manual": "Выбрать вручную",
+            "opens": "Наибольшее количество открытий"
+          },
+          "fromNameB": "Имя отправителя — вариант B (необязательно)",
+          "fromNameBPlaceholder": "Другое имя отправителя",
+          "hint": "Mailchimp отправляет каждый вариант {percent}% вашей аудитории, ждёт {hours}h, затем отправляет победителя остальным.",
+          "subjectB": "Тема письма — вариант B",
+          "subjectBPlaceholder": "Альтернативная тема для теста",
+          "testPercent": "Тестовая аудитория %",
+          "toggle": "Запустить A/B‑тест этой кампании",
+          "toggleHint": "Отправьте две темы (и/или имена отправителей) небольшой группе, автоматически отправьте победителя остальным.",
+          "waitHours": "Ожидание перед выбором победителя (часы)",
+          "winnerCriteria": "Критерий победителя"
+        },
+        "actionFailed": "Ошибка действия. Смотрите ошибку Mailchimp выше.",
+        "actions": {
+          "delete": "Удалить",
+          "pause": "Приостановить",
+          "resume": "Возобновить",
+          "schedule": "Запланировать",
+          "send": "Отправить",
+          "test": "Отправить тест",
+          "unschedule": "Отменить планирование"
+        },
+        "audiencesEmpty": "Аудиторий пока нет — сначала создайте одну.",
+        "col": {
+          "audience": "Аудитория",
+          "created": "Создано",
+          "status": "Статус",
+          "subject": "Тема"
+        },
+        "confirmDelete": "Удалить эту кампанию навсегда? Недавние отчёты позже нельзя будет удалить.",
+        "confirmSend": "Отправить \"{subject}\" в {audience} сейчас? Это запустит мгновенную отправку и её нельзя будет отменить.",
+        "createBody": "Черновики сразу попадают в Mailchimp; отправку из строки выше можно выполнить, когда будете готовы.",
+        "createFailed": "Не удалось создать кампанию.",
+        "createSubmit": "Создать черновик",
+        "createTitle": "Новая email‑кампания",
+        "creating": "Создание черновика…",
+        "deleteFailed": "Не удалось удалить кампанию.",
+        "emptyBody": "Нажмите \"New campaign\", чтобы написать первую.",
+        "emptyTitle": "Пока нет кампаний",
+        "errAudienceRequired": "Сначала выберите аудиторию",
+        "errFromRequired": "Mailchimp требует указать имя отправителя и адрес для ответа",
+        "errSubjectRequired": "Укажите тему кампании",
+        "fields": {
+          "audience": "Аудитория",
+          "audiencePlaceholder": "Выберите аудиторию…",
+          "fromName": "Имя отправителя",
+          "hidePreview": "Скрыть предварительный просмотр",
+          "htmlBody": "HTML‑тело",
+          "htmlHint": "Mailchimp принимает чистый HTML или теги слияния, например {{FNAME|there}}. Редактор drag‑drop находится в интерфейсе Mailchimp",
+          "internalTitle": "Внутреннее название (необязательно)",
+          "internalTitlePlaceholder": "Используется для поиска в Mailchimp; по умолчанию берётся тема",
+          "replyTo": "Email для ответа",
+          "showPreview": "Показать предварительный просмотр",
+          "subject": "Тема",
+          "subjectPlaceholder": "То, что будет в почтовом ящике получателя",
+          "template": "Начать с шаблона (необязательно)",
+          "templateHint": "Выбор шаблона заполняет HTML‑тело ниже — вы всё равно сможете отредактировать его перед сохранением",
+          "templatePlaceholder": "Пользовательский HTML — без шаблона",
+          "templatesEmpty": "Пока нет сохранённых шаблонов"
+        },
+        "hideAdvanced": "Скрыть расширенные",
+        "loadFailed": "Не удалось загрузить кампании.",
+        "loading": "Загрузка кампаний…",
+        "newCampaign": "Новая кампания",
+        "page": "Страница {current} из {total}",
+        "refresh": "Обновить",
+        "schedule": {
+          "confirm": "Запланировать отправку",
+          "confirmUnschedule": "Отменить планирование? Кампания вернётся в черновик, чтобы вы могли её отредактировать.",
+          "errTimeRequired": "Укажите время отправки.",
+          "failed": "Не удалось запланировать кампанию — см. сообщение Mailchimp.",
+          "hint": "Mailchimp округляет до ближайших 15 минут. Бесплатные тарифы требуют предварительного времени не менее 30 минут.",
+          "scheduling": "Планирование…",
+          "sendAt": "Отправить в (ваше местное время)",
+          "timewarp": "Отправить в местное время получателя (Timewarp)",
+          "timewarpHint": "Mailchimp доставляет копию каждому подписчику в выбранное время их собственного часового пояса.",
+          "title": "Запланировать кампанию"
+        },
+        "sendFailed": "Не удалось отправить кампанию.",
+        "showAdvanced": "Показать расширенные",
+        "step1Title": "Для кого это письмо?",
+        "step2Title": "От кого письмо?",
+        "step3Title": "Создайте письмо",
+        "test": {
+          "emailsHint": "Разделены запятыми, точкой с запятой или переводом строки.",
+          "emailsLabel": "Получатели теста",
+          "emailsRequired": "Необходимо указать хотя бы один тестовый email.",
+          "failed": "Не удалось отправить тестовый email.",
+          "format": "Формат",
+          "plaintext": "Простой текст",
+          "send": "Отправить тест",
+          "sending": "Отправка…",
+          "sent": "Тестовый email поставлен в очередь. Проверьте ваш почтовый ящик через ~1 минуту.",
+          "title": "Отправить тестовый email"
+        },
+        "title": "Кампании",
+        "wizard": {
+          "step1Body": "Выберите аудиторию, которая получит эту кампанию.",
+          "step1Title": "Кому будет отправлено это письмо?",
+          "step2Body": "Тема письма и информация об отправителе, которые получатели видят в своей почте.",
+          "step2Title": "Тема и отправитель",
+          "step3Body": "Начните с сохранённого шаблона или создайте письмо с нуля — живой предпросмотр справа показывает, что видят получатели.",
+          "step3Title": "Создайте письмо"
+        }
+      },
+      "connectCta": "Подключить Mailchimp",
+      "connectedHeader": "Подключённый аккаунт Mailchimp",
+      "domains": {
+        "add": "Добавить домен",
+        "addEmailLabel": "Электронная почта на домене для аутентификации",
+        "addFailed": "Не удалось начать проверку.",
+        "addHint": "Mailchimp отправит код подтверждения на этот адрес. Убедитесь, что вы можете получать почту.",
+        "adding": "Отправка кода…",
+        "body": "Аутентифицируйте ваш домен отправки (DKIM / SPF). Аутентифицированные домены получают более высокий уровень доверия и избегают пометок Omnivore (анти‑злоупотребления Mailchimp).",
+        "codePlaceholder": "Код подтверждения из письма",
+        "confirmDelete": "Удалить этот домен? Вам потребуется повторно подтвердить его, чтобы снова отправлять письма.",
+        "delete": "Удалить",
+        "deleteFailed": "Не удалось удалить домен.",
+        "dkimHint": "После подтверждения завершите настройку DKIM / DMARC в интерфейсе Mailchimp (Account → Domains → Authenticate). Настройка на уровне DNS‑записей недоступна через API.",
+        "empty": "Пока домены не добавлены. Добавьте отправляющий домен выше, чтобы начать.",
+        "errCodeRequired": "Вставьте код из письма Mailchimp.",
+        "errEmailRequired": "Требуется указать Email.",
+        "loadFailed": "Не удалось загрузить домены.",
+        "loading": "Загрузка доменов…",
+        "statusAuthenticated": "Подтверждено + DKIM аутентифицировано",
+        "statusPending": "В ожидании — вставьте код подтверждения email ниже",
+        "statusVerified": "Подтверждено — завершите настройку DKIM в интерфейсе Mailchimp",
+        "title": "Подтверждённые домены",
+        "verify": "Подтвердить",
+        "verifyFailed": "Не удалось подтвердить — проверьте код."
+      },
+      "images": {
+        "body": "Выберите изображение из библиотеки Mailchimp, загрузите новое (макс 10 МБ) или вставьте публичный URL.",
+        "confirmDelete": "Удалить это изображение? Кампании, использующие его, продолжат работать (Mailchimp сохраняет файл).",
+        "delete": "Удалить",
+        "deleteFailed": "Не удалось удалить изображение.",
+        "empty": "Пока изображения не загружены. Перейдите в «Загрузка», чтобы добавить первое.",
+        "errNoUrl": "Mailchimp принял загрузку, но не вернул URL.",
+        "errTooLarge": "Максимальный размер файла в Mailchimp — 10 МБ.",
+        "insertUrl": "Вставить URL",
+        "loadFailed": "Не удалось загрузить библиотеку изображений.",
+        "loading": "Загрузка библиотеки…",
+        "modes": {
+          "library": "Библиотека",
+          "upload": "Загрузить новое",
+          "url": "По URL"
+        },
+        "pickFile": "Нажмите, чтобы выбрать изображение",
+        "pickHint": "PNG, JPG, GIF, SVG до 10 МБ",
+        "title": "Выберите или загрузите изображение",
+        "uploadFailed": "Не удалось загрузить — см. сообщение Mailchimp.",
+        "uploading": "Загрузка…",
+        "urlHint": "Mailchimp может кэшировать изображение в своей CDN; использование менеджера файлов (вкладка Загрузка) более надёжно.",
+        "urlLabel": "Публичный URL изображения"
+      },
+      "loadFailed": "Не удалось загрузить подключение к Mailchimp.",
+      "manageConnection": "Управлять подключением",
+      "merge": {
+        "cancelNew": "Отмена",
+        "col": {
+          "name": "Имя",
+          "required": "Обязательно",
+          "tag": "Тег слияния",
+          "type": "Тип"
+        },
+        "confirmDelete": "Удалить это поле? Данные участников в этом столбце также будут удалены.",
+        "count": "{count} полей всего",
+        "create": "Создать поле",
+        "createFailed": "Не удалось создать поле.",
+        "creating": "Создание…",
+        "delete": "Удалить",
+        "deleteFailed": "Не удалось удалить поле.",
+        "empty": "Пользовательские поля пока отсутствуют — по‑прежнему работают стандартные столбцы FNAME / LNAME от Mailchimp.",
+        "errRequired": "Тег и имя обязательны.",
+        "fields": {
+          "defaultValue": "Значение по умолчанию (необязательно)",
+          "name": "Отображаемое имя",
+          "required": "Обязательно в формах регистрации",
+          "tag": "Тег слияния (≤10 символов, БОЛЬШИЕ БУКВЫ)",
+          "type": "Тип"
+        },
+        "hint": "Используйте теги слияния в кампаниях и шаблонах в виде *|TAG|*, например \"Welcome *|FNAME|*\".",
+        "loadFailed": "Не удалось загрузить теги слияния.",
+        "loading": "Загрузка тегов слияния…",
+        "newField": "Новое поле"
+      },
+      "noCompanyBody": "Выберите рабочее пространство на панели управления, чтобы управлять его модулем электронной почты.",
+      "noCompanyTitle": "Выберите рабочее пространство",
+      "notConnectedBody": "Подключите ваш аккаунт Mailchimp, чтобы управлять аудиториями, кампаниями и отчётами, не выходя из CRM. Каждый оператор использует своё подключение.",
+      "notConnectedTitle": "Mailchimp ещё не подключён",
+      "openIntegrationDetail": "Открыть настройки интеграции",
+      "overview": {
+        "actions": {
+          "newAudience": "Новая аудитория",
+          "newCampaign": "Новая кампания",
+          "newTemplate": "Новый шаблон",
+          "reports": "Отчёты"
+        },
+        "gettingStartedTitle": "Начните работу за 4 быстрых шага",
+        "kpi": {
+          "audiences": "Аудитории",
+          "clickRateSub": "{rate}% средний показатель кликов",
+          "openRate": "Средний показатель открытий",
+          "sentCampaigns": "Отправленные кампании",
+          "subscribers": "Всего подписчиков"
+        },
+        "loadFailed": "Не удалось загрузить обзор.",
+        "loading": "Загрузка обзора…",
+        "noCampaigns": "Пока нет кампаний — создайте первую.",
+        "noReports": "Пока нет отчётов — они появятся после первой отправки.",
+        "quickActionsTitle": "Быстрые действия",
+        "recentCampaigns": "Последние кампании",
+        "recentReports": "Последние отчёты",
+        "recipients": "Получатели",
+        "step1": "Создайте или импортируйте аудиторию (используйте «Audiences → Upload CSV», если у вас есть таблица).",
+        "step2": "Опционально: сохраните переиспользуемый шаблон в разделе «Templates».",
+        "step3": "Создайте первую кампанию — выберите аудиторию, тему, содержание.",
+        "step4": "Отправьте тестовое письмо себе, затем отправьте реальное или запланируйте рассылку.",
+        "viewAll": "Показать всё"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Клики",
+          "opens": "Открытия",
+          "recipients": "Получатели",
+          "sent": "Отправлено",
+          "subject": "Кампания"
+        },
+        "deepLinkHint": "Для тепловых карт, сравнения A/B и полной активности писем откройте кампанию в интерфейсе Mailchimp.",
+        "detailFailed": "Не удалось загрузить полный отчёт.",
+        "details": "Подробности",
+        "emptyBody": "Отчёты появятся здесь после первой отправки кампании.",
+        "emptyTitle": "Отчётов пока нет",
+        "geoEmpty": "Нет геоданных — Mailchimp формирует их по мере открытий.",
+        "geoTitle": "Топ‑локации",
+        "kpi": {
+          "bounces": "Отказы",
+          "clicks": "Уникальные клики",
+          "hardBounces": "{count} жёстких",
+          "opens": "Уникальные открытия",
+          "sent": "Получатели"
+        },
+        "loadFailed": "Не удалось загрузить отчёты.",
+        "loading": "Загрузка отчётов…",
+        "loadingDetail": "Загрузка деталей…",
+        "opens": "открытия",
+        "title": "Отчёты кампаний"
+      },
+      "segments": {
+        "col": {
+          "members": "Участники",
+          "name": "Имя",
+          "type": "Тип",
+          "updated": "Обновлено"
+        },
+        "confirmDelete": "Удалить этот сегмент? Участники остаются в аудитории; удаляется только сегмент.",
+        "create": "Создать",
+        "createBody": "Статические сегменты — это вручную отобранный список email‑адресов. Для условных (сохранённых) сегментов используйте интерфейс Mailchimp — они появятся здесь после обновления.",
+        "createFailed": "Не удалось создать сегмент.",
+        "createTitle": "Новый статический сегмент",
+        "creating": "Создание…",
+        "delete": "Удалить",
+        "deleteFailed": "Не удалось удалить сегмент.",
+        "empty": "Сегментов пока нет. Статические сегменты — это вручную отобранные списки; сохранённые сегменты — условные фильтры.",
+        "errNameRequired": "Сегмент требует указания имени.",
+        "fields": {
+          "emails": "Электронные адреса участников",
+          "emailsHint": "По одному в строке или через запятую. Добавляются только существующие участники аудитории.",
+          "name": "Имя сегмента"
+        },
+        "loadFailed": "Не удалось загрузить сегменты.",
+        "loading": "Загрузка сегментов…",
+        "newStatic": "Новый статический сегмент",
+        "count": "{count} сегмент(ов)"
+      },
+      "settingsHint": "Настройки находятся в разделе Интеграции → Mailchimp. Вышеуказанный бейдж только для чтения.",
+      "settingsTitle": "Настройки подключения",
+      "subtabAria": "Разделы модуля Email",
+      "subtabComingSoon": "Этот раздел будет доступен в следующем этапе. Подключение готово, но интерфейс ещё не реализован.",
+      "tabs": {
+        "audiences": "Аудитории",
+        "automations": "Автоматизации",
+        "campaigns": "Кампании",
+        "overview": "Обзор",
+        "reports": "Отчёты",
+        "settings": "Настройки",
+        "templates": "Шаблоны"
+      },
+      "tags": {
+        "empty": "В этой аудитории пока нет тегов. Добавьте теги участникам через 'Add member' или загрузку CSV.",
+        "emptySearch": "Теги, соответствующие \"{query}\", не найдены.",
+        "hint": "Теги создаются в момент их применения к участнику (Add member, загрузка CSV или отправка из CRM).",
+        "loadFailed": "Не удалось загрузить теги.",
+        "loading": "Загрузка тегов…",
+        "searchPlaceholder": "Поиск названия тега…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "Удалить",
+          "edit": "Редактировать",
+          "preview": "Предпросмотр"
+        },
+        "col": {
+          "category": "Категория",
+          "created": "Создано",
+          "name": "Имя"
+        },
+        "confirmDelete": "Удалить этот шаблон навсегда? Кампании, которые ссылаются на него, продолжают работать — они сохраняют HTML в момент отправки.",
+        "create": "Создать шаблон",
+        "createTitle": "Новый шаблон",
+        "deleteFailed": "Не удалось удалить шаблон.",
+        "editTitle": "Редактировать шаблон",
+        "emptyBody": "Создайте ваш первый шаблон — кампании могут повторно использовать его без повторного ввода HTML.",
+        "emptyTitle": "Шаблонов пока нет",
+        "errHtmlRequired": "Тело шаблона не может быть пустым.",
+        "errNameRequired": "Шаблону требуется имя.",
+        "fields": {
+          "html": "HTML‑тело",
+          "htmlHint": "Необработанный HTML. Теги слияния, такие как {{FNAME|there}}, работают так же, как в кампаниях.",
+          "name": "Имя шаблона",
+          "namePlaceholder": "Приветственное письмо"
+        },
+        "loadFailed": "Не удалось загрузить шаблоны.",
+        "loading": "Загрузка шаблонов…",
+        "loadingBody": "Загрузка тела шаблона…",
+        "newTemplate": "Новый шаблон",
+        "preview": "Живой предварительный просмотр",
+        "previewHint": "Отображает HTML в изолированном iframe (скрипты отключены). Теги слияния Mailchimp, такие как {{FNAME|there}}, остаются видимыми — они заменяются при отправке.",
+        "refresh": "Обновить",
+        "saveFailed": "Не удалось сохранить шаблон.",
+        "saving": "Сохранение…",
+        "title": "Шаблоны",
+        "update": "Сохранить изменения"
+      },
+      "webhooks": {
+        "confirmDelete": "Удалить эту подписку на webhook? Mailchimp перестанет отправлять POST‑запросы событий на этот URL.",
+        "count": "{count} webhook",
+        "create": "Создать webhook",
+        "createBody": "Mailchimp будет отправлять POST‑запросы событий на ваш URL. Часто используемые цели: поток n8n, inbound/mailchimp/<token>.",
+        "createFailed": "Не удалось создать webhook.",
+        "createTitle": "Подписаться на события аудитории",
+        "creating": "Создание…",
+        "delete": "Удалить",
+        "deleteFailed": "Не удалось удалить webhook.",
+        "empty": "Подписки на webhook пока нет.",
+        "errUrlRequired": "URL должен начинаться с https://",
+        "fields": {
+          "events": "События для прослушивания",
+          "sources": "Источники событий (кто их инициировал)",
+          "url": "URL вебхука (https://)"
+        },
+        "hint": "Mailchimp не подписывает вебхуки списка. Рассматривайте URL как единственный секрет; не записывайте его в логи.",
+        "loadFailed": "Не удалось загрузить вебхуки.",
+        "loading": "Загрузка вебхуков…",
+        "noEvents": "(события не выбраны)"
+      },
+      "wizard": {
+        "back": "Назад",
+        "fillRequired": "Заполните обязательное поле выше",
+        "next": "Далее",
+        "submit": "Создать",
+        "submitting": "Создание…"
+      }
+    },
     "heroEyebrow": "CRM‑платформа с голосовым интерфейсом",
     "heroLead": "Lisent CRM объединяет аутентификацию, tenant‑aware workflows, импорт‑профиля при onboarding и защищённую оболочку приложения для операторов компании. Веб‑приложение управляет пользовательскими потоками. Сервис Go CRM находится за надёжной границей backend.",
     "heroTitle": "Понимание намерений, а не только слов.",
@@ -1708,6 +2493,7 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "Агентства",
       "aria": "Разделы маркетинга",
       "campaigns": "Кампании",
       "email": "Email",
@@ -1730,7 +2516,7 @@
     "integrations": "Интеграции",
     "leads": "Leads",
     "lisentHome": "Главная Lisent CRM",
-    "lisentWorkspace": "Рабочее пространство Lisent",
+    "lisentWorkspace": "Lisent рабочее пространство",
     "marketing": "Маркетинг",
     "navigation": "Навигация",
     "openNavigation": "Открыть навигацию",
@@ -1777,7 +2563,7 @@
     },
     "deals": {
       "description": "Отслеживайте открытые сделки и стоимость воронки.",
-      "title": "Сделки"
+      "title": "Deals"
     },
     "imports": {
       "description": "Импортируйте данные клиентов в ваше рабочее пространство.",
@@ -1793,7 +2579,7 @@
     },
     "leads": {
       "description": "Управляйте и квалифицируйте свои лиды.",
-      "title": "Лиды"
+      "title": "Leads"
     },
     "marketing": {
       "description": "Отслеживайте кампании и источники Lead во всех каналах.",
@@ -1805,7 +2591,7 @@
     },
     "workspace": {
       "description": "Настройки рабочего пространства и участники.",
-      "title": "Рабочее пространство"
+      "title": "Workspace"
     }
   },
   "qualifier": {
@@ -1818,7 +2604,7 @@
     "llmMedian": "Медиана LLM",
     "noScoreYet": "Оценка пока отсутствует.",
     "rawAnalysis": "Исходные данные анализа",
-    "recommendedOpening": "Рекомендуемое открытие",
+    "recommendedOpening": "Рекомендуемое вступление",
     "risksToWatch": "Риски, за которыми следует следить",
     "salesContext": "Контекст продаж",
     "scoredAt": "оценено {date}",
@@ -1903,7 +2689,7 @@
       "notes": "Добавьте детали этой задачи...",
       "title": "Заголовок задачи"
     },
-    "publishedBy": "Опубликовано пользователем",
+    "publishedBy": "Опубликовано пользователем {name}",
     "responseStatus": {
       "accepted": "Принято",
       "pending": "В ожидании",
@@ -1928,9 +2714,9 @@
     },
     "summary": {
       "company": "Компания",
-      "inProgressDone": "в процессе · выполнено",
-      "myPending": "в ожидании",
-      "openTickets": "открытых"
+      "inProgressDone": "{inProgress} в процессе · {done} выполнено",
+      "myPending": "{count} в ожидании",
+      "openTickets": "{count} открытых"
     },
     "systemUser": "Система",
     "teammatesCount": "{count} коллег",
@@ -1973,6 +2759,25 @@
       "role": "Роль"
     },
     "member": "Участник",
+    "moduleAccess": {
+      "discard": "Отменить",
+      "empty": "Нет участников команды для управления — владельцы всегда имеют полный доступ.",
+      "granted": "Разрешено",
+      "loadError": "Не удалось загрузить права доступа.",
+      "loading": "Загрузка…",
+      "module": {
+        "marketingAgencies": "Маркетинг · агентства"
+      },
+      "noAccess": "Нет доступа",
+      "role": "Роль",
+      "save": "Сохранить изменения",
+      "saveError": "Не удалось сохранить изменения.",
+      "saving": "Сохранение…",
+      "subtitle": "Владельцы всегда видят все модули. Используйте переключатели, чтобы предоставить каждому участнику команды доступ к конкретному модулю.",
+      "teamMember": "Участник команды",
+      "title": "Доступ к модулю",
+      "unsaved": " · несохранено"
+    },
     "noEmail": "Электронная почта отсутствует",
     "noPermission": "У вас нет прав для управления участниками команды.",
     "placeholders": {
@@ -1981,14 +2786,14 @@
     "removeMember": "Удалить участника",
     "removeModal": {
       "confirm": "Удалить участника",
-      "description": "{company} потеряет доступ к этому рабочему пространству сразу.",
+      "description": "{name} потеряет доступ к этому рабочему пространству сразу.",
       "eyebrow": "Удалить участника команды",
       "removing": "Удаляется…",
       "title": "Удалить участника команды?"
     },
     "roleModal": {
       "confirm": "Изменить роль",
-      "description": "Обновить роль в этом рабочем пространстве.",
+      "description": "Обновить роль {name} в этом рабочем пространстве.",
       "eyebrow": "Изменить роль",
       "title": "Изменить роль",
       "to": "На",
