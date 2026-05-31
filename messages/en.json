@@ -2886,8 +2886,15 @@
     "unnamed": "Unnamed",
     "you": "You"
   },
+  "superAdmin": {
+    "title": "Super Admin",
+    "subtitle": "Platform-wide controls. Visible only to super admins.",
+    "comingSoon": "Admin tools will be added here.",
+    "sectionPlaceholder": "Nothing here yet."
+  },
   "userMenu": {
     "accountSettings": "Account settings",
+    "superAdminPanel": "Super Admin Panel",
     "demoEmail": "demo-user@lisent.ai",
     "demoUser": "Demo user",
     "openMenu": "Open account menu",

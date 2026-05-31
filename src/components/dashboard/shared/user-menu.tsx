@@ -4,7 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, LogOut, MonitorSmartphone, Settings } from "lucide-react";
+import {
+  ChevronDown,
+  LogOut,
+  MonitorSmartphone,
+  Settings,
+  ShieldCheck,
+} from "lucide-react";
 import { signOut } from "supertokens-auth-react/recipe/session";
 
 import type { AccountProfile } from "@/lib/auth/account-profile";
@@ -134,6 +140,18 @@ export function UserMenu({
           </div>
 
           <div className="my-1 border-t border-[var(--border-subtle)]" />
+
+          {!demoMode && account?.access.isSuperAdmin && (
+            <Link
+              className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-[var(--accent-strong)] transition hover:bg-[var(--accent-soft)]"
+              href="/dashboard/super-admin"
+              onClick={() => setOpen(false)}
+              role="menuitem"
+            >
+              <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+              {t("userMenu.superAdminPanel")}
+            </Link>
+          )}
 
           <Link
             className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"

@@ -2886,8 +2886,15 @@
     "unnamed": "Adsız",
     "you": "Siz"
   },
+  "superAdmin": {
+    "title": "Süper Admin",
+    "subtitle": "Platform geneli kontroller. Yalnızca süper adminlere görünür.",
+    "comingSoon": "Admin araçları buraya eklenecek.",
+    "sectionPlaceholder": "Henüz bir şey yok."
+  },
   "userMenu": {
     "accountSettings": "Hesap ayarları",
+    "superAdminPanel": "Süper Admin Paneli",
     "demoEmail": "demo-user@lisent.ai",
     "demoUser": "Demo kullanıcısı",
     "openMenu": "Hesap menüsünü açın",
