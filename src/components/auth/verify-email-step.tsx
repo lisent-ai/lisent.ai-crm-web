@@ -25,8 +25,11 @@ export function VerifyEmailStep({
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [cooldown, setCooldown] = useState(0);
-  // Guard so the auto-submit effect fires once per completed code.
-  const submittingRef = useRef(false);
+  // The exact code last sent to the server. Prevents the auto-submit
+  // effect from firing the SAME code more than once (which previously
+  // burned all attempts on a single wrong entry). Reset to null whenever
+  // we clear the boxes so a fresh entry can submit again.
+  const lastSubmittedRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -49,50 +52,60 @@ export function VerifyEmailStep({
     }
   }
 
-  const verify = useCallback(async () => {
-    if (code.length !== 6) {
-      setError(t("auth.otp.incomplete"));
-      return;
-    }
-    setBusy(true);
-    setError(null);
-    setInfo(null);
-    try {
-      const res = await fetch("/api/auth-otp/verify-email", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ code }),
-      });
-      const json = (await res.json().catch(() => ({}))) as { status?: string };
-      if (json.status === "OK") {
-        onVerified();
+  function resetForRetry() {
+    setCode("");
+    lastSubmittedRef.current = null;
+  }
+
+  const submit = useCallback(
+    async (candidate: string) => {
+      if (candidate.length !== 6) {
+        setError(t("auth.otp.incomplete"));
         return;
       }
-      setError(messageFor(json.status ?? ""));
-      if (
-        json.status === "EXPIRED" ||
-        json.status === "TOO_MANY_ATTEMPTS" ||
-        json.status === "NO_CODE"
-      ) {
-        setCode("");
-      }
-    } catch {
-      setError(t("auth.otp.genericError"));
-    } finally {
-      setBusy(false);
-      submittingRef.current = false;
-    }
-    // messageFor/onVerified/t are stable enough for this handler.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code, onVerified, t]);
+      // Exactly-once per distinct code, even if the effect re-runs.
+      if (lastSubmittedRef.current === candidate) return;
+      lastSubmittedRef.current = candidate;
 
-  // Auto-submit once the 6th digit is entered.
+      setBusy(true);
+      setError(null);
+      setInfo(null);
+      try {
+        const res = await fetch("/api/auth-otp/verify-email", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ code: candidate }),
+        });
+        const json = (await res.json().catch(() => ({}))) as {
+          status?: string;
+        };
+        if (json.status === "OK") {
+          onVerified();
+          return;
+        }
+        setError(messageFor(json.status ?? ""));
+        // Clear the boxes on every failure so the user retypes cleanly;
+        // resetForRetry also re-arms the auto-submit for the next entry.
+        resetForRetry();
+      } catch {
+        setError(t("auth.otp.genericError"));
+        resetForRetry();
+      } finally {
+        setBusy(false);
+      }
+      // messageFor/onVerified/t are stable for this handler.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [onVerified, t],
+  );
+
+  // Auto-submit once the 6th digit lands. The lastSubmittedRef guard
+  // (plus clearing on failure) makes this fire exactly once per code.
   useEffect(() => {
-    if (code.length === 6 && !busy && !submittingRef.current) {
-      submittingRef.current = true;
-      void verify();
+    if (code.length === 6 && !busy) {
+      void submit(code);
     }
-  }, [code, busy, verify]);
+  }, [code, busy, submit]);
 
   async function resend() {
     if (cooldown > 0 || busy) return;
@@ -110,7 +123,7 @@ export function VerifyEmailStep({
       if (json.status === "OK") {
         setInfo(t("auth.otp.resent"));
         setCooldown(60);
-        setCode("");
+        resetForRetry();
       } else if (json.status === "THROTTLED") {
         setCooldown(json.retryAfterSeconds ?? 60);
       } else {
@@ -152,7 +165,7 @@ export function VerifyEmailStep({
 
         <button
           type="button"
-          onClick={() => void verify()}
+          onClick={() => void submit(code)}
           disabled={busy || code.length !== 6}
           className="mt-1 h-12 rounded-full bg-violet-500 text-sm font-semibold text-white transition hover:bg-violet-400 disabled:opacity-50"
         >
