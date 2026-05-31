@@ -17,6 +17,7 @@ import {
 
 import { AuthFormCard } from "@/components/auth/auth-form-card";
 import { AuthShell } from "@/components/auth/auth-shell";
+import { SigninOtpStep } from "@/components/auth/signin-otp-step";
 import { VerifyEmailStep } from "@/components/auth/verify-email-step";
 import {
   mapFieldErrors,
@@ -46,7 +47,7 @@ export function AuthPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   // After a successful sign-in/up we may need the email-verification OTP
   // step before entering the app.
-  const [phase, setPhase] = useState<"form" | "verify">("form");
+  const [phase, setPhase] = useState<"form" | "verify" | "signinOtp">("form");
   const [pendingEmail, setPendingEmail] = useState("");
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -196,13 +197,21 @@ export function AuthPage() {
 
   return (
     <AuthShell>
-      {mounted && phase === "verify" ? (
+      {!mounted ? (
+        <div className="h-[520px] w-full animate-pulse rounded-[1.8rem] border border-white/10 bg-white/6 backdrop-blur-xl" />
+      ) : phase === "verify" ? (
         <VerifyEmailStep
           email={pendingEmail}
           onVerified={() => router.replace("/dashboard")}
           onSignOut={() => void handleVerifySignOut()}
         />
-      ) : mounted ? (
+      ) : phase === "signinOtp" ? (
+        <SigninOtpStep
+          initialEmail={email}
+          onAuthenticated={() => router.replace("/dashboard")}
+          onUsePassword={() => setPhase("form")}
+        />
+      ) : (
         <AuthFormCard
           busy={busy}
           email={email}
@@ -212,12 +221,11 @@ export function AuthPage() {
           onPasswordChange={setPassword}
           onSignUpProfileChange={setSignUpProfile}
           onSubmit={(event) => void handleSubmit(event)}
+          onUseOtp={() => setPhase("signinOtp")}
           password={password}
           signUpProfile={signUpProfile}
           submitError={submitError}
         />
-      ) : (
-        <div className="h-[520px] w-full animate-pulse rounded-[1.8rem] border border-white/10 bg-white/6 backdrop-blur-xl" />
       )}
     </AuthShell>
   );

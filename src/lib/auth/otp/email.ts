@@ -31,3 +31,29 @@ export async function sendEmailVerifyOtp(opts: {
   });
   return { sent: true };
 }
+
+// Issue + email a sign-in OTP (Faz 4). Same store, "signin" purpose.
+export async function sendSigninOtp(opts: {
+  userId: string;
+  email: string;
+  language?: string;
+  clientIp?: string;
+}): Promise<{ sent: boolean; throttledSeconds?: number }> {
+  const issued = await issueOtp(opts.userId, "signin");
+  if (!issued.ok) {
+    return { sent: false, throttledSeconds: issued.throttledSeconds };
+  }
+  const rendered = await renderEmail(
+    { id: "signin-otp", data: { email: opts.email, code: issued.code } },
+    opts.language,
+  );
+  await sendViaGateway({
+    to: opts.email,
+    subject: rendered.subject,
+    html: rendered.html,
+    text: rendered.text,
+    clientIp: opts.clientIp,
+    tags: { kind: "signin-otp" },
+  });
+  return { sent: true };
+}

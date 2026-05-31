@@ -22,6 +22,8 @@ type AuthFormCardProps = {
   onPasswordChange: (value: string) => void;
   onSignUpProfileChange: (value: SignUpProfileFields) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  // Signin only — switches to the email-OTP sign-in flow.
+  onUseOtp?: () => void;
 };
 
 function renderFieldError(
@@ -47,6 +49,7 @@ export function AuthFormCard({
   onPasswordChange,
   onSignUpProfileChange,
   onSubmit,
+  onUseOtp,
 }: Readonly<AuthFormCardProps>) {
   const t = useTranslations();
 
@@ -275,6 +278,16 @@ export function AuthFormCard({
               ? t("auth.signInButton")
               : t("auth.signUpButton")}
         </button>
+
+        {mode === "signin" && onUseOtp ? (
+          <button
+            type="button"
+            onClick={onUseOtp}
+            className="-mt-1 text-center text-sm font-medium text-violet-200 underline-offset-4 hover:underline"
+          >
+            {t("auth.otp.useOtpLink")}
+          </button>
+        ) : null}
       </form>
 
       <div className="mt-6 text-sm text-violet-100/60">

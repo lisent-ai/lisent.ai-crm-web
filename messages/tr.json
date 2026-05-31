@@ -63,7 +63,16 @@
       "noCode": "Aktif kod yok — yenisini iste.",
       "incomplete": "6 haneli kodu gir.",
       "genericError": "Bir şeyler ters gitti. Lütfen tekrar dene.",
-      "signOut": "Farklı bir hesap kullan"
+      "signOut": "Farklı bir hesap kullan",
+      "useOtpLink": "E-posta koduyla giriş yap",
+      "usePassword": "Bunun yerine parolanla giriş yap",
+      "signin": {
+        "emailTitle": "Kod ile giriş",
+        "emailSubtitle": "E-postanı gir, sana 6 haneli bir giriş kodu gönderelim.",
+        "sendCode": "Kod gönder",
+        "sending": "Gönderiliyor…",
+        "codeSubtitle": "{email} adresine giriş kodu gönderdik."
+      }
     },
     "passwordLabel": "Parola",
     "passwordPlaceholderSignIn": "Parolanızı girin",
@@ -504,6 +513,13 @@
       "intro": "{email} adresini doğrulamak için bu kodu gir:",
       "expiry": "Bu kod 10 dakika içinde geçersiz olur.",
       "ignore": "Bir Lisent hesabı oluşturmadıysan bu e-postayı yok sayabilirsin."
+    },
+    "signinOtp": {
+      "subject": "Lisent giriş kodun",
+      "heading": "Lisent'e giriş yap",
+      "intro": "{email} olarak giriş yapmak için bu kodu gir:",
+      "expiry": "Bu kod 10 dakika içinde geçersiz olur.",
+      "ignore": "Giriş yapmayı sen denemediysen bu e-postayı yok sayabilirsin."
     }
   },
   "errors": {

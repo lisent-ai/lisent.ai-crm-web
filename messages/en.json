@@ -63,7 +63,16 @@
       "noCode": "No active code — request a new one.",
       "incomplete": "Enter the 6-digit code.",
       "genericError": "Something went wrong. Please try again.",
-      "signOut": "Use a different account"
+      "signOut": "Use a different account",
+      "useOtpLink": "Sign in with an email code",
+      "usePassword": "Sign in with your password instead",
+      "signin": {
+        "emailTitle": "Sign in with a code",
+        "emailSubtitle": "Enter your email and we'll send you a 6-digit sign-in code.",
+        "sendCode": "Send code",
+        "sending": "Sending…",
+        "codeSubtitle": "We sent a sign-in code to {email}."
+      }
     },
     "passwordLabel": "Password",
     "passwordPlaceholderSignIn": "Enter your password",
@@ -504,6 +513,13 @@
       "intro": "Enter this code to verify {email}:",
       "expiry": "This code expires in 10 minutes.",
       "ignore": "If you didn't create a Lisent account, you can ignore this email."
+    },
+    "signinOtp": {
+      "subject": "Your Lisent sign-in code",
+      "heading": "Sign in to Lisent",
+      "intro": "Enter this code to sign in as {email}:",
+      "expiry": "This code expires in 10 minutes.",
+      "ignore": "If you didn't try to sign in, you can ignore this email."
     }
   },
   "errors": {

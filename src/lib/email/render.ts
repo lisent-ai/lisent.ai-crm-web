@@ -4,18 +4,18 @@ import {
   type PasswordResetData,
   type RenderedEmail,
 } from "./templates/password-reset";
-import {
-  renderVerifyEmailOtp,
-  type VerifyEmailOtpData,
-} from "./templates/verify-email-otp";
+import { renderOtpCodeEmail } from "./templates/otp-code-email";
 
 // Central renderer: (templateId, recipient locale, data) → subject/html/text.
 // Add a template by extending the union + the switch — callers (the
 // SuperTokens emailDelivery override) stay declarative.
 
+export type OtpEmailData = { email: string; code: string };
+
 export type EmailTemplate =
   | { id: "password-reset"; data: PasswordResetData }
-  | { id: "verify-email-otp"; data: VerifyEmailOtpData };
+  | { id: "verify-email-otp"; data: OtpEmailData }
+  | { id: "signin-otp"; data: OtpEmailData };
 
 export async function renderEmail(
   template: EmailTemplate,
@@ -26,7 +26,15 @@ export async function renderEmail(
     case "password-reset":
       return renderPasswordReset(i18n, template.data);
     case "verify-email-otp":
-      return renderVerifyEmailOtp(i18n, template.data);
+      return renderOtpCodeEmail(i18n, {
+        ...template.data,
+        prefix: "email.verifyEmail",
+      });
+    case "signin-otp":
+      return renderOtpCodeEmail(i18n, {
+        ...template.data,
+        prefix: "email.signinOtp",
+      });
     default: {
       // Exhaustiveness guard — a new template variant fails to compile here.
       const _never: never = template;
