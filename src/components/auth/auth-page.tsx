@@ -10,10 +10,17 @@ import {
   useSyncExternalStore,
 } from "react";
 import { signIn, signUp } from "supertokens-auth-react/recipe/emailpassword";
-import { doesSessionExist } from "supertokens-auth-react/recipe/session";
+import {
+  doesSessionExist,
+  signOut,
+} from "supertokens-auth-react/recipe/session";
 
 import { AuthFormCard } from "@/components/auth/auth-form-card";
 import { AuthShell } from "@/components/auth/auth-shell";
+import { ForgotPasswordStep } from "@/components/auth/forgot-password-step";
+import { ResetPasswordStep } from "@/components/auth/reset-password-step";
+import { SigninOtpStep } from "@/components/auth/signin-otp-step";
+import { VerifyEmailStep } from "@/components/auth/verify-email-step";
 import {
   mapFieldErrors,
   resolveMode,
@@ -31,6 +38,7 @@ export function AuthPage() {
   const pathname = usePathname();
   const router = useRouter();
   const mode = useMemo(() => resolveMode(pathname), [pathname]);
+  const isResetPath = pathname.includes("reset-password");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +48,12 @@ export function AuthPage() {
   const [busy, setBusy] = useState(false);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
+  // After a successful sign-in/up we may need the email-verification OTP
+  // step before entering the app.
+  const [phase, setPhase] = useState<
+    "form" | "verify" | "signinOtp" | "forgot" | "reset"
+  >(() => (pathname.includes("reset-password") ? "reset" : "form"));
+  const [pendingEmail, setPendingEmail] = useState("");
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -47,7 +61,9 @@ export function AuthPage() {
   );
 
   useEffect(() => {
-    if (!mounted) {
+    if (!mounted || isResetPath) {
+      // On the reset-password link we always show the reset form, even
+      // for a (rare) logged-in visitor — never bounce to the dashboard.
       return;
     }
 
@@ -55,7 +71,26 @@ export function AuthPage() {
 
     void (async () => {
       const hasSession = await doesSessionExist();
-      if (!cancelled && hasSession) {
+      if (cancelled || !hasSession) {
+        return;
+      }
+      // A logged-in but unverified user lands on the OTP step instead of
+      // bouncing to the dashboard (which would just send them back here).
+      try {
+        const res = await fetch("/api/auth-otp/status");
+        const json = (await res.json().catch(() => ({}))) as {
+          emailVerified?: boolean | null;
+          email?: string | null;
+        };
+        if (!cancelled && json.emailVerified === false) {
+          setPendingEmail(json.email ?? "");
+          setPhase("verify");
+          return;
+        }
+      } catch {
+        // fall through to the dashboard
+      }
+      if (!cancelled) {
         router.replace("/dashboard");
       }
     })();
@@ -63,7 +98,7 @@ export function AuthPage() {
     return () => {
       cancelled = true;
     };
-  }, [mounted, router]);
+  }, [mounted, router, isResetPath]);
 
   useEffect(() => {
     setFormErrors({});
@@ -121,7 +156,7 @@ export function AuthPage() {
         }
       }
 
-      router.replace("/dashboard");
+      await proceedAfterAuth();
     } catch (error) {
       const message =
         error instanceof Error ? error.message : t("auth.authFailed");
@@ -131,9 +166,71 @@ export function AuthPage() {
     }
   }
 
+  // Gate entry on email verification. Signup already triggered an OTP
+  // (server-side at signUpPOST); for an unverified sign-in we send a fresh
+  // code before showing the step. Verified users go straight to the app.
+  async function proceedAfterAuth() {
+    try {
+      const res = await fetch("/api/auth-otp/status");
+      const json = (await res.json().catch(() => ({}))) as {
+        emailVerified?: boolean | null;
+        email?: string | null;
+      };
+      if (json.emailVerified === false) {
+        setPendingEmail(json.email ?? email);
+        if (mode === "signin") {
+          await fetch("/api/auth-otp/resend-email-code", { method: "POST" });
+        }
+        setPhase("verify");
+        return;
+      }
+    } catch {
+      // If the status check fails, fall through to the app — the dashboard
+      // will surface any session problem.
+    }
+    router.replace("/dashboard");
+  }
+
+  async function handleVerifySignOut() {
+    try {
+      await signOut();
+    } catch {
+      // ignore — we reset the local UI regardless
+    }
+    setPhase("form");
+    setPendingEmail("");
+    setPassword("");
+  }
+
   return (
     <AuthShell>
-      {mounted ? (
+      {!mounted ? (
+        <div className="h-[520px] w-full animate-pulse rounded-[1.8rem] border border-white/10 bg-white/6 backdrop-blur-xl" />
+      ) : phase === "verify" ? (
+        <VerifyEmailStep
+          email={pendingEmail}
+          onVerified={() => router.replace("/dashboard")}
+          onSignOut={() => void handleVerifySignOut()}
+        />
+      ) : phase === "signinOtp" ? (
+        <SigninOtpStep
+          initialEmail={email}
+          onAuthenticated={() => router.replace("/dashboard")}
+          onUsePassword={() => setPhase("form")}
+        />
+      ) : phase === "forgot" ? (
+        <ForgotPasswordStep
+          initialEmail={email}
+          onBack={() => setPhase("form")}
+        />
+      ) : phase === "reset" ? (
+        <ResetPasswordStep
+          onDone={() => {
+            setPhase("form");
+            router.replace("/auth/sign-in");
+          }}
+        />
+      ) : (
         <AuthFormCard
           busy={busy}
           email={email}
@@ -142,13 +239,13 @@ export function AuthPage() {
           onEmailChange={setEmail}
           onPasswordChange={setPassword}
           onSignUpProfileChange={setSignUpProfile}
+          onForgotPassword={() => setPhase("forgot")}
           onSubmit={(event) => void handleSubmit(event)}
+          onUseOtp={() => setPhase("signinOtp")}
           password={password}
           signUpProfile={signUpProfile}
           submitError={submitError}
         />
-      ) : (
-        <div className="h-[520px] w-full animate-pulse rounded-[1.8rem] border border-white/10 bg-white/6 backdrop-blur-xl" />
       )}
     </AuthShell>
   );

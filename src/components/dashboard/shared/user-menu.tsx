@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, LogOut, Settings } from "lucide-react";
+import { ChevronDown, LogOut, MonitorSmartphone, Settings } from "lucide-react";
 import { signOut } from "supertokens-auth-react/recipe/session";
 
 import type { AccountProfile } from "@/lib/auth/account-profile";
@@ -66,6 +66,20 @@ export function UserMenu({
   async function handleSignOut() {
     setOpen(false);
     clearStoredCompany();
+    await signOut();
+    router.replace("/auth/sign-in");
+  }
+
+  // Revoke every session for this user (all devices), then clear local
+  // cookies and bounce to sign-in. Useful after a lost/shared device.
+  async function handleSignOutEverywhere() {
+    setOpen(false);
+    clearStoredCompany();
+    try {
+      await fetch("/api/account/sign-out-all", { method: "POST" });
+    } catch {
+      // even if the revoke call fails, still clear the local session
+    }
     await signOut();
     router.replace("/auth/sign-in");
   }
@@ -132,15 +146,26 @@ export function UserMenu({
           </Link>
 
           {!demoMode && (
-            <button
-              className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-start text-sm text-[var(--signal-red)] transition hover:bg-[var(--surface-muted)]"
-              onClick={() => void handleSignOut()}
-              role="menuitem"
-              type="button"
-            >
-              <LogOut className="h-4 w-4" aria-hidden="true" />
-              {t("userMenu.signOut")}
-            </button>
+            <>
+              <button
+                className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-start text-sm text-[var(--text-secondary)] transition hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
+                onClick={() => void handleSignOutEverywhere()}
+                role="menuitem"
+                type="button"
+              >
+                <MonitorSmartphone className="h-4 w-4" aria-hidden="true" />
+                {t("userMenu.signOutEverywhere")}
+              </button>
+              <button
+                className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-start text-sm text-[var(--signal-red)] transition hover:bg-[var(--surface-muted)]"
+                onClick={() => void handleSignOut()}
+                role="menuitem"
+                type="button"
+              >
+                <LogOut className="h-4 w-4" aria-hidden="true" />
+                {t("userMenu.signOut")}
+              </button>
+            </>
           )}
         </div>
       )}

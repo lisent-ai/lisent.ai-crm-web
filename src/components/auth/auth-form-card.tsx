@@ -22,6 +22,10 @@ type AuthFormCardProps = {
   onPasswordChange: (value: string) => void;
   onSignUpProfileChange: (value: SignUpProfileFields) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  // Signin only — switches to the email-OTP sign-in flow.
+  onUseOtp?: () => void;
+  // Signin only — switches to the forgot-password (request reset) flow.
+  onForgotPassword?: () => void;
 };
 
 function renderFieldError(
@@ -47,6 +51,8 @@ export function AuthFormCard({
   onPasswordChange,
   onSignUpProfileChange,
   onSubmit,
+  onUseOtp,
+  onForgotPassword,
 }: Readonly<AuthFormCardProps>) {
   const t = useTranslations();
 
@@ -275,6 +281,29 @@ export function AuthFormCard({
               ? t("auth.signInButton")
               : t("auth.signUpButton")}
         </button>
+
+        {mode === "signin" && (onUseOtp || onForgotPassword) ? (
+          <div className="-mt-1 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
+            {onUseOtp ? (
+              <button
+                type="button"
+                onClick={onUseOtp}
+                className="font-medium text-violet-200 underline-offset-4 hover:underline"
+              >
+                {t("auth.otp.useOtpLink")}
+              </button>
+            ) : null}
+            {onForgotPassword ? (
+              <button
+                type="button"
+                onClick={onForgotPassword}
+                className="font-medium text-violet-100/60 underline-offset-4 hover:underline"
+              >
+                {t("auth.forgotLink")}
+              </button>
+            ) : null}
+          </div>
+        ) : null}
       </form>
 
       <div className="mt-6 text-sm text-violet-100/60">

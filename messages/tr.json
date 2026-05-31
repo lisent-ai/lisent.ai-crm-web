@@ -25,7 +25,7 @@
     "placeholders": {
       "firstName": "Adınız",
       "language": "Dil seçin",
-      "lastName": "Soyadınız",
+      "lastName": "Soyadınızı girin",
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
@@ -47,11 +47,59 @@
     "creatingAccount": "Hesap oluşturuluyor...",
     "emailLabel": "E-posta",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Girişe geri dön",
+      "error": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "send": "Sıfırlama bağlantısını gönder",
+      "sending": "Gönderiliyor…",
+      "sent": "Eğer {email} için bir hesap varsa, bir parola sıfırlama bağlantısı gönderdik. Gelen kutunuzu kontrol edin.",
+      "subtitle": "E-posta adresinizi girin, size bir sıfırlama bağlantısı gönderelim.",
+      "title": "Parolanızı sıfırlayın"
+    },
+    "forgotLink": "Parolanızı mı unuttunuz?",
     "newWorkspaceUser": "Yeni çalışma alanı kullanıcısı?",
+    "otp": {
+      "codeLabel": "Doğrulama kodu",
+      "expired": "Kod süresi doldu — yeni bir tane isteyin.",
+      "genericError": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "incomplete": "6 haneli kodu girin.",
+      "invalid": "Kod doğru değil. Lütfen tekrar deneyin.",
+      "noCode": "Aktif kod yok — yeni bir tane isteyin.",
+      "resend": "Kodu yeniden gönder",
+      "resendIn": "{seconds} saniye içinde yeniden gönder",
+      "resent": "Yeni bir kod yolda.",
+      "signOut": "Farklı bir hesap kullanın",
+      "signin": {
+        "codeSubtitle": "{email} için bir hesap varsa, giriş kodu gönderdik. Gelen kutunuzu kontrol edin.",
+        "emailSubtitle": "E-posta adresinizi girin, size 6 haneli bir giriş kodu gönderelim.",
+        "emailTitle": "Kod ile giriş yapın",
+        "sendCode": "Kodu gönder",
+        "sending": "Gönderiliyor…"
+      },
+      "tooMany": "Çok fazla deneme yapıldı. Yeni bir kod isteyin.",
+      "useOtpLink": "E-posta kodu ile giriş yapın",
+      "usePassword": "Bunun yerine parolanızla giriş yapın",
+      "verifyButton": "E-postayı doğrulayın",
+      "verifySubtitle": "6 haneli bir kodu {email} adresine gönderdik. Bitirmek için aşağıya girin.",
+      "verifyTitle": "E-posta adresinizi doğrulayın",
+      "verifying": "Doğrulanıyor…"
+    },
     "passwordLabel": "Parola",
     "passwordPlaceholderSignIn": "Parolanızı girin",
     "passwordPlaceholderSignUp": "Güçlü bir parola oluşturun",
-    "selectGenderPlaceholder": "Cinsiyetinizi seçin",
+    "reset": {
+      "error": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "invalidToken": "Bu sıfırlama bağlantısı geçersiz veya süresi dolmuş. Yeni bir tane isteyin.",
+      "newPassword": "Yeni parola",
+      "placeholder": "Güçlü bir parola oluşturun",
+      "signin": "Giriş yapın",
+      "submit": "Parolayı güncelle",
+      "submitting": "Güncelleniyor…",
+      "subtitle": "Hesabınız için yeni bir parola seçin.",
+      "success": "Parolanız güncellendi.",
+      "title": "Yeni bir parola belirleyin"
+    },
+    "selectGenderPlaceholder": "Cinsiyetinizi seçiniz",
     "signIn": "Giriş yap",
     "signInButton": "Giriş yap",
     "signInInstead": "Bunun yerine giriş yapın",
@@ -93,12 +141,12 @@
     "errors": {
       "delete": "Etkinlik silinemedi.",
       "linkRecordMissing": "Bağlantı türü seçildiğinde bağlı kayıt gereklidir.",
-      "loadCompanies": "Şirketler yüklenemedi.",
+      "loadCompanies": "Şirketleri yüklerken hata oluştu.",
       "loadEvents": "Etkinlikler yüklenemedi.",
       "pastDate": "Etkinlik geçmişte başlayamaz.",
       "save": "Etkinlik kaydedilemedi.",
-      "startRequired": "Başlangıç tarihi ve saati gereklidir.",
-      "titleRequired": "Başlık gereklidir."
+      "startRequired": "Başlangıç tarihi ve saati girilmelidir.",
+      "titleRequired": "Başlık girilmelidir."
     },
     "eventStatus": {
       "canceled": "İptal edildi",
@@ -275,7 +323,7 @@
       "createEyebrow": "Yeni müşteri",
       "createSubtitle": "Temel iletişim bilgilerini girin. Geri kalanını daha sonra doldurabilirsiniz.",
       "editEyebrow": "Müşteriyi düzenle",
-      "saveChanges": "Değişiklikleri kaydet"
+      "saveChanges": "Kaydet"
     },
     "list": {
       "empty": "Mevcut filtrelere uyan müşteri bulunamadı.",
@@ -470,10 +518,36 @@
     "unknownAuthor": "Bilinmeyen",
     "untitledDeal": "Başlıksız anlaşma"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Bu e-postayı alıyorsunuz çünkü bir Lisent hesabınız var.",
+    "passwordReset": {
+      "cta": "Parolayı sıfırla",
+      "fallback": "Düğme çalışmazsa, bu bağlantıyı tarayıcınıza kopyalayıp yapıştırın:",
+      "heading": "Parolanızı sıfırlayın",
+      "ignore": "Bu isteği siz yapmadıysanız, bu e-postayı güvenle göz ardı edebilirsiniz — parolanız değişmeyecek.",
+      "intro": "{email} için parolayı sıfırlama isteği aldık.",
+      "subject": "Parolanızı sıfırlayın"
+    },
+    "signinOtp": {
+      "expiry": "Bu kod 10 dakika içinde sona erer.",
+      "heading": "Lisent'e oturum açın",
+      "ignore": "Oturum açmayı denemediyseniz, bu e-postayı göz ardı edebilirsiniz.",
+      "intro": "Bu kodu {email} olarak oturum açmak için girin:",
+      "subject": "Lisent oturum açma kodunuz"
+    },
+    "verifyEmail": {
+      "expiry": "Bu kod 10 dakika içinde sona erer.",
+      "heading": "E-posta adresinizi onaylayın",
+      "ignore": "Lisent hesabı oluşturmadıysanız, bu e-postayı göz ardı edebilirsiniz.",
+      "intro": "Bu kodu {email} doğrulamak için girin:",
+      "subject": "Lisent doğrulama kodunuz"
+    }
+  },
   "errors": {
     "forbidden": "İzniniz yok.",
     "generic": "Bir şeyler ters gitti.",
-    "networkError": "Ağ hatası. Tekrar deneyin.",
+    "networkError": "Ağ hatası. Lütfen tekrar deneyin.",
     "sessionRequired": "Kimlik doğrulama zorunludur.",
     "userNotFound": "Kullanıcı bulunamadı."
   },
@@ -492,7 +566,7 @@
       "goToOverview": "Çalışma alanı genel bakışına gidin",
       "noWorkspaceHelp": "Canlı verileri görmek için değiştiricide bir çalışma alanı seçin",
       "noWorkspaceSelected": "Çalışma alanı seçilmedi",
-      "pickWorkspace": "Bir çalışma alanı seçin",
+      "pickWorkspace": "Çalışma alanı seçin",
       "subtitleSelected": "{name} için çalışma alanı ölçümleri",
       "subtitleWithName": "Tekrar hoş geldiniz, {name}"
     },
@@ -555,7 +629,7 @@
       },
       "newWorkspace": {
         "cta": "Çalışma alanı oluşturun",
-        "description": "Başka bir iş birimi için yeni bir kiracı başlatın.",
+        "description": "Başka bir iş birimi için yeni bir kiracı oluşturun.",
         "title": "Yeni çalışma alanı"
       },
       "oneClickSetup": "Tek tıklamalı kurulum",
@@ -699,7 +773,7 @@
     "utils": {
       "mappedAutomatically": "Otomatik eşlendi",
       "noStrongSuggestion": "Güçlü öneri yok",
-      "rowFallback": "Satır geri dönüşü"
+      "rowFallback": "Satır geri dönüş"
     },
     "workspace": {
       "backToOverview": "Genel bakışa dön",
@@ -776,7 +850,7 @@
       "listAria": "Çalışma alanı listesi",
       "loadFailed": "Çalışma alanları yüklenemedi.",
       "loading": "Çalışma alanları yükleniyor...",
-      "title": "Bir çalışma alanı seçin"
+      "title": "Çalışma alanı seçin"
     },
     "configure": "Yapılandır",
     "configureAria": "{name} yapılandır",
@@ -1178,7 +1252,7 @@
         "outputsTitle": "Çıktılar",
         "tip": "Öncelikle <strong>Geri dönüş</strong> ve <strong>Müşteri Adayı webhook'u</strong> ile başlayın, ardından tek tek kanalları etkinleştirin.",
         "title": "Genel bakış",
-        "tuningAiConfig": "<strong>AI yapılandırması:</strong> Eşik, çerçeve, istem geçersiz kılmaları.",
+        "tuningAiConfig": "<strong>AI configuration:</strong> Eşik, çerçeve, istem geçersiz kılmaları.",
         "tuningCallback": "<strong>Geri arama:</strong> Nitelendirilen müşteri adaylarının gönderildiği yer.",
         "tuningRag": "<strong>Bilgi tabanı (RAG):</strong> Asistanın referans alabileceği belgeler.",
         "tuningTitle": "Ayarlama"
@@ -1786,6 +1860,7 @@
           "status": "Durum sütunu",
           "tags": "Etiketler (virgül / noktalı virgül ile ayrılmış)"
         },
+        "loaded": "{rowCount, plural, other {# satır ve {colCount, plural, one {# sütun} other {# sütun}} yüklendi. Her CRM alanını gelmesi gereken elektronik tablo sütunuyla eşleştirin.} }",
         "needName": "Önce ajans adı için bir sütun seçin.",
         "noValid": "Boş olmayan ad içeren satır yok.",
         "notUsed": "— (kullanılmıyor) —",
@@ -1793,8 +1868,7 @@
         "pickHint": "Seçmek için tıklayın. Yalnızca ilk sayfayı okuyacağız.",
         "pickLabel": "Bir elektronik tablo seçin",
         "subtitle": "CSV, Excel ve OpenDocument elektronik tablolarını kabul eder.",
-        "title": "Bir elektronik tablodan ajansları içe aktarın",
-        "loaded": "{rowCount, plural, one {# satır} other {# satır}} ve {colCount, plural, one {# sütun} other {# sütun}} yüklendi. Her CRM alanını gelmesi gereken elektronik tablo sütunuyla eşleştirin."
+        "title": "Bir elektronik tablodan ajansları içe aktarın"
       },
       "list": {
         "agencies": "Ajanslar",
@@ -1855,13 +1929,13 @@
         "bulkDelete": "{count} sil",
         "bulkDeleting": "Siliniyor…",
         "clear": "Temizle",
+        "confirmDelete": "{count, plural, other {# ajans silinsin mi?\n\nBu işlem geri alınamaz.} }",
         "deleteFailed": "{total} öğeden {failed} silinemedi:\n{detail}",
         "deleteFailedMore": "…ve {count} tane daha",
         "justThisPage": "Yalnızca bu sayfayı seçin ({count})",
         "pageFullySelected": "Bu sayfadaki {count} öğenin tamamı seçildi.",
         "pageSelectedCount": "Bu sayfada {count} seçildi",
-        "selectAllMatching": "Mevcut filtreyle eşleşen tüm {total} öğeyi seçin",
-        "confirmDelete": "{count, plural, one {# ajans} other {# ajans}} silinsin mi?\n\nBu işlem geri alınamaz."
+        "selectAllMatching": "Mevcut filtreyle eşleşen tüm {total} öğeyi seçin"
       },
       "table": {
         "actions": "İşlemler",
@@ -2524,7 +2598,7 @@
     "primary": "Birincil",
     "quickCreate": "Hızlı oluştur",
     "sectionTools": "Araçlar",
-    "sectionWorkspace": "Çalışma Alanı",
+    "sectionWorkspace": "Çalışma alanı",
     "tasks": "Görevler",
     "teamMembers": "Ekip üyeleri"
   },
@@ -2729,7 +2803,7 @@
       "description": "Bir ekip üyesini e-posta ile davet edin. Katılmak için bir e-posta alacaklar.",
       "sending": "Gönderiliyor...",
       "submit": "Daveti gönder",
-      "title": "Ekip üyesi ekle"
+      "title": "Takım üyesi ekle"
     },
     "aria": {
       "removeName": "Kaldırın {name}"
@@ -2745,13 +2819,13 @@
     "empty": {
       "createWorkspace": "Ekip üyeleri eklemeye başlamak için bir çalışma alanı oluşturun.",
       "description": "Bu çalışma alanına henüz bir ekip üyesi eklemediniz.",
-      "heading": "Henüz ekip üyesi yok",
+      "heading": "Henüz takım üyesi yok",
       "subtitle": "İş birliğine başlamak için ilk ekip üyenizi davet edin."
     },
     "errors": {
-      "add": "Ekip üyesi eklenemedi.",
-      "load": "Ekip üyeleri yüklenemedi.",
-      "remove": "Ekip üyesi kaldırılamadı.",
+      "add": "Takım üyesi eklenemedi.",
+      "load": "Takım üyeleri yüklenemedi.",
+      "remove": "Takım üyesi kaldırılamadı.",
       "updateRole": "Rol güncellenemedi."
     },
     "fields": {
@@ -2801,7 +2875,7 @@
     },
     "section": {
       "admins": "Yöneticiler",
-      "adminsDescription": "Bu çalışma alanına tam erişimi olan üyeler.",
+      "adminsDescription": "Üyeler bu çalışma alanına tam erişime sahiptir.",
       "emptyAdmins": "Yönetici atanmadı.",
       "emptyUsers": "Henüz standart üye yok.",
       "users": "Üyeler",
@@ -2815,20 +2889,21 @@
   "userMenu": {
     "accountSettings": "Hesap ayarları",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Demo kullanıcı",
+    "demoUser": "Demo kullanıcısı",
     "openMenu": "Hesap menüsünü açın",
     "signOut": "Çıkış yap",
-    "workspaceUser": "Çalışma alanı kullanıcısı"
+    "signOutEverywhere": "Her yerden çıkış yap",
+    "workspaceUser": "Çalışma Alanı kullanıcısı"
   },
   "validation": {
     "firstNameRequired": "İsim zorunludur.",
     "firstNameTooShort": "İsim en az 2 karakter olmalıdır.",
     "genderInvalid": "Geçerli bir cinsiyet seçin.",
     "genderRequired": "Cinsiyet zorunludur.",
-    "languageInvalid": "Geçerli bir dil seçin.",
+    "languageInvalid": "Geçerli bir dil seçiniz.",
     "lastNameRequired": "Soyisim zorunludur.",
     "lastNameTooShort": "Soyisim en az 2 karakter olmalıdır.",
-    "phoneInvalid": "Geçerli bir telefon numarası girin.",
+    "phoneInvalid": "Geçerli bir telefon numarası giriniz.",
     "phoneRequired": "Telefon numarası zorunludur."
   },
   "workspace": {
@@ -2836,7 +2911,7 @@
     "deleteName": "Sil {name}",
     "label": "Çalışma alanı",
     "loadFailed": "Çalışma alanları yüklenemedi.",
-    "loading": "Çalışma alanları yükleniyor...",
+    "loading": "Çalışma alanları yükleniyor…",
     "retry": "Tekrar deneyin",
     "select": "Çalışma alanı seçin",
     "switch": "Çalışma alanını değiştirin",

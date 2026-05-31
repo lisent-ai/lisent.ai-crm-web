@@ -1,15 +1,34 @@
+import crypto from "node:crypto";
+
 import SuperTokens from "supertokens-node";
 import EmailPassword from "supertokens-node/recipe/emailpassword";
+import EmailVerification from "supertokens-node/recipe/emailverification";
 import Session from "supertokens-node/recipe/session";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 
 import { resolveAppInfoForBackend } from "@/config/app-info";
+import { sendEmailVerifyOtp } from "@/lib/auth/otp/email";
+import { sendViaGateway } from "@/lib/email/client";
+import { renderEmail } from "@/lib/email/render";
 import {
   validateFirstName,
   validateGender,
   validateLastName,
   validatePhoneNumber,
 } from "@/lib/auth/sign-up-fields";
+
+// Best-effort lookup of the recipient's saved UI language so auth emails
+// render in their locale. Falls back (undefined → default locale) on any
+// error — an email must never fail because metadata was unreadable.
+async function resolveUserLanguage(userId: string): Promise<string | undefined> {
+  try {
+    const md = await UserMetadata.getUserMetadata(userId);
+    const profile = md.metadata?.profile as { language?: string } | undefined;
+    return profile?.language;
+  } catch {
+    return undefined;
+  }
+}
 
 function normaliseSuperTokensConnectionURI(raw: string): string {
   const trimmed = raw.trim();
@@ -41,6 +60,45 @@ export function ensureBackendSuperTokensInit(request?: Request) {
     },
     recipeList: [
       EmailPassword.init({
+        // Route transactional auth emails (password reset) through the
+        // email-gateway so they're sent from our own domain, localized,
+        // and rate-limited — instead of SuperTokens' default service.
+        emailDelivery: {
+          override: (original) => ({
+            ...original,
+            sendEmail: async (input) => {
+              if (input.type !== "PASSWORD_RESET") {
+                return original.sendEmail(input);
+              }
+              const language = await resolveUserLanguage(input.user.id);
+              const rendered = await renderEmail(
+                {
+                  id: "password-reset",
+                  data: {
+                    email: input.user.email,
+                    link: input.passwordResetLink,
+                  },
+                },
+                language,
+              );
+              // Idempotency keyed on the unique reset token so a retried
+              // delivery never double-sends the same link.
+              const tokenHash = crypto
+                .createHash("sha256")
+                .update(input.passwordResetLink)
+                .digest("hex")
+                .slice(0, 32);
+              await sendViaGateway({
+                to: input.user.email,
+                subject: rendered.subject,
+                html: rendered.html,
+                text: rendered.text,
+                idempotencyKey: `pwreset:${tokenHash}`,
+                tags: { kind: "password-reset" },
+              });
+            },
+          }),
+        },
         signUpFeature: {
           formFields: [
             {
@@ -77,17 +135,50 @@ export function ensureBackendSuperTokensInit(request?: Request) {
               const fieldValue = (id: string) =>
                 String(input.formFields.find((field) => field.id === id)?.value ?? "").trim();
 
+              const language = fieldValue("language");
               await UserMetadata.updateUserMetadata(response.user.id, {
                 profile: {
                   firstName: fieldValue("first_name"),
                   lastName: fieldValue("last_name"),
                   phoneNumber: fieldValue("phone_number"),
                   gender: fieldValue("gender"),
-                  language: fieldValue("language"),
+                  language,
                 },
               });
 
+              // Fire the email-verification OTP. Best-effort: a send hiccup
+              // must NOT fail the signup — the user lands on the OTP screen
+              // and can hit "resend". The recipient email is the one they
+              // just signed up with.
+              const signupEmail = response.user.emails[0];
+              if (signupEmail) {
+                try {
+                  await sendEmailVerifyOtp({
+                    userId: response.user.id,
+                    email: signupEmail,
+                    language: language || undefined,
+                  });
+                } catch (err) {
+                  console.error("[auth] signup OTP send failed", err);
+                }
+              }
+
               return response;
+            },
+          }),
+        },
+      }),
+      // Track email-verification state (free recipe). OPTIONAL mode: we
+      // drive verification ourselves with a 6-digit OTP, so SuperTokens'
+      // built-in link email is suppressed below and gating is done in the
+      // app (the account profile exposes emailVerified).
+      EmailVerification.init({
+        mode: "OPTIONAL",
+        emailDelivery: {
+          override: (original) => ({
+            ...original,
+            sendEmail: async () => {
+              // no-op: our own OTP email is sent at signup / via resend.
             },
           }),
         },

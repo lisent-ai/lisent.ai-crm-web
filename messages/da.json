@@ -47,10 +47,58 @@
     "creatingAccount": "Opretter konto…",
     "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Tilbage til log ind",
+      "error": "Noget gik galt. Prøv venligst igen.",
+      "send": "Send nulstillingslink",
+      "sending": "Sender…",
+      "sent": "Hvis der findes en konto for {email}, har vi sendt et link til nulstilling af adgangskode. Tjek din indbakke.",
+      "subtitle": "Indtast din e-mail, så sender vi dig et nulstillingslink.",
+      "title": "Nulstil din adgangskode"
+    },
+    "forgotLink": "Glemt adgangskode?",
     "newWorkspaceUser": "Ny workspace-bruger?",
+    "otp": {
+      "codeLabel": "Bekræftelseskode",
+      "expired": "Koden er udløbet — anmod om en ny.",
+      "genericError": "Der opstod en fejl. Prøv venligst igen.",
+      "incomplete": "Indtast den 6‑cifrede kode.",
+      "invalid": "Koden er forkert. Prøv venligst igen.",
+      "noCode": "Ingen aktiv kode — anmod om en ny.",
+      "resend": "Send kode igen",
+      "resendIn": "Send igen om {seconds}s",
+      "resent": "En ny kode er på vej.",
+      "signOut": "Brug en anden konto",
+      "signin": {
+        "codeSubtitle": "Hvis der findes en konto for {email}, har vi sendt en login‑kode. Tjek din indbakke.",
+        "emailSubtitle": "Indtast din e‑mail, så sender vi dig en 6‑cifret login‑kode.",
+        "emailTitle": "Log ind med en kode",
+        "sendCode": "Send kode",
+        "sending": "Sender…"
+      },
+      "tooMany": "For mange forsøg. Anmod om en ny kode.",
+      "useOtpLink": "Log ind med en e‑mail‑kode",
+      "usePassword": "Log ind med din adgangskode i stedet",
+      "verifyButton": "Bekræft e‑mail",
+      "verifySubtitle": "Vi har sendt en 6‑cifret kode til {email}. Indtast den nedenfor for at afslutte.",
+      "verifyTitle": "Bekræft din e‑mail",
+      "verifying": "Bekræfter…"
+    },
     "passwordLabel": "Password",
     "passwordPlaceholderSignIn": "Indtast Deres password",
     "passwordPlaceholderSignUp": "Opret et stærkt password",
+    "reset": {
+      "error": "Noget gik galt. Prøv venligst igen.",
+      "invalidToken": "Dette nulstillingslink er ugyldigt eller er udløbet. Anmod om et nyt.",
+      "newPassword": "Ny adgangskode",
+      "placeholder": "Opret en stærk adgangskode",
+      "signin": "Gå til log ind",
+      "submit": "Opdater adgangskode",
+      "submitting": "Opdaterer…",
+      "subtitle": "Vælg en ny adgangskode til din konto.",
+      "success": "Din adgangskode er blevet opdateret.",
+      "title": "Indstil en ny adgangskode"
+    },
     "selectGenderPlaceholder": "Vælg Deres køn",
     "signIn": "Log ind",
     "signInButton": "Log ind",
@@ -342,7 +390,7 @@
     "closeTarget": "Luk mål",
     "closeTargetValue": "{date}",
     "columnTotal": "Kolonne total: {value}",
-    "commentPlaceholder": "Skriv en kommentar...",
+    "commentPlaceholder": "Skriv en kommentar…",
     "comments": "Kommentarer",
     "commentsCount": "{count} kommentarer",
     "commentsEmpty": "Ingen kommentarer endnu.",
@@ -470,6 +518,32 @@
     "unknownAuthor": "Ukendt",
     "untitledDeal": "Uden titel deal"
   },
+  "email": {
+    "brand": "Lisent",
+    "footer": "De modtager denne e‑mail, fordi De har en Lisent‑konto.",
+    "passwordReset": {
+      "cta": "Nulstil adgangskode",
+      "fallback": "Hvis knappen ikke virker, så kopier og indsæt dette link i din browser:",
+      "heading": "Nulstil din adgangskode",
+      "ignore": "Hvis De ikke har anmodet om dette, kan De trygt ignorere denne e‑mail — Deres adgangskode ændres ikke.",
+      "intro": "Vi har modtaget en anmodning om at nulstille adgangskoden for {email}.",
+      "subject": "Nulstil din adgangskode"
+    },
+    "signinOtp": {
+      "expiry": "Koden udløber om 10 minutter.",
+      "heading": "Log ind på Lisent",
+      "ignore": "Hvis De ikke har forsøgt at logge ind, kan De ignorere denne e‑mail.",
+      "intro": "Indtast denne kode for at logge ind som {email}:",
+      "subject": "Din Lisent‑login‑kode"
+    },
+    "verifyEmail": {
+      "expiry": "Koden udløber om 10 minutter.",
+      "heading": "Bekræft din e‑mail",
+      "ignore": "Hvis De ikke har oprettet en Lisent‑konto, kan De ignorere denne e‑mail.",
+      "intro": "Indtast denne kode for at bekræfte {email}:",
+      "subject": "Din Lisent‑bekræftelseskode"
+    }
+  },
   "errors": {
     "forbidden": "De har ikke tilladelse.",
     "generic": "Der opstod en fejl.",
@@ -530,7 +604,7 @@
       },
       "subtitle": "Fordeling af deals efter stage.",
       "title": "Pipeline",
-      "totalBadge": "{value} i alt"
+      "totalBadge": "{value} total"
     },
     "quickActions": {
       "aiQualifier": {
@@ -558,7 +632,7 @@
         "description": "Start en ny tenant for en anden forretningsenhed.",
         "title": "Ny workspace"
       },
-      "oneClickSetup": "Opsætning med ét klik",
+      "oneClickSetup": "Én-klik opsætning",
       "scheduleMeeting": {
         "cta": "Åbn kalender",
         "description": "Planlæg en opdagelsessamtale eller opfølgning.",
@@ -839,7 +913,7 @@
       "updateCredentials": "Opdater legitimationsoplysninger",
       "updatedLabel": "Opdateret",
       "upstreamStatus": "Upstream status: {status}",
-      "urlCopied": "URL kopieret til udklipsholder.",
+      "urlCopied": "URL kopieret til udklipsholderen.",
       "webhookSectionDescription": "Konfigurér din Green API‑instans til at levere indgående beskeder til <code>{url}</code>.",
       "webhookSectionTitle": "Indgående webhook"
     },
@@ -1476,7 +1550,7 @@
       "assignee": "Tildelt",
       "assignmentMode": "Tildelingsmetode",
       "backToProfile": "Tilbage til profil",
-      "closeDetails": "Luk lead-detaljer",
+      "closeDetails": "Luk leaddetaljer",
       "context": "Kontekst",
       "convert": "Konverter",
       "convertedCustomer": "Konverteret kunde",
@@ -1520,7 +1594,7 @@
       "pickWorkspace": "Vælg en workspace for at se leads."
     },
     "errors": {
-      "addNote": "Kunne ikke tilføje note.",
+      "addNote": "Kunne ikke tilføje notat.",
       "assignLead": "Kunne ikke tildele lead.",
       "bulkAssignFailed": "Kunne ikke tildele nogle leads.",
       "bulkDeleteFailed": "Kunne ikke slette nogle leads.",
@@ -1786,6 +1860,7 @@
           "status": "Statuskolonne",
           "tags": "Tags (komma / semikolon adskilt)"
         },
+        "loaded": "{rowCount, plural, one {Indlæste # række med {colCount, plural, one {# kolonne} other {# kolonner}}. Tilknyt hvert CRM-felt til den regnearkskolonne, det skal komme fra.} other {Indlæste # rækker med {colCount, plural, one {# kolonne} other {# kolonner}}. Tilknyt hvert CRM-felt til den regnearkskolonne, det skal komme fra.}}",
         "needName": "Vælg en kolonne til agenturnavnet først.",
         "noValid": "Ingen rækker har et ikke‑tomt navn.",
         "notUsed": "— (ikke brugt) —",
@@ -1793,8 +1868,7 @@
         "pickHint": "Klik for at vælge. Vi læser kun det første ark.",
         "pickLabel": "Vælg et regneark",
         "subtitle": "Accepterer CSV-, Excel- og OpenDocument‑regneark.",
-        "title": "Importér agenturer fra et regneark",
-        "loaded": "Indlæste {rowCount, plural, one {# række} other {# rækker}} med {colCount, plural, one {# kolonne} other {# kolonner}}. Tilknyt hvert CRM-felt til den regnearkskolonne, det skal komme fra."
+        "title": "Importér agenturer fra et regneark"
       },
       "list": {
         "agencies": "Agenturer",
@@ -1855,13 +1929,13 @@
         "bulkDelete": "Slet {count}",
         "bulkDeleting": "Sletter…",
         "clear": "Ryd",
+        "confirmDelete": "{count, plural, one {Slet # bureau?\n\nDette kan ikke fortrydes.} other {Slet # bureauer?\n\nDette kan ikke fortrydes.}}",
         "deleteFailed": "{failed} af {total} kunne ikke slettes:\n{detail}",
         "deleteFailedMore": "…og {count} flere",
         "justThisPage": "Vælg kun denne side ({count})",
         "pageFullySelected": "Alle {count} på denne side er valgt.",
         "pageSelectedCount": "{count} valgt på denne side",
-        "selectAllMatching": "Vælg alle {total} der matcher det aktuelle filter",
-        "confirmDelete": "Slet {count, plural, one {# bureau} other {# bureauer}}?\n\nDette kan ikke fortrydes."
+        "selectAllMatching": "Vælg alle {total} der matcher det aktuelle filter"
       },
       "table": {
         "actions": "Handlinger",
@@ -2505,15 +2579,15 @@
   },
   "nav": {
     "brandName": "Lisent CRM",
-    "calendar": "Kalender",
+    "calendar": "Calendar",
     "closeNavigation": "Luk navigation",
-    "customerImport": "Kundeimport",
-    "customers": "Kunder",
+    "customerImport": "Customer Import",
+    "customers": "Customers",
     "dashboard": "Dashboard",
     "deals": "Deals",
     "help": "Hjælp & ressourcer",
     "import": "Import",
-    "integrations": "Integrationer",
+    "integrations": "Integrations",
     "leads": "Leads",
     "lisentHome": "Lisent CRM startside",
     "lisentWorkspace": "Lisent workspace",
@@ -2525,7 +2599,7 @@
     "quickCreate": "Hurtig oprettelse",
     "sectionTools": "Værktøjer",
     "sectionWorkspace": "Workspace",
-    "tasks": "Opgaver",
+    "tasks": "Tasks",
     "teamMembers": "Teammedlemmer"
   },
   "notifications": {
@@ -2818,6 +2892,7 @@
     "demoUser": "Demo‑bruger",
     "openMenu": "Åbn konto-menu",
     "signOut": "Log ud",
+    "signOutEverywhere": "Log ud overalt",
     "workspaceUser": "Workspace-bruger"
   },
   "validation": {

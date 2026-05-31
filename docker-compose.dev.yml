@@ -101,6 +101,15 @@ services:
       QUALIFIER_BASE_URL: ${QUALIFIER_BASE_URL:-http://lisent-qualifier-api-1:8000}
       QUALIFIER_INTERNAL_API_KEY: ${QUALIFIER_INTERNAL_API_KEY:-dev-crm-internal-api-key}
       QUALIFIER_PLATFORM_TOKEN: ${QUALIFIER_PLATFORM_TOKEN:-dev-bff-platform-token}
+      # Email gateway (auth emails). Reaches the email-gateway dev container
+      # over the shared external network; secret must match the gateway's.
+      EMAIL_GATEWAY_URL: ${EMAIL_GATEWAY_URL:-http://lisent-dev-email-gateway:8090}
+      EMAIL_GATEWAY_HMAC_SECRET: ${EMAIL_GATEWAY_HMAC_SECRET:-dev-email-gateway-hmac-secret}
+      # Pepper for hashing OTP codes at rest (email verification / OTP login).
+      AUTH_OTP_PEPPER: ${AUTH_OTP_PEPPER:-dev-auth-otp-pepper}
+      # Public URL of the white wordmark shown in email headers — hosted on
+      # the marketing site so it loads in real inboxes (dev + prod).
+      EMAIL_LOGO_URL: ${EMAIL_LOGO_URL:-https://lisent.ai/logos/logo_white_text.png}
       # Turn on SuperTokens SDK debug output so a 401 on the BFF prints exactly
       # why verifySession() failed. Set to "false" once the session issue is
       # resolved — debug logs are verbose.

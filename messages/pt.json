@@ -47,10 +47,58 @@
     "creatingAccount": "Criando conta...",
     "emailLabel": "E‑mail",
     "emailPlaceholder": "nome@empresa.com",
+    "forgot": {
+      "backToSignin": "Voltar ao login",
+      "error": "Algo deu errado. Por favor, tente novamente.",
+      "send": "Enviar link de redefinição",
+      "sending": "Enviando…",
+      "sent": "Se existir uma conta para {email}, enviamos um link de redefinição de senha. Verifique sua caixa de entrada.",
+      "subtitle": "Digite seu e‑mail e enviaremos um link de redefinição.",
+      "title": "Redefinir sua senha"
+    },
+    "forgotLink": "Esqueceu a senha?",
     "newWorkspaceUser": "Novo usuário de workspace?",
+    "otp": {
+      "codeLabel": "Código de verificação",
+      "expired": "O código expirou — solicite um novo.",
+      "genericError": "Algo deu errado. Por favor, tente novamente.",
+      "incomplete": "Insira o código de 6 dígitos.",
+      "invalid": "O código está incorreto. Por favor, tente novamente.",
+      "noCode": "Nenhum código ativo — solicite um novo.",
+      "resend": "Reenviar código",
+      "resendIn": "Reenviar em {seconds}s",
+      "resent": "Um novo código está a caminho.",
+      "signOut": "Usar outra conta",
+      "signin": {
+        "codeSubtitle": "Se houver uma conta para {email}, enviamos um código de acesso. Verifique sua caixa de entrada.",
+        "emailSubtitle": "Insira seu e‑mail e enviaremos um código de 6 dígitos para entrar.",
+        "emailTitle": "Entrar com um código",
+        "sendCode": "Enviar código",
+        "sending": "Enviando…"
+      },
+      "tooMany": "Muitas tentativas. Solicite um novo código.",
+      "useOtpLink": "Entrar com código por e‑mail",
+      "usePassword": "Entrar com sua senha",
+      "verifyButton": "Verificar e‑mail",
+      "verifySubtitle": "Enviamos um código de 6 dígitos para {email}. Digite‑o abaixo para concluir.",
+      "verifyTitle": "Verifique seu e‑mail",
+      "verifying": "Verificando…"
+    },
     "passwordLabel": "Senha",
     "passwordPlaceholderSignIn": "Digite sua senha",
     "passwordPlaceholderSignUp": "Crie uma senha forte",
+    "reset": {
+      "error": "Algo deu errado. Por favor, tente novamente.",
+      "invalidToken": "Este link de redefinição é inválido ou expirou. Solicite um novo.",
+      "newPassword": "Nova senha",
+      "placeholder": "Crie uma senha forte",
+      "signin": "Ir para login",
+      "submit": "Atualizar senha",
+      "submitting": "Atualizando…",
+      "subtitle": "Escolha uma nova senha para sua conta.",
+      "success": "Sua senha foi atualizada.",
+      "title": "Definir uma nova senha"
+    },
     "selectGenderPlaceholder": "Selecione seu gênero",
     "signIn": "Entrar",
     "signInButton": "Entrar",
@@ -239,7 +287,7 @@
       "closeDrawer": "Fechar detalhes do cliente",
       "contact": "Contato",
       "coreProfile": "Perfil principal",
-      "extraData": "Dados adicionais",
+      "extraData": "Dados extras",
       "eyebrow": "Perfil do cliente",
       "identity": "Identidade"
     },
@@ -326,7 +374,7 @@
     "aiInsights": {
       "aiScore": "Pontuação AI",
       "aiStatus": "Status AI",
-      "champExtraction": "Extração CHAMP",
+      "champExtraction": "Extração de CHAMP",
       "path": "Caminho",
       "reasoningReport": "Relatório de raciocínio",
       "scoredAt": "Pontuado em {date}",
@@ -469,6 +517,32 @@
     "unassigned": "Não atribuído",
     "unknownAuthor": "Desconhecido",
     "untitledDeal": "Deal sem título"
+  },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Você está recebendo este e‑mail porque possui uma conta Lisent.",
+    "passwordReset": {
+      "cta": "Redefinir senha",
+      "fallback": "Se o botão não funcionar, copie e cole este link no seu navegador:",
+      "heading": "Redefinir sua senha",
+      "ignore": "Se não solicitou isso, pode ignorar este e‑mail com segurança — sua senha não será alterada.",
+      "intro": "Recebemos uma solicitação para redefinir a senha de {email}.",
+      "subject": "Redefinir sua senha"
+    },
+    "signinOtp": {
+      "expiry": "Este código expira em 10 minutos.",
+      "heading": "Faça login no Lisent",
+      "ignore": "Se não tentou fazer login, pode ignorar este e‑mail.",
+      "intro": "Insira este código para fazer login como {email}:",
+      "subject": "Seu código de login Lisent"
+    },
+    "verifyEmail": {
+      "expiry": "Este código expira em 10 minutos.",
+      "heading": "Confirme seu e‑mail",
+      "ignore": "Se não criou uma conta Lisent, pode ignorar este e‑mail.",
+      "intro": "Insira este código para verificar {email}:",
+      "subject": "Seu código de verificação Lisent"
+    }
   },
   "errors": {
     "forbidden": "Você não tem permissão.",
@@ -633,7 +707,7 @@
       "approvalDescription": "Confirme o mapeamento e execute a importação. Clientes serão criados ou atualizados no workspace ativo.",
       "approvalOutcome": "Após a aprovação, as linhas são inseridas como clientes em {name}.",
       "approveAndImport": "Aprovar & importar",
-      "backToPreview": "Voltar à pré-visualização",
+      "backToPreview": "Voltar à pré‑visualização",
       "confidence": "Confiança",
       "enableFallback": "Habilitar fallback de linha",
       "importing": "Importando...",
@@ -889,7 +963,7 @@
       "inboundUrl": "URL de entrada",
       "invalidJson": "JSON inválido.",
       "lastDelivery": "Última entrega",
-      "loadFailed": "Falha ao carregar a configuração da intranet.",
+      "loadFailed": "Falha ao carregar a configuração do intranet.",
       "loading": "Carregando configuração da intranet...",
       "mappingMustBeObject": "O mapeamento de campo deve ser um objeto JSON.",
       "mintBearer": "Emitir token bearer",
@@ -959,7 +1033,7 @@
       "revealedBearerLabel": "Novo token bearer",
       "revealedHmacLabel": "Novo segredo HMAC",
       "revokeBearerConfirm": "Revogar este token bearer? As chamadas que o utilizarem falharão.",
-      "revokeSecondaryTokenConfirm": "Revogar o token de entrada secundário?",
+      "revokeSecondaryTokenConfirm": "Revogar o token inbound secundário?",
       "revokeSecretConfirm": "Revogar este segredo    ?   ",
       "rotateBearer": "Rotacionar token bearer",
       "rotateBearerConfirm": "Rotacionar o token bearer? O token antigo permanecerá válido durante a janela de rotação.",
@@ -971,7 +1045,7 @@
       "saved": "Salvo.",
       "secondaryBearerRevoked": "Token bearer secundário revogado.",
       "secondarySecretRevoked": "Segredo HMAC secundário revogado.",
-      "secondaryTokenRevoked": "Token de entrada secundário revogado.",
+      "secondaryTokenRevoked": "Token inbound secundário revogado.",
       "sendPayloads": "Enviar payloads",
       "target": "Alvo",
       "targetEntity": "Entidade alvo",
@@ -1201,7 +1275,7 @@
         "v1Config": "Configuração V1"
       },
       "thresholdHint": "Leads que pontuam neste ou acima deste limiar são marcados como qualificados.",
-      "webhookUrlLabel": "URL do webhook"
+      "webhookUrlLabel": "URL do Webhook"
     },
     "rag": {
       "chunkLabel": "Chunk",
@@ -1211,7 +1285,7 @@
       "ingestedDocuments": "Documentos ingeridos",
       "ingestionExampleDescription": "POST to <code>{url}</code> com um corpo JSON contendo <code>title </code>, <code>content </code> e opcional <code>metadata </code>.",
       "ingestionExampleTitle": "Exemplo         … … … … … …… … …",
-      "loadConfigFailed": "Falha ao carregar a configuração do RAG.",
+      "loadConfigFailed": "Falha ao carregar a configuração RAG.",
       "loadContentFailed": "Falha ao carregar o conteúdo do documento.",
       "loadDocsFailed": "Falha ao carregar documentos.",
       "loading": "Carregando RAG...",
@@ -1234,7 +1308,7 @@
     "revoking": "Revogando...",
     "role": {
       "anyRole": "Qualquer função",
-      "ownerOnly": "Apenas proprietários",
+      "ownerOnly": "Somente proprietários",
       "viewOnly": "Somente visualização",
       "viewOnlyTitle": "Acesso somente visualização"
     },
@@ -1497,7 +1571,7 @@
       "linkedDealId": "ID do deal vinculado",
       "nextStep": "Próxima etapa",
       "noDealYet": "Ainda sem negócio",
-      "noneYet": "Nenhum ainda",
+      "noneYet": "Ainda não há",
       "qualify": "Qualificar",
       "quickFacts": "Informações rápidas",
       "roundRobin": "Rodízio",
@@ -1663,7 +1737,7 @@
       "source": "Origem",
       "status": "Status",
       "value": "Valor",
-      "viewAIDetails": "Ver detalhes da IA"
+      "viewAIDetails": "Ver detalhes da AI"
     },
     "toolbar": {
       "add": "Adicionar",
@@ -1786,6 +1860,7 @@
           "status": "Coluna de status",
           "tags": "Tags (separadas por vírgula / ponto e vírgula)"
         },
+        "loaded": "{rowCount, plural, one {# linha com {colCount, plural, one {# coluna} other {# colunas}} carregadas. Mapeie cada campo do CRM para a coluna da planilha de onde ele deve vir.} other {# linhas com {colCount, plural, one {# coluna} other {# colunas}} carregadas. Mapeie cada campo do CRM para a coluna da planilha de onde ele deve vir.}}",
         "needName": "Selecione primeiro uma coluna para o nome da agência",
         "noValid": "Nenhuma linha tem um nome preenchido",
         "notUsed": "— (não usado) —",
@@ -1793,8 +1868,7 @@
         "pickHint": "Clique para escolher. Lemos apenas a primeira planilha.",
         "pickLabel": "Escolha uma planilha",
         "subtitle": "Aceita planilhas CSV, Excel e OpenDocument.",
-        "title": "Importar agências a partir de uma planilha",
-        "loaded": "{rowCount, plural, one {# linha} other {# linhas}} com {colCount, plural, one {# coluna} other {# colunas}} carregadas. Mapeie cada campo do CRM para a coluna da planilha de onde ele deve vir."
+        "title": "Importar agências a partir de uma planilha"
       },
       "list": {
         "agencies": "Agências",
@@ -1855,13 +1929,13 @@
         "bulkDelete": "Excluir {count}",
         "bulkDeleting": "Excluindo…",
         "clear": "Limpar",
+        "confirmDelete": "{count, plural, one {Excluir # agência?\n\nEsta ação não pode ser desfeita.} other {Excluir # agências?\n\nEsta ação não pode ser desfeita.}}",
         "deleteFailed": "{failed} de {total} não puderam ser excluídos:\n{detail}",
         "deleteFailedMore": "…e mais {count}",
         "justThisPage": "Selecionar apenas esta página ({count})",
         "pageFullySelected": "Todos os {count} nesta página estão selecionados.",
         "pageSelectedCount": "{count} selecionados nesta página",
-        "selectAllMatching": "Selecionar todos os {total} que correspondem ao filtro atual",
-        "confirmDelete": "Excluir {count, plural, one {# agência} other {# agências}}?\n\nEsta ação não pode ser desfeita."
+        "selectAllMatching": "Selecionar todos os {total} que correspondem ao filtro atual"
       },
       "table": {
         "actions": "Ações",
@@ -1875,7 +1949,7 @@
       "title": "Agências · {total}"
     },
     "authBody": "Login, cadastro e validação de sessão via <code>/api/auth</code>",
-    "authTitle": "Autenticação",
+    "authTitle": "Auth",
     "bffBody": "As chamadas do navegador devem parar neste app. Rotas de servidor confiáveis conversarão com o serviço interno de CRM.",
     "bffTitle": "CRM BFF",
     "brand": "Lisent.ai",
@@ -2625,7 +2699,7 @@
       "reject": "Rejeitar",
       "startWork": "Iniciar trabalho"
     },
-    "activeCount": "{count} ativo",
+    "activeCount": "{count} ativo(s)",
     "assignmentMode": {
       "everyone": "Todos",
       "individual": "Individual"
@@ -2727,7 +2801,7 @@
     "addMember": "Adicionar membro",
     "addModal": {
       "description": "Convide um colega de equipe por e‑mail. Ele receberá um e‑mail para participar.",
-      "sending": "Enviando...",
+      "sending": "Enviando…",
       "submit": "Enviar convite",
       "title": "Adicionar membro da equipe"
     },
@@ -2781,7 +2855,7 @@
     "noEmail": "Nenhum e‑mail cadastrado",
     "noPermission": "Você não tem permissão para gerenciar membros da equipe.",
     "placeholders": {
-      "email": "name@company.com"
+      "email": "nome@empresa.com"
     },
     "removeMember": "Remover membro",
     "removeModal": {
@@ -2818,6 +2892,7 @@
     "demoUser": "Usuário de demonstração",
     "openMenu": "Abrir menu da conta",
     "signOut": "Sair",
+    "signOutEverywhere": "Sair de todos os dispositivos",
     "workspaceUser": "Usuário do Workspace"
   },
   "validation": {

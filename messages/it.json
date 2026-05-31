@@ -42,15 +42,63 @@
   },
   "auth": {
     "alreadyHaveAccess": "Ha già accesso?",
-    "authFailed": "Autenticazione fallita.",
+    "authFailed": "Autenticazione non riuscita.",
     "createAnAccount": "Crea un account",
     "creatingAccount": "Creazione account…",
     "emailLabel": "Email",
-    "emailPlaceholder": "name@company.com",
+    "emailPlaceholder": "nome@azienda.com",
+    "forgot": {
+      "backToSignin": "Torna al login",
+      "error": "Si è verificato un errore. Riprovi.",
+      "send": "Invia link di reimpostazione",
+      "sending": "Invio…",
+      "sent": "Se esiste un account per {email}, abbiamo inviato un link di reimpostazione della password. Controlla la tua casella di posta.",
+      "subtitle": "Inserisci la tua email e ti invieremo un link di reimpostazione.",
+      "title": "Reimposta la password"
+    },
+    "forgotLink": "Password dimenticata?",
     "newWorkspaceUser": "Nuovo utente workspace?",
+    "otp": {
+      "codeLabel": "Codice di verifica",
+      "expired": "Il codice è scaduto — richieda un nuovo codice.",
+      "genericError": "Si è verificato un errore. Riprovi più tardi.",
+      "incomplete": "Inserisca il codice a 6 cifre.",
+      "invalid": "Il codice non è corretto. Riprovi.",
+      "noCode": "Nessun codice attivo — richieda un nuovo codice.",
+      "resend": "Rinvia codice",
+      "resendIn": "Rinvia tra {seconds}s",
+      "resent": "Un nuovo codice è in arrivo.",
+      "signOut": "Usa un altro account",
+      "signin": {
+        "codeSubtitle": "Se esiste un account per {email}, abbiamo inviato un codice di accesso. Controlli la sua casella di posta.",
+        "emailSubtitle": "Inserisca la sua email e le invieremo un codice di accesso a 6 cifre.",
+        "emailTitle": "Accedi con un codice",
+        "sendCode": "Invia codice",
+        "sending": "Invio…"
+      },
+      "tooMany": "Troppi tentativi. Richieda un nuovo codice.",
+      "useOtpLink": "Accedi con un codice email",
+      "usePassword": "Accedi invece con la sua password",
+      "verifyButton": "Verifica email",
+      "verifySubtitle": "Abbiamo inviato un codice a 6 cifre a {email}. Inserisca qui sotto per completare.",
+      "verifyTitle": "Verifica la sua email",
+      "verifying": "Verifica in corso…"
+    },
     "passwordLabel": "Password",
     "passwordPlaceholderSignIn": "Inserisci la tua password",
     "passwordPlaceholderSignUp": "Crea una password sicura",
+    "reset": {
+      "error": "Si è verificato un errore. Riprovi.",
+      "invalidToken": "Questo link di reimpostazione non è valido o è scaduto. Richieda uno nuovo.",
+      "newPassword": "Nuova password",
+      "placeholder": "Crea una password sicura",
+      "signin": "Vai al login",
+      "submit": "Aggiorna password",
+      "submitting": "Aggiornamento…",
+      "subtitle": "Scegli una nuova password per il suo account.",
+      "success": "La sua password è stata aggiornata.",
+      "title": "Imposta una nuova password"
+    },
     "selectGenderPlaceholder": "Seleziona il tuo genere",
     "signIn": "Accedi",
     "signInButton": "Accedi",
@@ -121,14 +169,14 @@
       "description": "Descrizione",
       "end": "Fine",
       "endDate": "Data di fine",
-      "eventType": "Tipo di evento",
+      "eventType": "Tipo evento",
       "linkTo": "Collega a",
       "linkedRecord": "Record collegato",
       "location": "Luogo",
-      "meetingUrl": "URL della riunione",
+      "meetingUrl": "URL riunione",
       "reminder": "Promemoria",
       "start": "Inizio",
-      "startDate": "Data di inizio",
+      "startDate": "Data inizio",
       "status": "Stato",
       "title": "Titolo"
     },
@@ -404,11 +452,11 @@
         "customer": "Cliente",
         "dealName": "Nome del deal",
         "expectedCloseDate": "Data di chiusura prevista",
-        "lossReason": "Motivo della perdita",
+        "lossReason": "Motivo di perdita",
         "pipelineStage": "Stage della Pipeline",
         "sourceLead": "Source lead",
-        "terminationDate": "Data di cessazione",
-        "wonReason": "Motivo della vittoria"
+        "terminationDate": "Data di terminazione",
+        "wonReason": "Motivo di vittoria"
       },
       "newEyebrow": "Nuovo Deal",
       "newTitle": "Crea un Deal",
@@ -422,7 +470,7 @@
         "lossReason": "Perché questo Deal è stato perso?",
         "wonReason": "Perché questo Deal è stato vinto?"
       },
-      "saveChanges": "Salva le modifiche"
+      "saveChanges": "Salva modifiche"
     },
     "kanbanBoard": "Kanban board",
     "loadingBoard": "Caricamento board...",
@@ -469,6 +517,32 @@
     "unassigned": "Non assegnato",
     "unknownAuthor": "Sconosciuto",
     "untitledDeal": "Deal senza titolo"
+  },
+  "email": {
+    "brand": "Lisent",
+    "footer": "Sta ricevendo questa email perché ha un account Lisent.",
+    "passwordReset": {
+      "cta": "Reimposta password",
+      "fallback": "Se il pulsante non funziona, copi e incolli questo link nel suo browser:",
+      "heading": "Reimposta la sua password",
+      "ignore": "Se non ha richiesto questo, può ignorare tranquillamente l'email — la sua password non cambierà.",
+      "intro": "Abbiamo ricevuto una richiesta di reimpostazione della password per {email}.",
+      "subject": "Reimposta la sua password"
+    },
+    "signinOtp": {
+      "expiry": "Questo codice scade in 10 minuti.",
+      "heading": "Accedi a Lisent",
+      "ignore": "Se non ha provato ad accedere, può ignorare questa email.",
+      "intro": "Inserisca questo codice per accedere come {email}:",
+      "subject": "Il suo codice di accesso a Lisent"
+    },
+    "verifyEmail": {
+      "expiry": "Questo codice scade in 10 minuti.",
+      "heading": "Confermi la sua email",
+      "ignore": "Se non ha creato un account Lisent, può ignorare questa email.",
+      "intro": "Inserisca questo codice per verificare {email}:",
+      "subject": "Il codice di verifica di Lisent"
+    }
   },
   "errors": {
     "forbidden": "Non dispone dell'autorizzazione.",
@@ -735,7 +809,7 @@
       "envTest": "Test",
       "environment": "Ambiente",
       "loadFailed": "Impossibile caricare le chiavi API.",
-      "loading": "Caricamento chiavi API...",
+      "loading": "Caricamento chiavi API…",
       "namePlaceholder": "es. webhook di produzione",
       "nameRequired": "Il nome è obbligatorio.",
       "never": "Mai",
@@ -878,9 +952,9 @@
       "fieldMappingTitle": "Mappatura campi",
       "generateHmac": "Genera segreto HMAC",
       "generateToken": "Genera token",
-      "hmacCopied": "Segreto HMAC copiato.",
+      "hmacCopied": "HMAC secret copiato.",
       "hmacExampleTitle": "Esempio HMAC",
-      "hmacSecret": "Segreto HMAC",
+      "hmacSecret": "HMAC secret",
       "hmacSecretHint": "Usa questo segreto per calcolare <code>X-Lisent-Signature</code> nelle richieste in uscita.",
       "inactive": "Inattiva",
       "inboundDescription": "Invia payload a <code>{url}</code> per acquisire lead dal tuo intranet.",
@@ -957,10 +1031,10 @@
       "requestExamples": "Richiedi esempi",
       "revealDescription": "I token vengono mostrati una sola volta.",
       "revealedBearerLabel": "Nuovo token bearer",
-      "revealedHmacLabel": "Nuovo segreto HMAC",
+      "revealedHmacLabel": "Nuovo HMAC secret",
       "revokeBearerConfirm": "Revocare questo token bearer? Le chiamate che lo usano falliranno.",
       "revokeSecondaryTokenConfirm": "Revocare il token in ingresso secondario?",
-      "revokeSecretConfirm": "Revocare questo segreto HMAC? Le chiamate firmate con esso falliranno.",
+      "revokeSecretConfirm": "Revocare questo HMAC secret? Le chiamate firmate con esso falliranno.",
       "rotateBearer": "Ruota token bearer",
       "rotateBearerConfirm": "Ruotare il token bearer? Il token vecchio rimane valido per il periodo di rotazione.",
       "rotateHmac": "Ruota segreto HMAC",
@@ -970,7 +1044,7 @@
       "saveMapping": "Salva mappatura",
       "saved": "Salvato.",
       "secondaryBearerRevoked": "Token bearer secondario revocato.",
-      "secondarySecretRevoked": "Segreto HMAC secondario revocato.",
+      "secondarySecretRevoked": "HMAC secret secondario revocato.",
       "secondaryTokenRevoked": "Token in ingresso secondario revocato.",
       "sendPayloads": "Invia payload",
       "target": "Destinazione",
@@ -1152,7 +1226,7 @@
       "fallbackTitle": "Modalità fallback",
       "forbiddenHint": "Argomenti che l'assistente deve evitare (uno per riga).",
       "forbiddenPlaceholder": "es. Prezzi di funzionalità non rilasciate",
-      "forbiddenTopics": "Argomenti proibiti",
+      "forbiddenTopics": "Argomenti vietati",
       "handoffAggressiveness": "Aggressività del passaggio",
       "icpPlaceholder": "Descriva il profilo del cliente ideale...",
       "idealCustomerProfile": "Profilo cliente ideale",
@@ -1500,7 +1574,7 @@
       "noneYet": "Nessuno ancora",
       "qualify": "Qualifica",
       "quickFacts": "Informazioni rapide",
-      "roundRobin": "Round robin",
+      "roundRobin": "Rotazione",
       "scheduleCall": "Programma chiamata",
       "source": "Fonte",
       "starting": "Avvio...",
@@ -1786,6 +1860,7 @@
           "status": "Colonna stato",
           "tags": "Tag (separati da virgola o punto e virgola)"
         },
+        "loaded": "{rowCount, plural, one {# riga con {colCount, plural, one {# colonna} other {# colonne}} caricate. Associa ogni campo CRM alla colonna del foglio di calcolo da cui deve provenire.} other {# righe con {colCount, plural, one {# colonna} other {# colonne}} caricate. Associa ogni campo CRM alla colonna del foglio di calcolo da cui deve provenire.}}",
         "needName": "Scelga prima una colonna per il nome dell'agenzia.",
         "noValid": "Nessuna riga ha un nome non vuoto.",
         "notUsed": "— (non usato) —",
@@ -1793,8 +1868,7 @@
         "pickHint": "Fare clic per scegliere. Leggeremo solo il primo foglio.",
         "pickLabel": "Selezioni un foglio di calcolo",
         "subtitle": "Accetta fogli di calcolo CSV, Excel e OpenDocument.",
-        "title": "Importa agenzie da un foglio di calcolo",
-        "loaded": "{rowCount, plural, one {# riga} other {# righe}} con {colCount, plural, one {# colonna} other {# colonne}} caricate. Associa ogni campo CRM alla colonna del foglio di calcolo da cui deve provenire."
+        "title": "Importa agenzie da un foglio di calcolo"
       },
       "list": {
         "agencies": "Agenzie",
@@ -1855,13 +1929,13 @@
         "bulkDelete": "Elimina {count}",
         "bulkDeleting": "Eliminando…",
         "clear": "Cancella",
+        "confirmDelete": "{count, plural, one {Eliminare # agenzia?\n\nQuesta azione non può essere annullata.} other {Eliminare # agenzie?\n\nQuesta azione non può essere annullata.}}",
         "deleteFailed": "{failed} di {total} non è stato possibile eliminare:\n{detail}",
         "deleteFailedMore": "…e {count} altri",
         "justThisPage": "Seleziona solo questa pagina ({count})",
         "pageFullySelected": "Tutti i {count} in questa pagina sono selezionati.",
         "pageSelectedCount": "{count} selezionati in questa pagina",
-        "selectAllMatching": "Seleziona tutti i {total} corrispondenti al filtro attuale",
-        "confirmDelete": "Eliminare {count, plural, one {# agenzia} other {# agenzie}}?\n\nQuesta azione non può essere annullata."
+        "selectAllMatching": "Seleziona tutti i {total} corrispondenti al filtro attuale"
       },
       "table": {
         "actions": "Azioni",
@@ -2817,7 +2891,8 @@
     "demoEmail": "demo-user@lisent.ai",
     "demoUser": "Utente demo",
     "openMenu": "Apri menu account",
-    "signOut": "Esci",
+    "signOut": "Disconnetti",
+    "signOutEverywhere": "Esci da tutti i dispositivi",
     "workspaceUser": "Utente workspace"
   },
   "validation": {
