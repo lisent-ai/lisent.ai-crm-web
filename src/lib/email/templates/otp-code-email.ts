@@ -1,5 +1,6 @@
+import { brandLogoUrl } from "../brand";
 import type { EmailI18n } from "../i18n";
-import { baseLayout, escapeHtml } from "./base-layout";
+import { baseLayout, escapeHtml, palette } from "./base-layout";
 import type { RenderedEmail } from "./password-reset";
 
 export interface OtpCodeEmailData {
@@ -17,39 +18,41 @@ export function renderOtpCodeEmail(
   data: OtpCodeEmailData,
 ): RenderedEmail {
   const { t, dir } = i18n;
-  const p = data.prefix;
+  const p = palette;
+  const prefix = data.prefix;
   const code = escapeHtml(data.code);
 
   const codeBox = `
-    <div style="margin:20px 0;text-align:center;">
-      <span style="display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:30px;font-weight:700;letter-spacing:8px;color:#111827;background:#f4f4f5;border:1px solid #e4e4e7;border-radius:12px;padding:14px 22px;">${code}</span>
+    <div style="margin:22px 0;text-align:center;">
+      <span style="display:inline-block;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:32px;font-weight:700;letter-spacing:10px;color:${p.codeText};background:${p.codeBg};border:1px solid ${p.codeBorder};border-radius:14px;padding:16px 24px;">${code}</span>
     </div>`;
 
   const content = `
-    <h1 style="margin:0 0 12px 0;font-size:20px;color:#111827;">${escapeHtml(t(`${p}.heading`))}</h1>
-    <p style="margin:0 0 4px 0;">${escapeHtml(t(`${p}.intro`, { email: data.email }))}</p>
+    <h1 style="margin:0 0 12px 0;font-size:21px;font-weight:700;color:${p.heading};">${escapeHtml(t(`${prefix}.heading`))}</h1>
+    <p style="margin:0 0 4px 0;color:${p.body};">${escapeHtml(t(`${prefix}.intro`, { email: data.email }))}</p>
     ${codeBox}
-    <p style="margin:8px 0 4px 0;color:#71717a;font-size:13px;">${escapeHtml(t(`${p}.expiry`))}</p>
-    <p style="margin:0;color:#71717a;font-size:13px;">${escapeHtml(t(`${p}.ignore`))}</p>
+    <p style="margin:8px 0 4px 0;color:${p.muted};font-size:13px;">${escapeHtml(t(`${prefix}.expiry`))}</p>
+    <p style="margin:0;color:${p.muted};font-size:13px;">${escapeHtml(t(`${prefix}.ignore`))}</p>
   `;
 
   const html = baseLayout({
     dir,
     brand: t("email.brand"),
+    logoUrl: brandLogoUrl(),
     contentHtml: content,
     footer: escapeHtml(t("email.footer")),
   });
 
   const text = [
-    t(`${p}.heading`),
+    t(`${prefix}.heading`),
     "",
-    t(`${p}.intro`, { email: data.email }),
+    t(`${prefix}.intro`, { email: data.email }),
     "",
     data.code,
     "",
-    t(`${p}.expiry`),
-    t(`${p}.ignore`),
+    t(`${prefix}.expiry`),
+    t(`${prefix}.ignore`),
   ].join("\n");
 
-  return { subject: t(`${p}.subject`), html, text };
+  return { subject: t(`${prefix}.subject`), html, text };
 }
