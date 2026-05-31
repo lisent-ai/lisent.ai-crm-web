@@ -141,11 +141,11 @@
     "linkedType": {
       "company": "Virksomhed",
       "customer": "Kunde",
-      "deal": "Aftale",
+      "deal": "Deal",
       "lead": "Lead",
       "none": "Ingen"
     },
-    "loading": "Indlæser kalender...",
+    "loading": "Indlæser kalender…",
     "modal": {
       "editEyebrow": "Rediger begivenhed",
       "editTitle": "Opdater kalenderbegivenhed",
@@ -155,12 +155,12 @@
     },
     "moreCount": "+{count} mere",
     "placeholders": {
-      "description": "Tilføj en kort beskrivelse...",
-      "location": "Kontor, Zoom, adresse...",
+      "description": "Tilføj en kort beskrivelse…",
+      "location": "Kontor, Zoom, adresse…",
       "noLinkedCustomer": "Ingen tilknyttet kunde",
       "optionalCustomer": "Vælg en kunde (valgfri)",
       "selectRecord": "Vælg en post",
-      "title": "Opdagelsessamtale med..."
+      "title": "Opdagelsessamtale med…"
     },
     "searchAriaLabel": "Søg i begivenheder",
     "searchPlaceholder": "Søg i begivenheder...",
@@ -219,14 +219,14 @@
     "bulk": {
       "clearSelection": "Ryd valg",
       "confirmDelete": "Slet valgte",
-      "deleteDescription": "Dette vil permanent slette kundeposter. Handlingen kan ikke fortrydes.",
+      "deleteDescription": "Dette vil permanent slette {count} kundeposter. Handlingen kan ikke fortrydes.",
       "deleteEyebrow": "Masse sletning",
       "deleteTitle": "Slet valgte kunder?",
-      "exportCsv": "Export CSV",
-      "exportPdf": "Export PDF",
-      "exportXlsx": "Export Excel",
+      "exportCsv": "Eksporter CSV",
+      "exportPdf": "Eksporter PDF",
+      "exportXlsx": "Eksporter Excel",
       "regionLabel": "Massehandlinger",
-      "selectedCount": "valgt"
+      "selectedCount": "{count} valgt"
     },
     "closeAddPopup": "Luk tilføj kunde-dialog",
     "confirmDelete": "Slet",
@@ -246,7 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Kunne ikke slette nogle kunder.",
       "deleteCustomer": "Kunne ikke slette kunden.",
-      "exportFailed": "Failed to export customers.",
+      "exportFailed": "Kunne ikke eksportere kunder.",
       "loadCompanies": "Kunne ikke indlæse virksomheder.",
       "loadCustomers": "Kunne ikke indlæse kunder.",
       "saveCustomer": "Kunne ikke gemme kunden."
@@ -281,17 +281,17 @@
       "empty": "Ingen kunder matcher de aktuelle filtre.",
       "eyebrow": "Kunderegister",
       "selectAll": "Vælg alle kunder",
-      "selectRow": "Vælg kunde",
+      "selectRow": "Vælg kunde {name}",
       "title": "Kunder",
-      "visibleCount": "Viser {count}"
+      "visibleCount": "Viser {visible} af {total}"
     },
     "loading": "Indlæser kunder...",
     "noEmail": "Ingen e‑mail registreret",
     "notSet": "Ikke angivet",
     "pdf": {
-      "exportedAt": "customers · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Customers"
+      "exportedAt": "Kunder · Eksporteret {date}",
+      "pageOf": "Side {current} af {total}",
+      "title": "Kunder"
     },
     "placeholders": {
       "email": "name@company.com",
@@ -300,9 +300,9 @@
     },
     "search": {
       "label": "Søg",
-      "placeholder": "Søg efter kunder..."
+      "placeholder": "Søg kunder..."
     },
-    "selectedCompany": "Aktivt workspace:",
+    "selectedCompany": "Aktivt workspace: {name}",
     "status": {
       "active": "Aktiv",
       "all": "Alle",
@@ -312,10 +312,10 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} kunder slettet.",
-      "bulkDeletedPartial": "af kunder slettet.",
+      "bulkDeletedPartial": "{deleted} af {total} kunder slettet.",
       "created": "Kunde oprettet.",
       "deleted": "Kunde slettet.",
-      "exported": "Exported {count} customers.",
+      "exported": "Eksporterede {count} kunder.",
       "updated": "Kunde opdateret."
     }
   },
@@ -333,15 +333,15 @@
       "title": "AI-indsigter"
     },
     "amount": "Beløb",
-    "amountValue": "{value}",
+    "amountValue": "{amount}",
     "assignee": "Tildelt",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "Træk deals mellem stages for at opdatere pipeline.",
-    "changedBy": "Ændret af",
+    "changedBy": "Ændret af {name}",
     "close": "Luk",
     "closeTarget": "Luk mål",
-    "closeTargetValue": "{value}",
-    "columnTotal": "Kolonne total:",
+    "closeTargetValue": "{date}",
+    "columnTotal": "Kolonne total: {value}",
     "commentPlaceholder": "Skriv en kommentar...",
     "comments": "Kommentarer",
     "commentsCount": "{count} kommentarer",
@@ -375,7 +375,7 @@
       "country": "Land",
       "created": "Oprettet",
       "currency": "Valuta",
-      "customer": "Kunde",
+      "customer": "Customer",
       "industry": "Branche",
       "lossReason": "Tabårsag",
       "records": "Poster",
@@ -401,10 +401,10 @@
         "amount": "Beløb",
         "assignee": "Tildelt",
         "currency": "Valuta",
-        "customer": "Kunde",
+        "customer": "Customer",
         "dealName": "Deal-navn",
         "expectedCloseDate": "Forventet lukningsdato",
-        "lossReason": "Årsag til tab",
+        "lossReason": "Tabårsag",
         "pipelineStage": "Pipeline-trin",
         "sourceLead": "Kilde lead",
         "terminationDate": "Opsigelsesdato",
@@ -417,29 +417,29 @@
         "noSourceLead": "Ingen kilde lead"
       },
       "placeholders": {
-        "amount": "0.00",
+        "amount": "0,00",
         "dealName": "Acme — Q3 expansion",
         "lossReason": "Hvorfor gik dette deal tabt?",
         "wonReason": "Hvorfor vandt dette deal?"
       },
       "saveChanges": "Gem ændringer"
     },
-    "kanbanBoard": "Kanban-tavle",
-    "loadingBoard": "Indlæsning af tavle...",
-    "loadingDeals": "Indlæser tilbud...",
+    "kanbanBoard": "Kanban‑board",
+    "loadingBoard": "Indlæser board…",
+    "loadingDeals": "Indlæser deals…",
     "meetingTitle": "Møde",
     "noDate": "Ingen dato",
-    "noDealsMatch": "Ingen tilbud matcher de aktuelle filtre.",
-    "noLossReason": "Der er ikke registreret nogen tabsårsag.",
-    "noRelatedCustomer": "Ingen relateret kunde.",
+    "noDealsMatch": "Ingen deals matcher de aktuelle filtre.",
+    "noLossReason": "Ingen tabårsag registreret.",
+    "noRelatedCustomer": "Ingen tilknyttet kunde.",
     "noWinReason": "Ingen vinderårsag registreret.",
-    "notSet": "Ikke indstillet",
+    "notSet": "Ikke angivet",
     "now": "Nu",
     "pipelineLoading": "Indlæser pipeline…",
     "posting": "Sender…",
     "relatedRecords": "Relaterede poster",
     "scheduleActivity": "Planlæg aktivitet",
-    "selectedCompany": "Aktivt workspace:",
+    "selectedCompany": "Aktivt workspace: {name}",
     "stage": {
       "lost": "Tabt",
       "lostDescription": "Afsluttede tabte deals til læring.",
@@ -456,7 +456,7 @@
     },
     "stageHistory": "Stage-historik",
     "stageHistoryEmpty": "Ingen stage-ændringer er registreret endnu.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Kommentar tilføjet.",
       "created": "Deal oprettet.",
@@ -475,12 +475,12 @@
     "generic": "Der opstod en fejl.",
     "networkError": "Netværksfejl. Prøv igen.",
     "sessionRequired": "Godkendelse påkrævet.",
-    "userNotFound": "Bruger ikke fundet."
+    "userNotFound": "Bruger blev ikke fundet."
   },
   "home": {
     "activity": {
       "chartAriaLabel": "Aktivitetsdiagram for den seneste uge",
-      "empty": "Der er endnu ingen aktivitet registreret for.",
+      "empty": "Der er endnu ingen aktivitet registreret for {name}.",
       "emptyDefault": "Der er endnu ingen aktivitet registreret.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -493,7 +493,7 @@
       "noWorkspaceHelp": "Vælg et workspace fra switcheren for at se live‑data.",
       "noWorkspaceSelected": "Intet workspace valgt",
       "pickWorkspace": "Vælg et workspace",
-      "subtitleSelected": "Workspace‑metrik for.",
+      "subtitleSelected": "Workspace‑metrik for {name}.",
       "subtitleWithName": "Velkommen tilbage, {name}."
     },
     "errors": {
@@ -510,7 +510,7 @@
       "leads": "Leads",
       "leadsHint": "Aktive leads i pipeline.",
       "openPipelineHint": "Åben pipelineværdi på tværs af alle stadier.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Tilpas",
@@ -518,19 +518,19 @@
       "title": "Oversigt"
     },
     "pipeline": {
-      "empty": "Ingen pipeline-data endnu for.",
+      "empty": "Ingen pipeline-data endnu for {name}.",
       "emptyDefault": "Ingen pipeline-data endnu.",
       "stage": {
         "lost": "Tabt",
         "negotiation": "Forhandling",
         "new": "Ny",
-        "proposal": "Tilbud",
+        "proposal": "Forslag",
         "qualified": "Kvalificeret",
         "won": "Vundet"
       },
       "subtitle": "Fordeling af deals efter stage.",
       "title": "Pipeline",
-      "totalBadge": "{count} i alt"
+      "totalBadge": "{value} i alt"
     },
     "quickActions": {
       "aiQualifier": {
@@ -568,7 +568,7 @@
       "title": "Hurtige handlinger"
     },
     "recentLeads": {
-      "empty": "Ingen nylige leads i.",
+      "empty": "Ingen nylige leads i {name}.",
       "emptyDefault": "Ingen nylige leads endnu.",
       "status": {
         "contacted": "Kontaktet",
@@ -586,7 +586,7 @@
     "snapshot": {
       "activeWorkspace": "Aktivt workspace",
       "eyebrow": "Workspace‑snapshot",
-      "inWorkspace": "I",
+      "inWorkspace": "I {name}",
       "newCount": "{count} nye",
       "noWorkspaceHelp": "Vælg et workspace for at se live‑tællinger.",
       "noWorkspaceSelected": "Intet workspace valgt",
@@ -611,10 +611,10 @@
     "errors": {
       "approveFailed": "Kunne ikke godkende og importere.",
       "chooseFile": "Vælg en CSV-fil til upload.",
-      "enterUrl": "Indtast en CSV-URL.",
+      "enterUrl": "Indtast en CSV‑URL.",
       "fetchUrlFailed": "Kunne ikke hente CSV-URL'en.",
       "mapAtLeastOne": "Kortlæg mindst én kildekolonne til et målfelt.",
-      "noRows": "Filen eller URL'en indeholdt ingen rækker.",
+      "noRows": "Filen eller URL’en indeholdt ingen rækker.",
       "openFromCompany": "Åbn denne side fra et virksomheds‑workspace.",
       "parseFailed": "Kunne ikke parse CSV-filen."
     },
@@ -631,7 +631,7 @@
     },
     "mapping": {
       "approvalDescription": "Bekræft kortlægningen og kør importen. Kunder vil blive oprettet eller opdateret i det aktive workspace.",
-      "approvalOutcome": "Efter godkendelse indsættes rækker som kunder i.",
+      "approvalOutcome": "Efter godkendelse indsættes rækker som kunder i {name}.",
       "approveAndImport": "Godkend & importér",
       "backToPreview": "Tilbage til forhåndsvisning",
       "confidence": "Tillid",
@@ -646,32 +646,32 @@
     "preview": {
       "backToSource": "Tilbage til kilde",
       "continueToMapping": "Fortsæt til kortlægning",
-      "headers": "overskrifter",
-      "rowsLoaded": "rækker indlæst",
-      "rowsShown": "Viser de første rækker",
+      "headers": "{count} overskrifter",
+      "rowsLoaded": "{count} rækker indlæst",
+      "rowsShown": "Viser de første {count} rækker",
       "unmapped": "Ukortlagt"
     },
     "progress": {
-      "completedRatio": "af udført",
-      "currentRow": "Række",
-      "description": "Importerer rækker i. De kan forlade siden; importen fortsætter i baggrunden.",
+      "completedRatio": "{done} af {total} udført",
+      "currentRow": "Række {row}",
+      "description": "Importerer rækker i {name}. De kan forlade siden; importen fortsætter i baggrunden.",
       "eyebrow": "Import i gang",
       "preparing": "Forbereder import…",
       "title": "Importerer kunder"
     },
     "sidebar": {
-      "headers": "Overskrifter",
+      "headers": "Kolonneoverskrifter",
       "mappedFields": "Kortlagte felter",
       "progress": "Fremskridt",
       "rowsLoaded": "Rækker indlæst",
-      "stepNumber": "Trin {number}",
+      "stepNumber": "Trin {step}",
       "title": "Importstatus"
     },
     "source": {
       "continueToPreview": "Fortsæt til forhåndsvisning",
       "csvUpload": "Upload CSV-fil",
       "csvUploadHelp": "Træk og slip eller gennemse en .csv-fil fra din computer.",
-      "csvUrl": "CSV-URL",
+      "csvUrl": "CSV URL",
       "csvUrlHelp": "Angiv en offentligt tilgængelig URL, der peger på en CSV-fil.",
       "noFileSelected": "Ingen fil valgt",
       "processing": "Behandler...",
@@ -681,14 +681,14 @@
     },
     "steps": {
       "mapping": {
-        "label": "Mapping",
-        "summary": "Forbind hver kolonne med et CRM-felt.",
-        "title": "Map dine kolonner"
+        "label": "Kortlægning",
+        "summary": "Match hver kolonne med et CRM-felt.",
+        "title": "Kortlæg dine kolonner"
       },
       "preview": {
         "label": "Forhåndsvisning",
-        "summary": "Bekræft data, og kør derefter importen.",
-        "title": "Gennemgå og importer"
+        "summary": "Bekræft dataene, og kør derefter importen.",
+        "title": "Gennemse og importér"
       },
       "source": {
         "label": "Kilde",
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "Tilbage til oversigt",
-      "companyIdLabel": "Firma-id:",
-      "description": "Importér kundedata til fra en CSV-fil eller URL.",
+      "companyIdLabel": "Firma-id: {id}",
+      "description": "Importér kundedata til {name} fra en CSV-fil eller URL.",
       "eyebrow": "Workspace-import",
-      "selectedCompany": "Aktivt workspace:",
-      "stepLabel": "Trin {step}"
+      "selectedCompany": "Aktivt workspace: {name}",
+      "stepLabel": "Trin {step} af {total}"
     }
   },
   "integrations": {
@@ -729,7 +729,7 @@
       "createTitle": "Opret ny API-nøgle",
       "createdHeading": "API-nøgle oprettet",
       "creating": "Opretter…",
-      "description": "Administrer API-nøgler for <strong> </strong>.",
+      "description": "Administrer API-nøgler for <strong>{name}</strong>.",
       "empty": "Ingen API-nøgler endnu.",
       "envLive": "Live",
       "envTest": "Test",
@@ -760,21 +760,21 @@
     "catalog": {
       "accessDenied": "Adgang nægtet",
       "accessDeniedDescription": "De har ikke adgang til integrationer for dette arbejdsområde.",
-      "configuringCompany": "Konfigurerer integrationer for <strong> </strong>.",
+      "configuringCompany": "Konfigurerer integrationer for <strong>{name}</strong>.",
       "loadFailed": "Kunne ikke indlæse integrationskataloget.",
       "loading": "Indlæser integrationer…",
       "noAccess": "Ingen adgang til arbejdsområde",
-      "pickAnother": "Vælg et andet arbejdsområde",
-      "pickCompany": "Vælg et arbejdsområde",
-      "pickCompanyDescription": "Vælg et arbejdsområde for at konfigurere integrationer.",
+      "pickAnother": "Vælg en anden workspace",
+      "pickCompany": "Vælg en workspace",
+      "pickCompanyDescription": "Vælg en workspace for at konfigurere integrationer.",
       "readOnlyNotice": "De kan se denne konfiguration, men kan ikke redigere den.",
-      "switchCompany": "Skift arbejdsområde"
+      "switchCompany": "Skift workspace"
     },
     "companyPicker": {
-      "description": "Vælg et arbejdsområde for at administrere dets integrationer.",
+      "description": "Vælg en workspace for at administrere dens integrationer.",
       "empty": "De har endnu ingen arbejdsområder. <link>Opret et</link>.",
       "listAria": "Arbejdsområdeliste",
-      "loadFailed": "Kunne ikke indlæse arbejdsområder.",
+      "loadFailed": "Kunne ikke indlæse workspaces.",
       "loading": "Indlæser arbejdsområder…",
       "title": "Vælg et arbejdsområde"
     },
@@ -787,9 +787,9 @@
     "detail": {
       "backLink": "Tilbage til integrationer",
       "backToCatalog": "Tilbage til katalog",
-      "configuringCompany": "Konfigurerer <strong> </strong> for <strong> </strong>.",
-      "noCompany": "Vælg en workspace til at konfigurere <strong> </strong>.",
-      "restrictedDescription": "Du har ikke tilladelse til at se denne integration.",
+      "configuringCompany": "Konfigurerer <strong>{integration}</strong> for <strong>{company}</strong>.",
+      "noCompany": "Vælg en workspace til at konfigurere <strong>{integration}</strong>.",
+      "restrictedDescription": "De har ikke tilladelse til at se denne integration.",
       "restrictedTitle": "Begrænset",
       "slugTitles": {
         "aiLeadQualifier": "AI Lead Qualifier",
@@ -828,7 +828,7 @@
       "inbound": "Indgående URL",
       "instanceId": "Instans‑ID",
       "instanceIdPlaceholder": "F.eks. 1101000001",
-      "latency": "Forsinkelse: ms",
+      "latency": "Forsinkelse: {ms} ms",
       "loadFailed": "Kunne ikke indlæse Green API‑konfiguration.",
       "loading": "Indlæser Green API‑konfiguration…",
       "rotateConfirm": "Roter den indgående webhook token? Eksisterende webhooks skal opdateres.",
@@ -838,9 +838,9 @@
       "tokenRotated": "Webhook token roteret.",
       "updateCredentials": "Opdater legitimationsoplysninger",
       "updatedLabel": "Opdateret",
-      "upstreamStatus": "Upstream status:",
+      "upstreamStatus": "Upstream status: {status}",
       "urlCopied": "URL kopieret til udklipsholder.",
-      "webhookSectionDescription": "Konfigurér din Green API‑instans til at levere indgående beskeder til <code> </code>.",
+      "webhookSectionDescription": "Konfigurér din Green API‑instans til at levere indgående beskeder til <code>{url}</code>.",
       "webhookSectionTitle": "Indgående webhook"
     },
     "hide": "Skjul",
@@ -853,7 +853,7 @@
       "authHmacOrBearer": "HMAC eller Bearer",
       "authHmacShort": "HMAC",
       "authMode": "Godkendelsestilstand",
-      "authModeHint": "Vælg, hvordan Lisent autentificerer indgående anmodninger. HMAC signerer payloaden; Bearer sender en statisk token.",
+      "authModeHint": "Vælg hvordan Lisent skal autentificere indgående anmodninger fra Deres intranet. <strong>HMAC</strong> underskriver payloaden; <strong>Bearer</strong> sender et statisk token.",
       "bearerCopied": "Bearer-token kopieret.",
       "bearerExampleTitle": "Bearer-eksempel",
       "bearerToken": "Bearer-token",
@@ -862,18 +862,18 @@
       "copyUrl": "Kopier URL",
       "createIntegration": "Opret integration",
       "createdMessage": "Intranet-integration oprettet.",
-      "credentialsDescription": "Brug disse legitimationsoplysninger til at autentificere indgående webhook-kald.",
+      "credentialsDescription": "Brug disse legitimationsoplysninger til at autentificere kald til <code>{url}</code>.",
       "credentialsTitle": "Legitimationsoplysninger",
       "deliveries": "Leveringer",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "Afbryd denne intranet-integration? Indgående opkald vil begynde at fejle.",
-      "disconnectDescription": "Dette vil tilbagekalde alle tokens og stoppe med at acceptere indgående anmodninger.",
+      "disconnectDescription": "Dette vil tilbagekalde alle tokens og stoppe modtagelse af indgående anmodninger.",
       "disconnectIntegration": "Afbryd integration",
       "dismiss": "Afvis",
       "entityLabel": "Entitet",
       "errorLabel": "Fejl",
       "eventLabel": "Hændelse",
-      "fieldMappingDescription": "Knyt indgående felter til CRM-egenskaber med JMESPath-udtryk. Send et JSON-objekt, hvis værdier er JMESPath-strenge.",
+      "fieldMappingDescription": "Kortlæg indgående felter til CRM‑egenskaber. Indsend JSON som <code>{example}</code>.",
       "fieldMappingLabel": "Feltkortlægning",
       "fieldMappingTitle": "Feltkortlægning",
       "generateHmac": "Generér HMAC‑hemmelighed",
@@ -883,7 +883,7 @@
       "hmacSecret": "HMAC‑hemmelighed",
       "hmacSecretHint": "Brug denne secret til at beregne <code>X-Lisent-Signature</code> på udgående anmodninger.",
       "inactive": "Inaktiv",
-      "inboundDescription": "Send payloads til URL'en ovenfor for at hente leads fra dit intranet.",
+      "inboundDescription": "Send payloads til <code>{url}</code> for at indsamle leads fra Deres intranet.",
       "inboundToken": "Indgående URL‑token",
       "inboundTokenHint": "Dette token er en del af den indgående URL — hold det hemmeligt.",
       "inboundUrl": "Indgående URL",
@@ -923,7 +923,7 @@
         "savedNotice": "Outbound webhook gemt.",
         "secretConfigured": "Konfigureret",
         "secretNotSet": "Ikke indstillet — generér en, før De sender hændelser.",
-        "secretRotatedAt": "(roteret )",
+        "secretRotatedAt": "(roteret {time})",
         "secretRotatedNotice": "Signing secret roteret. Klartekst vises kun denne ene gang.",
         "selectAtLeastOne": "Vælg mindst én status, eller marker 'Alle statusændringer'.",
         "signingSecretLabel": "Signing secret (HMAC-SHA256)",
@@ -979,6 +979,38 @@
       "urlCopied": "URL kopieret til udklipsholderen."
     },
     "loadingProfile": "Indlæser profil…",
+    "mailchimp": {
+      "benefitAudiences": "Administrer Mailchimp‑audiences (lister), medlemmer, segmenter og tags fra CRM’et.",
+      "benefitCampaigns": "Opret, planlæg og send e‑mailkampagner — samt replikér og test‑send før lancering.",
+      "benefitPerUser": "Per‑bruger‑forbindelse: hver operatør bruger sin egen Mailchimp‑konto.",
+      "benefitReports": "Læs åbne / klik‑ / bounce‑ / geo‑rapporter uden at forlade CRM’et.",
+      "cancel": "Annuller",
+      "cardDescription": "Per‑operatør Mailchimp‑forbindelse. Administrer audiences, overfør CRM‑kontakter, opret kampagner og læs rapporter uden at forlade CRM’et. Customer Journey‑designeren forbliver i Mailchimp.",
+      "cardName": "Mailchimp",
+      "connectButton": "Forbind Mailchimp",
+      "connectCta": "Forbind Mailchimp",
+      "connectDescription": "Vi åbner Mailchimps OAuth-popup. De giver Lisent CRM tilladelse, vi modtager en adgangstoken via Nango, og Deres målgrupper vises i Marketing → Email-modulet.",
+      "connectFailed": "Kunne ikke fuldføre Mailchimp-forbindelsen. Prøv igen.",
+      "connectTitle": "Forbind Deres Mailchimp-konto",
+      "connected": "Mailchimp-konto tilsluttet.",
+      "connectedAs": "Forbundet som {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "Åbner Mailchimp…",
+      "dcLabel": "Datacenter",
+      "disconnect": "Afbryd",
+      "disconnectConfirm": "Afbryd Deres Mailchimp-konto fra dette workspace? Målgrupper og kampagner forbliver sikre i Mailchimp; kun linket fra CRM’en fjernes.",
+      "failed": "Mislykket",
+      "lastPushLabel": "Seneste push",
+      "loadFailed": "Kunne ikke indlæse Deres Mailchimp-forbindelse.",
+      "nangoNotConfigured": "Mailchimp OAuth er endnu ikke konfigureret på serveren. Bed Deres administrator om at tilføje NANGO_SECRET_KEY + en Mailchimp-udbyderkonfiguration i Nango.",
+      "openEmailModule": "Åbn Email-modul",
+      "openInMailchimp": "Åbn i Mailchimp",
+      "pushCountLabel": "Kontakter overført (succes / total)",
+      "reconnect": "Genopret forbindelse",
+      "scopedToCompany": "Denne forbindelse tilhører Dem, begrænset til {name}. Andre operatører ser deres egen forbindelse her.",
+      "statusActive": "Aktiv",
+      "statusPaused": "Pauset",
+      "totalSubscribersLabel": "Totalt antal abonnenter"
+    },
     "meta": {
       "active": "Aktiv",
       "addMappingRow": "Tilføj feltkortlægning",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "Kortlæg Meta lead‑genereringsfelter til CRM‑lead‑kolonner. Lad feltet stå tomt for at bruge standardindstillingerne (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Feltkortlægning",
       "finalizeButton": "Afslut opsætning",
-      "followersCount": "følgere",
+      "followersCount": "{count} følgere",
       "formAllSubscribedHint": "Ingen formularer valgt → alle formularer på denne side vil blive abonneret (Meta‑standard).",
       "formIdsHint": "Komma‑adskilt. Tom = modtag alle formularer på denne side.",
       "formIdsLabel": "Formular‑ID'er",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "Søg formularer…",
       "formPickerTitle": "Vælg lead‑formularer",
       "forms": "Formularer",
-      "formsShownCount": "af",
+      "formsShownCount": "{shown} af {total}",
       "hmacSecretHint": "Gem dette nu — vi viser ikke klartekst igen.",
       "hmacSecretLabel": "HMAC‑hemmelighed",
       "hmacSecretReveal": "Vis én gang",
       "inboundUrlHint": "n8n poster her efter at have hentet det fulde lead fra Meta. De behøver ikke indsætte dette nogen steder.",
       "inboundUrlLabel": "CRM inbound‑URL (bruges af n8n)",
       "last7dCount": "{count} på 7d",
-      "lastLeadAgo": "Seneste lead",
+      "lastLeadAgo": "Seneste lead {when}",
       "leads7d": "{count} leads på 7d",
       "loadFailed": "Kunne ikke indlæse Meta-integration.",
       "metaFieldHeader": "Meta‑felt",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "Ingen sider fundet",
       "pagePickerSearch": "Søg sider…",
       "pagePickerTitle": "Vælg en Facebook‑side",
-      "pagesShownCount": "af",
+      "pagesShownCount": "{shown} af {total}",
       "paused": "Pauset",
       "popupBlocked": "Browseren blokerede OAuth‑pop‑up‑vinduet. Tillad pop‑ups for dette site og prøv igen.",
       "recentDeliveriesEmpty": "Ingen leveringer endnu.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "Udkast",
       "statusPaused": "Pauset",
       "statusUnknown": "Ukendt",
-      "subscribedAt": "Abonneret",
+      "subscribedAt": "Abonneret {when}",
       "testLeadButton": "Send testlead",
       "testLeadDescription": "Genererer en Meta‑formet payload og kører den gennem den samme indsættelses‑sti som i produktion. Kun tilgængelig, mens mock‑tilstand er aktiveret.",
       "testLeadFailed": "Kunne ikke oprette testlead.",
@@ -1116,8 +1148,8 @@
       "disconnectConfirm": "Afbryd AI‑kvalificeringen? Eksisterende scores forbliver.",
       "fallbackDescription": "Bruges når LLM’en ikke kan køre. Scoren beregnes ud fra formular‑datakvalitet.",
       "fallbackPlaceholder": "Beskriv fallback‑adfærden…",
-      "fallbackSaved": "Fallback-konfiguration gemt.",
-      "fallbackTitle": "Fallback-tilstand",
+      "fallbackSaved": "Fallback‑konfiguration gemt.",
+      "fallbackTitle": "Fallback‑tilstand",
       "forbiddenHint": "Emner, som assistenten skal undgå (én per linje).",
       "forbiddenPlaceholder": "f.eks. Priser på uoffentlige funktioner",
       "forbiddenTopics": "Forbudte emner",
@@ -1151,7 +1183,7 @@
         "tuningRag": "<strong>Videnbase (RAG):</strong> Dokumenter assistenten kan referere til.",
         "tuningTitle": "Finjustering"
       },
-      "qualificationThreshold": "Kvalifikationsgrænse",
+      "qualificationThreshold": "Kvalificeringstærskel",
       "revokeSecondaryConfirm": "Tilbagekald den sekundære webhook‑hemmelighed?",
       "rotateWebhookConfirm": "Roter webhook‑hemmeligheden? Den gamle hemmelighed forbliver gyldig i rotationsvinduet.",
       "saveAiConfig": "Gem AI‑konfiguration",
@@ -1161,11 +1193,11 @@
         "aiConfig": "AI-konfiguration",
         "apiKeys": "API-nøgler",
         "channels": "Kanaler",
-        "fallback": "Reserve",
-        "leadWebhook": "Lead-webhook",
+        "fallback": "Fallback",
+        "leadWebhook": "Lead webhook",
         "overview": "Oversigt",
         "rag": "RAG",
-        "usage": "Forbrug",
+        "usage": "Brug",
         "v1Config": "V1-konfiguration"
       },
       "thresholdHint": "Leads, der scorer på eller over denne grænse, markeres som kvalificerede.",
@@ -1174,10 +1206,10 @@
     "rag": {
       "chunkLabel": "Segment",
       "chunksColumn": "Delområder",
-      "description": "Vidensbase for <strong> </strong>. Upload dokumenter, som AI’en kan referere til.",
-      "ingestedDescription": "Dokumenter, der i øjeblikket er i vidensbasen for <strong> </strong>.",
+      "description": "Vidensbase for <strong>{name}</strong>. Upload dokumenter, som AI’en kan referere til.",
+      "ingestedDescription": "Dokumenter, der i øjeblikket er i vidensbasen for <strong>{name}</strong>.",
       "ingestedDocuments": "Indlæste dokumenter",
-      "ingestionExampleDescription": "POST til <code> </code> med en JSON‑krop, der indeholder <code>title</code>, <code>content</code> og valgfri <code>metadata</code>.",
+      "ingestionExampleDescription": "POST til <code>{url}</code> med en JSON‑krop, der indeholder <code>title</code>, <code>content</code> og valgfri <code>metadata</code>.",
       "ingestionExampleTitle": "Eksempel på indtagning",
       "loadConfigFailed": "Kunne ikke indlæse RAG‑konfiguration.",
       "loadContentFailed": "Kunne ikke indlæse dokumentindhold",
@@ -1214,16 +1246,16 @@
       "active": "Aktiv",
       "aria": "Integrationsstatus",
       "comingSoon": "Kommer snart",
-      "connected": "Forbundet",
+      "connected": "Tilsluttet",
       "error": "Fejl",
       "notConfigured": "Ikke konfigureret",
-      "paused": "Sat på pause"
+      "paused": "Pauset"
     },
     "subComponent": {
       "configured": "Konfigureret",
-      "configuredAria": "{label} er konfigureret",
+      "configuredAria": "{name} er konfigureret",
       "notSet": "Ikke angivet",
-      "notSetAria": "{label} er ikke angivet"
+      "notSetAria": "{name} er ikke angivet"
     },
     "testConnection": "Test forbindelse",
     "testing": "Tester...",
@@ -1231,9 +1263,9 @@
     "urlCopied": "URL kopieret til udklip",
     "usage": {
       "allMetrics": "Alle målinger",
-      "description": "Brug og hastighedsgrænser for <strong> </strong>.",
+      "description": "Brug og hastighedsgrænser for <strong>{name}</strong>.",
       "loadFailed": "Kunne ikke indlæse brug",
-      "loading": "Indlæser brug...",
+      "loading": "Indlæser forbrug...",
       "metricColumn": "Måling",
       "metrics": {
         "activeUsers": "Aktive brugere",
@@ -1280,7 +1312,7 @@
       "calendlyDescription": "Valgfri Calendly‑link, som assistenten kan tilbyde til booking. Bruges af <code>v1</code> mødeoverdragelser.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly‑link",
-      "description": "Konfigurer kvalifikatorens <code>v1</code> adfærd for <strong> </strong>.",
+      "description": "Konfigurer kvalifikatorens <code>v1</code> adfærd for <strong>{name}</strong>.",
       "frameworkDescription": "Vælg kvalifikationsrammen, som assistenten bruger til at udtrække signaler.",
       "frameworkTitle": "Kvalifikationsramme",
       "loadFailed": "Kunne ikke indlæse v1‑konfiguration.",
@@ -1304,7 +1336,7 @@
       "configured": "Konfigureret",
       "currentLabel": "Aktuel",
       "customPatternsLabel": "Brugerdefinerede mønstre (én per linje)",
-      "description": "Konfigurer webhook-levering for <strong> </strong>.",
+      "description": "Konfigurer webhook-levering for <strong>{name}</strong>.",
       "destinationHint": "Lisent sender begivenheder til denne URL med en signeret payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Destination URL",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Minimal payload",
       "payloadMode": "Payload‑tilstand",
       "rotateSecret": "Roter secret",
-      "rotatedAt": "Roteret kl.",
+      "rotatedAt": "Roteret kl. {time}",
       "saveEventSelection": "Gem event‑valg",
       "saveUrl": "Gem URL",
       "secretRotated": "Signing secret roteret.",
@@ -1383,18 +1415,18 @@
       "title": "Tildel valgte leads"
     },
     "bulkBar": {
-      "ariaSelected": "leads valgt",
+      "ariaSelected": "{count} leads valgt",
       "assign": "Tildel",
       "clearSelection": "Ryd valg",
       "delete": "Slet",
       "exportCsv": "Eksporter CSV",
       "exportPdf": "Eksporter PDF",
-      "selected": "valgt"
+      "selected": "{count} valgt"
     },
     "bulkDelete": {
       "confirm": "Slet valgte",
       "deleting": "Sletter...",
-      "description": "Dette vil permanent slette leads. Handlingen kan ikke fortrydes.",
+      "description": "Dette vil permanent slette {count} leads. Handlingen kan ikke fortrydes.",
       "title": "Slet valgte leads?"
     },
     "convertModal": {
@@ -1470,7 +1502,7 @@
       "quickFacts": "Hurtige fakta",
       "roundRobin": "Round robin",
       "scheduleCall": "Planlæg opkald",
-      "source": "Kilde",
+      "source": "Source",
       "starting": "Starter…",
       "status": "Status",
       "tabs": {
@@ -1515,7 +1547,7 @@
       "allAssignees": "Alle tildelere",
       "allSources": "Alle kilder",
       "byCampaign": "Filtreret efter kampagne: {name}",
-      "byCampaignCount": "af leads",
+      "byCampaignCount": "{shown} af {total} leads",
       "clearCampaign": "Ryd filter"
     },
     "formModal": {
@@ -1539,7 +1571,7 @@
       "phone": "Telefon",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "Pipeline stage",
-      "saveAndScheduleEvent": "Gem og planlæg begivenhed",
+      "saveAndScheduleEvent": "Gem & planlæg begivenhed",
       "saveChanges": "Gem ændringer"
     },
     "kpi": {
@@ -1567,17 +1599,17 @@
     },
     "pdf": {
       "commentByOn": "{author} · {date}",
-      "commentsHeader": "Comments",
+      "commentsHeader": "Kommentarer",
       "createdAt": "Oprettet",
       "email": "E-mail",
-      "exportedAt": "leads · Eksporteret den",
+      "exportedAt": "{count} leads · Eksporteret den {date}",
       "options": {
-        "confirm": "Export PDF",
-        "description": "Choose what to include in the export of {count} selected leads.",
-        "exporting": "Exporting...",
-        "includeComments": "Include lead comments",
-        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
-        "title": "Export leads to PDF"
+        "confirm": "Eksporter PDF",
+        "description": "Vælg hvad der skal medtages i eksporten af {count} valgte leads.",
+        "exporting": "Eksporterer...",
+        "includeComments": "Inkluder lead‑kommentarer",
+        "includeCommentsHint": "Tilføjer en sektion med alle teamkommentarer for hvert valgt lead. Kan tage længere tid at generere.",
+        "title": "Eksporter leads til PDF"
       },
       "pageOf": "Side {current} af {total}",
       "title": "Leads"
@@ -1604,17 +1636,17 @@
     },
     "success": {
       "aiStarted": "AI‑kvalificering startet.",
-      "bulkAssignPartial": "af leads tildelt.",
-      "bulkAssigned": "leads tildelt.",
-      "bulkPartial": "af leads fjernet.",
+      "bulkAssignPartial": "{assigned} af {total} leads tildelt.",
+      "bulkAssigned": "{count} leads tildelt.",
+      "bulkPartial": "{deleted} af {total} leads fjernet.",
       "bulkRemoved": "{count} leads fjernet.",
       "converted": "Lead konverteret.",
       "convertedWithDeal": "Lead konverteret med deal.",
       "created": "Lead oprettet.",
       "exported": "Eksporterede {count} leads.",
-      "noteAdded": "Note tilføjet.",
-      "noteDeleted": "Note slettet.",
-      "noteUpdated": "Note opdateret.",
+      "noteAdded": "Notat tilføjet.",
+      "noteDeleted": "Notat slettet.",
+      "noteUpdated": "Notat opdateret.",
       "removed": "Lead fjernet.",
       "roundRobinAssigned": "Lead tildelt via round robin.",
       "updated": "Lead opdateret."
@@ -1623,7 +1655,7 @@
       "assignee": "Assignee",
       "empty": "Ingen leads matcher de aktuelle filtre.",
       "name": "Navn",
-      "openAIScore": "Open AI-score for {score}",
+      "openAIScore": "Open AI-score for {name}",
       "phone": "Telefon",
       "rowActions": "Rækkehandlinger",
       "selectAll": "Vælg alle leads",
@@ -1648,8 +1680,202 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Importér regneark",
+        "newAgency": "Ny agentur",
+        "refresh": "Opdater"
+      },
+      "createModal": {
+        "editTitle": "Rediger {name}",
+        "newSubtitle": "Gå gennem felterne — en eller to ad gangen.",
+        "newTitle": "Tilføj en ny agentur",
+        "saveChanges": "Gem ændringer",
+        "saveError": "Kunne ikke gemme agenturet.",
+        "saving": "Gemmer…",
+        "submit": "Opret agentur"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "Personen du normalt taler med hos agenturet.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "Valgfri — udfylder LNAME når dette agentur sendes til en Mailchimp‑målgruppe.",
+          "fieldLabel": "Kontaktperson",
+          "title": "Primær kontakt"
+        },
+        "name": {
+          "description": "Visningsnavnet, som dit team vil genkende.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Vises på kataloglisten og i enhver kampagne‑mail‑sammenfletning.",
+          "fieldLabel": "Navn",
+          "title": "Agenturnavn"
+        },
+        "notes": {
+          "description": "Eventuelt andet, der er værd at huske om dette agentur.",
+          "fieldHelp": "Fri tekst — sendes ikke til Mailchimp, kun synlig i CRM'et.",
+          "fieldLabel": "Noter",
+          "fieldPlaceholder": "Fornyelse i marts. Foretrækker WhatsApp til hurtige opdateringer.",
+          "title": "Noter"
+        },
+        "reach": {
+          "description": "E‑mail er påkrævet, hvis du senere vil sende denne række til Mailchimp.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Bruges som Mailchimp‑unik nøgle, når du sender.",
+          "emailLabel": "E‑mail",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Frit format — medtag landekode, hvis du har den.",
+          "phoneLabel": "Telefon",
+          "title": "Sådan kontakter du dem"
+        },
+        "status": {
+          "description": "Aktiv = aktuelt engageret. Inaktiv = sat på pause. Udløbet = efter kontraktens slutning.",
+          "fieldHelp": "Du kan ændre dette når som helst — bruges til filtrering af kataloget.",
+          "fieldLabel": "Status",
+          "title": "Status"
+        },
+        "tags": {
+          "description": "Tags overføres til Mailchimp, hvis du sender dette agentur senere.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Adskil med kommaer eller semikolon. Oprettet ved første push.",
+          "fieldLabel": "Tags",
+          "title": "Tags"
+        },
+        "window": {
+          "description": "Begge ender er valgfrie — lad den ene side stå tom for ubegrænset eller åben.",
+          "endsHelp": "Når forholdet slutter.",
+          "endsLabel": "Slutter den",
+          "startsHelp": "Når forholdet begynder.",
+          "startsLabel": "Begynder den",
+          "title": "Kontraktvindue"
+        }
+      },
+      "deleteConfirm": "Slet {name}?\n\nDette fjerner bureauet fra CRM'et. Det påvirker ikke nogen Mailchimp-abonnent oprettet fra denne række.",
+      "deleteError": "Kunne ikke slette bureauet.",
+      "empty": "Ingen bureauer endnu. Tilføj et eller importér et regneark.",
+      "filter": {
+        "apply": "Anvend",
+        "clear": "Ryd filtre",
+        "searchPlaceholder": "Søg navn, kontakt, e‑mail",
+        "statusActive": "Aktiv",
+        "statusAll": "Alle statusser",
+        "statusExpired": "Udløbet",
+        "statusInactive": "Inaktiv"
+      },
+      "import": {
+        "accepts": "Accepterer CSV, Excel (xlsx / xls / xlsm / xlsb) og OpenDocument (ods / fods). Navn er den eneste påkrævede kolonne.",
+        "close": "Luk",
+        "complete": "Import fuldført",
+        "completeSummary": "Oprettet {created} af {total} rækker.",
+        "defaultStatus": "Standardstatus (for rækker uden)",
+        "done": "Færdig",
+        "empty": "Filen ser ud til at være tom.",
+        "errorPrefix": "Kunne ikke parse filen",
+        "errorsHeader": "{count} rækker havde fejl:",
+        "errorsMore": "… {count} flere",
+        "failed": "Importen mislykkedes.",
+        "importBtn": "Importér",
+        "importing": "Importerer…",
+        "label": {
+          "contact": "Kontaktperson",
+          "email": "E‑mail",
+          "ends": "Slutter den (YYYY-MM-DD)",
+          "name": "Navn (påkrævet)",
+          "notes": "Noter",
+          "phone": "Telefon",
+          "starts": "Starter den (YYYY-MM-DD)",
+          "status": "Statuskolonne",
+          "tags": "Tags (komma / semikolon adskilt)"
+        },
+        "needName": "Vælg en kolonne til agenturnavnet først.",
+        "noValid": "Ingen rækker har et ikke‑tomt navn.",
+        "notUsed": "— (ikke brugt) —",
+        "pickAnother": "Vælg en anden fil",
+        "pickHint": "Klik for at vælge. Vi læser kun det første ark.",
+        "pickLabel": "Vælg et regneark",
+        "subtitle": "Accepterer CSV-, Excel- og OpenDocument‑regneark.",
+        "title": "Importér agenturer fra et regneark",
+        "loaded": "Indlæste {rowCount, plural, one {# række} other {# rækker}} med {colCount, plural, one {# kolonne} other {# kolonner}}. Tilknyt hvert CRM-felt til den regnearkskolonne, det skal komme fra."
+      },
+      "list": {
+        "agencies": "Agenturer",
+        "loading": "Indlæser agenturer…"
+      },
+      "loadError": "Kunne ikke indlæse agenturer.",
+      "noCompany": "Vælg en virksomhed fra dashboardet for at administrere dens agenturer.",
+      "page": {
+        "next": "Næste side",
+        "perPage": "Pr. side",
+        "prev": "Forrige side",
+        "range": "{from}–{to} af {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Luk",
+        "defaultStatus": "Standardstatus for nye abonnenter",
+        "disabledHint": "Vælg rækker på denne side til at sende (push på tværs af sider understøttes ikke).",
+        "done": "Udført",
+        "extraTagsHelp": "Tilføjes til hver sendt abonnent ud over hver agents egne tags. Kommasepareret eller semikolonsepareret.",
+        "extraTagsLabel": "Ekstra tags",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "Pushen mislykkedes.",
+        "loadAudiencesFailed": "Kunne ikke indlæse Mailchimp‑målgrupper.",
+        "loading": "Indlæser…",
+        "mailchimpAudience": "Mailchimp‑målgruppe",
+        "noAudiences": "— Ingen målgrupper endnu —",
+        "noEmail": "Ingen af de valgte bureauer har en e‑mailadresse.",
+        "notConnected": "Mailchimp er endnu ikke forbundet for denne konto. Tilslut under Marketing → Email → Settings, og vend tilbage.",
+        "patchExisting": "Opdater eksisterende abonnenter (anbefales). Kør denne push igen, så opdateres merge‑felter i stedet for at give fejl ved dubletter.",
+        "pickAudience": "Vælg en målgruppe først.",
+        "pushBtn": "Send til Mailchimp",
+        "pushing": "Sender…",
+        "result": {
+          "header": "Push gennemført",
+          "summary": "{created} oprettet · {updated} opdateret · {skipped} sprunget over · {errors} fejl."
+        },
+        "skippedNotice": "{count, plural, one {{count} af det valgte bureau har ingen e‑mail og vil blive sprunget over.} other {{count} af de valgte bureauer har ingen e‑mail og vil blive sprunget over.}}",
+        "statusPending": "Afventer (dobbelt opt‑in)",
+        "statusSubscribed": "Abonneret",
+        "statusUnsubscribed": "Afmeldt",
+        "subtitle": "Hvert bureau bliver en Mailchimp‑abonnent. Navn kortlægges til FNAME, kontakt til LNAME, telefon til PHONE. Tagget {tag} tilføjes automatisk.",
+        "summary": "{eligible} af {total} vil blive overført.",
+        "title": "{count, plural, one {Overfør {count} bureau til Mailchimp} other {Overfør {count} bureauer til Mailchimp}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "Slet",
+          "edit": "Rediger"
+        },
+        "ariaSelect": "Vælg {name}",
+        "fromDate": "Fra {date}",
+        "untilDate": "Til {date}"
+      },
+      "select": {
+        "allMatchingSelected": "Alle {total} der matcher det aktuelle filter er valgt",
+        "ariaAll": "Vælg alle på denne side",
+        "bulkDelete": "Slet {count}",
+        "bulkDeleting": "Sletter…",
+        "clear": "Ryd",
+        "deleteFailed": "{failed} af {total} kunne ikke slettes:\n{detail}",
+        "deleteFailedMore": "…og {count} flere",
+        "justThisPage": "Vælg kun denne side ({count})",
+        "pageFullySelected": "Alle {count} på denne side er valgt.",
+        "pageSelectedCount": "{count} valgt på denne side",
+        "selectAllMatching": "Vælg alle {total} der matcher det aktuelle filter",
+        "confirmDelete": "Slet {count, plural, one {# bureau} other {# bureauer}}?\n\nDette kan ikke fortrydes."
+      },
+      "table": {
+        "actions": "Handlinger",
+        "contact": "Kontakt",
+        "emailPhone": "E‑mail / telefon",
+        "name": "Navn",
+        "status": "Status",
+        "tags": "Tags",
+        "window": "Vindue"
+      },
+      "title": "Bureauer · {total}"
+    },
     "authBody": "Login, registrering og sessionsvalidering via <code>/api/auth</code>",
-    "authTitle": "Godkendelse",
+    "authTitle": "Auth",
     "bffBody": "Browser‑opkald skal stoppe i denne app. Betroede server‑ruter vil kommunikere med den interne CRM‑service.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
@@ -1696,6 +1922,565 @@
     "ctaCreateWorkspace": "Opret adgang til workspace",
     "ctaOpenShell": "Åbn beskyttet skal",
     "currentStack": "Aktuel stack",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "Tilføj medlem",
+          "addMemberHint": "Tilføj én abonnent manuelt med e‑mail + navn + tags",
+          "pushFromCRM": "Overfør fra CRM",
+          "pushFromCRMHint": "Vælg CRM-leads → batch‑upsert som Mailchimp‑medlemmer",
+          "uploadCsv": "Upload regneark",
+          "uploadCsvHint": "CSV, Excel eller ODS — e‑mail‑kolonne (automatisk kortlagt) + navn / telefon / tags"
+        },
+        "addMember": {
+          "body": "Tilføjer eller opdaterer én abonnent på {audience}. Gentagelse med samme e‑mail retter den eksisterende række.",
+          "errEmailRequired": "E‑mail er påkrævet.",
+          "failed": "Kunne ikke tilføje medlemmet.",
+          "fields": {
+            "email": "E‑mail",
+            "firstName": "Fornavn",
+            "lastName": "Efternavn",
+            "phone": "Telefon",
+            "status": "Abonnementsstatus",
+            "tags": "Tags (valgfri)",
+            "tagsHint": "Adskilt med komma eller semikolon. Oprettes, hvis den mangler."
+          },
+          "hideMore": "Skjul flere indstillinger",
+          "showMore": "Vis flere indstillinger (telefon, status, tags)",
+          "status": {
+            "pending": "Afventende (dobbelt opt-in)",
+            "subscribed": "Abonneret",
+            "unsubscribed": "Afmeldt"
+          },
+          "submit": "Tilføj medlem",
+          "submitting": "Tilføjer…",
+          "title": "Tilføj en abonnent"
+        },
+        "col": {
+          "created": "Oprettet",
+          "members": "Medlemmer",
+          "name": "Målgruppe",
+          "openRate": "Åbningsrate"
+        },
+        "create": {
+          "addressFilled": "Adresse fuldført",
+          "addressRequired": "Krævet af Mailchimp / CAN-SPAM",
+          "body": "Mailchimp kræver en postadresse (CAN-SPAM) og en standardafsender. De kan redigere disse senere i målgruppens indstillinger.",
+          "contactSection": "Postadresse",
+          "creating": "Opretter målgruppe…",
+          "errAddressRequired": "Firma + adresse + by + land er påkrævet af Mailchimp.",
+          "errFromRequired": "Standardafsenderens navn + e‑mail er påkrævet.",
+          "errNameRequired": "Målgruppe kræver et navn.",
+          "failed": "Kunne ikke oprette målgruppen.",
+          "fields": {
+            "address": "Gadeadresse",
+            "city": "By",
+            "company": "Firma / organisationsnavn",
+            "country": "Land",
+            "defaultSubject": "Standard kampagnesubjekt",
+            "fromEmail": "Standard fra‑email",
+            "fromName": "Standard fra‑navn",
+            "language": "Sprog",
+            "name": "Målgruppenavn",
+            "nameHint": "Vælg noget kort og mindeværdigt — operatører ser dette overalt.",
+            "namePlaceholder": "Nyhedsbrevabonnenter",
+            "permissionReminder": "Tilladelses‑påmindelse",
+            "permissionReminderHint": "Vises i e‑mail‑footeren. Mailchimp bruger den til overholdelse.",
+            "state": "Stat / region",
+            "zip": "ZIP / postnummer"
+          },
+          "hideAdvanced": "Skjul avancerede indstillinger",
+          "showAdvanced": "Vis avancerede indstillinger",
+          "step1Body": "Vælg et kort, genkendeligt navn — operatører ser det overalt, kampagner refererer til denne liste.",
+          "step1Title": "Navngiv Deres målgruppe",
+          "step2Body": "Krævet af Mailchimp + CAN-SPAM-loven. Genbruges for hver kampagne, der sendes til denne målgruppe.",
+          "step2Title": "Postadresse",
+          "step3Body": "Hvis navn + e‑mail vises på hver kampagne, der sendes til denne målgruppe. De kan senere tilsidesætte pr. kampagne.",
+          "step3Title": "Standardafsender",
+          "submit": "Opret målgruppe",
+          "title": "Ny målgruppe"
+        },
+        "csv": {
+          "body": "Upload en .csv for at tilføje eller opdatere abonnenter i {audience} i bulk. E‑mail‑kolonnen er påkrævet; fornavn/efternavn/telefon/tags registreres automatisk.",
+          "done": "Import afsluttet.",
+          "errChunk": "Et batch fejlede — delvis import. Se antallet nedenfor.",
+          "errEmailColRequired": "Vælg hvilken kolonne der indeholder e‑mail‑adressen.",
+          "errEmpty": "Filen indeholder ingen rækker.",
+          "errNoValidRows": "Ingen rækker med en gyldig e‑mail — tjek kortlægning af e‑mail‑kolonnen.",
+          "errParse": "Kunne ikke parse CSV",
+          "import": "Start import",
+          "importing": "Importerer… {processed} af {total}",
+          "map": {
+            "email": "E‑mail‑kolonne",
+            "fname": "Fornavns kolonne (valgfri)",
+            "lname": "Efternavns kolonne (valgfri)",
+            "phone": "Telefonkolonne (valgfri)",
+            "status": "Standardstatus for NYE abonnenter",
+            "tags": "Tagkolonne (valgfri)"
+          },
+          "pickFile": "Klik for at vælge en regnearksfil",
+          "pickHint": "CSV, Excel (.xlsx / .xls) eller OpenDocument (.ods). Første ark læses; den første række skal indeholde kolonneoverskrifterne.",
+          "rowsDetected": "{count} rækker klar til import.",
+          "stat": {
+            "created": "Oprettet",
+            "errors": "Fejl",
+            "updated": "Opdateret"
+          },
+          "title": "Upload et regneark",
+          "updateExisting": "Opdater også eksisterende abonnenter (anbefales)"
+        },
+        "emptyBody": "Opret først en målgruppe i Mailchimp — den vises her ved næste opdatering.",
+        "emptyTitle": "Ingen målgrupper endnu",
+        "loadFailed": "Kunne ikke indlæse målgrupper.",
+        "loading": "Indlæser målgrupper…",
+        "members": {
+          "close": "Luk",
+          "col": {
+            "email": "E‑mail",
+            "lastChanged": "Sidst ændret",
+            "status": "Status"
+          },
+          "empty": "Ingen medlemmer i denne målgruppe endnu.",
+          "loadFailed": "Kunne ikke indlæse medlemmer.",
+          "loading": "Indlæser medlemmer…",
+          "next": "Næste",
+          "page": "Side {current} af {total}",
+          "prev": "Forrige",
+          "total": "Totalt antal medlemmer"
+        },
+        "newAudience": "Ny målgruppe",
+        "push": {
+          "allStatuses": "Alle statusser",
+          "body": "Vælg CRM leads → tilføj som medlemmer af {audience}. Leads uden e‑mail springes over.",
+          "clear": "Ryd",
+          "col": {
+            "email": "E‑mail",
+            "name": "Navn",
+            "outcome": "Resultat",
+            "reason": "Årsag",
+            "status": "Status"
+          },
+          "empty": "Ingen leads matcher de aktuelle filtre.",
+          "errNoneSelected": "Vælg mindst én lead.",
+          "failed": "Kunne ikke tilføje leads.",
+          "loadFailed": "Kunne ikke indlæse CRM leads.",
+          "loading": "Indlæser leads…",
+          "noEmail": "Ingen e‑mail — sprunget over",
+          "searchPlaceholder": "Søg navn, e‑mail, telefon, noter…",
+          "selectAll": "Vælg alle synlige",
+          "selected": "{count} valgt",
+          "stat": {
+            "created": "Oprettet",
+            "errors": "Fejl",
+            "skipped": "Sprunget over",
+            "updated": "Opdateret"
+          },
+          "submit": "Push {count} lead",
+          "submitting": "Pusher…",
+          "title": "Push fra CRM",
+          "visible": "{count} synlige"
+        },
+        "refresh": "Opdater",
+        "subtabs": {
+          "fields": "Felter",
+          "members": "Medlemmer",
+          "segments": "Segmenter",
+          "tags": "Tags",
+          "webhooks": "Webhooks"
+        },
+        "title": "Målgrupper",
+        "viewMembers": "Vis medlemmer"
+      },
+      "automations": {
+        "actionFailed": "Handling mislykkedes. Se Mailchimp-fejlen ovenfor.",
+        "actions": {
+          "pauseAll": "Pause alle e‑mails",
+          "startAll": "Start alle e‑mails"
+        },
+        "col": {
+          "audience": "Målgruppe",
+          "emailsSent": "Sendte e‑mails",
+          "status": "Status",
+          "title": "Arbejdsgang"
+        },
+        "designerHint": "Customer Journey‑designeren findes i Mailchimps eget UI — Mailchimp giver ikke forfatteradgang via API. Pause/start hver arbejdsgangs e‑mails herfra uden at skifte kontekst.",
+        "emptyBody": "Byg arbejdsgange i Mailchimps Customer Journey‑designer; de vises her.",
+        "emptyTitle": "Ingen automatiseringer endnu",
+        "loadFailed": "Kunne ikke indlæse automatiseringer.",
+        "loading": "Indlæser automatiseringer…",
+        "refresh": "Opdater",
+        "title": "Automatiseringer / Kunderejser"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "Flest klik",
+            "manual": "Vælg manuelt",
+            "opens": "Flest åbninger"
+          },
+          "fromNameB": "Fra navn — variant B (valgfri)",
+          "fromNameBPlaceholder": "Andet afsendernavn",
+          "hint": "Mailchimp sender hver variant til {percent}% af dit publikum, venter {hours}t, og sender derefter vinderen til resten.",
+          "subjectB": "Emnelinje — variant B",
+          "subjectBPlaceholder": "Alternativ emne til test",
+          "testPercent": "Testpublikum %",
+          "toggle": "A/B-test denne kampagne",
+          "toggleHint": "Send to emnelinjer (og/eller afsendernavne) til en prøve, og send automatisk vinderen til resten.",
+          "waitHours": "Vent før vinderen vælges (timer)",
+          "winnerCriteria": "Vinderkriterier"
+        },
+        "actionFailed": "Handling mislykkedes. Se Mailchimp‑fejlen ovenfor.",
+        "actions": {
+          "delete": "Slet",
+          "pause": "Pause",
+          "resume": "Genoptag",
+          "schedule": "Planlæg",
+          "send": "Send",
+          "test": "Send test",
+          "unschedule": "Aflys"
+        },
+        "audiencesEmpty": "Ingen målgrupper endnu — opret en først.",
+        "col": {
+          "audience": "Målgruppe",
+          "created": "Oprettet",
+          "status": "Status",
+          "subject": "Emne"
+        },
+        "confirmDelete": "Slet denne kampagne permanent? Senere kan rapporter ikke slettes.",
+        "confirmSend": "Send \\\"{subject}\\\" til {audience} nu? Dette starter den live‑afsendelse og kan ikke fortrydes.",
+        "createBody": "Udkast gemmes i Mailchimp med det samme; De sender fra rækken ovenfor, når De er klar.",
+        "createFailed": "Kunne ikke oprette kampagnen.",
+        "createSubmit": "Opret kladde",
+        "createTitle": "Ny e‑mailkampagne",
+        "creating": "Opretter kladde…",
+        "deleteFailed": "Kunne ikke slette kampagnen.",
+        "emptyBody": "Klik på \\\"Ny kampagne\\\" for at skrive Deres første.",
+        "emptyTitle": "Ingen kampagner endnu",
+        "errAudienceRequired": "Vælg en målgruppe først.",
+        "errFromRequired": "Navn på afsender og svar‑adresse er begge påkrævet af Mailchimp.",
+        "errSubjectRequired": "Angiv et emne til kampagnen.",
+        "fields": {
+          "audience": "Målgruppe",
+          "audiencePlaceholder": "Vælg en målgruppe…",
+          "fromName": "Afsendernavn",
+          "hidePreview": "Skjul forhåndsvisning",
+          "htmlBody": "HTML‑indhold",
+          "htmlHint": "Mailchimp accepterer rå HTML eller flette‑tags som {{FNAME|there}}. Drag‑and‑drop‑editoren findes i Mailchimp‑grænsefladen.",
+          "internalTitle": "Intern titel (valgfri)",
+          "internalTitlePlaceholder": "Bruges til søgning i Mailchimp; standard er emne",
+          "replyTo": "Svar‑til‑mail",
+          "showPreview": "Vis forhåndsvisning",
+          "subject": "Emnelinje",
+          "subjectPlaceholder": "Hvad der vises i modtagerens indbakke",
+          "template": "Start fra en skabelon (valgfri)",
+          "templateHint": "Valg af en skabelon udfylder HTML‑kroppen nedenfor — du kan stadig redigere den inden du gemmer.",
+          "templatePlaceholder": "Tilpasset HTML — ingen skabelon",
+          "templatesEmpty": "Ingen gemte skabeloner endnu"
+        },
+        "hideAdvanced": "Skjul avanceret",
+        "loadFailed": "Kunne ikke indlæse kampagner.",
+        "loading": "Indlæser kampagner…",
+        "newCampaign": "Ny kampagne",
+        "page": "Side {current} af {total}",
+        "refresh": "Opdater",
+        "schedule": {
+          "confirm": "Planlæg afsendelse",
+          "confirmUnschedule": "Annuller planlægning? Kampagnen vender tilbage til udkast, så De kan redigere den igen.",
+          "errTimeRequired": "Vælg et afsendelsestidspunkt.",
+          "failed": "Kunne ikke planlægge kampagnen — se Mailchimp's besked.",
+          "hint": "Mailchimp runder til nærmeste 15 minutter. Gratis planer kræver ≥30 min lead time.",
+          "scheduling": "Planlægger…",
+          "sendAt": "Send kl. (din lokale tid)",
+          "timewarp": "Send på modtagerens lokale tid (Timewarp)",
+          "timewarpHint": "Mailchimp leverer hver abonnents kopi, når det er det valgte tidspunkt i deres egen tidszone.",
+          "title": "Planlæg kampagne"
+        },
+        "sendFailed": "Kunne ikke sende kampagnen.",
+        "showAdvanced": "Vis avanceret",
+        "step1Title": "Hvem er denne e‑mail til?",
+        "step2Title": "Hvem er den fra?",
+        "step3Title": "Design din e‑mail",
+        "test": {
+          "emailsHint": "Komma‑, semikolon‑ eller linjeskift‑adskilt.",
+          "emailsLabel": "Testmodtagere",
+          "emailsRequired": "Mindst én test‑mail er påkrævet.",
+          "failed": "Kunne ikke sende test‑mailen.",
+          "format": "Format",
+          "plaintext": "Ren tekst",
+          "send": "Send testmail",
+          "sending": "Sender…",
+          "sent": "Testmail er sat i kø. Tjek din indbakke om ~1 minut.",
+          "title": "Send testmail"
+        },
+        "title": "Kampagner",
+        "wizard": {
+          "step1Body": "Vælg den målgruppe, der skal modtage denne kampagne.",
+          "step1Title": "Hvem skal denne e‑mail sendes til?",
+          "step2Body": "Emnelinjen + afsenderoplysninger, som modtagerne ser i deres indbakke.",
+          "step2Title": "Emne og afsender",
+          "step3Body": "Start fra en gemt skabelon eller opret fra bunden — live‑preview til højre viser, hvad modtagerne ser.",
+          "step3Title": "Design din e‑mail"
+        }
+      },
+      "connectCta": "Tilslut Mailchimp",
+      "connectedHeader": "Forbundet Mailchimp-konto",
+      "domains": {
+        "add": "Tilføj domæne",
+        "addEmailLabel": "E‑mail på domænet til godkendelse",
+        "addFailed": "Kunne ikke starte verifikation.",
+        "addHint": "Mailchimp sender en bekræftelseskode til denne adresse. Sørg for, at du kan modtage mail der.",
+        "adding": "Sender kode…",
+        "body": "Godkend dit afsendelsesdomæne (DKIM / SPF). Godkendte domæner får højere tillidsscore og undgår Omnivore‑flag (Mailchimp's anti‑misbrug).",
+        "codePlaceholder": "Bekræftelseskode fra e‑mail",
+        "confirmDelete": "Fjern dette domæne? De skal verificere det igen for at kunne sende fra det.",
+        "delete": "Fjern",
+        "deleteFailed": "Kunne ikke fjerne domænet.",
+        "dkimHint": "Efter verifikation skal du færdiggøre DKIM / DMARC‑opsætning i Mailchimp‑UI (Konto → Domæner → Godkend). Opsætning på DNS‑postniveau er ikke tilgængelig via API‑et.",
+        "empty": "Ingen domæner er tilføjet endnu. Tilføj afsendelsesdomænet ovenfor for at starte.",
+        "errCodeRequired": "Indsæt koden fra Mailchimp‑e‑mailen.",
+        "errEmailRequired": "E‑mail er påkrævet.",
+        "loadFailed": "Kunne ikke indlæse domæner.",
+        "loading": "Indlæser domæner…",
+        "statusAuthenticated": "Verificeret + DKIM‑godkendt",
+        "statusPending": "Afventer — indsæt e‑mail‑verifikationskoden nedenfor",
+        "statusVerified": "Verificeret — færdiggør DKIM‑opsætning i Mailchimp‑UI",
+        "title": "Verificerede domæner",
+        "verify": "Bekræft",
+        "verifyFailed": "Bekræftelse mislykkedes — tjek koden."
+      },
+      "images": {
+        "body": "Vælg et billede fra din Mailchimp‑bibliotek, upload et nyt (max 10 MB) eller indsæt en offentlig URL.",
+        "confirmDelete": "Slet dette billede? Kampagner, der refererer til det, fortsætter med at fungere (Mailchimp beholder filen).",
+        "delete": "Slet",
+        "deleteFailed": "Kunne ikke slette billedet.",
+        "empty": "Ingen billeder er uploadet endnu. Skift til Upload for at tilføje det første.",
+        "errNoUrl": "Mailchimp accepterede uploaden, men returnerede ingen URL.",
+        "errTooLarge": "Mailchimp's maksimale filstørrelse er 10 MB.",
+        "insertUrl": "Indsæt URL",
+        "loadFailed": "Kunne ikke indlæse billedbiblioteket.",
+        "loading": "Indlæser bibliotek…",
+        "modes": {
+          "library": "Bibliotek",
+          "upload": "Upload ny",
+          "url": "Via URL"
+        },
+        "pickFile": "Klik for at vælge et billede",
+        "pickHint": "PNG, JPG, GIF, SVG op til 10 MB",
+        "title": "Vælg eller upload et billede",
+        "uploadFailed": "Upload mislykkedes — se Mailchimp‑meddelelsen.",
+        "uploading": "Uploader…",
+        "urlHint": "Mailchimp kan cache billedet på sit CDN; det er mere pålideligt at bruge filhåndtering (Upload-fanen).",
+        "urlLabel": "Offentlig billed-URL"
+      },
+      "loadFailed": "Kunne ikke indlæse din Mailchimp-forbindelse.",
+      "manageConnection": "Administrer forbindelse",
+      "merge": {
+        "cancelNew": "Annuller",
+        "col": {
+          "name": "Navn",
+          "required": "Påkrævet",
+          "tag": "Flette-tag",
+          "type": "Type"
+        },
+        "confirmDelete": "Slet dette felt? Medlemsdata i denne kolonne vil også blive slettet.",
+        "count": "{count} felter i alt",
+        "create": "Opret felt",
+        "createFailed": "Kunne ikke oprette feltet.",
+        "creating": "Opretter…",
+        "delete": "Slet",
+        "deleteFailed": "Kunne ikke slette feltet.",
+        "empty": "Ingen brugerdefinerede felter endnu — Mailchimp's standard FNAME / LNAME kolonner fungerer stadig.",
+        "errRequired": "Tag + navn er begge påkrævet.",
+        "fields": {
+          "defaultValue": "Standardværdi (valgfri)",
+          "name": "Visningsnavn",
+          "required": "Påkrævet på tilmeldingsformularer",
+          "tag": "Flette-tag (≤10 tegn, STORE BOGSTAVER)",
+          "type": "Type"
+        },
+        "hint": "Brug flette-tags i kampagner + skabeloner som *|TAG|*, f.eks. \"Velkommen *|FNAME|*\".",
+        "loadFailed": "Kunne ikke indlæse flettefelter.",
+        "loading": "Indlæser flettefelter…",
+        "newField": "Nyt felt"
+      },
+      "noCompanyBody": "Vælg et workspace fra dashboardet for at administrere dets e‑mail‑modul.",
+      "noCompanyTitle": "Vælg et workspace",
+      "notConnectedBody": "Tilslut din Mailchimp-konto for at administrere målgrupper, kampagner og rapporter uden at forlade CRM'et. Hver operatør medbringer sin egen forbindelse.",
+      "notConnectedTitle": "Mailchimp er ikke forbundet endnu",
+      "openIntegrationDetail": "Åbn integrationsindstillinger",
+      "overview": {
+        "actions": {
+          "newAudience": "Ny målgruppe",
+          "newCampaign": "Ny kampagne",
+          "newTemplate": "Ny skabelon",
+          "reports": "Rapporter"
+        },
+        "gettingStartedTitle": "Kom i gang på 4 hurtige trin",
+        "kpi": {
+          "audiences": "Målgrupper",
+          "clickRateSub": "{rate}% gennemsnitlig klikrate",
+          "openRate": "Gennemsnitlig åbningsrate",
+          "sentCampaigns": "Sendte kampagner",
+          "subscribers": "Totalt antal abonnenter"
+        },
+        "loadFailed": "Kunne ikke indlæse oversigten.",
+        "loading": "Indlæser oversigt…",
+        "noCampaigns": "Ingen kampagner endnu — opret den første.",
+        "noReports": "Ingen rapporter endnu — de vises efter den første afsendelse.",
+        "quickActionsTitle": "Hurtige handlinger",
+        "recentCampaigns": "Seneste kampagner",
+        "recentReports": "Seneste rapporter",
+        "recipients": "modtagere",
+        "step1": "Opret eller importér en målgruppe (brug \"Målgrupper → Upload CSV\", hvis du har et regneark).",
+        "step2": "Valgfrit: gem en genanvendelig skabelon under \"Skabeloner\".",
+        "step3": "Opret din første kampagne — vælg målgruppe, emne, indhold.",
+        "step4": "Send en test til dig selv, og send derefter for alvor eller planlæg.",
+        "viewAll": "Vis alle"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Klik",
+          "opens": "Åbninger",
+          "recipients": "Modtagere",
+          "sent": "Sendt",
+          "subject": "Kampagne"
+        },
+        "deepLinkHint": "For heatmaps, A/B-sammenligning og fuld e-mail-aktivitet, åbn kampagnen i Mailchimp's UI.",
+        "detailFailed": "Kunne ikke indlæse den fulde rapport.",
+        "details": "Detaljer",
+        "emptyBody": "Rapporter vises her efter den første kampagnesendelse.",
+        "emptyTitle": "Ingen rapporter endnu",
+        "geoEmpty": "Ingen geo‑data — Mailchimp bygger dem, efterhånden som åbninger ruller ind.",
+        "geoTitle": "Top‑steder",
+        "kpi": {
+          "bounces": "Afvisninger",
+          "clicks": "Unikke klik",
+          "hardBounces": "{count} hårde",
+          "opens": "Unikke åbninger",
+          "sent": "Modtagere"
+        },
+        "loadFailed": "Kunne ikke indlæse rapporter.",
+        "loading": "Indlæser rapporter…",
+        "loadingDetail": "Indlæser detaljer…",
+        "opens": "Åbninger",
+        "title": "Kampagnerapporter"
+      },
+      "segments": {
+        "col": {
+          "members": "Medlemmer",
+          "name": "Navn",
+          "type": "Type",
+          "updated": "Opdateret"
+        },
+        "confirmDelete": "Slet dette segment? Medlemmerne forbliver i målgruppen; kun segmentet fjernes.",
+        "count": "{count} segment(er)",
+        "create": "Opret",
+        "createBody": "Statiske segmenter er en håndplukket liste over e‑mailadresser. For betingelsesbaserede (gemte) segmenter skal du bruge Mailchimps UI — de vises her ved opdatering.",
+        "createFailed": "Kunne ikke oprette segmentet.",
+        "createTitle": "Nyt statisk segment",
+        "creating": "Opretter…",
+        "delete": "Slet",
+        "deleteFailed": "Kunne ikke slette segmentet.",
+        "empty": "Ingen segmenter endnu. Statiske segmenter er håndplukkede lister; gemte segmenter er betingelsesbaserede filtre.",
+        "errNameRequired": "Segmentet skal have et navn.",
+        "fields": {
+          "emails": "Medlems‑emails",
+          "emailsHint": "Én per linje eller kommasepareret. Kun eksisterende målgruppe‑medlemmer tilføjes.",
+          "name": "Segmentnavn"
+        },
+        "loadFailed": "Kunne ikke indlæse segmenter.",
+        "loading": "Indlæser segmenter…",
+        "newStatic": "Nyt statisk segment"
+      },
+      "settingsHint": "Konfigurationen findes under Integrationer → Mailchimp. Badge'en ovenfor er skrivebeskyttet.",
+      "settingsTitle": "Forbindelsesindstillinger",
+      "subtabAria": "E‑mail‑modul sektioner",
+      "subtabComingSoon": "Dette afsnit leveres i et senere trin. Forbindelsen er klar; UI'et er endnu ikke koblet på.",
+      "tabs": {
+        "audiences": "Målgrupper",
+        "automations": "Automatiseringer",
+        "campaigns": "Kampagner",
+        "overview": "Oversigt",
+        "reports": "Rapporter",
+        "settings": "Indstillinger",
+        "templates": "Skabeloner"
+      },
+      "tags": {
+        "empty": "Ingen tags i denne målgruppe endnu. Tilføj tags til medlemmer via 'Add member' eller CSV‑upload.",
+        "emptySearch": "Ingen tags matcher \"{query}\".",
+        "hint": "Tags oprettes i det øjeblik, de anvendes på et medlem (Add member, CSV‑upload eller push fra CRM).",
+        "loadFailed": "Kunne ikke indlæse tags.",
+        "loading": "Indlæser tags…",
+        "searchPlaceholder": "Søg efter tagnavn…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "Slet",
+          "edit": "Rediger",
+          "preview": "Forhåndsvis"
+        },
+        "col": {
+          "category": "Kategori",
+          "created": "Oprettet",
+          "name": "Navn"
+        },
+        "confirmDelete": "Slet denne skabelon permanent? Kampagner, der refererer til den, fortsætter med at fungere — de tager et snapshot af HTML'en ved afsendelse.",
+        "create": "Opret skabelon",
+        "createTitle": "Ny skabelon",
+        "deleteFailed": "Kunne ikke slette skabelonen.",
+        "editTitle": "Rediger skabelon",
+        "emptyBody": "Opret din første skabelon — kampagner kan genbruge den uden at skulle skrive HTML'en igen.",
+        "emptyTitle": "Ingen skabeloner endnu",
+        "errHtmlRequired": "Skabelonkroppen må ikke være tom.",
+        "errNameRequired": "Skabelonen skal have et navn.",
+        "fields": {
+          "html": "HTML‑krop",
+          "htmlHint": "Rå HTML. Fletningsmærker som {{FNAME|there}} fungerer på samme måde som i kampagner.",
+          "name": "Skabelonnavn",
+          "namePlaceholder": "Velkomstmail"
+        },
+        "loadFailed": "Kunne ikke indlæse skabeloner.",
+        "loading": "Indlæser skabeloner…",
+        "loadingBody": "Indlæser skabelonindhold…",
+        "newTemplate": "Ny skabelon",
+        "preview": "Live forhåndsvisning",
+        "previewHint": "Renderer HTML'en i en sandboxed iframe (scripts deaktiveret). Mailchimp‑fletningsmærker som {{FNAME|there}} forbliver synlige — de udskiftes ved afsendelse.",
+        "refresh": "Opdater",
+        "saveFailed": "Kunne ikke gemme skabelonen.",
+        "saving": "Gemmer…",
+        "title": "Skabeloner",
+        "update": "Gem ændringer"
+      },
+      "webhooks": {
+        "confirmDelete": "Slet dette webhook-abonnement? Mailchimp stopper med at POSTe begivenheder til denne URL.",
+        "count": "{count} webhook",
+        "create": "Opret webhook",
+        "createBody": "Mailchimp vil POSTe begivenheder til din URL. Almindelige mål: n8n‑flow, inbound/mailchimp/<token>.",
+        "createFailed": "Kunne ikke oprette webhook",
+        "createTitle": "Abonner på målgruppe‑begivenheder",
+        "creating": "Opretter…",
+        "delete": "Slet",
+        "deleteFailed": "Kunne ikke slette webhook",
+        "empty": "Ingen webhook‑abonnementer endnu",
+        "errUrlRequired": "URL skal starte med https://",
+        "fields": {
+          "events": "Begivenheder at lytte på",
+          "sources": "Begivenhedskilder (hvem udløste den)",
+          "url": "Webhook‑URL (https://)"
+        },
+        "hint": "Mailchimp underskriver ikke liste‑webhooks. Betragt URL’en som den eneste hemmelighed; log den ikke.",
+        "loadFailed": "Kunne ikke indlæse webhooks",
+        "loading": "Indlæser webhooks…",
+        "noEvents": "(ingen begivenheder valgt)"
+      },
+      "wizard": {
+        "back": "Tilbage",
+        "fillRequired": "Udfyld det påkrævede felt ovenfor",
+        "next": "Næste",
+        "submit": "Opret",
+        "submitting": "Opretter…"
+      }
+    },
     "heroEyebrow": "Stemmenativ CRM-platform",
     "heroLead": "Lisent CRM kombinerer godkendelse, lejerbevidste arbejdsgange, import‑profil onboarding og en beskyttet applikationsskal for virksomhedens operatører. Web‑appen ejer bruger‑fokuserede flows. Go CRM service forbliver bag en betroet backend‑grænse.",
     "heroTitle": "Forstå intention, ikke kun ord.",
@@ -1708,6 +2493,7 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "Agenturer",
       "aria": "Marketingsektioner",
       "campaigns": "Kampagner",
       "email": "E‑mail",
@@ -1725,12 +2511,12 @@
     "customers": "Kunder",
     "dashboard": "Dashboard",
     "deals": "Deals",
-    "help": "Hjælp og ressourcer",
+    "help": "Hjælp & ressourcer",
     "import": "Import",
     "integrations": "Integrationer",
     "leads": "Leads",
     "lisentHome": "Lisent CRM startside",
-    "lisentWorkspace": "Lisent arbejdsområde",
+    "lisentWorkspace": "Lisent workspace",
     "marketing": "Marketing",
     "navigation": "Navigation",
     "openNavigation": "Åbn navigation",
@@ -1738,7 +2524,7 @@
     "primary": "Primær",
     "quickCreate": "Hurtig oprettelse",
     "sectionTools": "Værktøjer",
-    "sectionWorkspace": "Arbejdsområde",
+    "sectionWorkspace": "Workspace",
     "tasks": "Opgaver",
     "teamMembers": "Teammedlemmer"
   },
@@ -1751,7 +2537,7 @@
     "markAllRead": "Markér alle som læst",
     "refresh": "Opdater",
     "selectWorkspace": "Vælg et workspace",
-    "sessionLoading": "Indlæser session...",
+    "sessionLoading": "Indlæser session…",
     "title": "Notifikationer"
   },
   "page": {
@@ -1822,7 +2608,7 @@
     "risksToWatch": "Risici at holde øje med",
     "salesContext": "Salgskontekst",
     "scoredAt": "scoret den {date}",
-    "scoring": "Scorer...",
+    "scoring": "Scorer…",
     "whoTheyAre": "Hvem de er"
   },
   "search": {
@@ -1858,15 +2644,15 @@
       "loadWorkspace": "Kunne ikke indlæse workspace.",
       "noEligibleTeammate": "Ingen berettiget teammedlem tilgængeligt.",
       "onlyCreatorCanDelete": "Kun opgaveopretteren kan slette denne opgave.",
-      "publish": "Det lykkedes ikke at udgive opgaven.",
+      "publish": "Kunne ikke udgive opgave.",
       "titleRequired": "Titel er påkrævet.",
-      "update": "Det lykkedes ikke at opdatere opgaven."
+      "update": "Kunne ikke opdatere opgave."
     },
     "fields": {
       "assignedTo": "Tildelt til",
-      "assignee": "Modtager",
-      "assignmentMode": "Tildelingstilstand",
-      "due": "På grund af",
+      "assignee": "Ansvarlig",
+      "assignmentMode": "Tildelingsmetode",
+      "due": "Forfald",
       "dueDate": "Forfaldsdato",
       "notes": "Noter",
       "publishedBy": "Udgivet af",
@@ -1903,7 +2689,7 @@
       "notes": "Tilføj detaljer om denne opgave…",
       "title": "Opgavetitel"
     },
-    "publishedBy": "Udgivet af",
+    "publishedBy": "Udgivet af {name}",
     "responseStatus": {
       "accepted": "Accepteret",
       "pending": "Afventende",
@@ -1928,14 +2714,14 @@
     },
     "summary": {
       "company": "Virksomhed",
-      "inProgressDone": "i gang · udført",
-      "myPending": "afventende",
-      "openTickets": "åbne"
+      "inProgressDone": "{inProgress} i gang · {done} udført",
+      "myPending": "{count} afventende",
+      "openTickets": "{count} åbne"
     },
     "systemUser": "System",
     "teammatesCount": "{count} medarbejdere",
     "title": "Opgaver",
-    "unassigned": "Ikke tildelt"
+    "unassigned": "Ufordelt"
   },
   "teamMembers": {
     "addMember": "Tilføj medlem",
@@ -1973,6 +2759,25 @@
       "role": "Rolle"
     },
     "member": "Medlem",
+    "moduleAccess": {
+      "discard": "Kassér",
+      "empty": "Ingen teammedlemmer at administrere — ejere har altid fuld adgang.",
+      "granted": "Givet",
+      "loadError": "Kunne ikke indlæse adgangstilladelser.",
+      "loading": "Indlæser…",
+      "module": {
+        "marketingAgencies": "Marketing · Agenturer"
+      },
+      "noAccess": "Ingen adgang",
+      "role": "Rolle",
+      "save": "Gem ændringer",
+      "saveError": "Kunne ikke gemme ændringer.",
+      "saving": "Gemmer…",
+      "subtitle": "Ejere kan altid se alle moduler. Brug skiftene til at give hvert teammedlem adgang til et specifikt modul.",
+      "teamMember": "Teammedlem",
+      "title": "Moduladgang",
+      "unsaved": " · ikke gemt"
+    },
     "noEmail": "Ingen e-mail registreret",
     "noPermission": "De har ikke tilladelse til at administrere teammedlemmer.",
     "placeholders": {
@@ -1981,14 +2786,14 @@
     "removeMember": "Fjern medlem",
     "removeModal": {
       "confirm": "Fjern medlem",
-      "description": "{company} mister straks adgangen til dette workspace.",
+      "description": "{name} mister straks adgangen til dette workspace.",
       "eyebrow": "Fjern teammedlem",
       "removing": "Fjerner...",
       "title": "Fjern teammedlem?"
     },
     "roleModal": {
       "confirm": "Skift rolle",
-      "description": "Opdater s rolle i dette workspace.",
+      "description": "Opdater {name}s rolle i dette workspace.",
       "eyebrow": "Skift rolle",
       "title": "Skift rolle",
       "to": "Til",
@@ -2010,7 +2815,7 @@
   "userMenu": {
     "accountSettings": "Kontoindstillinger",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Demo-bruger",
+    "demoUser": "Demo‑bruger",
     "openMenu": "Åbn konto-menu",
     "signOut": "Log ud",
     "workspaceUser": "Workspace-bruger"

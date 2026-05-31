@@ -7,7 +7,7 @@
       "companyAccess": "Företagsåtkomst",
       "companyMemberships": "Företagsmedlemskap",
       "email": "E‑post",
-      "firstName": "Namn",
+      "firstName": "Förnamn",
       "gender": "Kön",
       "language": "Språk",
       "lastName": "Efternamn",
@@ -15,7 +15,7 @@
       "platformRole": "Plattformroll",
       "userId": "Användar‑ID"
     },
-    "fixHighlighted": "Vänligen korrigera de markerade kontofälten.",
+    "fixHighlighted": "Korrigera de markerade kontofälten.",
     "gender": {
       "female": "Kvinna",
       "male": "Man"
@@ -51,16 +51,16 @@
     "passwordLabel": "Lösenord",
     "passwordPlaceholderSignIn": "Ange ert lösenord",
     "passwordPlaceholderSignUp": "Skapa ett starkt lösenord",
-    "selectGenderPlaceholder": "Välj ditt kön",
+    "selectGenderPlaceholder": "Välj ert kön",
     "signIn": "Logga in",
     "signInButton": "Logga in",
     "signInInstead": "Logga in istället",
     "signInSubtitle": "Använd företagets kontouppgifter som har delats med ditt team.",
     "signInTitle": "Få åtkomst till din arbetsyta",
-    "signUp": "Registrera dig",
+    "signUp": "Registrera er",
     "signUpButton": "Skapa konto",
     "signUpSubtitle": "Börja med e‑post och lösenord. Tilldelning av hyresgäst sker därefter.",
-    "signUpTitle": "Skapa åtkomst till din arbetsyta",
+    "signUpTitle": "Skapa åtkomst till ert arbetsområde",
     "signingIn": "Loggar in…",
     "workspaceAuth": "Workspace‑autentisering",
     "wrongCredentials": "E‑post eller lösenord är felaktigt."
@@ -166,7 +166,7 @@
     "searchPlaceholder": "Sök händelser…",
     "selectedCompanyFallback": "Din arbetsyta",
     "success": {
-      "created": "Händelse skapad.",
+      "created": "Evenemang skapat.",
       "deleted": "Händelse raderad.",
       "updated": "Händelse uppdaterad."
     },
@@ -217,22 +217,22 @@
     },
     "addCustomer": "Lägg till kund",
     "bulk": {
-      "clearSelection": "Rensa urval",
+      "clearSelection": "Rensa markering",
       "confirmDelete": "Ta bort markerade",
-      "deleteDescription": "Det här kommer att permanent radera kundposter. Åtgärden kan inte ångras.",
+      "deleteDescription": "Det här kommer att permanent radera {count} kundposter. Åtgärden kan inte ångras.",
       "deleteEyebrow": "Massradering",
       "deleteTitle": "Radera valda kunder?",
-      "exportCsv": "Export CSV",
-      "exportPdf": "Export PDF",
-      "exportXlsx": "Export Excel",
+      "exportCsv": "Exportera CSV",
+      "exportPdf": "Exportera PDF",
+      "exportXlsx": "Exportera Excel",
       "regionLabel": "Massåtgärder",
-      "selectedCount": "valda"
+      "selectedCount": "{count} valda"
     },
     "closeAddPopup": "Stäng lägg till kund‑dialogen",
-    "confirmDelete": "Radera",
-    "delete": "Radera",
+    "confirmDelete": "Ta bort",
+    "delete": "Ta bort",
     "deleteConfirmDescription": "Det här kommer att permanent ta bort den här kundposten. Åtgärden kan inte ångras.",
-    "deleteConfirmTitle": "Radera kund?",
+    "deleteConfirmTitle": "Ta bort kund?",
     "deleteCustomer": "Radera kund",
     "deleting": "Raderar…",
     "detail": {
@@ -246,7 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Det gick inte att radera vissa kunder.",
       "deleteCustomer": "Det gick inte att radera kunden.",
-      "exportFailed": "Failed to export customers.",
+      "exportFailed": "Det gick inte att exportera kunder.",
       "loadCompanies": "Det gick inte att läsa in företag.",
       "loadCustomers": "Det gick inte att läsa in kunder.",
       "saveCustomer": "Det gick inte att spara kund."
@@ -281,17 +281,17 @@
       "empty": "Inga kunder matchar de aktuella filtren.",
       "eyebrow": "Kundkatalog",
       "selectAll": "Markera alla kunder",
-      "selectRow": "Markera kund",
+      "selectRow": "Markera kund {name}",
       "title": "Kunder",
-      "visibleCount": "Visar {count}"
+      "visibleCount": "Visar {visible} av {total}"
     },
     "loading": "Laddar in kunder...",
     "noEmail": "Ingen e‑postadress på filen",
     "notSet": "Ej angivet",
     "pdf": {
-      "exportedAt": "customers · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Customers"
+      "exportedAt": "kunder · Exporterat {date}",
+      "pageOf": "Sida {current} av {total}",
+      "title": "Kunder"
     },
     "placeholders": {
       "email": "namn@exempel.com",
@@ -302,7 +302,7 @@
       "label": "Sök",
       "placeholder": "Sök kunder..."
     },
-    "selectedCompany": "Aktiv arbetsplats:",
+    "selectedCompany": "Aktiv arbetsplats: {name}",
     "status": {
       "active": "Aktiv",
       "all": "Alla",
@@ -312,10 +312,10 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} kunder raderade.",
-      "bulkDeletedPartial": "av kunder raderade.",
+      "bulkDeletedPartial": "{deleted} av {total} kunder raderade.",
       "created": "Kund skapad.",
       "deleted": "Kund raderad.",
-      "exported": "Exported {count} customers.",
+      "exported": "Exporterade {count} kunder.",
       "updated": "Kund uppdaterad."
     }
   },
@@ -333,15 +333,15 @@
       "title": "AI‑insikter"
     },
     "amount": "Belopp",
-    "amountValue": "{value}",
+    "amountValue": "{amount}",
     "assignee": "Ansvarig",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "Dra affärer mellan steg för att uppdatera pipeline.",
-    "changedBy": "Ändrad av",
+    "changedBy": "Ändrad av {name}",
     "close": "Stäng",
     "closeTarget": "Stäng mål",
-    "closeTargetValue": "{value}",
-    "columnTotal": "Kolumntotal:",
+    "closeTargetValue": "{date}",
+    "columnTotal": "Kolumntotal: {value}",
     "commentPlaceholder": "Skriv en kommentar...",
     "comments": "Kommentarer",
     "commentsCount": "{count} kommentarer",
@@ -350,9 +350,9 @@
     "dealDetail": "Affärsdetaljer",
     "dealList": "Affärslista",
     "dealValue": "Affärsvärde",
-    "dealsInPipeline": "{count} affärer i pipeline",
+    "dealsInPipeline": "{count} deals i pipeline",
     "dealsInView": "{count} affärer i vy",
-    "delete": "Radera",
+    "delete": "Ta bort",
     "deleteConfirmDescription": "Detta kommer permanent att ta bort denna deal. Åtgärden kan inte ångras.",
     "deleteConfirmTitle": "Radera deal?",
     "deleteDeal": "Radera deal",
@@ -404,7 +404,7 @@
         "customer": "Kund",
         "dealName": "Dealnamn",
         "expectedCloseDate": "Förväntat avslutsdatum",
-        "lossReason": "Orsak till förlust",
+        "lossReason": "Förlustorsak",
         "pipelineStage": "Pipeline‑steg",
         "sourceLead": "Källa Lead",
         "terminationDate": "Uppsägning datum",
@@ -426,20 +426,20 @@
     },
     "kanbanBoard": "Kanban‑tavla",
     "loadingBoard": "Laddar tavlan...",
-    "loadingDeals": "Laddar erbjudanden...",
+    "loadingDeals": "Laddar deals…",
     "meetingTitle": "Möte",
     "noDate": "Inget datum",
-    "noDealsMatch": "Inga erbjudanden matchar de aktuella filtren.",
-    "noLossReason": "Ingen förlustorsak registrerad.",
+    "noDealsMatch": "Inga deals matchar de aktuella filtren.",
+    "noLossReason": "Ingen förlustorsak har registrerats.",
     "noRelatedCustomer": "Ingen relaterad kund.",
-    "noWinReason": "Ingen anledning till vinst registrerad.",
-    "notSet": "Inte inställd",
-    "now": "nu",
-    "pipelineLoading": "Laddar pipeline...",
+    "noWinReason": "Ingen vinstorsak registrerad.",
+    "notSet": "Ej angivet",
+    "now": "Nu",
+    "pipelineLoading": "Laddar pipeline…",
     "posting": "Publicerar...",
     "relatedRecords": "Relaterade poster",
     "scheduleActivity": "Schemalägg aktivitet",
-    "selectedCompany": "Aktivt workspace:",
+    "selectedCompany": "Aktivt workspace: {name}",
     "stage": {
       "lost": "Förlorad",
       "lostDescription": "Stängda förlorade deals att lära av.",
@@ -456,7 +456,7 @@
     },
     "stageHistory": "Stage-historik",
     "stageHistoryEmpty": "Inga stage-ändringar har registrerats ännu.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Kommentar tillagd.",
       "created": "Deal skapad.",
@@ -475,12 +475,12 @@
     "generic": "Något gick fel.",
     "networkError": "Nätverksfel. Försök igen.",
     "sessionRequired": "Autentisering krävs.",
-    "userNotFound": "Användaren hittades inte."
+    "userNotFound": "Användare hittades inte."
   },
   "home": {
     "activity": {
       "chartAriaLabel": "Aktivitetsdiagram för den senaste veckan",
-      "empty": "Ingen aktivitet har registrerats ännu för.",
+      "empty": "Ingen aktivitet har registrerats ännu för {name}.",
       "emptyDefault": "Ingen aktivitet har registrerats ännu.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -493,7 +493,7 @@
       "noWorkspaceHelp": "Välj ett workspace i växlaren för att se live‑data",
       "noWorkspaceSelected": "Inget workspace valt",
       "pickWorkspace": "Välj ett workspace",
-      "subtitleSelected": "Workspace‑statistik för",
+      "subtitleSelected": "Workspace‑statistik för {name}",
       "subtitleWithName": "Välkommen tillbaka, {name}"
     },
     "errors": {
@@ -508,9 +508,9 @@
       "deals": "Deals",
       "dealsAmountEmpty": "Inget deal‑värde ännu",
       "leads": "Leads",
-      "leadsHint": "Aktiva leads i pipeline.",
+      "leadsHint": "Aktiva leads i pipelinen.",
       "openPipelineHint": "Öppet pipelinevärde över alla steg.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Anpassa",
@@ -518,7 +518,7 @@
       "title": "Översikt"
     },
     "pipeline": {
-      "empty": "Ingen pipeline-data ännu för.",
+      "empty": "Ingen pipeline-data ännu för {name}.",
       "emptyDefault": "Ingen pipeline-data ännu.",
       "stage": {
         "lost": "Förlorad",
@@ -526,11 +526,11 @@
         "new": "Ny",
         "proposal": "Förslag",
         "qualified": "Kvalificerad",
-        "won": "Vunnen"
+        "won": "Vunnit"
       },
       "subtitle": "Fördelning av deals per steg.",
       "title": "Pipeline",
-      "totalBadge": "{count} totalt"
+      "totalBadge": "{value} totalt"
     },
     "quickActions": {
       "aiQualifier": {
@@ -551,7 +551,7 @@
       "inviteMembers": {
         "cta": "Bjud in medlemmar",
         "description": "Lägg till teammedlemmar i ert arbetsområde.",
-        "title": "Bjud in teamet"
+        "title": "Bjud in team"
       },
       "newWorkspace": {
         "cta": "Skapa arbetsområde",
@@ -568,7 +568,7 @@
       "title": "Snabbåtgärder"
     },
     "recentLeads": {
-      "empty": "Inga senaste leads i.",
+      "empty": "Inga senaste leads i {name}.",
       "emptyDefault": "Inga senaste leads ännu.",
       "status": {
         "contacted": "Kontaktad",
@@ -586,7 +586,7 @@
     "snapshot": {
       "activeWorkspace": "Aktivt arbetsområde",
       "eyebrow": "Översikt av arbetsområde",
-      "inWorkspace": "i",
+      "inWorkspace": "i {name}",
       "newCount": "{count} nya",
       "noWorkspaceHelp": "Välj en workspace för att se live‑antal.",
       "noWorkspaceSelected": "Ingen workspace vald",
@@ -620,18 +620,18 @@
     },
     "fields": {
       "countryCode": "Landskod",
-      "email": "E-post",
-      "externalCustomerId": "Externt kund-ID",
+      "email": "E‑post",
+      "externalCustomerId": "Extern kund‑ID",
       "firstName": "Förnamn",
       "lastName": "Efternamn",
       "name": "Namn",
       "phone": "Telefon",
-      "preferredLanguage": "Önskat språk",
+      "preferredLanguage": "Föredraget språk",
       "subscriptionDate": "Prenumerationsdatum"
     },
     "mapping": {
       "approvalDescription": "Bekräfta mappningen och kör importen. Kunder kommer att skapas eller uppdateras för den aktiva workspace.",
-      "approvalOutcome": "Efter godkännande infogas rader som kunder i.",
+      "approvalOutcome": "Efter godkännande infogas rader som kunder i {name}.",
       "approveAndImport": "Godkänn och importera",
       "backToPreview": "Tillbaka till förhandsgranskning",
       "confidence": "Säkerhet",
@@ -646,15 +646,15 @@
     "preview": {
       "backToSource": "Tillbaka till källa",
       "continueToMapping": "Fortsätt till mappning",
-      "headers": "rubriker",
-      "rowsLoaded": "rader laddade",
-      "rowsShown": "Visar de första raderna",
+      "headers": "{count} rubriker",
+      "rowsLoaded": "{count} rader laddade",
+      "rowsShown": "Visar de första {count} raderna",
       "unmapped": "Ej mappad"
     },
     "progress": {
-      "completedRatio": "av slutförda",
-      "currentRow": "Rad",
-      "description": "Importerar rader till. Ni kan lämna sidan; importen fortsätter i bakgrunden.",
+      "completedRatio": "{done} av {total} slutförda",
+      "currentRow": "Rad {row}",
+      "description": "Importerar rader till {name}. Ni kan lämna sidan; importen fortsätter i bakgrunden.",
       "eyebrow": "Import pågår",
       "preparing": "Förbereder import…",
       "title": "Importerar kunder"
@@ -663,9 +663,9 @@
       "headers": "Rubriker",
       "mappedFields": "Mappade fält",
       "progress": "Framsteg",
-      "rowsLoaded": "Rader laddade",
-      "stepNumber": "Steg {number}",
-      "title": "Importförlopp"
+      "rowsLoaded": "Rader inlästa",
+      "stepNumber": "Steg {step}",
+      "title": "Importframsteg"
     },
     "source": {
       "continueToPreview": "Fortsätt till förhandsgranskning",
@@ -682,11 +682,11 @@
     "steps": {
       "mapping": {
         "label": "Mappning",
-        "summary": "Koppla varje kolumn till ett CRM-fält.",
+        "summary": "Matcha varje kolumn med ett CRM-fält.",
         "title": "Mappa dina kolumner"
       },
       "preview": {
-        "label": "Förhandsgranskning",
+        "label": "Förhandsgranska",
         "summary": "Bekräfta data och kör sedan importen.",
         "title": "Granska och importera"
       },
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "Tillbaka till översikt",
-      "companyIdLabel": "Företags‑id:",
-      "description": "Importera kunddata till från en CSV-fil eller URL.",
+      "companyIdLabel": "Företags‑id: {id}",
+      "description": "Importera kunddata till {name} från en CSV-fil eller URL.",
       "eyebrow": "Workspace‑import",
-      "selectedCompany": "Aktivt workspace:",
-      "stepLabel": "Steg {step}"
+      "selectedCompany": "Aktivt workspace: {name}",
+      "stepLabel": "Steg {step} av {total}"
     }
   },
   "integrations": {
@@ -729,7 +729,7 @@
       "createTitle": "Skapa ny API‑nyckel",
       "createdHeading": "API‑nyckel skapad",
       "creating": "Skapar...",
-      "description": "Hantera API‑nycklar för <strong> </strong>.",
+      "description": "Hantera API‑nycklar för <strong>{name}</strong>.",
       "empty": "Inga API‑nycklar ännu.",
       "envLive": "Live",
       "envTest": "Test",
@@ -760,7 +760,7 @@
     "catalog": {
       "accessDenied": "Åtkomst nekad",
       "accessDeniedDescription": "Ni har inte åtkomst till integrationer för denna arbetsyta.",
-      "configuringCompany": "Konfigurerar integrationer för <strong> </strong>.",
+      "configuringCompany": "Konfigurerar integrationer för <strong>{name}</strong>.",
       "loadFailed": "Det gick inte att läsa in integrationskatalogen.",
       "loading": "Läser in integrationer…",
       "noAccess": "Ingen åtkomst till arbetsyta",
@@ -787,8 +787,8 @@
     "detail": {
       "backLink": "Tillbaka till integrationer",
       "backToCatalog": "Tillbaka till katalog",
-      "configuringCompany": "Konfigurerar <strong> </strong> för <strong> </strong>.",
-      "noCompany": "Välj en arbetsyta för att konfigurera <strong> </strong>.",
+      "configuringCompany": "Konfigurerar <strong>{integration}</strong> för <strong>{company}</strong>.",
+      "noCompany": "Välj en arbetsyta för att konfigurera <strong>{integration}</strong>.",
       "restrictedDescription": "Ni har inte behörighet att visa denna integration.",
       "restrictedTitle": "Begränsad",
       "slugTitles": {
@@ -825,10 +825,10 @@
       "credentialsSaved": "Uppgifter sparade.",
       "credentialsTitle": "Green API‑uppgifter",
       "disconnectConfirm": "Koppla bort Green API‑integration? Aktiva konversationer påverkas inte.",
-      "inbound": "Inkommande URL",
+      "inbound": "Inbound URL",
       "instanceId": "Instans‑ID",
       "instanceIdPlaceholder": "e.g. 1101000001",
-      "latency": "Latens: ms",
+      "latency": "Latens: {ms} ms",
       "loadFailed": "Kunde inte läsa in Green API‑konfiguration.",
       "loading": "Läser in Green API‑konfiguration…",
       "rotateConfirm": "Rotera den inkommande webhook‑token? Befintliga webhooks måste uppdateras.",
@@ -838,9 +838,9 @@
       "tokenRotated": "Webhook‑token har roterats.",
       "updateCredentials": "Uppdatera autentiseringsuppgifter",
       "updatedLabel": "Uppdaterad",
-      "upstreamStatus": "Upstream‑status:",
+      "upstreamStatus": "Upstream‑status: {status}",
       "urlCopied": "URL kopierad till urklipp.",
-      "webhookSectionDescription": "Konfigurera ditt Green API‑instans för att leverera inkommande meddelanden till <code> </code>.",
+      "webhookSectionDescription": "Konfigurera ditt Green API‑instans för att leverera inkommande meddelanden till <code>{url}</code>.",
       "webhookSectionTitle": "Inkommande webhook"
     },
     "hide": "Dölj",
@@ -853,27 +853,27 @@
       "authHmacOrBearer": "HMAC eller Bearer",
       "authHmacShort": "HMAC",
       "authMode": "Autentiseringsläge",
-      "authModeHint": "Välj hur Lisent autentiserar inkommande förfrågningar. HMAC signerar payloaden; Bearer skickar en statisk token.",
+      "authModeHint": "Välj hur Lisent ska autentisera inkommande förfrågningar från ert intranät. <strong>HMAC</strong> signerar nyttolasten; <strong>Bearer</strong> skickar en statisk token.",
       "bearerCopied": "Bearer-token kopierat.",
       "bearerExampleTitle": "Bearer-exempel",
-      "bearerToken": "Bearer-token",
+      "bearerToken": "Bearer token",
       "bearerTokenHint": "Skicka denna token i Authorization‑headern som <code>Bearer ...</code>.",
       "configurationTitle": "Konfiguration",
       "copyUrl": "Kopiera URL",
       "createIntegration": "Skapa integration",
       "createdMessage": "Intranettintegration skapad.",
-      "credentialsDescription": "Använd dessa autentiseringsuppgifter för att verifiera inkommande webhook-anrop.",
+      "credentialsDescription": "Använd dessa referenser för att autentisera anrop till <code>{url}</code>.",
       "credentialsTitle": "Referenser",
       "deliveries": "Leveranser",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "Koppla bort denna intranätintegration? Inkommande anrop kommer att börja misslyckas.",
       "disconnectDescription": "Detta återkallar alla token och stoppar mottagandet av inkommande förfrågningar.",
       "disconnectIntegration": "Koppla från integration",
-      "dismiss": "Avvisa",
+      "dismiss": "Avfärda",
       "entityLabel": "Entitet",
       "errorLabel": "Fel",
       "eventLabel": "Händelse",
-      "fieldMappingDescription": "Mappa inkommande fält mot CRM-egenskaper med JMESPath-uttryck. Skicka ett JSON-objekt vars värden är JMESPath-strängar.",
+      "fieldMappingDescription": "Koppla inkommande fält till CRM-egenskaper. Skicka JSON som <code>{example}</code>.",
       "fieldMappingLabel": "Fältmappning",
       "fieldMappingTitle": "Fältmappning",
       "generateHmac": "Generera HMAC‑hemlighet",
@@ -883,7 +883,7 @@
       "hmacSecret": "HMAC‑hemlighet",
       "hmacSecretHint": "Använd denna hemlighet för att beräkna <code>X-Lisent-Signature</code> i utgående förfrågningar.",
       "inactive": "Inaktiv",
-      "inboundDescription": "Skicka payloads till URL:en ovan för att importera leads från ditt intranät.",
+      "inboundDescription": "Skicka nyttolast till <code>{url}</code> för att importera leads från ert intranet.",
       "inboundToken": "Inkommande URL‑token",
       "inboundTokenHint": "Denna token är en del av den inkommande URL:en — håll den hemlig.",
       "inboundUrl": "Inkommande URL",
@@ -923,7 +923,7 @@
         "savedNotice": "Utgående webhook sparad.",
         "secretConfigured": "Konfigurerad",
         "secretNotSet": "Inte angivet — skapa en innan ni skickar händelser.",
-        "secretRotatedAt": "(roterad )",
+        "secretRotatedAt": "(roterad {time})",
         "secretRotatedNotice": "Signeringshemlighet roterad. Klartext visas bara en gång.",
         "selectAtLeastOne": "Välj minst en status, eller markera 'Alla statusändringar'.",
         "signingSecretLabel": "Signeringshemlighet (HMAC-SHA256)",
@@ -971,7 +971,7 @@
       "saved": "Sparat.",
       "secondaryBearerRevoked": "Sekundär bearer‑token upphävd.",
       "secondarySecretRevoked": "Sekundärt HMAC‑secret upphävt.",
-      "secondaryTokenRevoked": "Sekundär inkommande token återkallad.",
+      "secondaryTokenRevoked": "Sekundär inkommande token har återkallats.",
       "sendPayloads": "Skicka nyttolaster",
       "target": "Mål",
       "targetEntity": "Målenhet",
@@ -979,6 +979,38 @@
       "urlCopied": "URL kopierad till urklipp."
     },
     "loadingProfile": "Laddar profil…",
+    "mailchimp": {
+      "benefitAudiences": "Hantera Mailchimp‑publikgrupper (listor), medlemmar, segment och taggar från CRM‑gränssnittet.",
+      "benefitCampaigns": "Skapa, schemalägg och skicka e‑postkampanjer — samt replikera och testskicka innan lansering.",
+      "benefitPerUser": "Anslutning per användare: varje operatör använder sitt eget Mailchimp‑konto.",
+      "benefitReports": "Läs öppnings‑ / klick‑ / studs‑ / geografirapporter utan att lämna CRM‑systemet.",
+      "cancel": "Avbryt",
+      "cardDescription": "Per‑operatör Mailchimp‑anslutning. Hantera målgrupper, skicka CRM‑kontakter, skapa kampanjer och läsa rapporter utan att lämna CRM. Customer Journey‑designern stannar i Mailchimp.",
+      "cardName": "Mailchimp",
+      "connectButton": "Anslut Mailchimp",
+      "connectCta": "Anslut Mailchimp",
+      "connectDescription": "Vi öppnar Mailchimps OAuth‑popup. Ni godkänner Lisent CRM, vi får en access‑token via Nango, och era målgrupper visas i modulen Marknadsföring → E‑post.",
+      "connectFailed": "Kunde inte slutföra Mailchimp‑anslutningen. Försök igen.",
+      "connectTitle": "Anslut ert Mailchimp‑konto",
+      "connected": "Mailchimp‑konto anslutet.",
+      "connectedAs": "Ansluten som {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "Öppnar Mailchimp…",
+      "dcLabel": "Datacenter",
+      "disconnect": "Koppla från",
+      "disconnectConfirm": "Koppla bort ert Mailchimp‑konto från detta arbetsområde? Målgrupper och kampanjer förblir säkra i Mailchimp; endast länken från CRM tas bort.",
+      "failed": "Misslyckades",
+      "lastPushLabel": "Senaste push",
+      "loadFailed": "Kunde inte läsa in er Mailchimp‑anslutning.",
+      "nangoNotConfigured": "Mailchimp‑OAuth är ännu inte konfigurerad på serversidan. Be er administratör lägga till NANGO_SECRET_KEY + en Mailchimp‑leverantörskonfiguration i Nango.",
+      "openEmailModule": "Öppna e‑postmodulen",
+      "openInMailchimp": "Öppna i Mailchimp",
+      "pushCountLabel": "Kontakter överförda (lyckade / totalt)",
+      "reconnect": "Återanslut",
+      "scopedToCompany": "Denna anslutning tillhör dig, avgränsad till {name}. Andra operatörer ser sin egen anslutning här.",
+      "statusActive": "Aktiv",
+      "statusPaused": "Pausad",
+      "totalSubscribersLabel": "Totalt antal prenumeranter"
+    },
     "meta": {
       "active": "Aktiv",
       "addMappingRow": "Lägg till fältmappning",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "Mappa Meta lead‑genereringsfält till CRM‑lead‑kolumner. Lämna tomt för att använda standard (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Fältmappning",
       "finalizeButton": "Slutför konfigurationen",
-      "followersCount": "följare",
+      "followersCount": "{count} följare",
       "formAllSubscribedHint": "Inga formulär valda → alla formulär på den här sidan kommer att prenumereras (Meta‑standard).",
       "formIdsHint": "Kommaseparerade. Tomt = ta emot alla formulär på sidan.",
       "formIdsLabel": "Formulär‑ID",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "Sök formulär…",
       "formPickerTitle": "Välj lead‑formulär",
       "forms": "Formulär",
-      "formsShownCount": "av",
+      "formsShownCount": "{shown} av {total}",
       "hmacSecretHint": "Spara detta nu — vi visar inte klartexten igen.",
       "hmacSecretLabel": "HMAC‑secret",
       "hmacSecretReveal": "Visa en gång",
       "inboundUrlHint": "n8n postar hit efter att ha hämtat hela leadet från Meta. Du behöver inte klistra in detta någonstans.",
       "inboundUrlLabel": "CRM inbound‑URL (används av n8n)",
       "last7dCount": "{count} på 7 d",
-      "lastLeadAgo": "Senaste lead",
+      "lastLeadAgo": "Senaste lead {when}",
       "leads7d": "{count} Lead på 7 d",
       "loadFailed": "Det gick inte att läsa in Meta-integration.",
       "metaFieldHeader": "Meta‑fält",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "Inga sidor hittades",
       "pagePickerSearch": "Sök sidor…",
       "pagePickerTitle": "Välj en Facebook‑sida",
-      "pagesShownCount": "av",
+      "pagesShownCount": "{shown} av {total}",
       "paused": "Pausad",
       "popupBlocked": "Webbläsaren blockerade OAuth‑popup‑fönstret. Tillåt popup‑fönster för den här webbplatsen och försök igen.",
       "recentDeliveriesEmpty": "Inga leveranser ännu.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "Utkast",
       "statusPaused": "Pausad",
       "statusUnknown": "Okänd",
-      "subscribedAt": "Prenumererad",
+      "subscribedAt": "Prenumererad {when}",
       "testLeadButton": "Skicka testlead",
       "testLeadDescription": "Skapar en Meta‑formad payload och kör den genom samma insättningsväg som i produktion. Endast tillgänglig när mock‑läge är på.",
       "testLeadFailed": "Det gick inte att skapa testlead.",
@@ -1154,19 +1186,19 @@
       "qualificationThreshold": "Kvalificeringströskel",
       "revokeSecondaryConfirm": "Återkalla den sekundära webhook-hemligheten?",
       "rotateWebhookConfirm": "Rotera webhook-hemligheten? Den gamla hemligheten förblir giltig under rotationsfönstret.",
-      "saveAiConfig": "Spara AI-konfiguration",
+      "saveAiConfig": "Spara AI‑konfiguration",
       "secondaryRevoked": "Sekundär webhook-hemlighet återkallad.",
       "sectorLabel": "Sektor",
       "tabs": {
-        "aiConfig": "AI-konfiguration",
-        "apiKeys": "API-nycklar",
+        "aiConfig": "AI‑konfiguration",
+        "apiKeys": "API‑nycklar",
         "channels": "Kanaler",
         "fallback": "Reserv",
-        "leadWebhook": "Lead-webhook",
+        "leadWebhook": "Lead webhook",
         "overview": "Översikt",
         "rag": "RAG",
         "usage": "Användning",
-        "v1Config": "V1-konfiguration"
+        "v1Config": "V1‑konfiguration"
       },
       "thresholdHint": "Leads som får poäng på eller över denna tröskel markeras som kvalificerade.",
       "webhookUrlLabel": "Webhook URL"
@@ -1174,10 +1206,10 @@
     "rag": {
       "chunkLabel": "Del",
       "chunksColumn": "Delar",
-      "description": "Kunskapsbas för <strong> </strong>. Ladda upp dokument som AI:n kan referera till.",
-      "ingestedDescription": "Dokument som för närvarande finns i kunskapsbasen för <strong> </strong>.",
+      "description": "Kunskapsbas för <strong>{name}</strong>. Ladda upp dokument som AI:n kan referera till.",
+      "ingestedDescription": "Dokument som för närvarande finns i kunskapsbasen för <strong>{name}</strong>.",
       "ingestedDocuments": "Inlagda dokument",
-      "ingestionExampleDescription": "Skicka en POST‑begäran till <code> </code> med en JSON‑kropp som innehåller <code>title</code>, <code>content</code> och valfri <code>metadata</code>.",
+      "ingestionExampleDescription": "Skicka en POST‑begäran till <code>{url}</code> med en JSON‑kropp som innehåller <code>title</code>, <code>content</code> och valfri <code>metadata</code>.",
       "ingestionExampleTitle": "Exempel på inlagring",
       "loadConfigFailed": "Det gick inte att läsa in RAG‑konfigurationen.",
       "loadContentFailed": "Det gick inte att läsa in dokumentinnehållet.",
@@ -1216,14 +1248,14 @@
       "comingSoon": "Kommer snart",
       "connected": "Ansluten",
       "error": "Fel",
-      "notConfigured": "Inte konfigurerad",
+      "notConfigured": "Ej konfigurerad",
       "paused": "Pausad"
     },
     "subComponent": {
       "configured": "Konfigurerad",
-      "configuredAria": "{label} är konfigurerad",
+      "configuredAria": "{name} är konfigurerad",
       "notSet": "Ej angivet",
-      "notSetAria": "{label} är inte angivet"
+      "notSetAria": "{name} är inte angivet"
     },
     "testConnection": "Testa anslutning",
     "testing": "Testar…",
@@ -1231,7 +1263,7 @@
     "urlCopied": "URL kopierad till urklipp.",
     "usage": {
       "allMetrics": "Alla mätvärden",
-      "description": "Användning och hastighetsgränser för <strong> </strong>.",
+      "description": "Användning och hastighetsgränser för <strong>{name}</strong>.",
       "loadFailed": "Det gick inte att läsa in användning.",
       "loading": "Läser in användning...",
       "metricColumn": "Mätvärde",
@@ -1280,14 +1312,14 @@
       "calendlyDescription": "Valfri Calendly‑länk som assistenten kan erbjuda för bokning. Används av <code>v1</code> mötesöverlämningar.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly‑länk",
-      "description": "Konfigurera kvalificeraren <code>v1</code> beteende för <strong> </strong>.",
+      "description": "Konfigurera kvalificeraren <code>v1</code> beteende för <strong>{name}</strong>.",
       "frameworkDescription": "Välj kvalificeringsramverket som assistenten använder för att extrahera signaler.",
       "frameworkTitle": "Kvalificeringsramverk",
       "loadFailed": "Det gick inte att läsa in v1‑konfigurationen.",
       "loading": "Läser in v1‑konfigurationen…",
       "outboundWebhookDescription": "Var kvalificeraren postar kvalificerade leads.",
       "outboundWebhookPlaceholder": "https://your-crm.example.com/webhook",
-      "outboundWebhookTitle": "Utgående webhook",
+      "outboundWebhookTitle": "Outbound webhook",
       "saveChanges": "Spara ändringar",
       "savedAt": "Sparat {time}",
       "thresholdDescription": "Leads som får poäng på eller över detta värde markeras som kvalificerade.",
@@ -1304,7 +1336,7 @@
       "configured": "Konfigurerad",
       "currentLabel": "Aktuell",
       "customPatternsLabel": "Anpassade mönster (en per rad)",
-      "description": "Konfigurera webhook-leverans för <strong> </strong>.",
+      "description": "Konfigurera webhook-leverans för <strong>{name}</strong>.",
       "destinationHint": "Lisent skickar händelser till den här URL:en med en signerad payload.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Destination URL",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Minimal payload",
       "payloadMode": "Payload‑läge",
       "rotateSecret": "Rotera hemlighet",
-      "rotatedAt": "Roterat",
+      "rotatedAt": "Roterat {time}",
       "saveEventSelection": "Spara händelseval",
       "saveUrl": "Spara URL",
       "secretRotated": "Signing secret roterad.",
@@ -1355,7 +1387,7 @@
   "leads": {
     "ai": {
       "aiQualifier": "AI‑kvalificerare",
-      "champReady": "CHAMP redo",
+      "champReady": "CHAMP klar",
       "leadNotScoredYet": "Lead ännu inte poängsatt",
       "leadQualification": "Lead‑kvalificering",
       "notConnected": "AI‑kvalificeraren är inte ansluten för detta arbetsutrymme.",
@@ -1383,18 +1415,18 @@
       "title": "Tilldela markerade leads"
     },
     "bulkBar": {
-      "ariaSelected": "leads markerade",
+      "ariaSelected": "{count} leads markerade",
       "assign": "Tilldela",
       "clearSelection": "Rensa urval",
       "delete": "Ta bort",
       "exportCsv": "Exportera CSV",
       "exportPdf": "Exportera PDF",
-      "selected": "valda"
+      "selected": "{count} valda"
     },
     "bulkDelete": {
       "confirm": "Ta bort valda",
       "deleting": "Tar bort...",
-      "description": "Det här kommer att permanent radera leads. Åtgärden kan inte ångras.",
+      "description": "Det här kommer att permanent radera {count} leads. Åtgärden kan inte ångras.",
       "title": "Radera valda leads?"
     },
     "convertModal": {
@@ -1515,7 +1547,7 @@
       "allAssignees": "Alla tilldelade",
       "allSources": "Alla källor",
       "byCampaign": "Filtrerat efter kampanj: {name}",
-      "byCampaignCount": "av leads",
+      "byCampaignCount": "{shown} av {total} leads",
       "clearCampaign": "Rensa filter"
     },
     "formModal": {
@@ -1546,7 +1578,7 @@
       "allPipelines": "I alla pipelines",
       "conversionRate": "Konverteringsgrad",
       "convertedOfTotal": "{converted} av {total} konverterade",
-      "currentlyActive": "För närvarande aktiv",
+      "currentlyActive": "För närvarande aktiva",
       "inConversation": "I samtal",
       "qualified": "Kvalificerad",
       "readyToProgress": "Redo att gå vidare",
@@ -1567,17 +1599,17 @@
     },
     "pdf": {
       "commentByOn": "{author} · {date}",
-      "commentsHeader": "Comments",
+      "commentsHeader": "Kommentarer",
       "createdAt": "Skapad",
       "email": "E‑post",
-      "exportedAt": "leads · Exporterat",
+      "exportedAt": "{count} leads · Exporterat {date}",
       "options": {
-        "confirm": "Export PDF",
-        "description": "Choose what to include in the export of {count} selected leads.",
-        "exporting": "Exporting...",
-        "includeComments": "Include lead comments",
-        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
-        "title": "Export leads to PDF"
+        "confirm": "Exportera PDF",
+        "description": "Välj vad som ska inkluderas i exporten av {count} valda leads.",
+        "exporting": "Exporterar...",
+        "includeComments": "Inkludera lead-kommentarer",
+        "includeCommentsHint": "Lägger till ett avsnitt med alla teamkommentarer för varje valt lead. Kan ta längre tid att generera.",
+        "title": "Exportera leads till PDF"
       },
       "pageOf": "Sida {current} av {total}",
       "title": "Leads"
@@ -1604,9 +1636,9 @@
     },
     "success": {
       "aiStarted": "AI‑kvalificering startad.",
-      "bulkAssignPartial": "av leads tilldelade.",
-      "bulkAssigned": "leads tilldelade.",
-      "bulkPartial": "av leads borttagna.",
+      "bulkAssignPartial": "{assigned} av {total} leads tilldelade.",
+      "bulkAssigned": "{count} leads tilldelade.",
+      "bulkPartial": "{deleted} av {total} leads borttagna.",
       "bulkRemoved": "{count} leads borttagna.",
       "converted": "Lead konverterad.",
       "convertedWithDeal": "Lead konverterad med deal.",
@@ -1623,7 +1655,7 @@
       "assignee": "Tilldelad",
       "empty": "Inga leads matchar de aktuella filtren.",
       "name": "Namn",
-      "openAIScore": "Open AI‑poäng för {score}",
+      "openAIScore": "Open AI‑poäng för {name}",
       "phone": "Telefon",
       "rowActions": "Radåtgärder",
       "selectAll": "Markera alla leads",
@@ -1648,8 +1680,202 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Importera kalkylblad",
+        "newAgency": "Ny byrå",
+        "refresh": "Uppdatera"
+      },
+      "createModal": {
+        "editTitle": "Redigera {name}",
+        "newSubtitle": "Gå igenom fälten — ett eller två per skärm.",
+        "newTitle": "Lägg till en ny byrå",
+        "saveChanges": "Spara ändringar",
+        "saveError": "Kunde inte spara byrån.",
+        "saving": "Sparar…",
+        "submit": "Skapa byrå"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "Personen du vanligtvis talar med på byrån.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "Valfritt — fyller i LNAME när denna byrå pushas till en Mailchimp‑publik.",
+          "fieldLabel": "Kontakt namn",
+          "title": "Primär kontakt"
+        },
+        "name": {
+          "description": "Visningsnamnet som ert team kommer att känna igen.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Visas i kataloglistan och i alla kampanj‑sammanfogningar.",
+          "fieldLabel": "Namn",
+          "title": "Agenturnamn"
+        },
+        "notes": {
+          "description": "Allt annat som är värt att komma ihåg om denna agentur.",
+          "fieldHelp": "Fritext — skickas inte till Mailchimp, endast synlig i CRM‑systemet.",
+          "fieldLabel": "Anteckningar",
+          "fieldPlaceholder": "Förnyelse i mars. Föredrar WhatsApp för snabba uppdateringar.",
+          "title": "Anteckningar"
+        },
+        "reach": {
+          "description": "E‑post krävs om Ni vill skicka denna rad till Mailchimp senare.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Används som Mailchimp‑unik nyckel när Ni skickar.",
+          "emailLabel": "E‑post",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Fri form — inkludera landskod om Ni har den.",
+          "phoneLabel": "Telefon",
+          "title": "Hur Ni når dem"
+        },
+        "status": {
+          "description": "Aktiv = för närvarande engagerad. Inaktiv = pausad. Utgången = kontraktet har löpt ut.",
+          "fieldHelp": "Ni kan ändra detta när som helst — används för att filtrera katalogen.",
+          "fieldLabel": "Status",
+          "title": "Status"
+        },
+        "tags": {
+          "description": "Taggar överförs till Mailchimp om Ni senare skickar denna byrå.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Separera med kommatecken eller semikolon. Skapas vid första överföringen.",
+          "fieldLabel": "Taggar",
+          "title": "Taggar"
+        },
+        "window": {
+          "description": "Båda ändar är valfria — lämna en sida tom för evig eller öppen period.",
+          "endsHelp": "När relationen avslutas.",
+          "endsLabel": "Slutar den",
+          "startsHelp": "När relationen påbörjas.",
+          "startsLabel": "Startar den",
+          "title": "Avtalsperiod"
+        }
+      },
+      "deleteConfirm": "Ta bort {name}?\n\nDetta tar bort byrån från CRM:et. Det påverkar inte några Mailchimp‑prenumeranter som skapats från denna rad.",
+      "deleteError": "Det gick inte att ta bort byrån.",
+      "empty": "Inga byråer ännu. Lägg till en eller importera ett kalkylblad.",
+      "filter": {
+        "apply": "Verkställ",
+        "clear": "Rensa filter",
+        "searchPlaceholder": "Sök namn, kontakt, e‑post",
+        "statusActive": "Aktiv",
+        "statusAll": "Alla statusar",
+        "statusExpired": "Utgången",
+        "statusInactive": "Inaktiv"
+      },
+      "import": {
+        "accepts": "Accepterar CSV, Excel (xlsx / xls / xlsm / xlsb) och OpenDocument (ods / fods). Namn är den enda obligatoriska kolumnen.",
+        "close": "Stäng",
+        "complete": "Import slutförd",
+        "completeSummary": "Skapade {created} av {total} rader.",
+        "defaultStatus": "Standardstatus (för rader utan)",
+        "done": "Klart",
+        "empty": "Filen verkar vara tom.",
+        "errorPrefix": "Kunde inte tolka filen",
+        "errorsHeader": "{count} rader hade fel:",
+        "errorsMore": "… {count} fler",
+        "failed": "Importen misslyckades.",
+        "importBtn": "Importera",
+        "importing": "Importerar…",
+        "label": {
+          "contact": "Kontaktperson",
+          "email": "E‑post",
+          "ends": "Slutar (YYYY-MM-DD)",
+          "name": "Namn (obligatoriskt)",
+          "notes": "Anteckningar",
+          "phone": "Telefon",
+          "starts": "Startar (YYYY-MM-DD)",
+          "status": "Statuskolumn",
+          "tags": "Taggar (kommaseparerade / semikolonseparerade)"
+        },
+        "needName": "Välj en kolumn för byrånamnet först.",
+        "noValid": "Inga rader har ett icke‑tomt namn.",
+        "notUsed": "— (ej använd) —",
+        "pickAnother": "Välj en annan fil",
+        "pickHint": "Klicka för att välja. Vi läser bara det första bladet.",
+        "pickLabel": "Välj ett kalkylblad",
+        "subtitle": "Accepterar CSV-, Excel- och OpenDocument‑kalkylblad.",
+        "title": "Importera byråer från ett kalkylblad",
+        "loaded": "Läste in {rowCount, plural, one {# rad} other {# rader}} med {colCount, plural, one {# kolumn} other {# kolumner}}. Koppla varje CRM-fält till kalkylbladskolumnen det ska hämtas från."
+      },
+      "list": {
+        "agencies": "Byråer",
+        "loading": "Laddar byråer…"
+      },
+      "loadError": "Kunde inte läsa in byråer.",
+      "noCompany": "Välj ett företag i instrumentpanelen för att hantera dess byråer.",
+      "page": {
+        "next": "Nästa sida",
+        "perPage": "Per sida",
+        "prev": "Föregående sida",
+        "range": "{from}–{to} av {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Stäng",
+        "defaultStatus": "Standardstatus för nya prenumeranter",
+        "disabledHint": "Välj rader på den här sidan att skicka (push över flera sidor stöds inte).",
+        "done": "Klart",
+        "extraTagsHelp": "Läggs till varje skickad prenumerant utöver varje byrås egna taggar. Kommaseparerade eller semikolonseparerade.",
+        "extraTagsLabel": "Extra taggar",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "Pushen misslyckades.",
+        "loadAudiencesFailed": "Det gick inte att läsa in Mailchimp‑publikgrupper.",
+        "loading": "Laddar…",
+        "mailchimpAudience": "Mailchimp‑publikgrupp",
+        "noAudiences": "— Inga publikgrupper ännu —",
+        "noEmail": "Ingen av de valda byråerna har en e‑postadress.",
+        "notConnected": "Mailchimp är ännu inte anslutet för detta konto. Anslut under Marknadsföring → E‑post → Inställningar, och kom sedan tillbaka.",
+        "patchExisting": "Uppdatera befintliga prenumeranter (rekommenderas). Att köra pushen igen uppdaterar sammanslagningsfält istället för att ge fel på dubbletter.",
+        "pickAudience": "Välj en publikgrupp först.",
+        "pushBtn": "Skicka till Mailchimp",
+        "pushing": "Skickar…",
+        "result": {
+          "header": "Utskick slutfört",
+          "summary": "{created} skapade · {updated} uppdaterade · {skipped} hoppade över · {errors} fel."
+        },
+        "skippedNotice": "{count, plural, one {{count} av den valda byrån har ingen e‑post och kommer att hoppas över.} other {{count} av de valda byråerna har ingen e‑post och kommer att hoppas över.}}",
+        "statusPending": "Väntar (dubbel opt-in)",
+        "statusSubscribed": "Prenumerant",
+        "statusUnsubscribed": "Avregistrerad",
+        "subtitle": "Varje byrå blir en Mailchimp‑prenumerant. Namn mappas till FNAME, kontakt till LNAME, telefon till PHONE. Taggen {tag} läggs till automatiskt.",
+        "summary": "{eligible} av {total} kommer att skickas.",
+        "title": "{count, plural, one {Skicka {count} byrå till Mailchimp} other {Skicka {count} byråer till Mailchimp}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "Radera",
+          "edit": "Redigera"
+        },
+        "ariaSelect": "Välj {name}",
+        "fromDate": "Från {date}",
+        "untilDate": "Till {date}"
+      },
+      "select": {
+        "allMatchingSelected": "Alla {total} som matchar det aktuella filtret är valda",
+        "ariaAll": "Välj alla på den här sidan",
+        "bulkDelete": "Radera {count}",
+        "bulkDeleting": "Raderar…",
+        "clear": "Rensa",
+        "deleteFailed": "{failed} av {total} kunde inte tas bort:\n{detail}",
+        "deleteFailedMore": "…och {count} till",
+        "justThisPage": "Välj bara den här sidan ({count})",
+        "pageFullySelected": "Alla {count} på den här sidan är valda.",
+        "pageSelectedCount": "{count} valda på den här sidan",
+        "selectAllMatching": "Välj alla {total} som matchar det aktuella filtret",
+        "confirmDelete": "Ta bort {count, plural, one {# byrå} other {# byråer}}?\n\nDet här går inte att ångra."
+      },
+      "table": {
+        "actions": "Åtgärder",
+        "contact": "Kontakt",
+        "emailPhone": "E‑post / Telefon",
+        "name": "Namn",
+        "status": "Status",
+        "tags": "Taggar",
+        "window": "Fönster"
+      },
+      "title": "Byråer · {total}"
+    },
     "authBody": "Inloggning, registrering och sessionsvalidering via <code>/api/auth</code>",
-    "authTitle": "Autentisering",
+    "authTitle": "Auth",
     "bffBody": "Webbläsar-anrop bör stoppas i den här appen. Betrodda serverrutter kommer att kommunicera med den interna CRM-tjänsten.",
     "bffTitle": "BFF CRM",
     "brand": "Lisent.ai",
@@ -1696,6 +1922,565 @@
     "ctaCreateWorkspace": "Skapa åtkomst till arbetsyta",
     "ctaOpenShell": "Öppna skyddat skal",
     "currentStack": "Aktuell stack",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "Lägg till medlem",
+          "addMemberHint": "Lägg till en prenumerant manuellt med e‑post + namn + taggar",
+          "pushFromCRM": "Skicka från CRM",
+          "pushFromCRMHint": "Välj CRM‑leads → batch‑upsert som Mailchimp‑medlemmar",
+          "uploadCsv": "Ladda upp kalkylblad",
+          "uploadCsvHint": "CSV, Excel eller ODS — e‑postkolumn (automappad) + namn / telefon / taggar"
+        },
+        "addMember": {
+          "body": "Lägger till eller uppdaterar en prenumerant i {audience}. Upprepning med samma e‑post uppdaterar den befintliga raden.",
+          "errEmailRequired": "E‑post krävs.",
+          "failed": "Kunde inte lägga till medlemmen.",
+          "fields": {
+            "email": "E‑post",
+            "firstName": "Förnamn",
+            "lastName": "Efternamn",
+            "phone": "Telefon",
+            "status": "Prenumerationsstatus",
+            "tags": "Taggar (valfritt)",
+            "tagsHint": "Komma‑ eller semikolonseparerade. Skapas om de saknas."
+          },
+          "hideMore": "Dölj fler alternativ",
+          "showMore": "Visa fler alternativ (telefon, status, taggar)",
+          "status": {
+            "pending": "Väntar (dubbel opt‑in)",
+            "subscribed": "Prenumererar",
+            "unsubscribed": "Avprenumererad"
+          },
+          "submit": "Lägg till medlem",
+          "submitting": "Lägger till…",
+          "title": "Lägg till en prenumerant"
+        },
+        "col": {
+          "created": "Skapad",
+          "members": "Medlemmar",
+          "name": "Målgrupp",
+          "openRate": "Öppningsfrekvens"
+        },
+        "create": {
+          "addressFilled": "Adress komplett",
+          "addressRequired": "Krävs av Mailchimp / CAN‑SPAM",
+          "body": "Mailchimp kräver en postadress (CAN‑SPAM) och en standardavsändare. Du kan redigera dessa senare i målgruppsinställningarna.",
+          "contactSection": "Postadress",
+          "creating": "Skapar målgrupp…",
+          "errAddressRequired": "Företag + adress + stad + land krävs av Mailchimp.",
+          "errFromRequired": "Standardavsändarnamn + e‑post krävs.",
+          "errNameRequired": "Målgrupp kräver ett namn.",
+          "failed": "Kunde inte skapa målgruppen.",
+          "fields": {
+            "address": "Gatuadress",
+            "city": "Stad",
+            "company": "Företag / organisationsnamn",
+            "country": "Land",
+            "defaultSubject": "Standardkampanjens ämne",
+            "fromEmail": "Standard avsändar‑e‑post",
+            "fromName": "Standard avsändarnamn",
+            "language": "Språk",
+            "name": "Målgruppsnamn",
+            "nameHint": "Välj något kort och minnesvärt — operatörer ser detta överallt.",
+            "namePlaceholder": "Nyhetsbrevsprenumeranter",
+            "permissionReminder": "Samtyckespåminnelse",
+            "permissionReminderHint": "Visas i e‑postens sidfot. Mailchimp använder den för efterlevnad.",
+            "state": "Stat / region",
+            "zip": "Postnummer"
+          },
+          "hideAdvanced": "Dölj avancerade alternativ",
+          "showAdvanced": "Visa avancerade alternativ",
+          "step1Body": "Välj ett kort, igenkännbart namn — operatörer ser det överallt och kampanjer refererar till den här listan.",
+          "step1Title": "Namnge din målgrupp",
+          "step2Body": "Krävs av Mailchimp + CAN‑SPAM‑lagen. Återanvänds för varje kampanj som skickas till denna målgrupp.",
+          "step2Title": "Postadress",
+          "step3Body": "Namnet + e‑posten visas på varje kampanj som skickas till denna målgrupp. Du kan åsidosätta per kampanj senare.",
+          "step3Title": "Standardavsändare",
+          "submit": "Skapa målgrupp",
+          "title": "Ny målgrupp"
+        },
+        "csv": {
+          "body": "Ladda upp en .csv för att masslägga till eller uppdatera prenumeranter i {audience}. E‑post‑kolumnen krävs; förnamn/efternamn/telefon/taggar upptäcks automatiskt.",
+          "done": "Importen slutförd.",
+          "errChunk": "Ett parti misslyckades — partiell import. Se antalet nedan.",
+          "errEmailColRequired": "Välj vilken kolumn som innehåller e‑postadressen.",
+          "errEmpty": "Filen har inga rader.",
+          "errNoValidRows": "Inga rader med en giltig e‑post — kontrollera mappningen av e‑post‑kolumnen.",
+          "errParse": "Kunde inte läsa CSV",
+          "import": "Starta import",
+          "importing": "Importerar… {processed} av {total}",
+          "map": {
+            "email": "E‑postkolumn",
+            "fname": "Förnamnkolumn (valfritt)",
+            "lname": "Efternamns kolumn (valfritt)",
+            "phone": "Telefonkolumn (valfritt)",
+            "status": "Standardstatus för NYA prenumeranter",
+            "tags": "Taggkolumn (valfritt)"
+          },
+          "pickFile": "Klicka för att välja en kalkylbladsfil",
+          "pickHint": "CSV, Excel (.xlsx / .xls) eller OpenDocument (.ods). Första bladet läses; den första raden bör vara kolumnrubrikerna.",
+          "rowsDetected": "{count} rader redo att importeras.",
+          "stat": {
+            "created": "Skapad",
+            "errors": "Fel",
+            "updated": "Uppdaterad"
+          },
+          "title": "Ladda upp ett kalkylblad",
+          "updateExisting": "Uppdatera även befintliga prenumeranter (rekommenderas)"
+        },
+        "emptyBody": "Skapa en målgrupp i Mailchimp först — den visas här vid nästa uppdatering.",
+        "emptyTitle": "Inga målgrupper ännu",
+        "loadFailed": "Det gick inte att läsa in målgrupper.",
+        "loading": "Läser in målgrupper…",
+        "members": {
+          "close": "Stäng",
+          "col": {
+            "email": "E‑post",
+            "lastChanged": "Senast ändrad",
+            "status": "Status"
+          },
+          "empty": "Inga medlemmar i den här målgruppen ännu.",
+          "loadFailed": "Det gick inte att läsa in medlemmar.",
+          "loading": "Läser in medlemmar…",
+          "next": "Nästa",
+          "page": "Sida {current} av {total}",
+          "prev": "Föregående",
+          "total": "Totalt antal medlemmar"
+        },
+        "newAudience": "Ny målgrupp",
+        "push": {
+          "allStatuses": "Alla statusar",
+          "body": "Välj CRM‑leads → skicka som medlemmar till {audience}. Leads utan e‑post hoppas över.",
+          "clear": "Rensa",
+          "col": {
+            "email": "E‑post",
+            "name": "Namn",
+            "outcome": "Resultat",
+            "reason": "Orsak",
+            "status": "Status"
+          },
+          "empty": "Inga leads matchar de aktuella filtren.",
+          "errNoneSelected": "Välj minst ett lead.",
+          "failed": "Kunde inte skicka leads.",
+          "loadFailed": "Kunde inte läsa in CRM‑leads.",
+          "loading": "Läser in leads…",
+          "noEmail": "Ingen e‑post — hoppas över",
+          "searchPlaceholder": "Sök namn, e‑post, telefon, anteckningar…",
+          "selectAll": "Markera alla synliga",
+          "selected": "{count} valda",
+          "stat": {
+            "created": "Skapad",
+            "errors": "Fel",
+            "skipped": "Överhoppad",
+            "updated": "Uppdaterad"
+          },
+          "submit": "Skicka {count} lead(s)",
+          "submitting": "Skickar…",
+          "title": "Skicka från CRM",
+          "visible": "{count} synlig"
+        },
+        "refresh": "Uppdatera",
+        "subtabs": {
+          "fields": "Fält",
+          "members": "Medlemmar",
+          "segments": "Segment",
+          "tags": "Taggar",
+          "webhooks": "Webhooks"
+        },
+        "title": "Målgrupper",
+        "viewMembers": "Visa medlemmar"
+      },
+      "automations": {
+        "actionFailed": "Åtgärden misslyckades. Se Mailchimps fel ovan.",
+        "actions": {
+          "pauseAll": "Pausa alla e‑postmeddelanden",
+          "startAll": "Starta alla e‑postmeddelanden"
+        },
+        "col": {
+          "audience": "Målgrupp",
+          "emailsSent": "Skickade e‑postmeddelanden",
+          "status": "Status",
+          "title": "Arbetsflöde"
+        },
+        "designerHint": "Customer Journey‑designern finns i Mailchimp‑gränssnittet — Mailchimp exponerar inte redigering via API. Pausa/starta varje arbetsflödes e‑postmeddelanden här utan att byta kontext.",
+        "emptyBody": "Skapa arbetsflöden i Mailchimp's Customer Journey‑designer; de visas här.",
+        "emptyTitle": "Inga automatiseringar ännu",
+        "loadFailed": "Kunde inte läsa in automatiseringar.",
+        "loading": "Läser in automatiseringar…",
+        "refresh": "Uppdatera",
+        "title": "Automatiseringar / Kundresor"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "Flest klick",
+            "manual": "Välj manuellt",
+            "opens": "Flest öppningar"
+          },
+          "fromNameB": "Från namn — variant B (valfritt)",
+          "fromNameBPlaceholder": "Annat avsändarnamn",
+          "hint": "Mailchimp skickar varje variant till {percent}% av er målgrupp, väntar {hours}h och skickar sedan vinnaren till resten.",
+          "subjectB": "Ämnesrad — variant B",
+          "subjectBPlaceholder": "Alternativt ämne att testa",
+          "testPercent": "Testpublik %",
+          "toggle": "A/B-testa den här kampanjen",
+          "toggleHint": "Skicka två ämnesrader (och/eller avsändarnamn) till ett urval, skicka automatiskt vinnaren till resten.",
+          "waitHours": "Vänta innan vinnare väljs (timmar)",
+          "winnerCriteria": "Vinnarkriterium"
+        },
+        "actionFailed": "Åtgärden misslyckades. Se Mailchimps fel ovan.",
+        "actions": {
+          "delete": "Ta bort",
+          "pause": "Pausa",
+          "resume": "Återuppta",
+          "schedule": "Schemalägg",
+          "send": "Skicka",
+          "test": "Skicka test",
+          "unschedule": "Avbryt schemaläggning"
+        },
+        "audiencesEmpty": "Inga målgrupper ännu — skapa en först.",
+        "col": {
+          "audience": "Målgrupp",
+          "created": "Skapad",
+          "status": "Status",
+          "subject": "Ämne"
+        },
+        "confirmDelete": "Vill du radera kampanjen permanent? Senare kan inte rapporter raderas.",
+        "confirmSend": "Skicka \"{subject}\" till {audience} nu? Detta startar utskicket och kan inte ångras.",
+        "createBody": "Utkast sparas i Mailchimp omedelbart; ni skickar från raden ovan när ni är redo.",
+        "createFailed": "Kunde inte skapa kampanjen.",
+        "createSubmit": "Skapa utkast",
+        "createTitle": "Ny e‑postkampanj",
+        "creating": "Skapar utkast…",
+        "deleteFailed": "Kunde inte radera kampanjen.",
+        "emptyBody": "Klicka på \"Ny kampanj\" för att skriva er första.",
+        "emptyTitle": "Inga kampanjer ännu",
+        "errAudienceRequired": "Välj en målgrupp först.",
+        "errFromRequired": "Avsändarnamn och svar‑till krävs av Mailchimp.",
+        "errSubjectRequired": "Ange ett ämne för kampanjen.",
+        "fields": {
+          "audience": "Målgrupp",
+          "audiencePlaceholder": "Välj en målgrupp…",
+          "fromName": "Avsändarnamn",
+          "hidePreview": "Dölj förhandsgranskning",
+          "htmlBody": "HTML-body",
+          "htmlHint": "Mailchimp accepterar rå HTML eller sammanslagnings‑taggar som {{FNAME|there}}. Drag‑and‑drop‑editorn finns i Mailchimp‑gränssnittet.",
+          "internalTitle": "Intern titel (valfritt)",
+          "internalTitlePlaceholder": "Används för sökning i Mailchimp; standard är ämnet",
+          "replyTo": "Svar‑till‑e‑post",
+          "showPreview": "Visa förhandsgranskning",
+          "subject": "Ämnesrad",
+          "subjectPlaceholder": "Vad som visas i mottagarens inkorg",
+          "template": "Börja från en mall (valfritt)",
+          "templateHint": "Att välja en mall fyller i HTML‑body nedan — du kan fortfarande redigera den innan du sparar.",
+          "templatePlaceholder": "Anpassad HTML — ingen mall",
+          "templatesEmpty": "Inga sparade mallar ännu"
+        },
+        "hideAdvanced": "Dölj avancerat",
+        "loadFailed": "Kunde inte läsa in kampanjerna.",
+        "loading": "Läser in kampanjer…",
+        "newCampaign": "Ny kampanj",
+        "page": "Sida {current} av {total}",
+        "refresh": "Uppdatera",
+        "schedule": {
+          "confirm": "Schemalägg utskick",
+          "confirmUnschedule": "Avbryt schemaläggning? Kampanjen återgår till utkast så att Ni kan redigera den igen.",
+          "errTimeRequired": "Välj en utskickstid.",
+          "failed": "Kunde inte schemalägga kampanjen — se Mailchimps meddelande.",
+          "hint": "Mailchimp avrundar till närmaste 15 minuter. Gratisplaner kräver ≥30 min förhandsvarsel.",
+          "scheduling": "Schemalägger…",
+          "sendAt": "Skicka kl (er lokala tid)",
+          "timewarp": "Skicka vid mottagarens lokala tid (Timewarp)",
+          "timewarpHint": "Mailchimp levererar varje prenumerants kopia när det är den valda tiden i deras egen tidszon.",
+          "title": "Schemalägg kampanj"
+        },
+        "sendFailed": "Kunde inte skicka kampanjen.",
+        "showAdvanced": "Visa avancerat",
+        "step1Title": "Vem är detta e‑mail riktat till?",
+        "step2Title": "Vem är avsändaren?",
+        "step3Title": "Designa ditt e‑mail",
+        "test": {
+          "emailsHint": "Komma-, semikolon- eller radbryteseparerade.",
+          "emailsLabel": "Testmottagare",
+          "emailsRequired": "Minst en test‑e‑post krävs.",
+          "failed": "Kunde inte skicka test‑e‑posten.",
+          "format": "Format",
+          "plaintext": "Vanlig text",
+          "send": "Skicka test",
+          "sending": "Skickar…",
+          "sent": "Test‑e‑post har lagts i kö. Kontrollera din inkorg om ~1 minut.",
+          "title": "Skicka test‑e‑post"
+        },
+        "title": "Kampanjer",
+        "wizard": {
+          "step1Body": "Välj den målgrupp som ska ta emot denna kampanj.",
+          "step1Title": "Vem ska detta e‑postmeddelande gå till?",
+          "step2Body": "Ämnesrad + avsändarinformation som mottagarna ser i sin inkorg.",
+          "step2Title": "Ämne och avsändare",
+          "step3Body": "Börja med en sparad mall eller skapa från början — förhandsgranskning i realtid till höger visar vad mottagarna ser.",
+          "step3Title": "Designa ditt e‑mail"
+        }
+      },
+      "connectCta": "Anslut Mailchimp",
+      "connectedHeader": "Anslutet Mailchimp‑konto",
+      "domains": {
+        "add": "Lägg till domän",
+        "addEmailLabel": "E‑postadress på domänen för autentisering",
+        "addFailed": "Det gick inte att påbörja verifieringen.",
+        "addHint": "Mailchimp skickar en verifieringskod till den här adressen. Se till att du kan ta emot e‑post där.",
+        "adding": "Skickar kod…",
+        "body": "Autentisera din sändningsdomän (DKIM / SPF). Autentiserade domäner får högre förtroendepoäng och undviker flaggor från Omnivore (Mailchimps anti‑missbruk).",
+        "codePlaceholder": "Verifieringskod från e‑post",
+        "confirmDelete": "Ta bort den här domänen? Ni måste verifiera den igen för att kunna skicka från den.",
+        "delete": "Ta bort",
+        "deleteFailed": "Det gick inte att ta bort domänen.",
+        "dkimHint": "Efter verifieringen slutför DKIM / DMARC‑inställningarna i Mailchimps gränssnitt (Konto → Domäner → Autentisera). DNS‑postnivåinställningar exponeras inte via API:et.",
+        "empty": "Inga domäner har lagts till ännu. Lägg till sändningsdomänen ovan för att börja.",
+        "errCodeRequired": "Klistra in koden från Mailchimps e‑post.",
+        "errEmailRequired": "E‑post krävs.",
+        "loadFailed": "Det gick inte att läsa in domäner.",
+        "loading": "Läser in domäner…",
+        "statusAuthenticated": "Verifierad + DKIM autentiserad",
+        "statusPending": "Väntar — klistra in e‑postverifieringskoden nedan",
+        "statusVerified": "Verifierad — slutför DKIM‑inställning i Mailchimp‑gränssnittet",
+        "title": "Verifierade domäner",
+        "verify": "Verifiera",
+        "verifyFailed": "Verifieringen misslyckades — kontrollera koden."
+      },
+      "images": {
+        "body": "Välj en bild från ditt Mailchimp‑bibliotek, ladda upp en ny (max 10 MB) eller klistra in en offentlig URL.",
+        "confirmDelete": "Ta bort den här bilden? Kampanjer som refererar till den fortsätter att fungera (Mailchimp behåller filen).",
+        "delete": "Ta bort",
+        "deleteFailed": "Kunde inte ta bort bilden.",
+        "empty": "Inga bilder har laddats upp ännu. Byt till Ladda upp för att lägga till den första.",
+        "errNoUrl": "Mailchimp accepterade uppladdningen men returnerade ingen URL.",
+        "errTooLarge": "Mailchimps maxfilstorlek är 10 MB.",
+        "insertUrl": "Infoga URL",
+        "loadFailed": "Det gick inte att läsa in bildbiblioteket.",
+        "loading": "Läser in biblioteket…",
+        "modes": {
+          "library": "Bibliotek",
+          "upload": "Ladda upp ny",
+          "url": "Via URL"
+        },
+        "pickFile": "Klicka för att välja en bild",
+        "pickHint": "PNG, JPG, GIF, SVG upp till 10 MB",
+        "title": "Välj eller ladda upp en bild",
+        "uploadFailed": "Uppladdning misslyckades — se Mailchimps meddelande.",
+        "uploading": "Laddar upp…",
+        "urlHint": "Mailchimp kan cachea bilden på sin CDN; att använda dess File Manager (fliken Uppladdning) är mer pålitligt.",
+        "urlLabel": "Offentlig bild‑URL"
+      },
+      "loadFailed": "Kunde inte läsa in er Mailchimp‑anslutning.",
+      "manageConnection": "Hantera anslutning",
+      "merge": {
+        "cancelNew": "Avbryt",
+        "col": {
+          "name": "Namn",
+          "required": "Obligatorisk",
+          "tag": "Sammanfognings‑tagg",
+          "type": "Typ"
+        },
+        "confirmDelete": "Ta bort detta fält? Medlemsdata i den här kolumnen kommer också att tas bort.",
+        "count": "{count} fält totalt",
+        "create": "Skapa fält",
+        "createFailed": "Kunde inte skapa fältet.",
+        "creating": "Skapar…",
+        "delete": "Ta bort",
+        "deleteFailed": "Kunde inte ta bort fältet.",
+        "empty": "Inga anpassade fält ännu — Mailchimps standardkolumner FNAME / LNAME fungerar fortfarande.",
+        "errRequired": "Tagg och namn krävs båda.",
+        "fields": {
+          "defaultValue": "Standardvärde (valfritt)",
+          "name": "Visningsnamn",
+          "required": "Obligatorisk i registreringsformulär",
+          "tag": "Sammanfognings‑tagg (≤10 tecken, STORA BOKSTÄVER)",
+          "type": "Typ"
+        },
+        "hint": "Använd sammanslagnings-taggar i kampanjer och mallar som *|TAG|*, t.ex. \"Welcome *|FNAME|*\".",
+        "loadFailed": "Det gick inte att läsa in sammanslagningsfält.",
+        "loading": "Läser in sammanslagningsfält…",
+        "newField": "Nytt fält"
+      },
+      "noCompanyBody": "Välj ett arbetsområde från instrumentpanelen för att hantera dess e‑postmodul.",
+      "noCompanyTitle": "Välj ett arbetsområde",
+      "notConnectedBody": "Anslut ert Mailchimp‑konto för att hantera målgrupper, kampanjer och rapporter utan att lämna CRM‑systemet. Varje operatör har sin egen anslutning.",
+      "notConnectedTitle": "Mailchimp är ännu inte anslutet",
+      "openIntegrationDetail": "Öppna integrationsinställningar",
+      "overview": {
+        "actions": {
+          "newAudience": "Ny målgrupp",
+          "newCampaign": "Ny kampanj",
+          "newTemplate": "Ny mall",
+          "reports": "Rapporter"
+        },
+        "gettingStartedTitle": "Kom igång på 4 snabba steg",
+        "kpi": {
+          "audiences": "Målgrupper",
+          "clickRateSub": "{rate}% genomsnittlig klickfrekvens",
+          "openRate": "Genomsnittlig öppningsfrekvens",
+          "sentCampaigns": "Skickade kampanjer",
+          "subscribers": "Totalt antal prenumeranter"
+        },
+        "loadFailed": "Det gick inte att läsa in översikten.",
+        "loading": "Läser in översikt…",
+        "noCampaigns": "Inga kampanjer ännu — skapa din första.",
+        "noReports": "Inga rapporter ännu — de visas efter den första utskickningen.",
+        "quickActionsTitle": "Snabbåtgärder",
+        "recentCampaigns": "Senaste kampanjer",
+        "recentReports": "Senaste rapporter",
+        "recipients": "Mottagare",
+        "step1": "Skapa eller importera en målgrupp (använd \"Audiences → Upload CSV\" om du har ett kalkylblad).",
+        "step2": "Valfritt: spara en återanvändbar mall under \"Templates\".",
+        "step3": "Skapa din första kampanj — välj målgrupp, ämne, innehåll.",
+        "step4": "Skicka ett test till dig själv, och skicka sedan på riktigt eller schemalägg.",
+        "viewAll": "Visa alla"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Klick",
+          "opens": "Öppningar",
+          "recipients": "Mottagare",
+          "sent": "Skickat",
+          "subject": "Kampanj"
+        },
+        "deepLinkHint": "För värmekartor, A/B-jämförelser och full e‑postaktivitet, öppna kampanjen i Mailchimps UI.",
+        "detailFailed": "Det gick inte att läsa in hela rapporten.",
+        "details": "Detaljer",
+        "emptyBody": "Rapporter visas här efter att den första kampanjen har skickats.",
+        "emptyTitle": "Inga rapporter ännu",
+        "geoEmpty": "Ingen geografisk data — Mailchimp bygger den när öppningarna kommer in.",
+        "geoTitle": "Toppplatser",
+        "kpi": {
+          "bounces": "Studsar",
+          "clicks": "Unika klick",
+          "hardBounces": "{count} hårda",
+          "opens": "Unika öppningar",
+          "sent": "Mottagare"
+        },
+        "loadFailed": "Det gick inte att läsa in rapporterna.",
+        "loading": "Läser in rapporter…",
+        "loadingDetail": "Läser in detaljer…",
+        "opens": "öppningar",
+        "title": "Kampanjrapporter"
+      },
+      "segments": {
+        "col": {
+          "members": "Medlemmar",
+          "name": "Namn",
+          "type": "Typ",
+          "updated": "Uppdaterad"
+        },
+        "confirmDelete": "Radera detta segment? Medlemmarna finns kvar i publiken; endast segmentet tas bort.",
+        "count": "{count} segment",
+        "create": "Skapa",
+        "createBody": "Statiska segment är en handplockad lista med e‑postadresser. För villkorsbaserade (sparade) segment använder du Mailchimps UI – de visas här vid uppdatering.",
+        "createFailed": "Kunde inte skapa segmentet.",
+        "createTitle": "Nytt statiskt segment",
+        "creating": "Skapar…",
+        "delete": "Radera",
+        "deleteFailed": "Kunde inte radera segmentet.",
+        "empty": "Inga segment ännu. Statiska segment är handplockade listor; sparade segment är villkorsbaserade filter.",
+        "errNameRequired": "Segmentet måste ha ett namn.",
+        "fields": {
+          "emails": "Medlems‑e‑post",
+          "emailsHint": "En per rad eller kommaseparerade. Endast befintliga publikmedlemmar läggs till.",
+          "name": "Segmentnamn"
+        },
+        "loadFailed": "Kunde inte läsa in segmenten.",
+        "loading": "Läser in segment…",
+        "newStatic": "Nytt statiskt segment"
+      },
+      "settingsHint": "Konfigurationen finns under Integrationer → Mailchimp. Brickan ovan är skrivskyddad.",
+      "settingsTitle": "Anslutningsinställningar",
+      "subtabAria": "E‑postmodulens sektioner",
+      "subtabComingSoon": "Denna sektion levereras i ett senare steg. Anslutningen är klar; UI‑et är ännu inte kopplat.",
+      "tabs": {
+        "audiences": "Målgrupper",
+        "automations": "Automatiseringar",
+        "campaigns": "Kampanjer",
+        "overview": "Översikt",
+        "reports": "Rapporter",
+        "settings": "Inställningar",
+        "templates": "Mallar"
+      },
+      "tags": {
+        "empty": "Inga taggar i den här publiken ännu. Lägg till taggar på medlemmar via ”Lägg till medlem” eller CSV‑uppladdning.",
+        "emptySearch": "Inga taggar matchar \"{query}\".",
+        "hint": "Taggar skapas i samma ögonblick de tillämpas på en medlem (Lägg till medlem, CSV‑uppladdning eller push från CRM).",
+        "loadFailed": "Kunde inte läsa in taggar.",
+        "loading": "Läser in taggar…",
+        "searchPlaceholder": "Sök taggnamn…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "Radera",
+          "edit": "Redigera",
+          "preview": "Förhandsgranska"
+        },
+        "col": {
+          "category": "Kategori",
+          "created": "Skapad",
+          "name": "Namn"
+        },
+        "confirmDelete": "Radera den här mallen permanent? Kampanjer som refererar till den fortsätter att fungera — de tar en ögonblicksbild av HTML vid utskick.",
+        "create": "Skapa mall",
+        "createTitle": "Ny mall",
+        "deleteFailed": "Kunde inte radera mallen.",
+        "editTitle": "Redigera mall",
+        "emptyBody": "Skapa din första mall — kampanjer kan återanvända den utan att skriva om HTML.",
+        "emptyTitle": "Inga mallar ännu",
+        "errHtmlRequired": "Mallen får inte vara tom.",
+        "errNameRequired": "Mallen måste ha ett namn.",
+        "fields": {
+          "html": "HTML‑kropp",
+          "htmlHint": "Rå‑HTML. Sammanfognings‑taggar som {{FNAME|there}} fungerar på samma sätt som i kampanjer.",
+          "name": "Mallnamn",
+          "namePlaceholder": "Välkomstmail"
+        },
+        "loadFailed": "Det gick inte att läsa in mallar.",
+        "loading": "Läser in mallar…",
+        "loadingBody": "Läser in mallens innehåll…",
+        "newTemplate": "Ny mall",
+        "preview": "Live‑förhandsgranskning",
+        "previewHint": "Renderar HTML i en sandboxad iframe (skript inaktiverade). Mailchimp‑sammanfognings‑taggar som {{FNAME|there}} förblir synliga — de ersätts vid utskick.",
+        "refresh": "Uppdatera",
+        "saveFailed": "Kunde inte spara mallen.",
+        "saving": "Sparar…",
+        "title": "Mallar",
+        "update": "Spara ändringar"
+      },
+      "webhooks": {
+        "confirmDelete": "Ta bort den här webhook-prenumerationen? Mailchimp slutar att POSTa händelser till den här URL:en.",
+        "count": "{count} webhook",
+        "create": "Skapa webhook",
+        "createBody": "Mailchimp kommer att POSTa händelser till er URL. Vanliga mål: n8n-flöde, inbound/mailchimp/<token>.",
+        "createFailed": "Kunde inte skapa webhooken.",
+        "createTitle": "Prenumerera på publikens händelser",
+        "creating": "Skapar…",
+        "delete": "Ta bort",
+        "deleteFailed": "Kunde inte ta bort webhooken.",
+        "empty": "Inga webhook-prenumerationer ännu.",
+        "errUrlRequired": "URL måste börja med https://",
+        "fields": {
+          "events": "Händelser att lyssna på",
+          "sources": "Händelsekällor (vem som utlöste den)",
+          "url": "Webhook URL (https://)"
+        },
+        "hint": "Mailchimp signerar inte list‑webhooks. Behandla URL:en som den enda hemligheten; logga den inte.",
+        "loadFailed": "Kunde inte läsa in webhookar.",
+        "loading": "Läser in webhookar…",
+        "noEvents": "(inga händelser valda)"
+      },
+      "wizard": {
+        "back": "Tillbaka",
+        "fillRequired": "Fyll i det obligatoriska fältet ovan",
+        "next": "Nästa",
+        "submit": "Skapa",
+        "submitting": "Skapar…"
+      }
+    },
     "heroEyebrow": "Röst‑native CRM-plattform",
     "heroLead": "Lisent CRM kombinerar autentisering, hyresgäst‑medvetna arbetsflöden, import‑profil onboarding och ett skyddat applikationsskal för företagsoperatörer. Webbappen äger användargränssnittets flöden. Go CRM‑tjänsten ligger bakom en pålitlig backend‑gräns.",
     "heroTitle": "Förståelse för avsikt, inte bara ord.",
@@ -1708,37 +2493,38 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "Byråer",
       "aria": "Marknadsföringssektioner",
       "campaigns": "Kampanjer",
       "email": "E‑post",
       "forms": "Formulär"
     },
-    "tenantBody": "Nästa lager kommer att lösa <code>user_id</code>, <code>company_id</code> och roll per session.",
+    "tenantBody": "Nästa lager kommer att lösa upp <code>user_id</code>, <code>company_id</code> och roll per session.",
     "tenantTitle": "Hyresgästkontext",
     "whatThisAppOwns": "Vad den här appen äger"
   },
   "nav": {
     "brandName": "Lisent CRM",
     "calendar": "Kalender",
-    "closeNavigation": "Stäng navigering",
+    "closeNavigation": "Stäng navigation",
     "customerImport": "Kundimport",
     "customers": "Kunder",
     "dashboard": "Dashboard",
     "deals": "Deals",
     "help": "Hjälp och resurser",
-    "import": "Import",
+    "import": "Importera",
     "integrations": "Integrationer",
     "leads": "Leads",
-    "lisentHome": "Lisent CRM hem",
-    "lisentWorkspace": "Lisent arbetsyta",
+    "lisentHome": "Lisent CRM‑hem",
+    "lisentWorkspace": "Lisent workspace",
     "marketing": "Marknadsföring",
-    "navigation": "Navigering",
-    "openNavigation": "Öppna navigering",
+    "navigation": "Navigation",
+    "openNavigation": "Öppna navigation",
     "overview": "Översikt",
     "primary": "Primär",
     "quickCreate": "Snabbt skapa",
     "sectionTools": "Verktyg",
-    "sectionWorkspace": "Arbetsyta",
+    "sectionWorkspace": "Workspace",
     "tasks": "Uppgifter",
     "teamMembers": "Teammedlemmar"
   },
@@ -1784,7 +2570,7 @@
       "title": "Import"
     },
     "integrationDetail": {
-      "description": "Konfigurera denna integration.",
+      "description": "Konfigurera den här integrationen.",
       "title": "Integration"
     },
     "integrations": {
@@ -1792,7 +2578,7 @@
       "title": "Integrationer"
     },
     "leads": {
-      "description": "Hantera och kvalificera dina leads.",
+      "description": "Hantera och kvalificera era leads.",
       "title": "Leads"
     },
     "marketing": {
@@ -1805,7 +2591,7 @@
     },
     "workspace": {
       "description": "Inställningar för arbetsytan och medlemmar.",
-      "title": "Arbetsyta"
+      "title": "Workspace"
     }
   },
   "qualifier": {
@@ -1816,7 +2602,7 @@
     "keyQuestions": "Viktiga frågor för samtalet",
     "leadAssessment": "Lead‑bedömning",
     "llmMedian": "LLM‑median",
-    "noScoreYet": "Ingen poäng ännu.",
+    "noScoreYet": "Inget resultat ännu.",
     "rawAnalysis": "Rå analysresultat",
     "recommendedOpening": "Rekommenderad öppning",
     "risksToWatch": "Risker att bevaka",
@@ -1826,7 +2612,7 @@
     "whoTheyAre": "Vem de är"
   },
   "search": {
-    "aria": "Sök i arbetsytan",
+    "aria": "Sök i workspace",
     "placeholder": "Sök…"
   },
   "tasks": {
@@ -1839,14 +2625,14 @@
       "reject": "Avvisa",
       "startWork": "Starta arbete"
     },
-    "activeCount": "{count} aktiv",
+    "activeCount": "{count} aktiva",
     "assignmentMode": {
       "everyone": "Alla",
       "individual": "Individuell"
     },
     "confirm": {
       "delete": "Ta bort den här uppgiften?",
-      "deleteBroadcast": "Ta bort den här sändningsuppgiften för alla?"
+      "deleteBroadcast": "Ta bort detta sändningsuppgift för alla?"
     },
     "empty": {
       "filtered": "Inga uppgifter matchar det aktuella filtret.",
@@ -1903,7 +2689,7 @@
       "notes": "Lägg till detaljer om denna uppgift…",
       "title": "Uppgiftstitel"
     },
-    "publishedBy": "Publicerad av",
+    "publishedBy": "Publicerad av {name}",
     "responseStatus": {
       "accepted": "Accepterad",
       "pending": "Väntande",
@@ -1928,9 +2714,9 @@
     },
     "summary": {
       "company": "Företag",
-      "inProgressDone": "pågående · slutförda",
-      "myPending": "väntande",
-      "openTickets": "öppna"
+      "inProgressDone": "{inProgress} pågående · {done} slutförda",
+      "myPending": "{count} väntande",
+      "openTickets": "{count} öppna"
     },
     "systemUser": "System",
     "teammatesCount": "{count} medarbetare",
@@ -1973,6 +2759,25 @@
       "role": "Roll"
     },
     "member": "Medlem",
+    "moduleAccess": {
+      "discard": "Avbryt",
+      "empty": "Inga teammedlemmar att hantera — ägare har alltid full åtkomst.",
+      "granted": "Beviljad",
+      "loadError": "Det gick inte att läsa åtkomstbehörigheter.",
+      "loading": "Läser in…",
+      "module": {
+        "marketingAgencies": "Marknadsföring · Byråer"
+      },
+      "noAccess": "Ingen åtkomst",
+      "role": "Roll",
+      "save": "Spara ändringar",
+      "saveError": "Det gick inte att spara ändringar.",
+      "saving": "Sparar…",
+      "subtitle": "Ägare ser alltid alla moduler. Använd växlarna för att ge varje teammedlem åtkomst till en specifik modul.",
+      "teamMember": "Teammedlem",
+      "title": "Modulåtkomst",
+      "unsaved": " · osparad"
+    },
     "noEmail": "Ingen e‑post sparad",
     "noPermission": "Ni har inte behörighet att hantera teammedlemmar.",
     "placeholders": {
@@ -1981,14 +2786,14 @@
     "removeMember": "Ta bort medlem",
     "removeModal": {
       "confirm": "Ta bort medlem",
-      "description": "{company} förlorar omedelbart åtkomsten till detta arbetsområde.",
+      "description": "{name} förlorar omedelbart åtkomsten till detta arbetsområde.",
       "eyebrow": "Ta bort teammedlem",
       "removing": "Tar bort…",
       "title": "Ta bort teammedlem?"
     },
     "roleModal": {
       "confirm": "Ändra roll",
-      "description": "Uppdatera s roll i detta arbetsområde.",
+      "description": "Uppdatera {name}s roll i detta arbetsområde.",
       "eyebrow": "Ändra roll",
       "title": "Ändra roll",
       "to": "Till",

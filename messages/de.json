@@ -6,14 +6,14 @@
     "fields": {
       "companyAccess": "Unternehmenszugriff",
       "companyMemberships": "Unternehmensmitgliedschaften",
-      "email": "E-Mail",
-      "firstName": "Name",
+      "email": "E‑Mail",
+      "firstName": "Vorname",
       "gender": "Geschlecht",
       "language": "Sprache",
       "lastName": "Nachname",
       "phoneNumber": "Telefonnummer",
       "platformRole": "Plattformrolle",
-      "userId": "Benutzer-ID"
+      "userId": "Benutzer‑ID"
     },
     "fixHighlighted": "Bitte korrigieren Sie die hervorgehobenen Kontofelder.",
     "gender": {
@@ -29,16 +29,16 @@
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
-      "superAdmin": "Super Verwalter",
-      "workspaceUser": "Arbeitsbereich Benutzer"
+      "superAdmin": "Super‑Admin",
+      "workspaceUser": "Workspace‑Benutzer"
     },
     "profileSummary": "Profilübersicht",
     "saveButton": "Einstellungen speichern",
     "saveFailed": "Fehler beim Speichern der Kontoeinstellungen.",
-    "saved": "Kontoeinstellungen gespeichert.",
+    "saved": "Konto‑Einstellungen gespeichert.",
     "saving": "Speichert…",
     "subtitle": "Verwalten Sie Ihr Profil, Ihre Einstellungen und den Zugriff.",
-    "title": "Kontoeinstellungen"
+    "title": "Konto‑Einstellungen"
   },
   "auth": {
     "alreadyHaveAccess": "Haben Sie bereits Zugriff?",
@@ -46,7 +46,7 @@
     "createAnAccount": "Ein Konto erstellen",
     "creatingAccount": "Konto wird erstellt…",
     "emailLabel": "E‑Mail",
-    "emailPlaceholder": "name@company.com",
+    "emailPlaceholder": "name@firma.com",
     "newWorkspaceUser": "Neuer Workspace‑Benutzer?",
     "passwordLabel": "Passwort",
     "passwordPlaceholderSignIn": "Passwort eingeben",
@@ -91,17 +91,17 @@
       "upcoming": "Keine bevorstehenden Ereignisse."
     },
     "errors": {
-      "delete": "Ereignis konnte nicht gelöscht werden.",
+      "delete": "Löschen des Ereignisses fehlgeschlagen.",
       "linkRecordMissing": "Ein verknüpfter Datensatz ist erforderlich, wenn ein Link‑Typ ausgewählt ist.",
       "loadCompanies": "Unternehmen konnten nicht geladen werden.",
-      "loadEvents": "Ereignisse konnten nicht geladen werden.",
+      "loadEvents": "Fehler beim Laden der Ereignisse.",
       "pastDate": "Ereignis kann nicht in der Vergangenheit beginnen.",
-      "save": "Ereignis konnte nicht gespeichert werden.",
+      "save": "Fehler beim Speichern des Ereignisses.",
       "startRequired": "Startdatum und -zeit sind erforderlich.",
       "titleRequired": "Titel ist erforderlich."
     },
     "eventStatus": {
-      "canceled": "Abgesagt",
+      "canceled": "Abgebrochen",
       "completed": "Abgeschlossen",
       "missed": "Verpasst",
       "scheduled": "Geplant"
@@ -159,7 +159,7 @@
       "location": "Büro, Zoom, Adresse…",
       "noLinkedCustomer": "Kein verknüpfter Kunde",
       "optionalCustomer": "Wählen Sie einen Kunden (optional)",
-      "selectRecord": "Wählen Sie einen Datensatz",
+      "selectRecord": "Datensatz auswählen",
       "title": "Entdeckungsgespräch mit…"
     },
     "searchAriaLabel": "Ereignisse suchen",
@@ -219,24 +219,24 @@
     "bulk": {
       "clearSelection": "Auswahl löschen",
       "confirmDelete": "Ausgewählte löschen",
-      "deleteDescription": "Dadurch werden Kundendatensätze dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
-      "deleteEyebrow": "Massenhaftes Löschen",
+      "deleteDescription": "Damit werden {count} Kundendatensätze dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "deleteEyebrow": "Massenlöschung",
       "deleteTitle": "Ausgewählte Kunden löschen?",
-      "exportCsv": "Export CSV",
-      "exportPdf": "Export PDF",
-      "exportXlsx": "Export Excel",
-      "regionLabel": "Massenhafte Aktionen",
-      "selectedCount": "ausgewählt"
+      "exportCsv": "CSV exportieren",
+      "exportPdf": "PDF exportieren",
+      "exportXlsx": "Excel exportieren",
+      "regionLabel": "Massenaktionen",
+      "selectedCount": "{count} ausgewählt"
     },
-    "closeAddPopup": "Dialogfeld \"Kunden hinzufügen\" schließen",
+    "closeAddPopup": "Dialog zum Hinzufügen eines Kunden schließen",
     "confirmDelete": "Löschen",
     "delete": "Löschen",
-    "deleteConfirmDescription": "Dadurch wird dieser Kundendatensatz dauerhaft entfernt. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "deleteConfirmDescription": "Damit wird dieser Kundendatensatz dauerhaft entfernt. Diese Aktion kann nicht rückgängig gemacht werden.",
     "deleteConfirmTitle": "Kunde löschen?",
     "deleteCustomer": "Kunde löschen",
-    "deleting": "Löschen...",
+    "deleting": "Lösche...",
     "detail": {
-      "closeDrawer": "Kundendaten schließen",
+      "closeDrawer": "Kundendetails schließen",
       "contact": "Kontakt",
       "coreProfile": "Kernprofil",
       "extraData": "Zusätzliche Daten",
@@ -246,7 +246,7 @@
     "errors": {
       "bulkDeleteFailed": "Einige Kunden konnten nicht gelöscht werden.",
       "deleteCustomer": "Kunde konnte nicht gelöscht werden.",
-      "exportFailed": "Failed to export customers.",
+      "exportFailed": "Export der Kunden fehlgeschlagen.",
       "loadCompanies": "Firmen konnten nicht geladen werden.",
       "loadCustomers": "Kunden konnten nicht geladen werden.",
       "saveCustomer": "Kunde konnte nicht gespeichert werden."
@@ -281,17 +281,17 @@
       "empty": "Keine Kunden entsprechen den aktuellen Filtern.",
       "eyebrow": "Kundenverzeichnis",
       "selectAll": "Alle Kunden auswählen",
-      "selectRow": "Kunde auswählen",
+      "selectRow": "Kunde {name} auswählen",
       "title": "Kunden",
-      "visibleCount": "Anzeige {count}"
+      "visibleCount": "Anzeige {visible} von {total}"
     },
     "loading": "Kunden werden geladen...",
     "noEmail": "Keine E‑Mail hinterlegt",
     "notSet": "Nicht festgelegt",
     "pdf": {
-      "exportedAt": "customers · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Customers"
+      "exportedAt": "Kunden · Exportiert am {date}",
+      "pageOf": "Seite {current} von {total}",
+      "title": "Kunden"
     },
     "placeholders": {
       "email": "name@company.com",
@@ -302,7 +302,7 @@
       "label": "Suchen",
       "placeholder": "Kunden suchen..."
     },
-    "selectedCompany": "Aktiver Workspace:",
+    "selectedCompany": "Aktiver Workspace: {name}",
     "status": {
       "active": "Aktiv",
       "all": "Alle",
@@ -312,10 +312,10 @@
     "statusFilter": "Statusfilter",
     "success": {
       "bulkDeleted": "{count} Kunden gelöscht.",
-      "bulkDeletedPartial": "von Kunden gelöscht.",
+      "bulkDeletedPartial": "{deleted} von {total} Kunden gelöscht.",
       "created": "Kunde erstellt.",
       "deleted": "Kunde gelöscht.",
-      "exported": "Exported {count} customers.",
+      "exported": "Exportierte {count} Kunden.",
       "updated": "Kunde aktualisiert."
     }
   },
@@ -333,15 +333,15 @@
       "title": "KI‑Einblicke"
     },
     "amount": "Betrag",
-    "amountValue": "{value}",
+    "amountValue": "{amount}",
     "assignee": "Zuständige Person",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "Ziehen Sie Deals zwischen Stufen, um die Pipeline zu aktualisieren.",
-    "changedBy": "Geändert von",
+    "changedBy": "Geändert von {name}",
     "close": "Schließen",
     "closeTarget": "Abschlussziel",
-    "closeTargetValue": "{value}",
-    "columnTotal": "Spaltensumme:",
+    "closeTargetValue": "{date}",
+    "columnTotal": "Spaltensumme: {value}",
     "commentPlaceholder": "Kommentar schreiben...",
     "comments": "Kommentare",
     "commentsCount": "{count} Kommentare",
@@ -370,7 +370,7 @@
     },
     "extraData": "Zusätzliche Daten",
     "fields": {
-      "company": "Unternehmen",
+      "company": "Firma",
       "companyId": "Unternehmens-ID",
       "country": "Land",
       "created": "Erstellt",
@@ -439,7 +439,7 @@
     "posting": "Poste…",
     "relatedRecords": "Verknüpfte Datensätze",
     "scheduleActivity": "Aktivität planen",
-    "selectedCompany": "Aktiver Workspace:",
+    "selectedCompany": "Aktiver Workspace: {name}",
     "stage": {
       "lost": "Verloren",
       "lostDescription": "Verlorene Abschlüsse zur Analyse.",
@@ -456,7 +456,7 @@
     },
     "stageHistory": "Phasenverlauf",
     "stageHistoryEmpty": "Bisher wurden keine Phasenänderungen erfasst.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "Kommentar hinzugefügt.",
       "created": "Deal erstellt.",
@@ -472,15 +472,15 @@
   },
   "errors": {
     "forbidden": "Sie haben keine Berechtigung.",
-    "generic": "Etwas ist schief gelaufen.",
-    "networkError": "Netzwerkfehler. Versuchen Sie es erneut.",
+    "generic": "Ein Fehler ist aufgetreten.",
+    "networkError": "Netzwerkfehler. Bitte versuchen Sie es erneut.",
     "sessionRequired": "Authentifizierung erforderlich.",
     "userNotFound": "Benutzer nicht gefunden."
   },
   "home": {
     "activity": {
       "chartAriaLabel": "Aktivitätsdiagramm für die letzte Woche",
-      "empty": "Noch keine Aktivität für aufgezeichnet.",
+      "empty": "Noch keine Aktivität für {name} aufgezeichnet.",
       "emptyDefault": "Noch keine Aktivität erfasst.",
       "legendDeals": "Deals",
       "legendLeads": "Leads",
@@ -489,17 +489,17 @@
     },
     "company": {
       "createWorkspace": "Workspace erstellen",
-      "goToOverview": "Zur Arbeitsbereichsübersicht gehen",
-      "noWorkspaceHelp": "Wählen Sie einen Arbeitsbereich aus dem Schalter, um Live-Daten zu sehen.",
-      "noWorkspaceSelected": "Kein Arbeitsbereich ausgewählt",
-      "pickWorkspace": "Wählen Sie einen Arbeitsbereich",
-      "subtitleSelected": "Arbeitsbereich-Metriken für.",
+      "goToOverview": "Zur Workspace‑Übersicht",
+      "noWorkspaceHelp": "Wählen Sie einen Workspace im Switcher, um Live‑Daten zu sehen.",
+      "noWorkspaceSelected": "Kein Workspace ausgewählt",
+      "pickWorkspace": "Workspace auswählen",
+      "subtitleSelected": "Workspace‑Kennzahlen für {name}.",
       "subtitleWithName": "Willkommen zurück, {name}."
     },
     "errors": {
-      "loadDashboard": "Dashboard-Daten können nicht geladen werden.",
-      "loadSnapshot": "Arbeitsbereich-Snapshot konnte nicht geladen werden.",
-      "loadWorkspaces": "Arbeitsbereiche konnten nicht geladen werden."
+      "loadDashboard": "Dashboard‑Daten konnten nicht geladen werden.",
+      "loadSnapshot": "Workspace‑Snapshot konnte nicht geladen werden.",
+      "loadWorkspaces": "Workspaces konnten nicht geladen werden."
     },
     "kpi": {
       "customers": "Kunden",
@@ -510,7 +510,7 @@
       "leads": "Leads",
       "leadsHint": "Aktive Leads in der Pipeline.",
       "openPipelineHint": "Offener Pipeline-Wert über alle Stufen.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "Anpassen",
@@ -518,8 +518,8 @@
       "title": "Übersicht"
     },
     "pipeline": {
-      "empty": "Noch keine Pipeline-Daten für.",
-      "emptyDefault": "Noch keine Pipeline-Daten.",
+      "empty": "Noch keine Pipeline‑Daten für {name}.",
+      "emptyDefault": "Noch keine Pipeline‑Daten.",
       "stage": {
         "lost": "Verloren",
         "negotiation": "Verhandlung",
@@ -530,7 +530,7 @@
       },
       "subtitle": "Verteilung der Deals nach Stage.",
       "title": "Pipeline",
-      "totalBadge": "{count} insgesamt"
+      "totalBadge": "{value} gesamt"
     },
     "quickActions": {
       "aiQualifier": {
@@ -568,7 +568,7 @@
       "title": "Schnellaktionen"
     },
     "recentLeads": {
-      "empty": "Keine aktuellen Leads in.",
+      "empty": "Keine aktuellen Leads in {name}.",
       "emptyDefault": "Noch keine aktuellen Leads.",
       "status": {
         "contacted": "Kontaktiert",
@@ -584,27 +584,27 @@
       "viewAll": "Alle Leads anzeigen"
     },
     "snapshot": {
-      "activeWorkspace": "Aktiver Arbeitsbereich",
+      "activeWorkspace": "Aktiver Workspace",
       "eyebrow": "Snapshot des Arbeitsbereichs",
-      "inWorkspace": "in",
+      "inWorkspace": "in {name}",
       "newCount": "{count} neue",
       "noWorkspaceHelp": "Wählen Sie einen Arbeitsbereich, um Live‑Zähler zu sehen.",
-      "noWorkspaceSelected": "Kein Arbeitsbereich ausgewählt",
+      "noWorkspaceSelected": "Kein Workspace ausgewählt",
       "openCount": "{count} öffnen",
       "openFullDashboard": "Vollständiges Dashboard öffnen",
       "openPipeline": "Pipeline öffnen"
     },
     "workspaceOverview": {
       "acrossAccount": "Über Ihr Konto",
-      "activeWorkspace": "Aktiver Arbeitsbereich",
+      "activeWorkspace": "Aktiver Workspace",
       "allCombined": "Alle kombiniert",
       "customers": "Kunden",
-      "noneSelected": "Keine ausgewählt",
-      "pickToActivate": "Wählen Sie einen Arbeitsbereich, um Metriken zu aktivieren.",
+      "noneSelected": "Keine Auswahl",
+      "pickToActivate": "Wählen Sie einen Workspace, um Metriken zu aktivieren.",
       "scopedViews": "Eingeschränkte Ansichten",
-      "singleWorkspace": "Einzelner Arbeitsbereich",
+      "singleWorkspace": "Einzelner Workspace",
       "subtitle": "Konto‑ebene Zusammenfassung Ihrer Arbeitsbereiche.",
-      "workspaces": "Arbeitsbereiche"
+      "workspaces": "Workspaces"
     }
   },
   "imports": {
@@ -620,18 +620,18 @@
     },
     "fields": {
       "countryCode": "Ländercode",
-      "email": "E-Mail",
-      "externalCustomerId": "Externe Kunden-ID",
+      "email": "E‑Mail",
+      "externalCustomerId": "Externe Kunden‑ID",
       "firstName": "Vorname",
       "lastName": "Nachname",
       "name": "Name",
       "phone": "Telefon",
       "preferredLanguage": "Bevorzugte Sprache",
-      "subscriptionDate": "Abonnementdatum"
+      "subscriptionDate": "Abonnement‑Datum"
     },
     "mapping": {
       "approvalDescription": "Bestätigen Sie die Zuordnung und starten Sie den Import. Kunden werden für den aktiven Workspace erstellt oder aktualisiert.",
-      "approvalOutcome": "Nach der Genehmigung werden Zeilen als Kunden in eingefügt.",
+      "approvalOutcome": "Nach der Genehmigung werden Zeilen als Kunden in {name} eingefügt.",
       "approveAndImport": "Genehmigen & importieren",
       "backToPreview": "Zurück zur Vorschau",
       "confidence": "Vertrauensgrad",
@@ -646,15 +646,15 @@
     "preview": {
       "backToSource": "Zurück zur Quelle",
       "continueToMapping": "Weiter zur Zuordnung",
-      "headers": "Header",
-      "rowsLoaded": "Zeilen geladen",
-      "rowsShown": "Erste Zeilen anzeigen",
+      "headers": "{count} Header",
+      "rowsLoaded": "{count} Zeilen geladen",
+      "rowsShown": "Erste {count} Zeilen anzeigen",
       "unmapped": "Nicht zugeordnet"
     },
     "progress": {
-      "completedRatio": "von erledigt",
-      "currentRow": "Zeile",
-      "description": "Importiere Zeilen in. Sie können die Seite verlassen; der Import läuft im Hintergrund weiter.",
+      "completedRatio": "{done} von {total} erledigt",
+      "currentRow": "Zeile {row}",
+      "description": "Importiere Zeilen in {name}. Sie können die Seite verlassen; der Import läuft im Hintergrund weiter.",
       "eyebrow": "Import läuft",
       "preparing": "Import wird vorbereitet...",
       "title": "Kunden importieren"
@@ -664,7 +664,7 @@
       "mappedFields": "Zugeordnete Felder",
       "progress": "Fortschritt",
       "rowsLoaded": "Geladene Zeilen",
-      "stepNumber": "Schritt {number}",
+      "stepNumber": "Schritt {step}",
       "title": "Importfortschritt"
     },
     "source": {
@@ -682,17 +682,17 @@
     "steps": {
       "mapping": {
         "label": "Zuordnung",
-        "summary": "Ordnen Sie jede Spalte einem CRM-Feld zu.",
+        "summary": "Ordnen Sie jede Spalte einem CRM‑Feld zu.",
         "title": "Spalten zuordnen"
       },
       "preview": {
         "label": "Vorschau",
-        "summary": "Daten bestätigen und dann importieren.",
-        "title": "Prüfen und importieren"
+        "summary": "Bestätigen Sie die Daten, dann führen Sie den Import aus.",
+        "title": "Überprüfen und importieren"
       },
       "source": {
         "label": "Quelle",
-        "summary": "CSV hochladen oder URL einfügen.",
+        "summary": "Laden Sie eine CSV-Datei hoch oder fügen Sie eine URL ein.",
         "title": "Wählen Sie Ihre Datenquelle"
       }
     },
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "Zurück zur Übersicht",
-      "companyIdLabel": "Unternehmens-ID:",
-      "description": "Importieren Sie Kundendaten in aus einer CSV-Datei oder URL.",
+      "companyIdLabel": "Unternehmens-ID: {id}",
+      "description": "Importieren Sie Kundendaten in {name} aus einer CSV-Datei oder URL.",
       "eyebrow": "Workspace-Import",
-      "selectedCompany": "Aktiver Workspace:",
-      "stepLabel": "Schritt {step}"
+      "selectedCompany": "Aktiver Workspace: {name}",
+      "stepLabel": "Schritt {step} von {total}"
     }
   },
   "integrations": {
@@ -729,8 +729,8 @@
       "createTitle": "Neuen API‑Schlüssel erstellen",
       "createdHeading": "API‑Schlüssel erstellt",
       "creating": "Erstelle…",
-      "description": "API‑Schlüssel verwalten für <strong> </strong>.",
-      "empty": "Noch keine API-Schlüssel.",
+      "description": "API‑Schlüssel verwalten für <strong>{name}</strong>.",
+      "empty": "Noch keine API-Schlüssel vorhanden.",
       "envLive": "Live",
       "envTest": "Test",
       "environment": "Umgebung",
@@ -755,19 +755,19 @@
       },
       "scopesTitle": "Berechtigungen",
       "showRevoked": "Widerrufene anzeigen",
-      "title": "API-Schlüssel"
+      "title": "API‑Schlüssel"
     },
     "catalog": {
       "accessDenied": "Zugriff verweigert",
       "accessDeniedDescription": "Sie haben keinen Zugriff auf Integrationen für diesen Workspace.",
-      "configuringCompany": "Integrationen für <strong> </strong> konfigurieren.",
+      "configuringCompany": "Integrationen für <strong>{name}</strong> konfigurieren.",
       "loadFailed": "Katalog der Integrationen konnte nicht geladen werden.",
       "loading": "Integrationen werden geladen…",
       "noAccess": "Kein Workspace-Zugriff",
       "pickAnother": "Anderen Workspace auswählen",
       "pickCompany": "Workspace auswählen",
       "pickCompanyDescription": "Wählen Sie einen Workspace aus, um Integrationen zu konfigurieren.",
-      "readOnlyNotice": "Sie können diese Konfiguration einsehen, aber nicht bearbeiten.",
+      "readOnlyNotice": "Sie können diese Konfiguration ansehen, aber nicht bearbeiten.",
       "switchCompany": "Workspace wechseln"
     },
     "companyPicker": {
@@ -781,14 +781,14 @@
     "configure": "Konfigurieren",
     "configureAria": "Konfigurieren {name}",
     "connect": "Verbinden",
-    "connectAria": "Verbinden {name}",
+    "connectAria": "Verbinden mit {name}",
     "connecting": "Verbinde…",
     "copy": "Kopieren",
     "detail": {
       "backLink": "Zurück zu Integrationen",
       "backToCatalog": "Zurück zum Katalog",
-      "configuringCompany": "Konfiguration von <strong> </strong> für <strong> </strong>.",
-      "noCompany": "Wählen Sie einen Workspace, um <strong> </strong> zu konfigurieren.",
+      "configuringCompany": "Konfiguration von <strong>{integration}</strong> für <strong>{company}</strong>.",
+      "noCompany": "Wählen Sie einen Workspace, um <strong>{integration}</strong> zu konfigurieren.",
       "restrictedDescription": "Sie haben keine Berechtigung, diese Integration anzuzeigen.",
       "restrictedTitle": "Eingeschränkt",
       "slugTitles": {
@@ -825,10 +825,10 @@
       "credentialsSaved": "Anmeldedaten gespeichert.",
       "credentialsTitle": "Green API‑Anmeldedaten",
       "disconnectConfirm": "Green API‑Integration trennen? Aktive Unterhaltungen bleiben unverändert.",
-      "inbound": "Eingehende URL",
+      "inbound": "Inbound-URL",
       "instanceId": "Instanz‑ID",
       "instanceIdPlaceholder": "z. B. 1101000001",
-      "latency": "Latenz: ms",
+      "latency": "Latenz: {ms} ms",
       "loadFailed": "Laden der Green API‑Konfiguration fehlgeschlagen.",
       "loading": "Lade Green API‑Konfiguration…",
       "rotateConfirm": "Eingehendes Webhook-Token rotieren? Bestehende Webhooks müssen aktualisiert werden.",
@@ -838,9 +838,9 @@
       "tokenRotated": "Webhook-Token rotiert.",
       "updateCredentials": "Anmeldedaten aktualisieren",
       "updatedLabel": "Aktualisiert",
-      "upstreamStatus": "Upstream-Status:",
+      "upstreamStatus": "Upstream‑Status: {status}",
       "urlCopied": "URL in die Zwischenablage kopiert.",
-      "webhookSectionDescription": "Konfigurieren Sie Ihre Green API-Instanz, um eingehende Nachrichten an <code> </code> zu senden.",
+      "webhookSectionDescription": "Konfigurieren Sie Ihre Green API-Instanz, um eingehende Nachrichten an <code>{url}</code> zu senden.",
       "webhookSectionTitle": "Eingehender webhook"
     },
     "hide": "Ausblenden",
@@ -852,8 +852,8 @@
       "authHmac": "HMAC-Signatur",
       "authHmacOrBearer": "HMAC oder Bearer",
       "authHmacShort": "HMAC",
-      "authMode": "Auth-Modus",
-      "authModeHint": "Wählen Sie, wie Lisent eingehende Anfragen authentifiziert. HMAC signiert die Payload; Bearer sendet einen statischen Token.",
+      "authMode": "Authentifizierungsmodus",
+      "authModeHint": "Wählen Sie, wie Lisent eingehende Anfragen von Ihrem Intranet authentifizieren soll. <strong>HMAC</strong> signiert die Nutzlast; <strong>Bearer</strong> sendet ein statisches Token.",
       "bearerCopied": "Bearer-Token kopiert.",
       "bearerExampleTitle": "Bearer-Beispiel",
       "bearerToken": "Bearer-Token",
@@ -862,10 +862,10 @@
       "copyUrl": "URL kopieren",
       "createIntegration": "Integration erstellen",
       "createdMessage": "Intranet-Integration erstellt.",
-      "credentialsDescription": "Nutzen Sie diese Anmeldedaten, um eingehende Webhook-Aufrufe zu authentifizieren.",
+      "credentialsDescription": "Verwenden Sie diese Anmeldedaten, um Aufrufe an <code>{url}</code> zu authentifizieren.",
       "credentialsTitle": "Anmeldedaten",
       "deliveries": "Zustellungen",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "Möchten Sie diese Intranet-Integration trennen? Eingehende Aufrufe werden fehlschlagen.",
       "disconnectDescription": "Damit werden alle Tokens widerrufen und eingehende Anfragen nicht mehr akzeptiert.",
       "disconnectIntegration": "Integration trennen",
@@ -873,7 +873,7 @@
       "entityLabel": "Entität",
       "errorLabel": "Fehler",
       "eventLabel": "Ereignis",
-      "fieldMappingDescription": "Ordnen Sie eingehende Felder mit JMESPath-Ausdrücken CRM-Eigenschaften zu. Senden Sie ein JSON-Objekt, dessen Werte JMESPath-Strings sind.",
+      "fieldMappingDescription": "Ordnen Sie eingehende Felder den CRM‑Eigenschaften zu. Senden Sie JSON wie <code>{example}</code>.",
       "fieldMappingLabel": "Feldzuordnung",
       "fieldMappingTitle": "Feldzuordnung",
       "generateHmac": "HMAC‑Geheimnis generieren",
@@ -883,7 +883,7 @@
       "hmacSecret": "HMAC‑Geheimnis",
       "hmacSecretHint": "Verwenden Sie dieses Geheimnis, um <code>X-Lisent-Signature</code> bei ausgehenden Anfragen zu berechnen.",
       "inactive": "Inaktiv",
-      "inboundDescription": "Senden Sie Payloads an die obige URL, um Leads aus Ihrem Intranet zu importieren.",
+      "inboundDescription": "Senden Sie Payloads an <code>{url}</code>, um Leads aus Ihrem Intranet zu übernehmen.",
       "inboundToken": "Inbound‑URL‑Token",
       "inboundTokenHint": "Dieser Token ist Teil der Inbound‑URL — halten Sie ihn geheim.",
       "inboundUrl": "Inbound‑URL",
@@ -897,8 +897,8 @@
       "noIntegration": "Keine Intranet-Integration konfiguriert.",
       "outbound": {
         "allStatusesLabel": "Alle Statusänderungen (empfohlen)",
-        "deliveriesEmpty": "Noch keine Zustellungen. Senden Sie ein Testereignis, um die Verbindung zu prüfen.",
-        "deliveriesTitle": "Neueste Zustellungen",
+        "deliveriesEmpty": "Noch keine Lieferungen. Senden Sie ein Testereignis, um die Verbindung zu bestätigen.",
+        "deliveriesTitle": "Aktuelle Lieferungen",
         "deliveryCols": {
           "attempts": "Versuche",
           "createdAt": "Gesendet",
@@ -923,7 +923,7 @@
         "savedNotice": "Outbound-Webhook gespeichert.",
         "secretConfigured": "Konfiguriert",
         "secretNotSet": "Nicht festgelegt — erzeugen Sie ein Secret, bevor Sie Ereignisse senden.",
-        "secretRotatedAt": "(rotiert )",
+        "secretRotatedAt": "(rotiert {time})",
         "secretRotatedNotice": "Signing-Secret rotiert. Der Klartext wird nur einmal angezeigt.",
         "selectAtLeastOne": "Wählen Sie mindestens einen Status aus oder aktivieren Sie „Alle Statusänderungen“.",
         "signingSecretLabel": "Signing-Secret (HMAC‑SHA256)",
@@ -979,6 +979,38 @@
       "urlCopied": "URL in die Zwischenablage kopiert."
     },
     "loadingProfile": "Profil wird geladen…",
+    "mailchimp": {
+      "benefitAudiences": "Verwalten Sie Mailchimp Audiences (Listen), Mitglieder, Segmente und Tags direkt im CRM.",
+      "benefitCampaigns": "Erstellen, planen und senden Sie E‑Mail‑Kampagnen — sowie replizieren und Test‑Senden vor dem Live‑Start.",
+      "benefitPerUser": "Pro‑Benutzer‑Verbindung: Jeder Operator nutzt sein eigenes Mailchimp‑Konto.",
+      "benefitReports": "Lesen Sie Open‑/Click‑/Bounce‑/Geo‑Reports, ohne das CRM zu verlassen.",
+      "cancel": "Abbrechen",
+      "cardDescription": "Mailchimp‑Verbindung pro Operator. Verwalten Sie Audiences, übertragen Sie CRM‑Kontakte, erstellen Sie Kampagnen und lesen Sie Reports, ohne das CRM zu verlassen. Der Customer‑Journey‑Designer bleibt in Mailchimp.",
+      "cardName": "Mailchimp",
+      "connectButton": "Mailchimp verbinden",
+      "connectCta": "Mailchimp verbinden",
+      "connectDescription": "Wir öffnen das OAuth‑Popup von Mailchimp. Sie autorisieren Lisent CRM, wir erhalten ein Access‑Token über Nango und Ihre Zielgruppen erscheinen im Modul Marketing → E‑Mail.",
+      "connectFailed": "Die Mailchimp‑Verbindung konnte nicht abgeschlossen werden. Versuchen Sie es erneut.",
+      "connectTitle": "Verbinden Sie Ihr Mailchimp‑Konto",
+      "connected": "Mailchimp‑Konto verbunden.",
+      "connectedAs": "Verbunden als {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "Mailchimp wird geöffnet…",
+      "dcLabel": "Datencenter",
+      "disconnect": "Trennen",
+      "disconnectConfirm": "Möchten Sie Ihr Mailchimp‑Konto von diesem Workspace trennen? Zielgruppen und Kampagnen bleiben sicher in Mailchimp; nur die Verknüpfung zum CRM wird entfernt.",
+      "failed": "Fehlgeschlagen",
+      "lastPushLabel": "Letzter Push",
+      "loadFailed": "Die Mailchimp‑Verbindung konnte nicht geladen werden.",
+      "nangoNotConfigured": "Mailchimp‑OAuth ist auf der Serverseite noch nicht eingerichtet. Bitten Sie Ihren Administrator, NANGO_SECRET_KEY und eine Mailchimp‑Provider‑Konfiguration in Nango hinzuzufügen.",
+      "openEmailModule": "E‑Mail‑Modul öffnen",
+      "openInMailchimp": "In Mailchimp öffnen",
+      "pushCountLabel": "Kontakte übertragen (Erfolg / Gesamt)",
+      "reconnect": "Erneut verbinden",
+      "scopedToCompany": "Diese Verbindung gehört Ihnen und ist auf {name} beschränkt. Andere Bediener sehen hier ihre eigene Verbindung.",
+      "statusActive": "Aktiv",
+      "statusPaused": "Pausiert",
+      "totalSubscribersLabel": "Gesamtanzahl Abonnenten"
+    },
     "meta": {
       "active": "Aktiv",
       "addMappingRow": "Feldzuordnung hinzufügen",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "Ordnen Sie Meta‑Lead‑Gen‑Felder den CRM‑Lead‑Spalten zu. Leer lassen, um die Vorgaben zu verwenden (full_name → name, email → email, phone_number → phone).",
       "fieldMappingTitle": "Feldzuordnung",
       "finalizeButton": "Einrichtung abschließen",
-      "followersCount": "Follower",
+      "followersCount": "{count} Follower",
       "formAllSubscribedHint": "Keine Formulare ausgewählt → alle Formulare auf dieser Seite werden abonniert (Meta-Standard).",
       "formIdsHint": "Durch Kommas getrennt. Leer = alle Formulare auf dieser Seite empfangen.",
       "formIdsLabel": "Form‑IDs",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "Formulare suchen…",
       "formPickerTitle": "Wählen Sie Lead‑Formulare",
       "forms": "Formulare",
-      "formsShownCount": "von",
+      "formsShownCount": "{shown} von {total}",
       "hmacSecretHint": "Speichern Sie dies jetzt – wir zeigen den Klartext nicht erneut an.",
       "hmacSecretLabel": "HMAC‑Secret",
       "hmacSecretReveal": "Einmal anzeigen",
       "inboundUrlHint": "n8n postet hier, nachdem es den vollständigen Lead von Meta abgerufen hat. Sie müssen dies nirgendwo einfügen.",
       "inboundUrlLabel": "CRM‑Inbound‑URL (von n8n verwendet)",
       "last7dCount": "{count} in 7 T",
-      "lastLeadAgo": "Letzter Lead",
+      "lastLeadAgo": "Letzter Lead {when}",
       "leads7d": "{count} Leads in 7 T",
       "loadFailed": "Meta‑Integration konnte nicht geladen werden.",
       "metaFieldHeader": "Meta‑Feld",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "Keine Seiten gefunden",
       "pagePickerSearch": "Seiten suchen…",
       "pagePickerTitle": "Wählen Sie eine Facebook‑Seite",
-      "pagesShownCount": "von",
+      "pagesShownCount": "{shown} von {total}",
       "paused": "Pausiert",
       "popupBlocked": "Der Browser hat das OAuth‑Popup blockiert. Erlauben Sie Popups für diese Seite und versuchen Sie es erneut.",
       "recentDeliveriesEmpty": "Noch keine Lieferungen.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "Entwurf",
       "statusPaused": "Pausiert",
       "statusUnknown": "Unbekannt",
-      "subscribedAt": "Abonniert",
+      "subscribedAt": "Abonniert {when}",
       "testLeadButton": "Test‑Lead senden",
       "testLeadDescription": "Erzeugt ein Meta‑ähnliches Payload und führt es über denselben Insert‑Pfad wie in der Produktion aus. Nur verfügbar, solange der Mock‑Modus aktiviert ist.",
       "testLeadFailed": "Test‑Lead konnte nicht erstellt werden.",
@@ -1124,7 +1156,7 @@
       "handoffAggressiveness": "Übergabe‑Aggressivität",
       "icpPlaceholder": "Beschreiben Sie Ihr ideales Kundenprofil…",
       "idealCustomerProfile": "Ideales Kundenprofil",
-      "languageLabel": "Konversationssprache",
+      "languageLabel": "Gesprächssprache",
       "leadWebhookDescription": "Lisent sendet qualifizierte Leads über diese webhook‑URL zurück an Ihr CRM.",
       "leadWebhookTitle": "Lead webhook",
       "liveDescription": "Der Qualifier ist aktiv und verarbeitet Leads.",
@@ -1156,13 +1188,13 @@
       "rotateWebhookConfirm": "Webhook‑Geheimnis rotieren? Das alte Geheimnis bleibt während des Rotationsfensters gültig.",
       "saveAiConfig": "AI-Konfiguration speichern",
       "secondaryRevoked": "Sekundäres webhook‑Geheimnis widerrufen.",
-      "sectorLabel": "Sektor",
+      "sectorLabel": "Branche",
       "tabs": {
-        "aiConfig": "KI-Konfiguration",
+        "aiConfig": "AI-Konfiguration",
         "apiKeys": "API-Schlüssel",
         "channels": "Kanäle",
         "fallback": "Fallback",
-        "leadWebhook": "Lead-Webhook",
+        "leadWebhook": "Lead webhook",
         "overview": "Übersicht",
         "rag": "RAG",
         "usage": "Nutzung",
@@ -1174,10 +1206,10 @@
     "rag": {
       "chunkLabel": "Chunk",
       "chunksColumn": "Chunks",
-      "description": "Wissensdatenbank für <strong> </strong>. Laden Sie Dokumente hoch, auf die die KI zugreifen kann.",
-      "ingestedDescription": "Dokumente, die sich derzeit in der Wissensdatenbank für <strong> </strong> befinden.",
+      "description": "Wissensdatenbank für <strong>{name}</strong>. Laden Sie Dokumente hoch, auf die die KI zugreifen kann.",
+      "ingestedDescription": "Dokumente, die sich derzeit in der Wissensdatenbank für <strong>{name}</strong> befinden.",
       "ingestedDocuments": "Eingespeiste Dokumente",
-      "ingestionExampleDescription": "POST an <code> </code> mit einem JSON-Body, der <code>title</code>, <code>content</code> und optional <code>metadata</code> enthält.",
+      "ingestionExampleDescription": "POST an <code>{url}</code> mit einem JSON-Body, der <code>title</code>, <code>content</code> und optional <code>metadata</code> enthält.",
       "ingestionExampleTitle": "Beispiel für Ingestion",
       "loadConfigFailed": "Laden der RAG-Konfiguration fehlgeschlagen.",
       "loadContentFailed": "Laden des Dokumentinhalts fehlgeschlagen.",
@@ -1221,9 +1253,9 @@
     },
     "subComponent": {
       "configured": "Konfiguriert",
-      "configuredAria": "{label} ist konfiguriert",
+      "configuredAria": "{name} ist konfiguriert",
       "notSet": "Nicht festgelegt",
-      "notSetAria": "{label} ist nicht festgelegt"
+      "notSetAria": "{name} ist nicht festgelegt"
     },
     "testConnection": "Verbindung testen",
     "testing": "Teste…",
@@ -1231,7 +1263,7 @@
     "urlCopied": "URL in die Zwischenablage kopiert.",
     "usage": {
       "allMetrics": "Alle Kennzahlen",
-      "description": "Nutzung und Rate Limits für <strong> </strong>.",
+      "description": "Nutzung und Rate Limits für <strong>{name}</strong>.",
       "loadFailed": "Laden der Nutzung fehlgeschlagen.",
       "loading": "Lade Nutzung…",
       "metricColumn": "Metrik",
@@ -1280,7 +1312,7 @@
       "calendlyDescription": "Optionaler Calendly‑Link, den der Assistent für Buchungen anbieten kann. Wird von <code>v1</code> Meeting‑Übergaben verwendet.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "Calendly‑Link",
-      "description": "Konfigurieren Sie das Verhalten des Qualifizierers <code>v1</code> für <strong> </strong>.",
+      "description": "Konfigurieren Sie das Verhalten des Qualifizierers <code>v1</code> für <strong>{name}</strong>.",
       "frameworkDescription": "Wählen Sie das Qualifikations‑Framework, das der Assistent zur Extraktion von Signalen verwendet.",
       "frameworkTitle": "Qualifikations‑Framework",
       "loadFailed": "Laden der v1‑Konfiguration fehlgeschlagen.",
@@ -1304,7 +1336,7 @@
       "configured": "Konfiguriert",
       "currentLabel": "Aktuell",
       "customPatternsLabel": "Benutzerdefinierte Muster (ein pro Zeile)",
-      "description": "Webhook-Zustellung für <strong> </strong> konfigurieren.",
+      "description": "Webhook-Zustellung für <strong>{name}</strong> konfigurieren.",
       "destinationHint": "Lisent postet Events an diese URL mit einer signierten Nutzlast.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "Ziel‑URL",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Minimale Payload",
       "payloadMode": "Payload-Modus",
       "rotateSecret": "Secret rotieren",
-      "rotatedAt": "Rotiert am",
+      "rotatedAt": "Rotiert am {time}",
       "saveEventSelection": "Ereignisauswahl speichern",
       "saveUrl": "URL speichern",
       "secretRotated": "Signing secret rotiert.",
@@ -1344,7 +1376,7 @@
       "testFailed": "Testereignis konnte nicht in die Warteschlange gestellt werden.",
       "testNotEnqueued": "Testereignis nicht in die Warteschlange gestellt.",
       "title": "Webhooks",
-      "urlSaved": "Ziel-URL gespeichert.",
+      "urlSaved": "Ziel‑URL gespeichert.",
       "verificationIntro": "Lisent signiert jede Anfrage. Überprüfen Sie den <code>X-Lisent-Signature</code>-Header, bevor Sie die Nutzdaten vertrauen.",
       "verificationNote": "Überprüfen Sie den <code>X-Lisent-Signature</code>-Header bei jeder Anfrage.",
       "verificationTitle": "Verifizierung",
@@ -1383,18 +1415,18 @@
       "title": "Ausgewählte Leads zuweisen"
     },
     "bulkBar": {
-      "ariaSelected": "Leads ausgewählt",
+      "ariaSelected": "{count} Leads ausgewählt",
       "assign": "Zuweisen",
       "clearSelection": "Auswahl löschen",
       "delete": "Löschen",
       "exportCsv": "CSV exportieren",
       "exportPdf": "PDF exportieren",
-      "selected": "ausgewählt"
+      "selected": "{count} ausgewählt"
     },
     "bulkDelete": {
       "confirm": "Ausgewählte löschen",
       "deleting": "Löschen…",
-      "description": "Damit werden Leads dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "description": "Damit werden {count} Leads dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.",
       "title": "Ausgewählte Leads löschen?"
     },
     "convertModal": {
@@ -1457,7 +1489,7 @@
       "dealRelationship": "Deal-Beziehung",
       "dealUnlinkedHint": "Noch kein Deal verknüpft.",
       "delete": "Löschen",
-      "detailSections": "Detailabschnitte",
+      "detailSections": "Detailbereiche",
       "editLead": "Lead bearbeiten",
       "emptyDetails": "Noch keine Details erfasst.",
       "leadProfile": "Lead-Profil",
@@ -1513,9 +1545,9 @@
     },
     "filters": {
       "allAssignees": "Alle Zuweisungen",
-      "allSources": "Alle Quellen",
+      "allSources": "Alle Sources",
       "byCampaign": "Gefiltert nach Kampagne: {name}",
-      "byCampaignCount": "von Leads",
+      "byCampaignCount": "{shown} von {total} Leads",
       "clearCampaign": "Filter löschen"
     },
     "formModal": {
@@ -1528,7 +1560,7 @@
       "emailPlaceholder": "name@company.com",
       "leadName": "Lead-Name",
       "leadNamePlaceholder": "Vollständiger Lead-Name",
-      "leadSource": "Quelle",
+      "leadSource": "Source",
       "leadSourcePlaceholder": "z. B. Inbound, Referral",
       "leadValue": "Geschätzter Wert",
       "leadValuePlaceholder": "0",
@@ -1539,7 +1571,7 @@
       "phone": "Telefon",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "Pipeline‑Stufe",
-      "saveAndScheduleEvent": "Speichern & Termin planen",
+      "saveAndScheduleEvent": "Speichern & Ereignis planen",
       "saveChanges": "Änderungen speichern"
     },
     "kpi": {
@@ -1567,17 +1599,17 @@
     },
     "pdf": {
       "commentByOn": "{author} · {date}",
-      "commentsHeader": "Comments",
+      "commentsHeader": "Kommentare",
       "createdAt": "Erstellt",
-      "email": "E-Mail",
-      "exportedAt": "Leads · Exportiert am",
+      "email": "E‑Mail",
+      "exportedAt": "{count} Leads · Exportiert am {date}",
       "options": {
-        "confirm": "Export PDF",
-        "description": "Choose what to include in the export of {count} selected leads.",
-        "exporting": "Exporting...",
-        "includeComments": "Include lead comments",
-        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
-        "title": "Export leads to PDF"
+        "confirm": "PDF exportieren",
+        "description": "Wählen Sie aus, was in den Export von {count} ausgewählten Leads aufgenommen werden soll.",
+        "exporting": "Exportiere...",
+        "includeComments": "Lead-Kommentare einbeziehen",
+        "includeCommentsHint": "Fügt für jeden ausgewählten Lead einen Abschnitt mit allen Teamkommentaren hinzu. Kann länger dauern, bis er erstellt ist.",
+        "title": "Leads als PDF exportieren"
       },
       "pageOf": "Seite {current} von {total}",
       "title": "Leads"
@@ -1604,9 +1636,9 @@
     },
     "success": {
       "aiStarted": "AI-Qualifizierung gestartet.",
-      "bulkAssignPartial": "von Leads zugewiesen.",
-      "bulkAssigned": "Leads zugewiesen.",
-      "bulkPartial": "von Leads entfernt.",
+      "bulkAssignPartial": "{assigned} von {total} Leads zugewiesen.",
+      "bulkAssigned": "{count} Leads zugewiesen.",
+      "bulkPartial": "{deleted} von {total} Leads entfernt.",
       "bulkRemoved": "{count} Leads entfernt.",
       "converted": "Lead konvertiert.",
       "convertedWithDeal": "Lead mit Deal konvertiert.",
@@ -1623,7 +1655,7 @@
       "assignee": "Zugewiesene Person",
       "empty": "Keine Leads entsprechen den aktuellen Filtern.",
       "name": "Name",
-      "openAIScore": "Open AI-Score für {score}",
+      "openAIScore": "Open AI-Score für {name}",
       "phone": "Telefon",
       "rowActions": "Zeilenaktionen",
       "selectAll": "Alle Leads auswählen",
@@ -1648,6 +1680,200 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "Tabellenblatt importieren",
+        "newAgency": "Neue Agentur",
+        "refresh": "Aktualisieren"
+      },
+      "createModal": {
+        "editTitle": "Bearbeiten {name}",
+        "newSubtitle": "Gehen Sie die Felder Schritt für Schritt durch – ein oder zwei pro Bildschirm.",
+        "newTitle": "Neue Agentur hinzufügen",
+        "saveChanges": "Änderungen speichern",
+        "saveError": "Speichern der Agentur fehlgeschlagen.",
+        "saving": "Speichern…",
+        "submit": "Agentur erstellen"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "Die Person, mit der Sie normalerweise bei der Agentur sprechen.",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "Optional – füllt LNAME, wenn diese Agentur an ein Mailchimp‑Audience gesendet wird.",
+          "fieldLabel": "Kontaktname",
+          "title": "Primärkontakt"
+        },
+        "name": {
+          "description": "Der Anzeigename, den Ihr Team erkennt.",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "Wird in der Verzeichnisliste und bei jedem Kampagnen‑Serienbrief angezeigt.",
+          "fieldLabel": "Name",
+          "title": "Agenturname"
+        },
+        "notes": {
+          "description": "Weitere Informationen, die Sie sich über diese Agentur merken sollten.",
+          "fieldHelp": "Freitext – wird nicht zu Mailchimp übertragen, nur im CRM sichtbar.",
+          "fieldLabel": "Notizen",
+          "fieldPlaceholder": "Erneuerung im März. Bevorzugt WhatsApp für schnelle Updates.",
+          "title": "Notizen"
+        },
+        "reach": {
+          "description": "E‑Mail ist erforderlich, wenn Sie diese Zeile später zu Mailchimp übertragen möchten.",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "Wird als eindeutiger Mailchimp‑Schlüssel beim Übertragen verwendet.",
+          "emailLabel": "E‑Mail",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "Freitext – Ländervorwahl einfügen, falls vorhanden.",
+          "phoneLabel": "Telefon",
+          "title": "Wie Sie sie erreichen"
+        },
+        "status": {
+          "description": "Aktiv = derzeit engagiert. Inaktiv = pausiert. Abgelaufen = Vertragsende überschritten.",
+          "fieldHelp": "Sie können dies jederzeit ändern – wird zum Filtern des Verzeichnisses verwendet.",
+          "fieldLabel": "Status",
+          "title": "Status"
+        },
+        "tags": {
+          "description": "Tags werden an Mailchimp übertragen, wenn Sie diese Agentur später pushen.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "Durch Kommas oder Semikolons trennen. Bei erstem Push erstellt.",
+          "fieldLabel": "Tags",
+          "title": "Tags"
+        },
+        "window": {
+          "description": "Beide Enden sind optional — lassen Sie eine Seite leer für unbefristet oder offen.",
+          "endsHelp": "Wenn die Beziehung endet.",
+          "endsLabel": "Endet am",
+          "startsHelp": "Wenn die Beziehung beginnt.",
+          "startsLabel": "Beginnt am",
+          "title": "Vertragsfenster"
+        }
+      },
+      "deleteConfirm": "Löschen Sie {name}?\n\nDies entfernt die Agentur aus dem CRM. Es berührt keinen Mailchimp‑Abonnenten, der aus dieser Zeile erstellt wurde.",
+      "deleteError": "Agentur konnte nicht gelöscht werden.",
+      "empty": "Noch keine Agenturen. Fügen Sie eine hinzu oder importieren Sie eine Tabelle.",
+      "filter": {
+        "apply": "Übernehmen",
+        "clear": "Filter zurücksetzen",
+        "searchPlaceholder": "Name, Kontakt, E‑Mail suchen",
+        "statusActive": "Aktiv",
+        "statusAll": "Alle Status",
+        "statusExpired": "Abgelaufen",
+        "statusInactive": "Inaktiv"
+      },
+      "import": {
+        "accepts": "Akzeptiert CSV, Excel (xlsx / xls / xlsm / xlsb) und OpenDocument (ods / fods). Name ist die einzige erforderliche Spalte.",
+        "close": "Schließen",
+        "complete": "Import abgeschlossen",
+        "completeSummary": "Erstellt {created} von {total} Zeilen.",
+        "defaultStatus": "Standardstatus (für Zeilen ohne Angabe)",
+        "done": "Fertig",
+        "empty": "Die Datei scheint leer zu sein.",
+        "errorPrefix": "Datei konnte nicht geparst werden",
+        "errorsHeader": "{count} Zeilen enthielten Fehler:",
+        "errorsMore": "… {count} weitere",
+        "failed": "Der Import ist fehlgeschlagen.",
+        "importBtn": "Importieren",
+        "importing": "Importiere…",
+        "label": {
+          "contact": "Kontaktperson",
+          "email": "E‑Mail",
+          "ends": "Endet am (YYYY-MM-DD)",
+          "name": "Name (erforderlich)",
+          "notes": "Notizen",
+          "phone": "Telefon",
+          "starts": "Beginnt am (JJJJ-MM-TT)",
+          "status": "Statusspalte",
+          "tags": "Tags (durch Komma / Semikolon getrennt)"
+        },
+        "needName": "Wählen Sie zuerst eine Spalte für den Agenturnamen.",
+        "noValid": "Keine Zeilen haben einen nicht-leeren Namen.",
+        "notUsed": "— (nicht verwendet) —",
+        "pickAnother": "Wählen Sie eine andere Datei",
+        "pickHint": "Klicken Sie zum Auswählen. Wir lesen nur das erste Blatt.",
+        "pickLabel": "Wählen Sie eine Tabellenkalkulation",
+        "subtitle": "Unterstützt CSV-, Excel- und OpenDocument-Tabellen.",
+        "title": "Agenturen aus einer Tabellenkalkulation importieren",
+        "loaded": "{rowCount, plural, one {# Zeile} other {# Zeilen}} mit {colCount, plural, one {# Spalte} other {# Spalten}} geladen. Ordnen Sie jedes CRM-Feld der Tabellenspalte zu, aus der es stammen soll."
+      },
+      "list": {
+        "agencies": "Agenturen",
+        "loading": "Agenturen werden geladen…"
+      },
+      "loadError": "Agenturen konnten nicht geladen werden.",
+      "noCompany": "Wählen Sie ein Unternehmen im Dashboard, um dessen Agenturen zu verwalten.",
+      "page": {
+        "next": "Nächste Seite",
+        "perPage": "Pro Seite",
+        "prev": "Vorherige Seite",
+        "range": "{from}–{to} von {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "Schließen",
+        "defaultStatus": "Standardstatus für neue Abonnenten",
+        "disabledHint": "Wählen Sie Zeilen auf dieser Seite zum Pushen aus (Cross‑Page‑Push wird nicht unterstützt).",
+        "done": "Fertig",
+        "extraTagsHelp": "Wird jedem gepushten Abonnenten zusätzlich zu den eigenen Tags jeder Agentur hinzugefügt. Durch Komma oder Semikolon getrennt.",
+        "extraTagsLabel": "Zusätzliche Tags",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "Der Push ist fehlgeschlagen.",
+        "loadAudiencesFailed": "Mailchimp‑Zielgruppen konnten nicht geladen werden.",
+        "loading": "Laden…",
+        "mailchimpAudience": "Mailchimp‑Zielgruppe",
+        "noAudiences": "— Noch keine Zielgruppen —",
+        "noEmail": "Keine der ausgewählten Agenturen hat eine E‑Mail‑Adresse.",
+        "notConnected": "Mailchimp ist für dieses Konto noch nicht verbunden. Verbinden Sie es unter Marketing → E‑Mail → Einstellungen und kehren Sie dann zurück.",
+        "patchExisting": "Vorhandene Abonnenten aktualisieren (empfohlen). Durch erneutes Ausführen dieses Pushs werden Merge‑Felder aktualisiert, anstatt bei Duplikaten einen Fehler zu erzeugen.",
+        "pickAudience": "Wählen Sie zuerst eine Zielgruppe aus.",
+        "pushBtn": "Push zu Mailchimp",
+        "pushing": "Pushen…",
+        "result": {
+          "header": "Push abgeschlossen",
+          "summary": "{created} erstellt · {updated} aktualisiert · {skipped} übersprungen · {errors} Fehler."
+        },
+        "skippedNotice": "{count, plural, one {{count} der ausgewählten Agentur hat keine E‑Mail und wird übersprungen.} other {{count} der ausgewählten Agenturen haben keine E‑Mail und werden übersprungen.}}",
+        "statusPending": "Ausstehend (Double Opt‑In)",
+        "statusSubscribed": "Abonniert",
+        "statusUnsubscribed": "Abgemeldet",
+        "subtitle": "Jede Agentur wird zu einem Mailchimp‑Abonnenten. Name wird zu FNAME, Kontakt zu LNAME, Telefon zu PHONE. Das Tag {tag} wird automatisch hinzugefügt.",
+        "summary": "{eligible} von {total} werden übertragen.",
+        "title": "{count, plural, one {Push {count} Agentur zu Mailchimp} other {Push {count} Agenturen zu Mailchimp}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "Löschen",
+          "edit": "Bearbeiten"
+        },
+        "ariaSelect": "Auswählen {name}",
+        "fromDate": "Ab {date}",
+        "untilDate": "Bis {date}"
+      },
+      "select": {
+        "allMatchingSelected": "Alle {total} passenden zum aktuellen Filter ausgewählt",
+        "ariaAll": "Alle auf dieser Seite auswählen",
+        "bulkDelete": "Löschen {count}",
+        "bulkDeleting": "Löschen…",
+        "clear": "Zurücksetzen",
+        "deleteFailed": "{failed} von {total} konnten nicht gelöscht werden:\n{detail}",
+        "deleteFailedMore": "…und {count} weitere",
+        "justThisPage": "Wählen Sie einfach diese Seite ({count})",
+        "pageFullySelected": "Alle {count} auf dieser Seite sind ausgewählt.",
+        "pageSelectedCount": "{count} auf dieser Seite ausgewählt",
+        "selectAllMatching": "Alle {total} auswählen, die dem aktuellen Filter entsprechen",
+        "confirmDelete": "{count, plural, one {# Agentur} other {# Agenturen}} löschen?\n\nDies kann nicht rückgängig gemacht werden."
+      },
+      "table": {
+        "actions": "Aktionen",
+        "contact": "Kontakt",
+        "emailPhone": "E‑Mail / Telefon",
+        "name": "Name",
+        "status": "Status",
+        "tags": "Tags",
+        "window": "Fenster"
+      },
+      "title": "Agenturen · {total}"
+    },
     "authBody": "Anmeldung, Registrierung und Sitzungsvalidierung über <code>/api/auth</code>",
     "authTitle": "Auth",
     "bffBody": "Browser-Aufrufe sollten an dieser App enden. Vertrauenswürdige Serverrouten kommunizieren mit dem internen CRM‑Service.",
@@ -1675,7 +1901,7 @@
         "manual": "Manuell",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (Test)",
-        "partner_crm": "Partner-CRM",
+        "partner_crm": "Partner CRM",
         "partner_intranet": "Intranet",
         "whatsapp": "WhatsApp",
         "widget": "Widget"
@@ -1696,6 +1922,565 @@
     "ctaCreateWorkspace": "Workspace‑Zugriff erstellen",
     "ctaOpenShell": "Geschützte Shell öffnen",
     "currentStack": "Aktueller Stack",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "Mitglied hinzufügen",
+          "addMemberHint": "Einen Abonnenten manuell mit E‑Mail + Name + Tags hinzufügen",
+          "pushFromCRM": "Aus CRM übertragen",
+          "pushFromCRMHint": "CRM-Leads auswählen → batch upsert als Mailchimp‑Mitglieder",
+          "uploadCsv": "Tabellenkalkulation hochladen",
+          "uploadCsvHint": "CSV, Excel oder ODS — E‑Mail‑Spalte (automatisch zugeordnet) + Name / Telefon / Tags"
+        },
+        "addMember": {
+          "body": "Fügt einen Abonnenten zu {audience} hinzu oder aktualisiert ihn. Wiederholungen mit derselben E‑Mail aktualisieren die vorhandene Zeile.",
+          "errEmailRequired": "E‑Mail ist erforderlich.",
+          "failed": "Mitglied konnte nicht hinzugefügt werden.",
+          "fields": {
+            "email": "E‑Mail",
+            "firstName": "Vorname",
+            "lastName": "Nachname",
+            "phone": "Telefon",
+            "status": "Abonnementstatus",
+            "tags": "Tags (optional)",
+            "tagsHint": "Durch Komma oder Semikolon getrennt. Wird erstellt, falls nicht vorhanden."
+          },
+          "hideMore": "Weitere Optionen ausblenden",
+          "showMore": "Weitere Optionen anzeigen (Telefon, Status, Tags)",
+          "status": {
+            "pending": "Ausstehend (Double Opt‑In)",
+            "subscribed": "Abonniert",
+            "unsubscribed": "Abgemeldet"
+          },
+          "submit": "Mitglied hinzufügen",
+          "submitting": "Wird hinzugefügt…",
+          "title": "Abonnent hinzufügen"
+        },
+        "col": {
+          "created": "Erstellt",
+          "members": "Mitglieder",
+          "name": "Zielgruppe",
+          "openRate": "Öffnungsrate"
+        },
+        "create": {
+          "addressFilled": "Adresse vollständig",
+          "addressRequired": "Erforderlich von Mailchimp / CAN-SPAM",
+          "body": "Mailchimp verlangt eine Postadresse (CAN-SPAM) und einen Standardabsender. Sie können diese später in den Zielgruppeneinstellungen bearbeiten.",
+          "contactSection": "Postadresse",
+          "creating": "Zielgruppe wird erstellt…",
+          "errAddressRequired": "Firma + Adresse + Stadt + Land sind von Mailchimp erforderlich.",
+          "errFromRequired": "Standard‑Absendername + E‑Mail sind erforderlich.",
+          "errNameRequired": "Zielgruppe benötigt einen Namen.",
+          "failed": "Zielgruppe konnte nicht erstellt werden.",
+          "fields": {
+            "address": "Straßenadresse",
+            "city": "Stadt",
+            "company": "Unternehmens‑/Organisationsname",
+            "country": "Land",
+            "defaultSubject": "Standard‑Betreff der Kampagne",
+            "fromEmail": "Standard‑Absender‑E‑Mail",
+            "fromName": "Standard‑Absendername",
+            "language": "Sprache",
+            "name": "Zielgruppenname",
+            "nameHint": "Wählen Sie etwas Kurzes und Einprägsames – Operatoren sehen das überall.",
+            "namePlaceholder": "Newsletter‑Abonnenten",
+            "permissionReminder": "Einwilligungs‑Erinnerung",
+            "permissionReminderHint": "Wird in der E‑Mail‑Fußzeile angezeigt. Mailchimp nutzt sie für die Einhaltung von Vorgaben.",
+            "state": "Bundesland / Region",
+            "zip": "Postleitzahl"
+          },
+          "hideAdvanced": "Erweiterte Optionen ausblenden",
+          "showAdvanced": "Erweiterte Optionen anzeigen",
+          "step1Body": "Wählen Sie einen kurzen, wiedererkennbaren Namen – Operatoren sehen ihn überall, Kampagnen verweisen auf diese Liste.",
+          "step1Title": "Benennen Sie Ihre Zielgruppe",
+          "step2Body": "Erforderlich von Mailchimp + dem CAN-SPAM-Gesetz. Wird für jede an diese Zielgruppe gesendete Kampagne wiederverwendet.",
+          "step2Title": "Postadresse",
+          "step3Body": "Dessen Name + E‑Mail in jeder an diese Zielgruppe gesendeten Kampagne erscheint. Sie können dies später pro Kampagne überschreiben.",
+          "step3Title": "Standardabsender",
+          "submit": "Zielgruppe erstellen",
+          "title": "Neue Zielgruppe"
+        },
+        "csv": {
+          "body": "Laden Sie eine .csv hoch, um Abonnenten für {audience} massenhaft hinzuzufügen oder zu aktualisieren. Die E‑Mail‑Spalte ist erforderlich; Vor‑ und Nachname, Telefon und Tags werden automatisch erkannt.",
+          "done": "Import abgeschlossen.",
+          "errChunk": "Ein Batch ist fehlgeschlagen – Teilimport. Siehe die untenstehenden Zahlen.",
+          "errEmailColRequired": "Wählen Sie die Spalte, die die E‑Mail‑Adresse enthält.",
+          "errEmpty": "Die Datei enthält keine Zeilen.",
+          "errNoValidRows": "Keine Zeilen mit gültiger E‑Mail – prüfen Sie die Zuordnung der E‑Mail‑Spalte.",
+          "errParse": "CSV konnte nicht geparst werden.",
+          "import": "Import starten",
+          "importing": "Importiere… {processed} von {total}",
+          "map": {
+            "email": "E‑Mail‑Spalte",
+            "fname": "Spalte für Vorname (optional)",
+            "lname": "Spalte für Nachname (optional)",
+            "phone": "Spalte für Telefon (optional)",
+            "status": "Standardstatus für neue Abonnenten",
+            "tags": "Spalte für Tags (optional)"
+          },
+          "pickFile": "Klicken Sie, um eine Tabellendatei auszuwählen",
+          "pickHint": "CSV, Excel (.xlsx / .xls) oder OpenDocument (.ods). Das erste Blatt wird gelesen; die erste Zeile sollte die Spaltenüberschriften enthalten.",
+          "rowsDetected": "{count} Zeilen zum Import bereit.",
+          "stat": {
+            "created": "Erstellt",
+            "errors": "Fehler",
+            "updated": "Aktualisiert"
+          },
+          "title": "Tabellendatei hochladen",
+          "updateExisting": "Bestehende Abonnenten ebenfalls aktualisieren (empfohlen)"
+        },
+        "emptyBody": "Erstellen Sie zuerst eine Zielgruppe in Mailchimp — sie erscheint hier nach der nächsten Aktualisierung.",
+        "emptyTitle": "Noch keine Zielgruppen",
+        "loadFailed": "Audienzen konnten nicht geladen werden.",
+        "loading": "Audienzen werden geladen…",
+        "members": {
+          "close": "Schließen",
+          "col": {
+            "email": "E‑Mail",
+            "lastChanged": "Zuletzt geändert",
+            "status": "Status"
+          },
+          "empty": "Noch keine Mitglieder in dieser Zielgruppe.",
+          "loadFailed": "Mitglieder konnten nicht geladen werden.",
+          "loading": "Mitglieder werden geladen…",
+          "next": "Weiter",
+          "page": "Seite {current} von {total}",
+          "prev": "Zurück",
+          "total": "Mitglieder insgesamt"
+        },
+        "newAudience": "Neue Zielgruppe",
+        "push": {
+          "allStatuses": "Alle Status",
+          "body": "Wählen Sie CRM‑Leads → als Mitglieder von {audience} hinzufügen. Leads ohne E‑Mail werden übersprungen.",
+          "clear": "Zurücksetzen",
+          "col": {
+            "email": "E‑Mail",
+            "name": "Name",
+            "outcome": "Ergebnis",
+            "reason": "Grund",
+            "status": "Status"
+          },
+          "empty": "Keine Leads entsprechen den aktuellen Filtern.",
+          "errNoneSelected": "Wählen Sie mindestens einen Lead aus.",
+          "failed": "Leads konnten nicht hinzugefügt werden.",
+          "loadFailed": "CRM‑Leads konnten nicht geladen werden.",
+          "loading": "Leads werden geladen…",
+          "noEmail": "Keine E‑Mail — übersprungen",
+          "searchPlaceholder": "Suche nach Name, E‑Mail, Telefon, Notizen…",
+          "selectAll": "Alle sichtbaren auswählen",
+          "selected": "{count} ausgewählt",
+          "stat": {
+            "created": "Erstellt",
+            "errors": "Fehler",
+            "skipped": "Übersprungen",
+            "updated": "Aktualisiert"
+          },
+          "submit": "Push {count} Lead(s)",
+          "submitting": "Pushen…",
+          "title": "Push aus CRM",
+          "visible": "{count} sichtbar"
+        },
+        "refresh": "Aktualisieren",
+        "subtabs": {
+          "fields": "Felder",
+          "members": "Mitglieder",
+          "segments": "Segmente",
+          "tags": "Tags",
+          "webhooks": "Webhooks"
+        },
+        "title": "Audienzen",
+        "viewMembers": "Mitglieder anzeigen"
+      },
+      "automations": {
+        "actionFailed": "Aktion fehlgeschlagen. Siehe den Fehler von Mailchimp oben.",
+        "actions": {
+          "pauseAll": "Alle E‑Mails pausieren",
+          "startAll": "Alle E‑Mails starten"
+        },
+        "col": {
+          "audience": "Zielgruppe",
+          "emailsSent": "Gesendete E‑Mails",
+          "status": "Status",
+          "title": "Workflow"
+        },
+        "designerHint": "Der Customer‑Journey‑Designer befindet sich in der eigenen UI von Mailchimp – Mailchimp stellt das Erstellen nicht über die API bereit. Pausieren/Starten Sie die E‑Mails jedes Workflows hier, ohne den Kontext zu wechseln.",
+        "emptyBody": "Erstellen Sie Workflows im Customer‑Journey‑Designer von Mailchimp; sie werden hier angezeigt.",
+        "emptyTitle": "Noch keine Automatisierungen",
+        "loadFailed": "Automatisierungen konnten nicht geladen werden.",
+        "loading": "Automatisierungen werden geladen…",
+        "refresh": "Aktualisieren",
+        "title": "Automatisierungen / Kundenreisen"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "Meiste Klicks",
+            "manual": "Manuell auswählen",
+            "opens": "Meiste Öffnungen"
+          },
+          "fromNameB": "Absendername — Variante B (optional)",
+          "fromNameBPlaceholder": "Anderer Absendername",
+          "hint": "Mailchimp sendet jede Variante an {percent}% Ihrer Zielgruppe, wartet {hours}h und sendet dann den Gewinner an den Rest.",
+          "subjectB": "Betreffzeile — Variante B",
+          "subjectBPlaceholder": "Alternativer Betreff zum Testen",
+          "testPercent": "Testzielgruppe %",
+          "toggle": "A/B-Test für diese Kampagne",
+          "toggleHint": "Senden Sie zwei Betreffzeilen (und/oder Absendernamen) an eine Stichprobe und senden Sie den Gewinner automatisch an den Rest.",
+          "waitHours": "Warten, bevor der Gewinner ausgewählt wird (Stunden)",
+          "winnerCriteria": "Gewinnerkriterium"
+        },
+        "actionFailed": "Aktion fehlgeschlagen. Siehe den Fehler von Mailchimp oben.",
+        "actions": {
+          "delete": "Löschen",
+          "pause": "Pause",
+          "resume": "Fortsetzen",
+          "schedule": "Planen",
+          "send": "Senden",
+          "test": "Test senden",
+          "unschedule": "Planung aufheben"
+        },
+        "audiencesEmpty": "Noch keine Zielgruppen – erstellen Sie zuerst eine.",
+        "col": {
+          "audience": "Zielgruppe",
+          "created": "Erstellt",
+          "status": "Status",
+          "subject": "Betreff"
+        },
+        "confirmDelete": "Möchten Sie diese Kampagne dauerhaft löschen? Aktuelle Berichte können später nicht mehr gelöscht werden.",
+        "confirmSend": "Möchten Sie \"{subject}\" jetzt an {audience} senden? Damit wird der Live‑Versand gestartet und kann nicht rückgängig gemacht werden.",
+        "createBody": "Entwürfe werden sofort in Mailchimp gespeichert; Sie senden aus der Zeile darüber, sobald Sie bereit sind.",
+        "createFailed": "Die Kampagne konnte nicht erstellt werden.",
+        "createSubmit": "Entwurf erstellen",
+        "createTitle": "Neue E‑Mail‑Kampagne",
+        "creating": "Entwurf wird erstellt…",
+        "deleteFailed": "Die Kampagne konnte nicht gelöscht werden.",
+        "emptyBody": "Klicken Sie auf \"Neue Kampagne\", um Ihre erste zu erstellen.",
+        "emptyTitle": "Noch keine Kampagnen",
+        "errAudienceRequired": "Wählen Sie zuerst ein Publikum aus.",
+        "errFromRequired": "Name des Absenders und Reply‑To sind beide von Mailchimp erforderlich.",
+        "errSubjectRequired": "Geben Sie der Kampagne einen Betreff.",
+        "fields": {
+          "audience": "Zielgruppe",
+          "audiencePlaceholder": "Wählen Sie eine Zielgruppe…",
+          "fromName": "Absendername",
+          "hidePreview": "Vorschau ausblenden",
+          "htmlBody": "HTML‑Inhalt",
+          "htmlHint": "Mailchimp akzeptiert rohes HTML oder Merge‑Tags wie {{FNAME|there}}. Der Drag‑&‑Drop‑Editor befindet sich in der eigenen Mailchimp‑Benutzeroberfläche.",
+          "internalTitle": "Interner Titel (optional)",
+          "internalTitlePlaceholder": "Wird für die Suche in Mailchimp verwendet; Standard ist Betreff",
+          "replyTo": "Reply-to-E-Mail",
+          "showPreview": "Vorschau anzeigen",
+          "subject": "Betreffzeile",
+          "subjectPlaceholder": "Was im Posteingang des Empfängers erscheint",
+          "template": "Aus Vorlage starten (optional)",
+          "templateHint": "Durch die Auswahl einer Vorlage wird der HTML‑Body unten ausgefüllt – Sie können ihn vor dem Speichern noch bearbeiten.",
+          "templatePlaceholder": "Benutzerdefiniertes HTML — keine Vorlage",
+          "templatesEmpty": "Noch keine gespeicherten Vorlagen"
+        },
+        "hideAdvanced": "Erweiterte ausblenden",
+        "loadFailed": "Kampagnen konnten nicht geladen werden.",
+        "loading": "Kampagnen werden geladen…",
+        "newCampaign": "Neue Kampagne",
+        "page": "Seite {current} von {total}",
+        "refresh": "Aktualisieren",
+        "schedule": {
+          "confirm": "Versand planen",
+          "confirmUnschedule": "Planung abbrechen? Die Kampagne wird in den Entwurf zurückversetzt, sodass Sie sie erneut bearbeiten können.",
+          "errTimeRequired": "Wählen Sie eine Versandzeit aus.",
+          "failed": "Kampagne konnte nicht geplant werden – siehe Mailchimp‑Nachricht.",
+          "hint": "Mailchimp rundet auf die nächsten 15 Minuten. Kostenlose Pläne erfordern eine Vorlaufzeit von ≥30 Minuten.",
+          "scheduling": "Wird geplant…",
+          "sendAt": "Senden um (Ihre lokale Zeit)",
+          "timewarp": "Senden zur lokalen Zeit des Empfängers (Timewarp)",
+          "timewarpHint": "Mailchimp liefert die Kopie an jeden Abonnenten zum gewählten Zeitpunkt in dessen Zeitzone.",
+          "title": "Kampagne planen"
+        },
+        "sendFailed": "Kampagne konnte nicht gesendet werden.",
+        "showAdvanced": "Erweiterte anzeigen",
+        "step1Title": "Für wen ist diese E‑Mail?",
+        "step2Title": "Von wem stammt sie?",
+        "step3Title": "Gestalten Sie Ihre E‑Mail",
+        "test": {
+          "emailsHint": "Durch Komma, Semikolon oder Zeilenumbruch getrennt.",
+          "emailsLabel": "Testempfänger",
+          "emailsRequired": "Mindestens eine Test‑E‑Mail ist erforderlich.",
+          "failed": "Test‑E‑Mail konnte nicht gesendet werden.",
+          "format": "Format",
+          "plaintext": "Nur-Text",
+          "send": "Test senden",
+          "sending": "Senden…",
+          "sent": "Test-E-Mail in die Warteschlange gestellt. Prüfen Sie Ihr Postfach in ~1 Minute.",
+          "title": "Test-E-Mail senden"
+        },
+        "title": "Kampagnen",
+        "wizard": {
+          "step1Body": "Wählen Sie die Zielgruppe aus, die diese Kampagne erhalten soll.",
+          "step1Title": "An wen geht diese E‑Mail?",
+          "step2Body": "Betreffzeile + Absenderinformationen, die Empfänger in ihrem Posteingang sehen.",
+          "step2Title": "Betreff und Absender",
+          "step3Body": "Beginnen Sie mit einer gespeicherten Vorlage oder erstellen Sie von Grund auf – die Live‑Vorschau rechts zeigt, was Empfänger sehen.",
+          "step3Title": "Gestalten Sie Ihre E‑Mail"
+        }
+      },
+      "connectCta": "Mailchimp verbinden",
+      "connectedHeader": "Verbundenes Mailchimp-Konto",
+      "domains": {
+        "add": "Domain hinzufügen",
+        "addEmailLabel": "E‑Mail bei der Domain zur Authentifizierung",
+        "addFailed": "Verifizierung konnte nicht gestartet werden.",
+        "addHint": "Mailchimp sendet einen Verifizierungscode an diese Adresse. Stellen Sie sicher, dass Sie dort E‑Mails empfangen können.",
+        "adding": "Code wird gesendet…",
+        "body": "Authentifizieren Sie Ihre absendende Domain (DKIM / SPF). Authentifizierte Domains haben höhere Vertrauenswerte und vermeiden Omnivore‑Markierungen (Mailchimp‑Anti‑Missbrauch).",
+        "codePlaceholder": "Verifizierungscode aus der E‑Mail",
+        "confirmDelete": "Diese Domain entfernen? Sie müssen sie erneut verifizieren, um wieder von ihr zu senden.",
+        "delete": "Entfernen",
+        "deleteFailed": "Domain konnte nicht entfernt werden.",
+        "dkimHint": "Nach der Verifizierung schließen Sie die DKIM‑/DMARC‑Einrichtung in der Mailchimp‑Benutzeroberfläche ab (Account → Domains → Authentifizieren). Die Einrichtung auf DNS‑Record‑Ebene wird über die API nicht bereitgestellt.",
+        "empty": "Noch keine Domains hinzugefügt. Fügen Sie oben die absendende Domain hinzu, um zu starten.",
+        "errCodeRequired": "Fügen Sie den Code aus der Mailchimp‑E‑Mail ein.",
+        "errEmailRequired": "E‑Mail ist erforderlich.",
+        "loadFailed": "Laden der Domains fehlgeschlagen.",
+        "loading": "Domains werden geladen…",
+        "statusAuthenticated": "Verifiziert + DKIM authentifiziert",
+        "statusPending": "Ausstehend — fügen Sie den E‑Mail‑Verifizierungscode unten ein",
+        "statusVerified": "Verifiziert — schließen Sie die DKIM‑Einrichtung in der Mailchimp‑UI ab",
+        "title": "Verifizierte Domains",
+        "verify": "Verifizieren",
+        "verifyFailed": "Verifizierung fehlgeschlagen — Code prüfen."
+      },
+      "images": {
+        "body": "Wählen Sie ein Bild aus Ihrer Mailchimp-Bibliothek, laden Sie ein neues hoch (max. 10 MB) oder fügen Sie eine öffentliche URL ein.",
+        "confirmDelete": "Dieses Bild löschen? Kampagnen, die darauf verweisen, funktionieren weiterhin (Mailchimp behält die Datei).",
+        "delete": "Löschen",
+        "deleteFailed": "Bild konnte nicht gelöscht werden.",
+        "empty": "Noch keine Bilder hochgeladen. Wechseln Sie zu „Upload“, um das erste hinzuzufügen.",
+        "errNoUrl": "Mailchimp hat den Upload akzeptiert, aber keine URL zurückgegeben.",
+        "errTooLarge": "Die maximale Dateigröße von Mailchimp beträgt 10 MB.",
+        "insertUrl": "URL einfügen",
+        "loadFailed": "Bildbibliothek konnte nicht geladen werden.",
+        "loading": "Bibliothek wird geladen…",
+        "modes": {
+          "library": "Bibliothek",
+          "upload": "Neu hochladen",
+          "url": "Über URL"
+        },
+        "pickFile": "Klicken Sie, um ein Bild auszuwählen",
+        "pickHint": "PNG, JPG, GIF, SVG bis zu 10 MB",
+        "title": "Bild auswählen oder hochladen",
+        "uploadFailed": "Upload fehlgeschlagen — siehe die Meldung von Mailchimp.",
+        "uploading": "Wird hochgeladen…",
+        "urlHint": "Mailchimp kann das Bild in seinem CDN zwischenspeichern; die Verwendung des Dateimanagers (Registerkarte Hochladen) ist zuverlässiger.",
+        "urlLabel": "Öffentliche Bild-URL"
+      },
+      "loadFailed": "Mailchimp-Verbindung konnte nicht geladen werden.",
+      "manageConnection": "Verbindung verwalten",
+      "merge": {
+        "cancelNew": "Abbrechen",
+        "col": {
+          "name": "Name",
+          "required": "Erforderlich",
+          "tag": "Merge-Tag",
+          "type": "Typ"
+        },
+        "confirmDelete": "Dieses Feld löschen? Die Mitgliedsdaten in dieser Spalte werden ebenfalls gelöscht.",
+        "count": "{count} Feld(e) insgesamt",
+        "create": "Feld erstellen",
+        "createFailed": "Das Feld konnte nicht erstellt werden.",
+        "creating": "Erstelle…",
+        "delete": "Löschen",
+        "deleteFailed": "Das Feld konnte nicht gelöscht werden.",
+        "empty": "Noch keine benutzerdefinierten Felder – die Standardspalten FNAME / LNAME von Mailchimp funktionieren weiterhin.",
+        "errRequired": "Tag und Name sind beide erforderlich.",
+        "fields": {
+          "defaultValue": "Standardwert (optional)",
+          "name": "Anzeigename",
+          "required": "Erforderlich in Anmeldeformularen",
+          "tag": "Merge-Tag (≤10 Zeichen, GROSSBUCHSTABEN)",
+          "type": "Typ"
+        },
+        "hint": "Verwenden Sie Merge-Tags in Kampagnen + Vorlagen als *|TAG|*, z. B. \"Welcome *|FNAME|*\".",
+        "loadFailed": "Laden der Merge-Tags fehlgeschlagen.",
+        "loading": "Lade Merge-Tags…",
+        "newField": "Neues Feld"
+      },
+      "noCompanyBody": "Wählen Sie einen Workspace im Dashboard, um dessen E‑Mail‑Modul zu verwalten.",
+      "noCompanyTitle": "Workspace auswählen",
+      "notConnectedBody": "Verbinden Sie Ihr Mailchimp-Konto, um Zielgruppen, Kampagnen und Berichte zu verwalten, ohne das CRM zu verlassen. Jeder Betreiber bringt seine eigene Verbindung mit.",
+      "notConnectedTitle": "Mailchimp ist noch nicht verbunden",
+      "openIntegrationDetail": "Integrationseinstellungen öffnen",
+      "overview": {
+        "actions": {
+          "newAudience": "Neue Zielgruppe",
+          "newCampaign": "Neue Kampagne",
+          "newTemplate": "Neue Vorlage",
+          "reports": "Berichte"
+        },
+        "gettingStartedTitle": "Starten Sie in 4 schnellen Schritten",
+        "kpi": {
+          "audiences": "Zielgruppen",
+          "clickRateSub": "{rate}% durchschnittliche Klickrate",
+          "openRate": "Durchschnittliche Öffnungsrate",
+          "sentCampaigns": "Gesendete Kampagnen",
+          "subscribers": "Gesamtzahl Abonnenten"
+        },
+        "loadFailed": "Die Übersicht konnte nicht geladen werden.",
+        "loading": "Übersicht wird geladen…",
+        "noCampaigns": "Noch keine Kampagnen — erstellen Sie Ihre erste.",
+        "noReports": "Noch keine Berichte — sie erscheinen nach dem ersten Versand.",
+        "quickActionsTitle": "Schnelle Aktionen",
+        "recentCampaigns": "Neueste Kampagnen",
+        "recentReports": "Neueste Berichte",
+        "recipients": "Empfänger",
+        "step1": "Erstellen oder importieren Sie eine Zielgruppe (verwenden Sie \"Zielgruppen → CSV hochladen\", wenn Sie eine Tabelle haben).",
+        "step2": "Optional: Speichern Sie eine wiederverwendbare Vorlage unter \"Templates\".",
+        "step3": "Erstellen Sie Ihre erste Kampagne — wählen Sie Zielgruppe, Betreff und Inhalt aus.",
+        "step4": "Senden Sie einen Test an sich selbst, dann senden Sie die eigentliche E‑Mail oder planen Sie sie.",
+        "viewAll": "Alle anzeigen"
+      },
+      "reports": {
+        "col": {
+          "clicks": "Klicks",
+          "opens": "Öffnungen",
+          "recipients": "Empfänger",
+          "sent": "Gesendet",
+          "subject": "Kampagne"
+        },
+        "deepLinkHint": "Für Heatmaps, A/B-Vergleiche und vollständige E‑Mail‑Aktivität öffnen Sie die Kampagne in der Mailchimp-Oberfläche.",
+        "detailFailed": "Der vollständige Bericht konnte nicht geladen werden.",
+        "details": "Details",
+        "emptyBody": "Berichte werden hier angezeigt, nachdem die erste Kampagne gesendet wurde.",
+        "emptyTitle": "Noch keine Berichte",
+        "geoEmpty": "Keine Geodaten – Mailchimp erstellt sie, sobald Öffnungen eintreffen.",
+        "geoTitle": "Top-Standorte",
+        "kpi": {
+          "bounces": "Bounces",
+          "clicks": "Einzigartige Klicks",
+          "hardBounces": "{count} hart",
+          "opens": "Einzigartige Öffnungen",
+          "sent": "Empfänger"
+        },
+        "loadFailed": "Berichte konnten nicht geladen werden.",
+        "loading": "Berichte werden geladen…",
+        "loadingDetail": "Details werden geladen…",
+        "opens": "Öffnungen",
+        "title": "Kampagnenberichte"
+      },
+      "segments": {
+        "col": {
+          "members": "Mitglieder",
+          "name": "Name",
+          "type": "Typ",
+          "updated": "Aktualisiert"
+        },
+        "confirmDelete": "Dieses Segment löschen? Mitglieder bleiben in der Zielgruppe; nur das Segment wird entfernt.",
+        "count": "{count} Segment(e)",
+        "create": "Erstellen",
+        "createBody": "Statische Segmente sind eine handverlesene Liste von E‑Mail‑Adressen. Für bedingungsbasierte (gespeicherte) Segmente verwenden Sie die Mailchimp‑UI – sie erscheinen hier nach dem Neuladen.",
+        "createFailed": "Das Segment konnte nicht erstellt werden.",
+        "createTitle": "Neues statisches Segment",
+        "creating": "Erstelle…",
+        "delete": "Löschen",
+        "deleteFailed": "Das Segment konnte nicht gelöscht werden.",
+        "empty": "Noch keine Segmente. Statische Segmente sind handverlesene Listen; gespeicherte Segmente sind bedingungsbasierte Filter.",
+        "errNameRequired": "Das Segment benötigt einen Namen.",
+        "fields": {
+          "emails": "Mitglieder‑E‑Mails",
+          "emailsHint": "Eine pro Zeile oder kommagetrennt. Es werden nur vorhandene Zielgruppenmitglieder hinzugefügt.",
+          "name": "Segmentname"
+        },
+        "loadFailed": "Segmente konnten nicht geladen werden.",
+        "loading": "Segmente werden geladen…",
+        "newStatic": "Neues statisches Segment"
+      },
+      "settingsHint": "Die Konfiguration befindet sich unter Integrationen → Mailchimp. Das obige Badge ist schreibgeschützt.",
+      "settingsTitle": "Verbindungseinstellungen",
+      "subtabAria": "E‑Mail‑Modul‑Abschnitte",
+      "subtabComingSoon": "Dieser Abschnitt wird in einem späteren Schritt bereitgestellt. Die Verbindung ist bereit; die UI ist noch nicht verkabelt.",
+      "tabs": {
+        "audiences": "Zielgruppen",
+        "automations": "Automatisierungen",
+        "campaigns": "Kampagnen",
+        "overview": "Übersicht",
+        "reports": "Berichte",
+        "settings": "Einstellungen",
+        "templates": "Vorlagen"
+      },
+      "tags": {
+        "empty": "Noch keine Tags in dieser Zielgruppe. Fügen Sie Tags zu Mitgliedern über 'Add member' oder CSV‑Upload hinzu.",
+        "emptySearch": "Keine Tags entsprechen \"{query}\".",
+        "hint": "Tags werden sofort erstellt, wenn sie einem Mitglied zugewiesen werden (Add member, CSV‑Upload oder Push aus dem CRM).",
+        "loadFailed": "Tags konnten nicht geladen werden.",
+        "loading": "Lade tags…",
+        "searchPlaceholder": "Tag-Name suchen…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "Löschen",
+          "edit": "Bearbeiten",
+          "preview": "Vorschau"
+        },
+        "col": {
+          "category": "Kategorie",
+          "created": "Erstellt",
+          "name": "Name"
+        },
+        "confirmDelete": "Dieses Template dauerhaft löschen? Kampagnen, die darauf verweisen, funktionieren weiter – sie erstellen beim Senden einen Snapshot des HTML.",
+        "create": "Template erstellen",
+        "createTitle": "Neues Template",
+        "deleteFailed": "Template konnte nicht gelöscht werden.",
+        "editTitle": "Template bearbeiten",
+        "emptyBody": "Erstellen Sie Ihr erstes Template – Kampagnen können es wiederverwenden, ohne das HTML erneut einzugeben.",
+        "emptyTitle": "Noch keine Templates",
+        "errHtmlRequired": "Template-Inhalt darf nicht leer sein.",
+        "errNameRequired": "Template benötigt einen Namen.",
+        "fields": {
+          "html": "HTML-Body",
+          "htmlHint": "Roh-HTML. Merge-Tags wie {{FNAME|there}} funktionieren genauso wie in Kampagnen.",
+          "name": "Vorlagenname",
+          "namePlaceholder": "Willkommens-E-Mail"
+        },
+        "loadFailed": "Vorlagen konnten nicht geladen werden.",
+        "loading": "Vorlagen werden geladen…",
+        "loadingBody": "Vorlageninhalt wird geladen…",
+        "newTemplate": "Neue Vorlage",
+        "preview": "Live-Vorschau",
+        "previewHint": "Rendert das HTML in einem sandboxed iframe (Skripte deaktiviert). Mailchimp-Merge-Tags wie {{FNAME|there}} bleiben sichtbar – sie werden beim Senden ausgetauscht.",
+        "refresh": "Aktualisieren",
+        "saveFailed": "Vorlage konnte nicht gespeichert werden.",
+        "saving": "Speichern…",
+        "title": "Vorlagen",
+        "update": "Änderungen speichern"
+      },
+      "webhooks": {
+        "confirmDelete": "Dieses Webhook‑Abonnement löschen? Mailchimp stoppt das POSTen von Ereignissen an diese URL.",
+        "count": "{count} Webhook(s)",
+        "create": "Webhook erstellen",
+        "createBody": "Mailchimp wird Ereignisse per POST an Ihre URL senden. Häufige Ziele: n8n flow, inbound/mailchimp/<token>.",
+        "createFailed": "Webhook konnte nicht erstellt werden.",
+        "createTitle": "Zielgruppenevents abonnieren",
+        "creating": "Erstelle…",
+        "delete": "Löschen",
+        "deleteFailed": "Webhook konnte nicht gelöscht werden.",
+        "empty": "Noch keine Webhooks abonniert.",
+        "errUrlRequired": "URL muss mit https:// beginnen",
+        "fields": {
+          "events": "Zu überwachende Events",
+          "sources": "Event-Quellen (wer es ausgelöst hat)",
+          "url": "Webhook-URL (https://)"
+        },
+        "hint": "Mailchimp signiert List-Webhooks nicht. Betrachten Sie die URL als einziges Geheimnis; protokollieren Sie sie nicht.",
+        "loadFailed": "Webhooks konnten nicht geladen werden.",
+        "loading": "Webhooks werden geladen…",
+        "noEvents": "(keine Events ausgewählt)"
+      },
+      "wizard": {
+        "back": "Zurück",
+        "fillRequired": "Füllen Sie das erforderliche Feld oben aus.",
+        "next": "Weiter",
+        "submit": "Erstellen",
+        "submitting": "Erstelle…"
+      }
+    },
     "heroEyebrow": "Voice-native CRM-Plattform",
     "heroLead": "Lisent CRM kombiniert Authentifizierung, mandantenbewusste Workflows, Import‑Profil‑Onboarding und eine geschützte Anwendungsshell für Unternehmens‑Operatoren. Die Web‑App steuert benutzerorientierte Abläufe. Der Go CRM‑Service bleibt hinter einer vertrauenswürdigen Backend‑Grenze.",
     "heroTitle": "Absichten verstehen, nicht nur Worte.",
@@ -1708,6 +2493,7 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "Agenturen",
       "aria": "Marketing‑Abschnitte",
       "campaigns": "Kampagnen",
       "email": "E‑Mail",
@@ -1721,15 +2507,15 @@
     "brandName": "Lisent CRM",
     "calendar": "Kalender",
     "closeNavigation": "Navigation schließen",
-    "customerImport": "Kunden-Import",
+    "customerImport": "Kundenimport",
     "customers": "Kunden",
     "dashboard": "Dashboard",
     "deals": "Deals",
     "help": "Hilfe & Ressourcen",
     "import": "Import",
     "integrations": "Integrationen",
-    "leads": "Führt",
-    "lisentHome": "Lisent CRM Startseite",
+    "leads": "Leads",
+    "lisentHome": "Lisent CRM-Startseite",
     "lisentWorkspace": "Lisent Workspace",
     "marketing": "Marketing",
     "navigation": "Navigation",
@@ -1784,7 +2570,7 @@
       "title": "Importe"
     },
     "integrationDetail": {
-      "description": "Konfigurieren Sie diese Integration.",
+      "description": "Diese Integration konfigurieren.",
       "title": "Integration"
     },
     "integrations": {
@@ -1809,7 +2595,7 @@
     }
   },
   "qualifier": {
-    "companyOrBuyerProfile": "Unternehmen / Käuferprofil",
+    "companyOrBuyerProfile": "Unternehmens‑/Käuferprofil",
     "fallbackExplanation": "LLM‑Bewertung wurde nicht ausgeführt — die Punktzahl wurde anhand der Formulardatenqualität berechnet.",
     "fallbackMode": "Fallback‑Modus",
     "formulaAudit": "Formelprüfung",
@@ -1845,7 +2631,7 @@
       "individual": "Einzeln"
     },
     "confirm": {
-      "delete": "Diese Aufgabe löschen?",
+      "delete": "Diesen Task löschen?",
       "deleteBroadcast": "Diese Broadcast-Aufgabe für alle löschen?"
     },
     "empty": {
@@ -1853,14 +2639,14 @@
       "openTickets": "Keine offenen Tickets."
     },
     "errors": {
-      "delete": "Aufgabe konnte nicht gelöscht werden.",
-      "loadTasks": "Aufgaben konnten nicht geladen werden.",
+      "delete": "Task konnte nicht gelöscht werden.",
+      "loadTasks": "Tasks konnten nicht geladen werden.",
       "loadWorkspace": "Workspace konnte nicht geladen werden.",
       "noEligibleTeammate": "Kein geeigneter Teamkollege verfügbar.",
-      "onlyCreatorCanDelete": "Nur der Ersteller der Aufgabe kann diese Aufgabe löschen.",
-      "publish": "Aufgabe konnte nicht veröffentlicht werden.",
+      "onlyCreatorCanDelete": "Nur der Ersteller des Tasks kann diese Aufgabe löschen.",
+      "publish": "Task konnte nicht veröffentlicht werden.",
       "titleRequired": "Titel ist erforderlich.",
-      "update": "Aufgabe konnte nicht aktualisiert werden."
+      "update": "Task konnte nicht aktualisiert werden."
     },
     "fields": {
       "assignedTo": "Zugewiesen an",
@@ -1903,7 +2689,7 @@
       "notes": "Details zu dieser Aufgabe hinzufügen…",
       "title": "Aufgabentitel"
     },
-    "publishedBy": "Veröffentlicht von",
+    "publishedBy": "Veröffentlicht von {name}",
     "responseStatus": {
       "accepted": "Akzeptiert",
       "pending": "Ausstehend",
@@ -1928,9 +2714,9 @@
     },
     "summary": {
       "company": "Unternehmen",
-      "inProgressDone": "in Bearbeitung · erledigt",
-      "myPending": "ausstehend",
-      "openTickets": "offen"
+      "inProgressDone": "{inProgress} in Bearbeitung · {done} erledigt",
+      "myPending": "{count} ausstehend",
+      "openTickets": "{count} offen"
     },
     "systemUser": "System",
     "teammatesCount": "{count} Teammitglieder",
@@ -1973,6 +2759,25 @@
       "role": "Rolle"
     },
     "member": "Mitglied",
+    "moduleAccess": {
+      "discard": "Verwerfen",
+      "empty": "Keine Teammitglieder zu verwalten — Besitzer haben immer vollen Zugriff.",
+      "granted": "Gewährt",
+      "loadError": "Zugriffsrechte konnten nicht geladen werden.",
+      "loading": "Laden…",
+      "module": {
+        "marketingAgencies": "Marketing · Agenturen"
+      },
+      "noAccess": "Kein Zugriff",
+      "role": "Rolle",
+      "save": "Änderungen speichern",
+      "saveError": "Änderungen konnten nicht gespeichert werden.",
+      "saving": "Speichern…",
+      "subtitle": "Besitzer sehen immer jedes Modul. Verwenden Sie die Schalter, um jedem Teammitglied Zugriff auf ein bestimmtes Modul zu gewähren.",
+      "teamMember": "Teammitglied",
+      "title": "Modulzugriff",
+      "unsaved": " · nicht gespeichert"
+    },
     "noEmail": "Keine E‑Mail-Adresse hinterlegt",
     "noPermission": "Sie haben keine Berechtigung, Teammitglieder zu verwalten.",
     "placeholders": {
@@ -1981,14 +2786,14 @@
     "removeMember": "Mitglied entfernen",
     "removeModal": {
       "confirm": "Mitglied entfernen",
-      "description": "{company} verliert sofort den Zugriff auf diesen Workspace.",
+      "description": "{name} verliert sofort den Zugriff auf diesen Workspace.",
       "eyebrow": "Teammitglied entfernen",
       "removing": "Entfernen…",
       "title": "Teammitglied entfernen?"
     },
     "roleModal": {
       "confirm": "Rolle ändern",
-      "description": "Aktualisieren Sie die Rolle von in diesem Workspace.",
+      "description": "Aktualisieren Sie die Rolle von {name} in diesem Workspace.",
       "eyebrow": "Rolle ändern",
       "title": "Rolle ändern",
       "to": "zu",
@@ -2008,22 +2813,22 @@
     "you": "Sie"
   },
   "userMenu": {
-    "accountSettings": "Kontoeinstellungen",
+    "accountSettings": "Konto‑Einstellungen",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Demo-Benutzer",
-    "openMenu": "Menü \"Konto eröffnen",
+    "demoUser": "Demo‑Benutzer",
+    "openMenu": "Konto‑Menü öffnen",
     "signOut": "Abmelden",
-    "workspaceUser": "Benutzer des Arbeitsbereichs"
+    "workspaceUser": "Workspace‑Benutzer"
   },
   "validation": {
     "firstNameRequired": "Name ist erforderlich",
     "firstNameTooShort": "Name muss mindestens 2 Zeichen lang sein",
-    "genderInvalid": "Wählen Sie eine gültige Geschlechtsoption.",
-    "genderRequired": "Das Geschlecht ist erforderlich.",
-    "languageInvalid": "Wählen Sie eine gültige Sprache.",
+    "genderInvalid": "Wählen Sie eine gültige Geschlechtsoption aus.",
+    "genderRequired": "Geschlecht ist erforderlich.",
+    "languageInvalid": "Wählen Sie eine gültige Sprache aus.",
     "lastNameRequired": "Nachname ist erforderlich",
-    "lastNameTooShort": "Der Nachname muss aus mindestens 2 Zeichen bestehen.",
-    "phoneInvalid": "Geben Sie eine gültige Rufnummer ein.",
+    "lastNameTooShort": "Nachname muss mindestens 2 Zeichen enthalten.",
+    "phoneInvalid": "Geben Sie eine gültige Telefonnummer ein.",
     "phoneRequired": "Telefonnummer ist erforderlich."
   },
   "workspace": {

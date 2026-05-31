@@ -25,12 +25,12 @@
     "placeholders": {
       "firstName": "اسمك الأول",
       "language": "اختر اللغة",
-      "lastName": "لقبك",
+      "lastName": "اسم العائلة",
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
       "superAdmin": "مشرف عام",
-      "workspaceUser": "مستخدم مساحة العمل"
+      "workspaceUser": "مستخدم Workspace"
     },
     "profileSummary": "ملخص الملف",
     "saveButton": "حفظ الإعدادات",
@@ -85,19 +85,19 @@
       "previous": "الفترة السابقة"
     },
     "confirm": {
-      "delete": "حذف هذا الحدث؟"
+      "delete": "هل تريد حذف هذا الحدث؟"
     },
     "empty": {
       "upcoming": "لا توجد أحداث قادمة."
     },
     "errors": {
-      "delete": "فشل في حذف الحدث.",
+      "delete": "فشل حذف الحدث.",
       "linkRecordMissing": "السجل المرتبط مطلوب عند اختيار نوع الارتباط.",
       "loadCompanies": "فشل في تحميل الشركات.",
       "loadEvents": "فشل في تحميل الأحداث.",
       "pastDate": "لا يمكن للحدث أن يبدأ في الماضي.",
-      "save": "فشل في حفظ الحدث.",
-      "startRequired": "تاريخ ووقت البدء مطلوبان.",
+      "save": "فشل حفظ الحدث.",
+      "startRequired": "يجب تحديد تاريخ ووقت البدء.",
       "titleRequired": "العنوان مطلوب."
     },
     "eventStatus": {
@@ -109,7 +109,7 @@
     "eventType": {
       "call": "مكالمة",
       "deadline": "موعد نهائي",
-      "demo": "عرض توضيحي",
+      "demo": "عرض تجريبي",
       "follow_up": "متابعة",
       "meeting": "اجتماع"
     },
@@ -139,8 +139,8 @@
       "lead": "العميل المحتمل المرتبط"
     },
     "linkedType": {
-      "company": "الشركة",
-      "customer": "العميل",
+      "company": "شركة",
+      "customer": "عميل",
       "deal": "الصفقة",
       "lead": "Lead",
       "none": "بدون"
@@ -150,7 +150,7 @@
       "editEyebrow": "تحرير الحدث",
       "editTitle": "تحديث حدث التقويم",
       "newEyebrow": "حدث جديد",
-      "newTitle": "جدولة حدث في التقويم",
+      "newTitle": "جدولة حدث تقويم",
       "subtitle": "خطط للمكالمات والاجتماعات والمتابعات المرتبطة بسجلات CRM الخاصة بك."
     },
     "moreCount": "+{count} أخرى",
@@ -173,7 +173,7 @@
     "tabs": {
       "allScheduled": "كل المجدولة",
       "events": "الأحداث",
-      "meetings": "الاجتماعات",
+      "meetings": "اجتماعات",
       "taskReminders": "تذكيرات المهام"
     },
     "title": "التقويم",
@@ -190,13 +190,13 @@
       "mon": "الإثن",
       "sat": "السبت",
       "sun": "الأحد",
-      "thu": "الخميس",
+      "thu": "الخ",
       "tue": "الثلاث",
       "wed": "الأربع"
     }
   },
   "common": {
-    "back": "رجوع",
+    "back": "عودة",
     "cancel": "إلغاء",
     "close": "إغلاق",
     "closeMenu": "إغلاق القائمة",
@@ -218,15 +218,15 @@
     "addCustomer": "إضافة عميل",
     "bulk": {
       "clearSelection": "مسح الاختيار",
-      "confirmDelete": "حذف المحدد",
-      "deleteDescription": "سيؤدي هذا إلى حذف سجل عميل بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
+      "confirmDelete": "حذف المحدَّد",
+      "deleteDescription": "سيؤدي هذا إلى حذف {count} سجل عميل بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
       "deleteEyebrow": "حذف جماعي",
       "deleteTitle": "حذف العملاء المحددين؟",
-      "exportCsv": "Export CSV",
-      "exportPdf": "Export PDF",
-      "exportXlsx": "Export Excel",
+      "exportCsv": "تصدير CSV",
+      "exportPdf": "تصدير PDF",
+      "exportXlsx": "تصدير Excel",
       "regionLabel": "إجراءات جماعية",
-      "selectedCount": "محدد"
+      "selectedCount": "{count} محدد"
     },
     "closeAddPopup": "إغلاق نافذة إضافة عميل",
     "confirmDelete": "حذف",
@@ -246,13 +246,13 @@
     "errors": {
       "bulkDeleteFailed": "فشل حذف بعض العملاء.",
       "deleteCustomer": "فشل حذف العميل.",
-      "exportFailed": "Failed to export customers.",
-      "loadCompanies": "فشل تحميل الشركات.",
+      "exportFailed": "فشل تصدير العملاء.",
+      "loadCompanies": "فشل في تحميل الشركات.",
       "loadCustomers": "فشل في تحميل العملاء.",
-      "saveCustomer": "فشل في حفظ العميل."
+      "saveCustomer": "فشل حفظ العميل."
     },
     "fields": {
-      "actions": "الإجراءات",
+      "actions": "إجراءات",
       "company": "الشركة",
       "companyId": "معرف الشركة",
       "country": "الدولة",
@@ -281,17 +281,17 @@
       "empty": "لا توجد عملاء يطابقون الفلاتر الحالية.",
       "eyebrow": "دليل العملاء",
       "selectAll": "تحديد جميع العملاء",
-      "selectRow": "تحديد العميل",
+      "selectRow": "تحديد العميل {name}",
       "title": "العملاء",
-      "visibleCount": "عرض {count}"
+      "visibleCount": "عرض {visible} من {total}"
     },
     "loading": "جارٍ تحميل العملاء...",
     "noEmail": "لا يوجد بريد إلكتروني مسجل",
     "notSet": "غير محدد",
     "pdf": {
-      "exportedAt": "customers · Exported on {date}",
-      "pageOf": "Page {current} of {total}",
-      "title": "Customers"
+      "exportedAt": "العملاء · تم التصدير في {date}",
+      "pageOf": "الصفحة {current} من {total}",
+      "title": "العملاء"
     },
     "placeholders": {
       "email": "name@company.com",
@@ -302,20 +302,20 @@
       "label": "بحث",
       "placeholder": "بحث عن العملاء..."
     },
-    "selectedCompany": "مساحة العمل النشطة:",
+    "selectedCompany": "مساحة العمل النشطة: {name}",
     "status": {
       "active": "نشط",
       "all": "الكل",
-      "needsReview": "يحتاج إلى مراجعة",
+      "needsReview": "يحتاج مراجعة",
       "prospect": "محتمل"
     },
     "statusFilter": "مرشح الحالة",
     "success": {
       "bulkDeleted": "تم حذف {count} عميل.",
-      "bulkDeletedPartial": "تم حذف من أصل عميل.",
+      "bulkDeletedPartial": "تم حذف {deleted} من أصل {total} عميل.",
       "created": "تم إنشاء العميل.",
       "deleted": "تم حذف العميل.",
-      "exported": "Exported {count} customers.",
+      "exported": "تم تصدير {count} عميل.",
       "updated": "تم تحديث العميل."
     }
   },
@@ -333,23 +333,23 @@
       "title": "رؤى AI"
     },
     "amount": "المبلغ",
-    "amountValue": "{value}",
+    "amountValue": "{amount}",
     "assignee": "المكلف",
-    "assigneeValue": "{value}",
+    "assigneeValue": "{name}",
     "boardHint": "اسحب الصفقات بين المراحل لتحديث الـ Pipeline.",
-    "changedBy": "تم التعديل بواسطة",
+    "changedBy": "تم التعديل بواسطة {name}",
     "close": "إغلاق",
     "closeTarget": "هدف الإغلاق",
-    "closeTargetValue": "{value}",
-    "columnTotal": "إجمالي العمود:",
+    "closeTargetValue": "{date}",
+    "columnTotal": "إجمالي العمود: {value}",
     "commentPlaceholder": "اكتب تعليقًا...",
-    "comments": "التعليقات",
+    "comments": "تعليقات",
     "commentsCount": "{count} تعليقات",
     "commentsEmpty": "لا توجد تعليقات بعد.",
-    "deal": "صفقة",
-    "dealDetail": "تفاصيل الصفقة",
-    "dealList": "قائمة الصفقات",
-    "dealValue": "قيمة الصفقة",
+    "deal": "Deal",
+    "dealDetail": "تفاصيل Deal",
+    "dealList": "قائمة Deal",
+    "dealValue": "قيمة Deal",
     "dealsInPipeline": "{count} صفقات في الـ Pipeline",
     "dealsInView": "{count} صفقات في العرض",
     "delete": "حذف",
@@ -371,36 +371,36 @@
     "extraData": "بيانات إضافية",
     "fields": {
       "company": "شركة",
-      "companyId": "معرّف الشركة",
+      "companyId": "معرف الشركة",
       "country": "الدولة",
       "created": "تم الإنشاء",
-      "currency": "العملة",
-      "customer": "العميل",
-      "industry": "الصناعة",
+      "currency": "عملة",
+      "customer": "عميل",
+      "industry": "صناعة",
       "lossReason": "سبب الخسارة",
-      "records": "السجلات",
+      "records": "سجلات",
       "sourceLead": "مصدر العميل المحتمل",
-      "termination": "الإنهاء",
+      "termination": "إنهاء",
       "updated": "مُحدَّث",
       "wonReason": "سبب الفوز"
     },
     "filters": {
       "allAssignees": "جميع المُسندين",
-      "allStages": "جميع المراحل",
+      "allStages": "جميع stages",
       "assigneeLabel": "المُسند",
       "searchLabel": "بحث",
       "searchPlaceholder": "ابحث عن الصفقات...",
-      "stageLabel": "المرحلة"
+      "stageLabel": "Stage"
     },
     "form": {
       "assigneeHint": "اختر زميلًا ليتولى هذه الصفقة.",
-      "createDeal": "إنشاء صفقة",
-      "editEyebrow": "تحرير الصفقة",
-      "editTitle": "تحديث الصفقة",
+      "createDeal": "إنشاء deal",
+      "editEyebrow": "تحرير صفقة",
+      "editTitle": "تحديث صفقة",
       "fields": {
         "amount": "المبلغ",
         "assignee": "المُسند",
-        "currency": "العملة",
+        "currency": "عملة",
         "customer": "العميل",
         "dealName": "اسم Deal",
         "expectedCloseDate": "تاريخ الإغلاق المتوقع",
@@ -427,19 +427,19 @@
     "kanbanBoard": "لوحة Kanban",
     "loadingBoard": "جارٍ تحميل اللوحة...",
     "loadingDeals": "جارٍ تحميل Deals...",
-    "meetingTitle": "الاجتماع",
-    "noDate": "لا يوجد تاريخ",
-    "noDealsMatch": "لا توجد صفقات تتطابق مع الفلاتر الحالية.",
-    "noLossReason": "لم يتم تسجيل أي سبب خسارة مسجل.",
-    "noRelatedCustomer": "لا يوجد عميل ذو صلة.",
-    "noWinReason": "لم يتم تسجيل أي سبب فوز.",
+    "meetingTitle": "اجتماع",
+    "noDate": "بدون تاريخ",
+    "noDealsMatch": "لا توجد صفقات تطابق الفلاتر الحالية.",
+    "noLossReason": "لم يتم تسجيل سبب الخسارة.",
+    "noRelatedCustomer": "لا يوجد عميل مرتبط.",
+    "noWinReason": "لم يتم تسجيل سبب عدم الفوز.",
     "notSet": "غير محدد",
     "now": "الآن",
-    "pipelineLoading": "تحميل خط الأنابيب...",
-    "posting": "النشر...",
+    "pipelineLoading": "جارٍ تحميل خط الأنابيب...",
+    "posting": "جارٍ النشر...",
     "relatedRecords": "السجلات المرتبطة",
     "scheduleActivity": "جدولة النشاط",
-    "selectedCompany": "Workspace النشط:",
+    "selectedCompany": "Workspace النشط: {name}",
     "stage": {
       "lost": "خسارة",
       "lostDescription": "الصفقات المغلقة كخسارة للتعلم منها.",
@@ -456,16 +456,16 @@
     },
     "stageHistory": "سجل المراحل",
     "stageHistoryEmpty": "لم يتم تسجيل أي تغيّر في المراحل بعد.",
-    "stageRange": "→",
+    "stageRange": "{from} → {to}",
     "success": {
       "commentAdded": "تم إضافة التعليق.",
-      "created": "تم إنشاء الصفقة.",
-      "deleted": "تم حذف الصفقة.",
-      "updated": "تم تحديث الصفقة."
+      "created": "تم إنشاء Deal.",
+      "deleted": "تم حذف Deal.",
+      "updated": "تم تحديث Deal."
     },
     "system": "النظام",
     "terminationOpen": "مفتوح",
-    "thisDeal": "هذه الصفقة",
+    "thisDeal": "هذا Deal",
     "unassigned": "غير مُعيَّن",
     "unknownAuthor": "غير معروف",
     "untitledDeal": "صفقة بدون عنوان"
@@ -480,7 +480,7 @@
   "home": {
     "activity": {
       "chartAriaLabel": "مخطط النشاط للأسبوع الماضي",
-      "empty": "لم يتم تسجيل أي نشاط بعد لـ.",
+      "empty": "لم يتم تسجيل أي نشاط بعد لـ {name}.",
       "emptyDefault": "لم يتم تسجيل أي نشاط بعد.",
       "legendDeals": "الصفقات",
       "legendLeads": "Leads",
@@ -493,7 +493,7 @@
       "noWorkspaceHelp": "اختر Workspace من المُبدّل لعرض البيانات الحية.",
       "noWorkspaceSelected": "لم يتم اختيار Workspace",
       "pickWorkspace": "اختر Workspace",
-      "subtitleSelected": "مقاييس Workspace لـ.",
+      "subtitleSelected": "مقاييس Workspace لـ {name}.",
       "subtitleWithName": "مرحبًا بعودتك، {name}."
     },
     "errors": {
@@ -510,7 +510,7 @@
       "leads": "Leads",
       "leadsHint": "Leads النشطة في الـ Pipeline.",
       "openPipelineHint": "قيمة Open pipeline عبر جميع المراحل.",
-      "openPipelineValue": ""
+      "openPipelineValue": "{value}"
     },
     "overview": {
       "customize": "تخصيص",
@@ -518,19 +518,19 @@
       "title": "نظرة عامة"
     },
     "pipeline": {
-      "empty": "لا توجد بيانات pipeline بعد لـ.",
+      "empty": "لا توجد بيانات pipeline بعد لـ {name}.",
       "emptyDefault": "لا توجد بيانات pipeline بعد.",
       "stage": {
-        "lost": "خاسر",
+        "lost": "خسارة",
         "negotiation": "تفاوض",
         "new": "جديد",
         "proposal": "عرض",
         "qualified": "مؤهل",
-        "won": "ناجح"
+        "won": "فوز"
       },
       "subtitle": "توزيع الـ Deal حسب المرحلة.",
       "title": "Pipeline",
-      "totalBadge": "{count} إجمالي"
+      "totalBadge": "{value} إجمالي"
     },
     "quickActions": {
       "aiQualifier": {
@@ -539,7 +539,7 @@
         "title": "مؤهل AI"
       },
       "customerImport": {
-        "cta": "بدء الاستيراد",
+        "cta": "ابدأ الاستيراد",
         "description": "إحضار بيانات العملاء إلى Workspace الخاص بك.",
         "title": "استيراد العملاء"
       },
@@ -568,13 +568,13 @@
       "title": "إجراءات سريعة"
     },
     "recentLeads": {
-      "empty": "لا توجد أي Leads حديثة في.",
+      "empty": "لا توجد أي Leads حديثة في {name}.",
       "emptyDefault": "لا توجد Leads حديثة بعد.",
       "status": {
         "contacted": "تم التواصل",
         "converted": "تم التحويل",
         "disqualified": "مستبعد",
-        "lost": "خاسر",
+        "lost": "خسارة",
         "new": "جديد",
         "qualified": "مؤهل"
       },
@@ -586,7 +586,7 @@
     "snapshot": {
       "activeWorkspace": "workspace النشط",
       "eyebrow": "لقطة workspace",
-      "inWorkspace": "في",
+      "inWorkspace": "في {name}",
       "newCount": "{count} جديد",
       "noWorkspaceHelp": "اختر مساحة عمل لرؤية الأعداد الحية.",
       "noWorkspaceSelected": "لم يتم اختيار مساحة عمل",
@@ -631,7 +631,7 @@
     },
     "mapping": {
       "approvalDescription": "أكد الربط وشغّل الاستيراد. سيتم إنشاء العملاء أو تحديثهم في مساحة العمل النشطة.",
-      "approvalOutcome": "بعد الموافقة، تُدرج الصفوف كعملاء في.",
+      "approvalOutcome": "بعد الموافقة، تُدرج الصفوف كعملاء في {name}.",
       "approveAndImport": "اعتماد & استيراد",
       "backToPreview": "العودة إلى المعاينة",
       "confidence": "الثقة",
@@ -646,16 +646,16 @@
     "preview": {
       "backToSource": "العودة إلى المصدر",
       "continueToMapping": "متابعة إلى التعيين",
-      "headers": "رؤوس",
-      "rowsLoaded": "صفوف تم تحميلها",
-      "rowsShown": "عرض أول صفوف",
+      "headers": "{count} رؤوس",
+      "rowsLoaded": "{count} صفوف تم تحميلها",
+      "rowsShown": "عرض أول {count} صفوف",
       "unmapped": "غير معين"
     },
     "progress": {
-      "completedRatio": "من تم",
-      "currentRow": "صف",
-      "description": "جاري استيراد الصفوف إلى. يمكنك مغادرة هذه الصفحة؛ سيستمر الاستيراد في الخلفية.",
-      "eyebrow": "الاستيراد قيد التنفيذ",
+      "completedRatio": "{done} من {total} تم",
+      "currentRow": "صف {row}",
+      "description": "جاري استيراد الصفوف إلى {name}. يمكنك مغادرة هذه الصفحة؛ سيستمر الاستيراد في الخلفية.",
+      "eyebrow": "الاستيراد جارٍ",
       "preparing": "جارٍ تحضير الاستيراد...",
       "title": "جاري استيراد العملاء"
     },
@@ -663,13 +663,13 @@
       "headers": "العناوين",
       "mappedFields": "الحقول المرتبطة",
       "progress": "التقدم",
-      "rowsLoaded": "الصفوف المحملة",
-      "stepNumber": "الخطوة {number}",
+      "rowsLoaded": "تم تحميل الصفوف",
+      "stepNumber": "الخطوة {step}",
       "title": "تقدم الاستيراد"
     },
     "source": {
       "continueToPreview": "المتابعة إلى المعاينة",
-      "csvUpload": "تحميل ملف CSV",
+      "csvUpload": "رفع ملف CSV",
       "csvUploadHelp": "اسحب وأفلت أو استعرض ملف .csv من جهازك.",
       "csvUrl": "رابط CSV",
       "csvUrlHelp": "قدّم رابطًا عامًا يمكن الوصول إليه يشير إلى ملف CSV.",
@@ -682,17 +682,17 @@
     "steps": {
       "mapping": {
         "label": "التعيين",
-        "summary": "اربط كل عمود بحقل في CRM.",
-        "title": "عيّن الأعمدة"
+        "summary": "طابق كل عمود مع حقل في CRM.",
+        "title": "عيّن أعمدتك"
       },
       "preview": {
         "label": "معاينة",
-        "summary": "أكّد البيانات ثم نفّذ الاستيراد.",
-        "title": "راجع واستورد"
+        "summary": "تأكد من البيانات ثم نفّذ الاستيراد.",
+        "title": "مراجعة واستيراد"
       },
       "source": {
         "label": "المصدر",
-        "summary": "ارفع ملف CSV أو الصق رابطًا.",
+        "summary": "حمّل ملف CSV أو الصق عنوان URL.",
         "title": "اختر مصدر البيانات"
       }
     },
@@ -703,11 +703,11 @@
     },
     "workspace": {
       "backToOverview": "العودة إلى النظرة العامة",
-      "companyIdLabel": "معرّف الشركة:",
-      "description": "استورد بيانات العملاء إلى من ملف CSV أو رابط.",
-      "eyebrow": "استيراد مساحة العمل",
-      "selectedCompany": "مساحة العمل النشطة:",
-      "stepLabel": "الخطوة {step}"
+      "companyIdLabel": "معرف الشركة: {id}",
+      "description": "استورد بيانات العملاء إلى {name} من ملف CSV أو رابط.",
+      "eyebrow": "استيراد Workspace",
+      "selectedCompany": "Workspace النشطة: {name}",
+      "stepLabel": "الخطوة {step} من {total}"
     }
   },
   "integrations": {
@@ -729,8 +729,8 @@
       "createTitle": "إنشاء مفتاح API جديد",
       "createdHeading": "تم إنشاء مفتاح API",
       "creating": "جارٍ الإنشاء…",
-      "description": "إدارة مفاتيح API لـ <strong> </strong>.",
-      "empty": "لا توجد مفاتيح API حتى الآن.",
+      "description": "إدارة مفاتيح API لـ <strong>{name}</strong>.",
+      "empty": "لا توجد مفاتيح API بعد.",
       "envLive": "حية",
       "envTest": "اختبار",
       "environment": "البيئة",
@@ -760,7 +760,7 @@
     "catalog": {
       "accessDenied": "تم رفض الوصول",
       "accessDeniedDescription": "ليس لديك صلاحية الوصول إلى التكاملات في مساحة العمل هذه.",
-      "configuringCompany": "جارٍ تكوين التكاملات لـ <strong> </strong>.",
+      "configuringCompany": "جارٍ تكوين التكاملات لـ <strong>{name}</strong>.",
       "loadFailed": "فشل تحميل كتالوج التكاملات.",
       "loading": "جارٍ تحميل التكاملات…",
       "noAccess": "لا توجد صلاحية لمساحة العمل",
@@ -774,7 +774,7 @@
       "description": "حدد مساحة عمل لإدارة تكاملاتها.",
       "empty": "ليس لديك أي مساحات عمل حتى الآن. <link>إنشاء واحدة</link>.",
       "listAria": "قائمة مساحات العمل",
-      "loadFailed": "فشل تحميل مساحات العمل.",
+      "loadFailed": "فشل في تحميل مساحات العمل.",
       "loading": "جارٍ تحميل مساحات العمل…",
       "title": "اختر مساحة عمل"
     },
@@ -787,8 +787,8 @@
     "detail": {
       "backLink": "العودة إلى التكاملات",
       "backToCatalog": "العودة إلى الفهرس",
-      "configuringCompany": "جارٍ إعداد <strong> </strong> لـ <strong> </strong>.",
-      "noCompany": "اختر مساحة عمل لتكوين <strong> </strong>.",
+      "configuringCompany": "جارٍ إعداد <strong>{integration}</strong> لـ <strong>{company}</strong>.",
+      "noCompany": "اختر مساحة عمل لتكوين <strong>{integration}</strong>.",
       "restrictedDescription": "ليس لديك إذن لعرض هذا التكامل.",
       "restrictedTitle": "مقيد",
       "slugTitles": {
@@ -826,9 +826,9 @@
       "credentialsTitle": "بيانات اعتماد Green API",
       "disconnectConfirm": "هل تريد قطع اتصال تكامل Green API؟ لن تتأثر المحادثات النشطة.",
       "inbound": "عنوان URL الوارد",
-      "instanceId": "معرّف المثيل",
+      "instanceId": "معرف المثيل",
       "instanceIdPlaceholder": "مثال: 1101000001",
-      "latency": "الكمون: مللي ثانية",
+      "latency": "الكمون: {ms} مللي ثانية",
       "loadFailed": "فشل تحميل إعدادات Green API.",
       "loading": "جارٍ تحميل إعدادات Green API...",
       "rotateConfirm": "هل تريد تدوير رمز webhook الوارد؟ سيتعين تحديث webhooks الحالية.",
@@ -838,9 +838,9 @@
       "tokenRotated": "تم تدوير رمز webhook.",
       "updateCredentials": "تحديث بيانات الاعتماد",
       "updatedLabel": "تم التحديث",
-      "upstreamStatus": "حالة المصدر العلوي:",
+      "upstreamStatus": "حالة المصدر العلوي: {status}",
       "urlCopied": "تم نسخ URL إلى الحافظة.",
-      "webhookSectionDescription": "قم بتكوين مثيل Green API لتسليم الرسائل الواردة إلى <code> </code>.",
+      "webhookSectionDescription": "قم بتكوين مثيل Green API لتسليم الرسائل الواردة إلى <code>{url}</code>.",
       "webhookSectionTitle": "Webhook الوارد"
     },
     "hide": "إخفاء",
@@ -852,8 +852,8 @@
       "authHmac": "توقيع HMAC",
       "authHmacOrBearer": "HMAC أو Bearer",
       "authHmacShort": "HMAC",
-      "authMode": "وضع المصادقة",
-      "authModeHint": "اختر كيف يصادق Lisent على الطلبات الواردة. HMAC يوقّع البايلود؛ Bearer يرسل رمزًا ثابتًا.",
+      "authMode": "وضع Auth",
+      "authModeHint": "اختر طريقة توثيق Lisent للطلبات الواردة من الإنترانت الخاص بك. <strong>HMAC</strong> يوقع الحمولة؛ <strong>Bearer</strong> يرسل رمزًا ثابتًا.",
       "bearerCopied": "تم نسخ رمز Bearer.",
       "bearerExampleTitle": "مثال Bearer",
       "bearerToken": "رمز Bearer",
@@ -861,19 +861,19 @@
       "configurationTitle": "الإعدادات",
       "copyUrl": "نسخ URL",
       "createIntegration": "إنشاء تكامل",
-      "createdMessage": "تم إنشاء تكامل الإنترانت.",
-      "credentialsDescription": "استخدم بيانات الاعتماد هذه للمصادقة على استدعاءات الـ webhook الواردة.",
+      "createdMessage": "تم إنشاء تكامل Intranet.",
+      "credentialsDescription": "استخدم هذه الاعتمادات لتوثيق المكالمات إلى <code>{url}</code>.",
       "credentialsTitle": "الاعتمادات",
       "deliveries": "التسليمات",
-      "deliveriesValue": "",
+      "deliveriesValue": "{count}",
       "disconnectConfirm": "هل تريد قطع اتصال هذا التكامل مع الإنترانت؟ ستبدأ المكالمات الواردة بالفشل.",
       "disconnectDescription": "سيؤدي ذلك إلى إلغاء جميع الرموز وإيقاف قبول الطلبات الواردة.",
       "disconnectIntegration": "قطع اتصال التكامل",
       "dismiss": "إغلاق",
       "entityLabel": "الكيان",
       "errorLabel": "خطأ",
-      "eventLabel": "الحدث",
-      "fieldMappingDescription": "قم بتعيين الحقول الواردة إلى خصائص CRM باستخدام تعابير JMESPath. أرسل كائن JSON قيمه نصوص JMESPath.",
+      "eventLabel": "حدث",
+      "fieldMappingDescription": "قم بربط الحقول الواردة بخصائص CRM. قدّم JSON مثل <code>{example}</code>.",
       "fieldMappingLabel": "ربط الحقول",
       "fieldMappingTitle": "ربط الحقول",
       "generateHmac": "إنشاء سر HMAC",
@@ -883,7 +883,7 @@
       "hmacSecret": "سر HMAC",
       "hmacSecretHint": "استخدم هذا السر لحساب <code>X-Lisent-Signature</code> في الطلبات الصادرة.",
       "inactive": "غير نشط",
-      "inboundDescription": "أرسل البايلودات إلى الرابط أعلاه لجلب العملاء المحتملين من إنترانتك.",
+      "inboundDescription": "أرسل الحمولات إلى <code>{url}</code> لاستيعاب العملاء المحتملين من الإنترانت الخاص بك.",
       "inboundToken": "رمز URL الوارد",
       "inboundTokenHint": "هذا token هو جزء من URL الوارد — احفظه سراً.",
       "inboundUrl": "URL الوارد",
@@ -923,7 +923,7 @@
         "savedNotice": "تم حفظ webhook الصادر.",
         "secretConfigured": "مُكوَّن",
         "secretNotSet": "غير مُعيّن — أنشئ واحدًا قبل إرسال الأحداث.",
-        "secretRotatedAt": "(تم تدويره )",
+        "secretRotatedAt": "(تم تدويره {time})",
         "secretRotatedNotice": "تم تدوير سر التوقيع. النص الصريح يُظهر هذا مرة واحدة فقط.",
         "selectAtLeastOne": "اختر حالة واحدة على الأقل، أو حدّد 'جميع تغييرات الحالة'.",
         "signingSecretLabel": "سر التوقيع (HMAC-SHA256)",
@@ -953,7 +953,7 @@
         "verificationTitle": "كيفية التحقق من جانبك",
         "verifyByComputing": "تحقق بإعادة حساب HMAC على '<timestamp>.<rawBody>' ومقارنة ثابتة الزمن:"
       },
-      "recentDeliveries": "عمليات التسليم الأخيرة",
+      "recentDeliveries": "التسليمات الأخيرة",
       "requestExamples": "أمثلة الطلب",
       "revealDescription": "يتم عرض Tokens مرة واحدة فقط.",
       "revealedBearerLabel": "Bearer token جديد",
@@ -979,6 +979,38 @@
       "urlCopied": "تم نسخ URL إلى الحافظة."
     },
     "loadingProfile": "جارٍ تحميل الملف الشخصي…",
+    "mailchimp": {
+      "benefitAudiences": "إدارة جماهير Mailchimp (القوائم)، الأعضاء، الشرائح، والوسوم من داخل CRM.",
+      "benefitCampaigns": "إنشاء، جدولة، وإرسال حملات البريد الإلكتروني — بالإضافة إلى تكرارها وإرسال اختبار قبل الإطلاق.",
+      "benefitPerUser": "اتصال لكل مستخدم: كل مشغل يجلب حساب Mailchimp الخاص به.",
+      "benefitReports": "قراءة تقارير الفتح / النقر / الارتداد / الجغرافية دون مغادرة CRM.",
+      "cancel": "إلغاء",
+      "cardDescription": "اتصال Mailchimp لكل مشغل. إدارة الجماهير، دفع جهات اتصال CRM، إنشاء الحملات، وقراءة التقارير دون مغادرة CRM. يبقى مصمم رحلة العميل في Mailchimp.",
+      "cardName": "Mailchimp",
+      "connectButton": "ربط Mailchimp",
+      "connectCta": "ربط Mailchimp",
+      "connectDescription": "سنفتح نافذة OAuth الخاصة بـ Mailchimp. تقوم بتفويض Lisent CRM، نتلقى رمز وصول عبر Nango، وتظهر جماهيرك في وحدة Marketing → Email.",
+      "connectFailed": "تعذر إكمال اتصال Mailchimp. حاول مرة أخرى.",
+      "connectTitle": "ربط حساب Mailchimp الخاص بك",
+      "connected": "تم ربط حساب Mailchimp.",
+      "connectedAs": "متصل كـ {name}{email, select, undefined {} other { ({email})}}",
+      "connecting": "جاري فتح Mailchimp…",
+      "dcLabel": "مركز البيانات",
+      "disconnect": "قطع الاتصال",
+      "disconnectConfirm": "هل تريد قطع اتصال حساب Mailchimp الخاص بك من مساحة العمل هذه؟ تبقى الجماهير والحملات آمنة داخل Mailchimp؛ يتم فقط إزالة الرابط من CRM.",
+      "failed": "فشل",
+      "lastPushLabel": "آخر دفعة",
+      "loadFailed": "تعذر تحميل اتصال Mailchimp الخاص بك.",
+      "nangoNotConfigured": "لم يتم إعداد OAuth الخاص بـ Mailchimp على الخادم بعد. اطلب من المسؤول إضافة NANGO_SECRET_KEY + تكوين موفر Mailchimp في Nango.",
+      "openEmailModule": "فتح وحدة البريد الإلكتروني",
+      "openInMailchimp": "فتح في Mailchimp",
+      "pushCountLabel": "جهات الاتصال المدفوعة (نجاح / إجمالي)",
+      "reconnect": "إعادة الاتصال",
+      "scopedToCompany": "هذا الاتصال يخصك، مخصص لـ {name}. المشغلون الآخرون يرون اتصالهم الخاص هنا.",
+      "statusActive": "نشط",
+      "statusPaused": "متوقف",
+      "totalSubscribersLabel": "إجمالي المشتركين"
+    },
     "meta": {
       "active": "نشط",
       "addMappingRow": "إضافة تعيين حقل",
@@ -1016,7 +1048,7 @@
       "fieldMappingHint": "قم بربط حقول توليد العملاء المحتملين من Meta بأعمدة العملاء المحتملين في CRM. اتركه فارغًا لاستخدام الإعداد الافتراضي (full_name → name، email → email، phone_number → phone).",
       "fieldMappingTitle": "تعيين الحقول",
       "finalizeButton": "إنهاء الإعداد",
-      "followersCount": "متابع",
+      "followersCount": "{count} متابع",
       "formAllSubscribedHint": "لم يتم اختيار أي نماذج → جميع النماذج على هذه الصفحة سيتم الاشتراك فيها (الإعداد الافتراضي لـ Meta).",
       "formIdsHint": "مفصولة بفواصل. فارغ = استلام جميع النماذج في هذه الصفحة.",
       "formIdsLabel": "معرفات النماذج",
@@ -1026,14 +1058,14 @@
       "formPickerSearch": "بحث عن النماذج…",
       "formPickerTitle": "اختر نماذج العملاء المحتملين",
       "forms": "نماذج",
-      "formsShownCount": "من",
+      "formsShownCount": "{shown} من {total}",
       "hmacSecretHint": "احفظ هذا الآن — لن نعرض النص الأصلي مرة أخرى.",
       "hmacSecretLabel": "سر HMAC",
       "hmacSecretReveal": "إظهار مرة واحدة",
       "inboundUrlHint": "يقوم n8n بإرسال البيانات هنا بعد جلب العميل المحتمل الكامل من Meta. لا تحتاج إلى لصق هذا في أي مكان.",
       "inboundUrlLabel": "عنوان URL الوارد إلى CRM (يستخدمه n8n)",
       "last7dCount": "{count} في 7 أيام",
-      "lastLeadAgo": "آخر Lead",
+      "lastLeadAgo": "آخر Lead {when}",
       "leads7d": "{count} Lead في 7 أيام",
       "loadFailed": "فشل تحميل تكامل Meta.",
       "metaFieldHeader": "حقل Meta",
@@ -1062,7 +1094,7 @@
       "pagePickerEmptyTitle": "لم يتم العثور على أي صفحات",
       "pagePickerSearch": "بحث عن الصفحات…",
       "pagePickerTitle": "اختر صفحة Facebook",
-      "pagesShownCount": "من",
+      "pagesShownCount": "{shown} من {total}",
       "paused": "متوقف",
       "popupBlocked": "حجب المتصفح نافذة OAuth المنبثقة. اسمح بالنوافذ المنبثقة لهذا الموقع ثم حاول مرة أخرى.",
       "recentDeliveriesEmpty": "لا توجد عمليات تسليم حتى الآن.",
@@ -1085,7 +1117,7 @@
       "statusDraft": "مسودة",
       "statusPaused": "متوقف",
       "statusUnknown": "غير معروف",
-      "subscribedAt": "تم الاشتراك",
+      "subscribedAt": "تم الاشتراك {when}",
       "testLeadButton": "إرسال Lead تجريبي",
       "testLeadDescription": "يقوم بإنشاء حمولة على شكل Meta ويشغلها عبر نفس مسار الإدخال كما في الإنتاج. متاح فقط عندما يكون وضع المحاكاة مفعلاً.",
       "testLeadFailed": "فشل إنشاء Lead تجريبي.",
@@ -1149,7 +1181,7 @@
         "tuningAiConfig": "<strong>AI configuration:</strong> الحدّ، الإطار، تجاوزات الموجه.",
         "tuningCallback": "<strong>Callback:</strong> المكان الذي تُدفع إليه الـ Lead المؤهّلة.",
         "tuningRag": "<strong>قاعدة المعرفة (RAG):</strong> المستندات التي يمكن للمساعد الرجوع إليها.",
-        "tuningTitle": "الضبط"
+        "tuningTitle": "ضبط"
       },
       "qualificationThreshold": "حد التأهيل",
       "revokeSecondaryConfirm": "هل تريد إلغاء سر الـ webhook الثانوي؟",
@@ -1158,15 +1190,15 @@
       "secondaryRevoked": "تم إلغاء سر الـ webhook الثانوي.",
       "sectorLabel": "القطاع",
       "tabs": {
-        "aiConfig": "إعدادات الذكاء الاصطناعي",
+        "aiConfig": "إعدادات AI",
         "apiKeys": "مفاتيح API",
         "channels": "القنوات",
-        "fallback": "احتياطي",
-        "leadWebhook": "Webhook العميل المحتمل",
+        "fallback": "البديل",
+        "leadWebhook": "Lead webhook",
         "overview": "نظرة عامة",
         "rag": "RAG",
         "usage": "الاستخدام",
-        "v1Config": "إعدادات V1"
+        "v1Config": "إعداد V1"
       },
       "thresholdHint": "يُصنّف الـ Leads التي تحصل على نتيجة مساوية أو أعلى من هذا الحدّ على أنها مؤهلة.",
       "webhookUrlLabel": "URL الـ webhook"
@@ -1174,14 +1206,14 @@
     "rag": {
       "chunkLabel": "الجزء",
       "chunksColumn": "أجزاء",
-      "description": "قاعدة معرفة لـ <strong> </strong>. قم بتحميل المستندات التي يمكن للذكاء الاصطناعي الرجوع إليها.",
-      "ingestedDescription": "المستندات الحالية في قاعدة المعرفة لـ <strong> </strong>.",
+      "description": "قاعدة معرفة لـ <strong>{name}</strong>. قم بتحميل المستندات التي يمكن للذكاء الاصطناعي الرجوع إليها.",
+      "ingestedDescription": "المستندات الحالية في قاعدة المعرفة لـ <strong>{name}</strong>.",
       "ingestedDocuments": "المستندات المستوردة",
-      "ingestionExampleDescription": "أرسل طلب POST إلى <code> </code> مع جسم JSON يحتوي على <code>title</code> و <code>content</code> و <code>metadata</code> اختياريًا.",
+      "ingestionExampleDescription": "أرسل طلب POST إلى <code>{url}</code> مع جسم JSON يحتوي على <code>title</code> و <code>content</code> و <code>metadata</code> اختياريًا.",
       "ingestionExampleTitle": "مثال على الاستيعاب",
       "loadConfigFailed": "فشل تحميل إعدادات RAG.",
-      "loadContentFailed": "فشل تحميل محتوى المستند.",
-      "loadDocsFailed": "فشل تحميل المستندات.",
+      "loadContentFailed": "فشل في تحميل محتوى المستند.",
+      "loadDocsFailed": "فشل في تحميل المستندات.",
       "loading": "جارٍ تحميل RAG...",
       "loadingContent": "جارٍ تحميل المحتوى...",
       "loadingDocs": "جارٍ تحميل المستندات...",
@@ -1203,7 +1235,7 @@
     "role": {
       "anyRole": "أي دور",
       "ownerOnly": "المالكون فقط",
-      "viewOnly": "عرض فقط",
+      "viewOnly": "للعرض فقط",
       "viewOnlyTitle": "وصول عرض فقط"
     },
     "rotateToken": "تدوير token",
@@ -1216,14 +1248,14 @@
       "comingSoon": "قريبًا",
       "connected": "متصل",
       "error": "خطأ",
-      "notConfigured": "غير مُهيأ",
-      "paused": "متوقف مؤقتًا"
+      "notConfigured": "غير مُكوَّن",
+      "paused": "مُوقف"
     },
     "subComponent": {
       "configured": "مُكوَّن",
-      "configuredAria": "تم تكوين {label}",
+      "configuredAria": "{name} تم تكوينه",
       "notSet": "غير محدد",
-      "notSetAria": "{label} غير محدد"
+      "notSetAria": "{name} غير محدد"
     },
     "testConnection": "اختبار الاتصال",
     "testing": "جارٍ الاختبار...",
@@ -1231,7 +1263,7 @@
     "urlCopied": "تم نسخ URL إلى الحافظة.",
     "usage": {
       "allMetrics": "جميع المقاييس",
-      "description": "الاستخدام وحدود المعدل لـ <strong> </strong>.",
+      "description": "الاستخدام وحدود المعدل لـ <strong>{name}</strong>.",
       "loadFailed": "فشل تحميل الاستخدام.",
       "loading": "جارٍ تحميل الاستخدام...",
       "metricColumn": "المقياس",
@@ -1280,7 +1312,7 @@
       "calendlyDescription": "رابط Calendly اختياري يمكن للمساعد تقديمه للحجز. يُستخدم في عمليات تسليم الاجتماعات <code>v1</code>.",
       "calendlyPlaceholder": "https://calendly.com/your-team/intro",
       "calendlyTitle": "رابط Calendly",
-      "description": "قم بتكوين سلوك المؤهل <code>v1</code> لـ <strong> </strong>.",
+      "description": "قم بتكوين سلوك المؤهل <code>v1</code> لـ <strong>{name}</strong>.",
       "frameworkDescription": "اختر إطار التأهيل الذي يستخدمه المساعد لاستخراج الإشارات.",
       "frameworkTitle": "إطار التأهيل",
       "loadFailed": "فشل تحميل إعدادات v1.",
@@ -1297,14 +1329,14 @@
     "webhooks": {
       "categories": {
         "lifecycle": "دورة الحياة",
-        "pipeline": "خط الأنابيب",
+        "pipeline": "Pipeline",
         "scoring": "التصنيف"
       },
       "clear": "مسح",
       "configured": "تم التكوين",
       "currentLabel": "الحالي",
       "customPatternsLabel": "أنماط مخصصة (سطر واحد لكل نمط)",
-      "description": "تكوين تسليم webhook لـ <strong> </strong>.",
+      "description": "تكوين تسليم webhook لـ <strong>{name}</strong>.",
       "destinationHint": "ترسل Lisent الأحداث إلى هذا URL مع حمولة موقعة.",
       "destinationPlaceholder": "https://your-crm.example.com/webhook",
       "destinationUrl": "عنوان URL الوجهة",
@@ -1332,7 +1364,7 @@
       "payloadMinimalLabel": "Payload محدود",
       "payloadMode": "وضع payload",
       "rotateSecret": "تدوير السر",
-      "rotatedAt": "تم التدوير في",
+      "rotatedAt": "تم التدوير في {time}",
       "saveEventSelection": "حفظ اختيار الحدث",
       "saveUrl": "حفظ URL",
       "secretRotated": "تم تدوير سر التوقيع.",
@@ -1364,7 +1396,7 @@
       "openHint": "افتح المُصنِّف لتقييم هذا Lead.",
       "openQualifier": "فتح المُصنِّف",
       "pathLabel": "المسار: {path}",
-      "scoreOf": "النتيجة: {score}",
+      "scoreOf": "النقاط: {score}",
       "startQualify": "بدء التأهيل",
       "statusLabel": "الحالة: {status}"
     },
@@ -1383,18 +1415,18 @@
       "title": "تعيين العملاء المحتملين المحددين"
     },
     "bulkBar": {
-      "ariaSelected": "عميل محتمل محدد",
+      "ariaSelected": "{count} عميل محتمل محدد",
       "assign": "تعيين",
       "clearSelection": "مسح الاختيار",
       "delete": "حذف",
       "exportCsv": "تصدير CSV",
       "exportPdf": "تصدير PDF",
-      "selected": "مختار"
+      "selected": "{count} مختار"
     },
     "bulkDelete": {
       "confirm": "حذف المحدد",
       "deleting": "جاري الحذف...",
-      "description": "سيؤدي هذا إلى حذف من الـ leads بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
+      "description": "سيؤدي هذا إلى حذف {count} من الـ leads بشكل دائم. لا يمكن التراجع عن هذا الإجراء.",
       "title": "حذف الـ leads المحددة؟"
     },
     "convertModal": {
@@ -1413,7 +1445,7 @@
       "email": "البريد الإلكتروني",
       "emailPlaceholder": "name@company.com",
       "eyebrow": "تحويل lead",
-      "phone": "الهاتف",
+      "phone": "هاتف",
       "phonePlaceholder": "+49 555 123 4567",
       "preferredLanguage": "اللغة المفضلة",
       "preferredLanguagePlaceholder": "en",
@@ -1476,7 +1508,7 @@
       "tabs": {
         "activity": "النشاط",
         "deals": "Deals",
-        "notes": "الملاحظات",
+        "notes": "ملاحظات",
         "overview": "نظرة عامة"
       },
       "timeline": "الجدول الزمني",
@@ -1515,7 +1547,7 @@
       "allAssignees": "جميع المُعينين",
       "allSources": "جميع Sources",
       "byCampaign": "تمت التصفية حسب الحملة: {name}",
-      "byCampaignCount": "من leads",
+      "byCampaignCount": "{shown} من {total} leads",
       "clearCampaign": "مسح الفلتر"
     },
     "formModal": {
@@ -1539,14 +1571,14 @@
       "phone": "الهاتف",
       "phonePlaceholder": "+49 555 123 4567",
       "pipelineStage": "مرحلة المسار",
-      "saveAndScheduleEvent": "حفظ وجدولة الحدث",
+      "saveAndScheduleEvent": "حفظ & جدولة الحدث",
       "saveChanges": "حفظ التغييرات"
     },
     "kpi": {
       "allPipelines": "عبر جميع الـ pipelines",
       "conversionRate": "معدل التحويل",
       "convertedOfTotal": "{converted} من {total} تم تحويلهم",
-      "currentlyActive": "نشط حالياً",
+      "currentlyActive": "نشط حاليًا",
       "inConversation": "قيد المحادثة",
       "qualified": "مؤهل",
       "readyToProgress": "جاهز للتقدم",
@@ -1567,17 +1599,17 @@
     },
     "pdf": {
       "commentByOn": "{author} · {date}",
-      "commentsHeader": "Comments",
+      "commentsHeader": "تعليقات",
       "createdAt": "تم الإنشاء",
       "email": "البريد الإلكتروني",
-      "exportedAt": "Leads · تم التصدير في",
+      "exportedAt": "{count} Leads · تم التصدير في {date}",
       "options": {
-        "confirm": "Export PDF",
-        "description": "Choose what to include in the export of {count} selected leads.",
-        "exporting": "Exporting...",
-        "includeComments": "Include lead comments",
-        "includeCommentsHint": "Adds a section with all team comments for each selected lead. May take longer to generate.",
-        "title": "Export leads to PDF"
+        "confirm": "تصدير PDF",
+        "description": "اختر ما تريد تضمينه في تصدير {count} من الـ Leads المحددة.",
+        "exporting": "جارٍ التصدير...",
+        "includeComments": "تضمين تعليقات Lead",
+        "includeCommentsHint": "يضيف قسمًا يحتوي على جميع تعليقات الفريق لكل Lead مختار. قد يستغرق وقتًا أطول في الإنشاء.",
+        "title": "تصدير Leads إلى PDF"
       },
       "pageOf": "الصفحة {current} من {total}",
       "title": "Leads"
@@ -1585,7 +1617,7 @@
     "rowMenu": {
       "convert": "تحويل",
       "delete": "حذف",
-      "edit": "تحرير",
+      "edit": "تعديل",
       "schedule": "جدولة"
     },
     "scheduleTitle": "جدولة مكالمة مع {name}",
@@ -1593,7 +1625,7 @@
       "contacted": "تم التواصل",
       "converted": "محول",
       "disqualified": "مستبعد",
-      "lost": "مفقود",
+      "lost": "خسارة",
       "new": "جديد",
       "qualified": "مؤهل"
     },
@@ -1604,9 +1636,9 @@
     },
     "success": {
       "aiStarted": "تم بدء التأهيل بالذكاء الاصطناعي.",
-      "bulkAssignPartial": "تم إسناد من عميل محتمل.",
-      "bulkAssigned": "تم إسناد عميل محتمل.",
-      "bulkPartial": "تم حذف من عميل محتمل.",
+      "bulkAssignPartial": "تم إسناد {assigned} من {total} عميل محتمل.",
+      "bulkAssigned": "تم إسناد {count} عميل محتمل.",
+      "bulkPartial": "تم حذف {deleted} من {total} عميل محتمل.",
       "bulkRemoved": "تم حذف {count} عميل محتمل.",
       "converted": "تم تحويل العميل المحتمل.",
       "convertedWithDeal": "تم تحويل العميل المحتمل مع صفقة.",
@@ -1623,7 +1655,7 @@
       "assignee": "المكلف",
       "empty": "لا توجد أي Leads تطابق الفلاتر الحالية.",
       "name": "الاسم",
-      "openAIScore": "درجة Open AI لـ {score}",
+      "openAIScore": "درجة Open AI لـ {name}",
       "phone": "الهاتف",
       "rowActions": "إجراءات الصف",
       "selectAll": "تحديد جميع الـ Leads",
@@ -1648,6 +1680,200 @@
     }
   },
   "marketing": {
+    "agencies": {
+      "actions": {
+        "import": "استيراد جدول بيانات",
+        "newAgency": "وكالة جديدة",
+        "refresh": "تحديث"
+      },
+      "createModal": {
+        "editTitle": "تحرير {name}",
+        "newSubtitle": "انتقل عبر الحقول — واحد أو اثنان في كل شاشة.",
+        "newTitle": "إضافة وكالة جديدة",
+        "saveChanges": "حفظ التغييرات",
+        "saveError": "فشل حفظ الوكالة",
+        "saving": "جارٍ الحفظ…",
+        "submit": "إنشاء وكالة"
+      },
+      "createWizard": {
+        "contact": {
+          "description": "الشخص الذي تتواصل معه عادةً في الوكالة",
+          "fieldExample": "Jane Doe",
+          "fieldHelp": "اختياري — يملأ LNAME عندما يتم دفع هذه الوكالة إلى جمهور Mailchimp",
+          "fieldLabel": "اسم جهة الاتصال",
+          "title": "جهة الاتصال الأساسية"
+        },
+        "name": {
+          "description": "اسم العرض الذي سيتعرف عليه فريقك",
+          "fieldExample": "Acme Travel Ltd.",
+          "fieldHelp": "يظهر في قائمة الدليل وأي دمج بريد للحملة",
+          "fieldLabel": "الاسم",
+          "title": "اسم الوكالة"
+        },
+        "notes": {
+          "description": "أي شيء آخر يستحق التذكر حول هذه الوكالة",
+          "fieldHelp": "نص حر — لا يُدفع إلى Mailchimp، يظهر فقط داخل الـ CRM",
+          "fieldLabel": "ملاحظات",
+          "fieldPlaceholder": "التجديد في مارس. يفضّل WhatsApp للتحديثات السريعة",
+          "title": "ملاحظات"
+        },
+        "reach": {
+          "description": "البريد الإلكتروني مطلوب إذا كنت تريد دفع هذا السطر إلى Mailchimp لاحقًا",
+          "emailExample": "jane@acme.example",
+          "emailHelp": "يُستخدم كمفتاح فريد لـ Mailchimp عند الإرسال.",
+          "emailLabel": "البريد الإلكتروني",
+          "phoneExample": "+90 555 000 00 00",
+          "phoneHelp": "نص حر — أدرج رمز الدولة إذا كان متوفرًا.",
+          "phoneLabel": "الهاتف",
+          "title": "كيفية التواصل معهم"
+        },
+        "status": {
+          "description": "نشط = مشترك حاليًا. غير نشط = متوقف. منتهي = بعد انتهاء العقد.",
+          "fieldHelp": "يمكنك تعديل ذلك في أي وقت — يُستخدم لتصفية الدليل.",
+          "fieldLabel": "الحالة",
+          "title": "الحالة"
+        },
+        "tags": {
+          "description": "تنتقل العلامات إلى Mailchimp إذا قمت بإرسال هذه الوكالة لاحقًا.",
+          "fieldExample": "vip, summer-2026, eu",
+          "fieldHelp": "افصلها بفواصل أو فواصل منقوطة. تُنشأ عند الإرسال الأول.",
+          "fieldLabel": "العلامات",
+          "title": "العلامات"
+        },
+        "window": {
+          "description": "كلا الطرفين اختياريان — اترك أحد الجانبين فارغًا للمدة غير المحدودة أو المفتوحة.",
+          "endsHelp": "عند انتهاء العلاقة.",
+          "endsLabel": "ينتهي في",
+          "startsHelp": "عند بدء العلاقة.",
+          "startsLabel": "يبدأ في",
+          "title": "نافذة العقد"
+        }
+      },
+      "deleteConfirm": "هل تريد حذف {name}؟\n\nهذا سيزيل الوكالة من الـCRM. لا يؤثر على أي مشترك في Mailchimp تم إنشاؤه من هذا السطر.",
+      "deleteError": "فشل حذف الوكالة.",
+      "empty": "لا توجد وكالات حتى الآن. أضف واحدة أو استورد جدول بيانات.",
+      "filter": {
+        "apply": "تطبيق",
+        "clear": "مسح الفلاتر",
+        "searchPlaceholder": "ابحث عن الاسم أو جهة الاتصال أو البريد الإلكتروني",
+        "statusActive": "نشط",
+        "statusAll": "جميع الحالات",
+        "statusExpired": "منتهي الصلاحية",
+        "statusInactive": "غير نشط"
+      },
+      "import": {
+        "accepts": "يدعم CSV و Excel (xlsx / xls / xlsm / xlsb) و OpenDocument (ods / fods). العمود Name هو الوحيد المطلوب.",
+        "close": "إغلاق",
+        "complete": "اكتمل الاستيراد",
+        "completeSummary": "تم إنشاء {created} من إجمالي {total} صفًا.",
+        "defaultStatus": "الحالة الافتراضية (للصفوف التي لا تحتوي على حالة).",
+        "done": "تم",
+        "empty": "يبدو أن الملف فارغ.",
+        "errorPrefix": "تعذر تحليل الملف",
+        "errorsHeader": "{count} صفوف بها أخطاء:",
+        "errorsMore": "… {count} أخرى",
+        "failed": "فشل الاستيراد.",
+        "importBtn": "استيراد",
+        "importing": "جاري الاستيراد…",
+        "label": {
+          "contact": "جهة الاتصال",
+          "email": "البريد الإلكتروني",
+          "ends": "ينتهي في (YYYY-MM-DD)",
+          "name": "الاسم (مطلوب)",
+          "notes": "ملاحظات",
+          "phone": "الهاتف",
+          "starts": "يبدأ في (YYYY-MM-DD)",
+          "status": "عمود الحالة",
+          "tags": "الوسوم (مفصولة بفواصل أو فواصل منقوطة)"
+        },
+        "needName": "اختر عمودًا لاسم الوكالة أولاً.",
+        "noValid": "لا توجد صفوف تحتوي على اسم غير فارغ.",
+        "notUsed": "— (غير مستخدم) —",
+        "pickAnother": "اختر ملفًا مختلفًا",
+        "pickHint": "انقر للاختيار. سنقرأ الورقة الأولى فقط.",
+        "pickLabel": "اختر جدول بيانات",
+        "subtitle": "يدعم ملفات CSV و Excel و OpenDocument بصيغة جدول بيانات.",
+        "title": "استيراد الوكالات من جدول بيانات",
+        "loaded": "تم تحميل {rowCount, plural, one {# صف} other {# صفوف}} مع {colCount, plural, one {# عمود} other {# أعمدة}}. طابِق كل حقل في CRM مع عمود جدول البيانات الذي يجب أن يأتي منه."
+      },
+      "list": {
+        "agencies": "الوكالات",
+        "loading": "جارٍ تحميل الوكالات…"
+      },
+      "loadError": "فشل تحميل الوكالات.",
+      "noCompany": "اختر شركة من لوحة التحكم لإدارة وكالاتها.",
+      "page": {
+        "next": "الصفحة التالية",
+        "perPage": "لكل صفحة",
+        "prev": "الصفحة السابقة",
+        "range": "{from}–{to} من {total}"
+      },
+      "push": {
+        "auto": "source:crm-agency",
+        "close": "إغلاق",
+        "defaultStatus": "الحالة الافتراضية للمشتركين الجدد",
+        "disabledHint": "اختر الصفوف في هذه الصفحة للدفع (الدفع عبر الصفحات غير مدعوم).",
+        "done": "تم",
+        "extraTagsHelp": "يُضاف إلى كل مشترك مدفوع بالإضافة إلى العلامات الخاصة بكل وكالة. مفصول بفواصل أو فواصل منقوطة.",
+        "extraTagsLabel": "علامات إضافية",
+        "extraTagsPlaceholder": "campaign:spring-2026, region:eu",
+        "failed": "فشل الدفع.",
+        "loadAudiencesFailed": "فشل تحميل جماهير Mailchimp.",
+        "loading": "جارٍ التحميل…",
+        "mailchimpAudience": "جمهور Mailchimp",
+        "noAudiences": "— لا توجد جماهير بعد —",
+        "noEmail": "لا توجد أي من الوكالات المحددة لديها عنوان بريد إلكتروني.",
+        "notConnected": "لم يتم ربط Mailchimp بعد لهذا الحساب. قم بالاتصال عبر Marketing → Email → Settings، ثم عد.",
+        "patchExisting": "تحديث المشتركين الحاليين (مستحسن). إعادة تشغيل هذا الدفع تُحدّث حقول الدمج بدلاً من حدوث خطأ عند التكرارات.",
+        "pickAudience": "اختر جمهورًا أولاً.",
+        "pushBtn": "إرسال إلى Mailchimp",
+        "pushing": "جارٍ الإرسال…",
+        "result": {
+          "header": "اكتمل الإرسال",
+          "summary": "تم إنشاء {created} · تم تحديث {updated} · تم تخطي {skipped} · {errors} أخطاء."
+        },
+        "skippedNotice": "{count, plural, one {{count} من الوكالة المحددة لا يحتوي على بريد إلكتروني وسيتم تخطيه.} other {{count} من الوكالات المحددة لا تحتوي على بريد إلكتروني وسيتم تخطيها.}}",
+        "statusPending": "قيد الانتظار (تأكيد مزدوج)",
+        "statusSubscribed": "مشترك",
+        "statusUnsubscribed": "غير مشترك",
+        "subtitle": "كل وكالة تصبح مشتركًا في Mailchimp. يُطابق الاسم مع FNAME، والاتصال مع LNAME، والهاتف مع PHONE. يتم إضافة الوسم {tag} تلقائيًا.",
+        "summary": "سيتم دفع {eligible} من أصل {total}.",
+        "title": "{count, plural, one {دفع {count} وكالة إلى Mailchimp} other {دفع {count} وكالات إلى Mailchimp}}"
+      },
+      "row": {
+        "actions": {
+          "delete": "حذف",
+          "edit": "تحرير"
+        },
+        "ariaSelect": "اختر {name}",
+        "fromDate": "من {date}",
+        "untilDate": "حتى {date}"
+      },
+      "select": {
+        "allMatchingSelected": "تم اختيار جميع {total} التي تطابق الفلتر الحالي",
+        "ariaAll": "اختر الكل في هذه الصفحة",
+        "bulkDelete": "حذف {count}",
+        "bulkDeleting": "جارٍ الحذف…",
+        "clear": "مسح",
+        "deleteFailed": "لم يتم حذف {failed} من أصل {total}:\n{detail}",
+        "deleteFailedMore": "…و {count} أخرى",
+        "justThisPage": "حدد فقط هذه الصفحة ({count})",
+        "pageFullySelected": "تم اختيار جميع {count} في هذه الصفحة.",
+        "pageSelectedCount": "تم اختيار {count} في هذه الصفحة",
+        "selectAllMatching": "اختر جميع {total} التي تطابق الفلتر الحالي",
+        "confirmDelete": "حذف {count, plural, one {# وكالة} other {# وكالات}}؟\n\nلا يمكن التراجع عن هذا الإجراء."
+      },
+      "table": {
+        "actions": "إجراءات",
+        "contact": "جهة الاتصال",
+        "emailPhone": "البريد الإلكتروني / الهاتف",
+        "name": "الاسم",
+        "status": "الحالة",
+        "tags": "الوسوم",
+        "window": "النافذة"
+      },
+      "title": "الوكالات · {total}"
+    },
     "authBody": "تسجيل الدخول، التسجيل، والتحقق من الجلسة عبر <code>/api/auth</code>",
     "authTitle": "المصادقة",
     "bffBody": "يجب أن تتوقف مكالمات المتصفح عند هذا التطبيق. ستتواصل مسارات الخادم الموثوقة مع خدمة CRM الداخلية.",
@@ -1670,12 +1896,12 @@
       "pickWorkspace": "اختر مساحة عمل لعرض حملاتها.",
       "sources": {
         "form": "نموذج",
-        "google_sheets": "جداول بيانات Google",
+        "google_sheets": "Google Sheets",
         "intranet": "Intranet",
         "manual": "يدوي",
         "meta": "Meta Lead Ads",
         "meta_test": "Meta (اختبار)",
-        "partner_crm": "CRM الشريك",
+        "partner_crm": "Partner CRM",
         "partner_intranet": "Intranet",
         "whatsapp": "WhatsApp",
         "widget": "أداة"
@@ -1696,6 +1922,565 @@
     "ctaCreateWorkspace": "إنشاء وصول إلى مساحة العمل",
     "ctaOpenShell": "فتح القشرة المحمية",
     "currentStack": "المجموعة الحالية",
+    "email": {
+      "audiences": {
+        "actions": {
+          "addMember": "إضافة عضو",
+          "addMemberHint": "إضافة مشترك واحد يدويًا بالبريد الإلكتروني + الاسم + الوسوم",
+          "pushFromCRM": "دفع من CRM",
+          "pushFromCRMHint": "اختر العملاء المحتملين من CRM → إدراج/تحديث دفعي كأعضاء Mailchimp",
+          "uploadCsv": "تحميل جدول بيانات",
+          "uploadCsvHint": "CSV أو Excel أو ODS — عمود البريد الإلكتروني (مُطابق تلقائيًا) + الاسم / الهاتف / الوسوم"
+        },
+        "addMember": {
+          "body": "يضيف أو يُحدّث مشتركًا واحدًا في {audience}. التكرار بنفس البريد الإلكتروني يُحدّث السطر الموجود.",
+          "errEmailRequired": "البريد الإلكتروني مطلوب.",
+          "failed": "تعذر إضافة العضو.",
+          "fields": {
+            "email": "البريد الإلكتروني",
+            "firstName": "الاسم الأول",
+            "lastName": "الاسم الأخير",
+            "phone": "الهاتف",
+            "status": "حالة الاشتراك",
+            "tags": "الوسوم (اختياري)",
+            "tagsHint": "مفصول بفواصل أو فواصل منقوطة. يُنشأ إذا كان مفقودًا."
+          },
+          "hideMore": "إخفاء المزيد من الخيارات",
+          "showMore": "إظهار المزيد من الخيارات (الهاتف، الحالة، الوسوم)",
+          "status": {
+            "pending": "قيد الانتظار (تأكيد مزدوج)",
+            "subscribed": "مشترك",
+            "unsubscribed": "غير مشترك"
+          },
+          "submit": "إضافة عضو",
+          "submitting": "جارٍ الإضافة…",
+          "title": "إضافة مشترك"
+        },
+        "col": {
+          "created": "تاريخ الإنشاء",
+          "members": "الأعضاء",
+          "name": "القائمة",
+          "openRate": "نسبة الفتح"
+        },
+        "create": {
+          "addressFilled": "العنوان مكتمل",
+          "addressRequired": "مطلوب من Mailchimp / CAN-SPAM",
+          "body": "يتطلب Mailchimp عنوانًا بريديًا (CAN-SPAM) ومرسلًا افتراضيًا. يمكنك تعديلهما لاحقًا من إعدادات القائمة.",
+          "contactSection": "العنوان البريدي",
+          "creating": "جاري إنشاء القائمة…",
+          "errAddressRequired": "الشركة والعنوان والمدينة والدولة مطلوبة من Mailchimp.",
+          "errFromRequired": "اسم المرسل الافتراضي + البريد الإلكتروني مطلوبان.",
+          "errNameRequired": "القائمة تحتاج إلى اسم.",
+          "failed": "تعذر إنشاء القائمة.",
+          "fields": {
+            "address": "العنوان",
+            "city": "المدينة",
+            "company": "اسم الشركة / المؤسسة",
+            "country": "الدولة",
+            "defaultSubject": "موضوع الحملة الافتراضي",
+            "fromEmail": "البريد الإلكتروني الافتراضي للمرسل",
+            "fromName": "الاسم الافتراضي للمرسل",
+            "language": "اللغة",
+            "name": "اسم الجمهور",
+            "nameHint": "اختر شيئًا قصيرًا وسهل التذكر — يراه المشغلون في كل مكان.",
+            "namePlaceholder": "مشتركو النشرة الإخبارية",
+            "permissionReminder": "تذكير الإذن",
+            "permissionReminderHint": "يظهر في تذييل البريد الإلكتروني. يستخدمه Mailchimp للامتثال.",
+            "state": "الولاية / المنطقة",
+            "zip": "ZIP / الرمز البريدي"
+          },
+          "hideAdvanced": "إخفاء الخيارات المتقدمة",
+          "showAdvanced": "إظهار الخيارات المتقدمة",
+          "step1Body": "اختر اسمًا قصيرًا ومميزًا — يراه المشغلون في كل مكان وتشير الحملات إلى هذه القائمة.",
+          "step1Title": "قم بتسمية جمهورك",
+          "step2Body": "مطلوب من Mailchimp + قانون CAN-SPAM. يُعاد استخدامه في كل حملة تُرسل إلى هذه القائمة.",
+          "step2Title": "العنوان البريدي",
+          "step3Body": "يظهر اسمه وبريده الإلكتروني في كل حملة تُرسل إلى هذه القائمة. يمكنك تعديل ذلك لكل حملة لاحقًا.",
+          "step3Title": "المرسل الافتراضي",
+          "submit": "إنشاء جمهور",
+          "title": "جمهور جديد"
+        },
+        "csv": {
+          "body": "حمّل ملف .csv لإضافة أو تحديث المشتركين دفعة واحدة في {audience}. عمود البريد الإلكتروني مطلوب؛ يتم اكتشاف الاسم الأول/الاسم الأخير/الهاتف/الوسوم تلقائيًا.",
+          "done": "اكتمل الاستيراد.",
+          "errChunk": "فشل دفعة — استيراد جزئي. راجع الأعداد أدناه.",
+          "errEmailColRequired": "اختر العمود الذي يحتوي على عنوان البريد الإلكتروني.",
+          "errEmpty": "الملف لا يحتوي على أي صفوف.",
+          "errNoValidRows": "لا توجد صفوف تحتوي على بريد إلكتروني صالح — تحقق من تعيين عمود البريد الإلكتروني.",
+          "errParse": "تعذر تحليل ملف CSV.",
+          "import": "بدء الاستيراد",
+          "importing": "جارٍ الاستيراد… {processed} من {total}",
+          "map": {
+            "email": "عمود البريد الإلكتروني",
+            "fname": "عمود الاسم الأول (اختياري)",
+            "lname": "عمود الاسم الأخير (اختياري)",
+            "phone": "عمود الهاتف (اختياري)",
+            "status": "الحالة الافتراضية للمشتركين الجدد",
+            "tags": "عمود الوسوم (اختياري)"
+          },
+          "pickFile": "انقر لاختيار ملف جدول بيانات",
+          "pickHint": "CSV أو Excel (.xlsx / .xls) أو OpenDocument (.ods). تُقرأ الورقة الأولى؛ يجب أن تكون الصف الأول هو رؤوس الأعمدة.",
+          "rowsDetected": "{count} صفوف جاهزة للاستيراد.",
+          "stat": {
+            "created": "تم الإنشاء",
+            "errors": "أخطاء",
+            "updated": "تم التحديث"
+          },
+          "title": "تحميل جدول بيانات",
+          "updateExisting": "تحديث المشتركين الحاليين أيضًا (مستحسن)"
+        },
+        "emptyBody": "أنشئ قائمة في Mailchimp أولاً — ستظهر هنا بعد التحديث التالي.",
+        "emptyTitle": "لا توجد قوائم بعد",
+        "loadFailed": "فشل تحميل الجماهير.",
+        "loading": "جارٍ تحميل الجماهير…",
+        "members": {
+          "close": "إغلاق",
+          "col": {
+            "email": "البريد الإلكتروني",
+            "lastChanged": "آخر تعديل",
+            "status": "الحالة"
+          },
+          "empty": "لا يوجد أعضاء في هذه الفئة بعد.",
+          "loadFailed": "فشل في تحميل الأعضاء.",
+          "loading": "جارٍ تحميل الأعضاء…",
+          "next": "التالي",
+          "page": "الصفحة {current} من {total}",
+          "prev": "السابق",
+          "total": "إجمالي الأعضاء"
+        },
+        "newAudience": "جمهور جديد",
+        "push": {
+          "allStatuses": "جميع الحالات",
+          "body": "اختر العملاء المحتملين في CRM → ادفعهم كأعضاء في {audience}. يتم تخطي العملاء المحتملين الذين لا يملكون بريدًا إلكترونيًا.",
+          "clear": "مسح",
+          "col": {
+            "email": "البريد الإلكتروني",
+            "name": "الاسم",
+            "outcome": "النتيجة",
+            "reason": "السبب",
+            "status": "الحالة"
+          },
+          "empty": "لا توجد عملاء محتملين تطابق الفلاتر الحالية.",
+          "errNoneSelected": "اختر على الأقل Lead واحد.",
+          "failed": "تعذر دفع Leads.",
+          "loadFailed": "تعذر تحميل Leads من CRM.",
+          "loading": "جارٍ تحميل Leads…",
+          "noEmail": "لا بريد إلكتروني — تم التجاوز",
+          "searchPlaceholder": "ابحث عن الاسم، البريد الإلكتروني، الهاتف، الملاحظات…",
+          "selectAll": "تحديد كل ما هو مرئي",
+          "selected": "{count} مختار",
+          "stat": {
+            "created": "تم الإنشاء",
+            "errors": "أخطاء",
+            "skipped": "تم التجاوز",
+            "updated": "تم التحديث"
+          },
+          "submit": "دفع {count} Lead",
+          "submitting": "جارٍ الدفع…",
+          "title": "دفع من CRM",
+          "visible": "{count} مرئي"
+        },
+        "refresh": "تحديث",
+        "subtabs": {
+          "fields": "الحقول",
+          "members": "الأعضاء",
+          "segments": "الشرائح",
+          "tags": "الوسوم",
+          "webhooks": "Webhooks"
+        },
+        "title": "الجماهير",
+        "viewMembers": "عرض الأعضاء"
+      },
+      "automations": {
+        "actionFailed": "فشل الإجراء. راجع خطأ Mailchimp أعلاه.",
+        "actions": {
+          "pauseAll": "إيقاف جميع رسائل البريد الإلكتروني",
+          "startAll": "بدء جميع رسائل البريد الإلكتروني"
+        },
+        "col": {
+          "audience": "الجمهور",
+          "emailsSent": "الرسائل المرسلة",
+          "status": "الحالة",
+          "title": "سير العمل"
+        },
+        "designerHint": "مصمم رحلة العميل موجود في واجهة Mailchimp الخاصة — لا تُتيح Mailchimp إنشاء المحتوى عبر API. أوقف/ابدأ رسائل البريد الإلكتروني لكل سير عمل من هنا دون الحاجة لتبديل السياق.",
+        "emptyBody": "أنشئ سير العمل في مصمم رحلة العميل الخاص بـ Mailchimp؛ سيظهر هنا.",
+        "emptyTitle": "لا توجد أتمتة بعد",
+        "loadFailed": "فشل تحميل الأتمتة.",
+        "loading": "جارٍ تحميل الأتمتة…",
+        "refresh": "تحديث",
+        "title": "الأتمتة / رحلات العميل"
+      },
+      "campaigns": {
+        "abtest": {
+          "criteria": {
+            "clicks": "أكثر النقرات",
+            "manual": "اختيار يدوي",
+            "opens": "أكثر الفتحات"
+          },
+          "fromNameB": "اسم المرسل — المتغيّر ب (اختياري)",
+          "fromNameBPlaceholder": "اسم مرسل مختلف",
+          "hint": "يقوم Mailchimp بإرسال كل نسخة إلى {percent}% من جمهورك، ينتظر {hours} ساعة، ثم يرسل الفائز إلى البقية.",
+          "subjectB": "سطر الموضوع — المتغيّر ب",
+          "subjectBPlaceholder": "موضوع بديل للاختبار",
+          "testPercent": "نسبة الجمهور للاختبار %",
+          "toggle": "اختبار A/B لهذه الحملة",
+          "toggleHint": "إرسال سطرين للموضوع (و/أو أسماء المرسل) إلى عينة، ثم إرسال الفائز تلقائيًا إلى البقية.",
+          "waitHours": "الانتظار قبل اختيار الفائز (ساعات)",
+          "winnerCriteria": "معايير الفائز"
+        },
+        "actionFailed": "فشل الإجراء. انظر الخطأ الخاص بـ Mailchimp أعلاه.",
+        "actions": {
+          "delete": "حذف",
+          "pause": "إيقاف مؤقت",
+          "resume": "متابعة",
+          "schedule": "جدولة",
+          "send": "إرسال",
+          "test": "إرسال اختبار",
+          "unschedule": "إلغاء الجدولة"
+        },
+        "audiencesEmpty": "لا توجد جماهير بعد — أنشئ واحدة أولاً.",
+        "col": {
+          "audience": "الجمهور",
+          "created": "تم الإنشاء",
+          "status": "الحالة",
+          "subject": "الموضوع"
+        },
+        "confirmDelete": "هل تريد حذف هذه الحملة نهائيًا؟ التقارير الأخيرة لن تكون قابلة للحذف لاحقًا.",
+        "confirmSend": "هل تريد إرسال \"{subject}\" إلى {audience} الآن؟ سيبدأ هذا الإرسال الفوري ولا يمكن التراجع عنه.",
+        "createBody": "تُحفظ المسودات في Mailchimp فورًا؛ يمكنك الإرسال من الصف أعلاه عندما تكون جاهزًا.",
+        "createFailed": "تعذر إنشاء الحملة.",
+        "createSubmit": "إنشاء مسودة",
+        "createTitle": "حملة بريد إلكتروني جديدة",
+        "creating": "جارٍ إنشاء المسودة…",
+        "deleteFailed": "تعذر حذف الحملة.",
+        "emptyBody": "انقر على \"حملة جديدة\" لإنشاء أول حملة لك.",
+        "emptyTitle": "لا توجد حملات بعد",
+        "errAudienceRequired": "اختر جمهورًا أولاً.",
+        "errFromRequired": "يتطلب Mailchimp اسم المرسل وعنوان الردّ كلاهما.",
+        "errSubjectRequired": "حدد موضوعًا للحملة.",
+        "fields": {
+          "audience": "الجمهور",
+          "audiencePlaceholder": "اختر جمهورًا…",
+          "fromName": "اسم المرسل",
+          "hidePreview": "إخفاء المعاينة",
+          "htmlBody": "محتوى HTML",
+          "htmlHint": "Mailchimp يقبل HTML خام أو وسوم دمج مثل {{FNAME|there}}. محرر السحب والإفلات موجود في واجهة Mailchimp نفسها.",
+          "internalTitle": "العنوان الداخلي (اختياري)",
+          "internalTitlePlaceholder": "يُستخدم للبحث في Mailchimp؛ الافتراضي هو الموضوع",
+          "replyTo": "البريد الإلكتروني للرد",
+          "showPreview": "إظهار المعاينة",
+          "subject": "سطر الموضوع",
+          "subjectPlaceholder": "ما سيظهر في صندوق بريد المستلم",
+          "template": "ابدأ من قالب (اختياري)",
+          "templateHint": "اختيار قالب يملأ محتوى HTML أدناه — لا يزال بإمكانك تحريره قبل الحفظ.",
+          "templatePlaceholder": "HTML مخصص — لا قالب",
+          "templatesEmpty": "لا توجد قوالب محفوظة بعد"
+        },
+        "hideAdvanced": "إخفاء المتقدم",
+        "loadFailed": "فشل تحميل الحملات.",
+        "loading": "جارٍ تحميل الحملات…",
+        "newCampaign": "حملة جديدة",
+        "page": "الصفحة {current} من {total}",
+        "refresh": "تحديث",
+        "schedule": {
+          "confirm": "جدولة الإرسال",
+          "confirmUnschedule": "إلغاء الجدولة؟ تعود الحملة إلى حالة المسودة لتتمكن من تعديلها.",
+          "errTimeRequired": "اختر وقت الإرسال.",
+          "failed": "تعذر جدولة الحملة — راجع رسالة Mailchimp.",
+          "hint": "يقوم Mailchimp بالتقريب إلى أقرب 15 دقيقة. الخطط المجانية تتطلب مهلة مقدمة لا تقل عن 30 دقيقة.",
+          "scheduling": "جارٍ الجدولة…",
+          "sendAt": "الإرسال في (بتوقيتك المحلي)",
+          "timewarp": "الإرسال بتوقيت المستلم المحلي (Timewarp)",
+          "timewarpHint": "يقوم Mailchimp بإرسال نسخة كل مشترك عندما يكون الوقت المختار في منطقته الزمنية.",
+          "title": "جدولة الحملة"
+        },
+        "sendFailed": "تعذر إرسال الحملة.",
+        "showAdvanced": "إظهار المتقدم",
+        "step1Title": "لمن هذا البريد الإلكتروني؟",
+        "step2Title": "من المرسل؟",
+        "step3Title": "صمم بريدك الإلكتروني",
+        "test": {
+          "emailsHint": "مفصولة بفواصل أو بفواصل منقوطة أو بأسطر جديدة.",
+          "emailsLabel": "المستلمون التجريبيون",
+          "emailsRequired": "يجب إدخال بريد إلكتروني تجريبي واحد على الأقل.",
+          "failed": "تعذر إرسال البريد التجريبي.",
+          "format": "الصيغة",
+          "plaintext": "نص عادي",
+          "send": "إرسال اختبار",
+          "sending": "جارٍ الإرسال…",
+          "sent": "تم وضع البريد التجريبي في قائمة الانتظار. تحقق من صندوق الوارد خلال ~1 دقيقة.",
+          "title": "إرسال بريد تجريبي"
+        },
+        "title": "الحملات",
+        "wizard": {
+          "step1Body": "اختر الجمهور الذي سيتلقى هذه الحملة.",
+          "step1Title": "إلى من سيُرسل هذا البريد الإلكتروني؟",
+          "step2Body": "سطر الموضوع + معلومات المرسل التي يراها المستلمون في صندوق الوارد.",
+          "step2Title": "الموضوع والمرسل",
+          "step3Body": "ابدأ من قالب محفوظ أو أنشئ من الصفر — المعاينة الحية على اليمين تُظهر ما يراه المستلمون.",
+          "step3Title": "صمم بريدك الإلكتروني"
+        }
+      },
+      "connectCta": "ربط Mailchimp",
+      "connectedHeader": "حساب Mailchimp المرتبط",
+      "domains": {
+        "add": "إضافة نطاق",
+        "addEmailLabel": "البريد الإلكتروني على النطاق للمصادقة",
+        "addFailed": "تعذر بدء التحقق.",
+        "addHint": "ترسل Mailchimp رمز التحقق إلى هذا العنوان. تأكد من إمكانية استلام البريد هناك.",
+        "adding": "جارٍ إرسال الرمز…",
+        "body": "صادق على نطاق الإرسال الخاص بك (DKIM / SPF). النطاقات المصادقة تحصل على درجات ثقة أعلى وتتفادى علامات Omnivore (مكافحة الإساءة من Mailchimp).",
+        "codePlaceholder": "رمز التحقق من البريد الإلكتروني",
+        "confirmDelete": "هل تريد إزالة هذا النطاق؟ سيتعين عليك إعادة التحقق منه لإرسال الرسائل منه مرة أخرى.",
+        "delete": "إزالة",
+        "deleteFailed": "تعذر إزالة النطاق.",
+        "dkimHint": "بعد التحقق، أكمل إعداد DKIM / DMARC في واجهة Mailchimp (Account → Domains → Authenticate). إعداد مستوى سجل DNS غير متاح عبر API.",
+        "empty": "لم يتم إضافة أي نطاق بعد. أضف نطاق الإرسال أعلاه للبدء.",
+        "errCodeRequired": "الصق الرمز من بريد Mailchimp.",
+        "errEmailRequired": "البريد الإلكتروني مطلوب.",
+        "loadFailed": "فشل في تحميل النطاقات.",
+        "loading": "جارٍ تحميل النطاقات…",
+        "statusAuthenticated": "تم التحقق + تم توثيق DKIM",
+        "statusPending": "قيد الانتظار — الصق رمز التحقق من البريد أدناه",
+        "statusVerified": "تم التحقق — أكمل إعداد DKIM في واجهة Mailchimp",
+        "title": "النطاقات التي تم التحقق منها",
+        "verify": "تحقق",
+        "verifyFailed": "فشل التحقق — تحقق من الرمز."
+      },
+      "images": {
+        "body": "اختر صورة من مكتبة Mailchimp الخاصة بك، أو حمّل صورة جديدة (حد أقصى 10 ميغابايت)، أو الصق عنوان URL عام.",
+        "confirmDelete": "هل تريد حذف هذه الصورة؟ الحملات التي تشير إليها ستستمر في العمل (Mailchimp يحتفظ بالملف).",
+        "delete": "حذف",
+        "deleteFailed": "تعذر حذف الصورة.",
+        "empty": "لم يتم تحميل أي صور بعد. انتقل إلى التحميل لإضافة الأولى.",
+        "errNoUrl": "قبل Mailchimp التحميل لكنه لم يُرجِع أي عنوان URL.",
+        "errTooLarge": "الحد الأقصى لحجم الملف في Mailchimp هو 10 ميغابايت.",
+        "insertUrl": "إدراج URL",
+        "loadFailed": "فشل تحميل مكتبة الصور.",
+        "loading": "جارٍ تحميل المكتبة…",
+        "modes": {
+          "library": "المكتبة",
+          "upload": "تحميل جديد",
+          "url": "عن طريق URL"
+        },
+        "pickFile": "انقر لاختيار صورة",
+        "pickHint": "PNG، JPG، GIF، SVG حتى 10 ميغابايت",
+        "title": "اختر أو حمّل صورة",
+        "uploadFailed": "فشل التحميل — راجع رسالة Mailchimp.",
+        "uploading": "جارٍ الرفع…",
+        "urlHint": "قد يقوم Mailchimp بتخزين الصورة مؤقتًا على شبكة CDN الخاصة به؛ استخدام مدير الملفات (علامة التبويب تحميل) أكثر موثوقية.",
+        "urlLabel": "عنوان URL للصورة العامة"
+      },
+      "loadFailed": "تعذر تحميل اتصال Mailchimp الخاص بك.",
+      "manageConnection": "إدارة الاتصال",
+      "merge": {
+        "cancelNew": "إلغاء",
+        "col": {
+          "name": "الاسم",
+          "required": "مطلوب",
+          "tag": "وسم الدمج",
+          "type": "النوع"
+        },
+        "confirmDelete": "هل تريد حذف هذا الحقل؟ سيتم حذف بيانات الأعضاء في هذا العمود أيضًا.",
+        "count": "إجمالي {count} حقل",
+        "create": "إنشاء حقل",
+        "createFailed": "تعذر إنشاء الحقل.",
+        "creating": "جارٍ الإنشاء…",
+        "delete": "حذف",
+        "deleteFailed": "تعذر حذف الحقل.",
+        "empty": "لا توجد حقول مخصصة بعد — لا تزال أعمدة Mailchimp الافتراضية FNAME / LNAME تعمل.",
+        "errRequired": "العلامة + الاسم مطلوبان.",
+        "fields": {
+          "defaultValue": "القيمة الافتراضية (اختياري)",
+          "name": "الاسم المعروض",
+          "required": "مطلوب في نماذج التسجيل",
+          "tag": "علامة الدمج (≤10 أحرف، بأحرف كبيرة)",
+          "type": "النوع"
+        },
+        "hint": "استخدم علامات الدمج في الحملات + القوالب كـ *|TAG|*، مثال: \"Welcome *|FNAME|*\".",
+        "loadFailed": "فشل تحميل حقول الدمج.",
+        "loading": "جارٍ تحميل حقول الدمج…",
+        "newField": "حقل جديد"
+      },
+      "noCompanyBody": "اختر مساحة عمل من لوحة التحكم لإدارة وحدة البريد الإلكتروني الخاصة بها.",
+      "noCompanyTitle": "اختر مساحة عمل",
+      "notConnectedBody": "ربط حساب Mailchimp الخاص بك لإدارة الجماهير والحملات والتقارير دون مغادرة CRM. كل مشغل يجلب اتصاله الخاص.",
+      "notConnectedTitle": "Mailchimp غير متصل بعد",
+      "openIntegrationDetail": "فتح إعدادات التكامل",
+      "overview": {
+        "actions": {
+          "newAudience": "جمهور جديد",
+          "newCampaign": "حملة جديدة",
+          "newTemplate": "قالب جديد",
+          "reports": "التقارير"
+        },
+        "gettingStartedTitle": "ابدأ في 4 خطوات سريعة",
+        "kpi": {
+          "audiences": "الجماهير",
+          "clickRateSub": "{rate}% متوسط معدل النقر",
+          "openRate": "متوسط معدل الفتح",
+          "sentCampaigns": "الحملات المرسلة",
+          "subscribers": "إجمالي المشتركين"
+        },
+        "loadFailed": "تعذر تحميل النظرة العامة.",
+        "loading": "جارٍ تحميل النظرة العامة…",
+        "noCampaigns": "لا توجد حملات بعد — أنشئ حملتك الأولى.",
+        "noReports": "لا توجد تقارير بعد — تظهر بعد الإرسال الأول.",
+        "quickActionsTitle": "الإجراءات السريعة",
+        "recentCampaigns": "الحملات الأخيرة",
+        "recentReports": "التقارير الأخيرة",
+        "recipients": "المستلمين",
+        "step1": "إنشاء أو استيراد جمهور (استخدم \"Audiences → Upload CSV\" إذا كان لديك جدول بيانات).",
+        "step2": "اختياري: احفظ قالبًا قابلاً لإعادة الاستخدام تحت \"Templates\".",
+        "step3": "أنشئ حملتك الأولى — اختر الجمهور، العنوان، المحتوى.",
+        "step4": "أرسل اختبارًا لنفسك، ثم أرسل فعليًا أو جدوله.",
+        "viewAll": "عرض الكل"
+      },
+      "reports": {
+        "col": {
+          "clicks": "النقرات",
+          "opens": "الفتح",
+          "recipients": "المستلمون",
+          "sent": "المرسلة",
+          "subject": "الحملة"
+        },
+        "deepLinkHint": "لعرض خريطة الحرارة، مقارنة A/B، والنشاط الكامل للبريد الإلكتروني، افتح الحملة في واجهة Mailchimp.",
+        "detailFailed": "فشل تحميل التقرير الكامل.",
+        "details": "التفاصيل",
+        "emptyBody": "تظهر التقارير هنا بعد إرسال الحملة الأولى.",
+        "emptyTitle": "لا تقارير بعد",
+        "geoEmpty": "لا توجد بيانات جغرافية — تقوم Mailchimp بإنشائها مع تزايد الفتحات.",
+        "geoTitle": "أفضل المواقع",
+        "kpi": {
+          "bounces": "الارتدادات",
+          "clicks": "النقرات الفريدة",
+          "hardBounces": "{count} صعب",
+          "opens": "الفتح الفريد",
+          "sent": "المستلمون"
+        },
+        "loadFailed": "فشل تحميل التقارير.",
+        "loading": "جارٍ تحميل التقارير…",
+        "loadingDetail": "جارٍ تحميل التفاصيل…",
+        "opens": "الفتح",
+        "title": "تقارير الحملة"
+      },
+      "segments": {
+        "col": {
+          "members": "الأعضاء",
+          "name": "الاسم",
+          "type": "النوع",
+          "updated": "تم التحديث"
+        },
+        "confirmDelete": "هل تريد حذف هذا القسم؟ يبقى الأعضاء في الجمهور؛ يُزال القسم فقط.",
+        "count": "{count} قسم",
+        "create": "إنشاء",
+        "createBody": "الأقسام الثابتة هي قائمة مختارة يدويًا من عناوين البريد الإلكتروني. لاستخدام الأقسام القائمة على الشروط (المحفوظة) استخدم واجهة Mailchimp — ستظهر هنا عند التحديث.",
+        "createFailed": "تعذر إنشاء القسم.",
+        "createTitle": "قسم ثابت جديد",
+        "creating": "جارٍ الإنشاء…",
+        "delete": "حذف",
+        "deleteFailed": "تعذر حذف القسم.",
+        "empty": "لا توجد أقسام بعد. الأقسام الثابتة هي قوائم مختارة يدويًا؛ الأقسام المحفوظة هي مرشحات قائمة على الشروط.",
+        "errNameRequired": "المقطع يحتاج إلى اسم.",
+        "fields": {
+          "emails": "عناوين بريد الأعضاء",
+          "emailsHint": "واحد في كل سطر أو مفصول بفواصل. يتم إضافة الأعضاء الموجودين فقط في الجمهور.",
+          "name": "اسم المقطع"
+        },
+        "loadFailed": "فشل تحميل المقاطع.",
+        "loading": "جارٍ تحميل المقاطع…",
+        "newStatic": "مقطع ثابت جديد"
+      },
+      "settingsHint": "الإعدادات موجودة ضمن التكاملات → Mailchimp. الشارة أعلاه للقراءة فقط.",
+      "settingsTitle": "إعدادات الاتصال",
+      "subtabAria": "أقسام وحدة البريد الإلكتروني",
+      "subtabComingSoon": "هذا القسم سيظهر في خطوة لاحقة. الاتصال جاهز؛ الواجهة لم تُربط بعد.",
+      "tabs": {
+        "audiences": "الجماهير",
+        "automations": "الأتمتة",
+        "campaigns": "الحملات",
+        "overview": "نظرة عامة",
+        "reports": "التقارير",
+        "settings": "الإعدادات",
+        "templates": "القوالب"
+      },
+      "tags": {
+        "empty": "لا توجد وسوم في هذا الجمهور بعد. أضف وسومًا للأعضاء عبر 'Add member' أو تحميل ملف CSV.",
+        "emptySearch": "لا توجد وسوم تطابق \"{query}\".",
+        "hint": "يتم إنشاء الوسوم فور تطبيقها على عضو (Add member، تحميل CSV، أو الدفع من CRM).",
+        "loadFailed": "فشل تحميل الوسوم.",
+        "loading": "جارٍ تحميل الوسوم…",
+        "searchPlaceholder": "ابحث عن اسم الوسم…"
+      },
+      "templates": {
+        "actions": {
+          "delete": "حذف",
+          "edit": "تحرير",
+          "preview": "معاينة"
+        },
+        "col": {
+          "category": "الفئة",
+          "created": "تم الإنشاء",
+          "name": "الاسم"
+        },
+        "confirmDelete": "هل تريد حذف هذا القالب نهائيًا؟ الحملات التي تشير إليه ستستمر في العمل — فهي تُلتقط نسخة من HTML عند الإرسال.",
+        "create": "إنشاء قالب",
+        "createTitle": "قالب جديد",
+        "deleteFailed": "تعذر حذف القالب.",
+        "editTitle": "تحرير القالب",
+        "emptyBody": "أنشئ القالب الأول الخاص بك — يمكن للحملات إعادة استخدامه دون إعادة كتابة HTML.",
+        "emptyTitle": "لا توجد قوالب بعد",
+        "errHtmlRequired": "محتوى القالب لا يمكن أن يكون فارغًا.",
+        "errNameRequired": "يجب أن يكون للقالب اسم.",
+        "fields": {
+          "html": "محتوى HTML",
+          "htmlHint": "HTML خام. علامات الدمج مثل {{FNAME|there}} تعمل بنفس طريقة الحملات.",
+          "name": "اسم القالب",
+          "namePlaceholder": "رسالة ترحيب"
+        },
+        "loadFailed": "فشل تحميل القوالب.",
+        "loading": "جارٍ تحميل القوالب…",
+        "loadingBody": "جارٍ تحميل محتوى القالب…",
+        "newTemplate": "قالب جديد",
+        "preview": "معاينة مباشرة",
+        "previewHint": "يعرض HTML داخل إطار iframe معزول (السكربتات معطلة). تظل وسوم دمج Mailchimp مثل {{FNAME|there}} مرئية — يتم استبدالها عند الإرسال.",
+        "refresh": "تحديث",
+        "saveFailed": "تعذر حفظ القالب.",
+        "saving": "جارٍ الحفظ…",
+        "title": "القوالب",
+        "update": "حفظ التغييرات"
+      },
+      "webhooks": {
+        "confirmDelete": "هل تريد حذف اشتراك webhook هذا؟ توقف Mailchimp عن إرسال POST للأحداث إلى هذا URL.",
+        "count": "{count} webhook(s)",
+        "create": "إنشاء webhook",
+        "createBody": "ستقوم Mailchimp بإرسال POST للأحداث إلى URL الخاص بك. الأهداف الشائعة: تدفق n8n، inbound/mailchimp/<token>.",
+        "createFailed": "تعذر إنشاء webhook.",
+        "createTitle": "الاشتراك في أحداث الجمهور",
+        "creating": "جارٍ الإنشاء…",
+        "delete": "حذف",
+        "deleteFailed": "تعذر حذف webhook.",
+        "empty": "لم يتم الاشتراك بأي webhook حتى الآن.",
+        "errUrlRequired": "يجب أن يبدأ URL بـ https://",
+        "fields": {
+          "events": "الأحداث المراد الاستماع إليها",
+          "sources": "مصادر الحدث (من قام بتفعيله)",
+          "url": "Webhook URL (https://)"
+        },
+        "hint": "Mailchimp لا يوقع webhooks القوائم. اعتبر URL هو السر الوحيد؛ لا تقم بتسجيله.",
+        "loadFailed": "فشل تحميل webhooks.",
+        "loading": "جارٍ تحميل webhooks…",
+        "noEvents": "(لم يتم اختيار أي أحداث)"
+      },
+      "wizard": {
+        "back": "رجوع",
+        "fillRequired": "املأ الحقل المطلوب أعلاه",
+        "next": "التالي",
+        "submit": "إنشاء",
+        "submitting": "جارٍ الإنشاء…"
+      }
+    },
     "heroEyebrow": "منصة CRM صوتية الأصل",
     "heroLead": "يجمع Lisent CRM بين المصادقة، وسير العمل المتوافق مع المستأجر، وإعداد الملف الشخصي المستورد، وواجهة تطبيق محمية لمشغلي الشركة. يمتلك تطبيق الويب تدفقات موجهة للمستخدم. تبقى خدمة Go CRM خلف حدود backend موثوقة.",
     "heroTitle": "فهم النية، وليس مجرد الكلمات.",
@@ -1708,6 +2493,7 @@
       "ts": "TypeScript + Tailwind CSS 4"
     },
     "tabs": {
+      "agencies": "الوكالات",
       "aria": "أقسام التسويق",
       "campaigns": "الحملات",
       "email": "البريد الإلكتروني",
@@ -1720,11 +2506,11 @@
   "nav": {
     "brandName": "Lisent CRM",
     "calendar": "التقويم",
-    "closeNavigation": "إغلاق التنقل",
+    "closeNavigation": "إغلاق القائمة",
     "customerImport": "استيراد العملاء",
     "customers": "العملاء",
-    "dashboard": "لوحة التحكم",
-    "deals": "الصفقات",
+    "dashboard": "Dashboard",
+    "deals": "Deals",
     "help": "المساعدة والموارد",
     "import": "استيراد",
     "integrations": "التكاملات",
@@ -1733,7 +2519,7 @@
     "lisentWorkspace": "مساحة عمل Lisent",
     "marketing": "التسويق",
     "navigation": "التنقل",
-    "openNavigation": "فتح التنقل",
+    "openNavigation": "فتح القائمة",
     "overview": "نظرة عامة",
     "primary": "أساسي",
     "quickCreate": "إنشاء سريع",
@@ -1768,16 +2554,16 @@
       "title": "التقويم"
     },
     "customers": {
-      "description": "جميع سجلات عملائك في مكان واحد.",
+      "description": "جميع سجلات العملاء في مكان واحد.",
       "title": "العملاء"
     },
     "dashboard": {
       "description": "نظرة عامة على مساحة العمل وإجراءات سريعة.",
-      "title": "لوحة التحكم"
+      "title": "Dashboard"
     },
     "deals": {
       "description": "تتبع الصفقات المفتوحة وقيمة مسار المبيعات.",
-      "title": "الصفقات"
+      "title": "Deals"
     },
     "imports": {
       "description": "استيراد بيانات العملاء إلى مساحة العمل الخاصة بك.",
@@ -1804,8 +2590,8 @@
       "title": "المهام"
     },
     "workspace": {
-      "description": "إعدادات مساحة العمل والأعضاء.",
-      "title": "مساحة العمل"
+      "description": "إعدادات Workspace والأعضاء.",
+      "title": "Workspace"
     }
   },
   "qualifier": {
@@ -1858,7 +2644,7 @@
       "loadWorkspace": "فشل في تحميل مساحة العمل.",
       "noEligibleTeammate": "لا يوجد زميل مؤهل متاح.",
       "onlyCreatorCanDelete": "يمكن لمنشئ المهمة فقط حذف هذه المهمة.",
-      "publish": "فشل في نشر المهمة.",
+      "publish": "فشل نشر المهمة.",
       "titleRequired": "العنوان مطلوب.",
       "update": "فشل في تحديث المهمة."
     },
@@ -1869,7 +2655,7 @@
       "due": "المستحق",
       "dueDate": "تاريخ الاستحقاق",
       "notes": "ملاحظات",
-      "publishedBy": "نُشر بواسطة",
+      "publishedBy": "نشر بواسطة",
       "title": "العنوان"
     },
     "filter": {
@@ -1889,7 +2675,7 @@
     "myTasks": {
       "description": "المهام المعيّنة لك في مساحة العمل هذه.",
       "eyebrow": "مهامي",
-      "heading": "مهامي"
+      "heading": "مهامى"
     },
     "noDueDate": "لا تاريخ استحقاق",
     "noExtraNotes": "لا ملاحظات إضافية.",
@@ -1903,7 +2689,7 @@
       "notes": "أضف تفاصيل حول هذه المهمة...",
       "title": "عنوان المهمة"
     },
-    "publishedBy": "نُشر بواسطة",
+    "publishedBy": "نُشر بواسطة {name}",
     "responseStatus": {
       "accepted": "مقبول",
       "pending": "قيد الانتظار",
@@ -1928,9 +2714,9 @@
     },
     "summary": {
       "company": "الشركة",
-      "inProgressDone": "قيد التنفيذ · منجز",
-      "myPending": "قيد الانتظار",
-      "openTickets": "مفتوح"
+      "inProgressDone": "{inProgress} قيد التنفيذ · {done} منجز",
+      "myPending": "{count} قيد الانتظار",
+      "openTickets": "{count} مفتوحة"
     },
     "systemUser": "النظام",
     "teammatesCount": "{count} زملاء",
@@ -1950,7 +2736,7 @@
     },
     "cantRemove": "لا يمكنك إزالة نفسك.",
     "columns": {
-      "actions": "الإجراءات",
+      "actions": "إجراءات",
       "dateAdded": "تاريخ الإضافة",
       "lastActive": "آخر نشاط",
       "name": "الاسم",
@@ -1973,6 +2759,25 @@
       "role": "الدور"
     },
     "member": "عضو",
+    "moduleAccess": {
+      "discard": "إلغاء",
+      "empty": "لا يوجد أعضاء فريق لإدارتهم — الملاك دائمًا لديهم الوصول الكامل.",
+      "granted": "ممنوح",
+      "loadError": "فشل تحميل أذونات الوصول.",
+      "loading": "جارٍ التحميل…",
+      "module": {
+        "marketingAgencies": "التسويق · الوكالات"
+      },
+      "noAccess": "لا يوجد وصول",
+      "role": "الدور",
+      "save": "حفظ التغييرات",
+      "saveError": "فشل حفظ التغييرات.",
+      "saving": "جارٍ الحفظ…",
+      "subtitle": "يستطيع المالكون دائمًا رؤية جميع الوحدات. استخدم أزرار التبديل لمنح كل عضو في الفريق وصولًا إلى وحدة محددة.",
+      "teamMember": "عضو الفريق",
+      "title": "وصول الوحدة",
+      "unsaved": " · غير محفوظ"
+    },
     "noEmail": "لا يوجد بريد إلكتروني مسجل",
     "noPermission": "ليس لديك صلاحية إدارة أعضاء الفريق.",
     "placeholders": {
@@ -1981,14 +2786,14 @@
     "removeMember": "إزالة العضو",
     "removeModal": {
       "confirm": "إزالة العضو",
-      "description": "{company} سيفقد الوصول إلى مساحة العمل هذه فوراً.",
+      "description": "{name} سيفقد الوصول إلى مساحة العمل هذه فوراً.",
       "eyebrow": "إزالة عضو الفريق",
       "removing": "جارٍ الإزالة...",
       "title": "إزالة عضو الفريق؟"
     },
     "roleModal": {
       "confirm": "تغيير الدور",
-      "description": "تحديث دور في مساحة العمل هذه.",
+      "description": "تحديث دور {name} في مساحة العمل هذه.",
       "eyebrow": "تغيير الدور",
       "title": "تغيير الدور",
       "to": "إلى",
@@ -2013,15 +2818,15 @@
     "demoUser": "مستخدم تجريبي",
     "openMenu": "فتح قائمة الحساب",
     "signOut": "تسجيل الخروج",
-    "workspaceUser": "مستخدم مساحة العمل"
+    "workspaceUser": "مستخدم Workspace"
   },
   "validation": {
     "firstNameRequired": "الاسم مطلوب.",
     "firstNameTooShort": "يجب أن يكون الاسم على الأقل حرفين.",
     "genderInvalid": "اختر خيار جنس صالح.",
-    "genderRequired": "الجنس مطلوب.",
+    "genderRequired": "النوع مطلوب.",
     "languageInvalid": "اختر لغة صالحة.",
-    "lastNameRequired": "اللقب مطلوب.",
+    "lastNameRequired": "اسم العائلة مطلوب.",
     "lastNameTooShort": "يجب أن يكون اللقب على الأقل حرفين.",
     "phoneInvalid": "أدخل رقم هاتف صالح.",
     "phoneRequired": "رقم الهاتف مطلوب."
