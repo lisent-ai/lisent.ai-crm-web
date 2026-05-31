@@ -154,7 +154,7 @@ function buildForwardHeaders(
   userID: string,
   userName: string | undefined,
   requestID: string,
-  extras?: { companyId?: string; userRole?: string },
+  extras?: { companyId?: string; userRole?: string; platformRole?: string },
 ): Headers {
   const headers = new Headers();
   const contentType = request.headers.get("content-type");
@@ -184,6 +184,9 @@ function buildForwardHeaders(
   }
   if (extras?.userRole?.trim()) {
     headers.set("x-user-role", extras.userRole.trim());
+  }
+  if (extras?.platformRole?.trim()) {
+    headers.set("x-platform-role", extras.platformRole.trim());
   }
   headers.set(REQUEST_ID_HEADER, requestID);
   return headers;
@@ -238,7 +241,7 @@ async function sendUpstreamRequest(
   config: { baseURL: string; apiKey: string },
   account: AccountProfile,
   pathSegments: string[],
-  extras?: { companyId?: string; userRole?: string },
+  extras?: { companyId?: string; userRole?: string; platformRole?: string },
 ) {
   const upstreamURL = buildUpstreamURL(
     config.baseURL,
@@ -1570,6 +1573,26 @@ async function forwardRequest(
       account,
       pathSegments,
       { companyId: requestedCompanyId, userRole: role },
+    );
+    return relayUpstreamResponse(upstreamResponse);
+  }
+
+  // Announcements: management routes are super-admin only; /active and
+  // /:id/dismiss are open to any authenticated user. We forward
+  // X-Platform-Role: super_admin for management so the Go service can
+  // re-check (defence in depth).
+  if (resource === "announcements") {
+    const isUserFacing =
+      pathSegments[1] === "active" || pathSegments[2] === "dismiss";
+    if (!isUserFacing && !account.access.isSuperAdmin) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+    const upstreamResponse = await sendUpstreamRequest(
+      request,
+      config,
+      account,
+      pathSegments,
+      isUserFacing ? undefined : { platformRole: "super_admin" },
     );
     return relayUpstreamResponse(upstreamResponse);
   }

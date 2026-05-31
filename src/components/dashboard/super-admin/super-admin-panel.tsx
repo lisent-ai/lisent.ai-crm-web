@@ -3,9 +3,10 @@
 import { ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { AnnouncementsManager } from "@/components/dashboard/super-admin/announcements-manager";
+
 // Super Admin panel shell. Gated server-side (only super admins reach the
-// page). Intentionally a placeholder — admin tools get added into the
-// sections below next.
+// page). Hosts the platform-wide admin tools — announcements first.
 export function SuperAdminPanel() {
   const t = useTranslations();
 
@@ -25,11 +26,7 @@ export function SuperAdminPanel() {
         </div>
       </header>
 
-      <section className="rounded-3xl border border-dashed border-[var(--border-subtle)] bg-[var(--surface)] p-10 text-center">
-        <p className="text-sm text-[var(--text-secondary)]">
-          {t("superAdmin.comingSoon")}
-        </p>
-      </section>
+      <AnnouncementsManager />
     </div>
   );
 }

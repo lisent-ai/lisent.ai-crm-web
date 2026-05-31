@@ -4848,3 +4848,90 @@ export async function setModuleAccess(
     body: JSON.stringify({ grants }),
   });
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Announcements (super-admin authored, platform-wide)
+//
+// Management endpoints (list/create/update/delete/publish) are gated to
+// super admins by the BFF. The user-facing active/dismiss pair is open to
+// any authenticated user. Localized content comes back already resolved to
+// the requested locale by the Go service.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type AnnouncementStatus = "draft" | "published";
+
+export type Announcement = {
+  id: string;
+  source_locale: string;
+  title: string;
+  body: string;
+  translations: Record<string, { title: string; body: string }>;
+  status: AnnouncementStatus;
+  published_at?: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ActiveAnnouncement = {
+  id: string;
+  title: string;
+  body: string;
+  published_at?: string | null;
+};
+
+export async function listAnnouncements(): Promise<Announcement[]> {
+  const res = await requestCRM<{ items: Announcement[] }>("/announcements");
+  return res.items ?? [];
+}
+
+export async function createAnnouncement(payload: {
+  source_locale: string;
+  title: string;
+  body: string;
+}): Promise<Announcement> {
+  return requestCRM<Announcement>("/announcements", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateAnnouncement(
+  id: string,
+  payload: { source_locale?: string; title?: string; body?: string },
+): Promise<Announcement> {
+  return requestCRM<Announcement>(`/announcements/${encodeURIComponent(id)}`, {
+    method: "PATCH",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteAnnouncement(id: string): Promise<void> {
+  await requestCRM<unknown>(`/announcements/${encodeURIComponent(id)}`, {
+    method: "DELETE",
+  });
+}
+
+export async function publishAnnouncement(id: string): Promise<void> {
+  await requestCRM<unknown>(
+    `/announcements/${encodeURIComponent(id)}/publish`,
+    { method: "POST" },
+  );
+}
+
+export async function getActiveAnnouncements(
+  locale: string,
+): Promise<ActiveAnnouncement[]> {
+  const res = await requestCRM<{ items: ActiveAnnouncement[] }>(
+    `/announcements/active?locale=${encodeURIComponent(locale)}`,
+  );
+  return res.items ?? [];
+}
+
+export async function dismissAnnouncement(id: string): Promise<void> {
+  await requestCRM<unknown>(
+    `/announcements/${encodeURIComponent(id)}/dismiss`,
+    { method: "POST" },
+  );
+}

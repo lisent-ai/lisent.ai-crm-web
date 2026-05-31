@@ -40,6 +40,9 @@
     "subtitle": "Profilinizi, tercihlerinizi ve erişiminizi yönetin.",
     "title": "Hesap ayarları"
   },
+  "announcement": {
+    "dismiss": "Anladım"
+  },
   "auth": {
     "alreadyHaveAccess": "Zaten erişiminiz var mı?",
     "authFailed": "Kimlik doğrulama başarısız.",
@@ -2889,8 +2892,32 @@
   "superAdmin": {
     "title": "Süper Admin",
     "subtitle": "Platform geneli kontroller. Yalnızca süper adminlere görünür.",
-    "comingSoon": "Admin araçları buraya eklenecek.",
-    "sectionPlaceholder": "Henüz bir şey yok."
+    "announcements": {
+      "heading": "Duyurular",
+      "description": "Yayınladığın mesaj, her kullanıcının karşısına kendi dilinde çıkar ve kapatana kadar görünür.",
+      "new": "Yeni duyuru",
+      "sourceLocale": "Yazım dili",
+      "titleLabel": "Başlık",
+      "titlePlaceholder": "Yeni ne var",
+      "bodyLabel": "Mesaj",
+      "bodyPlaceholder": "Güncellemeyi anlat…",
+      "save": "Taslağı kaydet",
+      "saving": "Kaydediliyor…",
+      "cancel": "İptal",
+      "edit": "Düzenle",
+      "publish": "Herkese yayınla",
+      "publishing": "Yayınlanıyor…",
+      "publishConfirm": "Tüm kullanıcılara yayınlansın mı? Tüm dillere otomatik çevrilecek.",
+      "republishNote": "Düzenleyince taslağa döner — tekrar yayınla ki yeniden çevrilsin.",
+      "delete": "Sil",
+      "deleteConfirm": "Bu duyuru silinsin mi?",
+      "statusDraft": "Taslak",
+      "statusPublished": "Yayında",
+      "publishedAt": "{date} yayınlandı",
+      "empty": "Henüz duyuru yok.",
+      "saveError": "Duyuru kaydedilemedi.",
+      "publishError": "Duyuru yayınlanamadı."
+    }
   },
   "userMenu": {
     "accountSettings": "Hesap ayarları",

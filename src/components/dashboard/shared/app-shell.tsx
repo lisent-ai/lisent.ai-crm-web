@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { SessionAuth } from "supertokens-auth-react/recipe/session";
 
+import { AnnouncementPopup } from "@/components/dashboard/shared/announcement-popup";
 import { AppSidebar } from "@/components/dashboard/shared/app-sidebar";
 import { AppTopbar } from "@/components/dashboard/shared/app-topbar";
 import { MobileDrawer } from "@/components/dashboard/shared/mobile-drawer";
@@ -206,5 +207,10 @@ export function AppShell({ children }: Readonly<AppShellProps>) {
     );
   }
 
-  return <SessionAuth>{shell}</SessionAuth>;
+  return (
+    <SessionAuth>
+      {shell}
+      <AnnouncementPopup />
+    </SessionAuth>
+  );
 }
