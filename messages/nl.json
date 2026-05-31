@@ -47,6 +47,16 @@
     "creatingAccount": "Account aanmaken…",
     "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Terug naar inloggen",
+      "error": "Er is iets misgegaan. Probeer het opnieuw.",
+      "send": "Reset‑link verzenden",
+      "sending": "Verzenden…",
+      "sent": "Als er een account bestaat voor {email}, hebben we een wachtwoordreset‑link verzonden. Controleer uw inbox.",
+      "subtitle": "Voer uw e‑mail in en we sturen u een reset‑link.",
+      "title": "Wachtwoord opnieuw instellen"
+    },
+    "forgotLink": "Wachtwoord vergeten?",
     "newWorkspaceUser": "Nieuwe workspace-gebruiker?",
     "otp": {
       "codeLabel": "Verificatiecode",
@@ -77,6 +87,18 @@
     "passwordLabel": "Wachtwoord",
     "passwordPlaceholderSignIn": "Voer uw wachtwoord in",
     "passwordPlaceholderSignUp": "Maak een sterk wachtwoord",
+    "reset": {
+      "error": "Er is iets misgegaan. Probeer het opnieuw.",
+      "invalidToken": "Deze reset‑link is ongeldig of verlopen. Vraag een nieuwe aan.",
+      "newPassword": "Nieuw wachtwoord",
+      "placeholder": "Maak een sterk wachtwoord",
+      "signin": "Ga naar inloggen",
+      "submit": "Wachtwoord bijwerken",
+      "submitting": "Bijwerken…",
+      "subtitle": "Kies een nieuw wachtwoord voor uw account.",
+      "success": "Uw wachtwoord is bijgewerkt.",
+      "title": "Stel een nieuw wachtwoord in"
+    },
     "selectGenderPlaceholder": "Selecteer uw geslacht",
     "signIn": "Inloggen",
     "signInButton": "Inloggen",
@@ -647,7 +669,7 @@
       "openPipeline": "Pipeline openen"
     },
     "workspaceOverview": {
-      "acrossAccount": "Over uw account",
+      "acrossAccount": "Door uw account",
       "activeWorkspace": "Actieve workspace",
       "allCombined": "Alles gecombineerd",
       "customers": "Klanten",
@@ -806,7 +828,7 @@
         "leadWrite": "lead:write"
       },
       "scopesTitle": "Scopes",
-      "showRevoked": "Toon ingetrokken",
+      "showRevoked": "Ingetrokken weergeven",
       "title": "API-sleutels"
     },
     "catalog": {
@@ -1268,7 +1290,7 @@
       "loadDocsFailed": "Kan documenten niet laden.",
       "loading": "RAG laden...",
       "loadingContent": "Inhoud laden...",
-      "loadingDocs": "Documenten laden...",
+      "loadingDocs": "Documenten laden…",
       "metadata": "Metadata",
       "noDocuments": "Nog geen documenten geïmporteerd.",
       "noToken": "Geen ingestietoken geconfigureerd.",
@@ -1297,7 +1319,7 @@
     "status": {
       "active": "Actief",
       "aria": "Integratiestatus",
-      "comingSoon": "Binnenkort beschikbaar",
+      "comingSoon": "Binnenkort",
       "connected": "Verbonden",
       "error": "Fout",
       "notConfigured": "Niet geconfigureerd",
@@ -1349,7 +1371,7 @@
       "aggressiveness": {
         "aggressive": {
           "desc": "Overdragen zodra de assistent een richtinggevende lezing heeft.",
-          "label": "Agressief"
+          "label": "Aggressief"
         },
         "balanced": {
           "desc": "Standaard. Balans tussen vertrouwen en snelheid van overdracht.",
@@ -1693,7 +1715,7 @@
       "bulkPartial": "{deleted} van {total} leads verwijderd.",
       "bulkRemoved": "{count} leads verwijderd.",
       "converted": "Lead geconverteerd.",
-      "convertedWithDeal": "Lead geconverteerd met deal.",
+      "convertedWithDeal": "Lead geconverteerd met Deal.",
       "created": "Lead aangemaakt.",
       "exported": "Exporteerde {count} leads.",
       "noteAdded": "Notitie toegevoegd.",
@@ -2870,8 +2892,8 @@
     "demoUser": "Demo‑gebruiker",
     "openMenu": "Accountmenu openen",
     "signOut": "Afmelden",
-    "workspaceUser": "Workspace-gebruiker",
-    "signOutEverywhere": "Overal afmelden"
+    "signOutEverywhere": "Overal afmelden",
+    "workspaceUser": "Workspace-gebruiker"
   },
   "validation": {
     "firstNameRequired": "Naam is verplicht.",

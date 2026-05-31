@@ -25,7 +25,7 @@
     "placeholders": {
       "firstName": "Adınız",
       "language": "Dil seçin",
-      "lastName": "Soyadınız",
+      "lastName": "Soyadınızı girin",
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
@@ -47,28 +47,16 @@
     "creatingAccount": "Hesap oluşturuluyor...",
     "emailLabel": "E-posta",
     "emailPlaceholder": "name@company.com",
-    "forgotLink": "Şifreni mi unuttun?",
     "forgot": {
-      "title": "Şifreni sıfırla",
-      "subtitle": "E-postanı gir, sana bir sıfırlama bağlantısı gönderelim.",
-      "send": "Sıfırlama bağlantısı gönder",
+      "backToSignin": "Girişe geri dön",
+      "error": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "send": "Sıfırlama bağlantısını gönder",
       "sending": "Gönderiliyor…",
-      "sent": "{email} adresine ait bir hesap varsa şifre sıfırlama bağlantısı gönderdik. Gelen kutunu kontrol et.",
-      "backToSignin": "Girişe dön",
-      "error": "Bir şeyler ters gitti. Lütfen tekrar dene."
+      "sent": "Eğer {email} için bir hesap varsa, bir parola sıfırlama bağlantısı gönderdik. Gelen kutunuzu kontrol edin.",
+      "subtitle": "E-posta adresinizi girin, size bir sıfırlama bağlantısı gönderelim.",
+      "title": "Parolanızı sıfırlayın"
     },
-    "reset": {
-      "title": "Yeni bir şifre belirle",
-      "subtitle": "Hesabın için yeni bir şifre seç.",
-      "newPassword": "Yeni şifre",
-      "placeholder": "Güçlü bir şifre oluştur",
-      "submit": "Şifreyi güncelle",
-      "submitting": "Güncelleniyor…",
-      "success": "Şifren güncellendi.",
-      "signin": "Girişe git",
-      "invalidToken": "Bu sıfırlama bağlantısı geçersiz veya süresi dolmuş. Yenisini iste.",
-      "error": "Bir şeyler ters gitti. Lütfen tekrar dene."
-    },
+    "forgotLink": "Parolanızı mı unuttunuz?",
     "newWorkspaceUser": "Yeni çalışma alanı kullanıcısı?",
     "otp": {
       "codeLabel": "Doğrulama kodu",
@@ -99,6 +87,18 @@
     "passwordLabel": "Parola",
     "passwordPlaceholderSignIn": "Parolanızı girin",
     "passwordPlaceholderSignUp": "Güçlü bir parola oluşturun",
+    "reset": {
+      "error": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "invalidToken": "Bu sıfırlama bağlantısı geçersiz veya süresi dolmuş. Yeni bir tane isteyin.",
+      "newPassword": "Yeni parola",
+      "placeholder": "Güçlü bir parola oluşturun",
+      "signin": "Giriş yapın",
+      "submit": "Parolayı güncelle",
+      "submitting": "Güncelleniyor…",
+      "subtitle": "Hesabınız için yeni bir parola seçin.",
+      "success": "Parolanız güncellendi.",
+      "title": "Yeni bir parola belirleyin"
+    },
     "selectGenderPlaceholder": "Cinsiyetinizi seçiniz",
     "signIn": "Giriş yap",
     "signInButton": "Giriş yap",
@@ -141,7 +141,7 @@
     "errors": {
       "delete": "Etkinlik silinemedi.",
       "linkRecordMissing": "Bağlantı türü seçildiğinde bağlı kayıt gereklidir.",
-      "loadCompanies": "Şirketler yüklenemedi.",
+      "loadCompanies": "Şirketleri yüklerken hata oluştu.",
       "loadEvents": "Etkinlikler yüklenemedi.",
       "pastDate": "Etkinlik geçmişte başlayamaz.",
       "save": "Etkinlik kaydedilemedi.",
@@ -566,7 +566,7 @@
       "goToOverview": "Çalışma alanı genel bakışına gidin",
       "noWorkspaceHelp": "Canlı verileri görmek için değiştiricide bir çalışma alanı seçin",
       "noWorkspaceSelected": "Çalışma alanı seçilmedi",
-      "pickWorkspace": "Bir çalışma alanı seçin",
+      "pickWorkspace": "Çalışma alanı seçin",
       "subtitleSelected": "{name} için çalışma alanı ölçümleri",
       "subtitleWithName": "Tekrar hoş geldiniz, {name}"
     },
@@ -850,7 +850,7 @@
       "listAria": "Çalışma alanı listesi",
       "loadFailed": "Çalışma alanları yüklenemedi.",
       "loading": "Çalışma alanları yükleniyor...",
-      "title": "Bir çalışma alanı seçin"
+      "title": "Çalışma alanı seçin"
     },
     "configure": "Yapılandır",
     "configureAria": "{name} yapılandır",
@@ -1252,7 +1252,7 @@
         "outputsTitle": "Çıktılar",
         "tip": "Öncelikle <strong>Geri dönüş</strong> ve <strong>Müşteri Adayı webhook'u</strong> ile başlayın, ardından tek tek kanalları etkinleştirin.",
         "title": "Genel bakış",
-        "tuningAiConfig": "<strong>AI yapılandırması:</strong> Eşik, çerçeve, istem geçersiz kılmaları.",
+        "tuningAiConfig": "<strong>AI configuration:</strong> Eşik, çerçeve, istem geçersiz kılmaları.",
         "tuningCallback": "<strong>Geri arama:</strong> Nitelendirilen müşteri adaylarının gönderildiği yer.",
         "tuningRag": "<strong>Bilgi tabanı (RAG):</strong> Asistanın referans alabileceği belgeler.",
         "tuningTitle": "Ayarlama"
@@ -2598,7 +2598,7 @@
     "primary": "Birincil",
     "quickCreate": "Hızlı oluştur",
     "sectionTools": "Araçlar",
-    "sectionWorkspace": "Çalışma Alanı",
+    "sectionWorkspace": "Çalışma alanı",
     "tasks": "Görevler",
     "teamMembers": "Ekip üyeleri"
   },
@@ -2803,7 +2803,7 @@
       "description": "Bir ekip üyesini e-posta ile davet edin. Katılmak için bir e-posta alacaklar.",
       "sending": "Gönderiliyor...",
       "submit": "Daveti gönder",
-      "title": "Ekip üyesi ekle"
+      "title": "Takım üyesi ekle"
     },
     "aria": {
       "removeName": "Kaldırın {name}"
@@ -2819,13 +2819,13 @@
     "empty": {
       "createWorkspace": "Ekip üyeleri eklemeye başlamak için bir çalışma alanı oluşturun.",
       "description": "Bu çalışma alanına henüz bir ekip üyesi eklemediniz.",
-      "heading": "Henüz ekip üyesi yok",
+      "heading": "Henüz takım üyesi yok",
       "subtitle": "İş birliğine başlamak için ilk ekip üyenizi davet edin."
     },
     "errors": {
-      "add": "Ekip üyesi eklenemedi.",
-      "load": "Ekip üyeleri yüklenemedi.",
-      "remove": "Ekip üyesi kaldırılamadı.",
+      "add": "Takım üyesi eklenemedi.",
+      "load": "Takım üyeleri yüklenemedi.",
+      "remove": "Takım üyesi kaldırılamadı.",
       "updateRole": "Rol güncellenemedi."
     },
     "fields": {
@@ -2875,7 +2875,7 @@
     },
     "section": {
       "admins": "Yöneticiler",
-      "adminsDescription": "Bu çalışma alanına tam erişimi olan üyeler.",
+      "adminsDescription": "Üyeler bu çalışma alanına tam erişime sahiptir.",
       "emptyAdmins": "Yönetici atanmadı.",
       "emptyUsers": "Henüz standart üye yok.",
       "users": "Üyeler",
@@ -2889,11 +2889,11 @@
   "userMenu": {
     "accountSettings": "Hesap ayarları",
     "demoEmail": "demo-user@lisent.ai",
-    "demoUser": "Demo kullanıcı",
+    "demoUser": "Demo kullanıcısı",
     "openMenu": "Hesap menüsünü açın",
     "signOut": "Çıkış yap",
-    "workspaceUser": "Çalışma alanı kullanıcısı",
-    "signOutEverywhere": "Her yerden çıkış yap"
+    "signOutEverywhere": "Her yerden çıkış yap",
+    "workspaceUser": "Çalışma Alanı kullanıcısı"
   },
   "validation": {
     "firstNameRequired": "İsim zorunludur.",
@@ -2911,7 +2911,7 @@
     "deleteName": "Sil {name}",
     "label": "Çalışma alanı",
     "loadFailed": "Çalışma alanları yüklenemedi.",
-    "loading": "Çalışma alanları yükleniyor...",
+    "loading": "Çalışma alanları yükleniyor…",
     "retry": "Tekrar deneyin",
     "select": "Çalışma alanı seçin",
     "switch": "Çalışma alanını değiştirin",

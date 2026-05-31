@@ -23,7 +23,7 @@
     "loadFailed": "Error al cargar la configuración de la cuenta.",
     "noMemberships": "Aún no hay membresías de empresa.",
     "placeholders": {
-      "firstName": "Su nombre",
+      "firstName": "Tu nombre",
       "language": "Seleccione idioma",
       "lastName": "Su apellido",
       "phoneNumber": "+49 555 123 4567"
@@ -47,6 +47,16 @@
     "creatingAccount": "Creando cuenta…",
     "emailLabel": "Correo electrónico",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "title": "Restablezca su contraseña",
+      "subtitle": "Introduce tu correo y te enviaremos un enlace para restablecerla.",
+      "send": "Enviar enlace de restablecimiento",
+      "sending": "Enviando…",
+      "sent": "Si existe una cuenta para {email}, te hemos enviado un enlace para restablecer la contraseña. Revisa tu bandeja de entrada.",
+      "backToSignin": "Volver a iniciar sesión",
+      "error": "Algo salió mal. Inténtalo de nuevo."
+    },
+    "forgotLink": "¿Olvidó su contraseña?",
     "newWorkspaceUser": "¿Nuevo usuario de workspace?",
     "otp": {
       "codeLabel": "Código de verificación",
@@ -77,6 +87,18 @@
     "passwordLabel": "Contraseña",
     "passwordPlaceholderSignIn": "Introduzca su contraseña",
     "passwordPlaceholderSignUp": "Cree una contraseña segura",
+    "reset": {
+      "error": "Algo salió mal. Por favor, inténtelo de nuevo.",
+      "invalidToken": "Este enlace de restablecimiento no es válido o ha expirado. Solicite uno nuevo.",
+      "newPassword": "Nueva contraseña",
+      "placeholder": "Cree una contraseña segura",
+      "signin": "Ir a iniciar sesión",
+      "submit": "Actualizar contraseña",
+      "submitting": "Actualizando…",
+      "success": "Su contraseña ha sido actualizada.",
+      "title": "Establece una nueva contraseña",
+      "subtitle": "Elige una nueva contraseña para tu cuenta."
+    },
     "selectGenderPlaceholder": "Seleccione su género",
     "signIn": "Iniciar sesión",
     "signInButton": "Iniciar sesión",
@@ -257,7 +279,7 @@
     "closeAddPopup": "Cerrar el cuadro de diálogo de agregar cliente",
     "confirmDelete": "Eliminar",
     "delete": "Eliminar",
-    "deleteConfirmDescription": "Esto eliminará permanentemente este registro de cliente. Esta acción no se puede deshacer.",
+    "deleteConfirmDescription": "Esto eliminará permanentemente el registro de este cliente. Esta acción no se puede deshacer.",
     "deleteConfirmTitle": "¿Eliminar cliente?",
     "deleteCustomer": "Eliminar cliente",
     "deleting": "Eliminando…",
@@ -610,7 +632,7 @@
         "description": "Inicie un nuevo inquilino para otra unidad de negocio.",
         "title": "Nuevo workspace"
       },
-      "oneClickSetup": "Configuración con un clic",
+      "oneClickSetup": "Configuración de un clic",
       "scheduleMeeting": {
         "cta": "Abrir calendario",
         "description": "Programe una llamada de descubrimiento o de seguimiento.",
@@ -794,7 +816,7 @@
       "revoke": "Revocar",
       "revokeConfirm": "¿Revocar esta clave API? No se puede deshacer.",
       "revokeFailed": "Error al revocar la clave API.",
-      "revokedBadge": "Revocada",
+      "revokedBadge": "Revocado",
       "revoking": "Revocando...",
       "savedClose": "He guardado la clave — cerrar",
       "scopes": {
@@ -858,7 +880,7 @@
       "connectFailed": "Error al conectar la integración.",
       "copyFailed": "Error al copiar al portapapeles.",
       "disconnectFailed": "Error al desconectar la integración.",
-      "revokeFailed": "Error al revocar el token.",
+      "revokeFailed": "No se pudo revocar el token.",
       "rotateFailed": "Error al rotar el token.",
       "saveFailed": "Error al guardar los cambios.",
       "unknown": "Error desconocido."
@@ -1554,7 +1576,7 @@
       "quickFacts": "Datos rápidos",
       "roundRobin": "Rotación",
       "scheduleCall": "Programar llamada",
-      "source": "Fuente",
+      "source": "Origen",
       "starting": "Iniciando…",
       "status": "Estado",
       "tabs": {
@@ -2767,8 +2789,8 @@
     "summary": {
       "company": "Empresa",
       "inProgressDone": "{inProgress} en progreso · {done} completado",
-      "myPending": "{count} pendiente",
-      "openTickets": "{count} abierto"
+      "myPending": "{count} pendientes",
+      "openTickets": "{count} abiertos"
     },
     "systemUser": "Sistema",
     "teammatesCount": "{count} compañeros",
@@ -2870,8 +2892,8 @@
     "demoUser": "Usuario de demostración",
     "openMenu": "Abrir menú de cuenta",
     "signOut": "Cerrar sesión",
-    "workspaceUser": "Usuario de Workspace",
-    "signOutEverywhere": "Cerrar sesión en todos los dispositivos"
+    "signOutEverywhere": "Cerrar sesión en todos los dispositivos",
+    "workspaceUser": "Usuario de Workspace"
   },
   "validation": {
     "firstNameRequired": "El nombre es obligatorio.",
@@ -2893,8 +2915,8 @@
     "retry": "Reintentar",
     "select": "Seleccionar workspace",
     "switch": "Cambiar espacio de trabajo",
-    "untitled": "Espacio de trabajo sin título",
+    "untitled": "Sin título workspace",
     "workspaceWord": "Espacio de trabajo",
-    "workspaces": "Espacios de trabajo"
+    "workspaces": "Workspaces"
   }
 }

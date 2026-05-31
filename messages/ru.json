@@ -47,6 +47,16 @@
     "creatingAccount": "Создание аккаунта…",
     "emailLabel": "Электронная почта",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Вернуться к входу",
+      "error": "Что‑то пошло не так. Пожалуйста, попробуйте ещё раз.",
+      "send": "Отправить ссылку",
+      "sending": "Отправляем…",
+      "sent": "Если для {email} существует аккаунт, мы отправили ссылку для сброса пароля. Проверьте ваш почтовый ящик.",
+      "subtitle": "Введите ваш email, и мы отправим вам ссылку для сброса.",
+      "title": "Сбросьте пароль"
+    },
+    "forgotLink": "Забыли пароль?",
     "newWorkspaceUser": "Новый пользователь Workspace?",
     "otp": {
       "codeLabel": "Код подтверждения",
@@ -77,6 +87,18 @@
     "passwordLabel": "Пароль",
     "passwordPlaceholderSignIn": "Введите ваш пароль",
     "passwordPlaceholderSignUp": "Создайте надёжный пароль",
+    "reset": {
+      "error": "Что‑то пошло не так. Пожалуйста, попробуйте ещё раз.",
+      "invalidToken": "Эта ссылка для сброса недействительна или истекла. Запросите новую.",
+      "newPassword": "Новый пароль",
+      "placeholder": "Создайте надёжный пароль",
+      "signin": "Перейти к входу",
+      "submit": "Обновить пароль",
+      "submitting": "Обновляем…",
+      "subtitle": "Выберите новый пароль для вашего аккаунта.",
+      "success": "Ваш пароль обновлён.",
+      "title": "Установите новый пароль"
+    },
     "selectGenderPlaceholder": "Выберите ваш пол",
     "signIn": "Войти",
     "signInButton": "Войти",
@@ -326,7 +348,7 @@
     },
     "search": {
       "label": "Поиск",
-      "placeholder": "Поиск клиентов..."
+      "placeholder": "Поиск клиентов…"
     },
     "selectedCompany": "Активный workspace: {name}",
     "status": {
@@ -371,7 +393,7 @@
     "commentPlaceholder": "Напишите комментарий…",
     "comments": "Комментарии",
     "commentsCount": "{count} комментариев",
-    "commentsEmpty": "Комментариев пока нет.",
+    "commentsEmpty": "Пока нет комментариев.",
     "deal": "Сделка",
     "dealDetail": "Подробности сделки",
     "dealList": "Список сделок",
@@ -446,7 +468,7 @@
         "amount": "0.00",
         "dealName": "Acme — Q3 expansion",
         "lossReason": "Почему эта сделка была потеряна?",
-        "wonReason": "Почему эта сделка была выиграна?"
+        "wonReason": "Почему эта сделка выиграна?"
       },
       "saveChanges": "Сохранить изменения"
     },
@@ -1368,7 +1390,7 @@
       "frameworkDescription": "Выберите фреймворк квалификации, который помощник использует для извлечения сигналов.",
       "frameworkTitle": "Фреймворк квалификации",
       "loadFailed": "Не удалось загрузить конфигурацию v1.",
-      "loading": "Загрузка конфигурации v1...",
+      "loading": "Загрузка конфигурации v1…",
       "outboundWebhookDescription": "Куда квалификатор отправляет квалифицированные лиды.",
       "outboundWebhookPlaceholder": "https://your-crm.example.com/webhook",
       "outboundWebhookTitle": "Исходящий webhook",
@@ -1427,7 +1449,7 @@
       "testEnqueued": "Тестовое событие поставлено в очередь.",
       "testFailed": "Не удалось добавить тестовое событие в очередь.",
       "testNotEnqueued": "Тестовое событие не добавлено в очередь.",
-      "title": "Webhooks",
+      "title": "Вебхуки",
       "urlSaved": "URL назначения сохранён.",
       "verificationIntro": "Lisent подписывает каждый запрос. Проверьте заголовок <code>X-Lisent-Signature</code> перед тем как доверять полезной нагрузке.",
       "verificationNote": "Проверьте заголовок <code>X-Lisent-Signature</code> в каждом запросе.",
@@ -1506,9 +1528,9 @@
     "dealStage": {
       "lost": "Потерян",
       "negotiation": "Переговоры",
-      "new": "Новый",
+      "new": "Новое",
       "proposal": "Предложение",
-      "qualified": "Квалифицированный",
+      "qualified": "Квалифицировано",
       "won": "Выигранный"
     },
     "deleteModal": {
@@ -1527,7 +1549,7 @@
       },
       "assignee": "Ответственный",
       "assignmentMode": "Режим назначения",
-      "backToProfile": "Назад к профилю",
+      "backToProfile": "Вернуться к профилю",
       "closeDetails": "Закрыть детали лида",
       "context": "Контекст",
       "convert": "Конвертировать",
@@ -2870,8 +2892,8 @@
     "demoUser": "Демо‑пользователь",
     "openMenu": "Открыть меню аккаунта",
     "signOut": "Выйти",
-    "workspaceUser": "Пользователь Workspace",
-    "signOutEverywhere": "Выйти на всех устройствах"
+    "signOutEverywhere": "Выйти на всех устройствах",
+    "workspaceUser": "Пользователь Workspace"
   },
   "validation": {
     "firstNameRequired": "Имя обязательно.",

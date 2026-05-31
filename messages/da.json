@@ -47,6 +47,16 @@
     "creatingAccount": "Opretter konto…",
     "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Tilbage til log ind",
+      "error": "Noget gik galt. Prøv venligst igen.",
+      "send": "Send nulstillingslink",
+      "sending": "Sender…",
+      "sent": "Hvis der findes en konto for {email}, har vi sendt et link til nulstilling af adgangskode. Tjek din indbakke.",
+      "subtitle": "Indtast din e-mail, så sender vi dig et nulstillingslink.",
+      "title": "Nulstil din adgangskode"
+    },
+    "forgotLink": "Glemt adgangskode?",
     "newWorkspaceUser": "Ny workspace-bruger?",
     "otp": {
       "codeLabel": "Bekræftelseskode",
@@ -77,6 +87,18 @@
     "passwordLabel": "Password",
     "passwordPlaceholderSignIn": "Indtast Deres password",
     "passwordPlaceholderSignUp": "Opret et stærkt password",
+    "reset": {
+      "error": "Noget gik galt. Prøv venligst igen.",
+      "invalidToken": "Dette nulstillingslink er ugyldigt eller er udløbet. Anmod om et nyt.",
+      "newPassword": "Ny adgangskode",
+      "placeholder": "Opret en stærk adgangskode",
+      "signin": "Gå til log ind",
+      "submit": "Opdater adgangskode",
+      "submitting": "Opdaterer…",
+      "subtitle": "Vælg en ny adgangskode til din konto.",
+      "success": "Din adgangskode er blevet opdateret.",
+      "title": "Indstil en ny adgangskode"
+    },
     "selectGenderPlaceholder": "Vælg Deres køn",
     "signIn": "Log ind",
     "signInButton": "Log ind",
@@ -368,7 +390,7 @@
     "closeTarget": "Luk mål",
     "closeTargetValue": "{date}",
     "columnTotal": "Kolonne total: {value}",
-    "commentPlaceholder": "Skriv en kommentar...",
+    "commentPlaceholder": "Skriv en kommentar…",
     "comments": "Kommentarer",
     "commentsCount": "{count} kommentarer",
     "commentsEmpty": "Ingen kommentarer endnu.",
@@ -610,7 +632,7 @@
         "description": "Start en ny tenant for en anden forretningsenhed.",
         "title": "Ny workspace"
       },
-      "oneClickSetup": "Opsætning med ét klik",
+      "oneClickSetup": "Én-klik opsætning",
       "scheduleMeeting": {
         "cta": "Åbn kalender",
         "description": "Planlæg en opdagelsessamtale eller opfølgning.",
@@ -1528,7 +1550,7 @@
       "assignee": "Tildelt",
       "assignmentMode": "Tildelingsmetode",
       "backToProfile": "Tilbage til profil",
-      "closeDetails": "Luk lead-detaljer",
+      "closeDetails": "Luk leaddetaljer",
       "context": "Kontekst",
       "convert": "Konverter",
       "convertedCustomer": "Konverteret kunde",
@@ -2557,15 +2579,15 @@
   },
   "nav": {
     "brandName": "Lisent CRM",
-    "calendar": "Kalender",
+    "calendar": "Calendar",
     "closeNavigation": "Luk navigation",
-    "customerImport": "Kundeimport",
-    "customers": "Kunder",
+    "customerImport": "Customer Import",
+    "customers": "Customers",
     "dashboard": "Dashboard",
     "deals": "Deals",
     "help": "Hjælp & ressourcer",
     "import": "Import",
-    "integrations": "Integrationer",
+    "integrations": "Integrations",
     "leads": "Leads",
     "lisentHome": "Lisent CRM startside",
     "lisentWorkspace": "Lisent workspace",
@@ -2577,7 +2599,7 @@
     "quickCreate": "Hurtig oprettelse",
     "sectionTools": "Værktøjer",
     "sectionWorkspace": "Workspace",
-    "tasks": "Opgaver",
+    "tasks": "Tasks",
     "teamMembers": "Teammedlemmer"
   },
   "notifications": {
@@ -2870,8 +2892,8 @@
     "demoUser": "Demo‑bruger",
     "openMenu": "Åbn konto-menu",
     "signOut": "Log ud",
-    "workspaceUser": "Workspace-bruger",
-    "signOutEverywhere": "Log ud overalt"
+    "signOutEverywhere": "Log ud overalt",
+    "workspaceUser": "Workspace-bruger"
   },
   "validation": {
     "firstNameRequired": "Navn er påkrævet.",

@@ -47,6 +47,16 @@
     "creatingAccount": "Konto wird erstellt…",
     "emailLabel": "E‑Mail",
     "emailPlaceholder": "name@firma.com",
+    "forgot": {
+      "backToSignin": "Zurück zur Anmeldung",
+      "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      "send": "Reset-Link senden",
+      "sending": "Senden…",
+      "sent": "Falls für {email} ein Konto existiert, haben wir einen Passwort-Reset-Link gesendet. Prüfen Sie Ihren Posteingang.",
+      "subtitle": "Geben Sie Ihre E‑Mail-Adresse ein, und wir senden Ihnen einen Reset-Link.",
+      "title": "Passwort zurücksetzen"
+    },
+    "forgotLink": "Passwort vergessen?",
     "newWorkspaceUser": "Neuer Workspace‑Benutzer?",
     "otp": {
       "codeLabel": "Verifizierungscode",
@@ -77,6 +87,18 @@
     "passwordLabel": "Passwort",
     "passwordPlaceholderSignIn": "Passwort eingeben",
     "passwordPlaceholderSignUp": "Erstellen Sie ein starkes Passwort",
+    "reset": {
+      "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "invalidToken": "Dieser Zurücksetzen-Link ist ungültig oder abgelaufen. Fordern Sie einen neuen an.",
+      "newPassword": "Neues Passwort",
+      "placeholder": "Erstellen Sie ein starkes Passwort",
+      "signin": "Zur Anmeldung",
+      "submit": "Passwort aktualisieren",
+      "submitting": "Aktualisieren…",
+      "subtitle": "Wählen Sie ein neues Passwort für Ihr Konto.",
+      "success": "Ihr Passwort wurde aktualisiert.",
+      "title": "Neues Passwort festlegen"
+    },
     "selectGenderPlaceholder": "Geschlecht auswählen",
     "signIn": "Anmelden",
     "signInButton": "Anmelden",
@@ -326,7 +348,7 @@
     },
     "search": {
       "label": "Suchen",
-      "placeholder": "Kunden suchen..."
+      "placeholder": "Kunden suchen…"
     },
     "selectedCompany": "Aktiver Workspace: {name}",
     "status": {
@@ -723,7 +745,7 @@
       "continueToPreview": "Weiter zur Vorschau",
       "csvUpload": "CSV-Datei hochladen",
       "csvUploadHelp": "Ziehen Sie die Datei per Drag & Drop oder wählen Sie eine .csv-Datei von Ihrem Computer aus.",
-      "csvUrl": "CSV-URL",
+      "csvUrl": "CSV URL",
       "csvUrlHelp": "Geben Sie eine öffentlich zugängliche URL an, die auf eine CSV-Datei verweist.",
       "noFileSelected": "Keine Datei ausgewählt",
       "processing": "Verarbeitung…",
@@ -946,7 +968,7 @@
       "mappingMustBeObject": "Feldzuordnung muss ein JSON‑Objekt sein.",
       "mintBearer": "Bearer‑Token ausgeben",
       "noDeliveries": "Bisher keine Lieferungen.",
-      "noIntegration": "Keine Intranet-Integration konfiguriert.",
+      "noIntegration": "Keine intranet-Integration konfiguriert.",
       "outbound": {
         "allStatusesLabel": "Alle Statusänderungen (empfohlen)",
         "deliveriesEmpty": "Noch keine Lieferungen. Senden Sie ein Testereignis, um die Verbindung zu bestätigen.",
@@ -1297,7 +1319,7 @@
     "status": {
       "active": "Aktiv",
       "aria": "Integrationsstatus",
-      "comingSoon": "Demnächst verfügbar",
+      "comingSoon": "Demnächst",
       "connected": "Verbunden",
       "error": "Fehler",
       "notConfigured": "Nicht konfiguriert",
@@ -1320,7 +1342,7 @@
       "loading": "Lade Nutzung…",
       "metricColumn": "Metrik",
       "metrics": {
-        "activeUsers": "Aktive Nutzer",
+        "activeUsers": "Aktive Benutzer",
         "apiCalls": "API-Aufrufe",
         "askLisentQueries": "Ask Lisent-Abfragen",
         "champExtractions": "CHAMP-Extraktionen",
@@ -2870,8 +2892,8 @@
     "demoUser": "Demo‑Benutzer",
     "openMenu": "Konto‑Menü öffnen",
     "signOut": "Abmelden",
-    "workspaceUser": "Workspace‑Benutzer",
-    "signOutEverywhere": "Überall abmelden"
+    "signOutEverywhere": "Überall abmelden",
+    "workspaceUser": "Workspace‑Benutzer"
   },
   "validation": {
     "firstNameRequired": "Name ist erforderlich",

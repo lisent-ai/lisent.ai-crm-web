@@ -47,6 +47,16 @@
     "creatingAccount": "Création du compte…",
     "emailLabel": "E-mail",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Retour à la connexion",
+      "error": "Une erreur s’est produite. Veuillez réessayer.",
+      "send": "Envoyer le lien de réinitialisation",
+      "sending": "Envoi…",
+      "sent": "Si un compte existe pour {email}, nous avons envoyé un lien de réinitialisation du mot de passe. Vérifiez votre boîte de réception.",
+      "subtitle": "Saisissez votre e‑mail et nous vous enverrons un lien de réinitialisation.",
+      "title": "Réinitialisez votre mot de passe"
+    },
+    "forgotLink": "Mot de passe oublié ?",
     "newWorkspaceUser": "Nouvel utilisateur de l'espace de travail ?",
     "otp": {
       "codeLabel": "Code de vérification",
@@ -77,6 +87,18 @@
     "passwordLabel": "Mot de passe",
     "passwordPlaceholderSignIn": "Saisissez votre mot de passe",
     "passwordPlaceholderSignUp": "Créez un mot de passe sécurisé",
+    "reset": {
+      "error": "Une erreur s’est produite. Veuillez réessayer.",
+      "invalidToken": "Ce lien de réinitialisation est invalide ou a expiré. Demandez‑en un nouveau.",
+      "newPassword": "Nouveau mot de passe",
+      "placeholder": "Créez un mot de passe fort",
+      "signin": "Aller à la connexion",
+      "submit": "Mettre à jour le mot de passe",
+      "submitting": "Mise à jour…",
+      "subtitle": "Choisissez un nouveau mot de passe pour votre compte.",
+      "success": "Votre mot de passe a été mis à jour.",
+      "title": "Définir un nouveau mot de passe"
+    },
     "selectGenderPlaceholder": "Sélectionnez votre genre",
     "signIn": "Se connecter",
     "signInButton": "Se connecter",
@@ -816,8 +838,8 @@
       "loadFailed": "Échec du chargement du catalogue des intégrations.",
       "loading": "Chargement des intégrations…",
       "noAccess": "Aucun accès à l’espace de travail",
-      "pickAnother": "Choisir un autre espace de travail",
-      "pickCompany": "Choisir un espace de travail",
+      "pickAnother": "Choisissez un autre espace de travail",
+      "pickCompany": "Choisissez un espace de travail",
       "pickCompanyDescription": "Sélectionnez un espace de travail pour configurer les intégrations.",
       "readOnlyNotice": "Vous pouvez consulter cette configuration mais vous ne pouvez pas la modifier.",
       "switchCompany": "Changer d’espace de travail"
@@ -828,7 +850,7 @@
       "listAria": "Liste des espaces de travail",
       "loadFailed": "Échec du chargement des espaces de travail.",
       "loading": "Chargement des espaces de travail…",
-      "title": "Choisir un espace de travail"
+      "title": "Choisissez un espace de travail"
     },
     "configure": "Configurer",
     "configureAria": "Configurer {name}",
@@ -2564,7 +2586,7 @@
     "dashboard": "Dashboard",
     "deals": "Affaires",
     "help": "Aide et ressources",
-    "import": "Importation",
+    "import": "Importer",
     "integrations": "Intégrations",
     "leads": "Prospects",
     "lisentHome": "Accueil Lisent CRM",
@@ -2626,7 +2648,7 @@
       "title": "Intégration"
     },
     "integrations": {
-      "description": "Connectez Lisent à vos outils et sources de données.",
+      "description": "Connect Lisent à vos outils et sources de données.",
       "title": "Intégrations"
     },
     "leads": {
@@ -2870,8 +2892,8 @@
     "demoUser": "Utilisateur de démo",
     "openMenu": "Ouvrir le menu du compte",
     "signOut": "Déconnexion",
-    "workspaceUser": "Utilisateur Workspace",
-    "signOutEverywhere": "Se déconnecter partout"
+    "signOutEverywhere": "Se déconnecter partout",
+    "workspaceUser": "Utilisateur Workspace"
   },
   "validation": {
     "firstNameRequired": "Le prénom est obligatoire.",

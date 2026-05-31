@@ -47,6 +47,16 @@
     "creatingAccount": "Skapar konto…",
     "emailLabel": "E‑post",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Tillbaka till inloggning",
+      "error": "Något gick fel. Försök igen.",
+      "send": "Skicka återställningslänk",
+      "sending": "Skickar…",
+      "sent": "Om ett konto finns för {email} har vi skickat en återställningslänk. Kontrollera er inkorg.",
+      "subtitle": "Ange er e‑postadress så skickar vi en återställningslänk.",
+      "title": "Återställ ert lösenord"
+    },
+    "forgotLink": "Glömt lösenordet?",
     "newWorkspaceUser": "Ny workspace‑användare?",
     "otp": {
       "codeLabel": "Verifieringskod",
@@ -77,6 +87,18 @@
     "passwordLabel": "Lösenord",
     "passwordPlaceholderSignIn": "Ange ert lösenord",
     "passwordPlaceholderSignUp": "Skapa ett starkt lösenord",
+    "reset": {
+      "newPassword": "Nytt lösenord",
+      "subtitle": "Välj ett nytt lösenord för ert konto.",
+      "title": "Ange ett nytt lösenord",
+      "placeholder": "Skapa ett starkt lösenord",
+      "submit": "Uppdatera lösenord",
+      "submitting": "Uppdaterar…",
+      "success": "Ditt lösenord har uppdaterats.",
+      "signin": "Gå till inloggning",
+      "invalidToken": "Den här återställningslänken är ogiltig eller har gått ut. Begär en ny.",
+      "error": "Något gick fel. Försök igen."
+    },
     "selectGenderPlaceholder": "Välj ert kön",
     "signIn": "Logga in",
     "signInButton": "Logga in",
@@ -1236,7 +1258,7 @@
         "tuningTitle": "Finjustering"
       },
       "qualificationThreshold": "Kvalificeringströskel",
-      "revokeSecondaryConfirm": "Återkalla den sekundära webhook-hemligheten?",
+      "revokeSecondaryConfirm": "Upphäva den sekundära webhook‑hemligheten?",
       "rotateWebhookConfirm": "Rotera webhook-hemligheten? Den gamla hemligheten förblir giltig under rotationsfönstret.",
       "saveAiConfig": "Spara AI‑konfiguration",
       "secondaryRevoked": "Sekundär webhook-hemlighet återkallad.",
@@ -2870,8 +2892,8 @@
     "demoUser": "Demoanvändare",
     "openMenu": "Öppna kontomenyn",
     "signOut": "Logga ut",
-    "workspaceUser": "Workspace-användare",
-    "signOutEverywhere": "Logga ut överallt"
+    "signOutEverywhere": "Logga ut överallt",
+    "workspaceUser": "Workspace-användare"
   },
   "validation": {
     "firstNameRequired": "Namn krävs.",

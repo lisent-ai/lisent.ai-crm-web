@@ -47,6 +47,16 @@
     "creatingAccount": "Criando conta...",
     "emailLabel": "E‑mail",
     "emailPlaceholder": "nome@empresa.com",
+    "forgot": {
+      "backToSignin": "Voltar ao login",
+      "error": "Algo deu errado. Por favor, tente novamente.",
+      "send": "Enviar link de redefinição",
+      "sending": "Enviando…",
+      "sent": "Se existir uma conta para {email}, enviamos um link de redefinição de senha. Verifique sua caixa de entrada.",
+      "subtitle": "Digite seu e‑mail e enviaremos um link de redefinição.",
+      "title": "Redefinir sua senha"
+    },
+    "forgotLink": "Esqueceu a senha?",
     "newWorkspaceUser": "Novo usuário de workspace?",
     "otp": {
       "codeLabel": "Código de verificação",
@@ -77,6 +87,18 @@
     "passwordLabel": "Senha",
     "passwordPlaceholderSignIn": "Digite sua senha",
     "passwordPlaceholderSignUp": "Crie uma senha forte",
+    "reset": {
+      "error": "Algo deu errado. Por favor, tente novamente.",
+      "invalidToken": "Este link de redefinição é inválido ou expirou. Solicite um novo.",
+      "newPassword": "Nova senha",
+      "placeholder": "Crie uma senha forte",
+      "signin": "Ir para login",
+      "submit": "Atualizar senha",
+      "submitting": "Atualizando…",
+      "subtitle": "Escolha uma nova senha para sua conta.",
+      "success": "Sua senha foi atualizada.",
+      "title": "Definir uma nova senha"
+    },
     "selectGenderPlaceholder": "Selecione seu gênero",
     "signIn": "Entrar",
     "signInButton": "Entrar",
@@ -685,7 +707,7 @@
       "approvalDescription": "Confirme o mapeamento e execute a importação. Clientes serão criados ou atualizados no workspace ativo.",
       "approvalOutcome": "Após a aprovação, as linhas são inseridas como clientes em {name}.",
       "approveAndImport": "Aprovar & importar",
-      "backToPreview": "Voltar à pré-visualização",
+      "backToPreview": "Voltar à pré‑visualização",
       "confidence": "Confiança",
       "enableFallback": "Habilitar fallback de linha",
       "importing": "Importando...",
@@ -1011,7 +1033,7 @@
       "revealedBearerLabel": "Novo token bearer",
       "revealedHmacLabel": "Novo segredo HMAC",
       "revokeBearerConfirm": "Revogar este token bearer? As chamadas que o utilizarem falharão.",
-      "revokeSecondaryTokenConfirm": "Revogar o token de entrada secundário?",
+      "revokeSecondaryTokenConfirm": "Revogar o token inbound secundário?",
       "revokeSecretConfirm": "Revogar este segredo    ?   ",
       "rotateBearer": "Rotacionar token bearer",
       "rotateBearerConfirm": "Rotacionar o token bearer? O token antigo permanecerá válido durante a janela de rotação.",
@@ -1023,7 +1045,7 @@
       "saved": "Salvo.",
       "secondaryBearerRevoked": "Token bearer secundário revogado.",
       "secondarySecretRevoked": "Segredo HMAC secundário revogado.",
-      "secondaryTokenRevoked": "Token de entrada secundário revogado.",
+      "secondaryTokenRevoked": "Token inbound secundário revogado.",
       "sendPayloads": "Enviar payloads",
       "target": "Alvo",
       "targetEntity": "Entidade alvo",
@@ -1253,7 +1275,7 @@
         "v1Config": "Configuração V1"
       },
       "thresholdHint": "Leads que pontuam neste ou acima deste limiar são marcados como qualificados.",
-      "webhookUrlLabel": "URL do webhook"
+      "webhookUrlLabel": "URL do Webhook"
     },
     "rag": {
       "chunkLabel": "Chunk",
@@ -1549,7 +1571,7 @@
       "linkedDealId": "ID do deal vinculado",
       "nextStep": "Próxima etapa",
       "noDealYet": "Ainda sem negócio",
-      "noneYet": "Nenhum ainda",
+      "noneYet": "Ainda não há",
       "qualify": "Qualificar",
       "quickFacts": "Informações rápidas",
       "roundRobin": "Rodízio",
@@ -1927,7 +1949,7 @@
       "title": "Agências · {total}"
     },
     "authBody": "Login, cadastro e validação de sessão via <code>/api/auth</code>",
-    "authTitle": "Autenticação",
+    "authTitle": "Auth",
     "bffBody": "As chamadas do navegador devem parar neste app. Rotas de servidor confiáveis conversarão com o serviço interno de CRM.",
     "bffTitle": "CRM BFF",
     "brand": "Lisent.ai",
@@ -2677,7 +2699,7 @@
       "reject": "Rejeitar",
       "startWork": "Iniciar trabalho"
     },
-    "activeCount": "{count} ativo",
+    "activeCount": "{count} ativo(s)",
     "assignmentMode": {
       "everyone": "Todos",
       "individual": "Individual"
@@ -2779,7 +2801,7 @@
     "addMember": "Adicionar membro",
     "addModal": {
       "description": "Convide um colega de equipe por e‑mail. Ele receberá um e‑mail para participar.",
-      "sending": "Enviando...",
+      "sending": "Enviando…",
       "submit": "Enviar convite",
       "title": "Adicionar membro da equipe"
     },
@@ -2833,7 +2855,7 @@
     "noEmail": "Nenhum e‑mail cadastrado",
     "noPermission": "Você não tem permissão para gerenciar membros da equipe.",
     "placeholders": {
-      "email": "name@company.com"
+      "email": "nome@empresa.com"
     },
     "removeMember": "Remover membro",
     "removeModal": {
@@ -2870,8 +2892,8 @@
     "demoUser": "Usuário de demonstração",
     "openMenu": "Abrir menu da conta",
     "signOut": "Sair",
-    "workspaceUser": "Usuário do Workspace",
-    "signOutEverywhere": "Sair de todos os dispositivos"
+    "signOutEverywhere": "Sair de todos os dispositivos",
+    "workspaceUser": "Usuário do Workspace"
   },
   "validation": {
     "firstNameRequired": "Nome é obrigatório.",

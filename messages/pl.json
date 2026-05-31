@@ -25,7 +25,7 @@
     "placeholders": {
       "firstName": "Twoje imię",
       "language": "Wybierz język",
-      "lastName": "Twoje nazwisko",
+      "lastName": "Nazwisko",
       "phoneNumber": "+49 555 123 4567"
     },
     "platformRole": {
@@ -47,6 +47,16 @@
     "creatingAccount": "Tworzenie konta…",
     "emailLabel": "E‑mail",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Powrót do logowania",
+      "error": "Coś poszło nie tak. Spróbuj ponownie.",
+      "send": "Wyślij link resetujący",
+      "sending": "Wysyłanie…",
+      "sent": "Jeśli istnieje konto dla {email}, wysłaliśmy link do resetu hasła. Sprawdź swoją skrzynkę odbiorczą.",
+      "subtitle": "Wpisz swój adres e‑mail, a wyślemy link do resetu.",
+      "title": "Zresetuj hasło"
+    },
+    "forgotLink": "Zapomniał(a) Pan/Pani hasła?",
     "newWorkspaceUser": "Nowy użytkownik workspace?",
     "otp": {
       "codeLabel": "Kod weryfikacyjny",
@@ -77,6 +87,18 @@
     "passwordLabel": "Hasło",
     "passwordPlaceholderSignIn": "Wpisz swoje hasło",
     "passwordPlaceholderSignUp": "Utwórz silne hasło",
+    "reset": {
+      "error": "Coś poszło nie tak. Spróbuj ponownie.",
+      "invalidToken": "Ten link resetujący jest nieprawidłowy lub wygasł. Poproś o nowy.",
+      "newPassword": "Nowe hasło",
+      "placeholder": "Utwórz silne hasło",
+      "signin": "Przejdź do logowania",
+      "submit": "Zaktualizuj hasło",
+      "submitting": "Aktualizowanie…",
+      "subtitle": "Wybierz nowe hasło dla swojego konta.",
+      "success": "Twoje hasło zostało zaktualizowane.",
+      "title": "Ustaw nowe hasło"
+    },
     "selectGenderPlaceholder": "Wybierz płeć",
     "signIn": "Zaloguj się",
     "signInButton": "Zaloguj się",
@@ -290,7 +312,7 @@
       "id": "Id",
       "industry": "Branża",
       "lastName": "Nazwisko",
-      "name": "Nazwa",
+      "name": "Imię",
       "phone": "Telefon",
       "preferredLanguage": "Preferowany język",
       "records": "Rekordy",
@@ -450,7 +472,7 @@
       },
       "saveChanges": "Zapisz zmiany"
     },
-    "kanbanBoard": "Tablica Kanban",
+    "kanbanBoard": "Tablica kanban",
     "loadingBoard": "Ładowanie tablicy...",
     "loadingDeals": "Ładowanie dealów...",
     "meetingTitle": "Spotkanie",
@@ -473,7 +495,7 @@
       "negotiationDescription": "Uzgadnianie cen, warunków i terminów.",
       "new": "Nowa",
       "newDescription": "Ostatnio utworzone szanse, które nie zostały jeszcze zakwalifikowane.",
-      "proposal": "Propozycja",
+      "proposal": "Oferta",
       "proposalDescription": "Formalna propozycja wysłana i w trakcie przeglądu.",
       "qualified": "Zakwalifikowane",
       "qualifiedDescription": "Dopasowanie klienta i budżet zostały zweryfikowane.",
@@ -593,7 +615,7 @@
       "customerImport": {
         "cta": "Rozpocznij import",
         "description": "Wprowadź dane klientów do swojej przestrzeni roboczej.",
-        "title": "Import klientów"
+        "title": "Importuj klientów"
       },
       "homeViews": {
         "cta": "Dostosuj widoki",
@@ -697,7 +719,7 @@
     },
     "preview": {
       "backToSource": "Wróć do źródła",
-      "continueToMapping": "Kontynuuj mapowanie",
+      "continueToMapping": "Przejdź do mapowania",
       "headers": "{count} nagłówków",
       "rowsLoaded": "{count} wierszy załadowano",
       "rowsShown": "Wyświetlanie pierwszych {count} wierszy",
@@ -1366,7 +1388,7 @@
       "calendlyTitle": "Link Calendly",
       "description": "Skonfiguruj zachowanie kwalifikatora <code>v1</code> dla <strong>{name}</strong>.",
       "frameworkDescription": "Wybierz ramy kwalifikacji, które asystent używa do wyodrębniania sygnałów.",
-      "frameworkTitle": "Ramy kwalifikacji",
+      "frameworkTitle": "Framework kwalifikacji",
       "loadFailed": "Nie udało się wczytać konfiguracji v1.",
       "loading": "Wczytywanie konfiguracji v1...",
       "outboundWebhookDescription": "Miejsce, w którym kwalifikator wysyła zakwalifikowane leady.",
@@ -2870,8 +2892,8 @@
     "demoUser": "Użytkownik demo",
     "openMenu": "Otwórz menu konta",
     "signOut": "Wyloguj się",
-    "workspaceUser": "Użytkownik Workspace",
-    "signOutEverywhere": "Wyloguj się wszędzie"
+    "signOutEverywhere": "Wyloguj się wszędzie",
+    "workspaceUser": "Użytkownik Workspace"
   },
   "validation": {
     "firstNameRequired": "Imię jest wymagane.",

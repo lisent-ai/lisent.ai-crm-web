@@ -47,6 +47,16 @@
     "creatingAccount": "جارٍ إنشاء الحساب...",
     "emailLabel": "البريد الإلكتروني",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "العودة إلى تسجيل الدخول",
+      "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+      "send": "إرسال رابط إعادة التعيين",
+      "sending": "جارٍ الإرسال…",
+      "sent": "إذا كان هناك حساب مرتبط بـ {email}، فقد أرسلنا رابط إعادة تعيين كلمة المرور. تحقق من بريدك الوارد.",
+      "subtitle": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين.",
+      "title": "إعادة تعيين كلمة المرور"
+    },
+    "forgotLink": "نسيت كلمة المرور؟",
     "newWorkspaceUser": "مستخدم جديد في مساحة العمل؟",
     "otp": {
       "codeLabel": "رمز التحقق",
@@ -77,6 +87,18 @@
     "passwordLabel": "كلمة المرور",
     "passwordPlaceholderSignIn": "أدخل كلمة المرور",
     "passwordPlaceholderSignUp": "أنشئ كلمة مرور قوية",
+    "reset": {
+      "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+      "invalidToken": "رابط إعادة التعيين غير صالح أو انتهت صلاحيته. اطلب رابطًا جديدًا.",
+      "newPassword": "كلمة المرور الجديدة",
+      "placeholder": "أنشئ كلمة مرور قوية",
+      "signin": "الانتقال إلى تسجيل الدخول",
+      "submit": "تحديث كلمة المرور",
+      "submitting": "جارٍ التحديث…",
+      "subtitle": "اختر كلمة مرور جديدة لحسابك.",
+      "success": "تم تحديث كلمة المرور الخاصة بك.",
+      "title": "إنشاء كلمة مرور جديدة"
+    },
     "selectGenderPlaceholder": "اختر جنسك",
     "signIn": "تسجيل الدخول",
     "signInButton": "تسجيل الدخول",
@@ -88,7 +110,7 @@
     "signUpSubtitle": "ابدأ بالبريد الإلكتروني وكلمة المرور. ثم يتم تعيين المستأجر.",
     "signUpTitle": "إنشاء وصول إلى مساحة عملك",
     "signingIn": "جارٍ تسجيل الدخول...",
-    "workspaceAuth": "مصادقة مساحة العمل",
+    "workspaceAuth": "مصادقة Workspace",
     "wrongCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة."
   },
   "calendar": {
@@ -160,7 +182,7 @@
     },
     "filtersAriaLabel": "مرشحات التقويم",
     "linkedFallback": {
-      "customer": "العميل المرتبط",
+      "customer": "عميل مرتبط",
       "deal": "الصفقة المرتبطة",
       "lead": "العميل المحتمل المرتبط"
     },
@@ -300,7 +322,7 @@
       "createCustomer": "إنشاء عميل",
       "createEyebrow": "عميل جديد",
       "createSubtitle": "تسجيل تفاصيل الاتصال الأساسية. يمكنك إكمال البقية لاحقًا.",
-      "editEyebrow": "تحرير العميل",
+      "editEyebrow": "تعديل العميل",
       "saveChanges": "حفظ التغييرات"
     },
     "list": {
@@ -346,7 +368,7 @@
     }
   },
   "deals": {
-    "activeOpportunity": "فرصة نشطة",
+    "activeOpportunity": "الفرصة النشطة",
     "addComment": "أضف تعليق",
     "addDeal": "أضف صفقة",
     "aiInsights": {
@@ -616,7 +638,7 @@
         "description": "جدولة مكالمة اكتشاف أو متابعة.",
         "title": "جدولة اجتماع"
       },
-      "subtitle": "أنجز المهام الشائعة بنقرة واحدة.",
+      "subtitle": "إنجاز المهام الشائعة بنقرة واحدة.",
       "title": "إجراءات سريعة"
     },
     "recentLeads": {
@@ -765,7 +787,7 @@
   "integrations": {
     "apiKeys": {
       "cols": {
-        "actions": "الإجراءات",
+        "actions": "إجراءات",
         "created": "تم الإنشاء",
         "key": "المفتاح",
         "lastUsed": "آخر استخدام",
@@ -816,11 +838,11 @@
       "loadFailed": "فشل تحميل كتالوج التكاملات.",
       "loading": "جارٍ تحميل التكاملات…",
       "noAccess": "لا توجد صلاحية لمساحة العمل",
-      "pickAnother": "اختر مساحة عمل أخرى",
-      "pickCompany": "اختر مساحة عمل",
+      "pickAnother": "اختر Workspace آخر",
+      "pickCompany": "اختر Workspace",
       "pickCompanyDescription": "حدد مساحة عمل لتكوين التكاملات.",
       "readOnlyNotice": "يمكنك عرض هذا الإعداد ولكن لا يمكنك تعديله.",
-      "switchCompany": "تبديل مساحة العمل"
+      "switchCompany": "تبديل Workspace"
     },
     "companyPicker": {
       "description": "حدد مساحة عمل لإدارة تكاملاتها.",
@@ -828,7 +850,7 @@
       "listAria": "قائمة مساحات العمل",
       "loadFailed": "فشل في تحميل مساحات العمل.",
       "loading": "جارٍ تحميل مساحات العمل…",
-      "title": "اختر مساحة عمل"
+      "title": "اختر Workspace"
     },
     "configure": "تكوين",
     "configureAria": "تكوين {name}",
@@ -1024,7 +1046,7 @@
       "secondaryBearerRevoked": "تم إلغاء Bearer token الثانوي.",
       "secondarySecretRevoked": "تم إلغاء سر HMAC الثانوي.",
       "secondaryTokenRevoked": "تم إلغاء token الوارد الثانوي.",
-      "sendPayloads": "إرسال الحمولات",
+      "sendPayloads": "إرسال الحمولة",
       "target": "الهدف",
       "targetEntity": "الكيان الهدف",
       "unknown": "غير معروف",
@@ -1971,7 +1993,7 @@
         "title": "نماذج التقاط Leads"
       }
     },
-    "ctaCreateWorkspace": "إنشاء وصول إلى مساحة العمل",
+    "ctaCreateWorkspace": "إنشاء وصول Workspace",
     "ctaOpenShell": "فتح القشرة المحمية",
     "currentStack": "المجموعة الحالية",
     "email": {
@@ -2680,7 +2702,7 @@
     "activeCount": "{count} نشط",
     "assignmentMode": {
       "everyone": "الجميع",
-      "individual": "فردي"
+      "individual": "فرد"
     },
     "confirm": {
       "delete": "هل تريد حذف هذه المهمة؟",
@@ -2870,8 +2892,8 @@
     "demoUser": "مستخدم تجريبي",
     "openMenu": "فتح قائمة الحساب",
     "signOut": "تسجيل الخروج",
-    "workspaceUser": "مستخدم Workspace",
-    "signOutEverywhere": "تسجيل الخروج من كل الأجهزة"
+    "signOutEverywhere": "تسجيل الخروج من كل الأجهزة",
+    "workspaceUser": "مستخدم Workspace"
   },
   "validation": {
     "firstNameRequired": "الاسم مطلوب.",

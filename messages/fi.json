@@ -47,6 +47,16 @@
     "creatingAccount": "Luodaan tiliä...",
     "emailLabel": "Sähköposti",
     "emailPlaceholder": "name@company.com",
+    "forgot": {
+      "backToSignin": "Takaisin kirjautumiseen",
+      "error": "Jotain meni vikaan. Yritä uudelleen.",
+      "send": "Lähetä nollauslinkki",
+      "sending": "Lähetetään…",
+      "sent": "Jos tili on olemassa osoitteessa {email}, olemme lähettäneet salasanan nollauslinkin. Tarkista postilaatikkosi.",
+      "subtitle": "Syötä sähköpostiosoitteesi, niin lähetämme sinulle nollauslinkin.",
+      "title": "Nollaa salasana"
+    },
+    "forgotLink": "Unohtuiko salasana?",
     "newWorkspaceUser": "Uusi workspace‑käyttäjä?",
     "otp": {
       "codeLabel": "Vahvistuskoodi",
@@ -77,6 +87,18 @@
     "passwordLabel": "Salasana",
     "passwordPlaceholderSignIn": "Syötä salasanasi",
     "passwordPlaceholderSignUp": "Luo vahva salasana",
+    "reset": {
+      "error": "Jotain meni vikaan. Yritä uudelleen.",
+      "invalidToken": "Tämä nollauslinkki on virheellinen tai vanhentunut. Pyydä uusi linkki.",
+      "newPassword": "Uusi salasana",
+      "placeholder": "Luo vahva salasana",
+      "signin": "Siirry kirjautumiseen",
+      "submit": "Päivitä salasana",
+      "submitting": "Päivitetään…",
+      "subtitle": "Valitse uusi salasana tilillesi.",
+      "success": "Salasanasi on päivitetty.",
+      "title": "Aseta uusi salasana"
+    },
     "selectGenderPlaceholder": "Valitse sukupuoli",
     "signIn": "Kirjaudu sisään",
     "signInButton": "Kirjaudu sisään",
@@ -154,7 +176,7 @@
       "meetingUrl": "Kokouksen URL",
       "reminder": "Muistutus",
       "start": "Alku",
-      "startDate": "Aloituspäivä",
+      "startDate": "Alkamispäivä",
       "status": "Tila",
       "title": "Otsikko"
     },
@@ -188,8 +210,8 @@
       "selectRecord": "Valitse tietue",
       "title": "Tutustumiskutsu..."
     },
-    "searchAriaLabel": "Etsi tapahtumia",
-    "searchPlaceholder": "Etsi tapahtumia...",
+    "searchAriaLabel": "Hae tapahtumia",
+    "searchPlaceholder": "Hae tapahtumia...",
     "selectedCompanyFallback": "Oma työtila",
     "success": {
       "created": "Tapahtuma luotu.",
@@ -661,7 +683,7 @@
   },
   "imports": {
     "errors": {
-      "approveFailed": "Hyväksyminen ja tuonti epäonnistui.",
+      "approveFailed": "Hyväksyminen ja tuonti epäonnistuivat.",
       "chooseFile": "Valitse CSV-tiedosto ladattavaksi.",
       "enterUrl": "Syötä CSV-URL.",
       "fetchUrlFailed": "CSV‑osoitteen noutaminen epäonnistui.",
@@ -1380,9 +1402,9 @@
     },
     "webhooks": {
       "categories": {
-        "lifecycle": "Elinkaari",
+        "lifecycle": "Lifecycle",
         "pipeline": "Pipeline",
-        "scoring": "Pisteytys"
+        "scoring": "Scoring"
       },
       "clear": "Tyhjennä",
       "configured": "Määritetty",
@@ -1638,7 +1660,7 @@
     },
     "notes": {
       "addNote": "Lisää muistiinpano",
-      "cancelEditing": "Peruuta muokkaus",
+      "cancelEditing": "Peru muokkaus",
       "deleteNote": "Poista muistiinpano",
       "draftPlaceholder": "Kirjoita muistiinpano...",
       "editNote": "Muokkaa muistiinpanoa",
@@ -1683,7 +1705,7 @@
     },
     "statusTab": {
       "all": "Kaikki",
-      "assignedToMe": "Minulle osoitettu",
+      "assignedToMe": "Minulle",
       "filterAria": "Suodata liidejä tilan mukaan"
     },
     "success": {
@@ -2870,8 +2892,8 @@
     "demoUser": "Demo‑käyttäjä",
     "openMenu": "Avaa tilivalikko",
     "signOut": "Kirjaudu ulos",
-    "workspaceUser": "Työtilan käyttäjä",
-    "signOutEverywhere": "Kirjaudu ulos kaikkialta"
+    "signOutEverywhere": "Kirjaudu ulos kaikkialta",
+    "workspaceUser": "Työtilan käyttäjä"
   },
   "validation": {
     "firstNameRequired": "Nimi on pakollinen.",
