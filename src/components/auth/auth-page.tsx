@@ -17,6 +17,8 @@ import {
 
 import { AuthFormCard } from "@/components/auth/auth-form-card";
 import { AuthShell } from "@/components/auth/auth-shell";
+import { ForgotPasswordStep } from "@/components/auth/forgot-password-step";
+import { ResetPasswordStep } from "@/components/auth/reset-password-step";
 import { SigninOtpStep } from "@/components/auth/signin-otp-step";
 import { VerifyEmailStep } from "@/components/auth/verify-email-step";
 import {
@@ -36,6 +38,7 @@ export function AuthPage() {
   const pathname = usePathname();
   const router = useRouter();
   const mode = useMemo(() => resolveMode(pathname), [pathname]);
+  const isResetPath = pathname.includes("reset-password");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +50,9 @@ export function AuthPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   // After a successful sign-in/up we may need the email-verification OTP
   // step before entering the app.
-  const [phase, setPhase] = useState<"form" | "verify" | "signinOtp">("form");
+  const [phase, setPhase] = useState<
+    "form" | "verify" | "signinOtp" | "forgot" | "reset"
+  >(() => (pathname.includes("reset-password") ? "reset" : "form"));
   const [pendingEmail, setPendingEmail] = useState("");
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -56,7 +61,9 @@ export function AuthPage() {
   );
 
   useEffect(() => {
-    if (!mounted) {
+    if (!mounted || isResetPath) {
+      // On the reset-password link we always show the reset form, even
+      // for a (rare) logged-in visitor — never bounce to the dashboard.
       return;
     }
 
@@ -91,7 +98,7 @@ export function AuthPage() {
     return () => {
       cancelled = true;
     };
-  }, [mounted, router]);
+  }, [mounted, router, isResetPath]);
 
   useEffect(() => {
     setFormErrors({});
@@ -211,6 +218,18 @@ export function AuthPage() {
           onAuthenticated={() => router.replace("/dashboard")}
           onUsePassword={() => setPhase("form")}
         />
+      ) : phase === "forgot" ? (
+        <ForgotPasswordStep
+          initialEmail={email}
+          onBack={() => setPhase("form")}
+        />
+      ) : phase === "reset" ? (
+        <ResetPasswordStep
+          onDone={() => {
+            setPhase("form");
+            router.replace("/auth/sign-in");
+          }}
+        />
       ) : (
         <AuthFormCard
           busy={busy}
@@ -220,6 +239,7 @@ export function AuthPage() {
           onEmailChange={setEmail}
           onPasswordChange={setPassword}
           onSignUpProfileChange={setSignUpProfile}
+          onForgotPassword={() => setPhase("forgot")}
           onSubmit={(event) => void handleSubmit(event)}
           onUseOtp={() => setPhase("signinOtp")}
           password={password}

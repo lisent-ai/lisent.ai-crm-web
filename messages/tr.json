@@ -47,6 +47,28 @@
     "creatingAccount": "Hesap oluşturuluyor...",
     "emailLabel": "E-posta",
     "emailPlaceholder": "name@company.com",
+    "forgotLink": "Şifreni mi unuttun?",
+    "forgot": {
+      "title": "Şifreni sıfırla",
+      "subtitle": "E-postanı gir, sana bir sıfırlama bağlantısı gönderelim.",
+      "send": "Sıfırlama bağlantısı gönder",
+      "sending": "Gönderiliyor…",
+      "sent": "{email} adresine ait bir hesap varsa şifre sıfırlama bağlantısı gönderdik. Gelen kutunu kontrol et.",
+      "backToSignin": "Girişe dön",
+      "error": "Bir şeyler ters gitti. Lütfen tekrar dene."
+    },
+    "reset": {
+      "title": "Yeni bir şifre belirle",
+      "subtitle": "Hesabın için yeni bir şifre seç.",
+      "newPassword": "Yeni şifre",
+      "placeholder": "Güçlü bir şifre oluştur",
+      "submit": "Şifreyi güncelle",
+      "submitting": "Güncelleniyor…",
+      "success": "Şifren güncellendi.",
+      "signin": "Girişe git",
+      "invalidToken": "Bu sıfırlama bağlantısı geçersiz veya süresi dolmuş. Yenisini iste.",
+      "error": "Bir şeyler ters gitti. Lütfen tekrar dene."
+    },
     "newWorkspaceUser": "Yeni çalışma alanı kullanıcısı?",
     "otp": {
       "codeLabel": "Doğrulama kodu",

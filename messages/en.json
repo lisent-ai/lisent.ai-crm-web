@@ -47,6 +47,28 @@
     "creatingAccount": "Creating account...",
     "emailLabel": "Email",
     "emailPlaceholder": "name@company.com",
+    "forgotLink": "Forgot password?",
+    "forgot": {
+      "title": "Reset your password",
+      "subtitle": "Enter your email and we'll send you a reset link.",
+      "send": "Send reset link",
+      "sending": "Sending…",
+      "sent": "If an account exists for {email}, we've sent a password reset link. Check your inbox.",
+      "backToSignin": "Back to sign in",
+      "error": "Something went wrong. Please try again."
+    },
+    "reset": {
+      "title": "Set a new password",
+      "subtitle": "Choose a new password for your account.",
+      "newPassword": "New password",
+      "placeholder": "Create a strong password",
+      "submit": "Update password",
+      "submitting": "Updating…",
+      "success": "Your password has been updated.",
+      "signin": "Go to sign in",
+      "invalidToken": "This reset link is invalid or has expired. Request a new one.",
+      "error": "Something went wrong. Please try again."
+    },
     "newWorkspaceUser": "New workspace user?",
     "otp": {
       "verifyTitle": "Verify your email",
