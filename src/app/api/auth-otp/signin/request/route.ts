@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import supertokens from "supertokens-node";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 
+import { clientIpFrom } from "@/lib/auth/client-ip";
 import { sendSigninOtp } from "@/lib/auth/otp/email";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
@@ -36,7 +37,12 @@ export async function POST(request: NextRequest) {
         } catch {
           // default locale
         }
-        await sendSigninOtp({ userId: user.id, email, language });
+        await sendSigninOtp({
+          userId: user.id,
+          email,
+          language,
+          clientIp: clientIpFrom(request),
+        });
       }
     } catch (err) {
       console.error("[auth] signin OTP request failed", err);

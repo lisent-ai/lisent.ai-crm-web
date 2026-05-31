@@ -2870,6 +2870,7 @@
     "demoUser": "Demo user",
     "openMenu": "Open account menu",
     "signOut": "Sign out",
+    "signOutEverywhere": "Sign out everywhere",
     "workspaceUser": "Workspace user"
   },
   "validation": {

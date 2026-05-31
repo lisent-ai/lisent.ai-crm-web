@@ -2870,6 +2870,7 @@
     "demoUser": "Demo kullanıcı",
     "openMenu": "Hesap menüsünü açın",
     "signOut": "Çıkış yap",
+    "signOutEverywhere": "Her yerden çıkış yap",
     "workspaceUser": "Çalışma alanı kullanıcısı"
   },
   "validation": {

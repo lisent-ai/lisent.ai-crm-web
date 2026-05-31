@@ -3,6 +3,7 @@ import supertokens from "supertokens-node";
 import UserMetadata from "supertokens-node/recipe/usermetadata";
 import { withSession } from "supertokens-node/nextjs";
 
+import { clientIpFrom } from "@/lib/auth/client-ip";
 import { sendEmailVerifyOtp } from "@/lib/auth/otp/email";
 import { ensureBackendSuperTokensInit } from "@/lib/supertokens/backend";
 
@@ -37,7 +38,12 @@ export async function POST(request: NextRequest) {
       // fall back to default locale
     }
 
-    const res = await sendEmailVerifyOtp({ userId, email, language });
+    const res = await sendEmailVerifyOtp({
+      userId,
+      email,
+      language,
+      clientIp: clientIpFrom(request),
+    });
     if (!res.sent) {
       return Response.json({
         status: "THROTTLED",
