@@ -465,6 +465,10 @@ function ProfileView({
 
           <CardSection title={t("leads.drawer.quickFacts")}>
             <dl className="grid gap-3 text-sm">
+              <DetailRow
+                label={t("leads.drawer.nextFollowUp")}
+                value={lead.nextFollowUpAt ? formatDateTime(lead.nextFollowUpAt) : "—"}
+              />
               <DetailRow label={t("leads.drawer.customerId")} value={lead.customerId || "—"} monospace />
               <DetailRow label={t("leads.drawer.convertedCustomer")} value={lead.convertedCustomerId || "—"} monospace />
               <DetailRow label={t("leads.drawer.convertedDeal")} value={lead.convertedDealId || "—"} monospace />

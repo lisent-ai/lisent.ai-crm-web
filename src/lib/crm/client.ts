@@ -45,6 +45,7 @@ type CRMLeadRecord = {
   converted_customer_id?: string | null;
   converted_deal_id?: string | null;
   converted_at?: string | null;
+  next_follow_up_at?: string | null;
   extra_data?: Record<string, unknown>;
   created_at: string;
   updated_at: string;
@@ -248,6 +249,7 @@ export type Lead = {
   convertedCustomerId: string;
   convertedDealId: string;
   convertedAt: string;
+  nextFollowUpAt: string;
   extraData: Record<string, string>;
   createdAt: string;
   updatedAt: string;
@@ -435,6 +437,7 @@ export type UpsertLeadInput = {
   assignmentMethod: LeadAssignmentMethod;
   value: number;
   extraData?: Record<string, string>;
+  nextFollowUpAt?: string;
 };
 
 export type ConvertLeadInput = {
@@ -662,6 +665,7 @@ function mapLead(record: CRMLeadRecord): Lead {
     convertedCustomerId: record.converted_customer_id ?? "",
     convertedDealId: record.converted_deal_id ?? "",
     convertedAt: record.converted_at ?? "",
+    nextFollowUpAt: record.next_follow_up_at ?? "",
     extraData: normalizeExtraData(record.extra_data),
     createdAt: record.created_at,
     updatedAt: record.updated_at,
@@ -1060,6 +1064,9 @@ export async function updateLead(
         : {}),
       ...(input.value !== undefined ? { value: input.value } : {}),
       ...(input.extraData !== undefined ? { extra_data: input.extraData ?? {} } : {}),
+      ...(input.nextFollowUpAt !== undefined
+        ? { next_follow_up_at: input.nextFollowUpAt || null }
+        : {}),
     }),
   });
   return mapLead(payload);

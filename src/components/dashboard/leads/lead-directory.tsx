@@ -761,6 +761,8 @@ export function LeadDirectory() {
               meetingUrl: "",
               reminderMinutesBefore: 30,
             });
+            // Mirror the follow-up onto the lead so lists/cards can show it.
+            await updateLead(savedLead.id, { nextFollowUpAt: startAt });
           } catch {
             // Non-critical; surface nothing and keep the save successful.
           }
