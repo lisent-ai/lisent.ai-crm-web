@@ -1647,10 +1647,12 @@
       "clearCampaign": "Effacer le filtre"
     },
     "followUp": {
+      "customDateLabel": "Date et heure",
       "eventTitle": "Appel de relance avec {name}",
       "label": "Heure de relance",
       "none": "Pas de relance",
       "presets": {
+        "custom": "Date et heure spécifiques",
         "in_1_month": "Relancer dans 1 mois",
         "in_1_week": "Relancer dans 1 semaine",
         "in_2_days": "Appeler dans 2 jours",

@@ -1650,10 +1650,12 @@
       "clearCampaign": "Filtreyi temizle"
     },
     "followUp": {
+      "customDateLabel": "Tarih ve saat",
       "eventTitle": "{name} ile takip araması",
       "label": "Takip zamanı",
       "none": "Takip yok",
       "presets": {
+        "custom": "Belirli tarih/saat",
         "in_1_month": "1 ay sonra dön",
         "in_1_week": "1 hafta sonra takip et",
         "in_2_days": "2 gün sonra ara",

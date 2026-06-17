@@ -35,8 +35,9 @@ export function TodayCalls({ companyId, companyName }: Readonly<TodayCallsProps>
   const [busyId, setBusyId] = useState<string | null>(null);
   const [userId, setUserId] = useState("");
 
-  // Resolve the signed-in user so the panel shows only the calls THIS user
-  // scheduled — each rep sees their own list, not the whole team's.
+  // Resolve the signed-in user so the panel shows only the calls assigned
+  // to THIS user — each rep sees the leads they're responsible for, not the
+  // whole team's (owners/admins included).
   useEffect(() => {
     let cancelled = false;
     void getAccountProfile()
@@ -98,13 +99,13 @@ export function TodayCalls({ companyId, companyName }: Readonly<TodayCallsProps>
     };
   }, [companyId, t]);
 
-  // Only show calls created by the current user. Empty userId (still
-  // resolving or no session) shows nothing rather than the whole team's.
+  // Only show calls for leads assigned to the current user. Empty userId
+  // (still resolving or no session) shows nothing rather than everyone's.
   const callEvents = useMemo(
     () =>
       events
         .filter((event) => CALL_EVENT_TYPES.has(event.eventType))
-        .filter((event) => !!userId && event.createdByUserId === userId)
+        .filter((event) => !!userId && event.assigneeUserId === userId)
         .sort((left, right) => left.startAt.localeCompare(right.startAt)),
     [events, userId],
   );

@@ -1647,10 +1647,12 @@
       "clearCampaign": "مسح الفلتر"
     },
     "followUp": {
+      "customDateLabel": "التاريخ والوقت",
       "eventTitle": "مكالمة متابعة مع {name}",
       "label": "وقت المتابعة",
       "none": "بدون متابعة",
       "presets": {
+        "custom": "تاريخ ووقت محدد",
         "in_1_month": "متابعة خلال شهر",
         "in_1_week": "متابعة خلال أسبوع",
         "in_2_days": "اتصل خلال يومين",

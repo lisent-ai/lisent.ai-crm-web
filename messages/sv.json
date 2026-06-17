@@ -1647,10 +1647,12 @@
       "clearCampaign": "Rensa filter"
     },
     "followUp": {
+      "customDateLabel": "Datum & tid",
       "eventTitle": "Uppföljningssamtal med {name}",
       "label": "Uppföljningstid",
       "none": "Ingen uppföljning",
       "presets": {
+        "custom": "Specifikt datum & tid",
         "in_1_month": "Uppföljning om 1 månad",
         "in_1_week": "Uppföljning om 1 vecka",
         "in_2_days": "Ring om 2 dagar",

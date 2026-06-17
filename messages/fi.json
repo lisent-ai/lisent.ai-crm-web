@@ -1647,10 +1647,12 @@
       "clearCampaign": "Tyhjennä suodatin"
     },
     "followUp": {
+      "customDateLabel": "Päivämäärä ja aika",
       "eventTitle": "Seurantapuhelu henkilön {name} kanssa",
       "label": "Seuranta-aika",
       "none": "Ei seurantaa",
       "presets": {
+        "custom": "Tietty päivämäärä ja aika",
         "in_1_month": "Seuranta 1 kuukauden kuluttua",
         "in_1_week": "Seuranta 1 viikon kuluttua",
         "in_2_days": "Soita kahden päivän kuluttua",

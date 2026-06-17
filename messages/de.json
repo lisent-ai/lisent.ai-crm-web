@@ -1647,10 +1647,12 @@
       "clearCampaign": "Filter löschen"
     },
     "followUp": {
+      "customDateLabel": "Datum & Uhrzeit",
       "eventTitle": "Nachfass-Anruf mit {name}",
       "label": "Nachfasszeit",
       "none": "Keine Nachverfolgung",
       "presets": {
+        "custom": "Bestimmtes Datum & Uhrzeit",
         "in_1_month": "Nachverfolgung in 1 Monat",
         "in_1_week": "Nachverfolgung in 1 Woche",
         "in_2_days": "Anruf in 2 Tagen",

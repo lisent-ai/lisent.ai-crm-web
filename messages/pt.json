@@ -1647,10 +1647,12 @@
       "clearCampaign": "Limpar filtro"
     },
     "followUp": {
+      "customDateLabel": "Data e hora",
       "eventTitle": "Ligação de follow-up com {name}",
       "label": "Horário de follow-up",
       "none": "Sem follow-up",
       "presets": {
+        "custom": "Data e hora específicas",
         "in_1_month": "Follow-up em 1 mês",
         "in_1_week": "Follow-up em 1 semana",
         "in_2_days": "Ligar em 2 dias",

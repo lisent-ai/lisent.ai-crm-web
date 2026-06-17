@@ -1647,10 +1647,12 @@
       "clearCampaign": "Filter wissen"
     },
     "followUp": {
+      "customDateLabel": "Datum & tijd",
       "eventTitle": "Follow‑up‑gesprek met {name}",
       "label": "Follow‑up‑tijd",
       "none": "Geen follow‑up",
       "presets": {
+        "custom": "Specifieke datum & tijd",
         "in_1_month": "Follow‑up over 1 maand",
         "in_1_week": "Follow‑up over 1 week",
         "in_2_days": "Bel over 2 dagen",

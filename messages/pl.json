@@ -1647,10 +1647,12 @@
       "clearCampaign": "Wyczyść filtr"
     },
     "followUp": {
+      "customDateLabel": "Data i godzina",
       "eventTitle": "Rozmowa follow‑up z {name}",
       "label": "Czas follow‑up",
       "none": "Brak follow‑up",
       "presets": {
+        "custom": "Określona data i godzina",
         "in_1_month": "Follow‑up za 1 miesiąc",
         "in_1_week": "Follow‑up za 1 tydzień",
         "in_2_days": "Zadzwoń za 2 dni",

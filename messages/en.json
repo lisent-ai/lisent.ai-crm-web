@@ -1650,10 +1650,12 @@
       "clearCampaign": "Clear filter"
     },
     "followUp": {
+      "customDateLabel": "Date & time",
       "eventTitle": "Follow-up call with {name}",
       "label": "Follow-up time",
       "none": "No follow-up",
       "presets": {
+        "custom": "Specific date & time",
         "in_1_month": "Follow up in 1 month",
         "in_1_week": "Follow up in 1 week",
         "in_2_days": "Call in 2 days",

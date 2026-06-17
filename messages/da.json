@@ -1647,10 +1647,12 @@
       "clearCampaign": "Ryd filter"
     },
     "followUp": {
+      "customDateLabel": "Dato & tid",
       "eventTitle": "Opfølgningsopkald med {name}",
       "label": "Tidspunkt for opfølgning",
       "none": "Ingen opfølgning",
       "presets": {
+        "custom": "Specifik dato & tid",
         "in_1_month": "Opfølgning om 1 måned",
         "in_1_week": "Opfølgning om 1 uge",
         "in_2_days": "Ring om 2 dage",

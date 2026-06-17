@@ -155,6 +155,24 @@ export function LeadFormModal({
             value={leadForm.followUpPreset}
           />
         ) : null}
+        {leadForm.status === "contacted" && leadForm.followUpPreset === "custom" ? (
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-slate-700">
+              {t("leads.followUp.customDateLabel")}
+            </span>
+            <input
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-sky-400"
+              onChange={(event) =>
+                onLeadFormChange((current) => ({
+                  ...current,
+                  followUpAt: event.target.value,
+                }))
+              }
+              type="datetime-local"
+              value={leadForm.followUpAt}
+            />
+          </label>
+        ) : null}
         <Field
           label={t("leads.formModal.leadValue")}
           onChange={(value) => onLeadFormChange((current) => ({ ...current, value }))}

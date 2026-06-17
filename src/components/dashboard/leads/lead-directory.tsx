@@ -756,7 +756,13 @@ export function LeadDirectory() {
       // dashboard "today's calls" panel. Best-effort — the lead is already
       // saved, so a calendar hiccup must not fail the primary action.
       if (leadForm.status === "contacted" && leadForm.followUpPreset) {
-        const startAt = computeFollowUpDate(leadForm.followUpPreset);
+        let startAt: string | null;
+        if (leadForm.followUpPreset === "custom") {
+          const picked = leadForm.followUpAt ? new Date(leadForm.followUpAt) : null;
+          startAt = picked && !Number.isNaN(picked.getTime()) ? picked.toISOString() : null;
+        } else {
+          startAt = computeFollowUpDate(leadForm.followUpPreset);
+        }
         if (startAt) {
           try {
             await createCalendarEvent({

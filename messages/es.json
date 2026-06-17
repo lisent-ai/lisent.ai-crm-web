@@ -1647,10 +1647,12 @@
       "clearCampaign": "Borrar filtro"
     },
     "followUp": {
+      "customDateLabel": "Fecha & hora",
       "eventTitle": "Llamada de seguimiento con {name}",
       "label": "Hora del seguimiento",
       "none": "Sin seguimiento",
       "presets": {
+        "custom": "Fecha & hora específicas",
         "in_1_month": "Seguimiento en 1 mes",
         "in_1_week": "Seguimiento en 1 semana",
         "in_2_days": "Llamar en 2 días",
