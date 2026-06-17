@@ -671,6 +671,16 @@
       "openFullDashboard": "Open full dashboard",
       "openPipeline": "Open pipeline"
     },
+    "todayCalls": {
+      "call": "Call",
+      "empty": "No one to call today.",
+      "loadFailed": "Failed to load today's calls.",
+      "markDone": "Done",
+      "markDoneFailed": "Couldn't update the call.",
+      "overdue": "Overdue",
+      "selectWorkspace": "Select a workspace to see today's calls.",
+      "title": "People to call today"
+    },
     "workspaceOverview": {
       "acrossAccount": "Across your account",
       "activeWorkspace": "Active workspace",
@@ -1627,6 +1637,17 @@
       "byCampaign": "Filtered by campaign: {name}",
       "byCampaignCount": "of leads",
       "clearCampaign": "Clear filter"
+    },
+    "followUp": {
+      "eventTitle": "Follow-up call with {name}",
+      "label": "Follow-up time",
+      "none": "No follow-up",
+      "presets": {
+        "in_1_month": "Follow up in 1 month",
+        "in_1_week": "Follow up in 1 week",
+        "in_2_days": "Call in 2 days",
+        "tomorrow": "Call tomorrow"
+      }
     },
     "formModal": {
       "assignee": "Assignee",

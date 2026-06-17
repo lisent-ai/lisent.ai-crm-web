@@ -11,6 +11,7 @@ import { getCompanyRoleForAccess } from "@/lib/auth/access-control";
 import {
   CRMClientError,
   convertLead,
+  createCalendarEvent,
   createLead,
   createLeadComment,
   deleteLeadComment,
@@ -58,7 +59,7 @@ import {
   type LeadConvertState,
   type LeadFormState,
 } from "./lead-types";
-import { buildLeadCsv, downloadCsv, parseLeadValue } from "./lead-utils";
+import { buildLeadCsv, computeFollowUpDate, downloadCsv, parseLeadValue } from "./lead-utils";
 
 function buildLeadFilters(input: {
   tab: string;
@@ -702,6 +703,38 @@ export function LeadDirectory() {
       const savedLead = editingLeadId
         ? await updateLead(editingLeadId, payload)
         : await createLead(payload);
+
+      // Inline follow-up: when the rep marks a lead "contacted" and picks a
+      // preset, drop a scheduled call on the calendar so it surfaces in the
+      // dashboard "today's calls" panel. Best-effort — the lead is already
+      // saved, so a calendar hiccup must not fail the primary action.
+      if (leadForm.status === "contacted" && leadForm.followUpPreset) {
+        const startAt = computeFollowUpDate(leadForm.followUpPreset);
+        if (startAt) {
+          try {
+            await createCalendarEvent({
+              companyId: assignment.company.id,
+              title: t("leads.followUp.eventTitle", {
+                name: savedLead.name || t("leads.fallback.lead"),
+              }),
+              description: "",
+              eventType: "call",
+              status: "scheduled",
+              startAt,
+              allDay: false,
+              assigneeUserId: assignment.assigneeUserId,
+              assigneeUserName: assignment.assigneeUserName,
+              linkedEntityType: "lead",
+              linkedEntityId: savedLead.id,
+              location: "",
+              meetingUrl: "",
+              reminderMinutesBefore: 30,
+            });
+          } catch {
+            // Non-critical; surface nothing and keep the save successful.
+          }
+        }
+      }
 
       await reloadReferenceData(assignment.company.id);
       setSelectedLeadId(savedLead.id);

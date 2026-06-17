@@ -8,6 +8,7 @@ import { Building2, CheckCheck, User } from "lucide-react";
 import { OverviewHeader } from "@/components/dashboard/home/overview-header";
 import { QuickActionsPanel } from "@/components/dashboard/home/quick-actions-panel";
 import { StatCard } from "@/components/dashboard/home/stat-card";
+import { TodayCalls } from "@/components/dashboard/home/today-calls";
 import { WorkspaceSnapshot } from "@/components/dashboard/home/workspace-snapshot";
 import {
   CRMClientError,
@@ -103,6 +104,8 @@ export function WorkspaceOverview() {
           }
         />
       </section>
+
+      <TodayCalls companyId={activeCompanyId} companyName={activeCompanyName} />
 
       <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)]">
         <WorkspaceSnapshot

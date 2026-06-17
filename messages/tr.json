@@ -671,6 +671,16 @@
       "openFullDashboard": "Tam panoyu aç",
       "openPipeline": "Süreç aç"
     },
+    "todayCalls": {
+      "call": "Ara",
+      "empty": "Bugün aranacak kimse yok.",
+      "loadFailed": "Bugünkü aramalar yüklenemedi.",
+      "markDone": "Tamamlandı",
+      "markDoneFailed": "Arama güncellenemedi.",
+      "overdue": "Gecikmiş",
+      "selectWorkspace": "Bugünkü aramaları görmek için bir çalışma alanı seçin.",
+      "title": "Bugün Aranacak Kişiler"
+    },
     "workspaceOverview": {
       "acrossAccount": "Hesabınızda",
       "activeWorkspace": "Etkin çalışma alanı",
@@ -1627,6 +1637,17 @@
       "byCampaign": "Kampanyaya göre filtrelendi: {name}",
       "byCampaignCount": "{shown}/{total} müşteri adayı",
       "clearCampaign": "Filtreyi temizle"
+    },
+    "followUp": {
+      "eventTitle": "{name} ile takip araması",
+      "label": "Takip zamanı",
+      "none": "Takip yok",
+      "presets": {
+        "in_1_month": "1 ay sonra dön",
+        "in_1_week": "1 hafta sonra takip et",
+        "in_2_days": "2 gün sonra ara",
+        "tomorrow": "Yarın ara"
+      }
     },
     "formModal": {
       "assignee": "Atanan",

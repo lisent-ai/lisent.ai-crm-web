@@ -74,6 +74,33 @@ export function parseLeadValue(value: string) {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+/**
+ * Resolve a follow-up preset to an absolute ISO timestamp, defaulting the
+ * time of day to 09:00 local. Returns null for "" / unknown presets so
+ * callers skip scheduling.
+ */
+export function computeFollowUpDate(preset: string, from: Date = new Date()): string | null {
+  const d = new Date(from);
+  d.setHours(9, 0, 0, 0);
+  switch (preset) {
+    case "tomorrow":
+      d.setDate(d.getDate() + 1);
+      break;
+    case "in_2_days":
+      d.setDate(d.getDate() + 2);
+      break;
+    case "in_1_week":
+      d.setDate(d.getDate() + 7);
+      break;
+    case "in_1_month":
+      d.setMonth(d.getMonth() + 1);
+      break;
+    default:
+      return null;
+  }
+  return d.toISOString();
+}
+
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 /**

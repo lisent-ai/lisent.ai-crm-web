@@ -18,6 +18,18 @@ export const dealStages = [
   "lost",
 ];
 
+// Inline follow-up presets shown after a lead is marked "contacted".
+// Selecting one drops a scheduled call on the calendar (and surfaces in
+// the dashboard "today's calls" panel). "" = no follow-up.
+export type FollowUpPreset = "" | "tomorrow" | "in_2_days" | "in_1_week" | "in_1_month";
+
+export const followUpPresets: Exclude<FollowUpPreset, "">[] = [
+  "tomorrow",
+  "in_2_days",
+  "in_1_week",
+  "in_1_month",
+];
+
 export type LeadFormState = {
   name: string;
   email: string;
@@ -29,6 +41,7 @@ export type LeadFormState = {
   assigneeUserName: string;
   assignmentMethod: LeadAssignmentMethod;
   value: string;
+  followUpPreset: FollowUpPreset;
 };
 
 export type LeadConvertState = {
@@ -54,6 +67,7 @@ export const emptyLeadForm: LeadFormState = {
   assigneeUserName: "",
   assignmentMethod: "manual",
   value: "0",
+  followUpPreset: "",
 };
 
 export function buildLeadForm(lead: Lead): LeadFormState {
@@ -68,6 +82,7 @@ export function buildLeadForm(lead: Lead): LeadFormState {
     assigneeUserName: lead.assigneeUserName,
     assignmentMethod: lead.assignmentMethod,
     value: String(lead.value || 0),
+    followUpPreset: "",
   };
 }
 

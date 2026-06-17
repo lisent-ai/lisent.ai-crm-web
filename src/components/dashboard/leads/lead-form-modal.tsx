@@ -6,7 +6,7 @@ import { Field } from "@/components/dashboard/customers/customer-ui";
 import { SelectField, TextAreaField } from "./lead-form-fields";
 import { LeadModalFrame } from "./lead-modal-frame";
 import type { LeadFormState } from "./lead-types";
-import { leadStatuses } from "./lead-types";
+import { followUpPresets, leadStatuses } from "./lead-types";
 
 type LeadFormModalProps = {
   editingLeadId: string | null;
@@ -101,6 +101,25 @@ export function LeadFormModal({
           }))}
           value={leadForm.status}
         />
+        {leadForm.status === "contacted" ? (
+          <SelectField
+            label={t("leads.followUp.label")}
+            onChange={(value) =>
+              onLeadFormChange((current) => ({
+                ...current,
+                followUpPreset: value as LeadFormState["followUpPreset"],
+              }))
+            }
+            options={[
+              { label: t("leads.followUp.none"), value: "" },
+              ...followUpPresets.map((preset) => ({
+                label: t(`leads.followUp.presets.${preset}`),
+                value: preset,
+              })),
+            ]}
+            value={leadForm.followUpPreset}
+          />
+        ) : null}
         <Field
           label={t("leads.formModal.leadValue")}
           onChange={(value) => onLeadFormChange((current) => ({ ...current, value }))}
