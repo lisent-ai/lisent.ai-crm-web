@@ -12,6 +12,7 @@ import {
   FileText,
   Link2,
   Mail,
+  Megaphone,
   PencilLine,
   Phone,
   PhoneCall,
@@ -28,6 +29,7 @@ import { LeadAIInsights } from "./lead-ai-insights";
 import { LeadNotesPanel } from "./lead-notes-panel";
 import {
   formatAssignmentLabel,
+  formatCampaignLabel,
   formatCurrency,
   formatDateTime,
   formatSourceLabel,
@@ -235,6 +237,7 @@ function ProfileView({
   const [activeTab, setActiveTab] = useState<"overview" | "notes" | "activity" | "deals">(
     "overview",
   );
+  const campaign = formatCampaignLabel(lead);
   const canStartQualify = aiEnabled && lead.aiStatus === "pending";
   const aiScore =
     typeof lead.aiScore === "number" ? Math.max(0, Math.min(100, Math.round(lead.aiScore))) : null;
@@ -298,6 +301,12 @@ function ProfileView({
                       icon={<Phone aria-hidden="true" className="h-4 w-4" />}
                       value={lead.phone}
                       href={`tel:${lead.phone}`}
+                    />
+                  ) : null}
+                  {campaign ? (
+                    <ProfileMetaLine
+                      icon={<Megaphone aria-hidden="true" className="h-4 w-4" />}
+                      value={campaign}
                     />
                   ) : null}
                   <ProfileMetaLine
@@ -419,6 +428,13 @@ function ProfileView({
                 label={t("leads.drawer.source")}
                 value={formatSourceLabel(lead.source)}
               />
+              {campaign ? (
+                <LeadInfoTile
+                  icon={<Megaphone aria-hidden="true" className="h-4 w-4" />}
+                  label={t("leads.drawer.campaign")}
+                  value={campaign}
+                />
+              ) : null}
               <LeadInfoTile
                 icon={<UserCheck aria-hidden="true" className="h-4 w-4" />}
                 label={t("leads.drawer.assignee")}

@@ -1444,6 +1444,7 @@
       "assignee": "Assignee",
       "assignmentMode": "Assignment mode",
       "backToProfile": "Back to profile",
+      "campaign": "Kampanje",
       "closeDetails": "Close lead details",
       "context": "Context",
       "convert": "Convert",
@@ -1744,6 +1745,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Choose a workspace to view notifications.",
+    "clearAll": "Tøm alle",
     "currentWorkspace": "Current workspace: {name}",
     "demoUnavailable": "Notifications are not available in demo mode.",
     "empty": "You're all caught up.",

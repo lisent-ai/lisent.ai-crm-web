@@ -1550,6 +1550,7 @@
       "assignee": "المكلف",
       "assignmentMode": "وضع الإسناد",
       "backToProfile": "العودة إلى الملف الشخصي",
+      "campaign": "الحملة",
       "closeDetails": "إغلاق تفاصيل lead",
       "context": "السياق",
       "convert": "تحويل",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "اختر workspace لعرض الإشعارات.",
+    "clearAll": "مسح الكل",
     "currentWorkspace": "Workspace الحالي: {name}",
     "demoUnavailable": "الإشعارات غير متاحة في وضع demo.",
     "empty": "لا توجد إشعارات جديدة.",

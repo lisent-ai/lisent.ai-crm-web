@@ -1550,6 +1550,7 @@
       "assignee": "Vastuuhenkilö",
       "assignmentMode": "Kohdistustapa",
       "backToProfile": "Takaisin profiiliin",
+      "campaign": "Kampanja",
       "closeDetails": "Sulje leadin tiedot",
       "context": "Konteksti",
       "convert": "Muunna",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Valitse workspace, jotta näet ilmoitukset.",
+    "clearAll": "Tyhjennä kaikki",
     "currentWorkspace": "Nykyinen workspace: {name}",
     "demoUnavailable": "Ilmoitukset eivät ole saatavilla demo-tilassa.",
     "empty": "Olet ajan tasalla.",

@@ -10,12 +10,15 @@ import {
   Clock3,
   RefreshCw,
   Target,
+  Trash2,
 } from "lucide-react";
 
 import type { AccountProfile } from "@/lib/auth/account-profile";
 import {
   listDashboardNotifications,
+  readDismissedState,
   readNotificationState,
+  writeDismissedState,
   writeNotificationState,
   type DashboardNotification,
   type DashboardNotificationKind,
@@ -40,6 +43,7 @@ export function NotificationCenter({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [items, setItems] = useState<DashboardNotification[]>([]);
   const [readState, setReadState] = useState<Record<string, true>>({});
+  const [dismissedState, setDismissedState] = useState<Record<string, true>>({});
   const containerRef = useRef<HTMLDivElement>(null);
 
   const userId = account?.userId?.trim() ?? "";
@@ -64,6 +68,7 @@ export function NotificationCenter({
 
   useEffect(() => {
     setReadState(readNotificationState(userId, companyId));
+    setDismissedState(readDismissedState(userId, companyId));
   }, [companyId, userId]);
 
   useEffect(() => {
@@ -116,9 +121,14 @@ export function NotificationCenter({
     };
   }, [companyId, companyName, demoMode, t, userId]);
 
+  const visibleItems = useMemo(
+    () => items.filter((item) => !dismissedState[item.id]),
+    [items, dismissedState],
+  );
+
   const unreadCount = useMemo(
-    () => items.filter((item) => !readState[item.id]).length,
-    [items, readState],
+    () => visibleItems.filter((item) => !readState[item.id]).length,
+    [visibleItems, readState],
   );
 
   function updateReadState(updater: (current: Record<string, true>) => Record<string, true>) {
@@ -138,6 +148,26 @@ export function NotificationCenter({
 
   function handleMarkAllAsRead() {
     updateReadState((current) => {
+      const next = { ...current };
+      for (const item of items) {
+        next[item.id] = true;
+      }
+      return next;
+    });
+  }
+
+  function updateDismissedState(
+    updater: (current: Record<string, true>) => Record<string, true>,
+  ) {
+    setDismissedState((current) => {
+      const next = updater(current);
+      writeDismissedState(userId, companyId, next);
+      return next;
+    });
+  }
+
+  function handleClearAll() {
+    updateDismissedState((current) => {
       const next = { ...current };
       for (const item of items) {
         next[item.id] = true;
@@ -205,15 +235,25 @@ export function NotificationCenter({
               >
                 <RefreshCw aria-hidden="true" className="h-4 w-4" />
               </button>
-              {items.length > 0 ? (
-                <button
-                  className="inline-flex items-center gap-1 rounded-full border border-[var(--border-default)] px-3 py-1 text-[11px] font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-                  onClick={handleMarkAllAsRead}
-                  type="button"
-                >
-                  <CheckCheck aria-hidden="true" className="h-3.5 w-3.5" />
-                  {t("notifications.markAllRead")}
-                </button>
+              {visibleItems.length > 0 ? (
+                <>
+                  <button
+                    className="inline-flex items-center gap-1 rounded-full border border-[var(--border-default)] px-3 py-1 text-[11px] font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+                    onClick={handleMarkAllAsRead}
+                    type="button"
+                  >
+                    <CheckCheck aria-hidden="true" className="h-3.5 w-3.5" />
+                    {t("notifications.markAllRead")}
+                  </button>
+                  <button
+                    className="inline-flex items-center gap-1 rounded-full border border-[var(--border-default)] px-3 py-1 text-[11px] font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
+                    onClick={handleClearAll}
+                    type="button"
+                  >
+                    <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
+                    {t("notifications.clearAll")}
+                  </button>
+                </>
               ) : null}
             </div>
           </div>
@@ -228,7 +268,7 @@ export function NotificationCenter({
             <div className="rounded-2xl border border-[color-mix(in_srgb,_var(--signal-red)_28%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
               {errorMessage}
             </div>
-          ) : loading && items.length === 0 ? (
+          ) : loading && visibleItems.length === 0 ? (
             <div className="grid gap-2 px-1 py-1">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
@@ -237,11 +277,11 @@ export function NotificationCenter({
                 />
               ))}
             </div>
-          ) : items.length === 0 ? (
+          ) : visibleItems.length === 0 ? (
             <NotificationEmptyState message={t("notifications.empty")} />
           ) : (
             <div className="grid max-h-[420px] gap-2 overflow-y-auto pe-1">
-              {items.map((item) => {
+              {visibleItems.map((item) => {
                 const unread = !readState[item.id];
                 return (
                   <Link

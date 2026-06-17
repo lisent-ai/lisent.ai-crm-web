@@ -1550,6 +1550,7 @@
       "assignee": "Tildelt",
       "assignmentMode": "Tildelingsmetode",
       "backToProfile": "Tilbage til profil",
+      "campaign": "Kampagne",
       "closeDetails": "Luk leaddetaljer",
       "context": "Kontekst",
       "convert": "Konverter",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Vælg et workspace for at se notifikationer.",
+    "clearAll": "Ryd alt",
     "currentWorkspace": "Aktuelt workspace: {name}",
     "demoUnavailable": "Notifikationer er ikke tilgængelige i demomodus.",
     "empty": "De er opdateret.",

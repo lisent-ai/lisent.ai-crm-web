@@ -1550,6 +1550,7 @@
       "assignee": "Zugewiesene",
       "assignmentMode": "Zuweisungsmodus",
       "backToProfile": "Zurück zum Profil",
+      "campaign": "Kampagne",
       "closeDetails": "Lead-Details schließen",
       "context": "Kontext",
       "convert": "Konvertieren",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Wählen Sie einen Workspace, um Benachrichtigungen anzuzeigen.",
+    "clearAll": "Alle löschen",
     "currentWorkspace": "Aktueller Workspace: {name}",
     "demoUnavailable": "Benachrichtigungen sind im Demo‑Modus nicht verfügbar.",
     "empty": "Sie haben alle Benachrichtigungen gelesen.",

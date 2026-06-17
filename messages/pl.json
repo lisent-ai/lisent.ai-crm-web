@@ -1550,6 +1550,7 @@
       "assignee": "Osoba przypisana",
       "assignmentMode": "Tryb przydzielania",
       "backToProfile": "Powrót do profilu",
+      "campaign": "Kampania",
       "closeDetails": "Zamknij szczegóły leada",
       "context": "Kontekst",
       "convert": "Konwertuj",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Wybierz workspace, aby wyświetlić powiadomienia.",
+    "clearAll": "Wyczyść wszystko",
     "currentWorkspace": "Aktualny workspace: {name}",
     "demoUnavailable": "Powiadomienia nie są dostępne w trybie demo.",
     "empty": "Nie masz nowych powiadomień.",

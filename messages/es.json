@@ -1550,6 +1550,7 @@
       "assignee": "Asignado",
       "assignmentMode": "Modo de asignación",
       "backToProfile": "Volver al perfil",
+      "campaign": "Campaña",
       "closeDetails": "Cerrar detalles del lead",
       "context": "Contexto",
       "convert": "Convertir",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Elija un workspace para ver las notificaciones.",
+    "clearAll": "Borrar todo",
     "currentWorkspace": "Workspace actual: {name}",
     "demoUnavailable": "Las notificaciones no están disponibles en modo demo.",
     "empty": "Ya está al día.",

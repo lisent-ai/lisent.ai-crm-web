@@ -32,6 +32,19 @@ export function formatSourceLabel(source: string) {
   return source.trim() || "Unknown source";
 }
 
+/**
+ * Resolve the campaign a lead came from. Campaign attribution isn't a
+ * first-class column — Meta/marketing ingestion stashes it in
+ * `extra_data` as `campaign_name` (preferred) or `campaign_id`. Returns
+ * null when neither is present so callers can hide the row entirely.
+ */
+export function formatCampaignLabel(lead: Lead): string | null {
+  const extra = (lead.extraData ?? {}) as Record<string, unknown>;
+  const name = typeof extra.campaign_name === "string" ? extra.campaign_name.trim() : "";
+  const id = typeof extra.campaign_id === "string" ? extra.campaign_id.trim() : "";
+  return name || id || null;
+}
+
 export function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",

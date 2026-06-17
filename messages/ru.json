@@ -1550,6 +1550,7 @@
       "assignee": "Ответственный",
       "assignmentMode": "Режим назначения",
       "backToProfile": "Вернуться к профилю",
+      "campaign": "Кампания",
       "closeDetails": "Закрыть детали лида",
       "context": "Контекст",
       "convert": "Конвертировать",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Выберите workspace, чтобы просмотреть уведомления.",
+    "clearAll": "Очистить всё",
     "currentWorkspace": "Текущий workspace: {name}",
     "demoUnavailable": "Уведомления недоступны в демо‑режиме.",
     "empty": "Все уведомления просмотрены.",

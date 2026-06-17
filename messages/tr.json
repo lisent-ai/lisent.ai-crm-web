@@ -1553,6 +1553,7 @@
       "assignee": "Atanan",
       "assignmentMode": "Atama modu",
       "backToProfile": "Profili geri dön",
+      "campaign": "Kampanya",
       "closeDetails": "Müşteri Adayı detaylarını kapat",
       "context": "Bağlam",
       "convert": "Dönüştür",
@@ -2607,6 +2608,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Bildirimleri görüntülemek için bir çalışma alanı seçin.",
+    "clearAll": "Temizle",
     "currentWorkspace": "Mevcut çalışma alanı: {name}",
     "demoUnavailable": "Bildirimler demo modunda kullanılamaz.",
     "empty": "Tüm bildirimleri gördünüz.",

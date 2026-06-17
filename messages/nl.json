@@ -1550,6 +1550,7 @@
       "assignee": "Toegewezen aan",
       "assignmentMode": "Toewijzingsmodus",
       "backToProfile": "Terug naar profiel",
+      "campaign": "Campagne",
       "closeDetails": "Leaddetails sluiten",
       "context": "Context",
       "convert": "Converteren",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Kies een workspace om meldingen te bekijken.",
+    "clearAll": "Alles wissen",
     "currentWorkspace": "Huidige workspace: {name}",
     "demoUnavailable": "Meldingen zijn niet beschikbaar in demomodus.",
     "empty": "U bent bij.",

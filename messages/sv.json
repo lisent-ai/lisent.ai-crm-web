@@ -1550,6 +1550,7 @@
       "assignee": "Ansvarig",
       "assignmentMode": "Tilldelningsläge",
       "backToProfile": "Tillbaka till profil",
+      "campaign": "Kampanj",
       "closeDetails": "Stäng lead-detaljer",
       "context": "Kontext",
       "convert": "Konvertera",
@@ -2604,6 +2605,7 @@
   },
   "notifications": {
     "chooseWorkspace": "Välj en workspace för att visa aviseringar.",
+    "clearAll": "Rensa allt",
     "currentWorkspace": "Aktuell workspace: {name}",
     "demoUnavailable": "Aviseringar är inte tillgängliga i demoläge.",
     "empty": "Ni är helt à jour.",

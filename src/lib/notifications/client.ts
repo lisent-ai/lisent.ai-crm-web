@@ -26,6 +26,7 @@ export type DashboardNotification = {
 };
 
 const READ_KEY_PREFIX = "lisent.crm.notifications.read.v1";
+const DISMISSED_KEY_PREFIX = "lisent.crm.notifications.dismissed.v1";
 const DUE_SOON_DAYS = 3;
 
 export async function listDashboardNotifications(input: {
@@ -99,6 +100,48 @@ export function writeNotificationState(
 
 function buildReadStorageKey(userId: string, companyId: string) {
   return `${READ_KEY_PREFIX}:${userId}:${companyId || "global"}`;
+}
+
+// Dismissed (cleared) notifications. Read state only clears the unread
+// badge; "clear all" hides the item entirely. Since notifications are
+// derived from live CRM data on every poll, the dismissed id must be
+// remembered — ids embed the entity's updatedAt, so a genuinely updated
+// lead/task gets a fresh id and reappears, while unchanged ones stay hidden.
+export function readDismissedState(userId: string, companyId: string) {
+  if (typeof window === "undefined" || !userId.trim()) {
+    return {};
+  }
+
+  const key = buildDismissedStorageKey(userId, companyId);
+  const raw = window.localStorage.getItem(key);
+
+  if (!raw) {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as Record<string, true>;
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+export function writeDismissedState(
+  userId: string,
+  companyId: string,
+  state: Record<string, true>,
+) {
+  if (typeof window === "undefined" || !userId.trim()) {
+    return;
+  }
+
+  const key = buildDismissedStorageKey(userId, companyId);
+  window.localStorage.setItem(key, JSON.stringify(state));
+}
+
+function buildDismissedStorageKey(userId: string, companyId: string) {
+  return `${DISMISSED_KEY_PREFIX}:${userId}:${companyId || "global"}`;
 }
 
 function buildTaskNotifications(
