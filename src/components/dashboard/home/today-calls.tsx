@@ -13,6 +13,7 @@ import {
   listLeads,
   updateCalendarEvent,
 } from "@/lib/crm/client";
+import { getAccountProfile } from "@/lib/account/client";
 
 // "People to call today" surfaces scheduled call / follow-up calendar
 // events that are due by end of day (overdue ones included) for the
@@ -32,6 +33,23 @@ export function TodayCalls({ companyId, companyName }: Readonly<TodayCallsProps>
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [userId, setUserId] = useState("");
+
+  // Resolve the signed-in user so the panel shows only the calls THIS user
+  // scheduled — each rep sees their own list, not the whole team's.
+  useEffect(() => {
+    let cancelled = false;
+    void getAccountProfile()
+      .then((account) => {
+        if (!cancelled) setUserId(account?.userId?.trim() ?? "");
+      })
+      .catch(() => {
+        if (!cancelled) setUserId("");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!companyId) {
@@ -80,12 +98,15 @@ export function TodayCalls({ companyId, companyName }: Readonly<TodayCallsProps>
     };
   }, [companyId, t]);
 
+  // Only show calls created by the current user. Empty userId (still
+  // resolving or no session) shows nothing rather than the whole team's.
   const callEvents = useMemo(
     () =>
       events
         .filter((event) => CALL_EVENT_TYPES.has(event.eventType))
+        .filter((event) => !!userId && event.createdByUserId === userId)
         .sort((left, right) => left.startAt.localeCompare(right.startAt)),
-    [events],
+    [events, userId],
   );
 
   async function markDone(event: CalendarEvent) {
