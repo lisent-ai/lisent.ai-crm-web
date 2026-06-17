@@ -668,6 +668,16 @@
       "openFullDashboard": "Åbn fuldt dashboard",
       "openPipeline": "Åbn pipeline"
     },
+    "todayCalls": {
+      "call": "Ring",
+      "empty": "Ingen at ringe til i dag.",
+      "loadFailed": "Kunne ikke indlæse dagens opkald.",
+      "markDone": "Udført",
+      "markDoneFailed": "Kunne ikke opdatere opkaldet.",
+      "overdue": "Forsinket",
+      "selectWorkspace": "Vælg et workspace for at se dagens opkald.",
+      "title": "Personer at ringe til i dag"
+    },
     "workspaceOverview": {
       "acrossAccount": "På tværs af Deres konto",
       "activeWorkspace": "Aktivt workspace",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Lead-profil",
       "linkedCustomer": "Linket kunde",
       "linkedDealId": "Tilknyttet deal-id",
+      "nextFollowUp": "Næste opfølgning",
       "nextStep": "Næste trin",
       "noDealYet": "Ingen deal endnu",
       "noneYet": "Ingen endnu",
@@ -1590,6 +1601,16 @@
       "updated": "Opdateret",
       "value": "Værdi",
       "viewAIQualification": "Vis AI‑kvalificering"
+    },
+    "duplicate": {
+      "customer": "Kunde",
+      "hint": "Det er stadig muligt at oprette en ny post.",
+      "matchedOn": {
+        "email": "E‑mail‑match",
+        "phone": "Telefon‑match"
+      },
+      "open": "Åbn",
+      "warning": "Denne kontakt findes muligvis allerede:"
     },
     "emptyState": {
       "pickWorkspace": "Vælg en workspace for at se leads."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Filtreret efter kampagne: {name}",
       "byCampaignCount": "{shown} af {total} leads",
       "clearCampaign": "Ryd filter"
+    },
+    "followUp": {
+      "eventTitle": "Opfølgningsopkald med {name}",
+      "label": "Tidspunkt for opfølgning",
+      "none": "Ingen opfølgning",
+      "presets": {
+        "in_1_month": "Opfølgning om 1 måned",
+        "in_1_week": "Opfølgning om 1 uge",
+        "in_2_days": "Ring om 2 dage",
+        "tomorrow": "Ring i morgen"
+      }
     },
     "formModal": {
       "assignee": "Tildeler",

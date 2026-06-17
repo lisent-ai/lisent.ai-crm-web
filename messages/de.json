@@ -668,6 +668,16 @@
       "openFullDashboard": "Vollständiges Dashboard öffnen",
       "openPipeline": "Pipeline öffnen"
     },
+    "todayCalls": {
+      "call": "Anruf",
+      "empty": "Heute gibt es niemanden zum Anrufen.",
+      "loadFailed": "Laden der heutigen Anrufe fehlgeschlagen.",
+      "markDone": "Erledigt",
+      "markDoneFailed": "Der Anruf konnte nicht aktualisiert werden.",
+      "overdue": "Überfällig",
+      "selectWorkspace": "Wählen Sie einen Workspace, um die heutigen Anrufe zu sehen.",
+      "title": "Personen, die heute angerufen werden sollen"
+    },
     "workspaceOverview": {
       "acrossAccount": "Über Ihr Konto",
       "activeWorkspace": "Aktiver Workspace",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Lead-Profil",
       "linkedCustomer": "Verknüpfter Kunde",
       "linkedDealId": "Verknüpfte Deal-ID",
+      "nextFollowUp": "Nächste Nachverfolgung",
       "nextStep": "Nächster Schritt",
       "noDealYet": "Noch kein Deal",
       "noneYet": "Noch keine",
@@ -1590,6 +1601,16 @@
       "updated": "Aktualisiert",
       "value": "Wert",
       "viewAIQualification": "KI-Qualifizierung anzeigen"
+    },
+    "duplicate": {
+      "customer": "Kunde",
+      "hint": "Sie können trotzdem einen neuen Datensatz erstellen.",
+      "matchedOn": {
+        "email": "E‑Mail‑Übereinstimmung",
+        "phone": "Telefon‑Übereinstimmung"
+      },
+      "open": "Öffnen",
+      "warning": "Dieser Kontakt existiert möglicherweise bereits:"
     },
     "emptyState": {
       "pickWorkspace": "Wählen Sie einen Workspace, um Leads anzuzeigen."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Gefiltert nach Kampagne: {name}",
       "byCampaignCount": "{shown} von {total} Leads",
       "clearCampaign": "Filter löschen"
+    },
+    "followUp": {
+      "eventTitle": "Nachfass-Anruf mit {name}",
+      "label": "Nachfasszeit",
+      "none": "Keine Nachverfolgung",
+      "presets": {
+        "in_1_month": "Nachverfolgung in 1 Monat",
+        "in_1_week": "Nachverfolgung in 1 Woche",
+        "in_2_days": "Anruf in 2 Tagen",
+        "tomorrow": "Anruf morgen"
+      }
     },
     "formModal": {
       "assignee": "Zugewiesene Person",

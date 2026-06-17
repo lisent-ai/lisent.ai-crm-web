@@ -668,6 +668,16 @@
       "openFullDashboard": "Open volledig dashboard",
       "openPipeline": "Pipeline openen"
     },
+    "todayCalls": {
+      "call": "Bellen",
+      "empty": "Er is niemand om vandaag te bellen.",
+      "loadFailed": "Kan de oproepen van vandaag niet laden.",
+      "markDone": "Gedaan",
+      "markDoneFailed": "Kan de oproep niet bijwerken.",
+      "overdue": "Achterstallig",
+      "selectWorkspace": "Selecteer een werkruimte om de oproepen van vandaag te zien.",
+      "title": "Mensen om vandaag te bellen"
+    },
     "workspaceOverview": {
       "acrossAccount": "Door uw account",
       "activeWorkspace": "Actieve workspace",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Leadprofiel",
       "linkedCustomer": "Gekoppelde klant",
       "linkedDealId": "Gekoppelde deal ID",
+      "nextFollowUp": "Volgende follow‑up",
       "nextStep": "Volgende stap",
       "noDealYet": "Nog geen deal",
       "noneYet": "Nog niets",
@@ -1590,6 +1601,16 @@
       "updated": "Bijgewerkt",
       "value": "Waarde",
       "viewAIQualification": "AI-kwalificatie bekijken"
+    },
+    "duplicate": {
+      "customer": "Klant",
+      "hint": "U kunt nog steeds een nieuw record aanmaken.",
+      "matchedOn": {
+        "email": "E‑mailmatch",
+        "phone": "Telefoonmatch"
+      },
+      "open": "Openen",
+      "warning": "Dit contact bestaat mogelijk al:"
     },
     "emptyState": {
       "pickWorkspace": "Selecteer een workspace om leads te bekijken."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Gefilterd op campagne: {name}",
       "byCampaignCount": "{shown} van {total} leads",
       "clearCampaign": "Filter wissen"
+    },
+    "followUp": {
+      "eventTitle": "Follow‑up‑gesprek met {name}",
+      "label": "Follow‑up‑tijd",
+      "none": "Geen follow‑up",
+      "presets": {
+        "in_1_month": "Follow‑up over 1 maand",
+        "in_1_week": "Follow‑up over 1 week",
+        "in_2_days": "Bel over 2 dagen",
+        "tomorrow": "Bel morgen"
+      }
     },
     "formModal": {
       "assignee": "Toegewezene",

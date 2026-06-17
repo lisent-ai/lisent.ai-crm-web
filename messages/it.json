@@ -668,6 +668,16 @@
       "openFullDashboard": "Apri dashboard completa",
       "openPipeline": "Apri pipeline"
     },
+    "todayCalls": {
+      "call": "Chiamata",
+      "empty": "Nessuno da chiamare oggi.",
+      "loadFailed": "Impossibile caricare le chiamate di oggi.",
+      "markDone": "Fatto",
+      "markDoneFailed": "Impossibile aggiornare la chiamata.",
+      "overdue": "In ritardo",
+      "selectWorkspace": "Selezioni un workspace per vedere le chiamate di oggi.",
+      "title": "Persone da chiamare oggi"
+    },
     "workspaceOverview": {
       "acrossAccount": "In tutto il suo account",
       "activeWorkspace": "Workspace attivo",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Profilo Lead",
       "linkedCustomer": "Cliente collegato",
       "linkedDealId": "ID deal collegato",
+      "nextFollowUp": "Prossimo follow-up",
       "nextStep": "Prossimo passo",
       "noDealYet": "Nessun deal ancora",
       "noneYet": "Nessuno ancora",
@@ -1590,6 +1601,16 @@
       "updated": "Aggiornato",
       "value": "Valore",
       "viewAIQualification": "Visualizza qualificazione AI"
+    },
+    "duplicate": {
+      "customer": "Cliente",
+      "hint": "Può comunque creare un nuovo record.",
+      "matchedOn": {
+        "email": "Corrispondenza email",
+        "phone": "Corrispondenza telefono"
+      },
+      "open": "Apri",
+      "warning": "Questo contatto potrebbe già esistere:"
     },
     "emptyState": {
       "pickWorkspace": "Selezioni un workspace per visualizzare i lead."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Filtrato per campagna: {name}",
       "byCampaignCount": "{shown} di {total} lead",
       "clearCampaign": "Cancella filtro"
+    },
+    "followUp": {
+      "eventTitle": "Chiamata di follow-up con {name}",
+      "label": "Orario del follow-up",
+      "none": "Nessun follow-up",
+      "presets": {
+        "in_1_month": "Follow-up tra 1 mese",
+        "in_1_week": "Follow-up tra 1 settimana",
+        "in_2_days": "Chiama tra 2 giorni",
+        "tomorrow": "Chiama domani"
+      }
     },
     "formModal": {
       "assignee": "Assegnatario",

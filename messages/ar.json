@@ -668,6 +668,16 @@
       "openFullDashboard": "فتح لوحة التحكم الكاملة",
       "openPipeline": "فتح Pipeline"
     },
+    "todayCalls": {
+      "call": "اتصال",
+      "empty": "لا أحد للاتصال اليوم.",
+      "loadFailed": "فشل تحميل مكالمات اليوم.",
+      "markDone": "تم",
+      "markDoneFailed": "تعذر تحديث المكالمة.",
+      "overdue": "متأخر",
+      "selectWorkspace": "اختر مساحة عمل لعرض المكالمات اليوم.",
+      "title": "الأشخاص للاتصال اليوم"
+    },
     "workspaceOverview": {
       "acrossAccount": "عبر حسابك",
       "activeWorkspace": "Workspace نشط",
@@ -1570,6 +1580,7 @@
       "leadProfile": "ملف lead",
       "linkedCustomer": "عميل مرتبط",
       "linkedDealId": "معرف Deal المرتبط",
+      "nextFollowUp": "المتابعة التالية",
       "nextStep": "الخطوة التالية",
       "noDealYet": "لا توجد صفقة بعد",
       "noneYet": "لا شيء بعد",
@@ -1590,6 +1601,16 @@
       "updated": "تم التحديث",
       "value": "القيمة",
       "viewAIQualification": "عرض تأهيل AI"
+    },
+    "duplicate": {
+      "customer": "عميل",
+      "hint": "يمكنك إنشاء سجل جديد.",
+      "matchedOn": {
+        "email": "تطابق البريد الإلكتروني",
+        "phone": "تطابق الهاتف"
+      },
+      "open": "فتح",
+      "warning": "قد يكون هذا المتصل موجودًا بالفعل:"
     },
     "emptyState": {
       "pickWorkspace": "اختر مساحة عمل لعرض Leads."
@@ -1624,6 +1645,17 @@
       "byCampaign": "تمت التصفية حسب الحملة: {name}",
       "byCampaignCount": "{shown} من {total} leads",
       "clearCampaign": "مسح الفلتر"
+    },
+    "followUp": {
+      "eventTitle": "مكالمة متابعة مع {name}",
+      "label": "وقت المتابعة",
+      "none": "بدون متابعة",
+      "presets": {
+        "in_1_month": "متابعة خلال شهر",
+        "in_1_week": "متابعة خلال أسبوع",
+        "in_2_days": "اتصل خلال يومين",
+        "tomorrow": "اتصل غدًا"
+      }
     },
     "formModal": {
       "assignee": "المُعين",

@@ -668,6 +668,16 @@
       "openFullDashboard": "Otwórz pełny dashboard",
       "openPipeline": "Otwórz pipeline"
     },
+    "todayCalls": {
+      "call": "Zadzwoń",
+      "empty": "Nie ma nikogo do zadzwonienia dzisiaj.",
+      "loadFailed": "Nie udało się wczytać dzisiejszych połączeń.",
+      "markDone": "Gotowe",
+      "markDoneFailed": "Nie udało się zaktualizować połączenia.",
+      "overdue": "Spóźnione",
+      "selectWorkspace": "Wybierz workspace, aby zobaczyć dzisiejsze połączenia.",
+      "title": "Osoby do zadzwonienia dzisiaj"
+    },
     "workspaceOverview": {
       "acrossAccount": "W całym koncie",
       "activeWorkspace": "Aktywny workspace",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Profil leada",
       "linkedCustomer": "Powiązany klient",
       "linkedDealId": "Id powiązanego Deal",
+      "nextFollowUp": "Następny follow‑up",
       "nextStep": "Następny krok",
       "noDealYet": "Brak dealu jeszcze",
       "noneYet": "Brak jeszcze",
@@ -1590,6 +1601,16 @@
       "updated": "Zaktualizowano",
       "value": "Wartość",
       "viewAIQualification": "Zobacz kwalifikację AI"
+    },
+    "duplicate": {
+      "customer": "Klient",
+      "hint": "Możesz nadal utworzyć nowy rekord.",
+      "matchedOn": {
+        "email": "Dopasowanie e‑mail",
+        "phone": "Dopasowanie telefonu"
+      },
+      "open": "Otwórz",
+      "warning": "Ten kontakt może już istnieć:"
     },
     "emptyState": {
       "pickWorkspace": "Wybierz workspace, aby wyświetlić leady."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Filtrowano według kampanii: {name}",
       "byCampaignCount": "{shown} z {total} leadów",
       "clearCampaign": "Wyczyść filtr"
+    },
+    "followUp": {
+      "eventTitle": "Rozmowa follow‑up z {name}",
+      "label": "Czas follow‑up",
+      "none": "Brak follow‑up",
+      "presets": {
+        "in_1_month": "Follow‑up za 1 miesiąc",
+        "in_1_week": "Follow‑up za 1 tydzień",
+        "in_2_days": "Zadzwoń za 2 dni",
+        "tomorrow": "Zadzwoń jutro"
+      }
     },
     "formModal": {
       "assignee": "Przypisany",

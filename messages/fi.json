@@ -668,6 +668,16 @@
       "openFullDashboard": "Avaa koko dashboard",
       "openPipeline": "Avaa putki"
     },
+    "todayCalls": {
+      "call": "Soita",
+      "empty": "Ei ketään soittamaan tänään.",
+      "loadFailed": "Päivän puheluita ei voitu ladata.",
+      "markDone": "Valmis",
+      "markDoneFailed": "Puhelua ei voitu päivittää.",
+      "overdue": "Myöhässä",
+      "selectWorkspace": "Valitse workspace nähdäksesi päivän puhelut.",
+      "title": "Soitettavat henkilöt tänään"
+    },
     "workspaceOverview": {
       "acrossAccount": "Tilin yli",
       "activeWorkspace": "Aktiivinen workspace",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Lead-profiili",
       "linkedCustomer": "Liitetty asiakas",
       "linkedDealId": "Linkitetyn dealin ID",
+      "nextFollowUp": "Seuraava seuranta",
       "nextStep": "Seuraava vaihe",
       "noDealYet": "Ei kauppaa vielä",
       "noneYet": "Ei vielä",
@@ -1590,6 +1601,16 @@
       "updated": "Päivitetty",
       "value": "Arvo",
       "viewAIQualification": "Näytä AI-qualifikaatio"
+    },
+    "duplicate": {
+      "customer": "Asiakas",
+      "hint": "Voit silti luoda uuden tietueen.",
+      "matchedOn": {
+        "email": "Sähköpostiosuma",
+        "phone": "Puhelinosuma"
+      },
+      "open": "Avaa",
+      "warning": "Tämä yhteystieto saattaa olla jo olemassa:"
     },
     "emptyState": {
       "pickWorkspace": "Valitse työtila nähdäksesi liidit."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Suodatettu kampanjan mukaan: {name}",
       "byCampaignCount": "Näytetään {shown}/{total} liidiä",
       "clearCampaign": "Tyhjennä suodatin"
+    },
+    "followUp": {
+      "eventTitle": "Seurantapuhelu henkilön {name} kanssa",
+      "label": "Seuranta-aika",
+      "none": "Ei seurantaa",
+      "presets": {
+        "in_1_month": "Seuranta 1 kuukauden kuluttua",
+        "in_1_week": "Seuranta 1 viikon kuluttua",
+        "in_2_days": "Soita kahden päivän kuluttua",
+        "tomorrow": "Soita huomenna"
+      }
     },
     "formModal": {
       "assignee": "Vastuuhenkilö",

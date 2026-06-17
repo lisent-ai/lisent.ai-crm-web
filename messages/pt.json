@@ -668,6 +668,16 @@
       "openFullDashboard": "Abrir dashboard completo",
       "openPipeline": "Abrir pipeline"
     },
+    "todayCalls": {
+      "call": "Ligar",
+      "empty": "Ninguém para ligar hoje.",
+      "loadFailed": "Falha ao carregar as chamadas de hoje.",
+      "markDone": "Concluído",
+      "markDoneFailed": "Não foi possível atualizar a chamada.",
+      "overdue": "Atrasado",
+      "selectWorkspace": "Selecione um workspace para ver as chamadas de hoje.",
+      "title": "Pessoas para ligar hoje"
+    },
     "workspaceOverview": {
       "acrossAccount": "Em toda a sua conta",
       "activeWorkspace": "Workspace ativo",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Perfil do lead",
       "linkedCustomer": "Cliente vinculado",
       "linkedDealId": "ID do deal vinculado",
+      "nextFollowUp": "Próximo follow-up",
       "nextStep": "Próxima etapa",
       "noDealYet": "Ainda sem negócio",
       "noneYet": "Ainda não há",
@@ -1590,6 +1601,16 @@
       "updated": "Atualizado",
       "value": "Valor",
       "viewAIQualification": "Ver qualificação de IA"
+    },
+    "duplicate": {
+      "customer": "Cliente",
+      "hint": "Você ainda pode criar um novo registro.",
+      "matchedOn": {
+        "email": "Correspondência de email",
+        "phone": "Correspondência de telefone"
+      },
+      "open": "Abrir",
+      "warning": "Este contato pode já existir:"
     },
     "emptyState": {
       "pickWorkspace": "Selecione um workspace para visualizar leads."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Filtrado por campanha: {name}",
       "byCampaignCount": "{shown} de {total} leads",
       "clearCampaign": "Limpar filtro"
+    },
+    "followUp": {
+      "eventTitle": "Ligação de follow-up com {name}",
+      "label": "Horário de follow-up",
+      "none": "Sem follow-up",
+      "presets": {
+        "in_1_month": "Follow-up em 1 mês",
+        "in_1_week": "Follow-up em 1 semana",
+        "in_2_days": "Ligar em 2 dias",
+        "tomorrow": "Ligar amanhã"
+      }
     },
     "formModal": {
       "assignee": "Responsável",

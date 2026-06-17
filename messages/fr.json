@@ -668,6 +668,16 @@
       "openFullDashboard": "Ouvrir le tableau de bord complet",
       "openPipeline": "Ouvrir le pipeline"
     },
+    "todayCalls": {
+      "call": "Appel",
+      "empty": "Personne à appeler aujourd'hui.",
+      "loadFailed": "Échec du chargement des appels d'aujourd'hui.",
+      "markDone": "Terminé",
+      "markDoneFailed": "Impossible de mettre à jour l'appel.",
+      "overdue": "En retard",
+      "selectWorkspace": "Sélectionnez un workspace pour voir les appels d'aujourd'hui.",
+      "title": "Personnes à appeler aujourd'hui"
+    },
     "workspaceOverview": {
       "acrossAccount": "Dans l’ensemble de votre compte",
       "activeWorkspace": "Workspace actif",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Profil du lead",
       "linkedCustomer": "Client lié",
       "linkedDealId": "ID du deal lié",
+      "nextFollowUp": "Prochaine relance",
       "nextStep": "Étape suivante",
       "noDealYet": "Aucun deal pour le moment",
       "noneYet": "Aucun pour le moment",
@@ -1590,6 +1601,16 @@
       "updated": "Mis à jour",
       "value": "Valeur",
       "viewAIQualification": "Voir la qualification IA"
+    },
+    "duplicate": {
+      "customer": "Client",
+      "hint": "Vous pouvez toujours créer un nouvel enregistrement.",
+      "matchedOn": {
+        "email": "Correspondance e‑mail",
+        "phone": "Correspondance téléphone"
+      },
+      "open": "Ouvrir",
+      "warning": "Ce contact existe peut‑être déjà :"
     },
     "emptyState": {
       "pickWorkspace": "Choisissez un workspace pour afficher les leads."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Filtré par campagne : {name}",
       "byCampaignCount": "{shown} sur {total} leads",
       "clearCampaign": "Effacer le filtre"
+    },
+    "followUp": {
+      "eventTitle": "Appel de relance avec {name}",
+      "label": "Heure de relance",
+      "none": "Pas de relance",
+      "presets": {
+        "in_1_month": "Relancer dans 1 mois",
+        "in_1_week": "Relancer dans 1 semaine",
+        "in_2_days": "Appeler dans 2 jours",
+        "tomorrow": "Appeler demain"
+      }
     },
     "formModal": {
       "assignee": "Assigné",

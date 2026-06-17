@@ -668,6 +668,16 @@
       "openFullDashboard": "Abrir panel completo",
       "openPipeline": "Abrir pipeline"
     },
+    "todayCalls": {
+      "call": "Llamar",
+      "empty": "Nadie a quien llamar hoy.",
+      "loadFailed": "Error al cargar las llamadas de hoy.",
+      "markDone": "Hecho",
+      "markDoneFailed": "No se pudo actualizar la llamada.",
+      "overdue": "Atrasado",
+      "selectWorkspace": "Seleccione un workspace para ver las llamadas de hoy.",
+      "title": "Personas a llamar hoy"
+    },
     "workspaceOverview": {
       "acrossAccount": "En toda su cuenta",
       "activeWorkspace": "Workspace activo",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Perfil del lead",
       "linkedCustomer": "Cliente vinculado",
       "linkedDealId": "ID del deal vinculado",
+      "nextFollowUp": "Próximo seguimiento",
       "nextStep": "Próximo paso",
       "noDealYet": "Aún no hay deal",
       "noneYet": "Aún no hay nada",
@@ -1590,6 +1601,16 @@
       "updated": "Actualizado",
       "value": "Valor",
       "viewAIQualification": "Ver calificación de AI"
+    },
+    "duplicate": {
+      "customer": "Cliente",
+      "hint": "Aún puede crear un nuevo registro.",
+      "matchedOn": {
+        "email": "Coincidencia de correo",
+        "phone": "Coincidencia de teléfono"
+      },
+      "open": "Abrir",
+      "warning": "Este contacto ya puede existir:"
     },
     "emptyState": {
       "pickWorkspace": "Seleccione un workspace para ver leads."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Filtrado por campaña: {name}",
       "byCampaignCount": "{shown} de {total} leads",
       "clearCampaign": "Borrar filtro"
+    },
+    "followUp": {
+      "eventTitle": "Llamada de seguimiento con {name}",
+      "label": "Hora del seguimiento",
+      "none": "Sin seguimiento",
+      "presets": {
+        "in_1_month": "Seguimiento en 1 mes",
+        "in_1_week": "Seguimiento en 1 semana",
+        "in_2_days": "Llamar en 2 días",
+        "tomorrow": "Llamar mañana"
+      }
     },
     "formModal": {
       "assignee": "Asignado",

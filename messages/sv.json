@@ -668,6 +668,16 @@
       "openFullDashboard": "Öppna fullständig dashboard",
       "openPipeline": "Öppna pipeline"
     },
+    "todayCalls": {
+      "call": "Ring",
+      "empty": "Ingen att ringa idag.",
+      "loadFailed": "Det gick inte att ladda dagens samtal.",
+      "markDone": "Klart",
+      "markDoneFailed": "Kunde inte uppdatera samtalet.",
+      "overdue": "Försenad",
+      "selectWorkspace": "Välj en arbetsyta för att se dagens samtal.",
+      "title": "Personer att ringa idag"
+    },
     "workspaceOverview": {
       "acrossAccount": "Över hela ert konto",
       "activeWorkspace": "Aktiv workspace",
@@ -1570,6 +1580,7 @@
       "leadProfile": "Lead-profil",
       "linkedCustomer": "Länkad kund",
       "linkedDealId": "Länkad deal-id",
+      "nextFollowUp": "Nästa uppföljning",
       "nextStep": "Nästa steg",
       "noDealYet": "Ingen Deal ännu",
       "noneYet": "Ingen ännu",
@@ -1590,6 +1601,16 @@
       "updated": "Uppdaterad",
       "value": "Värde",
       "viewAIQualification": "Visa AI‑kvalificering"
+    },
+    "duplicate": {
+      "customer": "Kund",
+      "hint": "Ni kan fortfarande skapa en ny post.",
+      "matchedOn": {
+        "email": "E‑postmatch",
+        "phone": "Telefonmatch"
+      },
+      "open": "Öppna",
+      "warning": "Den här kontakten kan redan finnas:"
     },
     "emptyState": {
       "pickWorkspace": "Välj ett Workspace för att visa Leads."
@@ -1624,6 +1645,17 @@
       "byCampaign": "Filtrerat efter kampanj: {name}",
       "byCampaignCount": "{shown} av {total} leads",
       "clearCampaign": "Rensa filter"
+    },
+    "followUp": {
+      "eventTitle": "Uppföljningssamtal med {name}",
+      "label": "Uppföljningstid",
+      "none": "Ingen uppföljning",
+      "presets": {
+        "in_1_month": "Uppföljning om 1 månad",
+        "in_1_week": "Uppföljning om 1 vecka",
+        "in_2_days": "Ring om 2 dagar",
+        "tomorrow": "Ring imorgon"
+      }
     },
     "formModal": {
       "assignee": "Tilldelad",
