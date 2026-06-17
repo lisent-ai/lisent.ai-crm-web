@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Check, Phone, PhoneCall } from "lucide-react";
@@ -24,7 +25,7 @@ type TodayCallsProps = {
   companyName: string;
 };
 
-export function TodayCalls({ companyId }: Readonly<TodayCallsProps>) {
+export function TodayCalls({ companyId, companyName }: Readonly<TodayCallsProps>) {
   const t = useTranslations();
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [leadsById, setLeadsById] = useState<Record<string, Lead>>({});
@@ -161,24 +162,43 @@ export function TodayCalls({ companyId }: Readonly<TodayCallsProps>) {
             const lead = event.linkedEntityId ? leadsById[event.linkedEntityId] : undefined;
             const name = lead?.name || event.title || t("leads.fallback.lead");
             const overdue = new Date(event.startAt).getTime() < Date.now();
+            // Click the row → open this lead's detail card on the leads page
+            // (the full drawer lives there; we deep-link with ?lead=<id>).
+            const leadHref = lead
+              ? `/dashboard/leads?company=${encodeURIComponent(companyId)}${
+                  companyName ? `&companyName=${encodeURIComponent(companyName)}` : ""
+                }&lead=${encodeURIComponent(lead.id)}`
+              : null;
+            const rowBody = (
+              <>
+                <p className="truncate text-sm font-semibold text-[var(--text-primary)]">
+                  {name}
+                </p>
+                <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">
+                  {formatTime(event.startAt)}
+                  {overdue ? (
+                    <span className="ms-2 inline-flex items-center rounded-full bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] px-2 py-0.5 text-[10px] font-semibold text-[var(--signal-red)]">
+                      {t("home.todayCalls.overdue")}
+                    </span>
+                  ) : null}
+                </p>
+              </>
+            );
             return (
               <li
                 key={event.id}
                 className="flex flex-wrap items-center gap-3 rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--surface-subtle)] px-4 py-3"
               >
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-[var(--text-primary)]">
-                    {name}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">
-                    {formatTime(event.startAt)}
-                    {overdue ? (
-                      <span className="ms-2 inline-flex items-center rounded-full bg-[color-mix(in_srgb,_var(--signal-red)_14%,_var(--surface))] px-2 py-0.5 text-[10px] font-semibold text-[var(--signal-red)]">
-                        {t("home.todayCalls.overdue")}
-                      </span>
-                    ) : null}
-                  </p>
-                </div>
+                {leadHref ? (
+                  <Link
+                    href={leadHref}
+                    className="-mx-1 min-w-0 flex-1 rounded-lg px-1 transition hover:bg-[var(--surface-muted)]"
+                  >
+                    {rowBody}
+                  </Link>
+                ) : (
+                  <div className="min-w-0 flex-1">{rowBody}</div>
+                )}
                 <div className="flex items-center gap-2">
                   {lead?.phone ? (
                     <a

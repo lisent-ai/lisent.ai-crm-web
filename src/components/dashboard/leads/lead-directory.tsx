@@ -103,6 +103,9 @@ export function LeadDirectory() {
   // holds the campaign_id/name we group by).
   const searchSource = searchParams.get("source")?.trim() ?? "";
   const searchCampaign = searchParams.get("campaign")?.trim() ?? "";
+  // Deep-link target: /dashboard/leads?lead=<id> opens that lead's card
+  // (used by the dashboard "today's calls" panel).
+  const searchLeadId = searchParams.get("lead")?.trim() ?? "";
 
   const [account, setAccount] = useState<AccountProfile | null>(null);
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -155,6 +158,7 @@ export function LeadDirectory() {
     left: number;
   } | null>(null);
   const rowMenuRef = useRef<HTMLDivElement>(null);
+  const openedDeepLinkLeadRef = useRef<string | null>(null);
 
   useEffect(() => {
     setActiveCompanyId(searchCompanyId);
@@ -410,6 +414,18 @@ export function LeadDirectory() {
     leadFilters,
     selectedCompany?.id,
   ]);
+
+  // Open the deep-linked lead's card once the list contains it. Fires once
+  // per id (ref guard) so closing the drawer doesn't reopen it.
+  useEffect(() => {
+    if (!searchLeadId || openedDeepLinkLeadRef.current === searchLeadId) return;
+    if (leads.some((lead) => lead.id === searchLeadId)) {
+      openedDeepLinkLeadRef.current = searchLeadId;
+      setSelectedLeadId(searchLeadId);
+      setDrawerView("profile");
+      setDrawerOpen(true);
+    }
+  }, [searchLeadId, leads]);
 
   useEffect(() => {
     if (!rowMenu) return;
