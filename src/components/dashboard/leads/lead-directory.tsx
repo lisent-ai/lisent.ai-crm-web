@@ -59,7 +59,14 @@ import {
   type LeadConvertState,
   type LeadFormState,
 } from "./lead-types";
-import { buildLeadCsv, computeFollowUpDate, downloadCsv, parseLeadValue } from "./lead-utils";
+import {
+  buildLeadCsv,
+  computeFollowUpDate,
+  downloadCsv,
+  findDuplicateContacts,
+  parseLeadValue,
+  type DuplicateMatch,
+} from "./lead-utils";
 
 function buildLeadFilters(input: {
   tab: string;
@@ -490,6 +497,21 @@ export function LeadDirectory() {
       ? customers.find((customer) => customer.id === selectedLead.customerId)?.name
       : undefined;
 
+  // Warn (not block) when the lead being created/edited shares a phone or
+  // email with an existing lead/customer in this workspace. companyLeads is
+  // the full unfiltered set, so this catches duplicates outside the current
+  // tab/filter too.
+  const duplicateMatches = useMemo(() => {
+    if (!showLeadModal) return [];
+    return findDuplicateContacts({
+      phone: leadForm.phone,
+      email: leadForm.email,
+      leads: companyLeads,
+      customers,
+      excludeLeadId: editingLeadId,
+    }).slice(0, 5);
+  }, [showLeadModal, leadForm.phone, leadForm.email, companyLeads, customers, editingLeadId]);
+
   useEffect(() => {
     if (!drawerOpen || !selectedLead?.id) {
       setLeadComments([]);
@@ -664,6 +686,15 @@ export function LeadDirectory() {
     setEditingLeadId(null);
     setLeadForm(emptyLeadForm);
     setShowLeadModal(false);
+  }
+
+  function openExistingFromDuplicate(match: DuplicateMatch) {
+    // Customers have no drawer here; only jump for matched leads.
+    if (match.kind !== "lead") return;
+    closeLeadModal();
+    setSelectedLeadId(match.id);
+    setDrawerView("profile");
+    setDrawerOpen(true);
   }
 
   async function handleSaveLead({ andSchedule = false }: { andSchedule?: boolean } = {}) {
@@ -1420,11 +1451,13 @@ export function LeadDirectory() {
       {showLeadModal ? (
         <LeadFormModal
           assignableMembers={assignableMembers}
+          duplicateMatches={duplicateMatches}
           editingLeadId={editingLeadId}
           errorMessage={errorMessage}
           leadForm={leadForm}
           onClose={closeLeadModal}
           onLeadFormChange={(updater) => setLeadForm((current) => updater(current))}
+          onOpenExisting={openExistingFromDuplicate}
           onSave={() => void handleSaveLead()}
           onSaveAndSchedule={() => void handleSaveLead({ andSchedule: true })}
           saving={saving}

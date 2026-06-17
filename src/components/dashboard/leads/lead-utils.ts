@@ -1,4 +1,4 @@
-import type { Lead } from "@/lib/crm/client";
+import type { Customer, Lead, LeadStatus } from "@/lib/crm/client";
 
 export function statusBadgeClasses(status: string) {
   switch (status) {
@@ -99,6 +99,74 @@ export function computeFollowUpDate(preset: string, from: Date = new Date()): st
       return null;
   }
   return d.toISOString();
+}
+
+export function normalizePhoneDigits(phone: string): string {
+  return (phone || "").replace(/\D+/g, "");
+}
+
+function phonesMatch(a: string, b: string): boolean {
+  if (!a || !b) return false;
+  if (a === b) return true;
+  // Tolerate country-code differences by comparing the last 10 digits.
+  return a.length >= 10 && b.length >= 10 && a.slice(-10) === b.slice(-10);
+}
+
+export type DuplicateMatch = {
+  id: string;
+  name: string;
+  kind: "lead" | "customer";
+  status?: LeadStatus;
+  matchedOn: "phone" | "email";
+};
+
+/**
+ * Find existing leads/customers in the same workspace that share the
+ * given phone or email. Used to WARN (not block) when a contact that
+ * already exists is about to be re-created as a fresh lead.
+ */
+export function findDuplicateContacts(input: {
+  phone: string;
+  email: string;
+  leads: readonly Lead[];
+  customers: readonly Customer[];
+  excludeLeadId?: string | null;
+}): DuplicateMatch[] {
+  const phone = normalizePhoneDigits(input.phone);
+  const email = input.email.trim().toLowerCase();
+  if (!phone && !email) return [];
+
+  const matches: DuplicateMatch[] = [];
+
+  for (const lead of input.leads) {
+    if (input.excludeLeadId && lead.id === input.excludeLeadId) continue;
+    const onPhone = phonesMatch(phone, normalizePhoneDigits(lead.phone));
+    const onEmail = !!email && lead.email.trim().toLowerCase() === email;
+    if (onPhone || onEmail) {
+      matches.push({
+        id: lead.id,
+        name: lead.name || lead.email || lead.phone,
+        kind: "lead",
+        status: lead.status,
+        matchedOn: onPhone ? "phone" : "email",
+      });
+    }
+  }
+
+  for (const customer of input.customers) {
+    const onPhone = phonesMatch(phone, normalizePhoneDigits(customer.phone));
+    const onEmail = !!email && customer.email.trim().toLowerCase() === email;
+    if (onPhone || onEmail) {
+      matches.push({
+        id: customer.id,
+        name: customer.name || customer.email || customer.phone,
+        kind: "customer",
+        matchedOn: onPhone ? "phone" : "email",
+      });
+    }
+  }
+
+  return matches;
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;

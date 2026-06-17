@@ -1604,6 +1604,16 @@
       "value": "Değer",
       "viewAIQualification": "AI nitelendirmesini görüntüleyin"
     },
+    "duplicate": {
+      "customer": "Müşteri",
+      "hint": "Yine de yeni bir kayıt oluşturabilirsiniz.",
+      "matchedOn": {
+        "email": "e-posta eşleşmesi",
+        "phone": "telefon eşleşmesi"
+      },
+      "open": "Aç",
+      "warning": "Bu kişi sistemde zaten kayıtlı olabilir:"
+    },
     "emptyState": {
       "pickWorkspace": "Müşteri adaylarını görüntülemek için bir çalışma alanı seçin."
     },

@@ -1604,6 +1604,16 @@
       "value": "Value",
       "viewAIQualification": "View AI qualification"
     },
+    "duplicate": {
+      "customer": "Customer",
+      "hint": "You can still create a new record.",
+      "matchedOn": {
+        "email": "email match",
+        "phone": "phone match"
+      },
+      "open": "Open",
+      "warning": "This contact may already exist:"
+    },
     "emptyState": {
       "pickWorkspace": "Pick a workspace to view leads."
     },

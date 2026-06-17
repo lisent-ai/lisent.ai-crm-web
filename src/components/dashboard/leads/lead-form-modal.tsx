@@ -7,6 +7,7 @@ import { SelectField, TextAreaField } from "./lead-form-fields";
 import { LeadModalFrame } from "./lead-modal-frame";
 import type { LeadFormState } from "./lead-types";
 import { followUpPresets, leadStatuses } from "./lead-types";
+import type { DuplicateMatch } from "./lead-utils";
 
 type LeadFormModalProps = {
   editingLeadId: string | null;
@@ -14,10 +15,12 @@ type LeadFormModalProps = {
   assignableMembers: CompanyMember[];
   saving: boolean;
   errorMessage?: string | null;
+  duplicateMatches: DuplicateMatch[];
   onClose: () => void;
   onSave: () => void;
   onSaveAndSchedule: () => void;
   onLeadFormChange: (updater: (current: LeadFormState) => LeadFormState) => void;
+  onOpenExisting: (match: DuplicateMatch) => void;
 };
 
 export function LeadFormModal({
@@ -26,10 +29,12 @@ export function LeadFormModal({
   assignableMembers,
   saving,
   errorMessage,
+  duplicateMatches,
   onClose,
   onSave,
   onSaveAndSchedule,
   onLeadFormChange,
+  onOpenExisting,
 }: Readonly<LeadFormModalProps>) {
   const t = useTranslations();
   return (
@@ -59,6 +64,36 @@ export function LeadFormModal({
           role="alert"
         >
           {errorMessage}
+        </div>
+      ) : null}
+
+      {duplicateMatches.length > 0 ? (
+        <div className="mt-4 rounded-[1.1rem] border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          <p className="font-semibold">{t("leads.duplicate.warning")}</p>
+          <ul className="mt-2 grid gap-1.5">
+            {duplicateMatches.map((match) => (
+              <li className="flex flex-wrap items-center gap-2" key={`${match.kind}-${match.id}`}>
+                <span className="font-medium text-amber-900">{match.name}</span>
+                <span className="text-xs text-amber-700">
+                  {match.kind === "lead"
+                    ? t(`leads.status.${match.status ?? "new"}`)
+                    : t("leads.duplicate.customer")}
+                  {" · "}
+                  {t(`leads.duplicate.matchedOn.${match.matchedOn}`)}
+                </span>
+                {match.kind === "lead" ? (
+                  <button
+                    className="ms-auto rounded-full border border-amber-400 px-2.5 py-0.5 text-xs font-semibold text-amber-800 transition hover:bg-amber-100"
+                    onClick={() => onOpenExisting(match)}
+                    type="button"
+                  >
+                    {t("leads.duplicate.open")}
+                  </button>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-amber-700">{t("leads.duplicate.hint")}</p>
         </div>
       ) : null}
 
