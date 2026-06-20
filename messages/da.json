@@ -243,6 +243,25 @@
       "wed": "Ons"
     }
   },
+  "campaignAssign": {
+    "add": "Tilføj regel",
+    "assigneeLabel": "Salgsrepræsentant",
+    "campaignLabel": "Kampagne",
+    "delete": "Fjern",
+    "deleted": "Regel fjernet.",
+    "description": "Tildel automatisk nye leads fra en kampagne til en salgsrepræsentant. Eksisterende ufordelte leads fra den kampagne tildeles også.",
+    "loadFailed": "Kunne ikke indlæse kampagnedata.",
+    "loading": "Indlæser…",
+    "noCampaigns": "Ingen kampagner med leads endnu — De kan tilføje en regel, når en kampagne har leads.",
+    "noRules": "Ingen auto‑tildelingsregler endnu.",
+    "restricted": "Kun ejere og administratorer kan konfigurere auto‑tildelingsregler.",
+    "saveFailed": "Kunne ikke gemme reglen.",
+    "saved": "Regel gemt. {count} eksisterende lead(s) tildelt.",
+    "saving": "Gemmer…",
+    "selectAssignee": "Vælg en repræsentant",
+    "selectCampaign": "Vælg en kampagne",
+    "title": "Kampagne auto‑tildeling"
+  },
   "common": {
     "back": "Tilbage",
     "cancel": "Annuller",

@@ -243,6 +243,25 @@
       "wed": "Ke"
     }
   },
+  "campaignAssign": {
+    "add": "Lisää sääntö",
+    "assigneeLabel": "Myyntiedustaja",
+    "campaignLabel": "Kampanja",
+    "delete": "Poista",
+    "deleted": "Sääntö poistettu.",
+    "description": "Määritä automaattisesti uudet leadit kampanjasta myyntiedustajalle. Myös olemassa olevat, kampanjasta tulevat jakamattomat leadit kohdistetaan.",
+    "loadFailed": "Kampanjatietojen lataus epäonnistui.",
+    "loading": "Ladataan…",
+    "noCampaigns": "Ei kampanjoita, joilla on leadia vielä — voit lisätä säännön, kun kampanjassa on leadia.",
+    "noRules": "Ei automaattikohdistussääntöjä vielä.",
+    "restricted": "Vain omistajat ja ylläpitäjät voivat määrittää automaattikohdistussääntöjä.",
+    "saveFailed": "Sääntöä ei voitu tallentaa.",
+    "saved": "Sääntö tallennettu. {count} olemassa oleva lead kohdistettu.",
+    "saving": "Tallennetaan…",
+    "selectAssignee": "Valitse edustaja",
+    "selectCampaign": "Valitse kampanja",
+    "title": "Kampanjan automaattinen kohdistus"
+  },
   "common": {
     "back": "Takaisin",
     "cancel": "Peruuta",

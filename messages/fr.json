@@ -243,6 +243,25 @@
       "wed": "Mer"
     }
   },
+  "campaignAssign": {
+    "add": "Ajouter une règle",
+    "assigneeLabel": "Commercial",
+    "campaignLabel": "Campagne",
+    "delete": "Supprimer",
+    "deleted": "Règle supprimée.",
+    "description": "Attribuer automatiquement les nouveaux leads d’une campagne à un commercial. Les leads non assignés existants de cette campagne sont également assignés.",
+    "loadFailed": "Échec du chargement des données de campagne.",
+    "loading": "Chargement…",
+    "noCampaigns": "Aucune campagne avec des leads pour le moment — vous pouvez ajouter une règle dès qu’une campagne possède des leads.",
+    "noRules": "Aucune règle d’auto-assignation pour le moment.",
+    "restricted": "Seuls les propriétaires et les administrateurs peuvent configurer les règles d’auto-assignation.",
+    "saveFailed": "Impossible d’enregistrer la règle.",
+    "saved": "Règle enregistrée. {count} lead(s) existant(s) assigné(s).",
+    "saving": "Enregistrement…",
+    "selectAssignee": "Sélectionner un commercial",
+    "selectCampaign": "Sélectionner une campagne",
+    "title": "Auto-assignation de campagne"
+  },
   "common": {
     "back": "Retour",
     "cancel": "Annuler",

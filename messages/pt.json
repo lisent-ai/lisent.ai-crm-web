@@ -243,6 +243,25 @@
       "wed": "Qua"
     }
   },
+  "campaignAssign": {
+    "add": "Adicionar regra",
+    "assigneeLabel": "Representante de vendas",
+    "campaignLabel": "Campanha",
+    "delete": "Remover",
+    "deleted": "Regra removida.",
+    "description": "Atribuir automaticamente novos leads de uma campanha a um representante de vendas. Leads não atribuídos existentes da mesma campanha também são atribuídos.",
+    "loadFailed": "Falha ao carregar dados da campanha.",
+    "loading": "Carregando…",
+    "noCampaigns": "Ainda não há campanhas com leads — você pode adicionar uma regra quando uma campanha tiver leads.",
+    "noRules": "Ainda não há regras de atribuição automática.",
+    "restricted": "Somente proprietários e administradores podem configurar regras de atribuição automática.",
+    "saveFailed": "Não foi possível salvar a regra.",
+    "saved": "Regra salva. {count} lead(s) existente(s) atribuído(s).",
+    "saving": "Salvando…",
+    "selectAssignee": "Selecione um representante",
+    "selectCampaign": "Selecione uma campanha",
+    "title": "Atribuição automática de campanha"
+  },
   "common": {
     "back": "Voltar",
     "cancel": "Cancelar",

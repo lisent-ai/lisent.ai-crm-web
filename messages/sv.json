@@ -243,6 +243,25 @@
       "wed": "Ons"
     }
   },
+  "campaignAssign": {
+    "add": "Lägg till regel",
+    "assigneeLabel": "Säljrepresentant",
+    "campaignLabel": "Kampanj",
+    "delete": "Ta bort",
+    "deleted": "Regeln har tagits bort.",
+    "description": "Tilldela automatiskt nya leads från en kampanj till en säljrepresentant. Befintliga oassignerade leads från den kampanjen tilldelas också.",
+    "loadFailed": "Det gick inte att läsa in kampanjdata.",
+    "loading": "Läser in…",
+    "noCampaigns": "Inga kampanjer med leads ännu — du kan lägga till en regel när en kampanj har leads.",
+    "noRules": "Inga automatiska tilldelningsregler ännu.",
+    "restricted": "Endast ägare och administratörer kan konfigurera automatiska tilldelningsregler.",
+    "saveFailed": "Kunde inte spara regeln.",
+    "saved": "Regeln har sparats. {count} befintliga leads har tilldelats.",
+    "saving": "Sparar…",
+    "selectAssignee": "Välj en representant",
+    "selectCampaign": "Välj en kampanj",
+    "title": "Kampanjautomatisk tilldelning"
+  },
   "common": {
     "back": "Tillbaka",
     "cancel": "Avbryt",

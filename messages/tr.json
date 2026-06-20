@@ -246,6 +246,25 @@
       "wed": "Çarşamba"
     }
   },
+  "campaignAssign": {
+    "add": "Kural ekle",
+    "assigneeLabel": "Satış temsilcisi",
+    "campaignLabel": "Kampanya",
+    "delete": "Kaldır",
+    "deleted": "Kural kaldırıldı.",
+    "description": "Bir kampanyadan gelen yeni leadleri otomatik bir satış temsilcisine atayın. O kampanyadaki atanmamış mevcut leadler de atanır.",
+    "loadFailed": "Kampanya verileri yüklenemedi.",
+    "loading": "Yükleniyor…",
+    "noCampaigns": "Henüz leadi olan kampanya yok — kampanyaya lead düştükçe kural ekleyebilirsiniz.",
+    "noRules": "Henüz otomatik atama kuralı yok.",
+    "restricted": "Otomatik atama kurallarını yalnızca sahip ve yöneticiler düzenleyebilir.",
+    "saveFailed": "Kural kaydedilemedi.",
+    "saved": "Kural kaydedildi. {count} mevcut lead atandı.",
+    "saving": "Kaydediliyor…",
+    "selectAssignee": "Temsilci seçin",
+    "selectCampaign": "Kampanya seçin",
+    "title": "Kampanya Otomatik Atama"
+  },
   "common": {
     "back": "Geri",
     "cancel": "İptal",

@@ -243,6 +243,25 @@
       "wed": "Mer"
     }
   },
+  "campaignAssign": {
+    "add": "Aggiungi regola",
+    "assigneeLabel": "Rappresentante commerciale",
+    "campaignLabel": "Campagna",
+    "delete": "Rimuovi",
+    "deleted": "Regola rimossa.",
+    "description": "Assegna automaticamente i nuovi lead da una campagna a un rappresentante commerciale. Anche i lead non assegnati esistenti di quella campagna vengono assegnati.",
+    "loadFailed": "Impossibile caricare i dati della campagna.",
+    "loading": "Caricamento…",
+    "noCampaigns": "Nessuna campagna con lead al momento — è possibile aggiungere una regola quando una campagna ha dei lead.",
+    "noRules": "Nessuna regola di assegnazione automatica al momento.",
+    "restricted": "Solo i proprietari e gli amministratori possono configurare le regole di assegnazione automatica.",
+    "saveFailed": "Impossibile salvare la regola.",
+    "saved": "Regola salvata. {count} lead esistenti assegnati.",
+    "saving": "Salvataggio…",
+    "selectAssignee": "Seleziona un rappresentante",
+    "selectCampaign": "Seleziona una campagna",
+    "title": "Assegnazione automatica campagna"
+  },
   "common": {
     "back": "Indietro",
     "cancel": "Annulla",

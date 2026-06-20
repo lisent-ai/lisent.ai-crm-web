@@ -243,6 +243,25 @@
       "wed": "Mi"
     }
   },
+  "campaignAssign": {
+    "add": "Regel hinzufügen",
+    "assigneeLabel": "Vertriebsmitarbeiter",
+    "campaignLabel": "Kampagne",
+    "delete": "Entfernen",
+    "deleted": "Regel entfernt.",
+    "description": "Weisen Sie neue Leads aus einer Kampagne automatisch einem Vertriebsmitarbeiter zu. Bestehende, nicht zugewiesene Leads aus dieser Kampagne werden ebenfalls zugewiesen.",
+    "loadFailed": "Kampagnendaten konnten nicht geladen werden.",
+    "loading": "Laden…",
+    "noCampaigns": "Noch keine Kampagnen mit Leads — Sie können eine Regel hinzufügen, sobald eine Kampagne Leads hat.",
+    "noRules": "Noch keine Auto‑Assign‑Regeln.",
+    "restricted": "Nur Eigentümer und Administratoren können Auto‑Assign‑Regeln konfigurieren.",
+    "saveFailed": "Regel konnte nicht gespeichert werden.",
+    "saved": "Regel gespeichert. {count} vorhandene(r) Lead(s) zugewiesen.",
+    "saving": "Speichern…",
+    "selectAssignee": "Wählen Sie einen Vertriebsmitarbeiter aus",
+    "selectCampaign": "Wählen Sie eine Kampagne aus",
+    "title": "Kampagnen‑Auto‑Assign"
+  },
   "common": {
     "back": "Zurück",
     "cancel": "Abbrechen",

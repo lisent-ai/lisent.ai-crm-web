@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
+import { CampaignAutoAssign } from "@/components/dashboard/marketing/campaign-auto-assign";
 import { CampaignsOverview } from "@/components/dashboard/marketing/campaigns-overview";
 import { MarketingShell } from "@/components/dashboard/marketing/marketing-shell";
 import { DashboardShell } from "@/components/dashboard/shared/dashboard-shell";
@@ -24,7 +25,10 @@ export default function MarketingCampaignsPage() {
   return (
     <DashboardShell>
       <MarketingShell active="campaigns">
-        <CampaignsOverview />
+        <div className="flex flex-col gap-8">
+          <CampaignsOverview />
+          <CampaignAutoAssign />
+        </div>
       </MarketingShell>
     </DashboardShell>
   );

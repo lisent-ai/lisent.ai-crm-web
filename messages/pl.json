@@ -243,6 +243,25 @@
       "wed": "śr."
     }
   },
+  "campaignAssign": {
+    "add": "Dodaj regułę",
+    "assigneeLabel": "Przedstawiciel handlowy",
+    "campaignLabel": "Kampania",
+    "delete": "Usuń",
+    "deleted": "Reguła usunięta.",
+    "description": "Automatycznie przypisuj nowe leady z kampanii do przedstawiciela handlowego. Istniejące nieprzypisane leady z tej kampanii również zostaną przypisane.",
+    "loadFailed": "Nie udało się wczytać danych kampanii.",
+    "loading": "Ładowanie…",
+    "noCampaigns": "Brak kampanii z leadami. Możesz dodać regułę, gdy kampania będzie miała leady.",
+    "noRules": "Brak reguł automatycznego przypisywania.",
+    "restricted": "Tylko właściciele i administratorzy mogą konfigurować reguły automatycznego przypisywania.",
+    "saveFailed": "Nie udało się zapisać reguły.",
+    "saved": "Reguła zapisana. Przypisano istniejące leady: {count}.",
+    "saving": "Zapisywanie…",
+    "selectAssignee": "Wybierz przedstawiciela",
+    "selectCampaign": "Wybierz kampanię",
+    "title": "Automatyczne przypisywanie kampanii"
+  },
   "common": {
     "back": "Wstecz",
     "cancel": "Anuluj",

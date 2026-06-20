@@ -243,6 +243,25 @@
       "wed": "Wo"
     }
   },
+  "campaignAssign": {
+    "add": "Regel toevoegen",
+    "assigneeLabel": "Vertegenwoordiger",
+    "campaignLabel": "Campagne",
+    "delete": "Verwijderen",
+    "deleted": "Regel verwijderd.",
+    "description": "Wijs automatisch nieuwe leads van een campagne toe aan een vertegenwoordiger. Bestaande niet-toegewezen leads van die campagne worden ook toegewezen.",
+    "loadFailed": "Kan campagnedata niet laden.",
+    "loading": "Laden…",
+    "noCampaigns": "Nog geen campagnes met leads — u kunt een regel toevoegen zodra een campagne leads heeft.",
+    "noRules": "Nog geen automatische toewijzingsregels.",
+    "restricted": "Alleen eigenaren en beheerders kunnen automatische toewijzingsregels configureren.",
+    "saveFailed": "Regel kon niet worden opgeslagen.",
+    "saved": "Regel opgeslagen. {count} bestaande lead(s) toegewezen.",
+    "saving": "Opslaan…",
+    "selectAssignee": "Selecteer een vertegenwoordiger",
+    "selectCampaign": "Selecteer een campagne",
+    "title": "Campagne auto-toewijzing"
+  },
   "common": {
     "back": "Terug",
     "cancel": "Annuleren",

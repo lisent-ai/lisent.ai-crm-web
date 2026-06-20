@@ -246,6 +246,25 @@
       "wed": "Wed"
     }
   },
+  "campaignAssign": {
+    "add": "Add rule",
+    "assigneeLabel": "Sales rep",
+    "campaignLabel": "Campaign",
+    "delete": "Remove",
+    "deleted": "Rule removed.",
+    "description": "Automatically assign new leads from a campaign to a sales rep. Existing unassigned leads from that campaign are assigned too.",
+    "loadFailed": "Failed to load campaign data.",
+    "loading": "Loading…",
+    "noCampaigns": "No campaigns with leads yet — you can add a rule once a campaign has leads.",
+    "noRules": "No auto-assign rules yet.",
+    "restricted": "Only owners and admins can configure auto-assign rules.",
+    "saveFailed": "Couldn’t save the rule.",
+    "saved": "Rule saved. {count} existing lead(s) assigned.",
+    "saving": "Saving…",
+    "selectAssignee": "Select a rep",
+    "selectCampaign": "Select a campaign",
+    "title": "Campaign Auto-Assign"
+  },
   "common": {
     "back": "Back",
     "cancel": "Cancel",
