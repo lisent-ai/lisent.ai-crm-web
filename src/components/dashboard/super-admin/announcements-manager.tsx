@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
 import {
+  CRMClientError,
   createAnnouncement,
   deleteAnnouncement,
   listAnnouncements,
@@ -38,6 +39,7 @@ export function AnnouncementsManager() {
     body: "",
   });
   const [busy, setBusy] = useState(false);
+  const [publishingId, setPublishingId] = useState<string | null>(null);
   const [tick, setTick] = useState(0);
 
   const refresh = useCallback(() => setTick((n) => n + 1), []);
@@ -109,15 +111,21 @@ export function AnnouncementsManager() {
 
   async function publish(id: string) {
     if (!window.confirm(t("superAdmin.announcements.publishConfirm"))) return;
-    setBusy(true);
+    setPublishingId(id);
     setError(null);
     try {
       await publishAnnouncement(id);
       refresh();
-    } catch {
-      setError(t("superAdmin.announcements.publishError"));
+    } catch (e) {
+      // Strict translation: the backend refuses to publish until every locale
+      // is translated, returning a specific reason — surface it verbatim.
+      setError(
+        e instanceof CRMClientError && e.message
+          ? e.message
+          : t("superAdmin.announcements.publishError"),
+      );
     } finally {
-      setBusy(false);
+      setPublishingId(null);
     }
   }
 
@@ -276,11 +284,13 @@ export function AnnouncementsManager() {
               </button>
               <button
                 type="button"
-                disabled={busy}
+                disabled={publishingId !== null}
                 onClick={() => void publish(a.id)}
                 className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-semibold text-white hover:bg-[var(--accent-strong)] disabled:opacity-50"
               >
-                {t("superAdmin.announcements.publish")}
+                {publishingId === a.id
+                  ? t("superAdmin.announcements.publishing")
+                  : t("superAdmin.announcements.publish")}
               </button>
               <button
                 type="button"

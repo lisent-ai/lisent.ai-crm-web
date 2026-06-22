@@ -40,6 +40,9 @@
     "subtitle": "Gestisci il tuo profilo, le preferenze e l'accesso.",
     "title": "Impostazioni account"
   },
+  "announcement": {
+    "dismiss": "Capito"
+  },
   "auth": {
     "alreadyHaveAccess": "Ha già accesso?",
     "authFailed": "Autenticazione non riuscita.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Rotazione",
       "unassigned": "Non assegnato"
     },
+    "autoAssignCampaign": {
+      "applied": "Regola salvata · {count} lead(s) assegnati.",
+      "hint": "I lead non assegnati da “{campaign}” verranno assegnati automaticamente a {assignee}.",
+      "toggle": "Assegna automaticamente tutti i lead di questa campagna a questo rappresentante"
+    },
     "bulkAssign": {
       "assignCta": "Assegna",
       "assignTo": "Assegna a",
@@ -2744,6 +2752,36 @@
     "aria": "Cerca nel workspace",
     "placeholder": "Cerca..."
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Messaggio",
+      "bodyPlaceholder": "Descrivi l'aggiornamento…",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "deleteConfirm": "Eliminare questo annuncio?",
+      "description": "Pubblica un messaggio che appare per ogni utente — nella sua lingua — finché non lo chiude.",
+      "edit": "Modifica",
+      "empty": "Nessun annuncio ancora.",
+      "heading": "Annunci",
+      "new": "Nuovo annuncio",
+      "publish": "Pubblica a tutti",
+      "publishConfirm": "Pubblicare a tutti gli utenti? Verrà tradotto automaticamente in tutte le lingue.",
+      "publishError": "Impossibile pubblicare l'annuncio.",
+      "publishedAt": "Pubblicato {date}",
+      "publishing": "Pubblicazione…",
+      "republishNote": "Modificando torna in bozza — pubblica di nuovo per tradurre nuovamente.",
+      "save": "Salva bozza",
+      "saveError": "Impossibile salvare l'annuncio.",
+      "saving": "Salvataggio…",
+      "sourceLocale": "Lingua di scrittura",
+      "statusDraft": "Bozza",
+      "statusPublished": "Pubblicato",
+      "titleLabel": "Titolo",
+      "titlePlaceholder": "Novità"
+    },
+    "subtitle": "Controlli a livello di piattaforma. Visibili solo ai super admin.",
+    "title": "Super admin"
+  },
   "tasks": {
     "actions": {
       "accept": "Accetta",
@@ -2948,6 +2986,7 @@
     "openMenu": "Apri menu account",
     "signOut": "Disconnetti",
     "signOutEverywhere": "Esci da tutti i dispositivi",
+    "superAdminPanel": "Pannello Super Admin",
     "workspaceUser": "Utente workspace"
   },
   "validation": {

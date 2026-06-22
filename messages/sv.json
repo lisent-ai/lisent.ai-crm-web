@@ -40,6 +40,9 @@
     "subtitle": "Hantera din profil, dina preferenser och åtkomst.",
     "title": "Kontoinställningar"
   },
+  "announcement": {
+    "dismiss": "Uppfattat"
+  },
   "auth": {
     "alreadyHaveAccess": "Har du redan åtkomst?",
     "authFailed": "Autentisering misslyckades.",
@@ -88,16 +91,16 @@
     "passwordPlaceholderSignIn": "Ange ert lösenord",
     "passwordPlaceholderSignUp": "Skapa ett starkt lösenord",
     "reset": {
+      "error": "Något gick fel. Försök igen.",
+      "invalidToken": "Den här återställningslänken är ogiltig eller har gått ut. Begär en ny.",
       "newPassword": "Nytt lösenord",
-      "subtitle": "Välj ett nytt lösenord för ert konto.",
-      "title": "Ange ett nytt lösenord",
       "placeholder": "Skapa ett starkt lösenord",
+      "signin": "Gå till inloggning",
       "submit": "Uppdatera lösenord",
       "submitting": "Uppdaterar…",
+      "subtitle": "Välj ett nytt lösenord för ert konto.",
       "success": "Ditt lösenord har uppdaterats.",
-      "signin": "Gå till inloggning",
-      "invalidToken": "Den här återställningslänken är ogiltig eller har gått ut. Begär en ny.",
-      "error": "Något gick fel. Försök igen."
+      "title": "Ange ett nytt lösenord"
     },
     "selectGenderPlaceholder": "Välj ert kön",
     "signIn": "Logga in",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Rundgång",
       "unassigned": "Ej tilldelad"
     },
+    "autoAssignCampaign": {
+      "applied": "Regeln sparad · {count} lead(s) tilldelade.",
+      "hint": "Otilldelade leads från “{campaign}” kommer automatiskt att tilldelas {assignee}.",
+      "toggle": "Tilldela också automatiskt alla leads från den här kampanjen till den här säljaren"
+    },
     "bulkAssign": {
       "assignCta": "Tilldela",
       "assignTo": "Tilldela till",
@@ -2744,6 +2752,36 @@
     "aria": "Sök i workspace",
     "placeholder": "Sök…"
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Meddelande",
+      "bodyPlaceholder": "Beskriv uppdateringen…",
+      "cancel": "Avbryt",
+      "delete": "Ta bort",
+      "deleteConfirm": "Ta bort den här annonsen?",
+      "description": "Publicera ett meddelande som visas för alla användare — på deras språk — tills de avfärdar det.",
+      "edit": "Redigera",
+      "empty": "Inga annonser ännu.",
+      "heading": "Meddelanden",
+      "new": "Nytt meddelande",
+      "publish": "Publicera till alla",
+      "publishConfirm": "Publicera till alla användare? Det kommer att automatiskt översättas till alla språk.",
+      "publishError": "Kunde inte publicera annonsen.",
+      "publishedAt": "Publicerad {date}",
+      "publishing": "Publicerar…",
+      "republishNote": "Redigering återställer det till utkast — publicera igen för att översätta på nytt.",
+      "save": "Spara utkast",
+      "saveError": "Kunde inte spara annonsen.",
+      "saving": "Sparar…",
+      "sourceLocale": "Skrivspråk",
+      "statusDraft": "Utkast",
+      "statusPublished": "Publicerad",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Vad är nytt"
+    },
+    "subtitle": "Kontroller för hela plattformen. Synliga endast för superadmin.",
+    "title": "Superadmin"
+  },
   "tasks": {
     "actions": {
       "accept": "Acceptera",
@@ -2948,6 +2986,7 @@
     "openMenu": "Öppna kontomenyn",
     "signOut": "Logga ut",
     "signOutEverywhere": "Logga ut överallt",
+    "superAdminPanel": "Superadmin‑panel",
     "workspaceUser": "Workspace-användare"
   },
   "validation": {

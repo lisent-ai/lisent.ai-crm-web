@@ -40,6 +40,9 @@
     "subtitle": "Hallinnoi profiilia, asetuksia ja käyttöoikeuksia.",
     "title": "Tilin asetukset"
   },
+  "announcement": {
+    "dismiss": "Selvä"
+  },
   "auth": {
     "alreadyHaveAccess": "Onko teillä jo pääsy?",
     "authFailed": "Todennus epäonnistui.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Kierrekierros",
       "unassigned": "Ei määritetty"
     },
+    "autoAssignCampaign": {
+      "applied": "Sääntö tallennettu · {count} lead(s) osoitettu",
+      "hint": "Kohdistamattomat leadit kampanjasta “{campaign}” ohjataan automaattisesti {assignee}lle",
+      "toggle": "Ohjaa myös kaikki leadit tästä kampanjasta tälle edustajalle automaattisesti"
+    },
     "bulkAssign": {
       "assignCta": "Määritä",
       "assignTo": "Määritä kohteelle",
@@ -2744,6 +2752,36 @@
     "aria": "Etsi työtila",
     "placeholder": "Hae…"
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Viesti",
+      "bodyPlaceholder": "Kuvaile päivitys…",
+      "cancel": "Peruuta",
+      "delete": "Poista",
+      "deleteConfirm": "Poistetaanko tämä ilmoitus?",
+      "description": "Julkaise viesti, joka näytetään kaikille käyttäjille — heidän omalla kielellään — kunnes he sulkevat sen.",
+      "edit": "Muokkaa",
+      "empty": "Ei vielä ilmoituksia.",
+      "heading": "Ilmoitukset",
+      "new": "Uusi ilmoitus",
+      "publish": "Julkaise kaikille",
+      "publishConfirm": "Julkaistaanko kaikille käyttäjille? Se käännetään automaattisesti kaikille kielille.",
+      "publishError": "Ilmoituksen julkaiseminen epäonnistui.",
+      "publishedAt": "Julkaistu {date}",
+      "publishing": "Julkaistaan…",
+      "republishNote": "Muokkaus palauttaa sen luonnokseksi — julkaise uudelleen kääntääksesi sen uudelleen.",
+      "save": "Tallenna luonnos",
+      "saveError": "Ilmoituksen tallentaminen epäonnistui.",
+      "saving": "Tallennetaan…",
+      "sourceLocale": "Kirjoituskieli",
+      "statusDraft": "Luonnos",
+      "statusPublished": "Julkaistu",
+      "titleLabel": "Otsikko",
+      "titlePlaceholder": "Mitä uutta"
+    },
+    "subtitle": "Alustan laajuiset hallintatyökalut. Näkyvissä vain superadminille.",
+    "title": "Superadmin"
+  },
   "tasks": {
     "actions": {
       "accept": "Hyväksy",
@@ -2948,6 +2986,7 @@
     "openMenu": "Avaa tilivalikko",
     "signOut": "Kirjaudu ulos",
     "signOutEverywhere": "Kirjaudu ulos kaikkialta",
+    "superAdminPanel": "Super Admin -paneeli",
     "workspaceUser": "Työtilan käyttäjä"
   },
   "validation": {

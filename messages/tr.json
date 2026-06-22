@@ -1511,6 +1511,11 @@
       "roundRobin": "Sıralı atama",
       "unassigned": "Atanmamış"
     },
+    "autoAssignCampaign": {
+      "applied": "Kural kaydedildi · {count} lead atandı.",
+      "hint": "“{campaign}” kampanyasından gelen atanmamış tüm leadler {assignee} kişisine otomatik atanır.",
+      "toggle": "Bu kampanyadan gelen tüm leadleri de bu temsilciye otomatik ata"
+    },
     "bulkAssign": {
       "assignCta": "Ata",
       "assignTo": "Atanacak",

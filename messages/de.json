@@ -40,6 +40,9 @@
     "subtitle": "Verwalten Sie Ihr Profil, Ihre Einstellungen und den Zugriff.",
     "title": "Konto‑Einstellungen"
   },
+  "announcement": {
+    "dismiss": "Verstanden"
+  },
   "auth": {
     "alreadyHaveAccess": "Haben Sie bereits Zugriff?",
     "authFailed": "Authentifizierung fehlgeschlagen.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Round robin",
       "unassigned": "Nicht zugewiesen"
     },
+    "autoAssignCampaign": {
+      "applied": "Regel gespeichert · {count} Lead(s) zugewiesen.",
+      "hint": "Nicht zugewiesene Leads aus „{campaign}“ werden automatisch {assignee} zugewiesen.",
+      "toggle": "Alle Leads aus dieser Kampagne ebenfalls automatisch diesem Vertreter zuweisen"
+    },
     "bulkAssign": {
       "assignCta": "Zuweisen",
       "assignTo": "Zuweisen an",
@@ -2744,6 +2752,36 @@
     "aria": "Durchsuchen Sie den Workspace",
     "placeholder": "Suchen…"
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Nachricht",
+      "bodyPlaceholder": "Beschreiben Sie das Update…",
+      "cancel": "Abbrechen",
+      "delete": "Löschen",
+      "deleteConfirm": "Diese Ankündigung löschen?",
+      "description": "Veröffentlichen Sie eine Nachricht, die für jeden Nutzer in seiner Sprache angezeigt wird, bis er sie schließt.",
+      "edit": "Bearbeiten",
+      "empty": "Noch keine Ankündigungen.",
+      "heading": "Ankündigungen",
+      "new": "Neue Ankündigung",
+      "publish": "Für alle veröffentlichen",
+      "publishConfirm": "Für alle Nutzer veröffentlichen? Die Nachricht wird automatisch in jede Sprache übersetzt.",
+      "publishError": "Die Ankündigung konnte nicht veröffentlicht werden.",
+      "publishedAt": "Veröffentlicht {date}",
+      "publishing": "Veröffentlichen…",
+      "republishNote": "Durch Bearbeiten wird es zum Entwurf zurückgesetzt – erneut veröffentlichen, um neu zu übersetzen.",
+      "save": "Entwurf speichern",
+      "saveError": "Die Ankündigung konnte nicht gespeichert werden.",
+      "saving": "Speichern…",
+      "sourceLocale": "Schreibsprache",
+      "statusDraft": "Entwurf",
+      "statusPublished": "Veröffentlicht",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Was ist neu"
+    },
+    "subtitle": "Plattformweite Kontrollen. Nur für Super‑Admins sichtbar.",
+    "title": "Super‑Admin"
+  },
   "tasks": {
     "actions": {
       "accept": "Annehmen",
@@ -2948,6 +2986,7 @@
     "openMenu": "Konto‑Menü öffnen",
     "signOut": "Abmelden",
     "signOutEverywhere": "Überall abmelden",
+    "superAdminPanel": "Super‑Admin‑Panel",
     "workspaceUser": "Workspace‑Benutzer"
   },
   "validation": {

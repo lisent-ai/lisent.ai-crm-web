@@ -40,6 +40,9 @@
     "subtitle": "Beheer uw profiel, voorkeuren en toegang.",
     "title": "Accountinstellingen"
   },
+  "announcement": {
+    "dismiss": "Begrepen"
+  },
   "auth": {
     "alreadyHaveAccess": "Heeft u al toegang?",
     "authFailed": "Authenticatie mislukt.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Ronde robin",
       "unassigned": "Niet toegewezen"
     },
+    "autoAssignCampaign": {
+      "applied": "Regel opgeslagen · {count} lead(s) toegewezen.",
+      "hint": "Niet-toegewezen leads van “{campaign}” worden automatisch toegewezen aan {assignee}.",
+      "toggle": "Wijs ook alle leads van deze campagne automatisch toe aan deze vertegenwoordiger"
+    },
     "bulkAssign": {
       "assignCta": "Toewijzen",
       "assignTo": "Toewijzen aan",
@@ -2744,6 +2752,36 @@
     "aria": "Zoek in de workspace",
     "placeholder": "Zoeken..."
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Bericht",
+      "bodyPlaceholder": "Beschrijf de update…",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "deleteConfirm": "Verwijder deze aankondiging?",
+      "description": "Publiceer een bericht dat voor elke gebruiker verschijnt — in hun eigen taal — totdat ze het sluiten.",
+      "edit": "Bewerken",
+      "empty": "Nog geen aankondigingen.",
+      "heading": "Aankondigingen",
+      "new": "Nieuwe aankondiging",
+      "publish": "Publiceren voor iedereen",
+      "publishConfirm": "Publiceren voor alle gebruikers? Het wordt automatisch vertaald naar elke taal.",
+      "publishError": "Kon de aankondiging niet publiceren.",
+      "publishedAt": "Gepubliceerd {date}",
+      "publishing": "Publiceren…",
+      "republishNote": "Bewerken zet het terug naar concept — publiceer opnieuw om opnieuw te vertalen.",
+      "save": "Concept opslaan",
+      "saveError": "Kon de aankondiging niet opslaan.",
+      "saving": "Opslaan…",
+      "sourceLocale": "Schrijftaal",
+      "statusDraft": "Concept",
+      "statusPublished": "Gepubliceerd",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Wat is er nieuw"
+    },
+    "subtitle": "Platformbrede instellingen. Alleen zichtbaar voor superadmins.",
+    "title": "Superadmin"
+  },
   "tasks": {
     "actions": {
       "accept": "Accepteren",
@@ -2948,6 +2986,7 @@
     "openMenu": "Accountmenu openen",
     "signOut": "Afmelden",
     "signOutEverywhere": "Overal afmelden",
+    "superAdminPanel": "Super admin-paneel",
     "workspaceUser": "Workspace-gebruiker"
   },
   "validation": {

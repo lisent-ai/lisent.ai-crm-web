@@ -40,6 +40,9 @@
     "subtitle": "Administrer Deres profil, præferencer og adgang.",
     "title": "Kontoindstillinger"
   },
+  "announcement": {
+    "dismiss": "Forstået"
+  },
   "auth": {
     "alreadyHaveAccess": "Har De allerede adgang?",
     "authFailed": "Godkendelse mislykkedes.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Rund robin",
       "unassigned": "Ikke tildelt"
     },
+    "autoAssignCampaign": {
+      "applied": "Regel gemt · {count} lead(s) tildelt.",
+      "hint": "Ufordelte leads fra “{campaign}” vil automatisk blive tildelt til {assignee}.",
+      "toggle": "Tildel også automatisk alle leads fra denne kampagne til denne sælger"
+    },
     "bulkAssign": {
       "assignCta": "Tildel",
       "assignTo": "Tildel til",
@@ -2744,6 +2752,36 @@
     "aria": "Søg i Workspace",
     "placeholder": "Søg…"
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Besked",
+      "bodyPlaceholder": "Beskriv opdateringen…",
+      "cancel": "Annuller",
+      "delete": "Slet",
+      "deleteConfirm": "Slet denne meddelelse?",
+      "description": "Udgiv en besked, der vises for alle brugere — på deres eget sprog — indtil de afviser den.",
+      "edit": "Rediger",
+      "empty": "Ingen meddelelser endnu.",
+      "heading": "Meddelelser",
+      "new": "Ny meddelelse",
+      "publish": "Udgiv til alle",
+      "publishConfirm": "Udgiv til alle brugere? Den vil blive automatisk oversat til alle sprog.",
+      "publishError": "Kunne ikke udgive meddelelsen.",
+      "publishedAt": "Udgivet {date}",
+      "publishing": "Udgiver…",
+      "republishNote": "Redigering sender den tilbage til kladde — udgiv igen for at oversætte på ny.",
+      "save": "Gem kladde",
+      "saveError": "Kunne ikke gemme meddelelsen.",
+      "saving": "Gemmer…",
+      "sourceLocale": "Skrivesprog",
+      "statusDraft": "Udkast",
+      "statusPublished": "Udgivet",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Hvad er nyt"
+    },
+    "subtitle": "Kontroller på tværs af platformen. Kun synlige for superadmin.",
+    "title": "Superadmin"
+  },
   "tasks": {
     "actions": {
       "accept": "Accepter",
@@ -2948,6 +2986,7 @@
     "openMenu": "Åbn konto-menu",
     "signOut": "Log ud",
     "signOutEverywhere": "Log ud overalt",
+    "superAdminPanel": "Superadmin-panel",
     "workspaceUser": "Workspace-bruger"
   },
   "validation": {

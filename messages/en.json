@@ -1511,6 +1511,11 @@
       "roundRobin": "Round robin",
       "unassigned": "Unassigned"
     },
+    "autoAssignCampaign": {
+      "applied": "Rule saved · {count} lead(s) assigned.",
+      "hint": "Unassigned leads from “{campaign}” will be auto-assigned to {assignee}.",
+      "toggle": "Also auto-assign all leads from this campaign to this rep"
+    },
     "bulkAssign": {
       "assignCta": "Assign",
       "assignTo": "Assign to",

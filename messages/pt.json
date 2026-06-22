@@ -40,6 +40,9 @@
     "subtitle": "Gerencie seu perfil, preferências e acesso.",
     "title": "Configurações da conta"
   },
+  "announcement": {
+    "dismiss": "Entendi"
+  },
   "auth": {
     "alreadyHaveAccess": "Já tem acesso?",
     "authFailed": "Falha na autenticação.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Round robin",
       "unassigned": "Não atribuído"
     },
+    "autoAssignCampaign": {
+      "applied": "Regra salva · {count} lead(s) atribuído(s).",
+      "hint": "Leads não atribuídos da campanha “{campaign}” serão atribuídos automaticamente a {assignee}.",
+      "toggle": "Também atribuir automaticamente todos os leads desta campanha a este representante"
+    },
     "bulkAssign": {
       "assignCta": "Atribuir",
       "assignTo": "Atribuir a",
@@ -2744,6 +2752,36 @@
     "aria": "Pesquisar o workspace",
     "placeholder": "Pesquisar..."
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Mensagem",
+      "bodyPlaceholder": "Descreva a atualização…",
+      "cancel": "Cancelar",
+      "delete": "Excluir",
+      "deleteConfirm": "Excluir este anúncio?",
+      "description": "Publique uma mensagem que aparece para cada usuário — em seu próprio idioma — até que ele a descarte.",
+      "edit": "Editar",
+      "empty": "Ainda não há anúncios",
+      "heading": "Anúncios",
+      "new": "Novo anúncio",
+      "publish": "Publicar para todos",
+      "publishConfirm": "Publicar para todos os usuários? Será traduzido automaticamente para todos os idiomas.",
+      "publishError": "Não foi possível publicar o anúncio",
+      "publishedAt": "Publicado em {date}",
+      "publishing": "Publicando…",
+      "republishNote": "Editar devolve ao rascunho — publique novamente para retraduzir.",
+      "save": "Salvar rascunho",
+      "saveError": "Não foi possível salvar o anúncio",
+      "saving": "Salvando…",
+      "sourceLocale": "Idioma de escrita",
+      "statusDraft": "Rascunho",
+      "statusPublished": "Publicado",
+      "titleLabel": "Título",
+      "titlePlaceholder": "O que há de novo"
+    },
+    "subtitle": "Controles em toda a plataforma. Visível apenas para super admins.",
+    "title": "Super Admin"
+  },
   "tasks": {
     "actions": {
       "accept": "Aceitar",
@@ -2948,6 +2986,7 @@
     "openMenu": "Abrir menu da conta",
     "signOut": "Sair",
     "signOutEverywhere": "Sair de todos os dispositivos",
+    "superAdminPanel": "Painel de superadmin",
     "workspaceUser": "Usuário do Workspace"
   },
   "validation": {

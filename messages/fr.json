@@ -40,6 +40,9 @@
     "subtitle": "Gérez votre profil, vos préférences et vos accès.",
     "title": "Paramètres du compte"
   },
+  "announcement": {
+    "dismiss": "Compris"
+  },
   "auth": {
     "alreadyHaveAccess": "Vous avez déjà accès ?",
     "authFailed": "Échec de l’authentification.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Round robin",
       "unassigned": "Non assigné"
     },
+    "autoAssignCampaign": {
+      "applied": "Règle enregistrée · {count} lead(s) assigné(s).",
+      "hint": "Les leads non assignés de « {campaign} » seront automatiquement assignés à {assignee}.",
+      "toggle": "Auto‑assigner également tous les leads de cette campagne à ce commercial"
+    },
     "bulkAssign": {
       "assignCta": "Attribuer",
       "assignTo": "Attribuer à",
@@ -2744,6 +2752,36 @@
     "aria": "Rechercher dans l’espace de travail",
     "placeholder": "Rechercher…"
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Message",
+      "bodyPlaceholder": "Décrivez la mise à jour…",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer cette annonce ?",
+      "description": "Publiez un message qui s’affiche pour chaque utilisateur — dans sa langue — jusqu’à ce qu’il le ferme.",
+      "edit": "Modifier",
+      "empty": "Aucune annonce pour le moment.",
+      "heading": "Annonces",
+      "new": "Nouvelle annonce",
+      "publish": "Publier pour tous",
+      "publishConfirm": "Publier pour tous les utilisateurs ? Il sera automatiquement traduit dans toutes les langues.",
+      "publishError": "Impossible de publier l’annonce.",
+      "publishedAt": "Publié {date}",
+      "publishing": "Publication…",
+      "republishNote": "La modification le renvoie en brouillon — republiez pour le retraduire.",
+      "save": "Enregistrer le brouillon",
+      "saveError": "Impossible d’enregistrer l’annonce.",
+      "saving": "Enregistrement…",
+      "sourceLocale": "Langue d’écriture",
+      "statusDraft": "Brouillon",
+      "statusPublished": "Publié",
+      "titleLabel": "Titre",
+      "titlePlaceholder": "Quoi de neuf"
+    },
+    "subtitle": "Contrôles à l’échelle de la plateforme. Visible uniquement par les super administrateurs.",
+    "title": "Super administrateur"
+  },
   "tasks": {
     "actions": {
       "accept": "Accepter",
@@ -2948,6 +2986,7 @@
     "openMenu": "Ouvrir le menu du compte",
     "signOut": "Déconnexion",
     "signOutEverywhere": "Se déconnecter partout",
+    "superAdminPanel": "Panneau Super Admin",
     "workspaceUser": "Utilisateur Workspace"
   },
   "validation": {

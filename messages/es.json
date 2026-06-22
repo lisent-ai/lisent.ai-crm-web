@@ -40,6 +40,9 @@
     "subtitle": "Administre su perfil, preferencias y acceso.",
     "title": "Configuración de la cuenta"
   },
+  "announcement": {
+    "dismiss": "Entendido"
+  },
   "auth": {
     "alreadyHaveAccess": "¿Ya tiene acceso?",
     "authFailed": "Error de autenticación.",
@@ -48,13 +51,13 @@
     "emailLabel": "Correo electrónico",
     "emailPlaceholder": "name@company.com",
     "forgot": {
-      "title": "Restablezca su contraseña",
-      "subtitle": "Introduce tu correo y te enviaremos un enlace para restablecerla.",
+      "backToSignin": "Volver a iniciar sesión",
+      "error": "Algo salió mal. Inténtalo de nuevo.",
       "send": "Enviar enlace de restablecimiento",
       "sending": "Enviando…",
       "sent": "Si existe una cuenta para {email}, te hemos enviado un enlace para restablecer la contraseña. Revisa tu bandeja de entrada.",
-      "backToSignin": "Volver a iniciar sesión",
-      "error": "Algo salió mal. Inténtalo de nuevo."
+      "subtitle": "Introduce tu correo y te enviaremos un enlace para restablecerla.",
+      "title": "Restablezca su contraseña"
     },
     "forgotLink": "¿Olvidó su contraseña?",
     "newWorkspaceUser": "¿Nuevo usuario de workspace?",
@@ -95,9 +98,9 @@
       "signin": "Ir a iniciar sesión",
       "submit": "Actualizar contraseña",
       "submitting": "Actualizando…",
+      "subtitle": "Elige una nueva contraseña para tu cuenta.",
       "success": "Su contraseña ha sido actualizada.",
-      "title": "Establece una nueva contraseña",
-      "subtitle": "Elige una nueva contraseña para tu cuenta."
+      "title": "Establece una nueva contraseña"
     },
     "selectGenderPlaceholder": "Seleccione su género",
     "signIn": "Iniciar sesión",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Rotación",
       "unassigned": "Sin asignar"
     },
+    "autoAssignCampaign": {
+      "applied": "Regla guardada · {count} lead(s) asignado(s).",
+      "hint": "Los lead no asignados de “{campaign}” se asignarán automáticamente a {assignee}.",
+      "toggle": "También asignar automáticamente todos los lead de esta campaña a este representante"
+    },
     "bulkAssign": {
       "assignCta": "Asignar",
       "assignTo": "Asignar a",
@@ -2744,6 +2752,36 @@
     "aria": "Buscar en el Workspace",
     "placeholder": "Buscar…"
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Mensaje",
+      "bodyPlaceholder": "Describa la actualización…",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar este anuncio?",
+      "description": "Publicar un mensaje que aparece para cada usuario — en su propio idioma — hasta que lo descarta.",
+      "edit": "Editar",
+      "empty": "Aún no hay anuncios.",
+      "heading": "Anuncios",
+      "new": "Nuevo anuncio",
+      "publish": "Publicar a todos",
+      "publishConfirm": "¿Publicar a todos los usuarios? Se traducirá automáticamente a todos los idiomas.",
+      "publishError": "No se pudo publicar el anuncio.",
+      "publishedAt": "Publicado {date}",
+      "publishing": "Publicando…",
+      "republishNote": "Editar lo devuelve a borrador — publique de nuevo para volver a traducir.",
+      "save": "Guardar borrador",
+      "saveError": "No se pudo guardar el anuncio.",
+      "saving": "Guardando…",
+      "sourceLocale": "Idioma de redacción",
+      "statusDraft": "Borrador",
+      "statusPublished": "Publicado",
+      "titleLabel": "Título",
+      "titlePlaceholder": "Novedades"
+    },
+    "subtitle": "Controles de toda la plataforma. Visible solo para super administradores.",
+    "title": "Superadministrador"
+  },
   "tasks": {
     "actions": {
       "accept": "Aceptar",
@@ -2948,6 +2986,7 @@
     "openMenu": "Abrir menú de cuenta",
     "signOut": "Cerrar sesión",
     "signOutEverywhere": "Cerrar sesión en todos los dispositivos",
+    "superAdminPanel": "Panel de superadministrador",
     "workspaceUser": "Usuario de Workspace"
   },
   "validation": {

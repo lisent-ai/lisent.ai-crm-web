@@ -40,6 +40,9 @@
     "subtitle": "إدارة ملفك الشخصي وتفضيلاتك والوصول.",
     "title": "إعدادات الحساب"
   },
+  "announcement": {
+    "dismiss": "حسناً"
+  },
   "auth": {
     "alreadyHaveAccess": "هل لديك وصول بالفعل؟",
     "authFailed": "فشل المصادقة.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "دوري",
       "unassigned": "غير مُعيَّن"
     },
+    "autoAssignCampaign": {
+      "applied": "تم حفظ القاعدة · تم تعيين {count} عميل محتمل.",
+      "hint": "سيتم تعيين العملاء المحتملين غير المخصصين من “{campaign}” تلقائيًا إلى {assignee}.",
+      "toggle": "تعيين جميع العملاء المحتملين من هذه الحملة إلى هذا المندوب تلقائيًا"
+    },
     "bulkAssign": {
       "assignCta": "تعيين",
       "assignTo": "تعيين إلى",
@@ -2744,6 +2752,36 @@
     "aria": "ابحث في مساحة العمل",
     "placeholder": "بحث..."
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "الرسالة",
+      "bodyPlaceholder": "صف التحديث…",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "deleteConfirm": "هل تريد حذف هذا الإعلان؟",
+      "description": "نشر رسالة تظهر لكل مستخدم — بلغته الخاصة — حتى يقوم بإغلاقها.",
+      "edit": "تحرير",
+      "empty": "لا توجد إعلانات حتى الآن.",
+      "heading": "الإعلانات",
+      "new": "إعلان جديد",
+      "publish": "نشر للجميع",
+      "publishConfirm": "نشر لجميع المستخدمين؟ سيتم ترجمتها تلقائيًا إلى كل اللغات.",
+      "publishError": "تعذر نشر الإعلان.",
+      "publishedAt": "نُشر {date}",
+      "publishing": "جارٍ النشر…",
+      "republishNote": "التحرير يعيدها إلى المسودة — انشر مرة أخرى لإعادة الترجمة.",
+      "save": "حفظ المسودة",
+      "saveError": "تعذر حفظ الإعلان.",
+      "saving": "جارٍ الحفظ…",
+      "sourceLocale": "لغة الكتابة",
+      "statusDraft": "مسودة",
+      "statusPublished": "منشور",
+      "titleLabel": "العنوان",
+      "titlePlaceholder": "ما الجديد"
+    },
+    "subtitle": "ضوابط على مستوى المنصة. تظهر فقط للمسؤولين الأعلى.",
+    "title": "المسؤول الأعلى"
+  },
   "tasks": {
     "actions": {
       "accept": "قبول",
@@ -2948,6 +2986,7 @@
     "openMenu": "فتح قائمة الحساب",
     "signOut": "تسجيل الخروج",
     "signOutEverywhere": "تسجيل الخروج من كل الأجهزة",
+    "superAdminPanel": "لوحة المشرف الأعلى",
     "workspaceUser": "مستخدم Workspace"
   },
   "validation": {

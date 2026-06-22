@@ -40,6 +40,9 @@
     "subtitle": "Zarządzaj swoim profilem, preferencjami i dostępem.",
     "title": "Ustawienia konta"
   },
+  "announcement": {
+    "dismiss": "Rozumiem"
+  },
   "auth": {
     "alreadyHaveAccess": "Czy ma Pan/Pani już dostęp?",
     "authFailed": "Uwierzytelnianie nie powiodło się.",
@@ -1508,6 +1511,11 @@
       "roundRobin": "Round robin",
       "unassigned": "Nieprzypisane"
     },
+    "autoAssignCampaign": {
+      "applied": "Zasada zapisana · przydzielono {count} lead(ów).",
+      "hint": "Nieprzypisane leady z „{campaign}” będą automatycznie przydzielane do {assignee}.",
+      "toggle": "Również automatycznie przydzielaj wszystkie leady z tej kampanii temu przedstawicielowi"
+    },
     "bulkAssign": {
       "assignCta": "Przypisz",
       "assignTo": "Przypisz do",
@@ -2744,6 +2752,36 @@
     "aria": "Wyszukaj w przestrzeni roboczej",
     "placeholder": "Wyszukaj…"
   },
+  "superAdmin": {
+    "announcements": {
+      "bodyLabel": "Wiadomość",
+      "bodyPlaceholder": "Opisz aktualizację…",
+      "cancel": "Anuluj",
+      "delete": "Usuń",
+      "deleteConfirm": "Usunąć to ogłoszenie?",
+      "description": "Opublikuj wiadomość, która pojawi się u każdego użytkownika — w jego języku — aż zostanie odrzucona.",
+      "edit": "Edytuj",
+      "empty": "Brak ogłoszeń.",
+      "heading": "Ogłoszenia",
+      "new": "Nowe ogłoszenie",
+      "publish": "Opublikuj dla wszystkich",
+      "publishConfirm": "Opublikować dla wszystkich użytkowników? Zostanie automatycznie przetłumaczone na wszystkie języki.",
+      "publishError": "Nie udało się opublikować ogłoszenia.",
+      "publishedAt": "Opublikowano {date}",
+      "publishing": "Publikowanie…",
+      "republishNote": "Edycja przywraca go do szkicu — opublikuj ponownie, aby przetłumaczyć ponownie.",
+      "save": "Zapisz szkic",
+      "saveError": "Nie udało się zapisać ogłoszenia.",
+      "saving": "Zapisywanie…",
+      "sourceLocale": "Język tworzenia",
+      "statusDraft": "Szkic",
+      "statusPublished": "Opublikowano",
+      "titleLabel": "Tytuł",
+      "titlePlaceholder": "Co nowego"
+    },
+    "subtitle": "Ustawienia na poziomie całej platformy. Widoczne tylko dla super administratorów.",
+    "title": "Super administrator"
+  },
   "tasks": {
     "actions": {
       "accept": "Zaakceptuj",
@@ -2948,6 +2986,7 @@
     "openMenu": "Otwórz menu konta",
     "signOut": "Wyloguj się",
     "signOutEverywhere": "Wyloguj się wszędzie",
+    "superAdminPanel": "Panel super admina",
     "workspaceUser": "Użytkownik Workspace"
   },
   "validation": {
