@@ -40,6 +40,13 @@ import {
 
 import { startLeadQualify } from "@/lib/qualifier/client";
 
+import {
+  campaignLabelForLead,
+  leadCampaignKey,
+  leadHasCampaign,
+  saveCampaignRuleAndBackfill,
+} from "@/components/dashboard/marketing/campaign-rules";
+
 import { LeadBulkActionBar } from "./lead-bulk-action-bar";
 import { LeadBulkAssignModal } from "./lead-bulk-assign-modal";
 import { LeadConvertModal } from "./lead-convert-modal";
@@ -528,6 +535,15 @@ export function LeadDirectory() {
     }).slice(0, 5);
   }, [showLeadModal, leadForm.phone, leadForm.email, companyLeads, customers, editingLeadId]);
 
+  // The campaign label of the lead being edited (null when it has no campaign
+  // to key an auto-assign rule on). Gates the inline auto-assign toggle.
+  const editingLeadCampaignLabel = useMemo(() => {
+    if (!editingLeadId) return null;
+    const lead = companyLeads.find((item) => item.id === editingLeadId);
+    if (!lead || !leadHasCampaign(lead)) return null;
+    return campaignLabelForLead(lead);
+  }, [editingLeadId, companyLeads]);
+
   useEffect(() => {
     if (!drawerOpen || !selectedLead?.id) {
       setLeadComments([]);
@@ -729,6 +745,11 @@ export function LeadDirectory() {
 
     try {
       const assignment = await resolveAssignment(selectedCompany, leadForm);
+      const editingLead = editingLeadId
+        ? leads.find((lead) => lead.id === editingLeadId) ??
+          companyLeads.find((lead) => lead.id === editingLeadId) ??
+          null
+        : null;
       const payload = {
         companyId: assignment.company.id,
         name: leadForm.name,
@@ -741,10 +762,7 @@ export function LeadDirectory() {
         assigneeUserName: assignment.assigneeUserName,
         assignmentMethod: assignment.assignmentMethod,
         value: parseLeadValue(leadForm.value),
-        extraData:
-          editingLeadId
-            ? leads.find((lead) => lead.id === editingLeadId)?.extraData ?? {}
-            : {},
+        extraData: editingLead?.extraData ?? {},
       };
 
       const savedLead = editingLeadId
@@ -791,12 +809,41 @@ export function LeadDirectory() {
         }
       }
 
+      // Inline campaign auto-assign: when editing a campaign lead with a manual
+      // assignee and the toggle ticked, persist a campaign -> rep rule and
+      // backfill existing unassigned leads. Best-effort; never fails the save.
+      let autoAssignedCount: number | null = null;
+      if (
+        leadForm.autoAssignCampaign &&
+        editingLead &&
+        leadHasCampaign(editingLead) &&
+        assignment.assignmentMethod === "manual" &&
+        assignment.assigneeUserId
+      ) {
+        try {
+          const result = await saveCampaignRuleAndBackfill({
+            company: assignment.company,
+            campaignKey: leadCampaignKey(editingLead),
+            label: campaignLabelForLead(editingLead),
+            userId: assignment.assigneeUserId,
+            userName: assignment.assigneeUserName,
+            leads: companyLeads,
+          });
+          updateCompanyState(result.company);
+          autoAssignedCount = result.assigned;
+        } catch {
+          // Non-critical; the lead itself is already saved.
+        }
+      }
+
       await reloadReferenceData(assignment.company.id);
       setSelectedLeadId(savedLead.id);
       setSuccessMessage(
-        editingLeadId
-          ? t("leads.success.updated")
-          : t("leads.success.created"),
+        autoAssignedCount !== null
+          ? t("leads.autoAssignCampaign.applied", { count: autoAssignedCount })
+          : editingLeadId
+            ? t("leads.success.updated")
+            : t("leads.success.created"),
       );
       closeLeadModal();
 
@@ -1475,6 +1522,7 @@ export function LeadDirectory() {
       {showLeadModal ? (
         <LeadFormModal
           assignableMembers={assignableMembers}
+          campaignAutoAssignLabel={editingLeadCampaignLabel}
           duplicateMatches={duplicateMatches}
           editingLeadId={editingLeadId}
           errorMessage={errorMessage}

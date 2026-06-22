@@ -16,6 +16,9 @@ type LeadFormModalProps = {
   saving: boolean;
   errorMessage?: string | null;
   duplicateMatches: DuplicateMatch[];
+  // Campaign label of the lead being edited, or null when it has no campaign
+  // to key an auto-assign rule on. Gates the inline auto-assign toggle.
+  campaignAutoAssignLabel: string | null;
   onClose: () => void;
   onSave: () => void;
   onSaveAndSchedule: () => void;
@@ -30,6 +33,7 @@ export function LeadFormModal({
   saving,
   errorMessage,
   duplicateMatches,
+  campaignAutoAssignLabel,
   onClose,
   onSave,
   onSaveAndSchedule,
@@ -215,6 +219,35 @@ export function LeadFormModal({
           ]}
           value={leadForm.assigneeUserId}
         />
+        {editingLeadId &&
+        campaignAutoAssignLabel &&
+        leadForm.assignmentMethod === "manual" &&
+        leadForm.assigneeUserId ? (
+          <label className="flex items-start gap-3 rounded-2xl border border-sky-200 bg-sky-50/60 px-4 py-3 md:col-span-2">
+            <input
+              checked={leadForm.autoAssignCampaign}
+              className="mt-0.5 h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-400"
+              onChange={(event) =>
+                onLeadFormChange((current) => ({
+                  ...current,
+                  autoAssignCampaign: event.target.checked,
+                }))
+              }
+              type="checkbox"
+            />
+            <span className="grid gap-0.5">
+              <span className="text-sm font-medium text-slate-800">
+                {t("leads.autoAssignCampaign.toggle")}
+              </span>
+              <span className="text-xs text-slate-600">
+                {t("leads.autoAssignCampaign.hint", {
+                  campaign: campaignAutoAssignLabel,
+                  assignee: leadForm.assigneeUserName || "",
+                })}
+              </span>
+            </span>
+          </label>
+        ) : null}
       </div>
 
       <div className="mt-4">

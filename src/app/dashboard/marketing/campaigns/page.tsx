@@ -26,8 +26,8 @@ export default function MarketingCampaignsPage() {
     <DashboardShell>
       <MarketingShell active="campaigns">
         <div className="flex flex-col gap-8">
-          <CampaignsOverview />
           <CampaignAutoAssign />
+          <CampaignsOverview />
         </div>
       </MarketingShell>
     </DashboardShell>

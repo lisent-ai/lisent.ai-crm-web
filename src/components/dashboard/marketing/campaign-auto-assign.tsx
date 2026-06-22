@@ -18,44 +18,19 @@ import {
   listCompanies,
   listLeads,
   updateCompanyExtraData,
-  updateLead,
   type Company,
   type Lead,
 } from "@/lib/crm/client";
 import { SelectField } from "@/components/dashboard/leads/lead-form-fields";
 
-// One campaign -> rep mapping. Mirrors the Go struct in
-// internal/leads/campaign_assign.go (label is frontend-only display).
-type AssignRule = { user_id: string; user_name: string; label?: string };
-type AssignRules = Record<string, AssignRule>;
-
-const RULES_KEY = "campaign_assignment_rules";
-
-// Mirrors groupLeadsByCampaign's key AND the Go leadCampaignKey so a rule
-// keyed here matches a lead auto-assigned server-side at ingestion.
-function leadCampaignKey(lead: Lead): string {
-  const extra = (lead.extraData ?? {}) as Record<string, unknown>;
-  const campaignId =
-    typeof extra.campaign_id === "string" && extra.campaign_id ? extra.campaign_id : null;
-  const campaignName =
-    typeof extra.campaign_name === "string" && extra.campaign_name ? extra.campaign_name : null;
-  const source = lead.source || "manual";
-  return campaignId
-    ? `${source}:${campaignId}`
-    : campaignName
-      ? `${source}:${campaignName}`
-      : `${source}:_default`;
-}
-
-function parseRules(raw: string | undefined): AssignRules {
-  if (!raw) return {};
-  try {
-    const parsed = JSON.parse(raw) as unknown;
-    return parsed && typeof parsed === "object" ? (parsed as AssignRules) : {};
-  } catch {
-    return {};
-  }
-}
+import {
+  CAMPAIGN_RULES_KEY,
+  campaignLabelForLead,
+  leadCampaignKey,
+  parseCampaignRules,
+  saveCampaignRuleAndBackfill,
+  type CampaignAssignRules,
+} from "./campaign-rules";
 
 export function CampaignAutoAssign() {
   const t = useTranslations();
@@ -134,8 +109,8 @@ export function CampaignAutoAssign() {
     [account, companyId],
   );
 
-  const rules = useMemo<AssignRules>(
-    () => parseRules(company?.extraData?.[RULES_KEY]),
+  const rules = useMemo<CampaignAssignRules>(
+    () => parseCampaignRules(company?.extraData?.[CAMPAIGN_RULES_KEY]),
     [company],
   );
 
@@ -145,12 +120,7 @@ export function CampaignAutoAssign() {
     const map = new Map<string, { key: string; label: string; count: number }>();
     for (const lead of leads) {
       const key = leadCampaignKey(lead);
-      const extra = (lead.extraData ?? {}) as Record<string, unknown>;
-      const campaignName =
-        typeof extra.campaign_name === "string" && extra.campaign_name
-          ? extra.campaign_name
-          : null;
-      const label = campaignName ?? lead.source ?? "manual";
+      const label = campaignLabelForLead(lead);
       const existing = map.get(key);
       if (existing) existing.count += 1;
       else map.set(key, { key, label, count: 1 });
@@ -166,11 +136,11 @@ export function CampaignAutoAssign() {
     [members],
   );
 
-  async function persistRules(next: AssignRules): Promise<Company | null> {
+  async function persistRules(next: CampaignAssignRules): Promise<Company | null> {
     if (!company) return null;
     const updated = await updateCompanyExtraData(company.id, {
       ...company.extraData,
-      [RULES_KEY]: JSON.stringify(next),
+      [CAMPAIGN_RULES_KEY]: JSON.stringify(next),
     });
     setCompany(updated);
     return updated;
@@ -186,33 +156,17 @@ export function CampaignAutoAssign() {
     setErrorMessage(null);
     setSuccessMessage(null);
     try {
-      const next: AssignRules = {
-        ...rules,
-        [formCampaignKey]: {
-          user_id: member.userId,
-          user_name: member.displayName,
-          label: campaign?.label ?? formCampaignKey,
-        },
-      };
-      await persistRules(next);
+      const { company: updated, assigned } = await saveCampaignRuleAndBackfill({
+        company,
+        campaignKey: formCampaignKey,
+        label: campaign?.label ?? formCampaignKey,
+        userId: member.userId,
+        userName: member.displayName,
+        leads,
+      });
+      setCompany(updated);
 
-      // Retroactively assign existing UNASSIGNED leads from this campaign.
-      const targets = leads.filter(
-        (lead) => !lead.assigneeUserId?.trim() && leadCampaignKey(lead) === formCampaignKey,
-      );
-      let assigned = 0;
-      for (const lead of targets) {
-        try {
-          await updateLead(lead.id, {
-            assigneeUserId: member.userId,
-            assigneeUserName: member.displayName,
-            assignmentMethod: "manual",
-          });
-          assigned += 1;
-        } catch {
-          // best-effort per lead; keep going
-        }
-      }
+      // Reflect the retroactively assigned leads in the panel's own list.
       if (assigned > 0) {
         const fresh = await listLeads(company.id).catch(() => leads);
         setLeads(fresh);

@@ -51,6 +51,9 @@ export type LeadFormState = {
   followUpPreset: FollowUpPreset;
   // datetime-local value (YYYY-MM-DDTHH:mm) used when followUpPreset === "custom".
   followUpAt: string;
+  // When editing a lead that came from a campaign, ticking this also creates a
+  // campaign -> rep auto-assign rule (and backfills existing unassigned leads).
+  autoAssignCampaign: boolean;
 };
 
 export type LeadConvertState = {
@@ -78,6 +81,7 @@ export const emptyLeadForm: LeadFormState = {
   value: "0",
   followUpPreset: "",
   followUpAt: "",
+  autoAssignCampaign: false,
 };
 
 export function buildLeadForm(lead: Lead): LeadFormState {
@@ -94,6 +98,7 @@ export function buildLeadForm(lead: Lead): LeadFormState {
     value: String(lead.value || 0),
     followUpPreset: "",
     followUpAt: "",
+    autoAssignCampaign: false,
   };
 }
 
