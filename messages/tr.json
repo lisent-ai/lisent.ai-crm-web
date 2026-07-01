@@ -43,6 +43,47 @@
   "announcement": {
     "dismiss": "Anladım"
   },
+  "audit": {
+    "accessDenied": "Denetim kaydını görme yetkiniz yok.",
+    "actions": {
+      "lead": {
+        "ai_scored": "AI puanladı",
+        "archived": "Lead arşivlendi",
+        "assigned": "Atandı",
+        "converted": "Lead dönüştürüldü",
+        "created": "Lead oluşturuldu",
+        "follow_up_cleared": "Takip tarihi kaldırıldı",
+        "follow_up_set": "Takip tarihi belirlendi",
+        "note_added": "Not eklendi",
+        "note_deleted": "Not silindi",
+        "note_edited": "Not düzenlendi",
+        "reassigned": "Yeniden atandı",
+        "status_changed": "Durum değişti",
+        "unarchived": "Lead geri yüklendi",
+        "unassigned": "Atama kaldırıldı",
+        "updated": "Lead güncellendi"
+      }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Entegrasyon",
+      "system": "Sistem",
+      "user": "Kullanıcı"
+    },
+    "backToLeads": "Lead'lere dön",
+    "columns": {
+      "action": "Aksiyon",
+      "actor": "Kim",
+      "entity": "Öğe",
+      "time": "Zaman"
+    },
+    "empty": "Henüz kayıtlı aktivite yok.",
+    "loadFailed": "Denetim kaydı yüklenemedi.",
+    "loading": "Aktivite yükleniyor...",
+    "openButton": "Denetim kaydı",
+    "subtitle": "Çalışma alanındaki her aksiyon — kim, ne, ne zaman yaptı. Yalnızca yöneticiler.",
+    "title": "Denetim kaydı"
+  },
   "auth": {
     "alreadyHaveAccess": "Zaten erişiminiz var mı?",
     "authFailed": "Kimlik doğrulama başarısız.",

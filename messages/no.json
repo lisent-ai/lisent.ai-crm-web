@@ -3062,5 +3062,46 @@
     "page": "Page {page} / {pages}",
     "previous": "Previous",
     "showing": "{from}–{to} of {total}"
+  },
+  "audit": {
+    "accessDenied": "You don't have permission to view the audit log.",
+    "backToLeads": "Back to leads",
+    "empty": "No activity recorded yet.",
+    "loadFailed": "Failed to load the audit log.",
+    "loading": "Loading activity...",
+    "openButton": "Audit log",
+    "subtitle": "Every action across the workspace — who did what, and when. Admin only.",
+    "title": "Audit log",
+    "columns": {
+      "action": "Action",
+      "actor": "Who",
+      "entity": "Item",
+      "time": "Time"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "User"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "AI scored",
+        "archived": "Lead archived",
+        "assigned": "Assigned",
+        "converted": "Lead converted",
+        "created": "Lead created",
+        "follow_up_cleared": "Follow-up cleared",
+        "follow_up_set": "Follow-up set",
+        "note_added": "Note added",
+        "note_deleted": "Note deleted",
+        "note_edited": "Note edited",
+        "reassigned": "Reassigned",
+        "status_changed": "Status changed",
+        "unarchived": "Lead restored",
+        "unassigned": "Unassigned",
+        "updated": "Lead updated"
+      }
+    }
   }
 }

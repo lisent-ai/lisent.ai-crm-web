@@ -1097,6 +1097,12 @@ async function forwardRequest(
           resourceId,
           "integrations.manage",
         );
+      } else if (pathSegments[2] === "audit-log") {
+        // Company-wide audit log is admin-only (it exposes every actor's
+        // actions): owner or super_admin. Backend scopes to :id company.
+        allowed =
+          account.access.isSuperAdmin ||
+          getCompanyRoleForAccess(account.access, resourceId) === "owner";
       } else {
         allowed =
           method === "GET"

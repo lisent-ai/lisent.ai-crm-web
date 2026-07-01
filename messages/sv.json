@@ -3062,5 +3062,46 @@
     "page": "Sida {page} / {pages}",
     "previous": "Föregående",
     "showing": "{from}–{to} av {total}"
+  },
+  "audit": {
+    "accessDenied": "Du har inte behörighet att visa revisionsloggen.",
+    "backToLeads": "Tillbaka till leads",
+    "empty": "Ingen aktivitet har registrerats ännu.",
+    "loadFailed": "Kunde inte läsa in revisionsloggen.",
+    "loading": "Läser in aktivitet...",
+    "openButton": "Revisionslogg",
+    "subtitle": "Alla åtgärder i arbetsytan — vem gjorde vad och när. Endast admin.",
+    "title": "Revisionslogg",
+    "columns": {
+      "action": "Åtgärd",
+      "actor": "Vem",
+      "entity": "Objekt",
+      "time": "Tid"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "Användare"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "AI‑poäng satt",
+        "archived": "Lead arkiverad",
+        "assigned": "Tilldelad",
+        "converted": "Lead konverterad",
+        "created": "Lead skapad",
+        "follow_up_cleared": "Uppföljning rensad",
+        "follow_up_set": "Uppföljning satt",
+        "note_added": "Anteckning tillagd",
+        "note_deleted": "Anteckning raderad",
+        "note_edited": "Anteckning redigerad",
+        "reassigned": "Omfördelad",
+        "status_changed": "Status ändrad",
+        "unarchived": "Lead återställd",
+        "unassigned": "Ej tilldelad",
+        "updated": "Lead uppdaterad"
+      }
+    }
   }
 }

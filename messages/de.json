@@ -3062,5 +3062,46 @@
     "page": "Seite {page} / {pages}",
     "previous": "Zurück",
     "showing": "{from}–{to} von {total}"
+  },
+  "audit": {
+    "accessDenied": "Sie haben keine Berechtigung, das Prüfprotokoll einzusehen.",
+    "backToLeads": "Zurück zu Leads",
+    "empty": "Noch keine Aktivitäten aufgezeichnet.",
+    "loadFailed": "Das Prüfprotokoll konnte nicht geladen werden.",
+    "loading": "Aktivität wird geladen...",
+    "openButton": "Prüfprotokoll",
+    "subtitle": "Alle Aktionen im Arbeitsbereich – wer was wann getan hat. Nur für Admins.",
+    "title": "Prüfprotokoll",
+    "columns": {
+      "action": "Aktion",
+      "actor": "Wer",
+      "entity": "Element",
+      "time": "Zeit"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "Benutzer"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "KI bewertet",
+        "archived": "Lead archiviert",
+        "assigned": "Zugewiesen",
+        "converted": "Lead konvertiert",
+        "created": "Lead erstellt",
+        "follow_up_cleared": "Nachverfolgung gelöscht",
+        "follow_up_set": "Nachverfolgung gesetzt",
+        "note_added": "Notiz hinzugefügt",
+        "note_deleted": "Notiz gelöscht",
+        "note_edited": "Notiz bearbeitet",
+        "reassigned": "Neu zugewiesen",
+        "status_changed": "Status geändert",
+        "unarchived": "Lead wiederhergestellt",
+        "unassigned": "Zuweisung aufgehoben",
+        "updated": "Lead aktualisiert"
+      }
+    }
   }
 }

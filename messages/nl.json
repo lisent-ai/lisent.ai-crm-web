@@ -3062,5 +3062,46 @@
     "page": "Pagina {page} / {pages}",
     "previous": "Vorige",
     "showing": "{from}–{to} van {total}"
+  },
+  "audit": {
+    "accessDenied": "Je hebt geen toestemming om het auditlog te bekijken.",
+    "backToLeads": "Terug naar leads",
+    "empty": "Nog geen activiteit geregistreerd.",
+    "loadFailed": "Laden van het auditlog mislukt.",
+    "loading": "Activiteit laden...",
+    "openButton": "Auditlog",
+    "subtitle": "Elke actie in de werkruimte — wie wat deed en wanneer. Alleen admin.",
+    "title": "Auditlog",
+    "columns": {
+      "action": "Actie",
+      "actor": "Wie",
+      "entity": "Item",
+      "time": "Tijd"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integratie",
+      "system": "Systeem",
+      "user": "Gebruiker"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "AI-score",
+        "archived": "Lead gearchiveerd",
+        "assigned": "Toegewezen",
+        "converted": "Lead geconverteerd",
+        "created": "Lead aangemaakt",
+        "follow_up_cleared": "Follow-up verwijderd",
+        "follow_up_set": "Follow-up ingesteld",
+        "note_added": "Notitie toegevoegd",
+        "note_deleted": "Notitie verwijderd",
+        "note_edited": "Notitie bewerkt",
+        "reassigned": "Opnieuw toegewezen",
+        "status_changed": "Status gewijzigd",
+        "unarchived": "Lead hersteld",
+        "unassigned": "Toewijzing verwijderd",
+        "updated": "Lead bijgewerkt"
+      }
+    }
   }
 }

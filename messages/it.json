@@ -3062,5 +3062,46 @@
     "page": "Pagina {page} / {pages}",
     "previous": "Indietro",
     "showing": "{from}–{to} di {total}"
+  },
+  "audit": {
+    "accessDenied": "Non hai l'autorizzazione per visualizzare il registro audit.",
+    "backToLeads": "Torna ai lead",
+    "empty": "Nessuna attività registrata.",
+    "loadFailed": "Impossibile caricare il registro audit.",
+    "loading": "Caricamento attività...",
+    "openButton": "Registro audit",
+    "subtitle": "Ogni azione nello spazio di lavoro — chi ha fatto cosa e quando. Solo admin.",
+    "title": "Registro audit",
+    "columns": {
+      "action": "Azione",
+      "actor": "Chi",
+      "entity": "Elemento",
+      "time": "Ora"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integrazione",
+      "system": "Sistema",
+      "user": "Utente"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "Punteggio AI",
+        "archived": "Lead archiviato",
+        "assigned": "Assegnato",
+        "converted": "Lead convertito",
+        "created": "Lead creato",
+        "follow_up_cleared": "Follow-up rimosso",
+        "follow_up_set": "Follow-up impostato",
+        "note_added": "Nota aggiunta",
+        "note_deleted": "Nota eliminata",
+        "note_edited": "Nota modificata",
+        "reassigned": "Riassegnato",
+        "status_changed": "Stato modificato",
+        "unarchived": "Lead ripristinato",
+        "unassigned": "Non assegnato",
+        "updated": "Lead aggiornato"
+      }
+    }
   }
 }

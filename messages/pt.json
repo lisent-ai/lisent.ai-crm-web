@@ -3062,5 +3062,46 @@
     "page": "Página {page} / {pages}",
     "previous": "Anterior",
     "showing": "{from}–{to} de {total}"
+  },
+  "audit": {
+    "accessDenied": "Você não tem permissão para ver o registro de auditoria.",
+    "backToLeads": "Voltar para leads",
+    "empty": "Nenhuma atividade registrada ainda.",
+    "loadFailed": "Falha ao carregar o registro de auditoria.",
+    "loading": "Carregando atividade...",
+    "openButton": "Registro de auditoria",
+    "subtitle": "Todas as ações no espaço de trabalho — quem fez o quê e quando. Apenas admin.",
+    "title": "Registro de auditoria",
+    "columns": {
+      "action": "Ação",
+      "actor": "Quem",
+      "entity": "Item",
+      "time": "Hora"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integração",
+      "system": "Sistema",
+      "user": "Usuário"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "Pontuação por IA",
+        "archived": "Lead arquivado",
+        "assigned": "Atribuído",
+        "converted": "Lead convertido",
+        "created": "Lead criado",
+        "follow_up_cleared": "Follow-up removido",
+        "follow_up_set": "Follow-up definido",
+        "note_added": "Nota adicionada",
+        "note_deleted": "Nota excluída",
+        "note_edited": "Nota editada",
+        "reassigned": "Reatribuído",
+        "status_changed": "Status alterado",
+        "unarchived": "Lead restaurado",
+        "unassigned": "Desatribuído",
+        "updated": "Lead atualizado"
+      }
+    }
   }
 }

@@ -1093,12 +1093,89 @@ export async function archiveLead(leadId: string): Promise<Lead> {
   return mapLead(payload);
 }
 
-/** Restore an archived lead. Admin-only (owner or leads.archive privilege). */
+/** Restore an archived lead. Admin-only (owner or super_admin, enforced in BFF). */
 export async function unarchiveLead(leadId: string): Promise<Lead> {
   const payload = await requestCRM<CRMLeadRecord>(`/leads/${leadId}/unarchive`, {
     method: "POST",
   });
   return mapLead(payload);
+}
+
+type CRMAuditRecord = {
+  id: string;
+  company_id?: string | null;
+  actor_type?: string;
+  actor_user_id?: string;
+  actor_user_name?: string;
+  entity_type?: string;
+  entity_id?: string | null;
+  action?: string;
+  payload?: Record<string, unknown> | null;
+  request_id?: string;
+  created_at: string;
+};
+
+export type AuditEvent = {
+  id: string;
+  companyId: string;
+  actorType: string;
+  actorUserId: string;
+  actorUserName: string;
+  entityType: string;
+  entityId: string;
+  action: string;
+  payload: Record<string, unknown>;
+  createdAt: string;
+};
+
+function mapAuditEvent(r: CRMAuditRecord): AuditEvent {
+  return {
+    id: r.id,
+    companyId: r.company_id ?? "",
+    actorType: r.actor_type ?? "",
+    actorUserId: r.actor_user_id ?? "",
+    actorUserName: r.actor_user_name ?? "",
+    entityType: r.entity_type ?? "",
+    entityId: r.entity_id ?? "",
+    action: r.action ?? "",
+    payload: (r.payload ?? {}) as Record<string, unknown>,
+    createdAt: r.created_at,
+  };
+}
+
+/** Per-lead audit timeline (newest first), paginated. */
+export async function listLeadActivities(
+  leadId: string,
+  page: { limit: number; offset: number } = { limit: 30, offset: 0 },
+): Promise<{ data: AuditEvent[]; total: number }> {
+  const query = new URLSearchParams({ limit: String(page.limit), offset: String(page.offset) });
+  const response = await requestCRM<CRMListResponse<CRMAuditRecord>>(
+    `/leads/${leadId}/activities?${query.toString()}`,
+  );
+  return {
+    data: response.data.map(mapAuditEvent),
+    total: typeof response.total === "number" ? response.total : response.data.length,
+  };
+}
+
+/** Company-wide audit log (admin). Server enforces owner/super_admin (403 on
+ *  denial). Supports entity_type / action / actor filters. */
+export async function listCompanyAuditLog(
+  companyId: string,
+  page: { limit: number; offset: number } = { limit: 30, offset: 0 },
+  filters: { entityType?: string; action?: string; actorUserId?: string } = {},
+): Promise<{ data: AuditEvent[]; total: number }> {
+  const query = new URLSearchParams({ limit: String(page.limit), offset: String(page.offset) });
+  if (filters.entityType?.trim()) query.set("entity_type", filters.entityType.trim());
+  if (filters.action?.trim()) query.set("action", filters.action.trim());
+  if (filters.actorUserId?.trim()) query.set("actor_user_id", filters.actorUserId.trim());
+  const response = await requestCRM<CRMListResponse<CRMAuditRecord>>(
+    `/companies/${companyId}/audit-log?${query.toString()}`,
+  );
+  return {
+    data: response.data.map(mapAuditEvent),
+    total: typeof response.total === "number" ? response.total : response.data.length,
+  };
 }
 
 /** Fetch a SINGLE page of leads plus the total row count, for server-side

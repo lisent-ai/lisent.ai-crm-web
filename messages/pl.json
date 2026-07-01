@@ -3062,5 +3062,46 @@
     "page": "Strona {page} / {pages}",
     "previous": "Poprzednia",
     "showing": "{from}–{to} z {total}"
+  },
+  "audit": {
+    "accessDenied": "Nie masz uprawnień do przeglądania dziennika audytu.",
+    "backToLeads": "Powrót do leadów",
+    "empty": "Brak zapisanej aktywności.",
+    "loadFailed": "Nie udało się wczytać dziennika audytu.",
+    "loading": "Ładowanie aktywności...",
+    "openButton": "Dziennik audytu",
+    "subtitle": "Każda akcja w przestrzeni roboczej — kto co zrobił i kiedy. Tylko dla administratora.",
+    "title": "Dziennik audytu",
+    "columns": {
+      "action": "Akcja",
+      "actor": "Kto",
+      "entity": "Element",
+      "time": "Czas"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integracja",
+      "system": "System",
+      "user": "Użytkownik"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "Ocena AI",
+        "archived": "Lead zarchiwizowany",
+        "assigned": "Przypisano",
+        "converted": "Lead skonwertowany",
+        "created": "Lead utworzony",
+        "follow_up_cleared": "Follow‑up usunięty",
+        "follow_up_set": "Follow‑up ustawiony",
+        "note_added": "Dodano notatkę",
+        "note_deleted": "Usunięto notatkę",
+        "note_edited": "Edytowano notatkę",
+        "reassigned": "Przypisano ponownie",
+        "status_changed": "Zmieniono status",
+        "unarchived": "Lead przywrócony",
+        "unassigned": "Odłączono",
+        "updated": "Lead zaktualizowany"
+      }
+    }
   }
 }

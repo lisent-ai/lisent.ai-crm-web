@@ -3062,5 +3062,46 @@
     "page": "Side {page} / {pages}",
     "previous": "Forrige",
     "showing": "{from}–{to} af {total}"
+  },
+  "audit": {
+    "accessDenied": "Du har ikke tilladelse til at se revisionsloggen.",
+    "backToLeads": "Tilbage til leads",
+    "empty": "Ingen aktivitet registreret endnu.",
+    "loadFailed": "Kunne ikke indlæse revisionsloggen.",
+    "loading": "Indlæser aktivitet...",
+    "openButton": "Revisionslog",
+    "subtitle": "Alle handlinger i arbejdsområdet — hvem gjorde hvad, og hvornår. Kun admin.",
+    "title": "Revisionslog",
+    "columns": {
+      "action": "Handling",
+      "actor": "Hvem",
+      "entity": "Element",
+      "time": "Tid"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "Bruger"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "AI-score",
+        "archived": "Lead arkiveret",
+        "assigned": "Tildelt",
+        "converted": "Lead konverteret",
+        "created": "Lead oprettet",
+        "follow_up_cleared": "Opfølgning ryddet",
+        "follow_up_set": "Opfølgning sat",
+        "note_added": "Note tilføjet",
+        "note_deleted": "Note slettet",
+        "note_edited": "Note redigeret",
+        "reassigned": "Omfordelt",
+        "status_changed": "Status ændret",
+        "unarchived": "Lead gendannet",
+        "unassigned": "Uden tildeling",
+        "updated": "Lead opdateret"
+      }
+    }
   }
 }

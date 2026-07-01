@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Archive, Calendar, CheckCircle2, PencilLine } from "lucide-react";
+import { Archive, Calendar, CheckCircle2, History, PencilLine } from "lucide-react";
 
 import { getAccountProfile } from "@/lib/account/client";
 import type { AccountProfile } from "@/lib/auth/account-profile";
@@ -1398,7 +1398,7 @@ export function LeadDirectory() {
       <LeadHeader companyName={companyName} leadCount={leadStats?.total ?? 0} />
 
       {companyRole === "owner" && selectedCompany ? (
-        <div className="flex justify-end">
+        <div className="flex flex-wrap justify-end gap-4">
           <Link
             className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
             href={`/dashboard/leads/archived?${new URLSearchParams({
@@ -1408,6 +1408,16 @@ export function LeadDirectory() {
           >
             <Archive aria-hidden="true" className="h-4 w-4" />
             {t("leads.archived.openButton")}
+          </Link>
+          <Link
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
+            href={`/dashboard/audit?${new URLSearchParams({
+              company: selectedCompany.id,
+              ...(companyName ? { companyName } : {}),
+            }).toString()}`}
+          >
+            <History aria-hidden="true" className="h-4 w-4" />
+            {t("audit.openButton")}
           </Link>
         </div>
       ) : null}

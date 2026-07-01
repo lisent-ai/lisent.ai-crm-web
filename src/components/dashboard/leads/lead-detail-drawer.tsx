@@ -25,6 +25,7 @@ import {
 import type { Lead, LeadComment } from "@/lib/crm/client";
 import type { AccountProfile } from "@/lib/auth/account-profile";
 
+import { LeadActivityTimeline } from "./lead-activity-timeline";
 import { LeadAIInsights } from "./lead-ai-insights";
 import { LeadNotesPanel } from "./lead-notes-panel";
 import {
@@ -502,16 +503,7 @@ function ProfileView({
       {activeTab === "activity" ? (
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.85fr)]">
           <CardSection title={t("leads.drawer.timeline")}>
-            <ol className="grid gap-4 text-sm">
-              <ActivityItem label={t("leads.drawer.activity.created")} value={formatDateTime(lead.createdAt)} />
-              <ActivityItem label={t("leads.drawer.activity.lastUpdated")} value={formatDateTime(lead.updatedAt)} />
-              {lead.convertedAt ? (
-                <ActivityItem label={t("leads.drawer.activity.convertedToCustomer")} value={formatDateTime(lead.convertedAt)} />
-              ) : null}
-              {aiEnabled && lead.aiLastScoredAt ? (
-                <ActivityItem label={t("leads.drawer.activity.aiScored")} value={formatDateTime(lead.aiLastScoredAt)} />
-              ) : null}
-            </ol>
+            <LeadActivityTimeline leadId={lead.id} />
           </CardSection>
 
           <CardSection title={t("leads.drawer.status")}>
@@ -863,24 +855,6 @@ function DetailRow({
         <span className="truncate">{value}</span>
       </dd>
     </div>
-  );
-}
-
-function ActivityItem({
-  label,
-  value,
-}: Readonly<{ label: string; value: string }>) {
-  return (
-    <li className="flex items-start gap-3">
-      <span
-        aria-hidden="true"
-        className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[var(--accent)]"
-      />
-      <div className="min-w-0 flex-1">
-        <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
-        <p className="truncate text-sm text-[var(--text-primary)]">{value}</p>
-      </div>
-    </li>
   );
 }
 

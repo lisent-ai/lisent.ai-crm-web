@@ -3062,5 +3062,46 @@
     "page": "Página {page} / {pages}",
     "previous": "Anterior",
     "showing": "{from}–{to} de {total}"
+  },
+  "audit": {
+    "accessDenied": "No tienes permiso para ver el registro de auditoría.",
+    "backToLeads": "Volver a prospectos",
+    "empty": "Aún no hay actividad registrada.",
+    "loadFailed": "Error al cargar el registro de auditoría.",
+    "loading": "Cargando actividad...",
+    "openButton": "Registro de auditoría",
+    "subtitle": "Todas las acciones en el espacio de trabajo — quién hizo qué y cuándo. Solo administradores.",
+    "title": "Registro de auditoría",
+    "columns": {
+      "action": "Acción",
+      "actor": "Quién",
+      "entity": "Elemento",
+      "time": "Hora"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integración",
+      "system": "Sistema",
+      "user": "Usuario"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "Puntuado por IA",
+        "archived": "Prospecto archivado",
+        "assigned": "Asignado",
+        "converted": "Prospecto convertido",
+        "created": "Prospecto creado",
+        "follow_up_cleared": "Seguimiento borrado",
+        "follow_up_set": "Seguimiento establecido",
+        "note_added": "Nota añadida",
+        "note_deleted": "Nota eliminada",
+        "note_edited": "Nota editada",
+        "reassigned": "Reasignado",
+        "status_changed": "Estado cambiado",
+        "unarchived": "Prospecto restaurado",
+        "unassigned": "Sin asignar",
+        "updated": "Prospecto actualizado"
+      }
+    }
   }
 }

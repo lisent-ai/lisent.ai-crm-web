@@ -3062,5 +3062,46 @@
     "page": "Sivu {page} / {pages}",
     "previous": "Edellinen",
     "showing": "{from}–{to} yhteensä {total}"
+  },
+  "audit": {
+    "accessDenied": "Sinulla ei ole oikeutta tarkastella audit-lokia.",
+    "backToLeads": "Takaisin liideihin",
+    "empty": "Ei vielä kirjattua toimintaa.",
+    "loadFailed": "Audit-lokin lataus epäonnistui.",
+    "loading": "Ladataan toimintaa...",
+    "openButton": "Audit-loki",
+    "subtitle": "Kaikki toiminnot työtilassa — kuka teki mitä ja milloin. Vain ylläpitäjälle.",
+    "title": "Audit-loki",
+    "columns": {
+      "action": "Toiminto",
+      "actor": "Kuka",
+      "entity": "Kohde",
+      "time": "Aika"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integraatio",
+      "system": "Järjestelmä",
+      "user": "Käyttäjä"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "AI pisteytys",
+        "archived": "Liidi arkistoitu",
+        "assigned": "Määritetty",
+        "converted": "Liidi konvertoitu",
+        "created": "Liidi luotu",
+        "follow_up_cleared": "Seuranta poistettu",
+        "follow_up_set": "Seuranta asetettu",
+        "note_added": "Muistiinpano lisätty",
+        "note_deleted": "Muistiinpano poistettu",
+        "note_edited": "Muistiinpano muokattu",
+        "reassigned": "Uudelleenmäärätty",
+        "status_changed": "Tila muutettu",
+        "unarchived": "Liidi palautettu",
+        "unassigned": "Ei määritetty",
+        "updated": "Liidi päivitetty"
+      }
+    }
   }
 }

@@ -3062,5 +3062,46 @@
     "page": "Page {page} / {pages}",
     "previous": "Précédent",
     "showing": "{from}–{to} sur {total}"
+  },
+  "audit": {
+    "accessDenied": "Vous n’avez pas l’autorisation de consulter le journal d’audit.",
+    "backToLeads": "Retour aux prospects",
+    "empty": "Aucune activité enregistrée pour le moment.",
+    "loadFailed": "Échec du chargement du journal d’audit.",
+    "loading": "Chargement des activités...",
+    "openButton": "Journal d’audit",
+    "subtitle": "Toutes les actions dans l’espace de travail — qui a fait quoi et quand. Administrateur uniquement.",
+    "title": "Journal d’audit",
+    "columns": {
+      "action": "Action",
+      "actor": "Qui",
+      "entity": "Élément",
+      "time": "Heure"
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Intégration",
+      "system": "Système",
+      "user": "Utilisateur"
+    },
+    "actions": {
+      "lead": {
+        "ai_scored": "Score IA",
+        "archived": "Prospect archivé",
+        "assigned": "Assigné",
+        "converted": "Prospect converti",
+        "created": "Prospect créé",
+        "follow_up_cleared": "Suivi supprimé",
+        "follow_up_set": "Suivi défini",
+        "note_added": "Note ajoutée",
+        "note_deleted": "Note supprimée",
+        "note_edited": "Note modifiée",
+        "reassigned": "Réassigné",
+        "status_changed": "Statut modifié",
+        "unarchived": "Prospect restauré",
+        "unassigned": "Désassigné",
+        "updated": "Prospect mis à jour"
+      }
+    }
   }
 }
