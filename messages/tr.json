@@ -1525,7 +1525,44 @@
       "selectTeammate": "Bir ekip üyesi seçin",
       "title": "Seçilen müşteri adaylarını atayın"
     },
+    "archiveModal": {
+      "archiving": "Arşivleniyor...",
+      "confirm": "Lead'i arşivle",
+      "description": "Bu lead arşive taşınacak. Lead listelerinde görünmeyecek ama hiçbir şey silinmez — bir yönetici dilediği zaman geri yükleyebilir.",
+      "eyebrow": "Lead arşivle",
+      "title": "{name} arşivlensin mi?"
+    },
+    "archived": {
+      "accessDenied": "Arşivlenen lead'leri görme yetkiniz yok.",
+      "backToLeads": "Lead'lere dön",
+      "columns": {
+        "archivedAt": "Arşivlendi",
+        "archivedBy": "Arşivleyen",
+        "lead": "Lead",
+        "source": "Kaynak",
+        "status": "Durum"
+      },
+      "empty": "Henüz arşivlenen lead yok.",
+      "loadFailed": "Arşivlenen lead'ler yüklenemedi.",
+      "loading": "Arşivlenen lead'ler yükleniyor...",
+      "openButton": "Arşivlenen lead'ler",
+      "restore": "Geri yükle",
+      "restoreFailed": "Lead geri yüklenemedi.",
+      "restored": "Lead geri yüklendi.",
+      "restoring": "Geri yükleniyor...",
+      "search": "Arşivde ara",
+      "searchAction": "Ara",
+      "subtitle": "Arşivlenen lead'ler. Yalnızca yöneticiler görüntüleyip geri yükleyebilir — burada hiçbir şey silinmez.",
+      "title": "Arşivlenen lead'ler"
+    },
+    "bulkArchive": {
+      "archiving": "Arşivleniyor...",
+      "confirm": "Seçilenleri arşivle",
+      "description": "Seçili lead'ler arşive taşınacak. Hiçbir şey silinmez — bir yönetici dilediği zaman geri yükleyebilir.",
+      "title": "Seçili lead'ler arşivlensin mi?"
+    },
     "bulkBar": {
+      "archive": "Arşivle",
       "ariaSelected": "{count} müşteri adayı seçildi",
       "assign": "Ata",
       "clearSelection": "Seçimi temizle",
@@ -1600,6 +1637,7 @@
       "dealLinkedHint": "Bu müşteri adayı bir anlaşmaya bağlıdır.",
       "dealRelationship": "Anlaşma ilişkisi",
       "dealUnlinkedHint": "Henüz bir anlaşma bağlı değil.",
+      "archive": "Arşivle",
       "delete": "Sil",
       "detailSections": "Detay bölümler",
       "editLead": "Müşteri Adayı düzenle",
@@ -1644,7 +1682,9 @@
     },
     "errors": {
       "addNote": "Not eklenemedi.",
+      "archiveLead": "Lead arşivlenemedi.",
       "assignLead": "Müşteri adayı atanamadı.",
+      "bulkArchiveFailed": "Bazı lead'ler arşivlenemedi.",
       "bulkAssignFailed": "Bazı müşteri adayları atanamadı.",
       "bulkDeleteFailed": "Bazı müşteri adayları silinemedi.",
       "convertLead": "Müşteri adayı dönüştürülemedi.",
@@ -1751,6 +1791,7 @@
       "title": "Müşteri adayları"
     },
     "rowMenu": {
+      "archive": "Arşivle",
       "convert": "Dönüştür",
       "delete": "Sil",
       "edit": "Düzenle",
@@ -1772,6 +1813,9 @@
     },
     "success": {
       "aiStarted": "AI nitelendirme başlatıldı.",
+      "archived": "Lead arşivlendi.",
+      "bulkArchivePartial": "{succeeded} arşivlendi, {failed} başarısız.",
+      "bulkArchived": "{count} lead arşivlendi.",
       "bulkAssignPartial": "{total} müşteri adayından {assigned} tanesi atandı.",
       "bulkAssigned": "{count} müşteri adayı atandı.",
       "bulkPartial": "{total} müşteri adayından {deleted} tanesi silindi.",
@@ -2730,6 +2774,12 @@
       "description": "Çalışma alanı ayarları ve üyeleri.",
       "title": "Çalışma Alanı"
     }
+  },
+  "pagination": {
+    "next": "Sonraki",
+    "page": "Sayfa {page} / {pages}",
+    "previous": "Önceki",
+    "showing": "{total} kayıttan {from}–{to}"
   },
   "qualifier": {
     "companyOrBuyerProfile": "Şirket / alıcı profili",

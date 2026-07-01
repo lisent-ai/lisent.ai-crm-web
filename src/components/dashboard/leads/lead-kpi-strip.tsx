@@ -11,17 +11,16 @@ import {
 } from "lucide-react";
 import type { ComponentType } from "react";
 
-import type { Lead } from "@/lib/crm/client";
+import type { LeadStats } from "@/lib/crm/client";
 
 import { LeadSparkline } from "./lead-sparkline";
-import { computeLeadTrend, groupByDay } from "./lead-utils";
 
 type LeadKpiStripProps = {
-  leads: Lead[];
+  // Server-computed aggregates (counts + 7-day sparkline + trend). Null while
+  // loading. Replaces the old "load every lead into the browser to count".
+  stats: LeadStats | null;
   loading?: boolean;
 };
-
-const DAYS = 7;
 
 type KpiCard = {
   key: string;
@@ -33,15 +32,15 @@ type KpiCard = {
   icon: ComponentType<LucideProps>;
 };
 
-export function LeadKpiStrip({ leads, loading }: Readonly<LeadKpiStripProps>) {
+export function LeadKpiStrip({ stats, loading }: Readonly<LeadKpiStripProps>) {
   const t = useTranslations();
   const cards = useMemo<KpiCard[]>(() => {
-    const qualified = leads.filter((l) => l.status === "qualified");
-    const contacted = leads.filter((l) => l.status === "contacted");
-    const converted = leads.filter((l) => l.status === "converted");
-
-    const total = leads.length;
-    const convRate = total > 0 ? (converted.length / total) * 100 : 0;
+    const c = stats?.cards;
+    const total = c?.total.count ?? 0;
+    const qualified = c?.qualified.count ?? 0;
+    const contacted = c?.contacted.count ?? 0;
+    const converted = c?.converted.count ?? 0;
+    const convRate = total > 0 ? (converted / total) * 100 : 0;
 
     return [
       {
@@ -49,39 +48,39 @@ export function LeadKpiStrip({ leads, loading }: Readonly<LeadKpiStripProps>) {
         label: t("leads.kpi.totalLeads"),
         value: new Intl.NumberFormat().format(total),
         hint: t("leads.kpi.allPipelines"),
-        trend: computeLeadTrend(leads),
-        spark: groupByDay(leads, (l) => l.createdAt, DAYS),
+        trend: c?.total.trend ?? null,
+        spark: c?.total.spark ?? [],
         icon: Users,
       },
       {
         key: "qualified",
         label: t("leads.kpi.qualified"),
-        value: new Intl.NumberFormat().format(qualified.length),
+        value: new Intl.NumberFormat().format(qualified),
         hint: t("leads.kpi.readyToProgress"),
-        trend: computeLeadTrend(qualified),
-        spark: groupByDay(qualified, (l) => l.updatedAt || l.createdAt, DAYS),
+        trend: c?.qualified.trend ?? null,
+        spark: c?.qualified.spark ?? [],
         icon: Target,
       },
       {
         key: "contacted",
         label: t("leads.kpi.inConversation"),
-        value: new Intl.NumberFormat().format(contacted.length),
+        value: new Intl.NumberFormat().format(contacted),
         hint: t("leads.kpi.currentlyActive"),
-        trend: computeLeadTrend(contacted),
-        spark: groupByDay(contacted, (l) => l.updatedAt || l.createdAt, DAYS),
+        trend: c?.contacted.trend ?? null,
+        spark: c?.contacted.spark ?? [],
         icon: MessageSquare,
       },
       {
         key: "conv",
         label: t("leads.kpi.conversionRate"),
         value: `${convRate.toFixed(1)}%`,
-        hint: t("leads.kpi.convertedOfTotal", { converted: converted.length, total }),
-        trend: computeLeadTrend(converted),
-        spark: groupByDay(converted, (l) => l.updatedAt || l.createdAt, DAYS),
+        hint: t("leads.kpi.convertedOfTotal", { converted, total }),
+        trend: c?.converted.trend ?? null,
+        spark: c?.converted.spark ?? [],
         icon: Briefcase,
       },
     ];
-  }, [leads, t]);
+  }, [stats, t]);
 
   return (
     <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

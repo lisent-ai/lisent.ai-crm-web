@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Calendar, CheckCircle2, PencilLine, Trash2 } from "lucide-react";
+import { Archive, Calendar, CheckCircle2, PencilLine } from "lucide-react";
 
 import { getAccountProfile } from "@/lib/account/client";
 import type { AccountProfile } from "@/lib/auth/account-profile";
@@ -15,19 +16,22 @@ import {
   createLead,
   createLeadComment,
   deleteLeadComment,
-  deleteLead as deleteLeadRequest,
+  archiveLead as archiveLeadRequest,
   fetchIntegrationCatalog,
+  getLeadStats,
   isAIQualifierConnected,
   listCompanies,
   listCustomers,
   listLeadComments,
   listLeads,
+  listLeadsPage,
   type Company,
   type ConvertLeadInput,
   type Customer,
   type Lead,
   type LeadComment,
   type LeadAssignmentMethod,
+  type LeadStats,
   updateLeadComment,
   updateCompanyExtraData,
   updateLead,
@@ -50,7 +54,7 @@ import {
 import { LeadBulkActionBar } from "./lead-bulk-action-bar";
 import { LeadBulkAssignModal } from "./lead-bulk-assign-modal";
 import { LeadConvertModal } from "./lead-convert-modal";
-import { LeadDeleteModal } from "./lead-delete-modal";
+import { LeadArchiveModal } from "./lead-archive-modal";
 import { LeadDetailDrawer, type LeadDetailView } from "./lead-detail-drawer";
 import { LeadFormModal } from "./lead-form-modal";
 import { LeadHeader } from "./lead-header";
@@ -74,6 +78,8 @@ import {
   parseLeadValue,
   type DuplicateMatch,
 } from "./lead-utils";
+
+const LEADS_PAGE_SIZE = 25;
 
 function buildLeadFilters(input: {
   tab: string;
@@ -119,10 +125,17 @@ export function LeadDirectory() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [members, setMembers] = useState<CompanyMember[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
-  // Unfiltered company-scoped leads. Used by KPIs, header count, and tab
-  // counters so they reflect the full picture instead of dropping to zero
-  // when the user selects a tab whose filter happens to return nothing.
+  // Full company-scoped leads, loaded LAZILY only while the create/edit modal
+  // is open — used solely for duplicate-contact detection and resolving the
+  // lead being edited. It is NOT used for counts/KPIs anymore (those come from
+  // the server-side /lead-stats aggregate), so the list view no longer pulls
+  // every row on load.
   const [companyLeads, setCompanyLeads] = useState<Lead[]>([]);
+  // Server-computed aggregates for tab badges + KPI cards + source filter.
+  const [leadStats, setLeadStats] = useState<LeadStats | null>(null);
+  // Server-side pagination of the visible list.
+  const [leadsTotal, setLeadsTotal] = useState(0);
+  const [page, setPage] = useState(0);
   const [activeCompanyId, setActiveCompanyId] = useState(searchCompanyId);
   const [companiesLoading, setCompaniesLoading] = useState(true);
   const [leadsLoading, setLeadsLoading] = useState(true);
@@ -352,9 +365,10 @@ export function LeadDirectory() {
     };
   }, [selectedCompany?.id]);
 
+  // Lazy full-company load for duplicate detection — only while the create/
+  // edit modal is open (a rare action), so the common list view stays light.
   useEffect(() => {
-    if (!selectedCompany?.id) {
-      setCompanyLeads([]);
+    if (!selectedCompany?.id || !showLeadModal) {
       return;
     }
 
@@ -378,11 +392,65 @@ export function LeadDirectory() {
     return () => {
       cancelled = true;
     };
-  }, [selectedCompany?.id]);
+  }, [selectedCompany?.id, showLeadModal]);
+
+  // Server-side aggregates: tab badges, KPI cards, source filter, header total.
+  useEffect(() => {
+    if (!selectedCompany?.id) {
+      setLeadStats(null);
+      return;
+    }
+
+    const companyId = selectedCompany.id;
+    let cancelled = false;
+
+    async function loadStats() {
+      try {
+        const stats = await getLeadStats(companyId, accountUserId);
+        if (!cancelled) {
+          setLeadStats(stats);
+        }
+      } catch {
+        if (!cancelled) {
+          setLeadStats(null);
+        }
+      }
+    }
+
+    void loadStats();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedCompany?.id, accountUserId]);
+
+  // Loads the visible list. Normal case: one server page (fast, indexed).
+  // Campaign deep-link case: campaign lives in extra_data (not a SQL filter),
+  // so we fall back to loading the full filtered set and post-filter by
+  // campaign in displayLeads — pagination is disabled for that focused view.
+  const loadLeadsView = useCallback(
+    async (companyId: string): Promise<{ data: Lead[]; total: number; paged: boolean }> => {
+      if (campaignFilter) {
+        const all = await listLeads(companyId, leadFilters);
+        return { data: all, total: all.length, paged: false };
+      }
+      const result = await listLeadsPage(companyId, leadFilters, {
+        limit: LEADS_PAGE_SIZE,
+        offset: page * LEADS_PAGE_SIZE,
+      });
+      return { data: result.data, total: result.total, paged: true };
+    },
+    [campaignFilter, leadFilters, page],
+  );
+
+  // Reset to the first page whenever the filter set (or campaign) changes.
+  useEffect(() => {
+    setPage(0);
+  }, [leadFilters, campaignFilter]);
 
   useEffect(() => {
     if (!selectedCompany?.id) {
       setLeads([]);
+      setLeadsTotal(0);
       setLeadsLoading(false);
       return;
     }
@@ -394,10 +462,11 @@ export function LeadDirectory() {
       setLeadsLoading(true);
       setErrorMessage(null);
       try {
-        const nextLeads = await listLeads(companyId, leadFilters);
+        const view = await loadLeadsView(companyId);
 
         if (!cancelled) {
-          setLeads(nextLeads);
+          setLeads(view.data);
+          setLeadsTotal(view.total);
           setSelectedIds(new Set());
         }
       } catch (error) {
@@ -417,10 +486,7 @@ export function LeadDirectory() {
     return () => {
       cancelled = true;
     };
-  }, [
-    leadFilters,
-    selectedCompany?.id,
-  ]);
+  }, [selectedCompany?.id, loadLeadsView, t]);
 
   // Open the deep-linked lead's card once the list contains it. Fires once
   // per id (ref guard) so closing the drawer doesn't reopen it.
@@ -466,18 +532,13 @@ export function LeadDirectory() {
 
   const sourceOptions = useMemo(() => {
     const values = Array.from(
-      new Set(
-        leads
-          .map((lead) => lead.source.trim())
-          .filter(Boolean)
-          .sort((left, right) => left.localeCompare(right)),
-      ),
-    );
+      new Set((leadStats?.sources ?? []).map((source) => source.trim()).filter(Boolean)),
+    ).sort((left, right) => left.localeCompare(right));
     return [
       { label: t("leads.filters.allSources"), value: "all" },
       ...values.map((value) => ({ label: value, value })),
     ];
-  }, [leads, t]);
+  }, [leadStats, t]);
 
   const assignableMembers = useMemo(
     () =>
@@ -502,18 +563,12 @@ export function LeadDirectory() {
     () =>
       leadStatuses.map((status) => ({
         status,
-        count: companyLeads.filter((lead) => lead.status === status).length,
+        count: leadStats?.byStatus?.[status] ?? 0,
       })),
-    [companyLeads],
+    [leadStats],
   );
 
-  const assignedToMeCount = useMemo(
-    () =>
-      accountUserId
-        ? companyLeads.filter((lead) => lead.assigneeUserId === accountUserId).length
-        : 0,
-    [accountUserId, companyLeads],
-  );
+  const assignedToMeCount = leadStats?.mine ?? 0;
 
   const customerLabel =
     selectedLead?.customerId
@@ -593,24 +648,27 @@ export function LeadDirectory() {
   }
 
   async function reloadReferenceData(companyId: string) {
-    const [nextLeads, nextCompanyLeads, nextCustomers, nextMembers] = await Promise.all([
-      listLeads(companyId, leadFilters),
-      listLeads(companyId, {}).catch(() => [] as Lead[]),
+    const [view, nextCustomers, nextMembers, nextStats] = await Promise.all([
+      loadLeadsView(companyId).catch(() => ({ data: [] as Lead[], total: 0, paged: !campaignFilter })),
       listCustomers(companyId).catch(() => []),
       listCompanyMembers(companyId).catch(() => []),
+      getLeadStats(companyId, accountUserId).catch(() => null),
     ]);
 
-    setLeads(nextLeads);
-    setCompanyLeads(nextCompanyLeads);
+    setLeads(view.data);
+    setLeadsTotal(view.total);
     setCustomers(nextCustomers);
     setMembers(nextMembers);
+    if (nextStats) {
+      setLeadStats(nextStats);
+    }
     setSelectedLeadId((current) => {
-      if (current && nextLeads.some((lead) => lead.id === current)) {
+      if (current && view.data.some((lead) => lead.id === current)) {
         return current;
       }
       return null;
     });
-    return nextLeads;
+    return view.data;
   }
 
   function handleStatusTabChange(next: string) {
@@ -862,7 +920,9 @@ export function LeadDirectory() {
     }
   }
 
-  async function handleDeleteLead() {
+  // Archive replaces delete. The lead is preserved and an admin can restore
+  // it from the archived-leads view; nothing is destroyed here.
+  async function handleArchiveLead() {
     if (!pendingDeleteLead || !selectedCompany) {
       return;
     }
@@ -871,30 +931,30 @@ export function LeadDirectory() {
     setErrorMessage(null);
     setSuccessMessage(null);
     try {
-      await deleteLeadRequest(pendingDeleteLead.id);
+      await archiveLeadRequest(pendingDeleteLead.id);
       const nextLeads = await reloadReferenceData(selectedCompany.id);
       if (selectedLeadId === pendingDeleteLead.id) {
         setSelectedLeadId(nextLeads[0]?.id ?? null);
         setDrawerOpen(false);
       }
       setPendingDeleteLead(null);
-      setSuccessMessage(t("leads.success.removed"));
+      setSuccessMessage(t("leads.success.archived"));
     } catch (error) {
       setErrorMessage(
-        error instanceof CRMClientError ? error.message : t("leads.errors.deleteLead"),
+        error instanceof CRMClientError ? error.message : t("leads.errors.archiveLead"),
       );
     } finally {
       setSaving(false);
     }
   }
 
-  async function handleBulkDelete() {
+  async function handleBulkArchive() {
     if (!selectedCompany || selectedIds.size === 0) return;
     setSaving(true);
     setErrorMessage(null);
     setSuccessMessage(null);
     // Defense in depth: even if a stale selection survived a filter
-    // change, only delete leads currently visible in the table.
+    // change, only archive leads currently visible in the table.
     // Belt-and-braces with the visible-aware toggleAll above.
     const visibleIds = new Set(displayLeads.map((l) => l.id));
     const ids = Array.from(selectedIds).filter((id) => visibleIds.has(id));
@@ -902,7 +962,7 @@ export function LeadDirectory() {
     const failed: string[] = [];
     for (const id of ids) {
       try {
-        await deleteLeadRequest(id);
+        await archiveLeadRequest(id);
         succeeded.push(id);
       } catch {
         failed.push(id);
@@ -912,12 +972,12 @@ export function LeadDirectory() {
     setSelectedIds(new Set());
     setPendingBulkDelete(false);
     if (failed.length === 0) {
-      setSuccessMessage(t("leads.success.bulkRemoved", { count: succeeded.length }));
+      setSuccessMessage(t("leads.success.bulkArchived", { count: succeeded.length }));
     } else if (succeeded.length === 0) {
-      setErrorMessage(t("leads.errors.bulkDeleteFailed", { count: failed.length }));
+      setErrorMessage(t("leads.errors.bulkArchiveFailed", { count: failed.length }));
     } else {
       setSuccessMessage(
-        t("leads.success.bulkPartial", {
+        t("leads.success.bulkArchivePartial", {
           succeeded: succeeded.length,
           failed: failed.length,
         }),
@@ -1335,9 +1395,24 @@ export function LeadDirectory() {
 
   return (
     <div className="flex min-w-0 flex-col gap-5">
-      <LeadHeader companyName={companyName} leadCount={companyLeads.length} />
+      <LeadHeader companyName={companyName} leadCount={leadStats?.total ?? 0} />
 
-      <LeadKpiStrip leads={companyLeads} loading={companiesLoading || leadsLoading} />
+      {companyRole === "owner" && selectedCompany ? (
+        <div className="flex justify-end">
+          <Link
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
+            href={`/dashboard/leads/archived?${new URLSearchParams({
+              company: selectedCompany.id,
+              ...(companyName ? { companyName } : {}),
+            }).toString()}`}
+          >
+            <Archive aria-hidden="true" className="h-4 w-4" />
+            {t("leads.archived.openButton")}
+          </Link>
+        </div>
+      ) : null}
+
+      <LeadKpiStrip stats={leadStats} loading={companiesLoading || leadsLoading} />
 
       {errorMessage && !showLeadModal ? (
         <div className="rounded-[var(--radius-card)] border border-[color-mix(in_srgb,_var(--signal-red)_30%,_transparent)] bg-[color-mix(in_srgb,_var(--signal-red)_8%,_var(--surface))] px-4 py-3 text-sm text-[var(--signal-red)]">
@@ -1363,7 +1438,7 @@ export function LeadDirectory() {
               counts={pipelineCounts}
               hideAssignedToMe={isMemberRole}
               onChange={handleStatusTabChange}
-              totalCount={companyLeads.length}
+              totalCount={leadStats?.total ?? 0}
               value={statusFilter}
             />
           </div>
@@ -1419,6 +1494,17 @@ export function LeadDirectory() {
             onToggleOne={toggleOne}
             selectedIds={selectedIds}
           />
+
+          {!campaignFilter && leadsTotal > LEADS_PAGE_SIZE ? (
+            <LeadPager
+              disabled={leadsLoading}
+              offset={page * LEADS_PAGE_SIZE}
+              onNext={() => setPage((p) => p + 1)}
+              onPrev={() => setPage((p) => Math.max(0, p - 1))}
+              pageSize={LEADS_PAGE_SIZE}
+              total={leadsTotal}
+            />
+          ) : null}
         </section>
       )}
 
@@ -1450,8 +1536,8 @@ export function LeadDirectory() {
           />
           <div className="my-1 border-t border-[var(--border-subtle)]" />
           <RowMenuItem
-            icon={<Trash2 className="h-4 w-4" aria-hidden="true" />}
-            label={t("leads.rowMenu.delete")}
+            icon={<Archive className="h-4 w-4" aria-hidden="true" />}
+            label={t("leads.rowMenu.archive")}
             onClick={() => {
               setPendingDeleteLead(rowMenu.lead);
               setRowMenu(null);
@@ -1550,19 +1636,19 @@ export function LeadDirectory() {
       ) : null}
 
       {pendingDeleteLead ? (
-        <LeadDeleteModal
+        <LeadArchiveModal
           lead={pendingDeleteLead}
           onClose={() => setPendingDeleteLead(null)}
-          onConfirm={handleDeleteLead}
+          onConfirm={handleArchiveLead}
           saving={saving}
         />
       ) : null}
 
       {pendingBulkDelete ? (
-        <BulkDeleteConfirmModal
+        <BulkArchiveConfirmModal
           count={selectedIds.size}
           onClose={() => setPendingBulkDelete(false)}
-          onConfirm={() => void handleBulkDelete()}
+          onConfirm={() => void handleBulkArchive()}
           saving={saving}
         />
       ) : null}
@@ -1617,7 +1703,7 @@ function RowMenuItem({
   );
 }
 
-function BulkDeleteConfirmModal({
+function BulkArchiveConfirmModal({
   count,
   onClose,
   onConfirm,
@@ -1641,10 +1727,10 @@ function BulkDeleteConfirmModal({
         role="dialog"
       >
         <h2 className="text-lg font-semibold text-[var(--text-primary)]">
-          {t("leads.bulkDelete.title", { count })}
+          {t("leads.bulkArchive.title", { count })}
         </h2>
         <p className="mt-2 text-sm text-[var(--text-tertiary)]">
-          {t("leads.bulkDelete.description")}
+          {t("leads.bulkArchive.description")}
         </p>
         <div className="mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
           <button
@@ -1661,9 +1747,65 @@ function BulkDeleteConfirmModal({
             onClick={onConfirm}
             type="button"
           >
-            {saving ? t("leads.bulkDelete.deleting") : t("leads.bulkDelete.confirm", { count })}
+            {saving ? t("leads.bulkArchive.archiving") : t("leads.bulkArchive.confirm", { count })}
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function LeadPager({
+  offset,
+  pageSize,
+  total,
+  disabled,
+  onPrev,
+  onNext,
+}: Readonly<{
+  offset: number;
+  pageSize: number;
+  total: number;
+  disabled?: boolean;
+  onPrev: () => void;
+  onNext: () => void;
+}>) {
+  const t = useTranslations();
+  const from = total === 0 ? 0 : offset + 1;
+  const to = Math.min(offset + pageSize, total);
+  const currentPage = Math.floor(offset / pageSize) + 1;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const canPrev = offset > 0;
+  const canNext = offset + pageSize < total;
+
+  const buttonClass =
+    "inline-flex h-9 items-center justify-center rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-4 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] disabled:cursor-not-allowed disabled:opacity-40";
+
+  return (
+    <div className="flex flex-col gap-3 border-t border-[var(--border-subtle)] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+      <span className="text-xs text-[var(--text-tertiary)]">
+        {t("pagination.showing", { from, to, total })}
+      </span>
+      <div className="flex items-center justify-between gap-2 sm:justify-end">
+        <button
+          className={buttonClass}
+          disabled={disabled || !canPrev}
+          onClick={onPrev}
+          type="button"
+        >
+          {t("pagination.previous")}
+        </button>
+        <span className="whitespace-nowrap text-xs font-medium text-[var(--text-secondary)]">
+          {t("pagination.page", { page: currentPage, pages: totalPages })}
+        </span>
+        <button
+          className={buttonClass}
+          disabled={disabled || !canNext}
+          onClick={onNext}
+          type="button"
+        >
+          {t("pagination.next")}
+        </button>
       </div>
     </div>
   );

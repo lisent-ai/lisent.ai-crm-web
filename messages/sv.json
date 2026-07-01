@@ -1532,7 +1532,8 @@
       "delete": "Ta bort",
       "exportCsv": "Exportera CSV",
       "exportPdf": "Exportera PDF",
-      "selected": "{count} valda"
+      "selected": "{count} valda",
+      "archive": "Arkivera"
     },
     "bulkDelete": {
       "confirm": "Ta bort valda",
@@ -1627,7 +1628,8 @@
       "timeline": "Tidslinje",
       "updated": "Uppdaterad",
       "value": "Värde",
-      "viewAIQualification": "Visa AI‑kvalificering"
+      "viewAIQualification": "Visa AI‑kvalificering",
+      "archive": "Arkivera"
     },
     "duplicate": {
       "customer": "Kund",
@@ -1660,7 +1662,9 @@
       "saveLead": "Det gick inte att spara lead.",
       "selectTeammate": "Vänligen välj en teammedlem.",
       "startQualify": "Det gick inte att påbörja kvalificering.",
-      "updateNote": "Det gick inte att uppdatera anteckning."
+      "updateNote": "Det gick inte att uppdatera anteckning.",
+      "archiveLead": "Kunde inte arkivera lead.",
+      "bulkArchiveFailed": "Kunde inte arkivera några leads."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Konvertera",
       "delete": "Ta bort",
       "edit": "Redigera",
-      "schedule": "Schemalägg"
+      "schedule": "Schemalägg",
+      "archive": "Arkivera"
     },
     "scheduleTitle": "Schemalägg samtal med {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Anteckning uppdaterad.",
       "removed": "Lead borttagen.",
       "roundRobinAssigned": "Lead tilldelad via round robin.",
-      "updated": "Lead uppdaterad."
+      "updated": "Lead uppdaterad.",
+      "archived": "Lead arkiverad.",
+      "bulkArchived": "{count} leads arkiverade.",
+      "bulkArchivePartial": "{succeeded} arkiverade, {failed} misslyckades."
     },
     "table": {
       "assignee": "Tilldelad",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Sök leads…",
       "showOnlyUnassigned": "Visa endast ej tilldelade",
       "source": "Källa"
+    },
+    "archiveModal": {
+      "archiving": "Arkiverar...",
+      "confirm": "Arkivera lead",
+      "description": "Denna lead kommer att flyttas till arkivet. Den visas inte i dina leadlistor, men inget tas bort — en administratör kan återställa den när som helst.",
+      "eyebrow": "Arkivera lead",
+      "title": "Arkivera {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Arkiverar...",
+      "confirm": "Arkivera valda",
+      "description": "De valda leads kommer att flyttas till arkivet. Inget tas bort — en administratör kan återställa dem när som helst.",
+      "title": "Arkivera valda leads?"
+    },
+    "archived": {
+      "accessDenied": "Du har inte behörighet att visa arkiverade leads.",
+      "backToLeads": "Tillbaka till leads",
+      "columns": {
+        "archivedAt": "Arkiverad",
+        "archivedBy": "Arkiverad av",
+        "lead": "Lead",
+        "source": "Källa",
+        "status": "Status"
+      },
+      "empty": "Inga arkiverade leads ännu.",
+      "loadFailed": "Kunde inte läsa in arkiverade leads.",
+      "loading": "Läser in arkiverade leads...",
+      "openButton": "Arkiverade leads",
+      "restore": "Återställ",
+      "restoreFailed": "Kunde inte återställa lead.",
+      "restored": "Lead återställd.",
+      "restoring": "Återställer...",
+      "search": "Sök arkiverade leads",
+      "searchAction": "Sök",
+      "subtitle": "Leads som har arkiverats. Endast administratörer kan visa och återställa dem — inget här är raderat.",
+      "title": "Arkiverade leads"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Namnlös workspace",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Nästa",
+    "page": "Sida {page} / {pages}",
+    "previous": "Föregående",
+    "showing": "{from}–{to} av {total}"
   }
 }

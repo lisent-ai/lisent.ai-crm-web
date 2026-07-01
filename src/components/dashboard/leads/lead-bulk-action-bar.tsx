@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { Download, FileText, Trash2, UserPlus, X } from "lucide-react";
+import { Archive, Download, FileText, UserPlus, X } from "lucide-react";
 
 type LeadBulkActionBarProps = {
   canAssign: boolean;
@@ -82,8 +82,8 @@ export function LeadBulkActionBar({
           onClick={onDelete}
           type="button"
         >
-          <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
-          {t("leads.bulkBar.delete")}
+          <Archive aria-hidden="true" className="h-3.5 w-3.5" />
+          {t("leads.bulkBar.archive")}
         </button>
         <span aria-hidden="true" className="h-5 w-px bg-white/20" />
         <button

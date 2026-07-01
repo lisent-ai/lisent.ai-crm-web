@@ -1532,7 +1532,8 @@
       "delete": "حذف",
       "exportCsv": "تصدير CSV",
       "exportPdf": "تصدير PDF",
-      "selected": "{count} مختار"
+      "selected": "{count} مختار",
+      "archive": "أرشفة"
     },
     "bulkDelete": {
       "confirm": "حذف المحدَّد",
@@ -1627,7 +1628,8 @@
       "timeline": "الجدول الزمني",
       "updated": "تم التحديث",
       "value": "القيمة",
-      "viewAIQualification": "عرض تأهيل AI"
+      "viewAIQualification": "عرض تأهيل AI",
+      "archive": "أرشفة"
     },
     "duplicate": {
       "customer": "عميل",
@@ -1660,7 +1662,9 @@
       "saveLead": "فشل في حفظ الـ Lead.",
       "selectTeammate": "يرجى اختيار زميل.",
       "startQualify": "فشل في بدء التأهيل.",
-      "updateNote": "فشل في تحديث الملاحظة."
+      "updateNote": "فشل في تحديث الملاحظة.",
+      "archiveLead": "فشل في أرشفة العميل.",
+      "bulkArchiveFailed": "فشل في أرشفة بعض العملاء."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "تحويل",
       "delete": "حذف",
       "edit": "تعديل",
-      "schedule": "جدولة"
+      "schedule": "جدولة",
+      "archive": "أرشفة"
     },
     "scheduleTitle": "جدولة مكالمة مع {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "تم تعديل الملاحظة.",
       "removed": "تم حذف Lead.",
       "roundRobinAssigned": "تم تعيين Lead عبر طريقة round robin.",
-      "updated": "تم تحديث Lead."
+      "updated": "تم تحديث Lead.",
+      "archived": "تم أرشفة العميل.",
+      "bulkArchived": "تم أرشفة {count} من العملاء.",
+      "bulkArchivePartial": "تم أرشفة {succeeded}، فشل {failed}."
     },
     "table": {
       "assignee": "المكلف",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "ابحث عن Leads...",
       "showOnlyUnassigned": "إظهار غير المعيّن فقط",
       "source": "المصدر"
+    },
+    "archiveModal": {
+      "archiving": "جارٍ الأرشفة...",
+      "confirm": "أرشفة العميل",
+      "description": "سيتم نقل هذا العميل إلى الأرشيف. لن يظهر في قوائم العملاء، لكن لا شيء يُحذف — يمكن للمسؤول استعادته في أي وقت.",
+      "eyebrow": "أرشفة العميل",
+      "title": "أرشفة {name}؟"
+    },
+    "bulkArchive": {
+      "archiving": "جارٍ الأرشفة...",
+      "confirm": "أرشفة المحدد",
+      "description": "سيتم نقل العملاء المحددين إلى الأرشيف. لا شيء يُحذف — يمكن للمسؤول استعادتهم في أي وقت.",
+      "title": "أرشفة العملاء المحددين؟"
+    },
+    "archived": {
+      "accessDenied": "ليس لديك صلاحية لعرض العملاء المؤرشفين.",
+      "backToLeads": "العودة إلى العملاء",
+      "columns": {
+        "archivedAt": "مؤرشف في",
+        "archivedBy": "أرشفة بواسطة",
+        "lead": "العميل",
+        "source": "المصدر",
+        "status": "الحالة"
+      },
+      "empty": "لا توجد عملاء مؤرشفين حتى الآن.",
+      "loadFailed": "فشل في تحميل العملاء المؤرشفين.",
+      "loading": "جارٍ تحميل العملاء المؤرشفين...",
+      "openButton": "العملاء المؤرشفين",
+      "restore": "استعادة",
+      "restoreFailed": "فشل في استعادة العميل.",
+      "restored": "تم استعادة العميل.",
+      "restoring": "جارٍ الاستعادة...",
+      "search": "بحث عن العملاء المؤرشفين",
+      "searchAction": "بحث",
+      "subtitle": "العملاء الذين تم أرشفتهم. يمكن للمسؤولين فقط عرضهم واستعادتهم — لا شيء يُحذف هنا.",
+      "title": "العملاء المؤرشفين"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "workspace غير مسمى",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "التالي",
+    "page": "الصفحة {page} / {pages}",
+    "previous": "السابق",
+    "showing": "{from}–{to} من {total}"
   }
 }

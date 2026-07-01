@@ -1532,7 +1532,8 @@
       "delete": "Supprimer",
       "exportCsv": "Exporter CSV",
       "exportPdf": "Exporter PDF",
-      "selected": "{count} sélectionnés"
+      "selected": "{count} sélectionnés",
+      "archive": "Archiver"
     },
     "bulkDelete": {
       "confirm": "Supprimer la sélection",
@@ -1627,7 +1628,8 @@
       "timeline": "Chronologie",
       "updated": "Mis à jour",
       "value": "Valeur",
-      "viewAIQualification": "Voir la qualification IA"
+      "viewAIQualification": "Voir la qualification IA",
+      "archive": "Archiver"
     },
     "duplicate": {
       "customer": "Client",
@@ -1660,7 +1662,9 @@
       "saveLead": "Échec de l'enregistrement du lead.",
       "selectTeammate": "Veuillez sélectionner un coéquipier.",
       "startQualify": "Impossible de lancer la qualification.",
-      "updateNote": "Impossible de mettre à jour la note."
+      "updateNote": "Impossible de mettre à jour la note.",
+      "archiveLead": "Échec de l'archivage du prospect.",
+      "bulkArchiveFailed": "Échec de l'archivage de certains prospects."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Convertir",
       "delete": "Supprimer",
       "edit": "Modifier",
-      "schedule": "Planifier"
+      "schedule": "Planifier",
+      "archive": "Archiver"
     },
     "scheduleTitle": "Planifier l’appel avec {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Note mise à jour.",
       "removed": "Lead supprimé.",
       "roundRobinAssigned": "Lead attribué via round robin.",
-      "updated": "Lead mis à jour."
+      "updated": "Lead mis à jour.",
+      "archived": "Prospect archivé.",
+      "bulkArchived": "{count} prospects archivés.",
+      "bulkArchivePartial": "{succeeded} archivés, {failed} échoués."
     },
     "table": {
       "assignee": "Assigné",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Rechercher des leads…",
       "showOnlyUnassigned": "Afficher uniquement les non assignés",
       "source": "Source"
+    },
+    "archiveModal": {
+      "archiving": "Archivage...",
+      "confirm": "Archiver le prospect",
+      "description": "Ce prospect sera déplacé vers l'archive. Il n'apparaîtra plus dans vos listes de prospects, mais rien n'est supprimé — un administrateur peut le restaurer à tout moment.",
+      "eyebrow": "Archiver le prospect",
+      "title": "Archiver {name} ?"
+    },
+    "bulkArchive": {
+      "archiving": "Archivage...",
+      "confirm": "Archiver la sélection",
+      "description": "Les prospects sélectionnés seront déplacés vers l'archive. Rien n'est supprimé — un administrateur peut les restaurer à tout moment.",
+      "title": "Archiver les prospects sélectionnés ?"
+    },
+    "archived": {
+      "accessDenied": "Vous n'avez pas l'autorisation de voir les prospects archivés.",
+      "backToLeads": "Retour aux prospects",
+      "columns": {
+        "archivedAt": "Archivé",
+        "archivedBy": "Archivé par",
+        "lead": "Prospect",
+        "source": "Source",
+        "status": "Statut"
+      },
+      "empty": "Aucun prospect archivé pour le moment.",
+      "loadFailed": "Échec du chargement des prospects archivés.",
+      "loading": "Chargement des prospects archivés...",
+      "openButton": "Prospects archivés",
+      "restore": "Restaurer",
+      "restoreFailed": "Échec de la restauration du prospect.",
+      "restored": "Prospect restauré.",
+      "restoring": "Restauration...",
+      "search": "Rechercher des prospects archivés",
+      "searchAction": "Rechercher",
+      "subtitle": "Prospects qui ont été archivés. Seuls les administrateurs peuvent les voir et les restaurer — rien n'est supprimé.",
+      "title": "Prospects archivés"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Untitled workspace",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Suivant",
+    "page": "Page {page} / {pages}",
+    "previous": "Précédent",
+    "showing": "{from}–{to} sur {total}"
   }
 }

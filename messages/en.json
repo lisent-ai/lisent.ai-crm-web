@@ -1525,7 +1525,44 @@
       "selectTeammate": "Select a teammate",
       "title": "Assign selected leads"
     },
+    "archiveModal": {
+      "archiving": "Archiving...",
+      "confirm": "Archive lead",
+      "description": "This lead will be moved to the archive. It won't appear in your lead lists, but nothing is deleted — an admin can restore it anytime.",
+      "eyebrow": "Archive lead",
+      "title": "Archive {name}?"
+    },
+    "archived": {
+      "accessDenied": "You don't have permission to view archived leads.",
+      "backToLeads": "Back to leads",
+      "columns": {
+        "archivedAt": "Archived",
+        "archivedBy": "Archived by",
+        "lead": "Lead",
+        "source": "Source",
+        "status": "Status"
+      },
+      "empty": "No archived leads yet.",
+      "loadFailed": "Failed to load archived leads.",
+      "loading": "Loading archived leads...",
+      "openButton": "Archived leads",
+      "restore": "Restore",
+      "restoreFailed": "Failed to restore lead.",
+      "restored": "Lead restored.",
+      "restoring": "Restoring...",
+      "search": "Search archived leads",
+      "searchAction": "Search",
+      "subtitle": "Leads that were archived. Only admins can view and restore them — nothing here is deleted.",
+      "title": "Archived leads"
+    },
+    "bulkArchive": {
+      "archiving": "Archiving...",
+      "confirm": "Archive selected",
+      "description": "The selected leads will be moved to the archive. Nothing is deleted — an admin can restore them anytime.",
+      "title": "Archive selected leads?"
+    },
     "bulkBar": {
+      "archive": "Archive",
       "ariaSelected": "leads selected",
       "assign": "Assign",
       "clearSelection": "Clear selection",
@@ -1600,6 +1637,7 @@
       "dealLinkedHint": "This lead is linked to a deal.",
       "dealRelationship": "Deal relationship",
       "dealUnlinkedHint": "No deal linked yet.",
+      "archive": "Archive",
       "delete": "Delete",
       "detailSections": "Detail sections",
       "editLead": "Edit lead",
@@ -1644,7 +1682,9 @@
     },
     "errors": {
       "addNote": "Failed to add note.",
+      "archiveLead": "Failed to archive lead.",
       "assignLead": "Failed to assign lead.",
+      "bulkArchiveFailed": "Failed to archive some leads.",
       "bulkAssignFailed": "Failed to assign some leads.",
       "bulkDeleteFailed": "Failed to delete some leads.",
       "convertLead": "Failed to convert lead.",
@@ -1751,6 +1791,7 @@
       "title": "Leads"
     },
     "rowMenu": {
+      "archive": "Archive",
       "convert": "Convert",
       "delete": "Delete",
       "edit": "Edit",
@@ -1772,6 +1813,9 @@
     },
     "success": {
       "aiStarted": "AI qualification started.",
+      "archived": "Lead archived.",
+      "bulkArchivePartial": "{succeeded} archived, {failed} failed.",
+      "bulkArchived": "{count} leads archived.",
       "bulkAssignPartial": "of leads assigned.",
       "bulkAssigned": "leads assigned.",
       "bulkPartial": "of leads removed.",
@@ -2730,6 +2774,12 @@
       "description": "Workspace settings and members.",
       "title": "Workspace"
     }
+  },
+  "pagination": {
+    "next": "Next",
+    "page": "Page {page} / {pages}",
+    "previous": "Previous",
+    "showing": "{from}–{to} of {total}"
   },
   "qualifier": {
     "companyOrBuyerProfile": "Company / buyer profile",

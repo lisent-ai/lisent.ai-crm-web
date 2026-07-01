@@ -1532,7 +1532,8 @@
       "delete": "Poista",
       "exportCsv": "Vie CSV",
       "exportPdf": "Vie PDF",
-      "selected": "{count} valittua"
+      "selected": "{count} valittua",
+      "archive": "Arkistoi"
     },
     "bulkDelete": {
       "confirm": "Poista valitut",
@@ -1627,7 +1628,8 @@
       "timeline": "Aikajana",
       "updated": "Päivitetty",
       "value": "Arvo",
-      "viewAIQualification": "Näytä AI-qualifikaatio"
+      "viewAIQualification": "Näytä AI-qualifikaatio",
+      "archive": "Arkistoi"
     },
     "duplicate": {
       "customer": "Asiakas",
@@ -1660,7 +1662,9 @@
       "saveLead": "Leadia ei voitu tallentaa.",
       "selectTeammate": "Valitse tiimikaveri.",
       "startQualify": "Kvalifioinnin käynnistäminen epäonnistui.",
-      "updateNote": "Muistiinpanoa ei voitu päivittää."
+      "updateNote": "Muistiinpanoa ei voitu päivittää.",
+      "archiveLead": "Liidin arkistointi epäonnistui.",
+      "bulkArchiveFailed": "Joidenkin liidien arkistointi epäonnistui."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Muunna",
       "delete": "Poista",
       "edit": "Muokkaa",
-      "schedule": "Aikatauluta"
+      "schedule": "Aikatauluta",
+      "archive": "Arkistoi"
     },
     "scheduleTitle": "Aikatauluta puhelu {name} kanssa",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Muistiinpano päivitetty.",
       "removed": "Lead poistettu.",
       "roundRobinAssigned": "Lead osoitettu round robin -menetelmällä.",
-      "updated": "Lead päivitetty."
+      "updated": "Lead päivitetty.",
+      "archived": "Liidi arkistoitu.",
+      "bulkArchived": "{count} liidiä arkistoitu.",
+      "bulkArchivePartial": "{succeeded} arkistoitu, {failed} epäonnistui."
     },
     "table": {
       "assignee": "Vastuuhenkilö",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Etsi leadit...",
       "showOnlyUnassigned": "Näytä vain ilman vastuuhenkilöä",
       "source": "Source"
+    },
+    "archiveModal": {
+      "archiving": "Arkistoidaan...",
+      "confirm": "Arkistoi liidi",
+      "description": "Tämä liidi siirretään arkistoon. Se ei näy liidilistassasi, mutta mitään ei poisteta — ylläpitäjä voi palauttaa sen milloin tahansa.",
+      "eyebrow": "Arkistoi liidi",
+      "title": "Arkistoidaanko {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Arkistoidaan...",
+      "confirm": "Arkistoi valitut",
+      "description": "Valitut liidit siirretään arkistoon. Mitään ei poisteta — ylläpitäjä voi palauttaa ne milloin tahansa.",
+      "title": "Arkistoidaanko valitut liidit?"
+    },
+    "archived": {
+      "accessDenied": "Sinulla ei ole oikeutta tarkastella arkistoituja liidejä.",
+      "backToLeads": "Takaisin liideihin",
+      "columns": {
+        "archivedAt": "Arkistoitu",
+        "archivedBy": "Arkistoinut",
+        "lead": "Liidi",
+        "source": "Lähde",
+        "status": "Tila"
+      },
+      "empty": "Ei vielä arkistoituja liidejä.",
+      "loadFailed": "Arkistoitujen liidien lataus epäonnistui.",
+      "loading": "Ladataan arkistoituja liidejä...",
+      "openButton": "Arkistoidut liidit",
+      "restore": "Palauta",
+      "restoreFailed": "Liidin palautus epäonnistui.",
+      "restored": "Liidi palautettu.",
+      "restoring": "Palautetaan...",
+      "search": "Etsi arkistoituja liidejä",
+      "searchAction": "Etsi",
+      "subtitle": "Liidit, jotka on arkistoitu. Vain ylläpitäjät voivat tarkastella ja palauttaa ne — mitään ei ole poistettu.",
+      "title": "Arkistoidut liidit"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Nimetön workspace",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Seuraava",
+    "page": "Sivu {page} / {pages}",
+    "previous": "Edellinen",
+    "showing": "{from}–{to} yhteensä {total}"
   }
 }

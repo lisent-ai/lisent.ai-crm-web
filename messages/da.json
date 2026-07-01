@@ -1532,7 +1532,8 @@
       "delete": "Slet",
       "exportCsv": "Eksporter CSV",
       "exportPdf": "Eksporter PDF",
-      "selected": "{count} valgt"
+      "selected": "{count} valgt",
+      "archive": "Arkiver"
     },
     "bulkDelete": {
       "confirm": "Slet valgte",
@@ -1627,7 +1628,8 @@
       "timeline": "Tidslinje",
       "updated": "Opdateret",
       "value": "Værdi",
-      "viewAIQualification": "Vis AI‑kvalificering"
+      "viewAIQualification": "Vis AI‑kvalificering",
+      "archive": "Arkiver"
     },
     "duplicate": {
       "customer": "Kunde",
@@ -1660,7 +1662,9 @@
       "saveLead": "Kunne ikke gemme lead.",
       "selectTeammate": "Vælg venligst en holdkammerat.",
       "startQualify": "Kunne ikke starte kvalificering.",
-      "updateNote": "Kunne ikke opdatere note."
+      "updateNote": "Kunne ikke opdatere note.",
+      "archiveLead": "Kunne ikke arkivere lead.",
+      "bulkArchiveFailed": "Kunne ikke arkivere nogle leads."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Konverter",
       "delete": "Slet",
       "edit": "Rediger",
-      "schedule": "Planlæg"
+      "schedule": "Planlæg",
+      "archive": "Arkiver"
     },
     "scheduleTitle": "Planlæg opkald med {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Notat opdateret.",
       "removed": "Lead fjernet.",
       "roundRobinAssigned": "Lead tildelt via round robin.",
-      "updated": "Lead opdateret."
+      "updated": "Lead opdateret.",
+      "archived": "Lead arkiveret.",
+      "bulkArchived": "{count} leads arkiveret.",
+      "bulkArchivePartial": "{succeeded} arkiveret, {failed} mislykkedes."
     },
     "table": {
       "assignee": "Assignee",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Søg leads...",
       "showOnlyUnassigned": "Vis kun ufordelte",
       "source": "Kilde"
+    },
+    "archiveModal": {
+      "archiving": "Arkiverer...",
+      "confirm": "Arkiver lead",
+      "description": "Dette lead vil blive flyttet til arkivet. Det vil ikke vises i dine lead-lister, men intet slettes — en admin kan gendanne det når som helst.",
+      "eyebrow": "Arkiver lead",
+      "title": "Arkiver {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Arkiverer...",
+      "confirm": "Arkiver valgte",
+      "description": "De valgte leads vil blive flyttet til arkivet. Intet slettes — en admin kan gendanne dem når som helst.",
+      "title": "Arkiver valgte leads?"
+    },
+    "archived": {
+      "accessDenied": "Du har ikke tilladelse til at se arkiverede leads.",
+      "backToLeads": "Tilbage til leads",
+      "columns": {
+        "archivedAt": "Arkiveret",
+        "archivedBy": "Arkiveret af",
+        "lead": "Lead",
+        "source": "Kilde",
+        "status": "Status"
+      },
+      "empty": "Ingen arkiverede leads endnu.",
+      "loadFailed": "Kunne ikke indlæse arkiverede leads.",
+      "loading": "Indlæser arkiverede leads...",
+      "openButton": "Arkiverede leads",
+      "restore": "Gendan",
+      "restoreFailed": "Kunne ikke gendanne lead.",
+      "restored": "Lead gendannet.",
+      "restoring": "Gendanner...",
+      "search": "Søg i arkiverede leads",
+      "searchAction": "Søg",
+      "subtitle": "Leads, der er arkiveret. Kun admins kan se og gendanne dem — intet her er slettet.",
+      "title": "Arkiverede leads"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Uden titel workspace",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Næste",
+    "page": "Side {page} / {pages}",
+    "previous": "Forrige",
+    "showing": "{from}–{to} af {total}"
   }
 }

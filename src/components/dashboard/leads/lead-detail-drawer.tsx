@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import {
+  Archive,
   ArrowLeft,
   Building2,
   CheckCircle2,
@@ -17,7 +18,6 @@ import {
   Phone,
   PhoneCall,
   Sparkles,
-  Trash2,
   UserCheck,
   X,
 } from "lucide-react";
@@ -366,8 +366,8 @@ function ProfileView({
               tone="ghost"
             />
             <SecondaryAction
-              icon={<Trash2 className="h-4 w-4" aria-hidden="true" />}
-              label={t("leads.drawer.delete")}
+              icon={<Archive className="h-4 w-4" aria-hidden="true" />}
+              label={t("leads.drawer.archive")}
               onClick={() => onDelete(lead)}
               saving={saving}
               tone="danger"

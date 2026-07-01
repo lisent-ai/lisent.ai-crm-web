@@ -1532,7 +1532,8 @@
       "delete": "Verwijderen",
       "exportCsv": "CSV exporteren",
       "exportPdf": "PDF exporteren",
-      "selected": "{count} geselecteerd"
+      "selected": "{count} geselecteerd",
+      "archive": "Archiveren"
     },
     "bulkDelete": {
       "confirm": "Verwijder geselecteerde",
@@ -1627,7 +1628,8 @@
       "timeline": "Tijdlijn",
       "updated": "Bijgewerkt",
       "value": "Waarde",
-      "viewAIQualification": "AI-kwalificatie bekijken"
+      "viewAIQualification": "AI-kwalificatie bekijken",
+      "archive": "Archiveren"
     },
     "duplicate": {
       "customer": "Klant",
@@ -1660,7 +1662,9 @@
       "saveLead": "Kan lead niet opslaan.",
       "selectTeammate": "Selecteer een teamgenoot.",
       "startQualify": "Kan kwalificatie niet starten.",
-      "updateNote": "Kan notitie niet bijwerken."
+      "updateNote": "Kan notitie niet bijwerken.",
+      "archiveLead": "Lead archiveren mislukt.",
+      "bulkArchiveFailed": "Sommige leads archiveren mislukt."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Converteren",
       "delete": "Verwijderen",
       "edit": "Bewerken",
-      "schedule": "Inplannen"
+      "schedule": "Inplannen",
+      "archive": "Archiveren"
     },
     "scheduleTitle": "Gesprek inplannen met {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Notitie bijgewerkt.",
       "removed": "Lead verwijderd.",
       "roundRobinAssigned": "Lead toegewezen via round robin.",
-      "updated": "Lead bijgewerkt."
+      "updated": "Lead bijgewerkt.",
+      "archived": "Lead gearchiveerd.",
+      "bulkArchived": "{count} leads gearchiveerd.",
+      "bulkArchivePartial": "{succeeded} gearchiveerd, {failed} mislukt."
     },
     "table": {
       "assignee": "Toegewezene",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Leads zoeken...",
       "showOnlyUnassigned": "Alleen niet-toegewezen weergeven",
       "source": "Bron"
+    },
+    "archiveModal": {
+      "archiving": "Archiveren...",
+      "confirm": "Lead archiveren",
+      "description": "Deze lead wordt naar het archief verplaatst. Hij verschijnt niet meer in je leadlijsten, maar er wordt niets verwijderd — een beheerder kan hem op elk moment herstellen.",
+      "eyebrow": "Lead archiveren",
+      "title": "Archiveer {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Archiveren...",
+      "confirm": "Selectie archiveren",
+      "description": "De geselecteerde leads worden naar het archief verplaatst. Er wordt niets verwijderd — een beheerder kan ze op elk moment herstellen.",
+      "title": "Geselecteerde leads archiveren?"
+    },
+    "archived": {
+      "accessDenied": "Je hebt geen toestemming om gearchiveerde leads te bekijken.",
+      "backToLeads": "Terug naar leads",
+      "columns": {
+        "archivedAt": "Gearchiveerd op",
+        "archivedBy": "Gearchiveerd door",
+        "lead": "Lead",
+        "source": "Bron",
+        "status": "Status"
+      },
+      "empty": "Nog geen gearchiveerde leads.",
+      "loadFailed": "Gearchiveerde leads laden mislukt.",
+      "loading": "Gearchiveerde leads laden...",
+      "openButton": "Gearchiveerde leads",
+      "restore": "Herstellen",
+      "restoreFailed": "Lead herstellen mislukt.",
+      "restored": "Lead hersteld.",
+      "restoring": "Herstellen...",
+      "search": "Zoek gearchiveerde leads",
+      "searchAction": "Zoeken",
+      "subtitle": "Leads die zijn gearchiveerd. Alleen beheerders kunnen ze bekijken en herstellen — er wordt niets verwijderd.",
+      "title": "Gearchiveerde leads"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Naamloze workspace",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Volgende",
+    "page": "Pagina {page} / {pages}",
+    "previous": "Vorige",
+    "showing": "{from}–{to} van {total}"
   }
 }

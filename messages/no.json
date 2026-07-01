@@ -1532,7 +1532,8 @@
       "delete": "Delete",
       "exportCsv": "Export CSV",
       "exportPdf": "Export PDF",
-      "selected": "selected"
+      "selected": "selected",
+      "archive": "Archive"
     },
     "bulkDelete": {
       "confirm": "Delete selected",
@@ -1627,7 +1628,8 @@
       "timeline": "Timeline",
       "updated": "Updated",
       "value": "Value",
-      "viewAIQualification": "View AI qualification"
+      "viewAIQualification": "View AI qualification",
+      "archive": "Archive"
     },
     "duplicate": {
       "customer": "Customer",
@@ -1660,7 +1662,9 @@
       "saveLead": "Failed to save lead.",
       "selectTeammate": "Please select a teammate.",
       "startQualify": "Failed to start qualification.",
-      "updateNote": "Failed to update note."
+      "updateNote": "Failed to update note.",
+      "archiveLead": "Failed to archive lead.",
+      "bulkArchiveFailed": "Failed to archive some leads."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Convert",
       "delete": "Delete",
       "edit": "Edit",
-      "schedule": "Schedule"
+      "schedule": "Schedule",
+      "archive": "Archive"
     },
     "scheduleTitle": "Schedule call with {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Note updated.",
       "removed": "Lead removed.",
       "roundRobinAssigned": "Lead assigned via round robin.",
-      "updated": "Lead updated."
+      "updated": "Lead updated.",
+      "archived": "Lead archived.",
+      "bulkArchived": "{count} leads archived.",
+      "bulkArchivePartial": "{succeeded} archived, {failed} failed."
     },
     "table": {
       "assignee": "Assignee",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Search leads...",
       "showOnlyUnassigned": "Show only unassigned",
       "source": "Source"
+    },
+    "archiveModal": {
+      "archiving": "Archiving...",
+      "confirm": "Archive lead",
+      "description": "This lead will be moved to the archive. It won't appear in your lead lists, but nothing is deleted — an admin can restore it anytime.",
+      "eyebrow": "Archive lead",
+      "title": "Archive {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Archiving...",
+      "confirm": "Archive selected",
+      "description": "The selected leads will be moved to the archive. Nothing is deleted — an admin can restore them anytime.",
+      "title": "Archive selected leads?"
+    },
+    "archived": {
+      "accessDenied": "You don't have permission to view archived leads.",
+      "backToLeads": "Back to leads",
+      "columns": {
+        "archivedAt": "Archived",
+        "archivedBy": "Archived by",
+        "lead": "Lead",
+        "source": "Source",
+        "status": "Status"
+      },
+      "empty": "No archived leads yet.",
+      "loadFailed": "Failed to load archived leads.",
+      "loading": "Loading archived leads...",
+      "openButton": "Archived leads",
+      "restore": "Restore",
+      "restoreFailed": "Failed to restore lead.",
+      "restored": "Lead restored.",
+      "restoring": "Restoring...",
+      "search": "Search archived leads",
+      "searchAction": "Search",
+      "subtitle": "Leads that were archived. Only admins can view and restore them — nothing here is deleted.",
+      "title": "Archived leads"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Untitled workspace",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Next",
+    "page": "Page {page} / {pages}",
+    "previous": "Previous",
+    "showing": "{from}–{to} of {total}"
   }
 }

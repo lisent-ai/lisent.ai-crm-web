@@ -1532,7 +1532,8 @@
       "delete": "Löschen",
       "exportCsv": "CSV exportieren",
       "exportPdf": "PDF exportieren",
-      "selected": "{count} ausgewählt"
+      "selected": "{count} ausgewählt",
+      "archive": "Archivieren"
     },
     "bulkDelete": {
       "confirm": "Ausgewählte löschen",
@@ -1627,7 +1628,8 @@
       "timeline": "Zeitachse",
       "updated": "Aktualisiert",
       "value": "Wert",
-      "viewAIQualification": "KI-Qualifizierung anzeigen"
+      "viewAIQualification": "KI-Qualifizierung anzeigen",
+      "archive": "Archivieren"
     },
     "duplicate": {
       "customer": "Kunde",
@@ -1660,7 +1662,9 @@
       "saveLead": "Lead konnte nicht gespeichert werden.",
       "selectTeammate": "Bitte wählen Sie ein Teammitglied aus.",
       "startQualify": "Qualifizierung konnte nicht gestartet werden.",
-      "updateNote": "Notiz konnte nicht aktualisiert werden."
+      "updateNote": "Notiz konnte nicht aktualisiert werden.",
+      "archiveLead": "Lead konnte nicht archiviert werden.",
+      "bulkArchiveFailed": "Einige Leads konnten nicht archiviert werden."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Konvertieren",
       "delete": "Löschen",
       "edit": "Bearbeiten",
-      "schedule": "Planen"
+      "schedule": "Planen",
+      "archive": "Archivieren"
     },
     "scheduleTitle": "Anruf mit {name} planen",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Notiz aktualisiert.",
       "removed": "Lead entfernt.",
       "roundRobinAssigned": "Lead per Round Robin zugewiesen.",
-      "updated": "Lead aktualisiert."
+      "updated": "Lead aktualisiert.",
+      "archived": "Lead archiviert.",
+      "bulkArchived": "{count} Leads archiviert.",
+      "bulkArchivePartial": "{succeeded} archiviert, {failed} fehlgeschlagen."
     },
     "table": {
       "assignee": "Zugewiesene Person",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Leads suchen…",
       "showOnlyUnassigned": "Nur nicht zugewiesene anzeigen",
       "source": "Source"
+    },
+    "archiveModal": {
+      "archiving": "Archivieren...",
+      "confirm": "Lead archivieren",
+      "description": "Dieser Lead wird ins Archiv verschoben. Er erscheint nicht mehr in Ihren Lead-Listen, aber nichts wird gelöscht – ein Administrator kann ihn jederzeit wiederherstellen.",
+      "eyebrow": "Lead archivieren",
+      "title": "Archivieren {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Archivieren...",
+      "confirm": "Auswahl archivieren",
+      "description": "Die ausgewählten Leads werden ins Archiv verschoben. Es wird nichts gelöscht – ein Administrator kann sie jederzeit wiederherstellen.",
+      "title": "Ausgewählte Leads archivieren?"
+    },
+    "archived": {
+      "accessDenied": "Sie haben keine Berechtigung, archivierte Leads anzuzeigen.",
+      "backToLeads": "Zurück zu Leads",
+      "columns": {
+        "archivedAt": "Archiviert am",
+        "archivedBy": "Archiviert von",
+        "lead": "Lead",
+        "source": "Quelle",
+        "status": "Status"
+      },
+      "empty": "Noch keine archivierten Leads.",
+      "loadFailed": "Archivierte Leads konnten nicht geladen werden.",
+      "loading": "Lade archivierte Leads...",
+      "openButton": "Archivierte Leads",
+      "restore": "Wiederherstellen",
+      "restoreFailed": "Lead konnte nicht wiederhergestellt werden.",
+      "restored": "Lead wiederhergestellt.",
+      "restoring": "Wiederherstellen...",
+      "search": "Archivierte Leads suchen",
+      "searchAction": "Suchen",
+      "subtitle": "Leads, die archiviert wurden. Nur Administratoren können sie sehen und wiederherstellen – hier wird nichts gelöscht.",
+      "title": "Archivierte Leads"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Unbenannter Workspace",
     "workspaceWord": "Workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Weiter",
+    "page": "Seite {page} / {pages}",
+    "previous": "Zurück",
+    "showing": "{from}–{to} von {total}"
   }
 }

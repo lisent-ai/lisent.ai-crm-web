@@ -1532,7 +1532,8 @@
       "delete": "Usuń",
       "exportCsv": "Eksportuj CSV",
       "exportPdf": "Eksportuj PDF",
-      "selected": "{count} wybrano"
+      "selected": "{count} wybrano",
+      "archive": "Archiwizuj"
     },
     "bulkDelete": {
       "confirm": "Usuń wybrane",
@@ -1627,7 +1628,8 @@
       "timeline": "Oś czasu",
       "updated": "Zaktualizowano",
       "value": "Wartość",
-      "viewAIQualification": "Zobacz kwalifikację AI"
+      "viewAIQualification": "Zobacz kwalifikację AI",
+      "archive": "Archiwizuj"
     },
     "duplicate": {
       "customer": "Klient",
@@ -1660,7 +1662,9 @@
       "saveLead": "Nie udało się zapisać leada.",
       "selectTeammate": "Proszę wybrać współpracownika.",
       "startQualify": "Nie udało się rozpocząć kwalifikacji.",
-      "updateNote": "Nie udało się zaktualizować notatki."
+      "updateNote": "Nie udało się zaktualizować notatki.",
+      "archiveLead": "Nie udało się zarchiwizować leada.",
+      "bulkArchiveFailed": "Nie udało się zarchiwizować niektórych leadów."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Konwertuj",
       "delete": "Usuń",
       "edit": "Edytuj",
-      "schedule": "Zaplanuj"
+      "schedule": "Zaplanuj",
+      "archive": "Archiwizuj"
     },
     "scheduleTitle": "Zaplanuj rozmowę z {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Notatka zaktualizowana.",
       "removed": "Lead usunięty.",
       "roundRobinAssigned": "Lead przypisany metodą round robin.",
-      "updated": "Lead zaktualizowany."
+      "updated": "Lead zaktualizowany.",
+      "archived": "Lead został zarchiwizowany.",
+      "bulkArchived": "{count} leadów zarchiwizowano.",
+      "bulkArchivePartial": "{succeeded} zarchiwizowano, {failed} nie powiodło się."
     },
     "table": {
       "assignee": "Osoba przypisana",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Wyszukaj leady...",
       "showOnlyUnassigned": "Pokaż tylko nieprzypisane",
       "source": "Źródło"
+    },
+    "archiveModal": {
+      "archiving": "Archiwizowanie...",
+      "confirm": "Archiwizuj lead",
+      "description": "Ten lead zostanie przeniesiony do archiwum. Nie będzie widoczny na listach leadów, ale nic nie zostanie usunięte — administrator może go przywrócić w dowolnym momencie.",
+      "eyebrow": "Archiwizuj lead",
+      "title": "Zarchiwizować {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Archiwizowanie...",
+      "confirm": "Archiwizuj wybrane",
+      "description": "Wybrane leady zostaną przeniesione do archiwum. Nic nie zostanie usunięte — administrator może je przywrócić w dowolnym momencie.",
+      "title": "Zarchiwizować wybrane leady?"
+    },
+    "archived": {
+      "accessDenied": "Nie masz uprawnień do przeglądania zarchiwizowanych leadów.",
+      "backToLeads": "Powrót do leadów",
+      "columns": {
+        "archivedAt": "Zarchiwizowano",
+        "archivedBy": "Zarchiwizowane przez",
+        "lead": "Lead",
+        "source": "Źródło",
+        "status": "Status"
+      },
+      "empty": "Brak zarchiwizowanych leadów.",
+      "loadFailed": "Nie udało się wczytać zarchiwizowanych leadów.",
+      "loading": "Wczytywanie zarchiwizowanych leadów...",
+      "openButton": "Zarchiwizowane leady",
+      "restore": "Przywróć",
+      "restoreFailed": "Nie udało się przywrócić leada.",
+      "restored": "Lead przywrócono.",
+      "restoring": "Przywracanie...",
+      "search": "Szukaj zarchiwizowanych leadów",
+      "searchAction": "Szukaj",
+      "subtitle": "Leady, które zostały zarchiwizowane. Tylko administratorzy mogą je przeglądać i przywracać — nic tutaj nie jest usuwane.",
+      "title": "Zarchiwizowane leady"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Workspace bez tytułu",
     "workspaceWord": "workspace",
     "workspaces": "Workspaces"
+  },
+  "pagination": {
+    "next": "Następna",
+    "page": "Strona {page} / {pages}",
+    "previous": "Poprzednia",
+    "showing": "{from}–{to} z {total}"
   }
 }

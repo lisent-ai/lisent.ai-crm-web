@@ -1532,7 +1532,8 @@
       "delete": "Elimina",
       "exportCsv": "Esporta CSV",
       "exportPdf": "Esporta PDF",
-      "selected": "{count} selezionati"
+      "selected": "{count} selezionati",
+      "archive": "Archivia"
     },
     "bulkDelete": {
       "confirm": "Elimina selezionati",
@@ -1627,7 +1628,8 @@
       "timeline": "Cronologia",
       "updated": "Aggiornato",
       "value": "Valore",
-      "viewAIQualification": "Visualizza qualificazione AI"
+      "viewAIQualification": "Visualizza qualificazione AI",
+      "archive": "Archivia"
     },
     "duplicate": {
       "customer": "Cliente",
@@ -1660,7 +1662,9 @@
       "saveLead": "Impossibile salvare il Lead.",
       "selectTeammate": "Selezioni un collega.",
       "startQualify": "Impossibile avviare la qualificazione.",
-      "updateNote": "Impossibile aggiornare la nota."
+      "updateNote": "Impossibile aggiornare la nota.",
+      "archiveLead": "Impossibile archiviare il lead.",
+      "bulkArchiveFailed": "Impossibile archiviare alcuni lead."
     },
     "fallback": {
       "lead": "Lead",
@@ -1754,7 +1758,8 @@
       "convert": "Converti",
       "delete": "Elimina",
       "edit": "Modifica",
-      "schedule": "Pianifica"
+      "schedule": "Pianifica",
+      "archive": "Archivia"
     },
     "scheduleTitle": "Programma chiamata con {name}",
     "status": {
@@ -1785,7 +1790,10 @@
       "noteUpdated": "Nota aggiornata.",
       "removed": "Lead rimosso.",
       "roundRobinAssigned": "Lead assegnato tramite round robin.",
-      "updated": "Lead aggiornato."
+      "updated": "Lead aggiornato.",
+      "archived": "Lead archiviato.",
+      "bulkArchived": "{count} lead archiviati.",
+      "bulkArchivePartial": "{succeeded} archiviati, {failed} non riusciti."
     },
     "table": {
       "assignee": "Assegnatario",
@@ -1813,6 +1821,42 @@
       "searchPlaceholder": "Cerca lead...",
       "showOnlyUnassigned": "Mostra solo non assegnati",
       "source": "Fonte"
+    },
+    "archiveModal": {
+      "archiving": "Archiviazione...",
+      "confirm": "Archivia lead",
+      "description": "Questo lead verrà spostato nell'archivio. Non apparirà nelle tue liste di lead, ma nulla viene eliminato — un amministratore può ripristinarlo in qualsiasi momento.",
+      "eyebrow": "Archivia lead",
+      "title": "Archiviare {name}?"
+    },
+    "bulkArchive": {
+      "archiving": "Archiviazione...",
+      "confirm": "Archivia selezionati",
+      "description": "I lead selezionati verranno spostati nell'archivio. Nulla viene eliminato — un amministratore può ripristinarli in qualsiasi momento.",
+      "title": "Archiviare i lead selezionati?"
+    },
+    "archived": {
+      "accessDenied": "Non hai l'autorizzazione per visualizzare i lead archiviati.",
+      "backToLeads": "Torna ai lead",
+      "columns": {
+        "archivedAt": "Archiviato",
+        "archivedBy": "Archiviato da",
+        "lead": "Lead",
+        "source": "Fonte",
+        "status": "Stato"
+      },
+      "empty": "Nessun lead archiviato.",
+      "loadFailed": "Impossibile caricare i lead archiviati.",
+      "loading": "Caricamento lead archiviati...",
+      "openButton": "Lead archiviati",
+      "restore": "Ripristina",
+      "restoreFailed": "Impossibile ripristinare il lead.",
+      "restored": "Lead ripristinato.",
+      "restoring": "Ripristino...",
+      "search": "Cerca lead archiviati",
+      "searchAction": "Cerca",
+      "subtitle": "Lead archiviati. Solo gli amministratori possono visualizzarli e ripristinarli — nulla è eliminato.",
+      "title": "Lead archiviati"
     }
   },
   "marketing": {
@@ -3012,5 +3056,11 @@
     "untitled": "Workspace senza titolo",
     "workspaceWord": "workspace",
     "workspaces": "Workspace"
+  },
+  "pagination": {
+    "next": "Avanti",
+    "page": "Pagina {page} / {pages}",
+    "previous": "Indietro",
+    "showing": "{from}–{to} di {total}"
   }
 }

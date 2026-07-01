@@ -4,6 +4,9 @@ type CRMListResponse<T> = {
   data: T[];
   limit: number;
   offset: number;
+  // Total number of rows matching the query (ignoring limit/offset). Present
+  // on endpoints that support server-side pagination (e.g. GET /leads).
+  total?: number;
 };
 
 type CRMCompanyRecord = {
@@ -46,6 +49,9 @@ type CRMLeadRecord = {
   converted_deal_id?: string | null;
   converted_at?: string | null;
   next_follow_up_at?: string | null;
+  archived_at?: string | null;
+  archived_by_user_id?: string | null;
+  archived_by_user_name?: string | null;
   extra_data?: Record<string, unknown>;
   created_at: string;
   updated_at: string;
@@ -250,6 +256,9 @@ export type Lead = {
   convertedDealId: string;
   convertedAt: string;
   nextFollowUpAt: string;
+  archivedAt: string;
+  archivedByUserId: string;
+  archivedByUserName: string;
   extraData: Record<string, string>;
   createdAt: string;
   updatedAt: string;
@@ -666,6 +675,9 @@ function mapLead(record: CRMLeadRecord): Lead {
     convertedDealId: record.converted_deal_id ?? "",
     convertedAt: record.converted_at ?? "",
     nextFollowUpAt: record.next_follow_up_at ?? "",
+    archivedAt: record.archived_at ?? "",
+    archivedByUserId: record.archived_by_user_id ?? "",
+    archivedByUserName: record.archived_by_user_name ?? "",
     extraData: normalizeExtraData(record.extra_data),
     createdAt: record.created_at,
     updatedAt: record.updated_at,
@@ -1072,10 +1084,127 @@ export async function updateLead(
   return mapLead(payload);
 }
 
-export async function deleteLead(leadId: string): Promise<void> {
-  await requestCRM<void>(`/leads/${leadId}`, {
-    method: "DELETE",
+/** Archive a lead (replaces hard delete). Reversible by an admin. Returns
+ *  the updated lead. Idempotent server-side. */
+export async function archiveLead(leadId: string): Promise<Lead> {
+  const payload = await requestCRM<CRMLeadRecord>(`/leads/${leadId}/archive`, {
+    method: "POST",
   });
+  return mapLead(payload);
+}
+
+/** Restore an archived lead. Admin-only (owner or leads.archive privilege). */
+export async function unarchiveLead(leadId: string): Promise<Lead> {
+  const payload = await requestCRM<CRMLeadRecord>(`/leads/${leadId}/unarchive`, {
+    method: "POST",
+  });
+  return mapLead(payload);
+}
+
+/** Fetch a SINGLE page of leads plus the total row count, for server-side
+ *  pagination. Unlike listLeads (which walks every page), this returns just
+ *  the requested window so large tables stay fast. */
+export async function listLeadsPage(
+  companyId: string,
+  filters: LeadFilters = {},
+  page: { limit: number; offset: number } = { limit: 25, offset: 0 },
+): Promise<{ data: Lead[]; total: number }> {
+  const query = new URLSearchParams({
+    limit: String(page.limit),
+    offset: String(page.offset),
+    company_id: companyId,
+  });
+  if (filters.status?.trim()) query.set("status", filters.status.trim());
+  if (filters.source?.trim()) query.set("source", filters.source.trim());
+  if (filters.assigneeUserId?.trim())
+    query.set("assignee_user_id", filters.assigneeUserId.trim());
+  if (filters.q?.trim()) query.set("q", filters.q.trim());
+  if (filters.unassigned) query.set("unassigned", "true");
+
+  const response = await requestCRM<CRMListResponse<CRMLeadRecord>>(
+    `/leads?${query.toString()}`,
+  );
+  return {
+    data: response.data.map(mapLead),
+    total: typeof response.total === "number" ? response.total : response.data.length,
+  };
+}
+
+type CRMLeadStatsResponse = {
+  total: number;
+  unassigned: number;
+  mine: number;
+  by_status: Record<string, number>;
+  sources: string[];
+  cards: Record<string, { count: number; spark: number[]; trend: number | null }>;
+};
+
+export type LeadKpiCard = { count: number; spark: number[]; trend: number | null };
+
+export type LeadStats = {
+  total: number;
+  unassigned: number;
+  mine: number;
+  byStatus: Record<string, number>;
+  sources: string[];
+  cards: Record<"total" | "qualified" | "contacted" | "converted", LeadKpiCard>;
+};
+
+/** Aggregate lead stats (counts + KPI sparkline/trend) computed server-side,
+ *  so the directory never has to load every lead just to render tab badges
+ *  and KPI cards. `meUserId` powers the "assigned to me" count. */
+export async function getLeadStats(
+  companyId: string,
+  meUserId?: string,
+): Promise<LeadStats> {
+  const query = new URLSearchParams({ company_id: companyId });
+  if (meUserId?.trim()) query.set("me", meUserId.trim());
+  const r = await requestCRM<CRMLeadStatsResponse>(`/lead-stats?${query.toString()}`);
+  const card = (k: string): LeadKpiCard => {
+    const c = r.cards?.[k];
+    return {
+      count: c?.count ?? 0,
+      spark: Array.isArray(c?.spark) ? c!.spark : [],
+      trend: typeof c?.trend === "number" ? c!.trend : null,
+    };
+  };
+  return {
+    total: r.total ?? 0,
+    unassigned: r.unassigned ?? 0,
+    mine: r.mine ?? 0,
+    byStatus: r.by_status ?? {},
+    sources: Array.isArray(r.sources) ? r.sources : [],
+    cards: {
+      total: card("total"),
+      qualified: card("qualified"),
+      contacted: card("contacted"),
+      converted: card("converted"),
+    },
+  };
+}
+
+/** Fetch a page of ARCHIVED leads (admin view). Server enforces the
+ *  owner/leads.archive gate; a 403 surfaces as CRMClientError. */
+export async function listArchivedLeads(
+  companyId: string,
+  page: { limit: number; offset: number } = { limit: 25, offset: 0 },
+  filters: { q?: string } = {},
+): Promise<{ data: Lead[]; total: number }> {
+  const query = new URLSearchParams({
+    archived: "true",
+    limit: String(page.limit),
+    offset: String(page.offset),
+    company_id: companyId,
+  });
+  if (filters.q?.trim()) query.set("q", filters.q.trim());
+
+  const response = await requestCRM<CRMListResponse<CRMLeadRecord>>(
+    `/leads?${query.toString()}`,
+  );
+  return {
+    data: response.data.map(mapLead),
+    total: typeof response.total === "number" ? response.total : response.data.length,
+  };
 }
 
 export async function listDeals(
