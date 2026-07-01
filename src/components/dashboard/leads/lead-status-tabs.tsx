@@ -66,8 +66,8 @@ export function LeadStatusTabs({
                 : ""
             } ${
               active
-                ? "font-semibold text-[var(--text-primary)]"
-                : "font-medium text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                ? "text-[var(--text-primary)]"
+                : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
             }`}
             disabled={disabled}
             key={option.value}
@@ -75,7 +75,18 @@ export function LeadStatusTabs({
             role="tab"
             type="button"
           >
-            {option.label}
+            {/* Bold ghost reserves the semibold width so activating a tab
+                doesn't widen it and shift the whole tab row. */}
+            <span className="grid">
+              <span aria-hidden="true" className="invisible col-start-1 row-start-1 font-semibold">
+                {option.label}
+              </span>
+              <span
+                className={`col-start-1 row-start-1 ${active ? "font-semibold" : "font-medium"}`}
+              >
+                {option.label}
+              </span>
+            </span>
             <span
               className={`inline-flex h-5 min-w-[22px] items-center justify-center rounded-full px-1.5 text-[11px] font-medium ${
                 active

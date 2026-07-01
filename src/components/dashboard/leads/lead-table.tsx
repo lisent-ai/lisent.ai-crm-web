@@ -49,9 +49,13 @@ export function LeadTable({
     [allSelected, selectedIds.size],
   );
 
-  if (loading) {
+  // Skeleton only when there is nothing to show yet. On refetches (tab or
+  // filter change, page flip) the previous rows stay visible but dimmed, so
+  // the card doesn't collapse to a 5-row skeleton and jump back — that
+  // resize was the visible "layout shift" when switching tabs.
+  if (loading && leads.length === 0) {
     return (
-      <div className="p-4">
+      <div className="min-h-[240px] p-4">
         <div className="grid gap-2">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
@@ -73,7 +77,13 @@ export function LeadTable({
   }
 
   return (
-    <div>
+    // min-h keeps the card from shrinking below the filter popover / empty
+    // state height when a filter narrows the list to one or two rows.
+    <div
+      className={`min-h-[240px] transition-opacity ${
+        loading ? "pointer-events-none opacity-60" : ""
+      }`}
+    >
       {/* Desktop / tablet table */}
       <div className="hidden md:block">
         <div className="max-h-[62vh] overflow-auto">

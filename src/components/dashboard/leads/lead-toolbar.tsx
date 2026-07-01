@@ -42,7 +42,31 @@ export function LeadToolbar({
 }: Readonly<LeadToolbarProps>) {
   const t = useTranslations();
   const [filterOpen, setFilterOpen] = useState(false);
+  // Viewport coordinates for the desktop popover. The card wrapping the
+  // leads table is overflow-hidden, so an absolutely-positioned dropdown
+  // gets clipped whenever the card is shorter than the popover (e.g. a
+  // filter narrows the list to one row). Fixed positioning escapes that
+  // clipping; null falls back to the mobile bottom-sheet classes.
+  const [desktopPos, setDesktopPos] = useState<{ top: number; left: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
+
+  function toggleFilterOpen() {
+    setFilterOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        const rect = filterButtonRef.current?.getBoundingClientRect();
+        if (rect && window.matchMedia("(min-width: 640px)").matches) {
+          const width = 280;
+          const left = Math.max(8, Math.min(rect.right - width, window.innerWidth - width - 8));
+          setDesktopPos({ top: rect.bottom + 8, left });
+        } else {
+          setDesktopPos(null);
+        }
+      }
+      return next;
+    });
+  }
 
   useEffect(() => {
     if (!filterOpen) return;
@@ -54,11 +78,20 @@ export function LeadToolbar({
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") setFilterOpen(false);
     }
+    // The popover is fixed to the viewport, so it can't follow its anchor
+    // button while the page scrolls or resizes — close it instead.
+    function onScrollOrResize() {
+      setFilterOpen(false);
+    }
     document.addEventListener("mousedown", onPointer);
     document.addEventListener("keydown", onKey);
+    document.addEventListener("scroll", onScrollOrResize, true);
+    window.addEventListener("resize", onScrollOrResize);
     return () => {
       document.removeEventListener("mousedown", onPointer);
       document.removeEventListener("keydown", onKey);
+      document.removeEventListener("scroll", onScrollOrResize, true);
+      window.removeEventListener("resize", onScrollOrResize);
     };
   }, [filterOpen]);
 
@@ -100,7 +133,8 @@ export function LeadToolbar({
             aria-expanded={filterOpen}
             aria-haspopup="menu"
             className="inline-flex h-10 items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--surface)] px-3 text-sm font-medium text-[var(--text-secondary)] transition hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]"
-            onClick={() => setFilterOpen((prev) => !prev)}
+            onClick={toggleFilterOpen}
+            ref={filterButtonRef}
             type="button"
           >
             <Filter aria-hidden="true" className="h-4 w-4" />
@@ -114,8 +148,13 @@ export function LeadToolbar({
 
           {filterOpen && (
             <div
-              className="fixed inset-x-3 top-[140px] z-30 mx-auto w-auto max-w-[340px] rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)] sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mx-0 sm:mt-2 sm:w-[280px] sm:max-w-[calc(100vw-2rem)]"
+              className={`z-30 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-3 shadow-[var(--shadow-float)] ${
+                desktopPos
+                  ? "fixed w-[280px] max-w-[calc(100vw-1rem)]"
+                  : "fixed inset-x-3 top-[140px] mx-auto w-auto max-w-[340px]"
+              }`}
               role="menu"
+              style={desktopPos ?? undefined}
             >
               <FilterSelect
                 label={t("leads.toolbar.source")}
