@@ -3,9 +3,11 @@
 import {
   listDeals,
   listLeads,
+  listSLABreaches,
   listTasks,
   type Deal,
   type Lead,
+  type SLABreach,
   type Task,
 } from "@/lib/crm/client";
 
@@ -13,7 +15,8 @@ export type DashboardNotificationKind =
   | "task_pending"
   | "task_due"
   | "lead_assigned"
-  | "deal_assigned";
+  | "deal_assigned"
+  | "sla_breach";
 
 export type DashboardNotification = {
   id: string;
@@ -33,12 +36,16 @@ export async function listDashboardNotifications(input: {
   companyId: string;
   companyName: string;
   userId: string;
+  // Localized "SLA breach" title, supplied by the caller (which has the
+  // translator). SLA breaches only load for admins (owner / leads.sla); a 403
+  // for everyone else is swallowed so it never breaks the bell.
+  slaBreachTitle?: string;
 }): Promise<DashboardNotification[]> {
   if (!input.companyId.trim() || !input.userId.trim()) {
     return [];
   }
 
-  const [tasks, leads, deals] = await Promise.all([
+  const [tasks, leads, deals, breaches] = await Promise.all([
     listTasks({
       companyId: input.companyId,
       assigneeUserId: input.userId,
@@ -49,12 +56,16 @@ export async function listDashboardNotifications(input: {
     listDeals(input.companyId, {
       assigneeUserId: input.userId,
     }),
+    listSLABreaches(input.companyId, { limit: 20, offset: 0 })
+      .then((r) => r.data)
+      .catch(() => [] as SLABreach[]),
   ]);
 
   const notifications = [
     ...buildTaskNotifications(tasks, input.companyId, input.companyName),
     ...buildLeadNotifications(leads, input.companyId, input.companyName),
     ...buildDealNotifications(deals, input.companyId, input.companyName),
+    ...buildSLANotifications(breaches, input.companyId, input.companyName, input.slaBreachTitle),
   ];
 
   return notifications
@@ -235,6 +246,26 @@ function buildDealNotifications(
       createdAt: deal.updatedAt || deal.createdAt,
       entityId: deal.id,
     }));
+}
+
+function buildSLANotifications(
+  breaches: SLABreach[],
+  companyId: string,
+  companyName: string,
+  title?: string,
+): DashboardNotification[] {
+  return breaches.map((breach) => ({
+    id: `sla_breach:${breach.id}`,
+    kind: "sla_breach" as const,
+    title: title || "SLA breach",
+    body:
+      [breach.lead_name, breach.rule_name || breach.condition]
+        .filter((v) => v && v.trim())
+        .join(" — ") || (breach.rule_name || breach.condition),
+    href: buildWorkspaceHref("/dashboard/sla", companyId, companyName),
+    createdAt: breach.breached_at,
+    entityId: breach.id,
+  }));
 }
 
 function buildWorkspaceHref(pathname: string, companyId: string, companyName: string) {

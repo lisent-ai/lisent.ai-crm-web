@@ -2719,7 +2719,8 @@
     "refresh": "Opdater",
     "selectWorkspace": "Vælg et workspace",
     "sessionLoading": "Indlæser session…",
-    "title": "Notifikationer"
+    "title": "Notifikationer",
+    "slaBreach": "SLA‑brud"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "SLA-overtrædelse registreret",
         "rules_updated": "SLA-regler opdateret"
+      },
+      "module_access": {
+        "updated": "Adgangstilladelser opdateret"
+      },
+      "integration": {
+        "config_updated": "Integrationsindstillinger opdateret",
+        "connected": "Integration tilsluttet",
+        "disconnected": "Integration afbrudt",
+        "secret_rotated": "Integrationens hemmelighed roteret",
+        "test_fired": "Integrationstest sendt",
+        "token_rotated": "Integrationens token roteret"
       }
     }
   },

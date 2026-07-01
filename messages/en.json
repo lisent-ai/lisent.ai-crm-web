@@ -90,6 +90,17 @@
         "applied": "Import applied",
         "approved": "Import profile approved"
       },
+      "integration": {
+        "config_updated": "Integration settings updated",
+        "connected": "Integration connected",
+        "disconnected": "Integration disconnected",
+        "secret_rotated": "Integration secret rotated",
+        "test_fired": "Integration test sent",
+        "token_rotated": "Integration token rotated"
+      },
+      "module_access": {
+        "updated": "Access permissions updated"
+      },
       "sla": {
         "breach_detected": "SLA breach detected",
         "rules_updated": "SLA rules updated"
@@ -2814,6 +2825,7 @@
     "refresh": "Refresh",
     "selectWorkspace": "Select a workspace",
     "sessionLoading": "Loading session...",
+    "slaBreach": "SLA breach",
     "title": "Notifications"
   },
   "page": {

@@ -10,6 +10,7 @@ import {
   Clock3,
   RefreshCw,
   Target,
+  Timer,
   Trash2,
 } from "lucide-react";
 
@@ -89,6 +90,7 @@ export function NotificationCenter({
           companyId,
           companyName,
           userId,
+          slaBreachTitle: t("notifications.slaBreach"),
         });
         if (!cancelled) {
           setItems(nextItems);
@@ -218,6 +220,7 @@ export function NotificationCenter({
                     companyId,
                     companyName,
                     userId,
+                    slaBreachTitle: t("notifications.slaBreach"),
                   })
                     .then((nextItems) => {
                       setItems(nextItems);
@@ -340,6 +343,10 @@ function NotificationIcon({
 
   if (kind === "deal_assigned") {
     return <BriefcaseBusiness aria-hidden="true" className="h-4 w-4" />;
+  }
+
+  if (kind === "sla_breach") {
+    return <Timer aria-hidden="true" className="h-4 w-4" />;
   }
 
   return <Target aria-hidden="true" className="h-4 w-4" />;

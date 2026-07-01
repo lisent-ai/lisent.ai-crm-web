@@ -63,6 +63,15 @@ export const KNOWN_AUDIT_ACTIONS = new Set<string>([
   // sla
   "sla.rules_updated",
   "sla.breach_detected",
+  // module access
+  "module_access.updated",
+  // integrations
+  "integration.connected",
+  "integration.disconnected",
+  "integration.config_updated",
+  "integration.token_rotated",
+  "integration.secret_rotated",
+  "integration.test_fired",
 ]);
 
 export const KNOWN_ACTOR_TYPES = new Set<string>(["user", "system", "integration", "ai"]);

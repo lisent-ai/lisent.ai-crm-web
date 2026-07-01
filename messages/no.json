@@ -2719,7 +2719,8 @@
     "refresh": "Refresh",
     "selectWorkspace": "Select a workspace",
     "sessionLoading": "Loading session...",
-    "title": "Notifications"
+    "title": "Notifications",
+    "slaBreach": "SLA breach"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "SLA breach detected",
         "rules_updated": "SLA rules updated"
+      },
+      "module_access": {
+        "updated": "Access permissions updated"
+      },
+      "integration": {
+        "config_updated": "Integration settings updated",
+        "connected": "Integration connected",
+        "disconnected": "Integration disconnected",
+        "secret_rotated": "Integration secret rotated",
+        "test_fired": "Integration test sent",
+        "token_rotated": "Integration token rotated"
       }
     }
   },

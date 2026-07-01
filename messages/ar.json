@@ -2719,7 +2719,8 @@
     "refresh": "تحديث",
     "selectWorkspace": "اختر workspace",
     "sessionLoading": "جارٍ تحميل الجلسة...",
-    "title": "الإشعارات"
+    "title": "الإشعارات",
+    "slaBreach": "خرق SLA"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "تم اكتشاف خرق SLA",
         "rules_updated": "تم تحديث قواعد SLA"
+      },
+      "module_access": {
+        "updated": "تم تحديث أذونات الوصول"
+      },
+      "integration": {
+        "config_updated": "تم تحديث إعدادات التكامل",
+        "connected": "تم ربط التكامل",
+        "disconnected": "تم فصل التكامل",
+        "secret_rotated": "تم تدوير سر التكامل",
+        "test_fired": "تم إرسال اختبار التكامل",
+        "token_rotated": "تم تدوير رمز التكامل"
       }
     }
   },

@@ -90,6 +90,17 @@
         "applied": "İçe aktarma uygulandı",
         "approved": "İçe aktarma profili onaylandı"
       },
+      "integration": {
+        "config_updated": "Entegrasyon ayarları güncellendi",
+        "connected": "Entegrasyon bağlandı",
+        "disconnected": "Entegrasyon bağlantısı kesildi",
+        "secret_rotated": "Entegrasyon gizli anahtarı döndürüldü",
+        "test_fired": "Entegrasyon testi gönderildi",
+        "token_rotated": "Entegrasyon token'ı döndürüldü"
+      },
+      "module_access": {
+        "updated": "Erişim yetkileri güncellendi"
+      },
       "sla": {
         "breach_detected": "SLA ihlali tespit edildi",
         "rules_updated": "SLA kuralları güncellendi"
@@ -2814,6 +2825,7 @@
     "refresh": "Yenile",
     "selectWorkspace": "Bir çalışma alanı seçin",
     "sessionLoading": "Oturum yükleniyor...",
+    "slaBreach": "SLA ihlali",
     "title": "Bildirimler"
   },
   "page": {

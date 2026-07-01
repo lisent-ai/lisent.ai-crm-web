@@ -2719,7 +2719,8 @@
     "refresh": "Päivitä",
     "selectWorkspace": "Valitse workspace",
     "sessionLoading": "Ladataan istuntoa...",
-    "title": "Ilmoitukset"
+    "title": "Ilmoitukset",
+    "slaBreach": "SLA-rikkomus"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "SLA-ristiriita havaittu",
         "rules_updated": "SLA-säännöt päivitetty"
+      },
+      "module_access": {
+        "updated": "Käyttöoikeudet päivitetty"
+      },
+      "integration": {
+        "config_updated": "Integraatioasetukset päivitetty",
+        "connected": "Integraatio yhdistetty",
+        "disconnected": "Integraatio katkaistu",
+        "secret_rotated": "Integraation salaisuus vaihdettu",
+        "test_fired": "Integraatiotesti lähetetty",
+        "token_rotated": "Integraatiotunnus vaihdettu"
       }
     }
   },

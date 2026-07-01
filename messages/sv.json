@@ -2719,7 +2719,8 @@
     "refresh": "Uppdatera",
     "selectWorkspace": "Välj en workspace",
     "sessionLoading": "Läser in session…",
-    "title": "Aviseringar"
+    "title": "Aviseringar",
+    "slaBreach": "SLA-brott"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "SLA-brott upptäckt",
         "rules_updated": "SLA-regler uppdaterade"
+      },
+      "module_access": {
+        "updated": "Behörigheter uppdaterade"
+      },
+      "integration": {
+        "config_updated": "Integrationsinställningar uppdaterade",
+        "connected": "Integration ansluten",
+        "disconnected": "Integration frånkopplad",
+        "secret_rotated": "Integrationshemlighet roterad",
+        "test_fired": "Integrationstest skickat",
+        "token_rotated": "Integrationstoken roterad"
       }
     }
   },

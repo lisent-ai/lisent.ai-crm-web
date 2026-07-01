@@ -2719,7 +2719,8 @@
     "refresh": "Vernieuwen",
     "selectWorkspace": "Selecteer een workspace",
     "sessionLoading": "Sessie laden...",
-    "title": "Meldingen"
+    "title": "Meldingen",
+    "slaBreach": "SLA-overschrijding"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "SLA-overtreding gedetecteerd",
         "rules_updated": "SLA-regels bijgewerkt"
+      },
+      "module_access": {
+        "updated": "Toegangsrechten bijgewerkt"
+      },
+      "integration": {
+        "config_updated": "Integratie‑instellingen bijgewerkt",
+        "connected": "Integratie verbonden",
+        "disconnected": "Integratie losgekoppeld",
+        "secret_rotated": "Integratiegeheim vernieuwd",
+        "test_fired": "Integratietest verzonden",
+        "token_rotated": "Integratietoken vernieuwd"
       }
     }
   },

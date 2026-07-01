@@ -2719,7 +2719,8 @@
     "refresh": "Обновить",
     "selectWorkspace": "Выберите workspace",
     "sessionLoading": "Загрузка сессии…",
-    "title": "Уведомления"
+    "title": "Уведомления",
+    "slaBreach": "Нарушение SLA"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "Обнаружено нарушение SLA",
         "rules_updated": "Обновлены правила SLA"
+      },
+      "module_access": {
+        "updated": "Разрешения доступа обновлены"
+      },
+      "integration": {
+        "config_updated": "Настройки интеграции обновлены",
+        "connected": "Интеграция подключена",
+        "disconnected": "Интеграция отключена",
+        "secret_rotated": "Секрет интеграции обновлён",
+        "test_fired": "Тест интеграции отправлен",
+        "token_rotated": "Токен интеграции обновлён"
       }
     }
   },

@@ -2719,7 +2719,8 @@
     "refresh": "Aktualisieren",
     "selectWorkspace": "Workspace auswählen",
     "sessionLoading": "Sitzung wird geladen…",
-    "title": "Benachrichtigungen"
+    "title": "Benachrichtigungen",
+    "slaBreach": "SLA-Verstoß"
   },
   "page": {
     "access": {
@@ -3158,6 +3159,17 @@
       "sla": {
         "breach_detected": "SLA-Verstoß erkannt",
         "rules_updated": "SLA-Regeln aktualisiert"
+      },
+      "module_access": {
+        "updated": "Zugriffsrechte aktualisiert"
+      },
+      "integration": {
+        "config_updated": "Integrationseinstellungen aktualisiert",
+        "connected": "Integration verbunden",
+        "disconnected": "Integration getrennt",
+        "secret_rotated": "Integrationsgeheimnis erneuert",
+        "test_fired": "Integrationstest gesendet",
+        "token_rotated": "Integrationstoken erneuert"
       }
     }
   },
