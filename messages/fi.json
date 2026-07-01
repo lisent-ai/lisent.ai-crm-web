@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Markkinointi · Toimistot",
         "crmAudit": "Auditointiloki",
-        "leadsArchive": "Arkistoidut liidit"
+        "leadsArchive": "Arkistoidut liidit",
+        "leadsSla": "SLA-säännöt"
       },
       "noAccess": "Ei pääsyä",
       "role": "Rooli",
@@ -3153,7 +3154,51 @@
         "deleted": "Tehtävä poistettu",
         "status_changed": "Tehtävän tila muutettu",
         "updated": "Tehtävä päivitetty"
+      },
+      "sla": {
+        "breach_detected": "SLA-ristiriita havaittu",
+        "rules_updated": "SLA-säännöt päivitetty"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Sinulla ei ole oikeutta hallita SLA-sääntöjä.",
+    "backToLeads": "Takaisin liideihin",
+    "breaches": {
+      "empty": "Avoimia SLA-ristiriitoja ei ole.",
+      "title": "Avoimet SLA-ristiriidat",
+      "unnamedLead": "Nimetön liidi"
+    },
+    "channel": {
+      "email": "Sähköposti",
+      "in_app": "Sovelluksessa",
+      "label": "Ilmoita kanavalla"
+    },
+    "condition": {
+      "no_activity": "Ottanut yhteyttä, mutta ei toimintaa",
+      "no_first_response": "Vastuuhenkilö, mutta ei ensimmäistä vastausta",
+      "stale_open": "Ei edistystä (mikä tahansa avoin tila)"
+    },
+    "loadFailed": "SLA-asetusten lataus epäonnistui.",
+    "loading": "Ladataan…",
+    "openButton": "SLA-säännöt",
+    "rules": {
+      "active": "Aktiivinen",
+      "add": "Lisää sääntö",
+      "condition": "Ehto",
+      "empty": "Sääntöjä ei ole vielä. Lisää sääntö aloittaaksesi seurannan.",
+      "name": "Nimi",
+      "namePlaceholder": "esim. Ensimmäinen vastaus päivän sisällä",
+      "remove": "Poista sääntö",
+      "thresholdHours": "Raja (tunnit)",
+      "title": "SLA-säännöt",
+      "untitled": "Nimetön sääntö"
+    },
+    "save": "Tallenna",
+    "saveFailed": "SLA-sääntöjen tallennus epäonnistui.",
+    "saved": "SLA-säännöt tallennettu.",
+    "saving": "Tallennetaan…",
+    "subtitle": "Saavuta hälytys, kun vastuullinen liidi pysähtyy — ei ensimmäistä vastausta, ei toimintaa tai ei edistystä asetettujen rajojen sisällä. Vain ylläpitäjille.",
+    "title": "SLA-säännöt ja hälytykset"
   }
 }

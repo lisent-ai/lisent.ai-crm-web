@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agencje",
         "crmAudit": "Dziennik zdarzeń",
-        "leadsArchive": "Zarchiwizowane leady"
+        "leadsArchive": "Zarchiwizowane leady",
+        "leadsSla": "Reguły SLA"
       },
       "noAccess": "Brak dostępu",
       "role": "Rola",
@@ -3153,7 +3154,51 @@
         "deleted": "Usunięto zadanie",
         "status_changed": "Zmieniono status zadania",
         "updated": "Zaktualizowano zadanie"
+      },
+      "sla": {
+        "breach_detected": "Wykryto naruszenie SLA",
+        "rules_updated": "Zaktualizowano reguły SLA"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Nie masz uprawnień do zarządzania regułami SLA.",
+    "backToLeads": "Powrót do leadów",
+    "breaches": {
+      "empty": "Brak otwartych naruszeń SLA.",
+      "title": "Otwarte naruszenia",
+      "unnamedLead": "Lead bez nazwy"
+    },
+    "channel": {
+      "email": "E-mail",
+      "in_app": "W aplikacji",
+      "label": "Powiadomienie przez"
+    },
+    "condition": {
+      "no_activity": "Skontaktowano, brak aktywności",
+      "no_first_response": "Przypisano, brak pierwszej odpowiedzi",
+      "stale_open": "Brak postępu (dowolny otwarty status)"
+    },
+    "loadFailed": "Nie udało się wczytać ustawień SLA.",
+    "loading": "Ładowanie…",
+    "openButton": "Reguły SLA",
+    "rules": {
+      "active": "Aktywne",
+      "add": "Dodaj regułę",
+      "condition": "Warunek",
+      "empty": "Brak reguł. Dodaj jedną, aby rozpocząć monitorowanie.",
+      "name": "Nazwa",
+      "namePlaceholder": "np. Pierwsza odpowiedź w ciągu dnia",
+      "remove": "Usuń regułę",
+      "thresholdHours": "Próg (godziny)",
+      "title": "Reguły SLA",
+      "untitled": "Reguła bez tytułu"
+    },
+    "save": "Zapisz",
+    "saveFailed": "Nie udało się zapisać reguł SLA.",
+    "saved": "Reguły SLA zapisane.",
+    "saving": "Zapisywanie…",
+    "subtitle": "Otrzymuj powiadomienia, gdy przypisany lead się zatrzyma — brak pierwszej odpowiedzi, aktywności lub postępu w określonych progach. Tylko administrator.",
+    "title": "Reguły i alerty SLA"
   }
 }

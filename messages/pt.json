@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agências",
         "crmAudit": "Registro de auditoria",
-        "leadsArchive": "Leads arquivados"
+        "leadsArchive": "Leads arquivados",
+        "leadsSla": "Regras de SLA"
       },
       "noAccess": "Sem acesso",
       "role": "Função",
@@ -3153,7 +3154,51 @@
         "deleted": "Tarefa excluída",
         "status_changed": "Status da tarefa alterado",
         "updated": "Tarefa atualizada"
+      },
+      "sla": {
+        "breach_detected": "Violação de SLA detectada",
+        "rules_updated": "Regras de SLA atualizadas"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Você não tem permissão para gerenciar regras de SLA.",
+    "backToLeads": "Voltar para leads",
+    "breaches": {
+      "empty": "Nenhuma violação de SLA aberta.",
+      "title": "Violação em aberto",
+      "unnamedLead": "Lead sem nome"
+    },
+    "channel": {
+      "email": "E-mail",
+      "in_app": "No app",
+      "label": "Notificar via"
+    },
+    "condition": {
+      "no_activity": "Contactado, mas sem atividade",
+      "no_first_response": "Atribuído, mas sem primeira resposta",
+      "stale_open": "Sem progresso (qualquer status aberto)"
+    },
+    "loadFailed": "Falha ao carregar as configurações de SLA.",
+    "loading": "Carregando…",
+    "openButton": "Regras de SLA",
+    "rules": {
+      "active": "Ativa",
+      "add": "Adicionar regra",
+      "condition": "Condição",
+      "empty": "Ainda não há regras. Adicione uma para começar a monitorar.",
+      "name": "Nome",
+      "namePlaceholder": "ex.: primeira resposta em até um dia",
+      "remove": "Remover regra",
+      "thresholdHours": "Limite (horas)",
+      "title": "Regras de SLA",
+      "untitled": "Regra sem título"
+    },
+    "save": "Salvar",
+    "saveFailed": "Falha ao salvar as regras de SLA.",
+    "saved": "Regras de SLA salvas.",
+    "saving": "Salvando…",
+    "subtitle": "Receba alertas quando um lead atribuído estagnar — sem primeira resposta, sem atividade ou sem progresso dentro dos seus limites. Apenas admin.",
+    "title": "Regras e alertas de SLA"
   }
 }

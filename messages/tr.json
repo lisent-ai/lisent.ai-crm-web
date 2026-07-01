@@ -90,6 +90,10 @@
         "applied": "İçe aktarma uygulandı",
         "approved": "İçe aktarma profili onaylandı"
       },
+      "sla": {
+        "breach_detected": "SLA ihlali tespit edildi",
+        "rules_updated": "SLA kuralları güncellendi"
+      },
       "task": {
         "created": "Görev oluşturuldu",
         "deleted": "Görev silindi",
@@ -2893,6 +2897,46 @@
     "aria": "Çalışma alanında arama yapın",
     "placeholder": "Arama..."
   },
+  "sla": {
+    "accessDenied": "SLA kurallarını yönetme yetkiniz yok.",
+    "backToLeads": "Lead'lere dön",
+    "breaches": {
+      "empty": "Açık SLA ihlali yok.",
+      "title": "Açık ihlaller",
+      "unnamedLead": "İsimsiz lead"
+    },
+    "channel": {
+      "email": "E-posta",
+      "in_app": "Uygulama içi",
+      "label": "Bildirim kanalı"
+    },
+    "condition": {
+      "no_activity": "İletişime geçildi ama aktivite yok",
+      "no_first_response": "Atandı ama ilk yanıt yok",
+      "stale_open": "İlerleme yok (herhangi bir açık durum)"
+    },
+    "loadFailed": "SLA ayarları yüklenemedi.",
+    "loading": "Yükleniyor…",
+    "openButton": "SLA kuralları",
+    "rules": {
+      "active": "Aktif",
+      "add": "Kural ekle",
+      "condition": "Koşul",
+      "empty": "Henüz kural yok. İzlemeye başlamak için bir tane ekleyin.",
+      "name": "Ad",
+      "namePlaceholder": "ör. Bir gün içinde ilk yanıt",
+      "remove": "Kuralı kaldır",
+      "thresholdHours": "Eşik (saat)",
+      "title": "SLA kuralları",
+      "untitled": "Adsız kural"
+    },
+    "save": "Kaydet",
+    "saveFailed": "SLA kuralları kaydedilemedi.",
+    "saved": "SLA kuralları kaydedildi.",
+    "saving": "Kaydediliyor…",
+    "subtitle": "Atanan bir lead takıldığında haberdar olun — eşiklerinizde ilk yanıt, aktivite ya da ilerleme yoksa. Yalnızca yöneticiler.",
+    "title": "SLA kuralları ve uyarıları"
+  },
   "tasks": {
     "actions": {
       "accept": "Kabul et",
@@ -3046,6 +3090,7 @@
       "module": {
         "crmAudit": "Denetim kaydı",
         "leadsArchive": "Arşivlenen lead'ler",
+        "leadsSla": "SLA kuralları",
         "marketingAgencies": "Pazarlama · Ajanslar"
       },
       "noAccess": "Erişim yok",

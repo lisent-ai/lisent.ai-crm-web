@@ -60,6 +60,9 @@ export const KNOWN_AUDIT_ACTIONS = new Set<string>([
   // import profile
   "import_profile.approved",
   "import_profile.applied",
+  // sla
+  "sla.rules_updated",
+  "sla.breach_detected",
 ]);
 
 export const KNOWN_ACTOR_TYPES = new Set<string>(["user", "system", "integration", "ai"]);

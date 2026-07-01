@@ -5025,7 +5025,11 @@ export async function pushAgenciesToMailchimp(
 
 // ── Module access ────────────────────────────────────────────────────────
 
-export type ModuleKey = "marketing.agencies" | "leads.archive" | "crm.audit";
+export type ModuleKey =
+  | "marketing.agencies"
+  | "leads.archive"
+  | "crm.audit"
+  | "leads.sla";
 
 export type ModuleAccessGrant = {
   id: string;
@@ -5060,6 +5064,63 @@ export async function setModuleAccess(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ grants }),
   });
+}
+
+export type SLACondition = "no_first_response" | "no_activity" | "stale_open";
+export type SLARule = {
+  id: string;
+  name: string;
+  condition: SLACondition;
+  threshold_minutes: number;
+  active: boolean;
+};
+export type SLAConfig = { rules: SLARule[]; channel: "in_app" | "email" };
+
+export type SLABreach = {
+  id: string;
+  lead_id: string;
+  rule_name: string;
+  condition: string;
+  assignee_user_id: string;
+  breached_at: string;
+  lead_name: string;
+  lead_status: string;
+};
+
+/** SLA rule config for a company (admin — owner/super_admin/leads.sla). */
+export async function getSLAConfig(companyId: string): Promise<SLAConfig> {
+  const res = await requestCRM<Partial<SLAConfig>>(`/companies/${companyId}/sla-rules`);
+  return {
+    rules: Array.isArray(res.rules) ? res.rules : [],
+    channel: res.channel === "email" ? "email" : "in_app",
+  };
+}
+
+export async function setSLAConfig(companyId: string, config: SLAConfig): Promise<SLAConfig> {
+  const res = await requestCRM<Partial<SLAConfig>>(`/companies/${companyId}/sla-rules`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(config),
+  });
+  return {
+    rules: Array.isArray(res.rules) ? res.rules : [],
+    channel: res.channel === "email" ? "email" : "in_app",
+  };
+}
+
+/** Open (unresolved) SLA breaches for a company. */
+export async function listSLABreaches(
+  companyId: string,
+  page: { limit: number; offset: number } = { limit: 50, offset: 0 },
+): Promise<{ data: SLABreach[]; total: number }> {
+  const query = new URLSearchParams({ limit: String(page.limit), offset: String(page.offset) });
+  const res = await requestCRM<{ data?: SLABreach[]; total?: number }>(
+    `/companies/${companyId}/sla-breaches?${query.toString()}`,
+  );
+  return {
+    data: Array.isArray(res.data) ? res.data : [],
+    total: typeof res.total === "number" ? res.total : (res.data?.length ?? 0),
+  };
 }
 
 export type MyModuleAccess = { granted: ModuleKey[]; isOwner: boolean };

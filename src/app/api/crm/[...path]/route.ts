@@ -1104,10 +1104,14 @@ async function forwardRequest(
           resourceId,
           "integrations.manage",
         );
-      } else if (pathSegments[2] === "audit-log") {
-        // Company-wide audit log is admin-only. Let any company member reach
-        // the endpoint; the backend enforces owner / super_admin / the
-        // crm.audit grant using the forwarded auth context (extras below).
+      } else if (
+        pathSegments[2] === "audit-log" ||
+        pathSegments[2] === "sla-rules" ||
+        pathSegments[2] === "sla-breaches"
+      ) {
+        // Admin-only surfaces (audit log, SLA rules/alerts). Let any company
+        // member reach the endpoint; the backend enforces owner / super_admin /
+        // the relevant grant (crm.audit / leads.sla) via the forwarded context.
         allowed = hasCompanyPermissionInAccess(account.access, resourceId, "company.read");
       } else {
         allowed =
@@ -1144,7 +1148,9 @@ async function forwardRequest(
         pathSegments[2] === "mailchimp-connections" ||
         pathSegments[2] === "agencies" ||
         pathSegments[2] === "module-access" ||
-        pathSegments[2] === "audit-log"
+        pathSegments[2] === "audit-log" ||
+        pathSegments[2] === "sla-rules" ||
+        pathSegments[2] === "sla-breaches"
           ? {
               companyId: resourceId,
               userRole: getCompanyRoleForAccess(account.access, resourceId) ?? "",

@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agenzie",
         "crmAudit": "Registro audit",
-        "leadsArchive": "Lead archiviati"
+        "leadsArchive": "Lead archiviati",
+        "leadsSla": "Regole SLA"
       },
       "noAccess": "Nessun accesso",
       "role": "Ruolo",
@@ -3153,7 +3154,51 @@
         "deleted": "Attività eliminata",
         "status_changed": "Stato attività modificato",
         "updated": "Attività aggiornata"
+      },
+      "sla": {
+        "breach_detected": "Violazione SLA rilevata",
+        "rules_updated": "Regole SLA aggiornate"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Non hai l'autorizzazione per gestire le regole SLA.",
+    "backToLeads": "Torna ai lead",
+    "breaches": {
+      "empty": "Nessuna violazione SLA aperta.",
+      "title": "Violazioni aperte",
+      "unnamedLead": "Lead senza nome"
+    },
+    "channel": {
+      "email": "Email",
+      "in_app": "In-app",
+      "label": "Notifica tramite"
+    },
+    "condition": {
+      "no_activity": "Contattato ma nessuna attività",
+      "no_first_response": "Assegnato ma nessuna prima risposta",
+      "stale_open": "Nessun progresso (qualunque stato aperto)"
+    },
+    "loadFailed": "Impossibile caricare le impostazioni SLA.",
+    "loading": "Caricamento…",
+    "openButton": "Regole SLA",
+    "rules": {
+      "active": "Attiva",
+      "add": "Aggiungi regola",
+      "condition": "Condizione",
+      "empty": "Nessuna regola. Aggiungine una per iniziare il monitoraggio.",
+      "name": "Nome",
+      "namePlaceholder": "es. Prima risposta entro un giorno",
+      "remove": "Rimuovi regola",
+      "thresholdHours": "Soglia (ore)",
+      "title": "Regole SLA",
+      "untitled": "Regola senza titolo"
+    },
+    "save": "Salva",
+    "saveFailed": "Impossibile salvare le regole SLA.",
+    "saved": "Regole SLA salvate.",
+    "saving": "Salvataggio…",
+    "subtitle": "Ricevi avvisi quando un lead assegnato si blocca — nessuna prima risposta, attività o progresso entro le soglie. Solo admin.",
+    "title": "Regole e avvisi SLA"
   }
 }

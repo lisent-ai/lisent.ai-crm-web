@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agencies",
         "crmAudit": "Audit log",
-        "leadsArchive": "Archived leads"
+        "leadsArchive": "Archived leads",
+        "leadsSla": "SLA rules"
       },
       "noAccess": "No access",
       "role": "Role",
@@ -3153,7 +3154,51 @@
         "deleted": "Task deleted",
         "status_changed": "Task status changed",
         "updated": "Task updated"
+      },
+      "sla": {
+        "breach_detected": "SLA breach detected",
+        "rules_updated": "SLA rules updated"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "You don't have permission to manage SLA rules.",
+    "backToLeads": "Back to leads",
+    "breaches": {
+      "empty": "No open SLA breaches.",
+      "title": "Open breaches",
+      "unnamedLead": "Unnamed lead"
+    },
+    "channel": {
+      "email": "Email",
+      "in_app": "In-app",
+      "label": "Notify via"
+    },
+    "condition": {
+      "no_activity": "Contacted but no activity",
+      "no_first_response": "Assigned but no first response",
+      "stale_open": "No progress (any open status)"
+    },
+    "loadFailed": "Failed to load SLA settings.",
+    "loading": "Loading…",
+    "openButton": "SLA rules",
+    "rules": {
+      "active": "Active",
+      "add": "Add rule",
+      "condition": "Condition",
+      "empty": "No rules yet. Add one to start monitoring.",
+      "name": "Name",
+      "namePlaceholder": "e.g. First response within a day",
+      "remove": "Remove rule",
+      "thresholdHours": "Threshold (hours)",
+      "title": "SLA rules",
+      "untitled": "Untitled rule"
+    },
+    "save": "Save",
+    "saveFailed": "Failed to save SLA rules.",
+    "saved": "SLA rules saved.",
+    "saving": "Saving…",
+    "subtitle": "Get alerted when an assigned lead stalls — no first response, no activity, or no progress within your thresholds. Admin only.",
+    "title": "SLA rules & alerts"
   }
 }

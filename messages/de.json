@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agenturen",
         "crmAudit": "Audit‑Protokoll",
-        "leadsArchive": "Archivierte Leads"
+        "leadsArchive": "Archivierte Leads",
+        "leadsSla": "SLA-Regeln"
       },
       "noAccess": "Kein Zugriff",
       "role": "Rolle",
@@ -3153,7 +3154,51 @@
         "deleted": "Aufgabe gelöscht",
         "status_changed": "Aufgabenstatus geändert",
         "updated": "Aufgabe aktualisiert"
+      },
+      "sla": {
+        "breach_detected": "SLA-Verstoß erkannt",
+        "rules_updated": "SLA-Regeln aktualisiert"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Sie haben keine Berechtigung, SLA-Regeln zu verwalten.",
+    "backToLeads": "Zurück zu Leads",
+    "breaches": {
+      "empty": "Keine offenen SLA-Verstöße.",
+      "title": "Offene Verstöße",
+      "unnamedLead": "Unbenannter Lead"
+    },
+    "channel": {
+      "email": "E-Mail",
+      "in_app": "In-App",
+      "label": "Benachrichtigen über"
+    },
+    "condition": {
+      "no_activity": "Kontaktiert, aber keine Aktivität",
+      "no_first_response": "Zugewiesen, aber keine erste Antwort",
+      "stale_open": "Kein Fortschritt (beliebiger offener Status)"
+    },
+    "loadFailed": "Laden der SLA-Einstellungen fehlgeschlagen.",
+    "loading": "Laden…",
+    "openButton": "SLA-Regeln",
+    "rules": {
+      "active": "Aktiv",
+      "add": "Regel hinzufügen",
+      "condition": "Bedingung",
+      "empty": "Noch keine Regeln. Fügen Sie eine hinzu, um zu überwachen.",
+      "name": "Name",
+      "namePlaceholder": "z. B. Erste Antwort innerhalb eines Tages",
+      "remove": "Regel entfernen",
+      "thresholdHours": "Schwelle (Stunden)",
+      "title": "SLA-Regeln",
+      "untitled": "Unbenannte Regel"
+    },
+    "save": "Speichern",
+    "saveFailed": "Speichern der SLA-Regeln fehlgeschlagen.",
+    "saved": "SLA-Regeln gespeichert.",
+    "saving": "Speichern…",
+    "subtitle": "Benachrichtigen, wenn ein zugewiesener Lead stockt – keine erste Antwort, keine Aktivität oder kein Fortschritt innerhalb Ihrer Schwellenwerte. Nur für Admins.",
+    "title": "SLA-Regeln & Benachrichtigungen"
   }
 }

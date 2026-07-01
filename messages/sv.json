@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marknadsföring · Byråer",
         "crmAudit": "Auditlogg",
-        "leadsArchive": "Arkiverade leads"
+        "leadsArchive": "Arkiverade leads",
+        "leadsSla": "SLA-regler"
       },
       "noAccess": "Ingen åtkomst",
       "role": "Roll",
@@ -3153,7 +3154,51 @@
         "deleted": "Uppgift raderad",
         "status_changed": "Uppgiftstatus ändrad",
         "updated": "Uppgift uppdaterad"
+      },
+      "sla": {
+        "breach_detected": "SLA-brott upptäckt",
+        "rules_updated": "SLA-regler uppdaterade"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Du har inte behörighet att hantera SLA-regler.",
+    "backToLeads": "Tillbaka till leads",
+    "breaches": {
+      "empty": "Inga öppna SLA-brott.",
+      "title": "Öppna brott",
+      "unnamedLead": "Namnlös lead"
+    },
+    "channel": {
+      "email": "E‑post",
+      "in_app": "I appen",
+      "label": "Meddela via"
+    },
+    "condition": {
+      "no_activity": "Kontaktad men ingen aktivitet",
+      "no_first_response": "Tilldelad men inget första svar",
+      "stale_open": "Ingen utveckling (öppna statusar)"
+    },
+    "loadFailed": "Kunde inte läsa in SLA-inställningar.",
+    "loading": "Läser in…",
+    "openButton": "SLA-regler",
+    "rules": {
+      "active": "Aktiv",
+      "add": "Lägg till regel",
+      "condition": "Villkor",
+      "empty": "Inga regler ännu. Lägg till en för att börja övervaka.",
+      "name": "Namn",
+      "namePlaceholder": "t.ex. Första svar inom en dag",
+      "remove": "Ta bort regel",
+      "thresholdHours": "Tröskel (timmar)",
+      "title": "SLA-regler",
+      "untitled": "Namnlös regel"
+    },
+    "save": "Spara",
+    "saveFailed": "Kunde inte spara SLA-regler.",
+    "saved": "SLA-regler sparade.",
+    "saving": "Sparar…",
+    "subtitle": "Få avisering när en tilldelad lead stannar – inget första svar, ingen aktivitet eller ingen utveckling inom dina gränser. Endast admin.",
+    "title": "SLA-regler & aviseringar"
   }
 }

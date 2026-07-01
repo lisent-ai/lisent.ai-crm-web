@@ -26,6 +26,7 @@ const MODULE_LABEL_KEYS: Record<ModuleKey, string> = {
   "marketing.agencies": "teamMembers.moduleAccess.module.marketingAgencies",
   "leads.archive": "teamMembers.moduleAccess.module.leadsArchive",
   "crm.audit": "teamMembers.moduleAccess.module.crmAudit",
+  "leads.sla": "teamMembers.moduleAccess.module.leadsSla",
 };
 
 // ModuleAccessSection — owner-only matrix that toggles per-user-per-

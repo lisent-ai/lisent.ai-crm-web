@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Archive, Calendar, CheckCircle2, History, PencilLine } from "lucide-react";
+import { Archive, Calendar, CheckCircle2, History, PencilLine, Timer } from "lucide-react";
 
 import { getAccountProfile } from "@/lib/account/client";
 import type { AccountProfile } from "@/lib/auth/account-profile";
@@ -454,6 +454,9 @@ export function LeadDirectory() {
   const canViewAudit =
     !!myModuleAccess &&
     (myModuleAccess.isOwner || myModuleAccess.granted.includes("crm.audit"));
+  const canManageSLA =
+    !!myModuleAccess &&
+    (myModuleAccess.isOwner || myModuleAccess.granted.includes("leads.sla"));
 
   // Loads the visible list. Normal case: one server page (fast, indexed).
   // Campaign deep-link case: campaign lives in extra_data (not a SQL filter),
@@ -1429,7 +1432,7 @@ export function LeadDirectory() {
     <div className="flex min-w-0 flex-col gap-5">
       <LeadHeader companyName={companyName} leadCount={leadStats?.total ?? 0} />
 
-      {selectedCompany && (canViewArchived || canViewAudit) ? (
+      {selectedCompany && (canViewArchived || canViewAudit || canManageSLA) ? (
         <div className="flex flex-wrap justify-end gap-4">
           {canViewArchived ? (
             <Link
@@ -1453,6 +1456,18 @@ export function LeadDirectory() {
             >
               <History aria-hidden="true" className="h-4 w-4" />
               {t("audit.openButton")}
+            </Link>
+          ) : null}
+          {canManageSLA ? (
+            <Link
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
+              href={`/dashboard/sla?${new URLSearchParams({
+                company: selectedCompany.id,
+                ...(companyName ? { companyName } : {}),
+              }).toString()}`}
+            >
+              <Timer aria-hidden="true" className="h-4 w-4" />
+              {t("sla.openButton")}
             </Link>
           ) : null}
         </div>

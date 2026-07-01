@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agences",
         "crmAudit": "Journal d’audit",
-        "leadsArchive": "Prospects archivés"
+        "leadsArchive": "Prospects archivés",
+        "leadsSla": "Règles SLA"
       },
       "noAccess": "Aucun accès",
       "role": "Rôle",
@@ -3153,7 +3154,51 @@
         "deleted": "Tâche supprimée",
         "status_changed": "Statut de la tâche modifié",
         "updated": "Tâche mise à jour"
+      },
+      "sla": {
+        "breach_detected": "Violation SLA détectée",
+        "rules_updated": "Règles SLA mises à jour"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Vous n'avez pas la permission de gérer les règles SLA.",
+    "backToLeads": "Retour aux prospects",
+    "breaches": {
+      "empty": "Aucune violation SLA ouverte.",
+      "title": "Violations ouvertes",
+      "unnamedLead": "Prospect sans nom"
+    },
+    "channel": {
+      "email": "E‑mail",
+      "in_app": "In‑app",
+      "label": "Notifier via"
+    },
+    "condition": {
+      "no_activity": "Contacté mais aucune activité",
+      "no_first_response": "Assigné mais aucune première réponse",
+      "stale_open": "Pas de progression (tout statut ouvert)"
+    },
+    "loadFailed": "Échec du chargement des paramètres SLA.",
+    "loading": "Chargement…",
+    "openButton": "Règles SLA",
+    "rules": {
+      "active": "Active",
+      "add": "Ajouter une règle",
+      "condition": "Condition",
+      "empty": "Aucune règle pour le moment. Ajoutez‑en une pour commencer la surveillance.",
+      "name": "Nom",
+      "namePlaceholder": "ex. Première réponse sous un jour",
+      "remove": "Supprimer la règle",
+      "thresholdHours": "Seuil (heures)",
+      "title": "Règles SLA",
+      "untitled": "Règle sans titre"
+    },
+    "save": "Enregistrer",
+    "saveFailed": "Échec de l'enregistrement des règles SLA.",
+    "saved": "Règles SLA enregistrées.",
+    "saving": "Enregistrement…",
+    "subtitle": "Soyez alerté lorsqu'un prospect assigné stagne — aucune première réponse, aucune activité ou aucune progression selon vos seuils. Administrateur uniquement.",
+    "title": "Règles et alertes SLA"
   }
 }

@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agencias",
         "crmAudit": "Registro de auditoría",
-        "leadsArchive": "Leads archivados"
+        "leadsArchive": "Leads archivados",
+        "leadsSla": "Reglas SLA"
       },
       "noAccess": "Sin acceso",
       "role": "Rol",
@@ -3153,7 +3154,51 @@
         "deleted": "Tarea eliminada",
         "status_changed": "Estado de la tarea cambiado",
         "updated": "Tarea actualizada"
+      },
+      "sla": {
+        "breach_detected": "Incumplimiento SLA detectado",
+        "rules_updated": "Reglas SLA actualizadas"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "No tienes permiso para gestionar las reglas SLA.",
+    "backToLeads": "Volver a contactos",
+    "breaches": {
+      "empty": "No hay incumplimientos SLA abiertos.",
+      "title": "Incumplimientos abiertos",
+      "unnamedLead": "Contacto sin nombre"
+    },
+    "channel": {
+      "email": "Correo electrónico",
+      "in_app": "En la app",
+      "label": "Notificar vía"
+    },
+    "condition": {
+      "no_activity": "Contactado pero sin actividad",
+      "no_first_response": "Asignado pero sin primera respuesta",
+      "stale_open": "Sin progreso (cualquier estado abierto)"
+    },
+    "loadFailed": "Error al cargar la configuración SLA.",
+    "loading": "Cargando…",
+    "openButton": "Reglas SLA",
+    "rules": {
+      "active": "Activa",
+      "add": "Agregar regla",
+      "condition": "Condición",
+      "empty": "Aún no hay reglas. Añade una para comenzar a monitorizar.",
+      "name": "Nombre",
+      "namePlaceholder": "p.ej. Primera respuesta en un día",
+      "remove": "Eliminar regla",
+      "thresholdHours": "Umbral (horas)",
+      "title": "Reglas SLA",
+      "untitled": "Regla sin título"
+    },
+    "save": "Guardar",
+    "saveFailed": "Error al guardar las reglas SLA.",
+    "saved": "Reglas SLA guardadas.",
+    "saving": "Guardando…",
+    "subtitle": "Recibe alertas cuando un contacto asignado se estanca — sin primera respuesta, sin actividad o sin progreso dentro de tus umbrales. Solo administradores.",
+    "title": "Reglas y alertas SLA"
   }
 }

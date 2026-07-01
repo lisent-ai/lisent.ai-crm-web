@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Agenturer",
         "crmAudit": "Auditlog",
-        "leadsArchive": "Arkiverede leads"
+        "leadsArchive": "Arkiverede leads",
+        "leadsSla": "SLA-regler"
       },
       "noAccess": "Ingen adgang",
       "role": "Rolle",
@@ -3153,7 +3154,51 @@
         "deleted": "Opgave slettet",
         "status_changed": "Opgavestatus ændret",
         "updated": "Opgave opdateret"
+      },
+      "sla": {
+        "breach_detected": "SLA-overtrædelse registreret",
+        "rules_updated": "SLA-regler opdateret"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Du har ikke tilladelse til at administrere SLA-regler.",
+    "backToLeads": "Tilbage til leads",
+    "breaches": {
+      "empty": "Ingen åbne SLA-overtrædelser.",
+      "title": "Åbne overtrædelser",
+      "unnamedLead": "Unavngivet lead"
+    },
+    "channel": {
+      "email": "E-mail",
+      "in_app": "I appen",
+      "label": "Underret via"
+    },
+    "condition": {
+      "no_activity": "Kontaktet men ingen aktivitet",
+      "no_first_response": "Tildelt men ingen første svar",
+      "stale_open": "Ingen fremdrift (alle åbne statusser)"
+    },
+    "loadFailed": "Kunne ikke indlæse SLA-indstillinger.",
+    "loading": "Indlæser…",
+    "openButton": "SLA-regler",
+    "rules": {
+      "active": "Aktiv",
+      "add": "Tilføj regel",
+      "condition": "Betingelse",
+      "empty": "Ingen regler endnu. Tilføj en for at begynde overvågning.",
+      "name": "Navn",
+      "namePlaceholder": "f.eks. Første svar inden for en dag",
+      "remove": "Fjern regel",
+      "thresholdHours": "Tærskel (timer)",
+      "title": "SLA-regler",
+      "untitled": "Regel uden titel"
+    },
+    "save": "Gem",
+    "saveFailed": "Kunne ikke gemme SLA-regler.",
+    "saved": "SLA-regler gemt.",
+    "saving": "Gemmer…",
+    "subtitle": "Få besked når et tildelt lead stopper — ingen første svar, ingen aktivitet eller ingen fremdrift inden for dine tærskler. Kun admin.",
+    "title": "SLA-regler & advarsler"
   }
 }

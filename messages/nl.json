@@ -2979,7 +2979,8 @@
       "module": {
         "marketingAgencies": "Marketing · Bureaus",
         "crmAudit": "Auditlog",
-        "leadsArchive": "Gearchiveerde leads"
+        "leadsArchive": "Gearchiveerde leads",
+        "leadsSla": "SLA-regels"
       },
       "noAccess": "Geen toegang",
       "role": "Rol",
@@ -3153,7 +3154,51 @@
         "deleted": "Taak verwijderd",
         "status_changed": "Taakstatus gewijzigd",
         "updated": "Taak bijgewerkt"
+      },
+      "sla": {
+        "breach_detected": "SLA-overtreding gedetecteerd",
+        "rules_updated": "SLA-regels bijgewerkt"
       }
     }
+  },
+  "sla": {
+    "accessDenied": "Je hebt geen toestemming om SLA-regels te beheren.",
+    "backToLeads": "Terug naar leads",
+    "breaches": {
+      "empty": "Geen open SLA-overtredingen.",
+      "title": "Open overtredingen",
+      "unnamedLead": "Naamloze lead"
+    },
+    "channel": {
+      "email": "E-mail",
+      "in_app": "In-app",
+      "label": "Melden via"
+    },
+    "condition": {
+      "no_activity": "Gecontacteerd maar geen activiteit",
+      "no_first_response": "Toegewezen maar geen eerste reactie",
+      "stale_open": "Geen voortgang (alle open statussen)"
+    },
+    "loadFailed": "Laden van SLA-instellingen mislukt.",
+    "loading": "Laden…",
+    "openButton": "SLA-regels",
+    "rules": {
+      "active": "Actief",
+      "add": "Regel toevoegen",
+      "condition": "Voorwaarde",
+      "empty": "Nog geen regels. Voeg er één toe om te beginnen met monitoren.",
+      "name": "Naam",
+      "namePlaceholder": "bijv. Eerste reactie binnen een dag",
+      "remove": "Regel verwijderen",
+      "thresholdHours": "Drempel (uren)",
+      "title": "SLA-regels",
+      "untitled": "Naamloze regel"
+    },
+    "save": "Opslaan",
+    "saveFailed": "Opslaan van SLA-regels mislukt.",
+    "saved": "SLA-regels opgeslagen.",
+    "saving": "Opslaan…",
+    "subtitle": "Ontvang een melding wanneer een toegewezen lead stagneert — geen eerste reactie, geen activiteit of geen voortgang binnen je drempels. Alleen voor admins.",
+    "title": "SLA-regels & meldingen"
   }
 }
