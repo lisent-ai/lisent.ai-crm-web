@@ -353,7 +353,7 @@
       "selectAll": "Valitse kaikki asiakkaat",
       "selectRow": "Valitse asiakas {name}",
       "title": "Asiakkaat",
-      "visibleCount": "Näytetään {visible} / {total}"
+      "visibleCount": "Näytetään {count}"
     },
     "loading": "Ladataan asiakkaita...",
     "noEmail": "Sähköpostiosoitetta ei ole tallennettu",
@@ -403,14 +403,14 @@
       "title": "AI-näkemykset"
     },
     "amount": "Summa",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Vastuuhenkilö",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Vedä kauppoja vaiheiden välillä päivittää putken.",
     "changedBy": "Muutettu {name}",
     "close": "Sulje",
     "closeTarget": "Sulkemistavoite",
-    "closeTargetValue": "{date}",
+    "closeTargetValue": "{value}",
     "columnTotal": "Sarakkeen summa: {value}",
     "commentPlaceholder": "Kirjoita kommentti…",
     "comments": "Kommentit",
@@ -626,7 +626,7 @@
       },
       "subtitle": "Dealien jakautuminen vaiheittain.",
       "title": "Putki",
-      "totalBadge": "{value} yhteensä"
+      "totalBadge": "{count} yhteensä"
     },
     "quickActions": {
       "aiQualifier": {
@@ -770,7 +770,7 @@
       "mappedFields": "Kohdistetut kentät",
       "progress": "Edistyminen",
       "rowsLoaded": "Rivejä ladattu",
-      "stepNumber": "Vaihe {step}",
+      "stepNumber": "Vaihe {number}",
       "title": "Tuonnin eteneminen"
     },
     "source": {
@@ -813,7 +813,7 @@
       "description": "Tuo asiakastiedot {name}iin CSV-tiedostosta tai URL-osoitteesta.",
       "eyebrow": "Työtilan tuonti",
       "selectedCompany": "Aktiivinen työtila: {name}",
-      "stepLabel": "Vaihe {step}/{total}"
+      "stepLabel": "Vaihe {step}"
     }
   },
   "integrations": {
@@ -1359,9 +1359,9 @@
     },
     "subComponent": {
       "configured": "Määritetty",
-      "configuredAria": "{name} on määritetty",
+      "configuredAria": "{label} on määritetty",
       "notSet": "Ei asetettu",
-      "notSetAria": "{name} ei ole asetettu"
+      "notSetAria": "{label} ei ole asetettu"
     },
     "testConnection": "Testaa yhteys",
     "testing": "Testataan...",
@@ -1799,7 +1799,7 @@
       "assignee": "Vastuuhenkilö",
       "empty": "Ei leadia, jotka täsmäävät nykyisiin suodattimiin.",
       "name": "Nimi",
-      "openAIScore": "Open AI -pisteet kohteelle {name}",
+      "openAIScore": "Open AI -piste {score}:lle",
       "phone": "Puhelin",
       "rowActions": "Rivin toiminnot",
       "selectAll": "Valitse kaikki leadit",
@@ -2018,7 +2018,7 @@
         "statusUnsubscribed": "Peruutettu",
         "subtitle": "Jokainen toimisto muuttuu Mailchimp-tilaajaksi. Nimi kartoitetaan FNAME‑kenttään, yhteystieto LNAME‑kenttään, puhelin PHONE‑kenttään. Tunniste {tag} lisätään automaattisesti.",
         "summary": "{eligible} / {total} lähetetään.",
-        "title": "{count, plural, one {Lähetä {count} toimisto Mailchimpiin} other {Lähetä {count} toimistoa Mailchimpiin}}"
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
       },
       "row": {
         "actions": {
@@ -2997,7 +2997,7 @@
     "removeMember": "Poista jäsen",
     "removeModal": {
       "confirm": "Poista jäsen",
-      "description": "{name} menettää pääsyn tähän workspaceen heti.",
+      "description": "{company} menettää pääsyn tähän työtilaan välittömästi.",
       "eyebrow": "Poista tiimin jäsen",
       "removing": "Poistetaan…",
       "title": "Poista tiimin jäsen?"

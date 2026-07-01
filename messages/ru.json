@@ -353,7 +353,7 @@
       "selectAll": "Выбрать всех клиентов",
       "selectRow": "Выбрать клиента {name}",
       "title": "Клиенты",
-      "visibleCount": "Показано {visible} из {total}"
+      "visibleCount": "Показано {count}"
     },
     "loading": "Загрузка клиентов…",
     "noEmail": "Электронная почта не указана",
@@ -403,14 +403,14 @@
       "title": "AI‑инсайты"
     },
     "amount": "Сумма",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Ответственный",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Перетаскивайте сделки между стадиями, чтобы обновить pipeline.",
     "changedBy": "Изменено пользователем {name}",
     "close": "Закрыть",
     "closeTarget": "Цель закрытия",
-    "closeTargetValue": "{date}",
+    "closeTargetValue": "{value}",
     "columnTotal": "Итого по колонке: {value}",
     "commentPlaceholder": "Напишите комментарий…",
     "comments": "Комментарии",
@@ -626,7 +626,7 @@
       },
       "subtitle": "Распределение Deal‑ов по Stage.",
       "title": "Pipeline",
-      "totalBadge": "{value} всего"
+      "totalBadge": "{count} всего"
     },
     "quickActions": {
       "aiQualifier": {
@@ -770,7 +770,7 @@
       "mappedFields": "Сопоставленные поля",
       "progress": "Прогресс",
       "rowsLoaded": "Строк загружено",
-      "stepNumber": "Шаг {step}",
+      "stepNumber": "Шаг {number}",
       "title": "Прогресс импорта"
     },
     "source": {
@@ -813,7 +813,7 @@
       "description": "Импортируйте данные клиентов в {name} из CSV‑файла или по URL.",
       "eyebrow": "Импорт рабочего пространства",
       "selectedCompany": "Активный Workspace: {name}",
-      "stepLabel": "Шаг {step} из {total}"
+      "stepLabel": "Шаг {step}"
     }
   },
   "integrations": {
@@ -1359,9 +1359,9 @@
     },
     "subComponent": {
       "configured": "Настроено",
-      "configuredAria": "{name} настроен",
+      "configuredAria": "{label} настроен",
       "notSet": "Не задано",
-      "notSetAria": "{name} не задан"
+      "notSetAria": "{label} не установлен"
     },
     "testConnection": "Проверить соединение",
     "testing": "Проверка...",
@@ -1799,7 +1799,7 @@
       "assignee": "Ответственный",
       "empty": "Нет лидов, соответствующих текущим фильтрам.",
       "name": "Имя",
-      "openAIScore": "Оценка Open AI для {name}",
+      "openAIScore": "Оценка Open AI для {score}",
       "phone": "Телефон",
       "rowActions": "Действия строки",
       "selectAll": "Выбрать все лиды",
@@ -2018,7 +2018,7 @@
         "statusUnsubscribed": "Отписан",
         "subtitle": "Каждое агентство становится подписчиком Mailchimp. Имя сопоставляется с FNAME, контакт — с LNAME, телефон — с PHONE. Тег {tag} добавляется автоматически.",
         "summary": "{eligible} из {total} будет отправлено.",
-        "title": "{count, plural, one {Отправить {count} агентство в Mailchimp} other {Отправить {count} агентств в Mailchimp}}"
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
       },
       "row": {
         "actions": {
@@ -2997,7 +2997,7 @@
     "removeMember": "Удалить участника",
     "removeModal": {
       "confirm": "Удалить участника",
-      "description": "{name} потеряет доступ к этому рабочему пространству сразу.",
+      "description": "{company} сразу потеряет доступ к этому рабочему пространству.",
       "eyebrow": "Удалить участника команды",
       "removing": "Удаляется…",
       "title": "Удалить участника команды?"

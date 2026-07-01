@@ -525,6 +525,20 @@ async function listAuthorizedLeads(
       return Response.json({ error: "forbidden" }, { status: 403 });
     }
 
+    // Archived-leads view is admin-only: only the company owner (super_admin
+    // is already handled above). This is the authorization boundary for the
+    // archive — the backend trusts the BFF and just filters archived rows.
+    const archivedView = ["true", "all"].includes(
+      (searchParams.get("archived") ?? "").trim().toLowerCase(),
+    );
+    if (archivedView) {
+      if (getCompanyRoleForAccess(account.access, requestedCompanyId) !== "owner") {
+        return Response.json({ error: "forbidden" }, { status: 403 });
+      }
+      const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"]);
+      return relayUpstreamResponse(upstreamResponse);
+    }
+
     // Member role: force assignee filter to self regardless of any
     // client-supplied assignee_user_id / unassigned hints. This is the
     // security boundary — members must only see leads assigned to them.
@@ -1220,6 +1234,37 @@ async function forwardRequest(
         account,
         pathSegments,
       );
+      return relayUpstreamResponse(upstreamResponse);
+    }
+
+    // Restore (unarchive) is admin-only: super_admin, or the company owner.
+    // Resolve the lead's company to check the caller's role. Archive itself
+    // stays open to anyone with write access (it replaces the old delete).
+    if (resourceId && method === "POST" && pathSegments[2] === "unarchive") {
+      if (!account.access.isSuperAdmin) {
+        let leadCompanyId = "";
+        try {
+          const lead = await fetchCRMJSON<CRMLeadRecord>(
+            request,
+            config,
+            account,
+            ["leads", resourceId],
+          );
+          leadCompanyId = lead.company_id?.trim() ?? "";
+        } catch (error) {
+          if (error instanceof Response) {
+            return relayUpstreamResponse(error);
+          }
+          return Response.json({ error: "Failed to authorize lead." }, { status: 500 });
+        }
+        if (
+          !leadCompanyId ||
+          getCompanyRoleForAccess(account.access, leadCompanyId) !== "owner"
+        ) {
+          return Response.json({ error: "forbidden" }, { status: 403 });
+        }
+      }
+      const upstreamResponse = await sendUpstreamRequest(request, config, account, pathSegments);
       return relayUpstreamResponse(upstreamResponse);
     }
 

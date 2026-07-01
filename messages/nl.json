@@ -353,7 +353,7 @@
       "selectAll": "Alle klanten selecteren",
       "selectRow": "Klant {name} selecteren",
       "title": "Klanten",
-      "visibleCount": "Weergegeven {visible} van {total}"
+      "visibleCount": "Toont {count}"
     },
     "loading": "Klanten laden...",
     "noEmail": "Geen e‑mail beschikbaar",
@@ -403,14 +403,14 @@
       "title": "AI‑inzichten"
     },
     "amount": "Bedrag",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Toegewezen aan",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Sleep deals tussen fases om de pipeline bij te werken.",
     "changedBy": "Gewijzigd door {name}",
     "close": "Sluiten",
     "closeTarget": "Sluitdoel",
-    "closeTargetValue": "{date}",
+    "closeTargetValue": "{value}",
     "columnTotal": "Kolomtotaal: {value}",
     "commentPlaceholder": "Schrijf een reactie...",
     "comments": "Opmerkingen",
@@ -626,7 +626,7 @@
       },
       "subtitle": "Verdeling van deals per fase.",
       "title": "Pipeline",
-      "totalBadge": "{value} totaal"
+      "totalBadge": "{count} totaal"
     },
     "quickActions": {
       "aiQualifier": {
@@ -770,7 +770,7 @@
       "mappedFields": "Toegewezen velden",
       "progress": "Voortgang",
       "rowsLoaded": "Rijen geladen",
-      "stepNumber": "Stap {step}",
+      "stepNumber": "Stap {number}",
       "title": "Importvoortgang"
     },
     "source": {
@@ -813,7 +813,7 @@
       "description": "Importeer klantgegevens in {name} vanuit een CSV‑bestand of URL.",
       "eyebrow": "Workspace‑import",
       "selectedCompany": "Actieve workspace: {name}",
-      "stepLabel": "Stap {step} van {total}"
+      "stepLabel": "Stap {step}"
     }
   },
   "integrations": {
@@ -1359,9 +1359,9 @@
     },
     "subComponent": {
       "configured": "Geconfigureerd",
-      "configuredAria": "{name} is geconfigureerd",
+      "configuredAria": "{label} is geconfigureerd",
       "notSet": "Niet ingesteld",
-      "notSetAria": "{name} is niet ingesteld"
+      "notSetAria": "{label} is niet ingesteld"
     },
     "testConnection": "Verbinding testen",
     "testing": "Bezig met testen…",
@@ -1799,7 +1799,7 @@
       "assignee": "Toegewezene",
       "empty": "Geen leads komen overeen met de huidige filters.",
       "name": "Naam",
-      "openAIScore": "Open AI-score voor {name}",
+      "openAIScore": "Open AI-score voor {score}",
       "phone": "Telefoon",
       "rowActions": "Rijacties",
       "selectAll": "Alle leads selecteren",
@@ -2018,7 +2018,7 @@
         "statusUnsubscribed": "Uitgeschreven",
         "subtitle": "Elk bureau wordt een Mailchimp-abonnee. Naam wordt gekoppeld aan FNAME, contact aan LNAME, telefoon aan PHONE. De tag {tag} wordt automatisch toegevoegd.",
         "summary": "{eligible} van de {total} zullen worden gepusht.",
-        "title": "{count, plural, one {Push {count} bureau naar Mailchimp} other {Push {count} bureaus naar Mailchimp}}"
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
       },
       "row": {
         "actions": {
@@ -2997,7 +2997,7 @@
     "removeMember": "Verwijder lid",
     "removeModal": {
       "confirm": "Verwijder lid",
-      "description": "{name} verliest onmiddellijk toegang tot deze workspace.",
+      "description": "{company} verliest onmiddellijk toegang tot deze werkruimte.",
       "eyebrow": "Teamlid verwijderen",
       "removing": "Bezig met verwijderen…",
       "title": "Teamlid verwijderen?"

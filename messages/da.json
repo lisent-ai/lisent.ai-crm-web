@@ -353,7 +353,7 @@
       "selectAll": "Vælg alle kunder",
       "selectRow": "Vælg kunde {name}",
       "title": "Kunder",
-      "visibleCount": "Viser {visible} af {total}"
+      "visibleCount": "Viser {count}"
     },
     "loading": "Indlæser kunder...",
     "noEmail": "Ingen e‑mail registreret",
@@ -403,14 +403,14 @@
       "title": "AI-indsigter"
     },
     "amount": "Beløb",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Tildelt",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Træk deals mellem stages for at opdatere pipeline.",
     "changedBy": "Ændret af {name}",
     "close": "Luk",
     "closeTarget": "Luk mål",
-    "closeTargetValue": "{date}",
+    "closeTargetValue": "{value}",
     "columnTotal": "Kolonne total: {value}",
     "commentPlaceholder": "Skriv en kommentar…",
     "comments": "Kommentarer",
@@ -626,7 +626,7 @@
       },
       "subtitle": "Fordeling af deals efter stage.",
       "title": "Pipeline",
-      "totalBadge": "{value} total"
+      "totalBadge": "{count} i alt"
     },
     "quickActions": {
       "aiQualifier": {
@@ -770,7 +770,7 @@
       "mappedFields": "Kortlagte felter",
       "progress": "Fremskridt",
       "rowsLoaded": "Rækker indlæst",
-      "stepNumber": "Trin {step}",
+      "stepNumber": "Trin {number}",
       "title": "Importstatus"
     },
     "source": {
@@ -813,7 +813,7 @@
       "description": "Importér kundedata til {name} fra en CSV-fil eller URL.",
       "eyebrow": "Workspace-import",
       "selectedCompany": "Aktivt workspace: {name}",
-      "stepLabel": "Trin {step} af {total}"
+      "stepLabel": "Trin {step}"
     }
   },
   "integrations": {
@@ -1359,9 +1359,9 @@
     },
     "subComponent": {
       "configured": "Konfigureret",
-      "configuredAria": "{name} er konfigureret",
+      "configuredAria": "{label} er konfigureret",
       "notSet": "Ikke angivet",
-      "notSetAria": "{name} er ikke angivet"
+      "notSetAria": "{label} er ikke indstillet"
     },
     "testConnection": "Test forbindelse",
     "testing": "Tester...",
@@ -1799,7 +1799,7 @@
       "assignee": "Assignee",
       "empty": "Ingen leads matcher de aktuelle filtre.",
       "name": "Navn",
-      "openAIScore": "Open AI-score for {name}",
+      "openAIScore": "Open AI-score for {score}",
       "phone": "Telefon",
       "rowActions": "Rækkehandlinger",
       "selectAll": "Vælg alle leads",
@@ -2018,7 +2018,7 @@
         "statusUnsubscribed": "Afmeldt",
         "subtitle": "Hvert bureau bliver en Mailchimp‑abonnent. Navn kortlægges til FNAME, kontakt til LNAME, telefon til PHONE. Tagget {tag} tilføjes automatisk.",
         "summary": "{eligible} af {total} vil blive overført.",
-        "title": "{count, plural, one {Overfør {count} bureau til Mailchimp} other {Overfør {count} bureauer til Mailchimp}}"
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
       },
       "row": {
         "actions": {
@@ -2997,7 +2997,7 @@
     "removeMember": "Fjern medlem",
     "removeModal": {
       "confirm": "Fjern medlem",
-      "description": "{name} mister straks adgangen til dette workspace.",
+      "description": "{company} vil miste adgangen til dette arbejdsområde med det samme.",
       "eyebrow": "Fjern teammedlem",
       "removing": "Fjerner...",
       "title": "Fjern teammedlem?"

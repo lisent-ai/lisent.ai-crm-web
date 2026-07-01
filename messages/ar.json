@@ -353,7 +353,7 @@
       "selectAll": "تحديد جميع العملاء",
       "selectRow": "تحديد العميل {name}",
       "title": "العملاء",
-      "visibleCount": "عرض {visible} من {total}"
+      "visibleCount": "عرض {count}"
     },
     "loading": "جارٍ تحميل العملاء...",
     "noEmail": "لا يوجد بريد إلكتروني مسجل",
@@ -403,14 +403,14 @@
       "title": "رؤى AI"
     },
     "amount": "المبلغ",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "المكلف",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "اسحب الصفقات بين المراحل لتحديث الـ Pipeline.",
     "changedBy": "تم التعديل بواسطة {name}",
     "close": "إغلاق",
     "closeTarget": "هدف الإغلاق",
-    "closeTargetValue": "{date}",
+    "closeTargetValue": "{value}",
     "columnTotal": "إجمالي العمود: {value}",
     "commentPlaceholder": "اكتب تعليقًا...",
     "comments": "تعليقات",
@@ -626,7 +626,7 @@
       },
       "subtitle": "توزيع الـ Deal حسب المرحلة.",
       "title": "Pipeline",
-      "totalBadge": "{value} إجمالي"
+      "totalBadge": "{count} إجمالي"
     },
     "quickActions": {
       "aiQualifier": {
@@ -770,7 +770,7 @@
       "mappedFields": "الحقول المرتبطة",
       "progress": "التقدم",
       "rowsLoaded": "تم تحميل الصفوف",
-      "stepNumber": "الخطوة {step}",
+      "stepNumber": "الخطوة {number}",
       "title": "تقدم الاستيراد"
     },
     "source": {
@@ -813,7 +813,7 @@
       "description": "استورد بيانات العملاء إلى {name} من ملف CSV أو رابط.",
       "eyebrow": "استيراد Workspace",
       "selectedCompany": "Workspace النشطة: {name}",
-      "stepLabel": "الخطوة {step} من {total}"
+      "stepLabel": "الخطوة {step}"
     }
   },
   "integrations": {
@@ -1359,9 +1359,9 @@
     },
     "subComponent": {
       "configured": "مُكوَّن",
-      "configuredAria": "{name} تم تكوينه",
+      "configuredAria": "تم تكوين {label}",
       "notSet": "غير محدد",
-      "notSetAria": "{name} غير محدد"
+      "notSetAria": "لم يتم تعيين {label}"
     },
     "testConnection": "اختبار الاتصال",
     "testing": "جارٍ الاختبار...",
@@ -1799,7 +1799,7 @@
       "assignee": "المكلف",
       "empty": "لا توجد أي Leads تطابق الفلاتر الحالية.",
       "name": "الاسم",
-      "openAIScore": "درجة Open AI لـ {name}",
+      "openAIScore": "درجة Open AI لـ {score}",
       "phone": "الهاتف",
       "rowActions": "إجراءات الصف",
       "selectAll": "تحديد جميع الـ Leads",
@@ -2018,7 +2018,7 @@
         "statusUnsubscribed": "غير مشترك",
         "subtitle": "كل وكالة تصبح مشتركًا في Mailchimp. يُطابق الاسم مع FNAME، والاتصال مع LNAME، والهاتف مع PHONE. يتم إضافة الوسم {tag} تلقائيًا.",
         "summary": "سيتم دفع {eligible} من أصل {total}.",
-        "title": "{count, plural, one {دفع {count} وكالة إلى Mailchimp} other {دفع {count} وكالات إلى Mailchimp}}"
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
       },
       "row": {
         "actions": {
@@ -2997,7 +2997,7 @@
     "removeMember": "إزالة العضو",
     "removeModal": {
       "confirm": "إزالة العضو",
-      "description": "{name} سيفقد الوصول إلى مساحة العمل هذه فوراً.",
+      "description": "{company} ستفقد الوصول إلى مساحة العمل هذه فورًا.",
       "eyebrow": "إزالة عضو الفريق",
       "removing": "جارٍ الإزالة...",
       "title": "إزالة عضو الفريق؟"

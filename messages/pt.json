@@ -353,7 +353,7 @@
       "selectAll": "Selecionar todos os clientes",
       "selectRow": "Selecionar cliente {name}",
       "title": "Clientes",
-      "visibleCount": "Exibindo {visible} de {total}"
+      "visibleCount": "Mostrando {count}"
     },
     "loading": "Carregando clientes...",
     "noEmail": "Nenhum e‑mail cadastrado",
@@ -403,14 +403,14 @@
       "title": "Insights AI"
     },
     "amount": "Valor",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Responsável",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Arraste os deals entre estágios para atualizar o pipeline.",
     "changedBy": "Alterado por {name}",
     "close": "Fechar",
     "closeTarget": "Meta de fechamento",
-    "closeTargetValue": "{date}",
+    "closeTargetValue": "{value}",
     "columnTotal": "Total da coluna: {value}",
     "commentPlaceholder": "Escreva um comentário…",
     "comments": "Comentários",
@@ -626,7 +626,7 @@
       },
       "subtitle": "Distribuição de deals por estágio.",
       "title": "Pipeline",
-      "totalBadge": "{value} total"
+      "totalBadge": "{count} total"
     },
     "quickActions": {
       "aiQualifier": {
@@ -770,7 +770,7 @@
       "mappedFields": "Campos mapeados",
       "progress": "Progresso",
       "rowsLoaded": "Linhas carregadas",
-      "stepNumber": "Etapa {step}",
+      "stepNumber": "Etapa {number}",
       "title": "Progresso da importação"
     },
     "source": {
@@ -813,7 +813,7 @@
       "description": "Importe dados de clientes para o {name} a partir de um arquivo CSV ou URL.",
       "eyebrow": "Importação de workspace",
       "selectedCompany": "Workspace ativo: {name}",
-      "stepLabel": "Etapa {step} de {total}"
+      "stepLabel": "Etapa {step}"
     }
   },
   "integrations": {
@@ -1359,9 +1359,9 @@
     },
     "subComponent": {
       "configured": "Configurado",
-      "configuredAria": "{name} está configurado",
+      "configuredAria": "{label} está configurado",
       "notSet": "Não definido",
-      "notSetAria": "{name} não está definido"
+      "notSetAria": "{label} não está definido"
     },
     "testConnection": "Testar conexão",
     "testing": "Testando...",
@@ -1799,7 +1799,7 @@
       "assignee": "Responsável",
       "empty": "Nenhum lead corresponde aos filtros atuais.",
       "name": "Nome",
-      "openAIScore": "Pontuação Open AI de {name}",
+      "openAIScore": "Pontuação Open AI para {score}",
       "phone": "Telefone",
       "rowActions": "Ações da linha",
       "selectAll": "Selecionar todos os leads",
@@ -2018,7 +2018,7 @@
         "statusUnsubscribed": "Desinscrito",
         "subtitle": "Cada agência torna‑se um assinante do Mailchimp. Nome mapeia para FNAME, contato para LNAME, telefone para PHONE. A etiqueta {tag} é adicionada automaticamente.",
         "summary": "Serão enviados {eligible} de {total}.",
-        "title": "{count, plural, one {Enviar {count} agência para o Mailchimp} other {Enviar {count} agências para o Mailchimp}}"
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
       },
       "row": {
         "actions": {
@@ -2997,7 +2997,7 @@
     "removeMember": "Remover membro",
     "removeModal": {
       "confirm": "Remover membro",
-      "description": "{name} perderá o acesso a este workspace imediatamente.",
+      "description": "{company} perderá o acesso a este espaço de trabalho imediatamente.",
       "eyebrow": "Remover membro da equipe",
       "removing": "Removendo...",
       "title": "Remover membro da equipe?"

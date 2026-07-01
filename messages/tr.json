@@ -353,7 +353,7 @@
       "selectAll": "Tüm müşterileri seç",
       "selectRow": "Müşteri {name} seç",
       "title": "Müşteriler",
-      "visibleCount": "Gösterilen {visible} / {total}"
+      "visibleCount": "{count} gösteriliyor"
     },
     "loading": "Müşteriler yükleniyor...",
     "noEmail": "Dosyada e-posta yok",
@@ -403,14 +403,14 @@
       "title": "AI içgörüleri"
     },
     "amount": "Tutar",
-    "amountValue": "{amount}",
+    "amountValue": "{value}",
     "assignee": "Atanan",
-    "assigneeValue": "{name}",
+    "assigneeValue": "{value}",
     "boardHint": "Anlaşmaları aşamalar arasında sürükleyerek süreci güncelleyin.",
     "changedBy": "Değiştiren {name}",
     "close": "Kapat",
     "closeTarget": "Kapatma hedefi",
-    "closeTargetValue": "{date}",
+    "closeTargetValue": "{value}",
     "columnTotal": "Sütun toplamı: {value}",
     "commentPlaceholder": "Yorum yazın...",
     "comments": "Yorumlar",
@@ -626,7 +626,7 @@
       },
       "subtitle": "Aşamaya göre anlaşma dağılımı.",
       "title": "Süreç",
-      "totalBadge": "{value} toplam"
+      "totalBadge": "{count} toplam"
     },
     "quickActions": {
       "aiQualifier": {
@@ -770,7 +770,7 @@
       "mappedFields": "Eşlenen alanlar",
       "progress": "İlerleme",
       "rowsLoaded": "Satırlar yüklendi",
-      "stepNumber": "Adım {step}",
+      "stepNumber": "Adım {number}",
       "title": "İçe aktarma ilerlemesi"
     },
     "source": {
@@ -813,7 +813,7 @@
       "description": "Müşteri verilerini {name} içine bir CSV dosyası veya URL üzerinden getirin.",
       "eyebrow": "Çalışma alanı içe aktarımı",
       "selectedCompany": "Aktif çalışma alanı: {name}",
-      "stepLabel": "Adım {step} / {total}"
+      "stepLabel": "Adım {step}"
     }
   },
   "integrations": {
@@ -1359,9 +1359,9 @@
     },
     "subComponent": {
       "configured": "Yapılandırıldı",
-      "configuredAria": "{name} yapılandırıldı",
+      "configuredAria": "{label} yapılandırıldı",
       "notSet": "Ayarlanmamış",
-      "notSetAria": "{name} ayarlanmamış"
+      "notSetAria": "{label} ayarlanmamış"
     },
     "testConnection": "Bağlantıyı test edin",
     "testing": "Test ediliyor...",
@@ -1835,7 +1835,7 @@
       "assignee": "Atanan",
       "empty": "Mevcut filtrelerle eşleşen müşteri adayı yok.",
       "name": "Ad",
-      "openAIScore": "Open AI puanı {name} için",
+      "openAIScore": "{score} için Open AI puanı",
       "phone": "Telefon",
       "rowActions": "Satır eylemleri",
       "selectAll": "Tüm müşteri adaylarını seçin",
@@ -2018,7 +2018,7 @@
         "statusUnsubscribed": "Abonelikten çıkmış",
         "subtitle": "Her ajans bir Mailchimp abonesi olur. İsim FNAME, iletişim LNAME, telefon PHONE alanına eşlenir. {tag} etiketi otomatik olarak eklenir.",
         "summary": "{eligible} / {total} gönderilecek.",
-        "title": "{count, plural, one {Mailchimp'e {count} ajansı gönder} other {Mailchimp'e {count} ajansları gönder}}"
+        "title": "Push {count} {count, plural, one {agency} other {agencies}} to Mailchimp"
       },
       "row": {
         "actions": {
@@ -2973,7 +2973,7 @@
     "removeMember": "Üyeyi kaldırın",
     "removeModal": {
       "confirm": "Üyeyi kaldırın",
-      "description": "{name} bu çalışma alanına erişimini hemen kaybedecek.",
+      "description": "{company} bu çalışma alanına erişimini hemen kaybedecek.",
       "eyebrow": "Takım üyesini kaldır",
       "removing": "Kaldırılıyor...",
       "title": "Takım üyesini kaldır?"
