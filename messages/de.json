@@ -3103,6 +3103,56 @@
         "unarchived": "Lead wiederhergestellt",
         "unassigned": "Zuweisung aufgehoben",
         "updated": "Lead aktualisiert"
+      },
+      "agency": {
+        "created": "Agentur erstellt",
+        "deleted": "Agentur gelöscht",
+        "imported": "Agenturen importiert",
+        "updated": "Agentur aktualisiert"
+      },
+      "announcement": {
+        "created": "Ankündigung erstellt",
+        "deleted": "Ankündigung gelöscht",
+        "dismissed": "Ankündigung verworfen",
+        "published": "Ankündigung veröffentlicht",
+        "updated": "Ankündigung aktualisiert"
+      },
+      "calendar_event": {
+        "created": "Ereignis erstellt",
+        "deleted": "Ereignis gelöscht",
+        "updated": "Ereignis aktualisiert"
+      },
+      "call": {
+        "created": "Anruf protokolliert",
+        "deleted": "Anruf gelöscht",
+        "updated": "Anruf aktualisiert"
+      },
+      "company": {
+        "created": "Firma erstellt",
+        "deleted": "Firma gelöscht",
+        "updated": "Firma aktualisiert"
+      },
+      "customer": {
+        "created": "Kunde erstellt",
+        "deleted": "Kunde gelöscht",
+        "updated": "Kunde aktualisiert"
+      },
+      "deal": {
+        "created": "Deal erstellt",
+        "deleted": "Deal gelöscht",
+        "note_added": "Notiz hinzugefügt",
+        "stage_changed": "Phase geändert",
+        "updated": "Deal aktualisiert"
+      },
+      "import_profile": {
+        "applied": "Import angewendet",
+        "approved": "Importprofil genehmigt"
+      },
+      "task": {
+        "created": "Aufgabe erstellt",
+        "deleted": "Aufgabe gelöscht",
+        "status_changed": "Aufgabenstatus geändert",
+        "updated": "Aufgabe aktualisiert"
       }
     }
   }

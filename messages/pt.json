@@ -3103,6 +3103,56 @@
         "unarchived": "Lead restaurado",
         "unassigned": "Desatribuído",
         "updated": "Lead atualizado"
+      },
+      "agency": {
+        "created": "Agência criada",
+        "deleted": "Agência excluída",
+        "imported": "Agências importadas",
+        "updated": "Agência atualizada"
+      },
+      "announcement": {
+        "created": "Anúncio criado",
+        "deleted": "Anúncio excluído",
+        "dismissed": "Anúncio descartado",
+        "published": "Anúncio publicado",
+        "updated": "Anúncio atualizado"
+      },
+      "calendar_event": {
+        "created": "Evento criado",
+        "deleted": "Evento excluído",
+        "updated": "Evento atualizado"
+      },
+      "call": {
+        "created": "Ligação registrada",
+        "deleted": "Ligação excluída",
+        "updated": "Ligação atualizada"
+      },
+      "company": {
+        "created": "Empresa criada",
+        "deleted": "Empresa excluída",
+        "updated": "Empresa atualizada"
+      },
+      "customer": {
+        "created": "Cliente criado",
+        "deleted": "Cliente excluído",
+        "updated": "Cliente atualizado"
+      },
+      "deal": {
+        "created": "Negócio criado",
+        "deleted": "Negócio excluído",
+        "note_added": "Nota adicionada",
+        "stage_changed": "Etapa alterada",
+        "updated": "Negócio atualizado"
+      },
+      "import_profile": {
+        "applied": "Importação aplicada",
+        "approved": "Perfil de importação aprovado"
+      },
+      "task": {
+        "created": "Tarefa criada",
+        "deleted": "Tarefa excluída",
+        "status_changed": "Status da tarefa alterado",
+        "updated": "Tarefa atualizada"
       }
     }
   }

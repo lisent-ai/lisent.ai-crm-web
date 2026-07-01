@@ -3103,6 +3103,56 @@
         "unarchived": "Lead gendannet",
         "unassigned": "Uden tildeling",
         "updated": "Lead opdateret"
+      },
+      "agency": {
+        "created": "Agentur oprettet",
+        "deleted": "Agentur slettet",
+        "imported": "Agenturer importeret",
+        "updated": "Agentur opdateret"
+      },
+      "announcement": {
+        "created": "Meddelelse oprettet",
+        "deleted": "Meddelelse slettet",
+        "dismissed": "Meddelelse afvist",
+        "published": "Meddelelse offentliggjort",
+        "updated": "Meddelelse opdateret"
+      },
+      "calendar_event": {
+        "created": "Begivenhed oprettet",
+        "deleted": "Begivenhed slettet",
+        "updated": "Begivenhed opdateret"
+      },
+      "call": {
+        "created": "Opkald logført",
+        "deleted": "Opkald slettet",
+        "updated": "Opkald opdateret"
+      },
+      "company": {
+        "created": "Virksomhed oprettet",
+        "deleted": "Virksomhed slettet",
+        "updated": "Virksomhed opdateret"
+      },
+      "customer": {
+        "created": "Kunde oprettet",
+        "deleted": "Kunde slettet",
+        "updated": "Kunde opdateret"
+      },
+      "deal": {
+        "created": "Aftale oprettet",
+        "deleted": "Aftale slettet",
+        "note_added": "Notat tilføjet",
+        "stage_changed": "Fase ændret",
+        "updated": "Aftale opdateret"
+      },
+      "import_profile": {
+        "applied": "Import anvendt",
+        "approved": "Importprofil godkendt"
+      },
+      "task": {
+        "created": "Opgave oprettet",
+        "deleted": "Opgave slettet",
+        "status_changed": "Opgavestatus ændret",
+        "updated": "Opgave opdateret"
       }
     }
   }

@@ -3103,6 +3103,56 @@
         "unarchived": "Prospecto restaurado",
         "unassigned": "Sin asignar",
         "updated": "Prospecto actualizado"
+      },
+      "agency": {
+        "created": "Agencia creada",
+        "deleted": "Agencia eliminada",
+        "imported": "Agencias importadas",
+        "updated": "Agencia actualizada"
+      },
+      "announcement": {
+        "created": "Anuncio creado",
+        "deleted": "Anuncio eliminado",
+        "dismissed": "Anuncio descartado",
+        "published": "Anuncio publicado",
+        "updated": "Anuncio actualizado"
+      },
+      "calendar_event": {
+        "created": "Evento creado",
+        "deleted": "Evento eliminado",
+        "updated": "Evento actualizado"
+      },
+      "call": {
+        "created": "Llamada registrada",
+        "deleted": "Llamada eliminada",
+        "updated": "Llamada actualizada"
+      },
+      "company": {
+        "created": "Empresa creada",
+        "deleted": "Empresa eliminada",
+        "updated": "Empresa actualizada"
+      },
+      "customer": {
+        "created": "Cliente creado",
+        "deleted": "Cliente eliminado",
+        "updated": "Cliente actualizado"
+      },
+      "deal": {
+        "created": "Negocio creado",
+        "deleted": "Negocio eliminado",
+        "note_added": "Nota añadida",
+        "stage_changed": "Etapa cambiada",
+        "updated": "Negocio actualizado"
+      },
+      "import_profile": {
+        "applied": "Importación aplicada",
+        "approved": "Perfil de importación aprobado"
+      },
+      "task": {
+        "created": "Tarea creada",
+        "deleted": "Tarea eliminada",
+        "status_changed": "Estado de la tarea cambiado",
+        "updated": "Tarea actualizada"
       }
     }
   }

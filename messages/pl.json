@@ -3103,6 +3103,56 @@
         "unarchived": "Lead przywrócony",
         "unassigned": "Odłączono",
         "updated": "Lead zaktualizowany"
+      },
+      "agency": {
+        "created": "Utworzono agencję",
+        "deleted": "Usunięto agencję",
+        "imported": "Zaimportowano agencje",
+        "updated": "Zaktualizowano agencję"
+      },
+      "announcement": {
+        "created": "Utworzono ogłoszenie",
+        "deleted": "Usunięto ogłoszenie",
+        "dismissed": "Ukryto ogłoszenie",
+        "published": "Opublikowano ogłoszenie",
+        "updated": "Zaktualizowano ogłoszenie"
+      },
+      "calendar_event": {
+        "created": "Utworzono wydarzenie",
+        "deleted": "Usunięto wydarzenie",
+        "updated": "Zaktualizowano wydarzenie"
+      },
+      "call": {
+        "created": "Zarejestrowano połączenie",
+        "deleted": "Usunięto połączenie",
+        "updated": "Zaktualizowano połączenie"
+      },
+      "company": {
+        "created": "Utworzono firmę",
+        "deleted": "Usunięto firmę",
+        "updated": "Zaktualizowano firmę"
+      },
+      "customer": {
+        "created": "Utworzono klienta",
+        "deleted": "Usunięto klienta",
+        "updated": "Zaktualizowano klienta"
+      },
+      "deal": {
+        "created": "Utworzono transakcję",
+        "deleted": "Usunięto transakcję",
+        "note_added": "Dodano notatkę",
+        "stage_changed": "Zmieniono etap",
+        "updated": "Zaktualizowano transakcję"
+      },
+      "import_profile": {
+        "applied": "Zastosowano import",
+        "approved": "Zatwierdzono profil importu"
+      },
+      "task": {
+        "created": "Utworzono zadanie",
+        "deleted": "Usunięto zadanie",
+        "status_changed": "Zmieniono status zadania",
+        "updated": "Zaktualizowano zadanie"
       }
     }
   }

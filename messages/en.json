@@ -46,6 +46,56 @@
   "audit": {
     "accessDenied": "You don't have permission to view the audit log.",
     "actions": {
+      "agency": {
+        "created": "Agency created",
+        "deleted": "Agency deleted",
+        "imported": "Agencies imported",
+        "updated": "Agency updated"
+      },
+      "announcement": {
+        "created": "Announcement created",
+        "deleted": "Announcement deleted",
+        "dismissed": "Announcement dismissed",
+        "published": "Announcement published",
+        "updated": "Announcement updated"
+      },
+      "calendar_event": {
+        "created": "Event created",
+        "deleted": "Event deleted",
+        "updated": "Event updated"
+      },
+      "call": {
+        "created": "Call logged",
+        "deleted": "Call deleted",
+        "updated": "Call updated"
+      },
+      "company": {
+        "created": "Company created",
+        "deleted": "Company deleted",
+        "updated": "Company updated"
+      },
+      "customer": {
+        "created": "Customer created",
+        "deleted": "Customer deleted",
+        "updated": "Customer updated"
+      },
+      "deal": {
+        "created": "Deal created",
+        "deleted": "Deal deleted",
+        "note_added": "Note added",
+        "stage_changed": "Stage changed",
+        "updated": "Deal updated"
+      },
+      "import_profile": {
+        "applied": "Import applied",
+        "approved": "Import profile approved"
+      },
+      "task": {
+        "created": "Task created",
+        "deleted": "Task deleted",
+        "status_changed": "Task status changed",
+        "updated": "Task updated"
+      },
       "lead": {
         "ai_scored": "AI scored",
         "archived": "Lead archived",

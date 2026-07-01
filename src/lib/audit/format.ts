@@ -19,6 +19,47 @@ export const KNOWN_AUDIT_ACTIONS = new Set<string>([
   "lead.unarchived",
   "lead.converted",
   "lead.ai_scored",
+  // deal
+  "deal.created",
+  "deal.updated",
+  "deal.stage_changed",
+  "deal.note_added",
+  "deal.deleted",
+  // task
+  "task.created",
+  "task.updated",
+  "task.status_changed",
+  "task.deleted",
+  // call
+  "call.created",
+  "call.updated",
+  "call.deleted",
+  // customer
+  "customer.created",
+  "customer.updated",
+  "customer.deleted",
+  // company
+  "company.created",
+  "company.updated",
+  "company.deleted",
+  // calendar event
+  "calendar_event.created",
+  "calendar_event.updated",
+  "calendar_event.deleted",
+  // announcement
+  "announcement.created",
+  "announcement.updated",
+  "announcement.published",
+  "announcement.deleted",
+  "announcement.dismissed",
+  // agency
+  "agency.created",
+  "agency.updated",
+  "agency.deleted",
+  "agency.imported",
+  // import profile
+  "import_profile.approved",
+  "import_profile.applied",
 ]);
 
 export const KNOWN_ACTOR_TYPES = new Set<string>(["user", "system", "integration", "ai"]);

@@ -3103,6 +3103,56 @@
         "unarchived": "Lead återställd",
         "unassigned": "Ej tilldelad",
         "updated": "Lead uppdaterad"
+      },
+      "agency": {
+        "created": "Byrå skapad",
+        "deleted": "Byrå raderad",
+        "imported": "Byråer importerade",
+        "updated": "Byrå uppdaterad"
+      },
+      "announcement": {
+        "created": "Meddelande skapat",
+        "deleted": "Meddelande raderat",
+        "dismissed": "Meddelande avfärdat",
+        "published": "Meddelande publicerat",
+        "updated": "Meddelande uppdaterat"
+      },
+      "calendar_event": {
+        "created": "Evenemang skapat",
+        "deleted": "Evenemang raderat",
+        "updated": "Evenemang uppdaterat"
+      },
+      "call": {
+        "created": "Samtal loggat",
+        "deleted": "Samtal raderat",
+        "updated": "Samtal uppdaterat"
+      },
+      "company": {
+        "created": "Företag skapat",
+        "deleted": "Företag raderat",
+        "updated": "Företag uppdaterat"
+      },
+      "customer": {
+        "created": "Kund skapad",
+        "deleted": "Kund raderad",
+        "updated": "Kund uppdaterad"
+      },
+      "deal": {
+        "created": "Affär skapad",
+        "deleted": "Affär raderad",
+        "note_added": "Anteckning tillagd",
+        "stage_changed": "Steg ändrat",
+        "updated": "Affär uppdaterad"
+      },
+      "import_profile": {
+        "applied": "Import tillämpad",
+        "approved": "Importprofil godkänd"
+      },
+      "task": {
+        "created": "Uppgift skapad",
+        "deleted": "Uppgift raderad",
+        "status_changed": "Uppgiftstatus ändrad",
+        "updated": "Uppgift uppdaterad"
       }
     }
   }

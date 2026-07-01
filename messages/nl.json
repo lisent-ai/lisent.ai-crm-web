@@ -3103,6 +3103,56 @@
         "unarchived": "Lead hersteld",
         "unassigned": "Toewijzing verwijderd",
         "updated": "Lead bijgewerkt"
+      },
+      "agency": {
+        "created": "Agentschap aangemaakt",
+        "deleted": "Agentschap verwijderd",
+        "imported": "Agentschappen geïmporteerd",
+        "updated": "Agentschap bijgewerkt"
+      },
+      "announcement": {
+        "created": "Aankondiging aangemaakt",
+        "deleted": "Aankondiging verwijderd",
+        "dismissed": "Aankondiging genegeerd",
+        "published": "Aankondiging gepubliceerd",
+        "updated": "Aankondiging bijgewerkt"
+      },
+      "calendar_event": {
+        "created": "Evenement aangemaakt",
+        "deleted": "Evenement verwijderd",
+        "updated": "Evenement bijgewerkt"
+      },
+      "call": {
+        "created": "Oproep geregistreerd",
+        "deleted": "Oproep verwijderd",
+        "updated": "Oproep bijgewerkt"
+      },
+      "company": {
+        "created": "Bedrijf aangemaakt",
+        "deleted": "Bedrijf verwijderd",
+        "updated": "Bedrijf bijgewerkt"
+      },
+      "customer": {
+        "created": "Klant aangemaakt",
+        "deleted": "Klant verwijderd",
+        "updated": "Klant bijgewerkt"
+      },
+      "deal": {
+        "created": "Deal aangemaakt",
+        "deleted": "Deal verwijderd",
+        "note_added": "Notitie toegevoegd",
+        "stage_changed": "Fase gewijzigd",
+        "updated": "Deal bijgewerkt"
+      },
+      "import_profile": {
+        "applied": "Import toegepast",
+        "approved": "Importprofiel goedgekeurd"
+      },
+      "task": {
+        "created": "Taak aangemaakt",
+        "deleted": "Taak verwijderd",
+        "status_changed": "Taakstatus gewijzigd",
+        "updated": "Taak bijgewerkt"
       }
     }
   }

@@ -46,6 +46,56 @@
   "audit": {
     "accessDenied": "Denetim kaydını görme yetkiniz yok.",
     "actions": {
+      "agency": {
+        "created": "Ajans oluşturuldu",
+        "deleted": "Ajans silindi",
+        "imported": "Ajanslar içe aktarıldı",
+        "updated": "Ajans güncellendi"
+      },
+      "announcement": {
+        "created": "Duyuru oluşturuldu",
+        "deleted": "Duyuru silindi",
+        "dismissed": "Duyuru kapatıldı",
+        "published": "Duyuru yayınlandı",
+        "updated": "Duyuru güncellendi"
+      },
+      "calendar_event": {
+        "created": "Etkinlik oluşturuldu",
+        "deleted": "Etkinlik silindi",
+        "updated": "Etkinlik güncellendi"
+      },
+      "call": {
+        "created": "Arama kaydedildi",
+        "deleted": "Arama silindi",
+        "updated": "Arama güncellendi"
+      },
+      "company": {
+        "created": "Şirket oluşturuldu",
+        "deleted": "Şirket silindi",
+        "updated": "Şirket güncellendi"
+      },
+      "customer": {
+        "created": "Müşteri oluşturuldu",
+        "deleted": "Müşteri silindi",
+        "updated": "Müşteri güncellendi"
+      },
+      "deal": {
+        "created": "Anlaşma oluşturuldu",
+        "deleted": "Anlaşma silindi",
+        "note_added": "Not eklendi",
+        "stage_changed": "Aşama değişti",
+        "updated": "Anlaşma güncellendi"
+      },
+      "import_profile": {
+        "applied": "İçe aktarma uygulandı",
+        "approved": "İçe aktarma profili onaylandı"
+      },
+      "task": {
+        "created": "Görev oluşturuldu",
+        "deleted": "Görev silindi",
+        "status_changed": "Görev durumu değişti",
+        "updated": "Görev güncellendi"
+      },
       "lead": {
         "ai_scored": "AI puanladı",
         "archived": "Lead arşivlendi",

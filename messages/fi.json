@@ -3103,6 +3103,56 @@
         "unarchived": "Liidi palautettu",
         "unassigned": "Ei määritetty",
         "updated": "Liidi päivitetty"
+      },
+      "agency": {
+        "created": "Toimisto luotu",
+        "deleted": "Toimisto poistettu",
+        "imported": "Toimistoja tuotu",
+        "updated": "Toimisto päivitetty"
+      },
+      "announcement": {
+        "created": "Ilmoitus luotu",
+        "deleted": "Ilmoitus poistettu",
+        "dismissed": "Ilmoitus hylätty",
+        "published": "Ilmoitus julkaistu",
+        "updated": "Ilmoitus päivitetty"
+      },
+      "calendar_event": {
+        "created": "Tapahtuma luotu",
+        "deleted": "Tapahtuma poistettu",
+        "updated": "Tapahtuma päivitetty"
+      },
+      "call": {
+        "created": "Puhelu kirjattu",
+        "deleted": "Puhelu poistettu",
+        "updated": "Puhelu päivitetty"
+      },
+      "company": {
+        "created": "Yritys luotu",
+        "deleted": "Yritys poistettu",
+        "updated": "Yritys päivitetty"
+      },
+      "customer": {
+        "created": "Asiakas luotu",
+        "deleted": "Asiakas poistettu",
+        "updated": "Asiakas päivitetty"
+      },
+      "deal": {
+        "created": "Kauppa luotu",
+        "deleted": "Kauppa poistettu",
+        "note_added": "Muistiinpano lisätty",
+        "stage_changed": "Vaihe muutettu",
+        "updated": "Kauppa päivitetty"
+      },
+      "import_profile": {
+        "applied": "Tuonti suoritettu",
+        "approved": "Tuontiprofiili hyväksytty"
+      },
+      "task": {
+        "created": "Tehtävä luotu",
+        "deleted": "Tehtävä poistettu",
+        "status_changed": "Tehtävän tila muutettu",
+        "updated": "Tehtävä päivitetty"
       }
     }
   }

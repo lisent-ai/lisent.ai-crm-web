@@ -3103,6 +3103,56 @@
         "unarchived": "Prospect restauré",
         "unassigned": "Désassigné",
         "updated": "Prospect mis à jour"
+      },
+      "agency": {
+        "created": "Agence créée",
+        "deleted": "Agence supprimée",
+        "imported": "Agences importées",
+        "updated": "Agence mise à jour"
+      },
+      "announcement": {
+        "created": "Annonce créée",
+        "deleted": "Annonce supprimée",
+        "dismissed": "Annonce rejetée",
+        "published": "Annonce publiée",
+        "updated": "Annonce mise à jour"
+      },
+      "calendar_event": {
+        "created": "Événement créé",
+        "deleted": "Événement supprimé",
+        "updated": "Événement mis à jour"
+      },
+      "call": {
+        "created": "Appel enregistré",
+        "deleted": "Appel supprimé",
+        "updated": "Appel mis à jour"
+      },
+      "company": {
+        "created": "Entreprise créée",
+        "deleted": "Entreprise supprimée",
+        "updated": "Entreprise mise à jour"
+      },
+      "customer": {
+        "created": "Client créé",
+        "deleted": "Client supprimé",
+        "updated": "Client mis à jour"
+      },
+      "deal": {
+        "created": "Affaire créée",
+        "deleted": "Affaire supprimée",
+        "note_added": "Note ajoutée",
+        "stage_changed": "Étape modifiée",
+        "updated": "Affaire mise à jour"
+      },
+      "import_profile": {
+        "applied": "Importation appliquée",
+        "approved": "Profil d'importation approuvé"
+      },
+      "task": {
+        "created": "Tâche créée",
+        "deleted": "Tâche supprimée",
+        "status_changed": "Statut de la tâche modifié",
+        "updated": "Tâche mise à jour"
       }
     }
   }

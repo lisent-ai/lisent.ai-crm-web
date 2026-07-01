@@ -3103,6 +3103,56 @@
         "unarchived": "Lead ripristinato",
         "unassigned": "Non assegnato",
         "updated": "Lead aggiornato"
+      },
+      "agency": {
+        "created": "Agenzia creata",
+        "deleted": "Agenzia eliminata",
+        "imported": "Agenzie importate",
+        "updated": "Agenzia aggiornata"
+      },
+      "announcement": {
+        "created": "Annuncio creato",
+        "deleted": "Annuncio eliminato",
+        "dismissed": "Annuncio respinto",
+        "published": "Annuncio pubblicato",
+        "updated": "Annuncio aggiornato"
+      },
+      "calendar_event": {
+        "created": "Evento creato",
+        "deleted": "Evento eliminato",
+        "updated": "Evento aggiornato"
+      },
+      "call": {
+        "created": "Chiamata registrata",
+        "deleted": "Chiamata eliminata",
+        "updated": "Chiamata aggiornata"
+      },
+      "company": {
+        "created": "Azienda creata",
+        "deleted": "Azienda eliminata",
+        "updated": "Azienda aggiornata"
+      },
+      "customer": {
+        "created": "Cliente creato",
+        "deleted": "Cliente eliminato",
+        "updated": "Cliente aggiornato"
+      },
+      "deal": {
+        "created": "Affare creato",
+        "deleted": "Affare eliminato",
+        "note_added": "Nota aggiunta",
+        "stage_changed": "Fase modificata",
+        "updated": "Affare aggiornato"
+      },
+      "import_profile": {
+        "applied": "Importazione applicata",
+        "approved": "Profilo di importazione approvato"
+      },
+      "task": {
+        "created": "Attività creata",
+        "deleted": "Attività eliminata",
+        "status_changed": "Stato attività modificato",
+        "updated": "Attività aggiornata"
       }
     }
   }
