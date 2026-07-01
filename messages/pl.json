@@ -2977,7 +2977,9 @@
       "loadError": "Nie udało się wczytać przydziałów dostępu.",
       "loading": "Ładowanie…",
       "module": {
-        "marketingAgencies": "Marketing · Agencje"
+        "marketingAgencies": "Marketing · Agencje",
+        "crmAudit": "Dziennik zdarzeń",
+        "leadsArchive": "Zarchiwizowane leady"
       },
       "noAccess": "Brak dostępu",
       "role": "Rola",

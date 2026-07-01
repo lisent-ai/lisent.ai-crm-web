@@ -5025,7 +5025,7 @@ export async function pushAgenciesToMailchimp(
 
 // ── Module access ────────────────────────────────────────────────────────
 
-export type ModuleKey = "marketing.agencies";
+export type ModuleKey = "marketing.agencies" | "leads.archive" | "crm.audit";
 
 export type ModuleAccessGrant = {
   id: string;
@@ -5060,6 +5060,22 @@ export async function setModuleAccess(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ grants }),
   });
+}
+
+export type MyModuleAccess = { granted: ModuleKey[]; isOwner: boolean };
+
+/** The current user's own granted modules for a company (+ owner flag). Used
+ *  to decide whether to surface admin links (archived leads, audit log) to
+ *  granted non-owners. */
+export async function getMyModuleAccess(companyId: string): Promise<MyModuleAccess> {
+  const query = new URLSearchParams({ company_id: companyId });
+  const res = await requestCRM<{ granted?: string[]; is_owner?: boolean }>(
+    `/users/me/module-access?${query.toString()}`,
+  );
+  return {
+    granted: (Array.isArray(res.granted) ? res.granted : []) as ModuleKey[],
+    isOwner: res.is_owner === true,
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -3015,6 +3015,8 @@
       "loadError": "Failed to load access grants.",
       "loading": "Loading…",
       "module": {
+        "crmAudit": "Audit log",
+        "leadsArchive": "Archived leads",
         "marketingAgencies": "Marketing · Agencies"
       },
       "noAccess": "No access",

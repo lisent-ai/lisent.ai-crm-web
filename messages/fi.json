@@ -2977,7 +2977,9 @@
       "loadError": "Pääsyoikeuksien lataaminen epäonnistui.",
       "loading": "Ladataan…",
       "module": {
-        "marketingAgencies": "Markkinointi · Toimistot"
+        "marketingAgencies": "Markkinointi · Toimistot",
+        "crmAudit": "Auditointiloki",
+        "leadsArchive": "Arkistoidut liidit"
       },
       "noAccess": "Ei pääsyä",
       "role": "Rooli",

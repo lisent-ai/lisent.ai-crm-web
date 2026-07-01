@@ -2977,7 +2977,9 @@
       "loadError": "Impossibile caricare le autorizzazioni di accesso.",
       "loading": "Caricamento…",
       "module": {
-        "marketingAgencies": "Marketing · Agenzie"
+        "marketingAgencies": "Marketing · Agenzie",
+        "crmAudit": "Registro audit",
+        "leadsArchive": "Lead archiviati"
       },
       "noAccess": "Nessun accesso",
       "role": "Ruolo",

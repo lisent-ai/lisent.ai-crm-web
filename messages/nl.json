@@ -2977,7 +2977,9 @@
       "loadError": "Kan toegangsrechten niet laden.",
       "loading": "Laden…",
       "module": {
-        "marketingAgencies": "Marketing · Bureaus"
+        "marketingAgencies": "Marketing · Bureaus",
+        "crmAudit": "Auditlog",
+        "leadsArchive": "Gearchiveerde leads"
       },
       "noAccess": "Geen toegang",
       "role": "Rol",

@@ -2977,7 +2977,9 @@
       "loadError": "Не удалось загрузить права доступа.",
       "loading": "Загрузка…",
       "module": {
-        "marketingAgencies": "Маркетинг · агентства"
+        "marketingAgencies": "Маркетинг · агентства",
+        "crmAudit": "Журнал аудита",
+        "leadsArchive": "Архив лидов"
       },
       "noAccess": "Нет доступа",
       "role": "Роль",

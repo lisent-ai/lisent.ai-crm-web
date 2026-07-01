@@ -24,6 +24,8 @@ type ModuleAccessSectionProps = {
 // map only translates the friendly column header.
 const MODULE_LABEL_KEYS: Record<ModuleKey, string> = {
   "marketing.agencies": "teamMembers.moduleAccess.module.marketingAgencies",
+  "leads.archive": "teamMembers.moduleAccess.module.leadsArchive",
+  "crm.audit": "teamMembers.moduleAccess.module.crmAudit",
 };
 
 // ModuleAccessSection — owner-only matrix that toggles per-user-per-

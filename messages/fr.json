@@ -2977,7 +2977,9 @@
       "loadError": "Échec du chargement des autorisations d’accès.",
       "loading": "Chargement…",
       "module": {
-        "marketingAgencies": "Marketing · Agences"
+        "marketingAgencies": "Marketing · Agences",
+        "crmAudit": "Journal d’audit",
+        "leadsArchive": "Prospects archivés"
       },
       "noAccess": "Aucun accès",
       "role": "Rôle",

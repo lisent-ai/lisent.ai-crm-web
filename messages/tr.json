@@ -2994,6 +2994,8 @@
       "loadError": "Erişim izinleri yüklenemedi.",
       "loading": "Yükleniyor…",
       "module": {
+        "crmAudit": "Denetim kaydı",
+        "leadsArchive": "Arşivlenen lead'ler",
         "marketingAgencies": "Pazarlama · Ajanslar"
       },
       "noAccess": "Erişim yok",

@@ -508,7 +508,11 @@ async function listAuthorizedLeads(
   account: AccountProfile,
 ) {
   if (account.access.isSuperAdmin) {
-    const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"]);
+    // Forward the platform role so the backend's archived-view gate accepts
+    // super_admins; ignored for normal (non-archived) list requests.
+    const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"], {
+      platformRole: "super_admin",
+    });
     return relayUpstreamResponse(upstreamResponse);
   }
 
@@ -532,10 +536,13 @@ async function listAuthorizedLeads(
       (searchParams.get("archived") ?? "").trim().toLowerCase(),
     );
     if (archivedView) {
-      if (getCompanyRoleForAccess(account.access, requestedCompanyId) !== "owner") {
-        return Response.json({ error: "forbidden" }, { status: 403 });
-      }
-      const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"]);
+      // Admin-only; the backend enforces owner / super_admin / the
+      // leads.archive grant using the forwarded auth context.
+      const upstreamResponse = await sendUpstreamRequest(request, config, account, ["leads"], {
+        companyId: requestedCompanyId,
+        userRole: getCompanyRoleForAccess(account.access, requestedCompanyId) ?? "",
+        platformRole: account.access.isSuperAdmin ? "super_admin" : undefined,
+      });
       return relayUpstreamResponse(upstreamResponse);
     }
 
@@ -1098,11 +1105,10 @@ async function forwardRequest(
           "integrations.manage",
         );
       } else if (pathSegments[2] === "audit-log") {
-        // Company-wide audit log is admin-only (it exposes every actor's
-        // actions): owner or super_admin. Backend scopes to :id company.
-        allowed =
-          account.access.isSuperAdmin ||
-          getCompanyRoleForAccess(account.access, resourceId) === "owner";
+        // Company-wide audit log is admin-only. Let any company member reach
+        // the endpoint; the backend enforces owner / super_admin / the
+        // crm.audit grant using the forwarded auth context (extras below).
+        allowed = hasCompanyPermissionInAccess(account.access, resourceId, "company.read");
       } else {
         allowed =
           method === "GET"
@@ -1137,10 +1143,12 @@ async function forwardRequest(
       const upstreamExtras =
         pathSegments[2] === "mailchimp-connections" ||
         pathSegments[2] === "agencies" ||
-        pathSegments[2] === "module-access"
+        pathSegments[2] === "module-access" ||
+        pathSegments[2] === "audit-log"
           ? {
               companyId: resourceId,
               userRole: getCompanyRoleForAccess(account.access, resourceId) ?? "",
+              platformRole: account.access.isSuperAdmin ? "super_admin" : undefined,
             }
           : undefined;
 
@@ -1243,11 +1251,14 @@ async function forwardRequest(
       return relayUpstreamResponse(upstreamResponse);
     }
 
-    // Restore (unarchive) is admin-only: super_admin, or the company owner.
-    // Resolve the lead's company to check the caller's role. Archive itself
-    // stays open to anyone with write access (it replaces the old delete).
+    // Restore (unarchive) is admin-only. The backend enforces owner /
+    // super_admin / leads.archive grant; we forward the auth context. For
+    // non-super_admins we resolve the lead's company for the grant check.
     if (resourceId && method === "POST" && pathSegments[2] === "unarchive") {
-      if (!account.access.isSuperAdmin) {
+      let extras: { companyId?: string; userRole?: string; platformRole?: string };
+      if (account.access.isSuperAdmin) {
+        extras = { platformRole: "super_admin" };
+      } else {
         let leadCompanyId = "";
         try {
           const lead = await fetchCRMJSON<CRMLeadRecord>(
@@ -1263,14 +1274,15 @@ async function forwardRequest(
           }
           return Response.json({ error: "Failed to authorize lead." }, { status: 500 });
         }
-        if (
-          !leadCompanyId ||
-          getCompanyRoleForAccess(account.access, leadCompanyId) !== "owner"
-        ) {
+        if (!leadCompanyId) {
           return Response.json({ error: "forbidden" }, { status: 403 });
         }
+        extras = {
+          companyId: leadCompanyId,
+          userRole: getCompanyRoleForAccess(account.access, leadCompanyId) ?? "",
+        };
       }
-      const upstreamResponse = await sendUpstreamRequest(request, config, account, pathSegments);
+      const upstreamResponse = await sendUpstreamRequest(request, config, account, pathSegments, extras);
       return relayUpstreamResponse(upstreamResponse);
     }
 
@@ -1587,6 +1599,28 @@ async function forwardRequest(
     if (authFailure) {
       return authFailure;
     }
+  }
+
+  // The current user's own module grants for a company — powers admin-link
+  // visibility (archived leads, audit log) for granted non-owners. Any
+  // company member may read their own grants.
+  if (
+    resource === "users" &&
+    pathSegments[1] === "me" &&
+    pathSegments[2] === "module-access"
+  ) {
+    const requestedCompanyId = request.nextUrl.searchParams.get("company_id")?.trim();
+    if (!requestedCompanyId) {
+      return Response.json({ error: "company_id query parameter required" }, { status: 400 });
+    }
+    if (!canAccessCompanyInAccess(account.access, requestedCompanyId)) {
+      return Response.json({ error: "forbidden" }, { status: 403 });
+    }
+    const upstreamResponse = await sendUpstreamRequest(request, config, account, pathSegments, {
+      companyId: requestedCompanyId,
+      userRole: getCompanyRoleForAccess(account.access, requestedCompanyId) ?? "",
+    });
+    return relayUpstreamResponse(upstreamResponse);
   }
 
   // Mailchimp per-USER endpoints. Pathing is /users/me/mailchimp-* (the

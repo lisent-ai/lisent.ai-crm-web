@@ -2977,7 +2977,9 @@
       "loadError": "فشل تحميل أذونات الوصول.",
       "loading": "جارٍ التحميل…",
       "module": {
-        "marketingAgencies": "التسويق · الوكالات"
+        "marketingAgencies": "التسويق · الوكالات",
+        "crmAudit": "سجل التدقيق",
+        "leadsArchive": "العملاء المحتملين المؤرشفين"
       },
       "noAccess": "لا يوجد وصول",
       "role": "الدور",

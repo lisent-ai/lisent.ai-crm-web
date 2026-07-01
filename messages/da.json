@@ -2977,7 +2977,9 @@
       "loadError": "Kunne ikke indlæse adgangstilladelser.",
       "loading": "Indlæser…",
       "module": {
-        "marketingAgencies": "Marketing · Agenturer"
+        "marketingAgencies": "Marketing · Agenturer",
+        "crmAudit": "Auditlog",
+        "leadsArchive": "Arkiverede leads"
       },
       "noAccess": "Ingen adgang",
       "role": "Rolle",

@@ -19,6 +19,7 @@ import {
   archiveLead as archiveLeadRequest,
   fetchIntegrationCatalog,
   getLeadStats,
+  getMyModuleAccess,
   isAIQualifierConnected,
   listCompanies,
   listCustomers,
@@ -32,6 +33,7 @@ import {
   type LeadComment,
   type LeadAssignmentMethod,
   type LeadStats,
+  type MyModuleAccess,
   updateLeadComment,
   updateCompanyExtraData,
   updateLead,
@@ -133,6 +135,9 @@ export function LeadDirectory() {
   const [companyLeads, setCompanyLeads] = useState<Lead[]>([]);
   // Server-computed aggregates for tab badges + KPI cards + source filter.
   const [leadStats, setLeadStats] = useState<LeadStats | null>(null);
+  // The current user's admin grants (owner or leads.archive / crm.audit) —
+  // decides whether the archived-leads + audit-log links are shown.
+  const [myModuleAccess, setMyModuleAccess] = useState<MyModuleAccess | null>(null);
   // Server-side pagination of the visible list.
   const [leadsTotal, setLeadsTotal] = useState(0);
   const [page, setPage] = useState(0);
@@ -422,6 +427,33 @@ export function LeadDirectory() {
       cancelled = true;
     };
   }, [selectedCompany?.id, accountUserId]);
+
+  // Admin-link visibility: fetch the current user's grants for this company.
+  useEffect(() => {
+    if (!selectedCompany?.id) {
+      setMyModuleAccess(null);
+      return;
+    }
+    const companyId = selectedCompany.id;
+    let cancelled = false;
+    getMyModuleAccess(companyId)
+      .then((access) => {
+        if (!cancelled) setMyModuleAccess(access);
+      })
+      .catch(() => {
+        if (!cancelled) setMyModuleAccess(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedCompany?.id]);
+
+  const canViewArchived =
+    !!myModuleAccess &&
+    (myModuleAccess.isOwner || myModuleAccess.granted.includes("leads.archive"));
+  const canViewAudit =
+    !!myModuleAccess &&
+    (myModuleAccess.isOwner || myModuleAccess.granted.includes("crm.audit"));
 
   // Loads the visible list. Normal case: one server page (fast, indexed).
   // Campaign deep-link case: campaign lives in extra_data (not a SQL filter),
@@ -1397,28 +1429,32 @@ export function LeadDirectory() {
     <div className="flex min-w-0 flex-col gap-5">
       <LeadHeader companyName={companyName} leadCount={leadStats?.total ?? 0} />
 
-      {companyRole === "owner" && selectedCompany ? (
+      {selectedCompany && (canViewArchived || canViewAudit) ? (
         <div className="flex flex-wrap justify-end gap-4">
-          <Link
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
-            href={`/dashboard/leads/archived?${new URLSearchParams({
-              company: selectedCompany.id,
-              ...(companyName ? { companyName } : {}),
-            }).toString()}`}
-          >
-            <Archive aria-hidden="true" className="h-4 w-4" />
-            {t("leads.archived.openButton")}
-          </Link>
-          <Link
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
-            href={`/dashboard/audit?${new URLSearchParams({
-              company: selectedCompany.id,
-              ...(companyName ? { companyName } : {}),
-            }).toString()}`}
-          >
-            <History aria-hidden="true" className="h-4 w-4" />
-            {t("audit.openButton")}
-          </Link>
+          {canViewArchived ? (
+            <Link
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
+              href={`/dashboard/leads/archived?${new URLSearchParams({
+                company: selectedCompany.id,
+                ...(companyName ? { companyName } : {}),
+              }).toString()}`}
+            >
+              <Archive aria-hidden="true" className="h-4 w-4" />
+              {t("leads.archived.openButton")}
+            </Link>
+          ) : null}
+          {canViewAudit ? (
+            <Link
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
+              href={`/dashboard/audit?${new URLSearchParams({
+                company: selectedCompany.id,
+                ...(companyName ? { companyName } : {}),
+              }).toString()}`}
+            >
+              <History aria-hidden="true" className="h-4 w-4" />
+              {t("audit.openButton")}
+            </Link>
+          ) : null}
         </div>
       ) : null}
 

@@ -2977,7 +2977,9 @@
       "loadError": "Falha ao carregar as permissões de acesso.",
       "loading": "Carregando…",
       "module": {
-        "marketingAgencies": "Marketing · Agências"
+        "marketingAgencies": "Marketing · Agências",
+        "crmAudit": "Registro de auditoria",
+        "leadsArchive": "Leads arquivados"
       },
       "noAccess": "Sem acesso",
       "role": "Função",

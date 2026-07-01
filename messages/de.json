@@ -2977,7 +2977,9 @@
       "loadError": "Zugriffsrechte konnten nicht geladen werden.",
       "loading": "Laden…",
       "module": {
-        "marketingAgencies": "Marketing · Agenturen"
+        "marketingAgencies": "Marketing · Agenturen",
+        "crmAudit": "Audit‑Protokoll",
+        "leadsArchive": "Archivierte Leads"
       },
       "noAccess": "Kein Zugriff",
       "role": "Rolle",

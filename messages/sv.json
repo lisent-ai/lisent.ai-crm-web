@@ -2977,7 +2977,9 @@
       "loadError": "Det gick inte att läsa åtkomstbehörigheter.",
       "loading": "Läser in…",
       "module": {
-        "marketingAgencies": "Marknadsföring · Byråer"
+        "marketingAgencies": "Marknadsföring · Byråer",
+        "crmAudit": "Auditlogg",
+        "leadsArchive": "Arkiverade leads"
       },
       "noAccess": "Ingen åtkomst",
       "role": "Roll",
