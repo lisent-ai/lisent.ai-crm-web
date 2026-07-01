@@ -3211,6 +3211,12 @@
     "saved": "Reguły SLA zapisane.",
     "saving": "Zapisywanie…",
     "subtitle": "Otrzymuj powiadomienia, gdy przypisany lead się zatrzyma — brak pierwszej odpowiedzi, aktywności lub postępu w określonych progach. Tylko administrator.",
-    "title": "Reguły i alerty SLA"
+    "title": "Reguły i alerty SLA",
+    "recipients": {
+      "emptyHint": "Nikt nie został jeszcze powiadomiony — wybierz członków zespołu, których powiadomić.",
+      "noMembers": "Nie znaleziono członków zespołu.",
+      "subtitle": "Ci członkowie otrzymują powiadomienia dźwiękowe i e‑mailowe o naruszeniach.",
+      "title": "Powiadom tych członków zespołu"
+    }
   }
 }

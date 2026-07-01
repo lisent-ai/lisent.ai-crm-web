@@ -2930,6 +2930,12 @@
     "loadFailed": "Failed to load SLA settings.",
     "loading": "Loading…",
     "openButton": "SLA rules",
+    "recipients": {
+      "emptyHint": "No one is notified yet — pick the team members to alert.",
+      "noMembers": "No team members found.",
+      "subtitle": "These members receive the bell + email alerts for breaches.",
+      "title": "Notify these team members"
+    },
     "rules": {
       "active": "Active",
       "add": "Add rule",

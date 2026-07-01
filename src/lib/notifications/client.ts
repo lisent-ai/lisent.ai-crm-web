@@ -3,7 +3,7 @@
 import {
   listDeals,
   listLeads,
-  listSLABreaches,
+  listMySLAAlerts,
   listTasks,
   type Deal,
   type Lead,
@@ -37,8 +37,9 @@ export async function listDashboardNotifications(input: {
   companyName: string;
   userId: string;
   // Localized "SLA breach" title, supplied by the caller (which has the
-  // translator). SLA breaches only load for admins (owner / leads.sla); a 403
-  // for everyone else is swallowed so it never breaks the bell.
+  // translator). SLA alerts return rows only when the current user is a
+  // configured recipient (empty otherwise); errors are swallowed so they
+  // never break the bell.
   slaBreachTitle?: string;
 }): Promise<DashboardNotification[]> {
   if (!input.companyId.trim() || !input.userId.trim()) {
@@ -56,7 +57,7 @@ export async function listDashboardNotifications(input: {
     listDeals(input.companyId, {
       assigneeUserId: input.userId,
     }),
-    listSLABreaches(input.companyId, { limit: 20, offset: 0 })
+    listMySLAAlerts(input.companyId, { limit: 20, offset: 0 })
       .then((r) => r.data)
       .catch(() => [] as SLABreach[]),
   ]);

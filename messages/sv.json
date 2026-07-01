@@ -3211,6 +3211,12 @@
     "saved": "SLA-regler sparade.",
     "saving": "Sparar…",
     "subtitle": "Få avisering när en tilldelad lead stannar – inget första svar, ingen aktivitet eller ingen utveckling inom dina gränser. Endast admin.",
-    "title": "SLA-regler & aviseringar"
+    "title": "SLA-regler & aviseringar",
+    "recipients": {
+      "emptyHint": "Ingen har ännu notifierats — välj teammedlemmar att varna.",
+      "noMembers": "Inga teammedlemmar hittades.",
+      "subtitle": "Dessa medlemmar får klock‑ och e‑postaviseringar för överträdelser.",
+      "title": "Meddela dessa teammedlemmar"
+    }
   }
 }

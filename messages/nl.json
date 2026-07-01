@@ -3211,6 +3211,12 @@
     "saved": "SLA-regels opgeslagen.",
     "saving": "Opslaan…",
     "subtitle": "Ontvang een melding wanneer een toegewezen lead stagneert — geen eerste reactie, geen activiteit of geen voortgang binnen je drempels. Alleen voor admins.",
-    "title": "SLA-regels & meldingen"
+    "title": "SLA-regels & meldingen",
+    "recipients": {
+      "emptyHint": "Er is nog niemand op de hoogte — kies de teamleden om te waarschuwen.",
+      "noMembers": "Geen teamleden gevonden.",
+      "subtitle": "Deze leden ontvangen bel‑ en e‑mailmeldingen bij schendingen.",
+      "title": "Meld deze teamleden"
+    }
   }
 }

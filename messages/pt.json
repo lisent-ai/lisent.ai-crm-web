@@ -3211,6 +3211,12 @@
     "saved": "Regras de SLA salvas.",
     "saving": "Salvando…",
     "subtitle": "Receba alertas quando um lead atribuído estagnar — sem primeira resposta, sem atividade ou sem progresso dentro dos seus limites. Apenas admin.",
-    "title": "Regras e alertas de SLA"
+    "title": "Regras e alertas de SLA",
+    "recipients": {
+      "emptyHint": "Ainda ninguém foi notificado — selecione os membros da equipe para alertar.",
+      "noMembers": "Nenhum membro da equipe encontrado.",
+      "subtitle": "Esses membros recebem alertas de sino e e‑mail para violações.",
+      "title": "Notificar esses membros da equipe"
+    }
   }
 }

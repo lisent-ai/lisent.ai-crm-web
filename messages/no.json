@@ -3211,6 +3211,12 @@
     "saved": "SLA rules saved.",
     "saving": "Saving…",
     "subtitle": "Get alerted when an assigned lead stalls — no first response, no activity, or no progress within your thresholds. Admin only.",
-    "title": "SLA rules & alerts"
+    "title": "SLA rules & alerts",
+    "recipients": {
+      "emptyHint": "No one is notified yet — pick the team members to alert.",
+      "noMembers": "No team members found.",
+      "subtitle": "These members receive the bell + email alerts for breaches.",
+      "title": "Notify these team members"
+    }
   }
 }

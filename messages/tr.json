@@ -2930,6 +2930,12 @@
     "loadFailed": "SLA ayarları yüklenemedi.",
     "loading": "Yükleniyor…",
     "openButton": "SLA kuralları",
+    "recipients": {
+      "emptyHint": "Henüz kimse bilgilendirilmiyor — uyarılacak takım üyelerini seçin.",
+      "noMembers": "Takım üyesi bulunamadı.",
+      "subtitle": "Bu üyeler ihlaller için zil + e-posta uyarısı alır.",
+      "title": "Şu takım üyelerini bilgilendir"
+    },
     "rules": {
       "active": "Aktif",
       "add": "Kural ekle",

@@ -5074,7 +5074,12 @@ export type SLARule = {
   threshold_minutes: number;
   active: boolean;
 };
-export type SLAConfig = { rules: SLARule[]; channel: "in_app" | "email" };
+export type SLAConfig = {
+  rules: SLARule[];
+  channel: "in_app" | "email";
+  // Team-member user IDs that receive breach alerts (bell + email).
+  recipients: string[];
+};
 
 export type SLABreach = {
   id: string;
@@ -5087,24 +5092,43 @@ export type SLABreach = {
   lead_status: string;
 };
 
-/** SLA rule config for a company (admin — owner/super_admin/leads.sla). */
-export async function getSLAConfig(companyId: string): Promise<SLAConfig> {
-  const res = await requestCRM<Partial<SLAConfig>>(`/companies/${companyId}/sla-rules`);
+function mapSLAConfig(res: Partial<SLAConfig>): SLAConfig {
   return {
     rules: Array.isArray(res.rules) ? res.rules : [],
     channel: res.channel === "email" ? "email" : "in_app",
+    recipients: Array.isArray(res.recipients) ? res.recipients : [],
   };
 }
 
+/** SLA rule config for a company (admin — owner/super_admin/leads.sla). */
+export async function getSLAConfig(companyId: string): Promise<SLAConfig> {
+  return mapSLAConfig(await requestCRM<Partial<SLAConfig>>(`/companies/${companyId}/sla-rules`));
+}
+
 export async function setSLAConfig(companyId: string, config: SLAConfig): Promise<SLAConfig> {
-  const res = await requestCRM<Partial<SLAConfig>>(`/companies/${companyId}/sla-rules`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(config),
-  });
+  return mapSLAConfig(
+    await requestCRM<Partial<SLAConfig>>(`/companies/${companyId}/sla-rules`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(config),
+    }),
+  );
+}
+
+/** Open SLA breaches for the CURRENT user's notification bell — returns rows
+ *  only when the caller is a configured recipient (empty otherwise). Any
+ *  company member may call it. */
+export async function listMySLAAlerts(
+  companyId: string,
+  page: { limit: number; offset: number } = { limit: 20, offset: 0 },
+): Promise<{ data: SLABreach[]; total: number }> {
+  const query = new URLSearchParams({ limit: String(page.limit), offset: String(page.offset) });
+  const res = await requestCRM<{ data?: SLABreach[]; total?: number }>(
+    `/companies/${companyId}/sla-alerts?${query.toString()}`,
+  );
   return {
-    rules: Array.isArray(res.rules) ? res.rules : [],
-    channel: res.channel === "email" ? "email" : "in_app",
+    data: Array.isArray(res.data) ? res.data : [],
+    total: typeof res.total === "number" ? res.total : (res.data?.length ?? 0),
   };
 }
 

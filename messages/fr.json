@@ -3211,6 +3211,12 @@
     "saved": "Règles SLA enregistrées.",
     "saving": "Enregistrement…",
     "subtitle": "Soyez alerté lorsqu'un prospect assigné stagne — aucune première réponse, aucune activité ou aucune progression selon vos seuils. Administrateur uniquement.",
-    "title": "Règles et alertes SLA"
+    "title": "Règles et alertes SLA",
+    "recipients": {
+      "emptyHint": "Personne n'est encore notifié — choisissez les membres de l'équipe à alerter.",
+      "noMembers": "Aucun membre d'équipe trouvé.",
+      "subtitle": "Ces membres reçoivent les alertes sonores + e‑mail en cas de dépassement.",
+      "title": "Notifier ces membres d'équipe"
+    }
   }
 }

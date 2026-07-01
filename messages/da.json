@@ -3211,6 +3211,12 @@
     "saved": "SLA-regler gemt.",
     "saving": "Gemmer…",
     "subtitle": "Få besked når et tildelt lead stopper — ingen første svar, ingen aktivitet eller ingen fremdrift inden for dine tærskler. Kun admin.",
-    "title": "SLA-regler & advarsler"
+    "title": "SLA-regler & advarsler",
+    "recipients": {
+      "emptyHint": "Ingen er underrettet endnu – vælg teammedlemmerne, der skal alarmeres.",
+      "noMembers": "Ingen teammedlemmer fundet.",
+      "subtitle": "Disse medlemmer får klokke‑ og e‑mail‑advarsler ved overtrædelser.",
+      "title": "Underret disse teammedlemmer"
+    }
   }
 }

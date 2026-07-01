@@ -1107,11 +1107,13 @@ async function forwardRequest(
       } else if (
         pathSegments[2] === "audit-log" ||
         pathSegments[2] === "sla-rules" ||
-        pathSegments[2] === "sla-breaches"
+        pathSegments[2] === "sla-breaches" ||
+        pathSegments[2] === "sla-alerts"
       ) {
-        // Admin-only surfaces (audit log, SLA rules/alerts). Let any company
-        // member reach the endpoint; the backend enforces owner / super_admin /
-        // the relevant grant (crm.audit / leads.sla) via the forwarded context.
+        // Admin surfaces (audit log, SLA rules/breaches) + the per-user SLA
+        // alert feed (sla-alerts). Any company member reaches the endpoint; the
+        // backend enforces owner / super_admin / grant for the admin routes,
+        // and the recipient check for sla-alerts, via the forwarded context.
         allowed = hasCompanyPermissionInAccess(account.access, resourceId, "company.read");
       } else {
         allowed =
@@ -1150,7 +1152,8 @@ async function forwardRequest(
         pathSegments[2] === "module-access" ||
         pathSegments[2] === "audit-log" ||
         pathSegments[2] === "sla-rules" ||
-        pathSegments[2] === "sla-breaches"
+        pathSegments[2] === "sla-breaches" ||
+        pathSegments[2] === "sla-alerts"
           ? {
               companyId: resourceId,
               userRole: getCompanyRoleForAccess(account.access, resourceId) ?? "",

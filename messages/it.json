@@ -3211,6 +3211,12 @@
     "saved": "Regole SLA salvate.",
     "saving": "Salvataggio…",
     "subtitle": "Ricevi avvisi quando un lead assegnato si blocca — nessuna prima risposta, attività o progresso entro le soglie. Solo admin.",
-    "title": "Regole e avvisi SLA"
+    "title": "Regole e avvisi SLA",
+    "recipients": {
+      "emptyHint": "Nessuno è ancora stato notificato — scegli i membri del team da avvisare.",
+      "noMembers": "Nessun membro del team trovato.",
+      "subtitle": "Questi membri ricevono avvisi sonori + email per le violazioni.",
+      "title": "Notifica questi membri del team"
+    }
   }
 }

@@ -16,6 +16,10 @@ import {
   type SLAConfig,
   type SLARule,
 } from "@/lib/crm/client";
+import {
+  listCompanyMembers,
+  type CompanyMember,
+} from "@/lib/auth/company-membership-client";
 import { formatDateTime } from "@/components/dashboard/leads/lead-utils";
 
 const CONDITIONS: SLACondition[] = ["no_first_response", "no_activity", "stale_open"];
@@ -36,7 +40,8 @@ export function SLAWorkspace() {
   const companyId = searchParams.get("company") ?? "";
   const companyName = searchParams.get("companyName") ?? "";
 
-  const [config, setConfig] = useState<SLAConfig>({ rules: [], channel: "in_app" });
+  const [config, setConfig] = useState<SLAConfig>({ rules: [], channel: "in_app", recipients: [] });
+  const [members, setMembers] = useState<CompanyMember[]>([]);
   const [breaches, setBreaches] = useState<SLABreach[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -56,12 +61,14 @@ export function SLAWorkspace() {
     setLoading(true);
     setError(null);
     try {
-      const [cfg, br] = await Promise.all([
+      const [cfg, br, mem] = await Promise.all([
         getSLAConfig(companyId),
         listSLABreaches(companyId, { limit: 50, offset: 0 }).catch(() => ({ data: [], total: 0 })),
+        listCompanyMembers(companyId).catch(() => [] as CompanyMember[]),
       ]);
       setConfig(cfg);
       setBreaches(br.data);
+      setMembers(mem);
       setAccessDenied(false);
     } catch (err) {
       if (err instanceof CRMClientError && err.status === 403) {
@@ -87,6 +94,14 @@ export function SLAWorkspace() {
   function addRule() {
     setConfig((c) => ({ ...c, rules: [...c.rules, newRule()] }));
   }
+  function toggleRecipient(userId: string, next: boolean) {
+    setConfig((c) => ({
+      ...c,
+      recipients: next
+        ? [...new Set([...c.recipients, userId])]
+        : c.recipients.filter((id) => id !== userId),
+    }));
+  }
 
   async function save() {
     setSaving(true);
@@ -95,6 +110,7 @@ export function SLAWorkspace() {
     try {
       const cleaned: SLAConfig = {
         channel: config.channel,
+        recipients: config.recipients,
         rules: config.rules
           .filter((r) => r.threshold_minutes > 0)
           .map((r) => ({ ...r, name: r.name.trim() || t("sla.rules.untitled") })),
@@ -259,6 +275,44 @@ export function SLAWorkspace() {
                 <Plus aria-hidden="true" className="h-4 w-4" />
                 {t("sla.rules.add")}
               </button>
+            </div>
+          </section>
+
+          {/* Recipients */}
+          <section className="rounded-[var(--radius-card-lg)] border border-[var(--border-subtle)] bg-[var(--surface)] p-5 shadow-[var(--shadow-card)]">
+            <h2 className="text-base font-semibold text-[var(--text-primary)]">
+              {t("sla.recipients.title")}
+            </h2>
+            <p className="mt-1 text-xs text-[var(--text-tertiary)]">
+              {config.recipients.length === 0
+                ? t("sla.recipients.emptyHint")
+                : t("sla.recipients.subtitle")}
+            </p>
+            <div className="mt-3 flex flex-col gap-2">
+              {members.length === 0 ? (
+                <p className="text-sm text-[var(--text-tertiary)]">
+                  {t("sla.recipients.noMembers")}
+                </p>
+              ) : (
+                members.map((member) => (
+                  <label
+                    className="flex cursor-pointer items-center gap-2 text-sm"
+                    key={member.userId}
+                  >
+                    <input
+                      checked={config.recipients.includes(member.userId)}
+                      onChange={(e) => toggleRecipient(member.userId, e.target.checked)}
+                      type="checkbox"
+                    />
+                    <span className="text-[var(--text-primary)]">
+                      {member.displayName || member.email}
+                    </span>
+                    {member.displayName ? (
+                      <span className="text-xs text-[var(--text-tertiary)]">{member.email}</span>
+                    ) : null}
+                  </label>
+                ))
+              )}
             </div>
           </section>
 

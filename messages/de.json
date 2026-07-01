@@ -3211,6 +3211,12 @@
     "saved": "SLA-Regeln gespeichert.",
     "saving": "Speichern…",
     "subtitle": "Benachrichtigen, wenn ein zugewiesener Lead stockt – keine erste Antwort, keine Aktivität oder kein Fortschritt innerhalb Ihrer Schwellenwerte. Nur für Admins.",
-    "title": "SLA-Regeln & Benachrichtigungen"
+    "title": "SLA-Regeln & Benachrichtigungen",
+    "recipients": {
+      "emptyHint": "Noch niemand wird benachrichtigt – wählen Sie die zu alarmierenden Teammitglieder aus.",
+      "noMembers": "Keine Teammitglieder gefunden.",
+      "subtitle": "Diese Mitglieder erhalten bei Verstößen Glocken‑ und E‑Mail‑Benachrichtigungen.",
+      "title": "Diese Teammitglieder benachrichtigen"
+    }
   }
 }

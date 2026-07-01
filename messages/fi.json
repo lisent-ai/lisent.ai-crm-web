@@ -3211,6 +3211,12 @@
     "saved": "SLA-säännöt tallennettu.",
     "saving": "Tallennetaan…",
     "subtitle": "Saavuta hälytys, kun vastuullinen liidi pysähtyy — ei ensimmäistä vastausta, ei toimintaa tai ei edistystä asetettujen rajojen sisällä. Vain ylläpitäjille.",
-    "title": "SLA-säännöt ja hälytykset"
+    "title": "SLA-säännöt ja hälytykset",
+    "recipients": {
+      "emptyHint": "Kukaan ei ole vielä ilmoitettu — valitse tiimin jäsenet hälytykseen.",
+      "noMembers": "Tiimin jäseniä ei löytynyt.",
+      "subtitle": "Nämä jäsenet saavat äänimerkki‑ ja sähköpostihälytykset rikkomuksista.",
+      "title": "Ilmoita näille tiimin jäsenille"
+    }
   }
 }

@@ -3211,6 +3211,12 @@
     "saved": "Reglas SLA guardadas.",
     "saving": "Guardando…",
     "subtitle": "Recibe alertas cuando un contacto asignado se estanca — sin primera respuesta, sin actividad o sin progreso dentro de tus umbrales. Solo administradores.",
-    "title": "Reglas y alertas SLA"
+    "title": "Reglas y alertas SLA",
+    "recipients": {
+      "emptyHint": "Aún no se notifica a nadie — selecciona los miembros del equipo a alertar.",
+      "noMembers": "No se encontraron miembros del equipo.",
+      "subtitle": "Estos miembros reciben alertas de campana y correo para incumplimientos.",
+      "title": "Notificar a estos miembros del equipo"
+    }
   }
 }
