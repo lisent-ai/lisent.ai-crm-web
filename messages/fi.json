@@ -1747,8 +1747,8 @@
         "confirm": "Vie PDF",
         "description": "Valitse, mitä sisällytetään {count} valittuun liidiin.",
         "exporting": "Viedään...",
-        "includeComments": "Sisällytä liidin kommentit",
-        "includeCommentsHint": "Lisää osion, jossa on kaikki tiimin kommentit jokaiselle valitulle liidille. Voi kestää pidempään.",
+        "includeComments": "Sisällytä muistiinpanot ja kommentit",
+        "includeCommentsHint": "Lisää jokaisen valitun leadin muistiinpanot ja tiimin kommentit rivin alle. Luonti voi kestää kauemmin.",
         "title": "Vie liidit PDF‑tiedostoon"
       },
       "pageOf": "Sivu {current}/{total}",

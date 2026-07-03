@@ -1747,8 +1747,8 @@
         "confirm": "Eksportuj PDF",
         "description": "Wybierz, co uwzględnić w eksporcie {count} wybranych leadów.",
         "exporting": "Eksportowanie...",
-        "includeComments": "Uwzględnij komentarze leadów",
-        "includeCommentsHint": "Dodaje sekcję ze wszystkimi komentarzami zespołu dla każdego wybranego leada. Może wydłużyć czas generowania.",
+        "includeComments": "Dołącz notatki i komentarze",
+        "includeCommentsHint": "Dodaje notatki i komentarze zespołu pod wierszem każdego wybranego leada. Generowanie może potrwać dłużej.",
         "title": "Eksportuj leady do PDF"
       },
       "pageOf": "Strona {current} z {total}",

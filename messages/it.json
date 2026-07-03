@@ -1747,8 +1747,8 @@
         "confirm": "Esporta PDF",
         "description": "Scegli cosa includere nell'esportazione di {count} lead selezionati.",
         "exporting": "Esportazione in corso…",
-        "includeComments": "Includi commenti lead",
-        "includeCommentsHint": "Aggiunge una sezione con tutti i commenti del team per ogni lead selezionato. Potrebbe richiedere più tempo per la generazione.",
+        "includeComments": "Includi note e commenti",
+        "includeCommentsHint": "Aggiunge sotto la riga di ogni lead selezionato le sue note e i commenti del team. La generazione può richiedere più tempo.",
         "title": "Esporta lead in PDF"
       },
       "pageOf": "Pagina {current} di {total}",

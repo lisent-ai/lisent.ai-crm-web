@@ -1747,8 +1747,8 @@
         "confirm": "تصدير PDF",
         "description": "اختر ما تريد تضمينه في تصدير {count} من الـ Leads المحددة.",
         "exporting": "جارٍ التصدير...",
-        "includeComments": "تضمين تعليقات Lead",
-        "includeCommentsHint": "يضيف قسمًا يحتوي على جميع تعليقات الفريق لكل Lead مختار. قد يستغرق وقتًا أطول في الإنشاء.",
+        "includeComments": "تضمين الملاحظات والتعليقات",
+        "includeCommentsHint": "يضيف ملاحظات وتعليقات الفريق أسفل صف كل lead محدد. قد يستغرق الإنشاء وقتًا أطول.",
         "title": "تصدير Leads إلى PDF"
       },
       "pageOf": "الصفحة {current} من {total}",

@@ -1747,8 +1747,8 @@
         "confirm": "Exportar PDF",
         "description": "Escolha o que incluir na exportação de {count} leads selecionados.",
         "exporting": "Exportando…",
-        "includeComments": "Incluir comentários do lead",
-        "includeCommentsHint": "Adiciona uma seção com todos os comentários da equipe para cada lead selecionado. Pode levar mais tempo para gerar.",
+        "includeComments": "Incluir notas e comentários",
+        "includeCommentsHint": "Adiciona abaixo da linha de cada lead selecionado as suas notas e os comentários da equipe. A geração pode demorar mais.",
         "title": "Exportar leads para PDF"
       },
       "pageOf": "Página {current} de {total}",

@@ -1747,8 +1747,8 @@
         "confirm": "Exportera PDF",
         "description": "Välj vad som ska inkluderas i exporten av {count} valda leads.",
         "exporting": "Exporterar...",
-        "includeComments": "Inkludera lead-kommentarer",
-        "includeCommentsHint": "Lägger till ett avsnitt med alla teamkommentarer för varje valt lead. Kan ta längre tid att generera.",
+        "includeComments": "Inkludera anteckningar och kommentarer",
+        "includeCommentsHint": "Lägger till anteckningar och teamkommentarer under raden för varje vald lead. Kan ta längre tid att generera.",
         "title": "Exportera leads till PDF"
       },
       "pageOf": "Sida {current} av {total}",

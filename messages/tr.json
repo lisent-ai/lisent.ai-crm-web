@@ -1889,8 +1889,8 @@
         "confirm": "PDF dışa aktar",
         "description": "Seçilen {count} müşteri adayı dışa aktarımına neyin dahil edileceğini seçin.",
         "exporting": "Dışa aktarılıyor...",
-        "includeComments": "Müşteri adayı yorumlarını dahil et",
-        "includeCommentsHint": "Seçilen her müşteri adayı için tüm ekip yorumlarını içeren bir bölüm ekler. Oluşturulması daha uzun sürebilir.",
+        "includeComments": "Notları ve yorumları dahil et",
+        "includeCommentsHint": "Seçilen her müşteri adayının notlarını ve ekip yorumlarını satırının altına ekler. Oluşturulması daha uzun sürebilir.",
         "title": "Müşteri adaylarını PDF olarak dışa aktar"
       },
       "pageOf": "Sayfa {current} / {total}",

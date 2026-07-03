@@ -1747,8 +1747,8 @@
         "confirm": "Export PDF",
         "description": "Kies wat u wilt opnemen in de export van {count} geselecteerde leads.",
         "exporting": "Exporteren…",
-        "includeComments": "Leadreacties opnemen",
-        "includeCommentsHint": "Voegt een sectie toe met alle teamreacties voor elke geselecteerde lead. Kan langer duren om te genereren.",
+        "includeComments": "Notities en reacties opnemen",
+        "includeCommentsHint": "Voegt onder de rij van elke geselecteerde lead de notities en teamreacties toe. Genereren kan langer duren.",
         "title": "Leads exporteren naar PDF"
       },
       "pageOf": "Pagina {current} van {total}",

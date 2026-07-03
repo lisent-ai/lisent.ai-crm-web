@@ -23,8 +23,9 @@ export type LeadCommentSnapshot = {
 };
 
 export type LeadPdfOptions = {
-  // When true, the table interleaves a comment sub-row directly under
-  // each lead row (only for leads that actually have comments). When
+  // When true, the table interleaves a notes sub-row directly under each
+  // lead row: the lead's own notes field (filled in via the edit form)
+  // plus its comment thread — only for leads that have either. When
   // false (default) the table matches the legacy table-only layout.
   includeComments?: boolean;
   // Caller pre-fetches comments and passes them keyed by lead.id. Leads
@@ -61,16 +62,33 @@ function formatDate(value: string | null | undefined, locale: SupportedLocale): 
   }).format(date);
 }
 
-function buildCommentsStack(
+function buildNotesStack(
+  note: string,
   comments: readonly LeadCommentSnapshot[],
   t: Translator,
   locale: SupportedLocale,
 ): Content[] {
+  const stack: Content[] = [];
+
+  // The lead's own notes field (edited via the lead form) comes first,
+  // under the same "Lead context" label the drawer's notes panel uses,
+  // so the PDF mirrors what the user sees on screen.
+  if (note) {
+    stack.push({ text: t("leads.notes.leadContext"), style: "commentsInlineLabel" });
+    stack.push({ text: note, style: "commentBody", margin: [0, 2, 0, 0] });
+  }
+
+  if (comments.length === 0) {
+    return stack;
+  }
+
   // The "Comments" label anchors the block visually so a reader scanning
   // the page never confuses an indented comment row with the next lead.
-  const stack: Content[] = [
-    { text: t("leads.pdf.commentsHeader"), style: "commentsInlineLabel" },
-  ];
+  stack.push({
+    text: t("leads.pdf.commentsHeader"),
+    style: "commentsInlineLabel",
+    margin: note ? [0, 8, 0, 0] : [0, 0, 0, 0],
+  });
 
   comments.forEach((comment, index) => {
     const author = comment.authorUserName?.trim() || t("leads.notes.unknownAuthor");
@@ -134,9 +152,10 @@ export function buildLeadPdfDefinition(
     if (!includeComments) return;
 
     const comments = commentsByLeadId.get(lead.id) ?? [];
-    if (comments.length === 0) {
-      // Skipping leads with no comments keeps the table tight rather
-      // than littering it with "no comments yet" placeholders.
+    const note = lead.notes?.trim() ?? "";
+    if (comments.length === 0 && !note) {
+      // Skipping leads with no notes/comments keeps the table tight
+      // rather than littering it with "no comments yet" placeholders.
       return;
     }
 
@@ -146,7 +165,7 @@ export function buildLeadPdfDefinition(
     // placeholders for the row width to line up.
     const commentCell: TableCell = {
       colSpan: COLUMN_COUNT,
-      stack: buildCommentsStack(comments, t, locale),
+      stack: buildNotesStack(note, comments, t, locale),
       // Left margin indents the whole block so it visually sits "under"
       // the lead row above, mimicking a child-row pattern.
       margin: [16, 4, 8, 4],
