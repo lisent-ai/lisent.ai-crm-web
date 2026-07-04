@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Sinulla ei ole oikeutta tarkastella audit-lokia.",
-    "backToLeads": "Takaisin liideihin",
-    "empty": "Ei vielä kirjattua toimintaa.",
-    "loadFailed": "Audit-lokin lataus epäonnistui.",
-    "loading": "Ladataan toimintaa...",
-    "openButton": "Audit-loki",
-    "subtitle": "Kaikki toiminnot työtilassa — kuka teki mitä ja milloin. Vain ylläpitäjälle.",
-    "title": "Audit-loki",
-    "columns": {
-      "action": "Toiminto",
-      "actor": "Kuka",
-      "entity": "Kohde",
-      "time": "Aika"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integraatio",
-      "system": "Järjestelmä",
-      "user": "Käyttäjä"
-    },
     "actions": {
       "lead": {
         "ai_scored": "AI pisteytys",
@@ -3171,7 +3152,70 @@
         "test_fired": "Integraatiotesti lähetetty",
         "token_rotated": "Integraatiotunnus vaihdettu"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integraatio",
+      "system": "Järjestelmä",
+      "user": "Käyttäjä"
+    },
+    "backToLeads": "Takaisin liideihin",
+    "columns": {
+      "action": "Toiminto",
+      "actor": "Kuka",
+      "entity": "Kohde",
+      "time": "Aika"
+    },
+    "details": {
+      "entity": "Tietue",
+      "field": "Kenttä",
+      "fieldsChanged": "Muutetut kentät: {count}",
+      "from": "Ennen",
+      "hide": "Piilota tiedot",
+      "loadMore": "Lataa lisää",
+      "rawPayload": "Raakadata (JSON)",
+      "requestId": "Pyyntötunnus",
+      "show": "Näytä tiedot",
+      "to": "Jälkeen"
+    },
+    "empty": "Ei vielä kirjattua toimintaa.",
+    "entityTypes": {
+      "agency": "Toimisto",
+      "announcement": "Ilmoitus",
+      "calendar_event": "Kalenteritapahtuma",
+      "call": "Puhelu",
+      "company": "Yritys",
+      "customer": "Asiakas",
+      "deal": "Kauppa",
+      "import_profile": "Tuontiprofiili",
+      "integration": "Integraatio",
+      "lead": "Liidi",
+      "module_access": "Moduulien käyttöoikeus",
+      "task": "Tehtävä"
+    },
+    "fields": {
+      "email": "Sähköposti",
+      "name": "Nimi",
+      "notes": "Muistiinpanot",
+      "phone": "Puhelin",
+      "source": "Lähde",
+      "value": "Arvo"
+    },
+    "filters": {
+      "action": "Toiminto",
+      "actor": "Tiimin jäsen",
+      "allActions": "Kaikki toiminnot",
+      "allActors": "Kaikki tiimin jäsenet",
+      "allEntities": "Kaikki tietuetyypit",
+      "entity": "Tietuetyyppi",
+      "machineActors": "Automaattiset toimijat",
+      "reset": "Tyhjennä suodattimet"
+    },
+    "loadFailed": "Audit-lokin lataus epäonnistui.",
+    "loading": "Ladataan toimintaa...",
+    "openButton": "Audit-loki",
+    "subtitle": "Kaikki toiminnot työtilassa — kuka teki mitä ja milloin. Vain ylläpitäjälle.",
+    "title": "Audit-loki"
   },
   "sla": {
     "accessDenied": "Sinulla ei ole oikeutta hallita SLA-sääntöjä.",

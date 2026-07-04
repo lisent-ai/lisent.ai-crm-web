@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Vous n’avez pas l’autorisation de consulter le journal d’audit.",
-    "backToLeads": "Retour aux prospects",
-    "empty": "Aucune activité enregistrée pour le moment.",
-    "loadFailed": "Échec du chargement du journal d’audit.",
-    "loading": "Chargement des activités...",
-    "openButton": "Journal d’audit",
-    "subtitle": "Toutes les actions dans l’espace de travail — qui a fait quoi et quand. Administrateur uniquement.",
-    "title": "Journal d’audit",
-    "columns": {
-      "action": "Action",
-      "actor": "Qui",
-      "entity": "Élément",
-      "time": "Heure"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Intégration",
-      "system": "Système",
-      "user": "Utilisateur"
-    },
     "actions": {
       "lead": {
         "ai_scored": "Score IA",
@@ -3171,7 +3152,70 @@
         "test_fired": "Test d'intégration envoyé",
         "token_rotated": "Jeton d'intégration renouvelé"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Intégration",
+      "system": "Système",
+      "user": "Utilisateur"
+    },
+    "backToLeads": "Retour aux prospects",
+    "columns": {
+      "action": "Action",
+      "actor": "Qui",
+      "entity": "Élément",
+      "time": "Heure"
+    },
+    "details": {
+      "entity": "Élément",
+      "field": "Champ",
+      "fieldsChanged": "Champs modifiés : {count}",
+      "from": "Avant",
+      "hide": "Masquer les détails",
+      "loadMore": "Charger plus",
+      "rawPayload": "Données brutes (JSON)",
+      "requestId": "ID de requête",
+      "show": "Afficher les détails",
+      "to": "Après"
+    },
+    "empty": "Aucune activité enregistrée pour le moment.",
+    "entityTypes": {
+      "agency": "Agence",
+      "announcement": "Annonce",
+      "calendar_event": "Événement de calendrier",
+      "call": "Appel",
+      "company": "Entreprise",
+      "customer": "Client",
+      "deal": "Affaire",
+      "import_profile": "Profil d'import",
+      "integration": "Intégration",
+      "lead": "Prospect",
+      "module_access": "Accès aux modules",
+      "task": "Tâche"
+    },
+    "fields": {
+      "email": "E-mail",
+      "name": "Nom",
+      "notes": "Notes",
+      "phone": "Téléphone",
+      "source": "Source",
+      "value": "Valeur"
+    },
+    "filters": {
+      "action": "Action",
+      "actor": "Membre de l'équipe",
+      "allActions": "Toutes les actions",
+      "allActors": "Tous les membres",
+      "allEntities": "Tous les types",
+      "entity": "Type d'élément",
+      "machineActors": "Acteurs automatisés",
+      "reset": "Réinitialiser les filtres"
+    },
+    "loadFailed": "Échec du chargement du journal d’audit.",
+    "loading": "Chargement des activités...",
+    "openButton": "Journal d’audit",
+    "subtitle": "Toutes les actions dans l’espace de travail — qui a fait quoi et quand. Administrateur uniquement.",
+    "title": "Journal d’audit"
   },
   "sla": {
     "accessDenied": "Vous n'avez pas la permission de gérer les règles SLA.",

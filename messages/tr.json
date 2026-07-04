@@ -142,7 +142,51 @@
       "entity": "Öğe",
       "time": "Zaman"
     },
+    "details": {
+      "entity": "Kayıt",
+      "field": "Alan",
+      "fieldsChanged": "Değişen alan: {count}",
+      "from": "Önce",
+      "hide": "Detayları gizle",
+      "loadMore": "Daha fazla yükle",
+      "rawPayload": "Ham veri (JSON)",
+      "requestId": "İstek kimliği",
+      "show": "Detayları göster",
+      "to": "Sonra"
+    },
     "empty": "Henüz kayıtlı aktivite yok.",
+    "entityTypes": {
+      "agency": "Ajans",
+      "announcement": "Duyuru",
+      "calendar_event": "Takvim etkinliği",
+      "call": "Arama",
+      "company": "Şirket",
+      "customer": "Müşteri",
+      "deal": "Anlaşma",
+      "import_profile": "İçe aktarma profili",
+      "integration": "Entegrasyon",
+      "lead": "Müşteri adayı",
+      "module_access": "Modül erişimi",
+      "task": "Görev"
+    },
+    "fields": {
+      "email": "E-posta",
+      "name": "İsim",
+      "notes": "Notlar",
+      "phone": "Telefon",
+      "source": "Kaynak",
+      "value": "Değer"
+    },
+    "filters": {
+      "action": "İşlem",
+      "actor": "Ekip üyesi",
+      "allActions": "Tüm işlemler",
+      "allActors": "Tüm ekip üyeleri",
+      "allEntities": "Tüm kayıt türleri",
+      "entity": "Kayıt türü",
+      "machineActors": "Otomatik aktörler",
+      "reset": "Filtreleri sıfırla"
+    },
     "loadFailed": "Denetim kaydı yüklenemedi.",
     "loading": "Aktivite yükleniyor...",
     "openButton": "Denetim kaydı",

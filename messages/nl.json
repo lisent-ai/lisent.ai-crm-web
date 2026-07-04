@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Je hebt geen toestemming om het auditlog te bekijken.",
-    "backToLeads": "Terug naar leads",
-    "empty": "Nog geen activiteit geregistreerd.",
-    "loadFailed": "Laden van het auditlog mislukt.",
-    "loading": "Activiteit laden...",
-    "openButton": "Auditlog",
-    "subtitle": "Elke actie in de werkruimte — wie wat deed en wanneer. Alleen admin.",
-    "title": "Auditlog",
-    "columns": {
-      "action": "Actie",
-      "actor": "Wie",
-      "entity": "Item",
-      "time": "Tijd"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integratie",
-      "system": "Systeem",
-      "user": "Gebruiker"
-    },
     "actions": {
       "lead": {
         "ai_scored": "AI-score",
@@ -3171,7 +3152,70 @@
         "test_fired": "Integratietest verzonden",
         "token_rotated": "Integratietoken vernieuwd"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integratie",
+      "system": "Systeem",
+      "user": "Gebruiker"
+    },
+    "backToLeads": "Terug naar leads",
+    "columns": {
+      "action": "Actie",
+      "actor": "Wie",
+      "entity": "Item",
+      "time": "Tijd"
+    },
+    "details": {
+      "entity": "Record",
+      "field": "Veld",
+      "fieldsChanged": "Gewijzigde velden: {count}",
+      "from": "Voor",
+      "hide": "Details verbergen",
+      "loadMore": "Meer laden",
+      "rawPayload": "Ruwe data (JSON)",
+      "requestId": "Request-ID",
+      "show": "Details tonen",
+      "to": "Na"
+    },
+    "empty": "Nog geen activiteit geregistreerd.",
+    "entityTypes": {
+      "agency": "Bureau",
+      "announcement": "Aankondiging",
+      "calendar_event": "Agenda-item",
+      "call": "Gesprek",
+      "company": "Bedrijf",
+      "customer": "Klant",
+      "deal": "Deal",
+      "import_profile": "Importprofiel",
+      "integration": "Integratie",
+      "lead": "Lead",
+      "module_access": "Moduletoegang",
+      "task": "Taak"
+    },
+    "fields": {
+      "email": "E-mail",
+      "name": "Naam",
+      "notes": "Notities",
+      "phone": "Telefoon",
+      "source": "Bron",
+      "value": "Waarde"
+    },
+    "filters": {
+      "action": "Actie",
+      "actor": "Teamlid",
+      "allActions": "Alle acties",
+      "allActors": "Alle teamleden",
+      "allEntities": "Alle recordtypen",
+      "entity": "Recordtype",
+      "machineActors": "Geautomatiseerde actoren",
+      "reset": "Filters resetten"
+    },
+    "loadFailed": "Laden van het auditlog mislukt.",
+    "loading": "Activiteit laden...",
+    "openButton": "Auditlog",
+    "subtitle": "Elke actie in de werkruimte — wie wat deed en wanneer. Alleen admin.",
+    "title": "Auditlog"
   },
   "sla": {
     "accessDenied": "Je hebt geen toestemming om SLA-regels te beheren.",

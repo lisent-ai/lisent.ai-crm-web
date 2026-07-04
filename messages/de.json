@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Sie haben keine Berechtigung, das Prüfprotokoll einzusehen.",
-    "backToLeads": "Zurück zu Leads",
-    "empty": "Noch keine Aktivitäten aufgezeichnet.",
-    "loadFailed": "Das Prüfprotokoll konnte nicht geladen werden.",
-    "loading": "Aktivität wird geladen...",
-    "openButton": "Prüfprotokoll",
-    "subtitle": "Alle Aktionen im Arbeitsbereich – wer was wann getan hat. Nur für Admins.",
-    "title": "Prüfprotokoll",
-    "columns": {
-      "action": "Aktion",
-      "actor": "Wer",
-      "entity": "Element",
-      "time": "Zeit"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integration",
-      "system": "System",
-      "user": "Benutzer"
-    },
     "actions": {
       "lead": {
         "ai_scored": "KI bewertet",
@@ -3171,7 +3152,70 @@
         "test_fired": "Integrationstest gesendet",
         "token_rotated": "Integrationstoken erneuert"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "Benutzer"
+    },
+    "backToLeads": "Zurück zu Leads",
+    "columns": {
+      "action": "Aktion",
+      "actor": "Wer",
+      "entity": "Element",
+      "time": "Zeit"
+    },
+    "details": {
+      "entity": "Datensatz",
+      "field": "Feld",
+      "fieldsChanged": "Geänderte Felder: {count}",
+      "from": "Vorher",
+      "hide": "Details ausblenden",
+      "loadMore": "Mehr laden",
+      "rawPayload": "Rohdaten (JSON)",
+      "requestId": "Request-ID",
+      "show": "Details anzeigen",
+      "to": "Nachher"
+    },
+    "empty": "Noch keine Aktivitäten aufgezeichnet.",
+    "entityTypes": {
+      "agency": "Agentur",
+      "announcement": "Ankündigung",
+      "calendar_event": "Kalendereintrag",
+      "call": "Anruf",
+      "company": "Unternehmen",
+      "customer": "Kunde",
+      "deal": "Deal",
+      "import_profile": "Importprofil",
+      "integration": "Integration",
+      "lead": "Lead",
+      "module_access": "Modulzugriff",
+      "task": "Aufgabe"
+    },
+    "fields": {
+      "email": "E-Mail",
+      "name": "Name",
+      "notes": "Notizen",
+      "phone": "Telefon",
+      "source": "Quelle",
+      "value": "Wert"
+    },
+    "filters": {
+      "action": "Aktion",
+      "actor": "Teammitglied",
+      "allActions": "Alle Aktionen",
+      "allActors": "Alle Teammitglieder",
+      "allEntities": "Alle Datensatztypen",
+      "entity": "Datensatztyp",
+      "machineActors": "Automatisierte Akteure",
+      "reset": "Filter zurücksetzen"
+    },
+    "loadFailed": "Das Prüfprotokoll konnte nicht geladen werden.",
+    "loading": "Aktivität wird geladen...",
+    "openButton": "Prüfprotokoll",
+    "subtitle": "Alle Aktionen im Arbeitsbereich – wer was wann getan hat. Nur für Admins.",
+    "title": "Prüfprotokoll"
   },
   "sla": {
     "accessDenied": "Sie haben keine Berechtigung, SLA-Regeln zu verwalten.",

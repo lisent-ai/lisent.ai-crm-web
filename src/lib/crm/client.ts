@@ -1125,6 +1125,7 @@ export type AuditEvent = {
   entityId: string;
   action: string;
   payload: Record<string, unknown>;
+  requestId: string;
   createdAt: string;
 };
 
@@ -1139,6 +1140,7 @@ function mapAuditEvent(r: CRMAuditRecord): AuditEvent {
     entityId: r.entity_id ?? "",
     action: r.action ?? "",
     payload: (r.payload ?? {}) as Record<string, unknown>,
+    requestId: r.request_id ?? "",
     createdAt: r.created_at,
   };
 }
@@ -1159,16 +1161,24 @@ export async function listLeadActivities(
 }
 
 /** Company-wide audit log (admin). Server enforces owner/super_admin (403 on
- *  denial). Supports entity_type / action / actor filters. */
+ *  denial). Supports entity_type / entity_id / action / actor filters. */
 export async function listCompanyAuditLog(
   companyId: string,
   page: { limit: number; offset: number } = { limit: 30, offset: 0 },
-  filters: { entityType?: string; action?: string; actorUserId?: string } = {},
+  filters: {
+    entityType?: string;
+    entityId?: string;
+    action?: string;
+    actorUserId?: string;
+    actorType?: string;
+  } = {},
 ): Promise<{ data: AuditEvent[]; total: number }> {
   const query = new URLSearchParams({ limit: String(page.limit), offset: String(page.offset) });
   if (filters.entityType?.trim()) query.set("entity_type", filters.entityType.trim());
+  if (filters.entityId?.trim()) query.set("entity_id", filters.entityId.trim());
   if (filters.action?.trim()) query.set("action", filters.action.trim());
   if (filters.actorUserId?.trim()) query.set("actor_user_id", filters.actorUserId.trim());
+  if (filters.actorType?.trim()) query.set("actor_type", filters.actorType.trim());
   const response = await requestCRM<CRMListResponse<CRMAuditRecord>>(
     `/companies/${companyId}/audit-log?${query.toString()}`,
   );

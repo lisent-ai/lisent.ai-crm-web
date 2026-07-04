@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "ليس لديك إذن لعرض سجل التدقيق.",
-    "backToLeads": "العودة إلى العملاء المحتملين",
-    "empty": "لم يتم تسجيل أي نشاط بعد.",
-    "loadFailed": "فشل تحميل سجل التدقيق.",
-    "loading": "جارٍ تحميل النشاط...",
-    "openButton": "سجل التدقيق",
-    "subtitle": "كل إجراء في مساحة العمل — من فعل ماذا ومتى. للمسؤول فقط.",
-    "title": "سجل التدقيق",
-    "columns": {
-      "action": "الإجراء",
-      "actor": "المسؤول",
-      "entity": "العنصر",
-      "time": "الوقت"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "تكامل",
-      "system": "نظام",
-      "user": "مستخدم"
-    },
     "actions": {
       "lead": {
         "ai_scored": "تم تقييمه بالذكاء الاصطناعي",
@@ -3171,7 +3152,70 @@
         "test_fired": "تم إرسال اختبار التكامل",
         "token_rotated": "تم تدوير رمز التكامل"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "تكامل",
+      "system": "نظام",
+      "user": "مستخدم"
+    },
+    "backToLeads": "العودة إلى العملاء المحتملين",
+    "columns": {
+      "action": "الإجراء",
+      "actor": "المسؤول",
+      "entity": "العنصر",
+      "time": "الوقت"
+    },
+    "details": {
+      "entity": "السجل",
+      "field": "الحقل",
+      "fieldsChanged": "الحقول المتغيّرة: {count}",
+      "from": "قبل",
+      "hide": "إخفاء التفاصيل",
+      "loadMore": "تحميل المزيد",
+      "rawPayload": "البيانات الخام (JSON)",
+      "requestId": "معرّف الطلب",
+      "show": "عرض التفاصيل",
+      "to": "بعد"
+    },
+    "empty": "لم يتم تسجيل أي نشاط بعد.",
+    "entityTypes": {
+      "agency": "وكالة",
+      "announcement": "إعلان",
+      "calendar_event": "حدث تقويم",
+      "call": "مكالمة",
+      "company": "شركة",
+      "customer": "عميل",
+      "deal": "صفقة",
+      "import_profile": "ملف استيراد",
+      "integration": "تكامل",
+      "lead": "عميل محتمل",
+      "module_access": "صلاحيات الوحدات",
+      "task": "مهمة"
+    },
+    "fields": {
+      "email": "البريد الإلكتروني",
+      "name": "الاسم",
+      "notes": "الملاحظات",
+      "phone": "الهاتف",
+      "source": "المصدر",
+      "value": "القيمة"
+    },
+    "filters": {
+      "action": "الإجراء",
+      "actor": "عضو الفريق",
+      "allActions": "كل الإجراءات",
+      "allActors": "كل أعضاء الفريق",
+      "allEntities": "كل أنواع السجلات",
+      "entity": "نوع السجل",
+      "machineActors": "الجهات الآلية",
+      "reset": "إعادة تعيين الفلاتر"
+    },
+    "loadFailed": "فشل تحميل سجل التدقيق.",
+    "loading": "جارٍ تحميل النشاط...",
+    "openButton": "سجل التدقيق",
+    "subtitle": "كل إجراء في مساحة العمل — من فعل ماذا ومتى. للمسؤول فقط.",
+    "title": "سجل التدقيق"
   },
   "sla": {
     "accessDenied": "ليس لديك إذن لإدارة قواعد SLA.",

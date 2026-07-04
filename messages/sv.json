@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Du har inte behörighet att visa revisionsloggen.",
-    "backToLeads": "Tillbaka till leads",
-    "empty": "Ingen aktivitet har registrerats ännu.",
-    "loadFailed": "Kunde inte läsa in revisionsloggen.",
-    "loading": "Läser in aktivitet...",
-    "openButton": "Revisionslogg",
-    "subtitle": "Alla åtgärder i arbetsytan — vem gjorde vad och när. Endast admin.",
-    "title": "Revisionslogg",
-    "columns": {
-      "action": "Åtgärd",
-      "actor": "Vem",
-      "entity": "Objekt",
-      "time": "Tid"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integration",
-      "system": "System",
-      "user": "Användare"
-    },
     "actions": {
       "lead": {
         "ai_scored": "AI‑poäng satt",
@@ -3171,7 +3152,70 @@
         "test_fired": "Integrationstest skickat",
         "token_rotated": "Integrationstoken roterad"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "Användare"
+    },
+    "backToLeads": "Tillbaka till leads",
+    "columns": {
+      "action": "Åtgärd",
+      "actor": "Vem",
+      "entity": "Objekt",
+      "time": "Tid"
+    },
+    "details": {
+      "entity": "Post",
+      "field": "Fält",
+      "fieldsChanged": "Ändrade fält: {count}",
+      "from": "Före",
+      "hide": "Dölj detaljer",
+      "loadMore": "Ladda fler",
+      "rawPayload": "Rådata (JSON)",
+      "requestId": "Förfrågnings-ID",
+      "show": "Visa detaljer",
+      "to": "Efter"
+    },
+    "empty": "Ingen aktivitet har registrerats ännu.",
+    "entityTypes": {
+      "agency": "Byrå",
+      "announcement": "Meddelande",
+      "calendar_event": "Kalenderhändelse",
+      "call": "Samtal",
+      "company": "Företag",
+      "customer": "Kund",
+      "deal": "Deal",
+      "import_profile": "Importprofil",
+      "integration": "Integration",
+      "lead": "Lead",
+      "module_access": "Modulåtkomst",
+      "task": "Uppgift"
+    },
+    "fields": {
+      "email": "E-post",
+      "name": "Namn",
+      "notes": "Anteckningar",
+      "phone": "Telefon",
+      "source": "Källa",
+      "value": "Värde"
+    },
+    "filters": {
+      "action": "Åtgärd",
+      "actor": "Teammedlem",
+      "allActions": "Alla åtgärder",
+      "allActors": "Alla teammedlemmar",
+      "allEntities": "Alla posttyper",
+      "entity": "Posttyp",
+      "machineActors": "Automatiserade aktörer",
+      "reset": "Återställ filter"
+    },
+    "loadFailed": "Kunde inte läsa in revisionsloggen.",
+    "loading": "Läser in aktivitet...",
+    "openButton": "Revisionslogg",
+    "subtitle": "Alla åtgärder i arbetsytan — vem gjorde vad och när. Endast admin.",
+    "title": "Revisionslogg"
   },
   "sla": {
     "accessDenied": "Du har inte behörighet att hantera SLA-regler.",

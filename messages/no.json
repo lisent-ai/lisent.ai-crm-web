@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "You don't have permission to view the audit log.",
-    "backToLeads": "Back to leads",
-    "empty": "No activity recorded yet.",
-    "loadFailed": "Failed to load the audit log.",
-    "loading": "Loading activity...",
-    "openButton": "Audit log",
-    "subtitle": "Every action across the workspace — who did what, and when. Admin only.",
-    "title": "Audit log",
-    "columns": {
-      "action": "Action",
-      "actor": "Who",
-      "entity": "Item",
-      "time": "Time"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integration",
-      "system": "System",
-      "user": "User"
-    },
     "actions": {
       "lead": {
         "ai_scored": "AI scored",
@@ -3171,7 +3152,70 @@
         "test_fired": "Integration test sent",
         "token_rotated": "Integration token rotated"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "User"
+    },
+    "backToLeads": "Back to leads",
+    "columns": {
+      "action": "Action",
+      "actor": "Who",
+      "entity": "Item",
+      "time": "Time"
+    },
+    "details": {
+      "entity": "Record",
+      "field": "Field",
+      "fieldsChanged": "Changed fields: {count}",
+      "from": "Before",
+      "hide": "Hide details",
+      "loadMore": "Load more",
+      "rawPayload": "Raw data (JSON)",
+      "requestId": "Request ID",
+      "show": "Show details",
+      "to": "After"
+    },
+    "empty": "No activity recorded yet.",
+    "entityTypes": {
+      "agency": "Agency",
+      "announcement": "Announcement",
+      "calendar_event": "Calendar event",
+      "call": "Call",
+      "company": "Company",
+      "customer": "Customer",
+      "deal": "Deal",
+      "import_profile": "Import profile",
+      "integration": "Integration",
+      "lead": "Lead",
+      "module_access": "Module access",
+      "task": "Task"
+    },
+    "fields": {
+      "email": "Email",
+      "name": "Name",
+      "notes": "Notes",
+      "phone": "Phone",
+      "source": "Source",
+      "value": "Value"
+    },
+    "filters": {
+      "action": "Action",
+      "actor": "Team member",
+      "allActions": "All actions",
+      "allActors": "All team members",
+      "allEntities": "All record types",
+      "entity": "Record type",
+      "machineActors": "Automated actors",
+      "reset": "Reset filters"
+    },
+    "loadFailed": "Failed to load the audit log.",
+    "loading": "Loading activity...",
+    "openButton": "Audit log",
+    "subtitle": "Every action across the workspace — who did what, and when. Admin only.",
+    "title": "Audit log"
   },
   "sla": {
     "accessDenied": "You don't have permission to manage SLA rules.",

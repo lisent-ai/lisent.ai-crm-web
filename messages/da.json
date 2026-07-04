@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Du har ikke tilladelse til at se revisionsloggen.",
-    "backToLeads": "Tilbage til leads",
-    "empty": "Ingen aktivitet registreret endnu.",
-    "loadFailed": "Kunne ikke indlæse revisionsloggen.",
-    "loading": "Indlæser aktivitet...",
-    "openButton": "Revisionslog",
-    "subtitle": "Alle handlinger i arbejdsområdet — hvem gjorde hvad, og hvornår. Kun admin.",
-    "title": "Revisionslog",
-    "columns": {
-      "action": "Handling",
-      "actor": "Hvem",
-      "entity": "Element",
-      "time": "Tid"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integration",
-      "system": "System",
-      "user": "Bruger"
-    },
     "actions": {
       "lead": {
         "ai_scored": "AI-score",
@@ -3171,7 +3152,70 @@
         "test_fired": "Integrationstest sendt",
         "token_rotated": "Integrationens token roteret"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integration",
+      "system": "System",
+      "user": "Bruger"
+    },
+    "backToLeads": "Tilbage til leads",
+    "columns": {
+      "action": "Handling",
+      "actor": "Hvem",
+      "entity": "Element",
+      "time": "Tid"
+    },
+    "details": {
+      "entity": "Post",
+      "field": "Felt",
+      "fieldsChanged": "Ændrede felter: {count}",
+      "from": "Før",
+      "hide": "Skjul detaljer",
+      "loadMore": "Indlæs flere",
+      "rawPayload": "Rådata (JSON)",
+      "requestId": "Anmodnings-ID",
+      "show": "Vis detaljer",
+      "to": "Efter"
+    },
+    "empty": "Ingen aktivitet registreret endnu.",
+    "entityTypes": {
+      "agency": "Bureau",
+      "announcement": "Meddelelse",
+      "calendar_event": "Kalenderbegivenhed",
+      "call": "Opkald",
+      "company": "Virksomhed",
+      "customer": "Kunde",
+      "deal": "Deal",
+      "import_profile": "Importprofil",
+      "integration": "Integration",
+      "lead": "Lead",
+      "module_access": "Moduladgang",
+      "task": "Opgave"
+    },
+    "fields": {
+      "email": "E-mail",
+      "name": "Navn",
+      "notes": "Noter",
+      "phone": "Telefon",
+      "source": "Kilde",
+      "value": "Værdi"
+    },
+    "filters": {
+      "action": "Handling",
+      "actor": "Teammedlem",
+      "allActions": "Alle handlinger",
+      "allActors": "Alle teammedlemmer",
+      "allEntities": "Alle posttyper",
+      "entity": "Posttype",
+      "machineActors": "Automatiserede aktører",
+      "reset": "Nulstil filtre"
+    },
+    "loadFailed": "Kunne ikke indlæse revisionsloggen.",
+    "loading": "Indlæser aktivitet...",
+    "openButton": "Revisionslog",
+    "subtitle": "Alle handlinger i arbejdsområdet — hvem gjorde hvad, og hvornår. Kun admin.",
+    "title": "Revisionslog"
   },
   "sla": {
     "accessDenied": "Du har ikke tilladelse til at administrere SLA-regler.",

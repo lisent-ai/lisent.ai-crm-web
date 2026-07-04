@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "No tienes permiso para ver el registro de auditoría.",
-    "backToLeads": "Volver a prospectos",
-    "empty": "Aún no hay actividad registrada.",
-    "loadFailed": "Error al cargar el registro de auditoría.",
-    "loading": "Cargando actividad...",
-    "openButton": "Registro de auditoría",
-    "subtitle": "Todas las acciones en el espacio de trabajo — quién hizo qué y cuándo. Solo administradores.",
-    "title": "Registro de auditoría",
-    "columns": {
-      "action": "Acción",
-      "actor": "Quién",
-      "entity": "Elemento",
-      "time": "Hora"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integración",
-      "system": "Sistema",
-      "user": "Usuario"
-    },
     "actions": {
       "lead": {
         "ai_scored": "Puntuado por IA",
@@ -3171,7 +3152,70 @@
         "test_fired": "Prueba de integración enviada",
         "token_rotated": "Token de integración rotado"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integración",
+      "system": "Sistema",
+      "user": "Usuario"
+    },
+    "backToLeads": "Volver a prospectos",
+    "columns": {
+      "action": "Acción",
+      "actor": "Quién",
+      "entity": "Elemento",
+      "time": "Hora"
+    },
+    "details": {
+      "entity": "Registro",
+      "field": "Campo",
+      "fieldsChanged": "Campos modificados: {count}",
+      "from": "Antes",
+      "hide": "Ocultar detalles",
+      "loadMore": "Cargar más",
+      "rawPayload": "Datos sin procesar (JSON)",
+      "requestId": "ID de solicitud",
+      "show": "Mostrar detalles",
+      "to": "Después"
+    },
+    "empty": "Aún no hay actividad registrada.",
+    "entityTypes": {
+      "agency": "Agencia",
+      "announcement": "Anuncio",
+      "calendar_event": "Evento de calendario",
+      "call": "Llamada",
+      "company": "Empresa",
+      "customer": "Cliente",
+      "deal": "Deal",
+      "import_profile": "Perfil de importación",
+      "integration": "Integración",
+      "lead": "Lead",
+      "module_access": "Acceso a módulos",
+      "task": "Tarea"
+    },
+    "fields": {
+      "email": "Correo",
+      "name": "Nombre",
+      "notes": "Notas",
+      "phone": "Teléfono",
+      "source": "Origen",
+      "value": "Valor"
+    },
+    "filters": {
+      "action": "Acción",
+      "actor": "Miembro del equipo",
+      "allActions": "Todas las acciones",
+      "allActors": "Todos los miembros",
+      "allEntities": "Todos los tipos",
+      "entity": "Tipo de registro",
+      "machineActors": "Actores automatizados",
+      "reset": "Restablecer filtros"
+    },
+    "loadFailed": "Error al cargar el registro de auditoría.",
+    "loading": "Cargando actividad...",
+    "openButton": "Registro de auditoría",
+    "subtitle": "Todas las acciones en el espacio de trabajo — quién hizo qué y cuándo. Solo administradores.",
+    "title": "Registro de auditoría"
   },
   "sla": {
     "accessDenied": "No tienes permiso para gestionar las reglas SLA.",

@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Non hai l'autorizzazione per visualizzare il registro audit.",
-    "backToLeads": "Torna ai lead",
-    "empty": "Nessuna attività registrata.",
-    "loadFailed": "Impossibile caricare il registro audit.",
-    "loading": "Caricamento attività...",
-    "openButton": "Registro audit",
-    "subtitle": "Ogni azione nello spazio di lavoro — chi ha fatto cosa e quando. Solo admin.",
-    "title": "Registro audit",
-    "columns": {
-      "action": "Azione",
-      "actor": "Chi",
-      "entity": "Elemento",
-      "time": "Ora"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integrazione",
-      "system": "Sistema",
-      "user": "Utente"
-    },
     "actions": {
       "lead": {
         "ai_scored": "Punteggio AI",
@@ -3171,7 +3152,70 @@
         "test_fired": "Test integrazione inviato",
         "token_rotated": "Token integrazione ruotato"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integrazione",
+      "system": "Sistema",
+      "user": "Utente"
+    },
+    "backToLeads": "Torna ai lead",
+    "columns": {
+      "action": "Azione",
+      "actor": "Chi",
+      "entity": "Elemento",
+      "time": "Ora"
+    },
+    "details": {
+      "entity": "Record",
+      "field": "Campo",
+      "fieldsChanged": "Campi modificati: {count}",
+      "from": "Prima",
+      "hide": "Nascondi dettagli",
+      "loadMore": "Carica altro",
+      "rawPayload": "Dati grezzi (JSON)",
+      "requestId": "ID richiesta",
+      "show": "Mostra dettagli",
+      "to": "Dopo"
+    },
+    "empty": "Nessuna attività registrata.",
+    "entityTypes": {
+      "agency": "Agenzia",
+      "announcement": "Annuncio",
+      "calendar_event": "Evento calendario",
+      "call": "Chiamata",
+      "company": "Azienda",
+      "customer": "Cliente",
+      "deal": "Deal",
+      "import_profile": "Profilo di importazione",
+      "integration": "Integrazione",
+      "lead": "Lead",
+      "module_access": "Accesso moduli",
+      "task": "Attività"
+    },
+    "fields": {
+      "email": "Email",
+      "name": "Nome",
+      "notes": "Note",
+      "phone": "Telefono",
+      "source": "Fonte",
+      "value": "Valore"
+    },
+    "filters": {
+      "action": "Azione",
+      "actor": "Membro del team",
+      "allActions": "Tutte le azioni",
+      "allActors": "Tutti i membri",
+      "allEntities": "Tutti i tipi",
+      "entity": "Tipo di record",
+      "machineActors": "Attori automatici",
+      "reset": "Reimposta filtri"
+    },
+    "loadFailed": "Impossibile caricare il registro audit.",
+    "loading": "Caricamento attività...",
+    "openButton": "Registro audit",
+    "subtitle": "Ogni azione nello spazio di lavoro — chi ha fatto cosa e quando. Solo admin.",
+    "title": "Registro audit"
   },
   "sla": {
     "accessDenied": "Non hai l'autorizzazione per gestire le regole SLA.",

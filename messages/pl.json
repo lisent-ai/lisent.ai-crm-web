@@ -3069,25 +3069,6 @@
   },
   "audit": {
     "accessDenied": "Nie masz uprawnień do przeglądania dziennika audytu.",
-    "backToLeads": "Powrót do leadów",
-    "empty": "Brak zapisanej aktywności.",
-    "loadFailed": "Nie udało się wczytać dziennika audytu.",
-    "loading": "Ładowanie aktywności...",
-    "openButton": "Dziennik audytu",
-    "subtitle": "Każda akcja w przestrzeni roboczej — kto co zrobił i kiedy. Tylko dla administratora.",
-    "title": "Dziennik audytu",
-    "columns": {
-      "action": "Akcja",
-      "actor": "Kto",
-      "entity": "Element",
-      "time": "Czas"
-    },
-    "actorType": {
-      "ai": "AI",
-      "integration": "Integracja",
-      "system": "System",
-      "user": "Użytkownik"
-    },
     "actions": {
       "lead": {
         "ai_scored": "Ocena AI",
@@ -3171,7 +3152,70 @@
         "test_fired": "Wysłano test integracji",
         "token_rotated": "Zmieniono token integracji"
       }
-    }
+    },
+    "actorType": {
+      "ai": "AI",
+      "integration": "Integracja",
+      "system": "System",
+      "user": "Użytkownik"
+    },
+    "backToLeads": "Powrót do leadów",
+    "columns": {
+      "action": "Akcja",
+      "actor": "Kto",
+      "entity": "Element",
+      "time": "Czas"
+    },
+    "details": {
+      "entity": "Rekord",
+      "field": "Pole",
+      "fieldsChanged": "Zmienione pola: {count}",
+      "from": "Przed",
+      "hide": "Ukryj szczegóły",
+      "loadMore": "Załaduj więcej",
+      "rawPayload": "Surowe dane (JSON)",
+      "requestId": "ID żądania",
+      "show": "Pokaż szczegóły",
+      "to": "Po"
+    },
+    "empty": "Brak zapisanej aktywności.",
+    "entityTypes": {
+      "agency": "Agencja",
+      "announcement": "Ogłoszenie",
+      "calendar_event": "Wydarzenie w kalendarzu",
+      "call": "Połączenie",
+      "company": "Firma",
+      "customer": "Klient",
+      "deal": "Umowa",
+      "import_profile": "Profil importu",
+      "integration": "Integracja",
+      "lead": "Lead",
+      "module_access": "Dostęp do modułów",
+      "task": "Zadanie"
+    },
+    "fields": {
+      "email": "E-mail",
+      "name": "Nazwa",
+      "notes": "Notatki",
+      "phone": "Telefon",
+      "source": "Źródło",
+      "value": "Wartość"
+    },
+    "filters": {
+      "action": "Akcja",
+      "actor": "Członek zespołu",
+      "allActions": "Wszystkie akcje",
+      "allActors": "Wszyscy członkowie",
+      "allEntities": "Wszystkie typy",
+      "entity": "Typ rekordu",
+      "machineActors": "Aktorzy automatyczni",
+      "reset": "Resetuj filtry"
+    },
+    "loadFailed": "Nie udało się wczytać dziennika audytu.",
+    "loading": "Ładowanie aktywności...",
+    "openButton": "Dziennik audytu",
+    "subtitle": "Każda akcja w przestrzeni roboczej — kto co zrobił i kiedy. Tylko dla administratora.",
+    "title": "Dziennik audytu"
   },
   "sla": {
     "accessDenied": "Nie masz uprawnień do zarządzania regułami SLA.",
