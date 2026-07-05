@@ -146,9 +146,12 @@ export function auditActorLabel(translate: Translate, event: AuditEvent): string
   return "—";
 }
 
-// The display name of the entity an event touched, snapshotted into the
-// payload at write time (lead_name for lead.* events, name/title for others).
+// The display name of the entity an event touched. Backend resolves this
+// (payload snapshot at write time, else the entity's current name by id) and
+// sends it as entity_name; the payload keys are a fallback for older API
+// responses that predate that field.
 export function auditEntityName(event: AuditEvent): string {
+  if (event.entityName?.trim()) return event.entityName.trim();
   const p = (event.payload ?? {}) as Record<string, unknown>;
   for (const key of ["lead_name", "name", "title", "customer_name"]) {
     const v = p[key];

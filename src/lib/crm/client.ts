@@ -1109,6 +1109,7 @@ type CRMAuditRecord = {
   actor_user_name?: string;
   entity_type?: string;
   entity_id?: string | null;
+  entity_name?: string;
   action?: string;
   payload?: Record<string, unknown> | null;
   request_id?: string;
@@ -1123,6 +1124,7 @@ export type AuditEvent = {
   actorUserName: string;
   entityType: string;
   entityId: string;
+  entityName: string;
   action: string;
   payload: Record<string, unknown>;
   requestId: string;
@@ -1138,6 +1140,7 @@ function mapAuditEvent(r: CRMAuditRecord): AuditEvent {
     actorUserName: r.actor_user_name ?? "",
     entityType: r.entity_type ?? "",
     entityId: r.entity_id ?? "",
+    entityName: r.entity_name ?? "",
     action: r.action ?? "",
     payload: (r.payload ?? {}) as Record<string, unknown>,
     requestId: r.request_id ?? "",
